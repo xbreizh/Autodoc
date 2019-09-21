@@ -30,8 +30,7 @@ public class IndexController
 		//model.addAttribute("message", "Hello World!!!");
 		System.out.println("getting here");
 		Car car = new Car();
-		Random rand = new Random();
-		car.setId(rand.nextInt());
+
 		System.out.println("object: "+car);
 		car.setRegistration("reg3");
 		manager.save(car);

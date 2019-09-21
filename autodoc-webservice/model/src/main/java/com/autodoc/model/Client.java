@@ -4,16 +4,16 @@ package com.autodoc.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "car")
-public class Car {
+@Table(name = "client")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "name")
-    private String registration;
+    @Column(name = "firstName")
+    private String firstName;
 
 
     public int getId() {
@@ -24,19 +24,19 @@ public class Car {
         this.id = id;
     }
 
-    public String getRegistration() {
-        return registration;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRegistration(String registration) {
-        this.registration = registration;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "Client{" +
                 "id=" + id +
-                ", registration='" + registration + '\'' +
+                ", firstName='" + firstName + '\'' +
                 '}';
     }
 }

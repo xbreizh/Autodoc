@@ -58,6 +58,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.autodoc.model.Car</value>
+				<value>com.autodoc.model.Client</value>
 				<value>com.autodoc.model.ExampleObject</value>
 			</list>
 		</property>
