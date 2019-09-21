@@ -1,0 +1,161 @@
+# Version of docker-compose
+version: '3'
+
+services:
+  #############################################################
+  ####################     SONARQUBE       ####################
+  #############################################################
+
+  sonarqube:
+    build:
+      context: sonarqube/
+    ports:
+      - 9000:9000
+      - 9092:9092
+    container_name: sonarqube
+    networks:
+      - autodoc  
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://dbsonar:5432/sonar
+    volumes:
+      - ./sonarqube/sonarqube_home:/opt/sonarqube/data
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_extensions:/opt/sonarqube/extensions  
+  dbsonar:
+    image: postgres:11
+    networks:
+      - autodoc
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+      - postgresql_data:/var/lib/postgresql/data
+
+  #############################################################
+  ####################     JENKINS       ######################
+  #############################################################
+
+  jenkins:
+    build:
+      context: jenkins/
+    privileged: true
+    user: root
+    ports:
+      - 8083:8080
+      - 4000:5000
+    container_name: jenkins
+    volumes:
+      - ./jenkins/jenkins_home:/var/jenkins_home #Remember that, the tmp directory is designed to be wiped on system reboot.
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - sonarqube
+    networks:
+      - autodoc  
+  # getting postgres DB
+
+  #############################################################
+  ####################     DATABASES       ####################
+  #############################################################
+
+  db:
+    image: postgres:11
+    container_name: library-db
+    ports:
+      - 5532:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      #- pg-data:/var/lib/postgresql/data
+    networks:
+      - autodoc
+  dbtest:
+    image: postgres:11
+    container_name: library-dbtest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums  
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-init/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - autodoc 
+
+
+  #############################################################
+  #######################    APPS       #######################
+  #############################################################
+
+  ###########################################
+  ###########  webservice ###################
+
+ # autodoc-webservice:
+ #   image: autodoc_app
+ #   container_name: webservice
+ #   build: autodoc-webservice/.
+ #   ports:
+ #    - 8080:8080
+ #   #volumes:
+     # - logs:/usr/app/resources
+ #   depends_on:
+ #     - db
+ #   networks:
+ #     - autodoc
+
+  ###########################################
+  ###########  client_app ###################
+
+ # autodoc-client_app:
+ #   image: client_app
+ #   container_name: client_app
+ #   build: client_app/.
+ #   ports:
+ #       - 8085:8080
+ #   volumes:
+ #     - logs:/usr/app/resources    
+ #   depends_on:
+ #     - webservice
+ #   networks:
+ #     - autodoc
+
+  ###########################################
+  ###########  office_app ###################
+
+ # autodoc-office_app:
+ #   image: office_app
+ #   container_name: office_app
+ #   build: office_app/.
+ #   ports:
+ #       - 8090:8080
+ #   #volumes:
+ #    # - logs:/usr/app/resources
+ #   depends_on:
+ #     - webservice
+ #   networks:
+ #     - autodoc
+
+###########################################
+###########   volumes   ###################
+
+volumes:  
+  pg-data:
+  logs:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  postgresql:
+  postgresql_data:
+
+networks:
+  autodoc:
+
