@@ -59,6 +59,12 @@
 			<list>
 				<value>com.autodoc.model.Car</value>
 				<value>com.autodoc.model.Client</value>
+				<value>com.autodoc.model.Employee</value>
+				<value>com.autodoc.model.Bill</value>
+				<value>com.autodoc.model.Model</value>
+				<value>com.autodoc.model.Brand</value>
+				<value>com.autodoc.model.Address</value>
+				<value>com.autodoc.model.Provider</value>
 				<value>com.autodoc.model.ExampleObject</value>
 			</list>
 		</property>
@@ -66,7 +72,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
 	</bean>

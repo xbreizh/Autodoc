@@ -23,9 +23,11 @@ public class CarDaoImpl implements CarDao {
         System.out.println("cardaO: "+car);
         sessionFactory.getCurrentSession().save(car);
         Client client = new Client();
-        //client.setId(2);
+        client.setId(2);
         client.setFirstName("bob");
+        System.out.println("client to persist: "+client);
         sessionFactory.getCurrentSession().save(client);
+        sessionFactory.getCurrentSession().persist(client);
         return true;
     }
 }

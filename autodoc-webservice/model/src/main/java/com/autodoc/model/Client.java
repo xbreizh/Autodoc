@@ -2,41 +2,16 @@ package com.autodoc.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
-public class Client {
+public class Client extends Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
-    private int id;
+    @OneToMany(mappedBy = "client")
+    private List<Car> cars;
 
-    @Column(name = "firstName")
-    private String firstName;
+    @OneToMany(mappedBy = "client")
+    private List<Bill> bills;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                '}';
-    }
 }

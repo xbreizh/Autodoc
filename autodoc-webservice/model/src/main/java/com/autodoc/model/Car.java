@@ -2,6 +2,7 @@ package com.autodoc.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "car")
@@ -12,31 +13,16 @@ public class Car {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "registration")
     private String registration;
 
+    @Column(name = "model")
+    @OneToOne
+    private Model model;
 
-    public int getId() {
-        return id;
-    }
+    @ManyToOne
+    private Client client;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRegistration() {
-        return registration;
-    }
-
-    public void setRegistration(String registration) {
-        this.registration = registration;
-    }
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", registration='" + registration + '\'' +
-                '}';
-    }
+    @OneToMany(mappedBy = "car")
+    private List<Bill> bills;
 }

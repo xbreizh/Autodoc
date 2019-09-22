@@ -16,11 +16,8 @@ public class CarManagerImpl implements CarManager {
       private CarDao carDao;
     @Override
     public boolean save(Car car) {
-        if (car.getId()!=0 && !car.getRegistration().isEmpty()) {
-            System.out.println("car mger: " + car);
-            carDao.add(car);
-            return true;
-        }
-        return false;
+        System.out.println("car mger: " + car);
+        carDao.add(car);
+        return true;
     }
 }
