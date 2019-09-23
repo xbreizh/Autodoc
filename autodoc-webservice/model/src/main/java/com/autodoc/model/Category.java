@@ -1,21 +1,19 @@
 package com.autodoc.model;
 
 import javax.persistence.*;
+import java.util.List;
 
-@MappedSuperclass
-public abstract class Person {
-
+@Entity
+@Table(name = "category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "firstName")
-    private String firstName;
+    @OneToMany
+    private List<PieceType> pieceTypes;
 
-    private String lastName;
-
-
-
+    private String name;
 }

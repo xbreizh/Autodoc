@@ -3,7 +3,7 @@ package com.autodoc.dao.impl;
 
 import com.autodoc.dao.contract.CarDao;
 import com.autodoc.model.Car;
-import com.autodoc.model.Client;
+import com.autodoc.model.person.Client;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 

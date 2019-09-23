@@ -58,14 +58,21 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.autodoc.model.Car</value>
-				<value>com.autodoc.model.Client</value>
-				<value>com.autodoc.model.Employee</value>
+				<value>com.autodoc.model.person.Client</value>
+				<value>com.autodoc.model.person.Employee</value>
 				<value>com.autodoc.model.Bill</value>
-				<value>com.autodoc.model.Model</value>
-				<value>com.autodoc.model.Brand</value>
+				<value>com.autodoc.model.CarModel</value>
+				<value>com.autodoc.model.Manufacturer</value>
 				<value>com.autodoc.model.Address</value>
-				<value>com.autodoc.model.Provider</value>
+				<value>com.autodoc.model.person.Provider</value>
+				<value>com.autodoc.model.SubTask</value>
+				<value>com.autodoc.model.Task</value>
+				<value>com.autodoc.model.Piece</value>
+				<value>com.autodoc.model.PieceType</value>
+				<value>com.autodoc.model.Category</value>
 				<value>com.autodoc.model.ExampleObject</value>
+
+
 			</list>
 		</property>
 		<property name="hibernateProperties">

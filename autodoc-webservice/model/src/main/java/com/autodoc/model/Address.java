@@ -1,5 +1,7 @@
 package com.autodoc.model;
 
+import com.autodoc.model.person.Provider;
+
 import javax.persistence.*;
 
 @Entity

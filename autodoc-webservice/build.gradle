@@ -12,6 +12,7 @@ subprojects {
 
     sourceCompatibility = 1.8
 
+
     repositories {
         mavenCentral()
     }
@@ -46,3 +47,5 @@ subprojects {
 
     }
 }
+
+apply from: rootProject.file('gradle/profiles.gradle');

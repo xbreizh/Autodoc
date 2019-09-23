@@ -1,4 +1,7 @@
-package com.autodoc.model;
+package com.autodoc.model.person;
+
+import com.autodoc.model.Address;
+import com.autodoc.model.Piece;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -13,6 +16,9 @@ public class Provider extends Person {
 
     @OneToMany(mappedBy = "provider")
     private List<Address> addresses;
+
+    @OneToMany
+    private List<Piece> pieces;
 
 
 }

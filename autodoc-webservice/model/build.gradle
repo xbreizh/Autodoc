@@ -22,9 +22,10 @@ dependencies {
             'com.google.code.gson:gson:1.7.2'
 
 
-    // https://projectlombok.org
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
 }
 

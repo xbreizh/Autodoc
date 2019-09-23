@@ -2,9 +2,12 @@ package com.autodoc.model;
 
 
 import com.autodoc.model.enums.Status;
+import com.autodoc.model.person.Client;
+import com.autodoc.model.person.Employee;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "bill")
@@ -27,5 +30,9 @@ public class Bill {
 
     @ManyToOne
     private Employee employee;
+
+    @ManyToMany
+    private List<Task> tasks;
+
 
 }

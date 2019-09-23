@@ -1,12 +1,18 @@
 package com.autodoc.model;
 
 
+import com.autodoc.model.person.Client;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "car")
+@Setter @Getter
 public class Car {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,13 +22,16 @@ public class Car {
     @Column(name = "registration")
     private String registration;
 
-    @Column(name = "model")
-    @OneToOne
-    private Model model;
+
+    @ManyToOne
+    private CarModel carModel;
 
     @ManyToOne
     private Client client;
 
     @OneToMany(mappedBy = "car")
     private List<Bill> bills;
+
+
+
 }
