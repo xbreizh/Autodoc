@@ -1,6 +1,6 @@
 package com.autodoc.business.contract;
 
-import com.autodoc.model.Car;
+import com.autodoc.model.models.car.Car;
 import org.springframework.stereotype.Service;
 
 @Service

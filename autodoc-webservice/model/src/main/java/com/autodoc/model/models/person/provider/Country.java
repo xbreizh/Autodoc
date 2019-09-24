@@ -1,6 +1,7 @@
-package com.autodoc.model;
+package com.autodoc.model.models.person.provider;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -26,7 +27,7 @@ public class Country implements Serializable {
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
@@ -34,5 +35,6 @@ public class Country implements Serializable {
     @OneToMany(mappedBy = "country")
     private List<Address> addressList;
 
+    @NonNull
     private String name;
 }

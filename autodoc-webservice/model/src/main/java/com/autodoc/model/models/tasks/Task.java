@@ -1,6 +1,8 @@
-package com.autodoc.model;
+package com.autodoc.model.models.tasks;
 
+import com.autodoc.model.models.Bill;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -27,7 +29,7 @@ public class Task implements Serializable {
     //
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
@@ -36,6 +38,7 @@ public class Task implements Serializable {
 
 
     @ManyToMany
+    @NonNull
     private List<SubTask> subTasks;
 
     // to be used for global offers

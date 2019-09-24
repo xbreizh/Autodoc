@@ -1,7 +1,9 @@
-package com.autodoc.model;
+package com.autodoc.model.models.tasks;
 
-import com.autodoc.model.person.Employee;
+import com.autodoc.model.models.pieces.Piece;
+import com.autodoc.model.models.person.employee.Employee;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -20,37 +22,34 @@ public class SubTask implements Serializable {
     public SubTask() {
     }
 
-    public SubTask(TemplateSubTask templateSubTask) {
-        this.templateSubTask = templateSubTask;
-
-        // getting elements from the template
-        this.name = templateSubTask.getName();
-        this.estimatedTime = templateSubTask.getEstimatedTime();
-        this.pieces = templateSubTask.getPieces();
-    }
 
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
 
     @ManyToMany
+    @NonNull
     private List<Task> tasks;
 
     @OneToMany
+    @NonNull
     private List<Piece> pieces;
 
     @ManyToMany
     private List<Employee> employees;
 
     @ManyToOne
+    @NonNull
     private TemplateSubTask templateSubTask;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private double estimatedTime;
 
 

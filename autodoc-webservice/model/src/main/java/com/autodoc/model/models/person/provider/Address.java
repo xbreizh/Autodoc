@@ -1,7 +1,7 @@
-package com.autodoc.model;
+package com.autodoc.model.models.person.provider;
 
-import com.autodoc.model.person.Provider;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,29 +18,29 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(Country country, String streetName, String city) {
-        this.country = country;
-        this.streetName = streetName;
-        this.city = city;
-    }
+
 
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
     @ManyToOne
+    @NonNull
     private Provider provider;
 
     @ManyToOne
+    @NonNull
     private Country country;
 
+    @NonNull
     private String streetName;
+
 
     private String postcode;
 
-
+    @NonNull
     private String city;
 }

@@ -1,10 +1,13 @@
-package com.autodoc.model;
+package com.autodoc.model.models;
 
 
+import com.autodoc.model.models.car.Car;
 import com.autodoc.model.enums.Status;
-import com.autodoc.model.person.Client;
-import com.autodoc.model.person.Employee;
+import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -23,45 +26,44 @@ public class Bill implements Serializable {
     public Bill() {
     }
 
-    public Bill(Date date, Status status, Car car, Client client, Employee employee, List<Task> tasks, double total, double vat, double discount) {
-        this.date = date;
-        this.status = status;
-        this.car = car;
-        this.client = client;
-        this.employee = employee;
-        this.tasks = tasks;
-        this.total = total;
-        this.vat = vat;
-        this.discount = discount;
-    }
+
 
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
+    @NonNull
     private Date date;
 
+    @NonNull
     private Status status;
 
+    @NonNull
     @ManyToOne
     private Car car;
 
+    @NonNull
     @ManyToOne
     private Client client;
 
+    @NonNull
     @ManyToOne
     private Employee employee;
 
+    @NonNull
     @ManyToMany
     private List<Task> tasks;
 
+    @NonNull
     private double total;
 
+    @NonNull
     private double vat;
 
+    @NonNull
     private double discount;
 
 

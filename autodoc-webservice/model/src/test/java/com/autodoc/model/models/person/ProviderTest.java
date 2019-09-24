@@ -1,8 +1,6 @@
-package com.autodoc.model.person;
+package com.autodoc.model.models.person;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ProviderTest {
 

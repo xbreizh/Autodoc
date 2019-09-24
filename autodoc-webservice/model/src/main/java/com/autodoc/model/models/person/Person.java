@@ -1,6 +1,7 @@
-package com.autodoc.model.person;
+package com.autodoc.model.models.person;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -25,13 +26,16 @@ public abstract class Person implements Serializable {
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
+    @NonNull
     private String firstName;
 
+    @NonNull
     private String lastName;
 
+    @NonNull
     private String phoneNumber1;
 
     private String phoneNumber2;

@@ -1,6 +1,8 @@
-package com.autodoc.model;
+package com.autodoc.model.models.car;
 
+import com.autodoc.model.models.pieces.PieceType;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -26,12 +28,13 @@ public class Category implements Serializable {
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
     @OneToMany
     private List<PieceType> pieceTypes;
 
+    @NonNull
     private String name;
 }

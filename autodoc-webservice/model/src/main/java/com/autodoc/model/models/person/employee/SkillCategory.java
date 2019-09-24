@@ -1,6 +1,7 @@
-package com.autodoc.model.person;
+package com.autodoc.model.models.person.employee;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -29,12 +30,13 @@ public class SkillCategory implements Serializable {
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
     @OneToMany
     private List<Skill> skills;
 
+    @NonNull
     private String name;
 }

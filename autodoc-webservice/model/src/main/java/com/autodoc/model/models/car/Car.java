@@ -1,8 +1,10 @@
-package com.autodoc.model;
+package com.autodoc.model.models.car;
 
 
-import com.autodoc.model.person.Client;
+import com.autodoc.model.models.Bill;
+import com.autodoc.model.models.person.client.Client;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -29,17 +31,20 @@ public class Car implements Serializable {
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
+    @NonNull
     @Column(name = "registration")
     private String registration;
 
 
+    @NonNull
     @ManyToOne
     private CarModel carModel;
 
+    @NonNull
     @ManyToOne
     private Client client;
 

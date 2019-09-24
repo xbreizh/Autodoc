@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl;
 
 import org.springframework.stereotype.Component;
@@ -10,3 +11,4 @@ public class ExampleManager {
     }
 
 }
+*/

@@ -1,7 +1,7 @@
 package com.autodoc.dao.impl;
 
 
-import com.autodoc.model.ExampleObject;
+import com.autodoc.model.models.ExampleObject;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;

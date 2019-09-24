@@ -1,7 +1,10 @@
-package com.autodoc.model;
+package com.autodoc.model.models.pieces;
 
-import com.autodoc.model.person.Provider;
+import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.person.provider.Provider;
+import com.autodoc.model.models.tasks.SubTask;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -23,7 +26,7 @@ public class Piece implements Serializable {
         this.provider = provider;
         this.pieceType = pieceType;
         this.name = name;
-        Brand = brand;
+        this.brand = brand;
         this.buyingPrice = buyingPrice;
         this.sellPrice = sellPrice;
     }
@@ -31,7 +34,7 @@ public class Piece implements Serializable {
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
@@ -48,12 +51,16 @@ public class Piece implements Serializable {
     @ManyToOne
     private PieceType pieceType;
 
+
+    @NonNull
     private String name;
 
-    private String Brand;
+    @NonNull
+    private String brand;
 
-
+    @NonNull
     private long buyingPrice;
+
 
     private long sellPrice;
 }

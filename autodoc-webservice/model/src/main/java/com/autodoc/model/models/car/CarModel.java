@@ -1,7 +1,10 @@
-package com.autodoc.model;
+package com.autodoc.model.models.car;
 
+import com.autodoc.model.models.pieces.Manufacturer;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.enums.FuelType;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -17,26 +20,18 @@ public class CarModel implements Serializable {
     // Constructors
 
 
-    public CarModel(Manufacturer manufacturer, String name, String description, String gearbox, String engine, FuelType fuelType) {
-        this.manufacturer = manufacturer;
-        this.name = name;
-        this.description = description;
-        this.gearbox = gearbox;
-        this.engine = engine;
-        this.fuelType = fuelType;
-    }
-
     public CarModel() {
     }
 
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
     @ManyToOne
+    @NonNull
     private Manufacturer manufacturer;
 
     @OneToMany(mappedBy = "carModel")
@@ -45,14 +40,19 @@ public class CarModel implements Serializable {
     @OneToMany(mappedBy = "carModel")
     private List<Piece> pieces;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String description;
 
+    @NonNull
     private String gearbox;
 
+    @NonNull
     private String engine;
 
+    @NonNull
     private FuelType fuelType;
 
 

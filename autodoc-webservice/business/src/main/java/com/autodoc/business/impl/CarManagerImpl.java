@@ -2,7 +2,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.CarManager;
 import com.autodoc.dao.contract.IGenericDao;
-import com.autodoc.model.Car;
+import com.autodoc.model.models.car.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +23,8 @@ public class CarManagerImpl implements CarManager {
 
     @Override
     public boolean save(Car car) {
-
-        dao.deleteById(16);
-        dao.deleteById(17);
-        dao.deleteById(18);
+        car.setRegistration("mascarpone");
+       dao.create(car);
         return true;
     }
 }

@@ -1,9 +1,10 @@
-package com.autodoc.model.person;
+package com.autodoc.model.models.person.provider;
 
-import com.autodoc.model.Address;
-import com.autodoc.model.Piece;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.enums.Rate;
+import com.autodoc.model.models.person.Person;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -19,10 +20,6 @@ public class Provider extends Person {
 
     // Constructors
 
-    public Provider(String firstName, String lastName, String phoneNumber1, String company) {
-        super(firstName, lastName, phoneNumber1);
-        this.company = company;
-    }
 
     public Provider() {
     }
@@ -41,8 +38,10 @@ public class Provider extends Person {
 
     private String email2;
 
+    @NonNull
     private String company;
 
+    @NonNull
     private Rate rate;
 
 

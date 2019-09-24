@@ -1,4 +1,4 @@
-package com.autodoc.model;
+package com.autodoc.model.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ import java.io.Serializable;
 @ToString
 public class ExampleObject implements Serializable {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private long id;
 

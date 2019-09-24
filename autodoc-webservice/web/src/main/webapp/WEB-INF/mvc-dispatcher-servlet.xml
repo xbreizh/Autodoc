@@ -57,24 +57,24 @@
 		<property name="dataSource" ref="dataSource"/>
 		<property name="annotatedClasses">
 			<list>
-				<value>com.autodoc.model.Car</value>
-				<value>com.autodoc.model.person.Client</value>
-				<value>com.autodoc.model.person.Employee</value>
-				<value>com.autodoc.model.Bill</value>
-				<value>com.autodoc.model.CarModel</value>
-				<value>com.autodoc.model.Manufacturer</value>
-				<value>com.autodoc.model.Address</value>
-				<value>com.autodoc.model.person.Provider</value>
-				<value>com.autodoc.model.SubTask</value>
-				<value>com.autodoc.model.Task</value>
-				<value>com.autodoc.model.Piece</value>
-				<value>com.autodoc.model.PieceType</value>
-				<value>com.autodoc.model.Category</value>
-				<value>com.autodoc.model.Country</value>
-				<value>com.autodoc.model.TemplateSubTask</value>
-				<value>com.autodoc.model.person.Skill</value>
-				<value>com.autodoc.model.person.SkillCategory</value>
-				<value>com.autodoc.model.ExampleObject</value>
+				<value>com.autodoc.model.models.car.Car</value>
+				<value>com.autodoc.model.models.person.client.Client</value>
+				<value>com.autodoc.model.models.person.employee.Employee</value>
+				<value>com.autodoc.model.models.Bill</value>
+				<value>com.autodoc.model.models.car.CarModel</value>
+				<value>com.autodoc.model.models.pieces.Manufacturer</value>
+				<value>com.autodoc.model.models.person.provider.Address</value>
+				<value>com.autodoc.model.models.person.provider.Provider</value>
+				<value>com.autodoc.model.models.tasks.SubTask</value>
+				<value>com.autodoc.model.models.tasks.Task</value>
+				<value>com.autodoc.model.models.pieces.Piece</value>
+				<value>com.autodoc.model.models.pieces.PieceType</value>
+				<value>com.autodoc.model.models.car.Category</value>
+				<value>com.autodoc.model.models.person.provider.Country</value>
+				<value>com.autodoc.model.models.tasks.TemplateSubTask</value>
+				<value>com.autodoc.model.models.person.employee.Skill</value>
+				<value>com.autodoc.model.models.person.employee.SkillCategory</value>
+				<value>com.autodoc.model.models.ExampleObject</value>
 
 
 

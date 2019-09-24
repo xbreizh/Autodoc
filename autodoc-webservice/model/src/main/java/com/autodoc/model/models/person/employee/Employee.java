@@ -1,9 +1,11 @@
-package com.autodoc.model.person;
+package com.autodoc.model.models.person.employee;
 
-import com.autodoc.model.Bill;
-import com.autodoc.model.SubTask;
+import com.autodoc.model.models.Bill;
+import com.autodoc.model.models.person.Person;
+import com.autodoc.model.models.tasks.SubTask;
 import com.autodoc.model.enums.Role;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,28 +24,31 @@ public class Employee extends Person {
     }
 
 
-    public Employee(String firstName, String lastName, String phoneNumber1, List<Role> roles, Date startDate, String login, String password) {
-        super(firstName, lastName, phoneNumber1);
-        this.roles = roles;
-        this.startDate = startDate;
-        this.login = login;
-        this.password = password;
-    }
 
     // Parameters
     @OneToMany(mappedBy = "employee")
     private List<Bill> bills;
+
+    @NonNull
     @ElementCollection(targetClass = Role.class)
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
+
+
     @ManyToMany
     private List<Skill> skills;
 
 
     @ManyToMany
     private List<SubTask> subTasks;
+
+    @NonNull
     private Date startDate;
+
+    @NonNull
     private String login;
+
+    @NonNull
     private String password;
 
 

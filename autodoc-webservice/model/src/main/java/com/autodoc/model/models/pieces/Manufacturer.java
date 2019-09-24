@@ -1,9 +1,10 @@
-package com.autodoc.model;
+package com.autodoc.model.models.pieces;
 
+import com.autodoc.model.models.car.CarModel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "manufacturer")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class Manufacturer implements Serializable {
 
 
@@ -19,20 +22,22 @@ public class Manufacturer implements Serializable {
 
     public Manufacturer() {
     }
-
     public Manufacturer(String name) {
         this.name = name;
     }
 
     // Parameters
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
+
     @NonNull
     private String name;
+
 
     @OneToMany(mappedBy = "manufacturer")
     private List<CarModel> carModels;
