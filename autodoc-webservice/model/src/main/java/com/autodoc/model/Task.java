@@ -1,14 +1,33 @@
 package com.autodoc.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "task")
-public class Task {
+@Getter @Setter @ToString
+public class Task implements Serializable {
+
+    // Constructors
+
+
+    public Task() {
+
+    }
+
+    public Task(List<SubTask> subTasks) {
+        this.subTasks = subTasks;
+    }
+
+    //
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
@@ -19,7 +38,7 @@ public class Task {
     @ManyToMany
     private List<SubTask> subTasks;
 
+    // to be used for global offers
     private long globalPrice;
-
 
 }

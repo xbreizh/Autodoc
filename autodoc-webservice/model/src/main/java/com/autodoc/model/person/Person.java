@@ -1,42 +1,40 @@
 package com.autodoc.model.person;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class Person {
+@Setter @Getter @ToString
+public abstract class Person implements Serializable {
 
+    // Constructors
+
+    public Person() {
+    }
+
+    public Person(String firstName, String lastName, String phoneNumber1) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber1 = phoneNumber1;
+    }
+
+    // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "firstName")
     private String firstName;
 
     private String lastName;
 
-    public String getFirstName() {
-        return firstName;
-    }
+    private String phoneNumber1;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    private String phoneNumber2;
 
-    public String getLastName() {
-        return lastName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

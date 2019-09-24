@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CarTest {
 
-    /*private Car car;
+    private Car car;
 
     @BeforeEach
     void init(){
@@ -18,7 +18,8 @@ class CarTest {
     void testToString() {
         car.setRegistration("ploc");
         car.setId(122);
-        assertEquals("Car{id=122, registration='ploc'}", car.toString());
+        System.out.println(car);
+        assertEquals("Car(id=122, registration=ploc, carModel=null, client=null, bills=null)", car.toString());
 
-    }*/
+    }
 }

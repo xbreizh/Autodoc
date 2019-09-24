@@ -35,7 +35,9 @@ out/
 
 ## Gradle ###
 .gradle/
-build/
+gradlew.bat
+!gradle/profiles.gradle
+
 
 # Ignore Gradle GUI config
 gradle-app.setting

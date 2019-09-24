@@ -70,7 +70,12 @@
 				<value>com.autodoc.model.Piece</value>
 				<value>com.autodoc.model.PieceType</value>
 				<value>com.autodoc.model.Category</value>
+				<value>com.autodoc.model.Country</value>
+				<value>com.autodoc.model.TemplateSubTask</value>
+				<value>com.autodoc.model.person.Skill</value>
+				<value>com.autodoc.model.person.SkillCategory</value>
 				<value>com.autodoc.model.ExampleObject</value>
+
 
 
 			</list>

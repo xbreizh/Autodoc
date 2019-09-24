@@ -9,18 +9,19 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
-@Setter @Getter  @ToString
-public class Category implements Serializable {
+@Table(name = "templateSubTask")
+@Getter @Setter @ToString
+public class TemplateSubTask implements Serializable {
 
     // Constructors
 
+    public TemplateSubTask() {
 
-    public Category() {
     }
 
-    public Category(String name) {
+    public TemplateSubTask(String name, double estimatedTime) {
         this.name = name;
+        this.estimatedTime = estimatedTime;
     }
 
     // Parameters
@@ -31,7 +32,13 @@ public class Category implements Serializable {
     private int id;
 
     @OneToMany
-    private List<PieceType> pieceTypes;
+    private List<SubTask> subTasks;
+
+    @OneToMany
+    private List<Piece> pieces;
 
     private String name;
+
+    private double estimatedTime;
+
 }

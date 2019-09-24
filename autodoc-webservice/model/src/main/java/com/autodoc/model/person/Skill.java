@@ -1,4 +1,4 @@
-package com.autodoc.model;
+package com.autodoc.model.person;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,21 +6,20 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
-@Table(name = "category")
-@Setter @Getter  @ToString
-public class Category implements Serializable {
+@Table(name = "skill")
+@Setter @Getter @ToString
+public class Skill implements Serializable {
 
     // Constructors
 
-
-    public Category() {
+    public Skill() {
     }
 
-    public Category(String name) {
+    public Skill(String name, SkillCategory skillCategory) {
         this.name = name;
+        this.skillCategory = skillCategory;
     }
 
     // Parameters
@@ -30,8 +29,8 @@ public class Category implements Serializable {
     @Column(name = "ID")
     private int id;
 
-    @OneToMany
-    private List<PieceType> pieceTypes;
-
     private String name;
+
+    @ManyToOne
+    private SkillCategory skillCategory;
 }

@@ -9,17 +9,17 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
-@Setter @Getter  @ToString
-public class Category implements Serializable {
+@Table(name = "country")
+@Setter @Getter @ToString
+public class Country implements Serializable {
 
-    // Constructors
+    // Constructor
 
 
-    public Category() {
+    public Country() {
     }
 
-    public Category(String name) {
+    public Country(String name) {
         this.name = name;
     }
 
@@ -30,8 +30,9 @@ public class Category implements Serializable {
     @Column(name = "ID")
     private int id;
 
-    @OneToMany
-    private List<PieceType> pieceTypes;
+
+    @OneToMany(mappedBy = "country")
+    private List<Address> addressList;
 
     private String name;
 }

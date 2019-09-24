@@ -10,6 +10,8 @@ repositories {
 
 dependencies {
     compile project(':model')
+    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
     /*compile 'org.springframework.data:spring-data-jpa:2.1.10.RELEASE'*/
 
     /* // to recognize webapp folder

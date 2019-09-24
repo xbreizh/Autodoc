@@ -1,15 +1,37 @@
 package com.autodoc.model;
 
 import com.autodoc.model.person.Provider;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "piece")
-public class Piece {
+@Getter @Setter @ToString
+public class Piece implements Serializable {
+
+    // Constructors
+
+
+    public Piece() {
+    }
+
+    public Piece(Provider provider, PieceType pieceType, String name, String brand, long buyingPrice, long sellPrice) {
+        this.provider = provider;
+        this.pieceType = pieceType;
+        this.name = name;
+        Brand = brand;
+        this.buyingPrice = buyingPrice;
+        this.sellPrice = sellPrice;
+    }
+
+    // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
@@ -25,8 +47,6 @@ public class Piece {
 
     @ManyToOne
     private PieceType pieceType;
-
-    private int number;
 
     private String name;
 

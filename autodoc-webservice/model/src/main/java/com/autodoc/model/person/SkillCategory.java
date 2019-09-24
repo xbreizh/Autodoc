@@ -1,4 +1,4 @@
-package com.autodoc.model;
+package com.autodoc.model.person;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,19 +9,22 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
-@Setter @Getter  @ToString
-public class Category implements Serializable {
-
-    // Constructors
+@Table(name = "skillCategory")
+@Setter @Getter @ToString
+public class SkillCategory implements Serializable {
 
 
-    public Category() {
+
+    // Constructor
+
+
+    public SkillCategory() {
     }
 
-    public Category(String name) {
+    public SkillCategory(String name) {
         this.name = name;
     }
+
 
     // Parameters
 
@@ -31,7 +34,7 @@ public class Category implements Serializable {
     private int id;
 
     @OneToMany
-    private List<PieceType> pieceTypes;
+    private List<Skill> skills;
 
     private String name;
 }
