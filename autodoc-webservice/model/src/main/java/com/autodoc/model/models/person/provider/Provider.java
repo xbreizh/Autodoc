@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,10 +27,10 @@ public class Provider extends Person {
 
     // Parameters
 
-    @OneToMany(mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Address> addresses;
 
-    @OneToMany
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Piece> pieces;
 
     private String website;

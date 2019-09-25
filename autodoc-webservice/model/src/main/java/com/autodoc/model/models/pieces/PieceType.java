@@ -33,7 +33,7 @@ public class PieceType implements Serializable {
     @Column(name = "ID")
     private int id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "pieceType", cascade = CascadeType.REMOVE)
     private List<Piece> pieces;
 
     @ManyToOne

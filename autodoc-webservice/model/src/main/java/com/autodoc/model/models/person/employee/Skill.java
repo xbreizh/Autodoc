@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "skill")
@@ -36,4 +37,7 @@ public class Skill implements Serializable {
     @ManyToOne
     @NonNull
     private SkillCategory skillCategory;
+
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    private List<Employee> employees;
 }

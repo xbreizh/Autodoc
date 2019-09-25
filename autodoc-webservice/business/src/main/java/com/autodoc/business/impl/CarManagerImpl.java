@@ -12,17 +12,19 @@ import javax.inject.Inject;
 @Component
 public class CarManagerImpl implements CarManager {
 
-    public CarManagerImpl() {
+    public CarManagerImpl(IGenericDao<Car> daoToSet) {
+        this.dao = daoToSet;
+        dao.setClazz(Car.class);
     }
 
-    @Inject
+    //@Inject
     IGenericDao<Car> dao;
 
-    @Inject
+   /* @Inject
     public void setDao(IGenericDao<Car> daoToSet) {
         dao = daoToSet;
         dao.setClazz(Car.class);
-    }
+    }*/
 
 
     @Override

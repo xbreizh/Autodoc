@@ -34,7 +34,7 @@ public class SkillCategory implements Serializable {
     @Column(name = "ID")
     private int id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "skillCategory", cascade = CascadeType.REMOVE)
     private List<Skill> skills;
 
     @NonNull

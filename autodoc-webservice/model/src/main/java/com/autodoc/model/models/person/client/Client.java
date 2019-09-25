@@ -23,10 +23,10 @@ public class Client extends Person {
     public Client() {
     }
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Car> cars;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
 
 

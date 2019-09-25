@@ -26,21 +26,20 @@ public class Task implements Serializable {
         this.subTasks = subTasks;
     }
 
-    //
+    // Parameters
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
 
 
-    @ManyToMany
     @NonNull
+    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.REMOVE)
     private List<SubTask> subTasks;
-
     // to be used for global offers
     private long globalPrice;
 

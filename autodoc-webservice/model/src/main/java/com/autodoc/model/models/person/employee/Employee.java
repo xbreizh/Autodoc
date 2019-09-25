@@ -26,7 +26,7 @@ public class Employee extends Person {
 
 
     // Parameters
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
 
     @NonNull
@@ -35,11 +35,11 @@ public class Employee extends Person {
     private List<Role> roles;
 
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
     private List<Skill> skills;
 
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
     private List<SubTask> subTasks;
 
     @NonNull

@@ -54,7 +54,7 @@ public class Bill implements Serializable {
     private Employee employee;
 
     @NonNull
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Task> tasks;
 
     @NonNull

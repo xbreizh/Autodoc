@@ -34,10 +34,10 @@ public class CarModel implements Serializable {
     @NonNull
     private Manufacturer manufacturer;
 
-    @OneToMany(mappedBy = "carModel")
+    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE)
     private List<Car> cars;
 
-    @OneToMany(mappedBy = "carModel")
+    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE)
     private List<Piece> pieces;
 
     @NonNull

@@ -32,7 +32,7 @@ public class Country implements Serializable {
     private int id;
 
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", cascade = CascadeType.REMOVE)
     private List<Address> addressList;
 
     @NonNull

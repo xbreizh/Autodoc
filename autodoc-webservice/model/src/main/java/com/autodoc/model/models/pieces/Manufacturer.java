@@ -39,6 +39,6 @@ public class Manufacturer implements Serializable {
     private String name;
 
 
-    @OneToMany(mappedBy = "manufacturer")
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE)
     private List<CarModel> carModels;
 }

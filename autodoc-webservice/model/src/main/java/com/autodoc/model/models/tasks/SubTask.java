@@ -31,15 +31,15 @@ public class SubTask implements Serializable {
     private int id;
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @NonNull
     private List<Task> tasks;
 
-    @OneToMany
+    @OneToMany( cascade = CascadeType.REMOVE)
     @NonNull
     private List<Piece> pieces;
 
-    @ManyToMany
+    @ManyToMany( cascade = CascadeType.REMOVE)
     private List<Employee> employees;
 
     @ManyToOne
