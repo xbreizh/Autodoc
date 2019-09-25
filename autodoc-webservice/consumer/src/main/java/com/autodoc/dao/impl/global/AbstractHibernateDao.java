@@ -2,13 +2,13 @@ package com.autodoc.dao.impl.global;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
 public abstract class AbstractHibernateDao<T extends Serializable> {
-    @Autowired
+    @Inject
     SessionFactory sessionFactory;
     private Class<Serializable> clazz;
 
@@ -40,7 +40,6 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
     public Serializable update(Serializable entity) {
         return (T) getCurrentSession().merge(entity);
     }
-
 
 
     public void deleteById(final int entityId) {

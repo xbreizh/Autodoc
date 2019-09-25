@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 class AbstractHibernateDaoTest {
 
+
+
     @Test
     void setClazz() {
     }
