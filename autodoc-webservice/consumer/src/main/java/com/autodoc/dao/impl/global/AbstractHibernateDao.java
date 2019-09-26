@@ -10,7 +10,16 @@ import java.util.List;
 public abstract class AbstractHibernateDao<T extends Serializable> {
     @Inject
     SessionFactory sessionFactory;
+
+    public Class<Serializable> getClazz() {
+        return clazz;
+    }
+
     private Class<Serializable> clazz;
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     public void setClazz(Class clazzToSet) {
         this.clazz = clazzToSet;
