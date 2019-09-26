@@ -48,7 +48,7 @@ public class Car implements Serializable {
     @ManyToOne
     private Client client;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "car", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
 
 

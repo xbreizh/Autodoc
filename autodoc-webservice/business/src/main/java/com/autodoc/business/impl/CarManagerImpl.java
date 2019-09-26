@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Component
 public class CarManagerImpl implements CarManager {
@@ -38,5 +40,10 @@ public class CarManagerImpl implements CarManager {
         car.setRegistration("morning");
         dao.create(car);
         return true;
+    }
+
+    @Override
+    public List<Car> getAll() {
+        return dao.findAll();
     }
 }

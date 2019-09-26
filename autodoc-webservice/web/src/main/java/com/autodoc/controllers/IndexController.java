@@ -17,6 +17,7 @@ public class IndexController {
         this.carManager = carManager;
     }
 
+
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         System.out.println("getting here");
