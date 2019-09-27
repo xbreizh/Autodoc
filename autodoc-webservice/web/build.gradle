@@ -25,7 +25,11 @@ dependencies {
             'commons-dbcp:commons-dbcp:1.4',
             'org.postgresql:postgresql:42.2.8',
             'org.hibernate:hibernate-core:4.3.7.Final',
-            'com.google.code.gson:gson:1.7.2'
+            'com.google.code.gson:gson:1.7.2',
+            'javax.ws.rs:javax.ws.rs-api:2.1.1'
+          /*  'com.fasterxml.jackson.core:jackson-core:2.10.0.pr3'*/
+
+
 
     test {
         useJUnitPlatform()

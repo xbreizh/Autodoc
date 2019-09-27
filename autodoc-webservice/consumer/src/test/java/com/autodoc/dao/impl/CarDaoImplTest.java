@@ -3,6 +3,7 @@ package com.autodoc.dao.impl;
 import com.autodoc.dao.contract.CarDao;
 import com.autodoc.model.models.car.Car;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,6 +33,13 @@ class CarDaoImplTest {
     @Test
     void getCarByRegistration() {
         assertNotNull(carDao.getCarByRegistration("morning"));
+
+    }
+
+    @Test
+    @Disabled
+    void getCarByClient() {
+        assertNotNull(carDao.getCarByClient("john"));
 
     }
 

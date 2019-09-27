@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 @Component
 public class CarManagerImpl implements CarManager {
-    CarDaoImpl<Car> dao;
+    private CarDaoImpl<Car> dao;
     private Logger logger = Logger.getLogger(CarManagerImpl.class);
 
    /* public CarManagerImpl(IGenericDao<Car> daoToSet) {
@@ -37,7 +37,9 @@ public class CarManagerImpl implements CarManager {
 
     @Override
     public boolean save(Car car) {
-        car.setRegistration("morning");
+        logger.debug("trying to save a car");
+        logger.info("trying to save a like: "+car);
+        //car.setRegistration("morning");
         dao.create(car);
         return true;
     }
