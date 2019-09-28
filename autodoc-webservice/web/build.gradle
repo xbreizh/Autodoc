@@ -27,10 +27,11 @@ dependencies {
             'org.hibernate:hibernate-core:4.3.7.Final',
             'com.google.code.gson:gson:1.7.2',
             'javax.ws.rs:javax.ws.rs-api:2.1.1',
-            'javax.servlet:jstl:1.2',
             'org.springframework.security:spring-security-web:5.1.6.RELEASE',
-            'org.springframework.security:spring-security-config:5.1.6.RELEASE'
+            'org.springframework.security:spring-security-config:5.1.6.RELEASE',
+            'org.springframework.security:spring-security-core:5.1.6.RELEASE'
 
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
 
 

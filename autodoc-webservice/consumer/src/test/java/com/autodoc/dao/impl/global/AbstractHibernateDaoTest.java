@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.global;
 
 import com.autodoc.model.models.car.Car;
@@ -59,4 +60,4 @@ class AbstractHibernateDaoTest {
     @Test
     void getCurrentSession() {
     }
-}
+}*/

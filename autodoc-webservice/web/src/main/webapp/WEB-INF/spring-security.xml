@@ -5,7 +5,7 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd">
-    <http auto-config="true">
+ <!--   <http auto-config="true">
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
     </http>
     <authentication-manager>
@@ -14,5 +14,16 @@
                 <user name="admin" password="1234" authorities="hasRole(ROLE_ADMIN)" />
             </user-service>
         </authentication-provider>
+    </authentication-manager>-->
+
+
+    <http use-expressions="true">
+        <intercept-url pattern="/car/**" access="isAuthenticated()"/>
+        <http-basic/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider
+                ref="customAuthenticationProvider" />
     </authentication-manager>
 </beans:beans>  

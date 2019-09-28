@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl;
 
 import com.autodoc.dao.contract.CarDao;
@@ -36,12 +37,14 @@ class CarDaoImplTest {
 
     }
 
-    @Test
+ */
+/*   @Test
     @Disabled
     void getCarByClient() {
         assertNotNull(carDao.getCarByClient("john"));
 
-    }
+    }*//*
 
 
-}
+
+}*/
