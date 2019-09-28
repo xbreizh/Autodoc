@@ -14,11 +14,20 @@
 
 
 
-	<bean
+	<!--<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/html/" />
 		<property name="suffix" value=".jsp" />
+	</bean>-->
+
+	<mvc:resources mapping="/WEB-INF/view/html/**" location="/WEB-INF/view/html/" />
+
+	<bean id="viewResolver"
+		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/html/" />
+		<property name="suffix" value=".html" />
 	</bean>
+
 
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">

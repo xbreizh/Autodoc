@@ -60,7 +60,7 @@ public class CarControllerImpl implements CarController {
         carManager.save(car);
 
 
-        return "indexPage";
+        return "index";
     }
 
 

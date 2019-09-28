@@ -1,8 +1,6 @@
 package com.autodoc.controllers;
 
 import com.autodoc.business.contract.CarManager;
-import com.autodoc.business.impl.CarManagerImpl;
-import com.autodoc.model.models.car.Car;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,7 +23,7 @@ public class IndexController {
     public String printWelcome(ModelMap model) {
         logger.info("getting to the Index");
 
-        return "indexPage";
+        return "index";
     }
 
 
