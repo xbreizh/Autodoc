@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.security;
 
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -25,7 +26,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                     name, password, new ArrayList<>());
         }
 
-        /*if (shouldAuthenticateAgainstThirdPartySystem()) {
+        */
+/*if (shouldAuthenticateAgainstThirdPartySystem()) {
 
             // use the credentials
             // and authenticate against the third-party system
@@ -33,7 +35,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                     name, password, new ArrayList<>());
         } else {
             return null;
-        }*/
+        }*//*
+
         System.out.println("shout out");
         return null;
     }
@@ -42,4 +45,4 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
-}
+}*/

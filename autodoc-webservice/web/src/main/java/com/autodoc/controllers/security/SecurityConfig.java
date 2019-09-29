@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated()
                 .and().httpBasic();
     }
-}
+}*/

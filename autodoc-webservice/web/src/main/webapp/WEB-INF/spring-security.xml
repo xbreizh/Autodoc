@@ -26,4 +26,4 @@
         <authentication-provider
                 ref="customAuthenticationProvider" />
     </authentication-manager>
-</beans:beans>  
+</beans:beans>
