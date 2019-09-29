@@ -51,6 +51,12 @@ public class Employee extends Person {
     @NonNull
     private String password;
 
+    private String token;
+
+    private Date lastConnection;
+
+    private Date tokenExpiration;
+
 
 
 
