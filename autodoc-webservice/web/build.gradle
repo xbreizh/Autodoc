@@ -29,7 +29,8 @@ dependencies {
             'javax.ws.rs:javax.ws.rs-api:2.1.1',
             'org.springframework.security:spring-security-web:5.1.6.RELEASE',
             'org.springframework.security:spring-security-config:5.1.6.RELEASE',
-            'org.springframework.security:spring-security-core:5.1.6.RELEASE'
+            'org.springframework.security:spring-security-core:5.1.6.RELEASE',
+            'io.jsonwebtoken:jjwt:0.9.1'
 
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
