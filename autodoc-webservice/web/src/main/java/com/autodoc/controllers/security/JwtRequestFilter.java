@@ -1,6 +1,7 @@
 package com.autodoc.controllers.security;
 
-import com.autodoc.controllers.impl.JwtUserDetailsService;
+import com.autodoc.business.impl.authentication.JwtConnect;
+import com.autodoc.business.impl.authentication.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +20,7 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
     @Inject
-    private JwtUserDetailsService jwtUserDetailsService;
+    private JwtConnect jwtUserDetailsService;
     @Inject
     private JwtTokenUtil jwtTokenUtil;
 
@@ -27,22 +28,22 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
-        System.out.println("req: "+requestTokenHeader);
-        System.out.println("ff: "+request.getQueryString());
+        System.out.println("req: " + requestTokenHeader);
+        System.out.println("ff: " + request.getQueryString());
         String username = null;
         String jwtToken = null;
 // JWT Token is in the form "Bearer token". Remove Bearer word and get
 // only the Token
 
-        System.out.println("request Header: "+requestTokenHeader);
+        System.out.println("request Header: " + requestTokenHeader);
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
             System.out.println("here");
 
             jwtToken = requestTokenHeader.substring(7);
-            System.out.println("jtoken: "+jwtToken);
+            System.out.println("jtoken: " + jwtToken);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-                System.out.println("user: "+username);
+                System.out.println("user: " + username);
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {

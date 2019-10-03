@@ -1,4 +1,4 @@
-package com.autodoc.controllers.security;
+package com.autodoc.business.impl.authentication;
 
 import java.io.Serializable;
 import java.util.Date;

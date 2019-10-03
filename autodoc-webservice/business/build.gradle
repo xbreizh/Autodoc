@@ -9,6 +9,13 @@ repositories {
 dependencies {
     compile project(':model')
     compile project(':consumer')
+
+    compile 'org.springframework.security:spring-security-web:5.1.6.RELEASE',
+            'org.springframework.security:spring-security-config:5.1.6.RELEASE',
+            'org.springframework.security:spring-security-core:5.1.6.RELEASE',
+            'io.jsonwebtoken:jjwt:0.9.1'
+
+
    /* // to recognize webapp folder
     compile 'org.springframework:spring-core:4.1.2.RELEASE',
             'org.springframework:spring-web:4.1.2.RELEASE',

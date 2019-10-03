@@ -1,6 +1,5 @@
 package com.autodoc.controllers.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,18 +14,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.inject.Inject;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
+    @Inject
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    @Autowired
+    @Inject
     private UserDetailsService jwtUserDetailsService;
-    @Autowired
+    @Inject
     private JwtRequestFilter jwtRequestFilter;
 
-    @Autowired
+    @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 // configure AuthenticationManager so that it knows from where to load
 // user for matching credentials
