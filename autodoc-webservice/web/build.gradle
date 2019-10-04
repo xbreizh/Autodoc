@@ -1,36 +1,17 @@
-import java.text.SimpleDateFormat
-
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'war'
 apply plugin: 'org.asciidoctor.convert'
 
-/*
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-release" }
-}
-*/
-
-/*
-asciidoctor {
-    sourceDir = file('build/generated-snippets')
-    sources {
-        include '*.adoc'
-    }
-    outputDir = file('build/docs')
-}*/
 
 ext {
     snippetsDir = file('build/generated-snippets')
 }
-//home/john/Documents/openclassRooms/project_12/Local-Dev/new/App/autodoc-webservice/web/build/generated-snippets/CarControllerImplTest/getPersonByIdShouldReturnOk
 
 asciidoctor {
-    sourceDir = file('build/generated-snippets/CarControllerImplTest/getPersonByIdShouldReturnOk')
+    sourceDir = snippetsDir
     sources {
-        include '*.adoc'
+        include '**/**/*.adoc'
     }
     outputDir = file('src/main/asciidoc')
 }
@@ -45,9 +26,6 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.10'
     }
 }
-
-
-
 
 
 dependencies {
