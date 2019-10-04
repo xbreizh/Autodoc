@@ -32,6 +32,7 @@ jenkins/
 sonarqube/
 old-project_autodoc-webservice/
 out/
+asciidoc/
 
 ## Gradle ###
 .gradle/
