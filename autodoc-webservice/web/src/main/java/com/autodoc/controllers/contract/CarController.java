@@ -8,7 +8,7 @@ public interface CarController {
 
     String getAll();
 
-    String getCarByRegistration(String registration);
+    Car getCarByRegistration(String registration);
 
     String getCarById(int id);
 

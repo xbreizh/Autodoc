@@ -23,8 +23,7 @@ public class CarControllerImpl implements CarController {
         this.carManager = carManager;
     }
 
-    @RequestMapping(value = "/getAll",
-            method = RequestMethod.GET,
+    @GetMapping(value = "/getAll",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getAll() {
@@ -39,8 +38,11 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    public String getCarByRegistration(String registration) {
-        return null;
+    @GetMapping(value = "/getByRegistration",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Car getCarByRegistration(String registration) {
+        return carManager.getByRegistration(registration);
     }
 
     @Override

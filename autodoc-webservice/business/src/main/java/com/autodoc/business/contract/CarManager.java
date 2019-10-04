@@ -12,4 +12,6 @@ public interface CarManager {
     boolean save(Car car);
 
     List<Car> getAll();
+
+    Car getByRegistration(String registration);
 }
