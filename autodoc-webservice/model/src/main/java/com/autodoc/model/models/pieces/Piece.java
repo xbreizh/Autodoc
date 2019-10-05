@@ -13,7 +13,9 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "piece")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class Piece implements Serializable {
 
     // Constructors

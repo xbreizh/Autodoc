@@ -11,7 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "skill")
-@Setter @Getter @ToString
+@Setter
+@Getter
+@ToString
 public class Skill implements Serializable {
 
     // Constructors

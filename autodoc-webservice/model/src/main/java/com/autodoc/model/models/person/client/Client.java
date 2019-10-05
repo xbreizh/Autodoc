@@ -8,12 +8,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
 @Table(name = "client")
-@Setter @Getter @ToString
+@Setter
+@Getter
+@ToString
 public class Client extends Person {
 
     public Client(String firstName, String lastName, String phoneNumber1) {
@@ -28,9 +33,6 @@ public class Client extends Person {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
-
-
-
 
 
 }

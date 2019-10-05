@@ -1,7 +1,7 @@
 package com.autodoc.model.models.tasks;
 
-import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -13,7 +13,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "subTask")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class SubTask implements Serializable {
 
     // Constructors
@@ -35,11 +37,11 @@ public class SubTask implements Serializable {
     @NonNull
     private List<Task> tasks;
 
-    @OneToMany( cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE)
     @NonNull
     private List<Piece> pieces;
 
-    @ManyToMany( cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Employee> employees;
 
     @ManyToOne

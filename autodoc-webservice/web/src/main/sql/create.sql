@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS car;
 
 CREATE TABLE IF NOT EXISTS car
 (
-  id   INTEGER      NOT NULL ,
-  name VARCHAR(256) NOT NULL,
-  PRIMARY KEY (id)
+    id   INTEGER      NOT NULL,
+    name VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
 );

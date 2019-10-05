@@ -1,4 +1,4 @@
-package com.autodoc.business.contract;
+package com.autodoc.business.contract.car;
 
 import com.autodoc.model.models.car.Car;
 import org.springframework.stereotype.Service;

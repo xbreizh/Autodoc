@@ -5,11 +5,16 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 @MappedSuperclass
-@Setter @Getter @ToString
+@Setter
+@Getter
+@ToString
 public abstract class Person implements Serializable {
 
     // Constructors

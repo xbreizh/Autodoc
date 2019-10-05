@@ -12,7 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "emplateSubTask")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class TemplateSubTask implements Serializable {
 
     // Constructors
@@ -20,7 +22,6 @@ public class TemplateSubTask implements Serializable {
     public TemplateSubTask() {
 
     }
-
 
 
     // Parameters

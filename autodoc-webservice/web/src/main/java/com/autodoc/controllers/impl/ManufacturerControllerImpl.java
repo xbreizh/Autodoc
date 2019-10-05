@@ -1,7 +1,7 @@
 package com.autodoc.controllers.impl;
 
 
-import com.autodoc.business.contract.ManufacturerManager;
+import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.controllers.contract.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Manufacturer;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Controller
@@ -23,7 +22,7 @@ public class ManufacturerControllerImpl implements ManufacturerController {
     private GsonConverter converter;
 
     public ManufacturerControllerImpl(ManufacturerManager manufacturerManager) {
-        if(converter==null)converter = new GsonConverter();
+        if (converter == null) converter = new GsonConverter();
         this.manufacturerManager = manufacturerManager;
     }
 

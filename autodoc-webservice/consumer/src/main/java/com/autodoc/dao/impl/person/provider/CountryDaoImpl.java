@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.person.provider;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.person.provider.Country;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -16,7 +17,7 @@ public class CountryDaoImpl<T extends Serializable> extends AbstractHibernateDao
     private Logger logger = Logger.getLogger(CountryDaoImpl.class);
 
     public CountryDaoImpl() {
-        this.setClazz(Car.class);
+        this.setClazz(Country.class);
     }
 
 

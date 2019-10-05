@@ -1,6 +1,5 @@
-package com.autodoc.business.contract;
+package com.autodoc.business.contract.person.employee;
 
-import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 
 import java.util.List;
@@ -11,5 +10,5 @@ public interface EmployeeManager {
 
     String save(Employee employee);
 
-    List<Client> getAll();
+    List<Employee> getAll();
 }

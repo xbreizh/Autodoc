@@ -1,6 +1,6 @@
 package com.autodoc.controllers.impl;
 
-import com.autodoc.business.contract.ClientManager;
+import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.controllers.contract.ClientController;
 import com.autodoc.model.models.person.client.Client;
 import com.google.gson.Gson;

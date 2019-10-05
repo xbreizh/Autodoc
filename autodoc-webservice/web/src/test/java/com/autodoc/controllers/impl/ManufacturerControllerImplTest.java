@@ -1,6 +1,6 @@
 package com.autodoc.controllers.impl;
 
-import com.autodoc.business.contract.ManufacturerManager;
+import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.controllers.contract.ManufacturerController;
 import com.autodoc.model.models.car.Manufacturer;
 import com.google.gson.Gson;

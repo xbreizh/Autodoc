@@ -10,14 +10,13 @@ import javax.inject.Named;
 import java.util.ArrayList;
 
 @Named
-public class JwtConnect  implements UserDetailsService {
+public class JwtConnect implements UserDetailsService {
     private Logger logger = Logger.getLogger(JwtConnect.class);
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         //User authentication management
-
 
 
         // TODO
@@ -27,8 +26,8 @@ public class JwtConnect  implements UserDetailsService {
             // return new User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
             User user = new User("javainuse", "$2a$10$uY/HyJBjWPp9DXAyuEGUJu2wGzldUhkTu7CUPuaZeCjoo3Ig3CWn2",
                     new ArrayList<>());
-            logger.debug("user: "+user);
-            System.out.println("user: "+user);
+            logger.debug("user: " + user);
+            System.out.println("user: " + user);
             return user;
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);

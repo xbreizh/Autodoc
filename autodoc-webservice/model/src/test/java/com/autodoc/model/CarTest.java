@@ -11,7 +11,7 @@ class CarTest {
     private Car car;
 
     @BeforeEach
-    void init(){
+    void init() {
         car = new Car();
     }
 

@@ -12,7 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "task")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class Task implements Serializable {
 
     // Constructors

@@ -1,8 +1,8 @@
 package com.autodoc.model.models.bill;
 
 
-import com.autodoc.model.models.car.Car;
 import com.autodoc.model.enums.Status;
+import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.tasks.Task;
@@ -18,14 +18,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "bill")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class Bill implements Serializable {
 
     // Constructors
 
     public Bill() {
     }
-
 
 
     // Parameters

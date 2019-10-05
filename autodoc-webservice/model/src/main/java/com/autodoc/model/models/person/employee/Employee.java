@@ -1,9 +1,9 @@
 package com.autodoc.model.models.person.employee;
 
+import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
 import com.autodoc.model.models.tasks.SubTask;
-import com.autodoc.model.enums.Role;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -15,14 +15,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "employee")
-@Setter @Getter @ToString
+@Setter
+@Getter
+@ToString
 public class Employee extends Person {
 
     // Constructors
 
     public Employee() {
     }
-
 
 
     // Parameters
@@ -56,8 +57,6 @@ public class Employee extends Person {
     private Date lastConnection;
 
     private Date tokenExpiration;
-
-
 
 
 }

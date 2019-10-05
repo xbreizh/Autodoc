@@ -10,14 +10,15 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "address")
-@Setter @Getter @ToString
+@Setter
+@Getter
+@ToString
 public class Address implements Serializable {
 
     // Constructors
 
     public Address() {
     }
-
 
 
     // Parameters

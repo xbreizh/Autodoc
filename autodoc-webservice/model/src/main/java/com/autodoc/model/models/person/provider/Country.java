@@ -11,7 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "country")
-@Setter @Getter @ToString
+@Setter
+@Getter
+@ToString
 public class Country implements Serializable {
 
     // Constructor

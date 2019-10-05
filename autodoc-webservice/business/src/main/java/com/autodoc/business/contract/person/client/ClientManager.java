@@ -1,4 +1,4 @@
-package com.autodoc.business.contract;
+package com.autodoc.business.contract.person.client;
 
 import com.autodoc.model.models.person.client.Client;
 import org.springframework.stereotype.Service;

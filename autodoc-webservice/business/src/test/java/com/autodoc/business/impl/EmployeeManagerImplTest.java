@@ -1,6 +1,7 @@
 package com.autodoc.business.impl;
 
-import com.autodoc.business.contract.EmployeeManager;
+import com.autodoc.business.contract.person.employee.EmployeeManager;
+import com.autodoc.business.impl.person.employee.EmployeeManagerImpl;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.models.person.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;

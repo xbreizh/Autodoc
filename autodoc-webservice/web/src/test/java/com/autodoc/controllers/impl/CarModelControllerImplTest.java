@@ -1,6 +1,6 @@
 package com.autodoc.controllers.impl;
 
-import com.autodoc.business.contract.CarModelManager;
+import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.model.models.car.CarModel;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;

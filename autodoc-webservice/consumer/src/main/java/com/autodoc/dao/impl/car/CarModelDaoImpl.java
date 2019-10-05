@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CarModelDaoImpl<T extends Serializable> extends AbstractHibernateDao implements CarModelDao {
     private Logger logger = Logger.getLogger(CarModelDaoImpl.class);
+
     public CarModelDaoImpl() {
         this.setClazz(CarModel.class);
     }

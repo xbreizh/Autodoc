@@ -1,6 +1,6 @@
-package com.autodoc.business.impl;
+package com.autodoc.business.impl.car;
 
-import com.autodoc.business.contract.ManufacturerManager;
+import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;

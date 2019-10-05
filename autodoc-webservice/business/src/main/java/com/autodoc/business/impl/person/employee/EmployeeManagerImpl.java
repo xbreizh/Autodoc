@@ -1,6 +1,6 @@
-package com.autodoc.business.impl;
+package com.autodoc.business.impl.person.employee;
 
-import com.autodoc.business.contract.EmployeeManager;
+import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
@@ -28,12 +28,12 @@ public class EmployeeManagerImpl implements EmployeeManager {
 
     @Override
     public String save(Employee employee) {
-         employeeDao.create(employee);
+        employeeDao.create(employee);
         return "employee saved";
     }
 
     @Override
-    public List<Client> getAll() {
+    public List<Employee> getAll() {
         return null;
     }
 }

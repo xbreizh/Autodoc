@@ -1,7 +1,7 @@
 package com.autodoc.controllers.impl;
 
 
-import com.autodoc.business.contract.CarManager;
+import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.contract.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Car;
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Controller
@@ -23,7 +22,7 @@ public class CarControllerImpl implements CarController {
     private GsonConverter converter;
 
     public CarControllerImpl(CarManager carManager) {
-        if(converter==null)converter = new GsonConverter();
+        if (converter == null) converter = new GsonConverter();
         this.carManager = carManager;
     }
 
@@ -70,9 +69,6 @@ public class CarControllerImpl implements CarController {
     }
 
 
-
-
-
     @Override
     public String updateCar() {
 
@@ -89,8 +85,6 @@ public class CarControllerImpl implements CarController {
     public String deleteCar(int carId) {
         return null;
     }
-
-
 
 
     @RequestMapping(value = "/get",

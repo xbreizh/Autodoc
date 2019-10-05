@@ -1,6 +1,6 @@
-package com.autodoc.business.impl;
+package com.autodoc.business.impl.person.client;
 
-import com.autodoc.business.contract.ClientManager;
+import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
@@ -23,7 +23,7 @@ public class ClientManagerImpl implements ClientManager {
 
 
     @Override
-    public String  save(Client client) {
+    public String save(Client client) {
         clientDao.create(client);
         return "car added";
     }

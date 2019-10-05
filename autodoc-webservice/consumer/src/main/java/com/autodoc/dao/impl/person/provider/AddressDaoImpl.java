@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.person.provider;
 import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.provider.Address;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -16,7 +17,7 @@ public class AddressDaoImpl<T extends Serializable> extends AbstractHibernateDao
     private Logger logger = Logger.getLogger(AddressDaoImpl.class);
 
     public AddressDaoImpl() {
-        this.setClazz(Client.class);
+        this.setClazz(Address.class);
     }
 
 

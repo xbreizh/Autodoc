@@ -1,31 +1,41 @@
 = Sample API Documentation
 
 == Introduction
+
 This is an example of Spring REST Docs generated documentation.
 
 == Car API
+
 Collection of CRUD API endpoints used to manipulate persons registered in the application.
 
 === Get Cars
+
 Obtains a specific person registered in the application by its unique identifier.
 
 ==== Sample Request
+
 include::{snippets}/CarControllerImplTest/getAll/http-request.adoc[]
 
 ==== Sample Response
+
 include::{snippets}/CarControllerImplTest/getAll/http-response.adoc[]
 
 ==== CURL sample
+
 include::{snippets}/CarControllerImplTest/getAll/curl-request.adoc[]
 
 === Get Car by Registration
+
 Obtains a specific person registered in the application by its unique identifier.
 
 ==== Sample Request
+
 include::{snippets}/CarControllerImplTest/getByRegistration/http-request.adoc[]
 
 ==== Sample Response
+
 include::{snippets}/CarControllerImplTest/getByRegistration/http-response.adoc[]
 
 ==== CURL sample
+
 include::{snippets}/CarControllerImplTest/getByRegistration/curl-request.adoc[]

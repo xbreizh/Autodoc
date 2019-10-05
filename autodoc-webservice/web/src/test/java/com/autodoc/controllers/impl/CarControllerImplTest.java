@@ -1,6 +1,6 @@
 package com.autodoc.controllers.impl;
 
-import com.autodoc.business.contract.CarManager;
+import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -88,7 +87,7 @@ class CarControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}"));
         Car car = new Car();
         when(carManager.getByRegistration(anyString())).thenReturn(car);
-        assertEquals(car,  carControllerImpl.getCarByRegistration("abc123"));
+        assertEquals(car, carControllerImpl.getCarByRegistration("abc123"));
 
     }
 

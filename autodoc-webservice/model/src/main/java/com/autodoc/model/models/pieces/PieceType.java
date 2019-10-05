@@ -11,7 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "pieceType")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class PieceType implements Serializable {
 
     // Constructors

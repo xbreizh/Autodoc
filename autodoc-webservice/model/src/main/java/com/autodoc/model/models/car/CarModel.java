@@ -1,7 +1,7 @@
 package com.autodoc.model.models.car;
 
-import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.enums.FuelType;
+import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -13,7 +13,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "carmodel")
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class CarModel implements Serializable {
 
     // Constructors
