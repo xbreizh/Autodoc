@@ -36,4 +36,9 @@ public class EmployeeManagerImpl implements EmployeeManager {
     public List<Employee> getAll() {
         return null;
     }
+
+    @Override
+    public Employee getEmployeeByLogin(String login) {
+        return employeeDao.getByLogin(login);
+    }
 }

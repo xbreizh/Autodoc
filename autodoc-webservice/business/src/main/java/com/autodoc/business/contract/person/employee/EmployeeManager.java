@@ -11,4 +11,6 @@ public interface EmployeeManager {
     String save(Employee employee);
 
     List<Employee> getAll();
+
+    Employee getEmployeeByLogin(String login);
 }

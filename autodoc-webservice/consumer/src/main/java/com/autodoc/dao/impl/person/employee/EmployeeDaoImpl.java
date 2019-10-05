@@ -18,6 +18,7 @@ public class EmployeeDaoImpl<T extends Serializable> extends AbstractHibernateDa
         Query query = getCurrentSession().createQuery("From Employee where login= :login");
         query.setParameter("login", login);
         return (Employee) query.getSingleResult();
+
     }
 
 }
