@@ -1,6 +1,5 @@
 package com.autodoc.model.models.car;
 
-import com.autodoc.model.models.pieces.Manufacturer;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.enums.FuelType;
 import lombok.Getter;

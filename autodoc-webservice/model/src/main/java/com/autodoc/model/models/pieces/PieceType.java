@@ -1,6 +1,5 @@
 package com.autodoc.model.models.pieces;
 
-import com.autodoc.model.models.car.Category;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;

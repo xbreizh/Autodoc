@@ -1,6 +1,5 @@
 package com.autodoc.model.models.pieces;
 
-import com.autodoc.model.models.car.CarModel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -11,34 +10,30 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "manufacturer")
-@Getter
+@Table(name = "category")
 @Setter
+@Getter
 @ToString
-public class Manufacturer implements Serializable {
-
+public class Category implements Serializable {
 
     // Constructors
-
-    public Manufacturer() {
-    }
-    public Manufacturer(String name) {
-        this.name = name;
-    }
-
-    // Parameters
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
+    @OneToMany
+    private List<PieceType> pieceTypes;
 
-
+    // Parameters
     @NonNull
     private String name;
 
+    public Category() {
+    }
 
-    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE)
-    private List<CarModel> carModels;
+    public Category(String name) {
+        this.name = name;
+    }
 }
