@@ -52,4 +52,13 @@ public class CarModelControllerImpl implements CarModelController {
         CarModel carModel = carModelManager.getById(id);
         return converter.convertObjectIntoGsonObject(carModel);
     }
+
+
+    @GetMapping(value = "/getByName/{name}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String getByName(@PathVariable String name) {
+        CarModel carModel = carModelManager.getByName(name);
+        return converter.convertObjectIntoGsonObject(carModel);
+    }
 }

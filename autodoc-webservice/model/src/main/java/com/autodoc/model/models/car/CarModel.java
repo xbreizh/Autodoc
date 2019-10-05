@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "carmodel")
+@Table(name = "carModel")
 @Getter
 @Setter
 @ToString

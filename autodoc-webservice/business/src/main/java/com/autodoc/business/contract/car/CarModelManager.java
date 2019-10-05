@@ -12,4 +12,6 @@ public interface CarModelManager {
     List<CarModel> getAll();
 
     CarModel getById(int id);
+
+    CarModel getByName(String name);
 }

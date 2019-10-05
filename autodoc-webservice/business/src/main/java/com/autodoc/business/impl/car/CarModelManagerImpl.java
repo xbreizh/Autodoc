@@ -32,4 +32,11 @@ public class CarModelManagerImpl implements CarModelManager {
         return (CarModel) carModelDao.findOne(id);
     }
 
+    @Override
+    public CarModel getByName(String name) {
+        CarModel carModel = carModelDao.findByName(name);
+        if(carModel!=null)return carModel;
+        return null;
+    }
+
 }

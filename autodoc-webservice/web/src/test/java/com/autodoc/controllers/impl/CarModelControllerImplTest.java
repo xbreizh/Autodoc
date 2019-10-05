@@ -88,5 +88,21 @@ class CarModelControllerImplTest {
         assertEquals(response, carModelControllerImpl.getById(10));
     }
 
+    @Test
+    public void getByName() throws Exception {
+        CarModel carModel = new CarModel();
+        carModel.setName("bob");
+        when(carModelManager.getByName("bob")).thenReturn(carModel);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/carModel/getByName/{name}", "bob"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}", pathParameters(
+                        parameterWithName("name").description("The name of the input to delete"))));
+        String response = new Gson().toJson(carModel);
+        assertEquals(response, carModelControllerImpl.getByName("bob"));
+    }
+
 
 }
