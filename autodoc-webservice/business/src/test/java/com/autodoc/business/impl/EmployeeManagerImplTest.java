@@ -1,15 +1,14 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
-import com.autodoc.dao.contract.EmployeeDao;
+import com.autodoc.dao.impl.EmployeeDaoImpl;
 import com.autodoc.model.models.person.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,11 +17,11 @@ class EmployeeManagerImplTest {
 
 
     private EmployeeManager employeeManager;
-    private EmployeeDao employeeDao;
+    private EmployeeDaoImpl<Employee> employeeDao;
 
     @BeforeEach
-    void init(){
-        employeeDao = mock(EmployeeDao.class);
+    void init() {
+        employeeDao = mock(EmployeeDaoImpl.class);
         employeeManager = new EmployeeManagerImpl(employeeDao);
     }
 
