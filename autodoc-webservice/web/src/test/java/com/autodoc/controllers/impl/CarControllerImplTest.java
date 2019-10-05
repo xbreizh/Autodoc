@@ -1,6 +1,7 @@
 package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.CarManager;
+import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,8 @@ class CarControllerImplTest {
     private CarControllerImpl carControllerImpl;
     private CarManager carManager;
     private MockMvc mockMvc;
+    @Inject
+    private GsonConverter converter;
 
 
     @BeforeEach
@@ -96,7 +100,7 @@ class CarControllerImplTest {
         car.setRegistration("abs");
         car.setCarModel(carModel);
 
-        String response = carControllerImpl.convertObjectIntoGsonObject(car);
+        String response = converter.convertObjectIntoGsonObject(car);
         System.out.println("car: " + response);
     }
 

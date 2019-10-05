@@ -3,6 +3,7 @@ package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.controllers.contract.ClientController;
+import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.person.client.Client;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Controller
@@ -19,8 +21,10 @@ import java.util.List;
 public class ClientControllerImpl implements ClientController {
     private Logger logger = Logger.getLogger(ClientControllerImpl.class);
     private ClientManager clientManager;
+    private GsonConverter converter;
 
     public ClientControllerImpl(ClientManager clientManager) {
+        if(converter==null)converter = new GsonConverter();
         this.clientManager = clientManager;
     }
 
@@ -32,7 +36,7 @@ public class ClientControllerImpl implements ClientController {
 
         List<Client> list = clientManager.getAll();
         System.out.println("Loaded |" + list + "|");
-        String response = convertObjectIntoGsonObject(list);
+        String response = converter.convertObjectIntoGsonObject(list);
         System.out.println("Returning |" + response + "|");
 
         return response;
@@ -64,9 +68,6 @@ public class ClientControllerImpl implements ClientController {
     }
 
 
-    public String convertObjectIntoGsonObject(Object list) {
-        return new Gson().toJson(list);
-    }
 
 
 }

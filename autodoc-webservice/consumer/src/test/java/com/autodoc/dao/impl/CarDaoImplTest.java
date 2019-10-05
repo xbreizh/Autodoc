@@ -1,7 +1,7 @@
 /*
 package com.autodoc.dao.impl;
 
-import com.autodoc.dao.contract.CarDao;
+import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.model.models.car.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;

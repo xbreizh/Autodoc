@@ -1,7 +1,7 @@
 package com.autodoc.model.models.person.client;
 
 
-import com.autodoc.model.models.Bill;
+import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.Person;
 import lombok.Getter;

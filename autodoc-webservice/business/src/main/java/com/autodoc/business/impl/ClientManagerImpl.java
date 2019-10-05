@@ -1,7 +1,7 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ClientManager;
-import com.autodoc.dao.impl.ClientDaoImpl;
+import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;

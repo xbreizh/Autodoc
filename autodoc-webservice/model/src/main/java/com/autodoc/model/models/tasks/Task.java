@@ -1,6 +1,6 @@
 package com.autodoc.model.models.tasks;
 
-import com.autodoc.model.models.Bill;
+import com.autodoc.model.models.bill.Bill;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;

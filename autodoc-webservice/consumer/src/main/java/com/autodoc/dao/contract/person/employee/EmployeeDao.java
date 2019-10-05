@@ -1,4 +1,4 @@
-package com.autodoc.dao.contract;
+package com.autodoc.dao.contract.person.employee;
 
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.models.person.employee.Employee;

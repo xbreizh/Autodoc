@@ -1,6 +1,7 @@
 package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.CarModelManager;
+import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.CarModel;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Controller
@@ -18,8 +20,10 @@ public class CarModelControllerImpl {
 
     private Logger logger = Logger.getLogger(CarModelControllerImpl.class);
     private CarModelManager carModelManager;
+    private GsonConverter converter;
 
     public CarModelControllerImpl(CarModelManager carModelManager) {
+        if(converter==null)converter = new GsonConverter();
         this.carModelManager = carModelManager;
     }
 
@@ -31,14 +35,12 @@ public class CarModelControllerImpl {
 
         List<CarModel> list = carModelManager.getAll();
         System.out.println("Loaded |" + list + "|");
-        String response = convertObjectIntoGsonObject(list);
+        String response = converter.convertObjectIntoGsonObject(list);
         System.out.println("Returning |" + response + "|");
 
         return response;
     }
 
 
-    public String convertObjectIntoGsonObject(Object list) {
-        return new Gson().toJson(list);
-    }
+
 }

@@ -1,4 +1,4 @@
-package com.autodoc.dao.contract;
+package com.autodoc.dao.contract.car;
 
 import com.autodoc.dao.contract.global.IGenericDao;
 

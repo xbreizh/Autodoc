@@ -1,6 +1,6 @@
-package com.autodoc.dao.impl;
+package com.autodoc.dao.impl.person.employee;
 
-import com.autodoc.dao.contract.EmployeeDao;
+import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.models.person.employee.Employee;
 import org.hibernate.query.Query;

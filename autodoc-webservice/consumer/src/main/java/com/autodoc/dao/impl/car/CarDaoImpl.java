@@ -1,6 +1,6 @@
-package com.autodoc.dao.impl;
+package com.autodoc.dao.impl.car;
 
-import com.autodoc.dao.contract.CarDao;
+import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.models.car.Car;
 import org.apache.log4j.Logger;

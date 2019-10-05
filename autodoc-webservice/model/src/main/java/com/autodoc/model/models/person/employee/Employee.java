@@ -1,6 +1,6 @@
 package com.autodoc.model.models.person.employee;
 
-import com.autodoc.model.models.Bill;
+import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
 import com.autodoc.model.models.tasks.SubTask;
 import com.autodoc.model.enums.Role;

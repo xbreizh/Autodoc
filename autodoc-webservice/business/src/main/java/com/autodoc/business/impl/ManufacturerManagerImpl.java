@@ -1,7 +1,7 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ManufacturerManager;
-import com.autodoc.dao.impl.ManufacturerDaoImpl;
+import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.autodoc.model.models;
+package com.autodoc.model.models.bill;
 
 
 import com.autodoc.model.models.car.Car;
