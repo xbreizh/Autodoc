@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "emplateSubTask")
+@Table(name = "templateSubTask")
 @Getter
 @Setter
 @ToString
@@ -28,7 +28,7 @@ public class TemplateSubTask implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
+    @Column(name = "id")
     private int id;
 
     @OneToMany

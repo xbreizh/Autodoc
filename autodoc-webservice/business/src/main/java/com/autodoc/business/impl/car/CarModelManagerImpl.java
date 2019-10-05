@@ -27,4 +27,9 @@ public class CarModelManagerImpl implements CarModelManager {
         return carModelDao.findAll();
     }
 
+    @Override
+    public CarModel getById(int id) {
+        return (CarModel) carModelDao.findOne(id);
+    }
+
 }

@@ -20,10 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,7 +54,6 @@ class CarModelControllerImplTest {
 
         carModelManager = mock(CarModelManager.class);
         carModelControllerImpl = new CarModelControllerImpl(carModelManager);
-        System.out.println("context: " + webApplicationContext);
     }
 
 
@@ -67,6 +70,22 @@ class CarModelControllerImplTest {
         String response = new Gson().toJson(carModels);
         when(carModelManager.getAll()).thenReturn(carModels);
         assertEquals(response, carModelControllerImpl.getAll());
+    }
+
+    @Test
+    public void getById() throws Exception {
+        CarModel carModel = new CarModel();
+        carModel.setName("bob");
+        when(carModelManager.getById(anyInt())).thenReturn(carModel);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/carModel/getById/{id}", 10))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}", pathParameters(
+                        parameterWithName("id").description("The id of the input to delete"))));
+        String response = new Gson().toJson(carModel);
+        assertEquals(response, carModelControllerImpl.getById(10));
     }
 
 
