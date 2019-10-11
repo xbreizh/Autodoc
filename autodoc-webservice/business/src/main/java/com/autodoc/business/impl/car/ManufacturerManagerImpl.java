@@ -28,4 +28,5 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
         return manufacturerDao.findAll();
     }
 
+
 }

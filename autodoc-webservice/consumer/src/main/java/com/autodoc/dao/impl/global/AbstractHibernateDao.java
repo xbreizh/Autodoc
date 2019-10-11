@@ -31,12 +31,12 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
     }
 
     public List<T> findAll() {
-        return getCurrentSession().createQuery("from " + clazz.getName()).list();
+        System.out.println("class: "+clazz.getName());
+        return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
     }
 
 
     public Serializable create(Serializable entity) {
-        System.out.println("test creation");
         getCurrentSession().saveOrUpdate(entity);
         return entity;
     }

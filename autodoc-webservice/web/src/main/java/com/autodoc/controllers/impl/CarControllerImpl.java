@@ -30,12 +30,9 @@ public class CarControllerImpl implements CarController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getAll() {
-        System.out.println("Called gettho");
 
         List<Car> list = carManager.getAll();
-        System.out.println("Loaded |" + list + "|");
         String response = converter.convertObjectIntoGsonObject(list);
-        System.out.println("Returning |" + response + "|");
 
         return response;
     }

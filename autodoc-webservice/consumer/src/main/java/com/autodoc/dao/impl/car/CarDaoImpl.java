@@ -34,5 +34,8 @@ public class CarDaoImpl<T extends Serializable> extends AbstractHibernateDao imp
         Query query = getCurrentSession().createQuery("From Car where Client.lastName= :lastName");
         query.setParameter("lastName", lastName);
         return query.getResultList();
+
     }
+
+
 }

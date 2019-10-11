@@ -20,19 +20,22 @@ public class Manufacturer implements Serializable {
     // Constructors
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
+
     @NonNull
+    @Column(unique=true)
     private String name;
 
     // Parameters
-    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<CarModel> carModels;
 
 
     public Manufacturer() {
     }
+
 
 
     public Manufacturer(String name) {

@@ -31,7 +31,6 @@ public class ManufacturerControllerImpl implements ManufacturerController {
     @ResponseBody
     public String getAll() {
         System.out.println("Called gettho");
-
         List<Manufacturer> list = manufacturerManager.getAll();
         System.out.println("Loaded |" + list + "|");
         String response = converter.convertObjectIntoGsonObject(list);
