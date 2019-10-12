@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class GenericHibernateDao<T extends Serializable>
+public class GenericHibernateDao<T>
         extends AbstractHibernateDao<T> implements IGenericDao {
 
 }

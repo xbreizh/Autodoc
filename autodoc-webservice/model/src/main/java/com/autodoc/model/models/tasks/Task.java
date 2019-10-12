@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Task implements Serializable {
+public class Task/* implements Serializable*/ {
 
     // Constructors
 

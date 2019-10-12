@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IGenericDao<T extends Serializable> {
+public interface IGenericDao<T> {
 
     void setClazz(Class<T> clazzToSet);
 

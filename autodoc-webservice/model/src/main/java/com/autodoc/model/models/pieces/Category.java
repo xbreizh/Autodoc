@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class Category implements Serializable {
+public class Category /*implements Serializable*/ {
 
     // Constructors
 

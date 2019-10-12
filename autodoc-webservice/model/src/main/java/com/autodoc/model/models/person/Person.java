@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @ToString
-public abstract class Person implements Serializable {
+public abstract class Person /*implements Serializable */{
 
     // Constructors
 

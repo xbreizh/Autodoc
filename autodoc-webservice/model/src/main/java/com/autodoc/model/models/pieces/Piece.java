@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Piece implements Serializable {
+public class Piece /*implements Serializable*/ {
 
     // Constructors
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class ManufacturerDaoImpl<T extends Serializable> extends AbstractHibernateDao implements ManufacturerDao {
+public class ManufacturerDaoImpl<T> extends AbstractHibernateDao implements ManufacturerDao {
     private Logger logger = Logger.getLogger(ManufacturerDaoImpl.class);
 
 

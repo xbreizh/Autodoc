@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class AddressDaoImpl<T extends Serializable> extends AbstractHibernateDao implements AddressDao {
+public class AddressDaoImpl<T> extends AbstractHibernateDao implements AddressDao {
     private Logger logger = Logger.getLogger(AddressDaoImpl.class);
 
     public AddressDaoImpl() {

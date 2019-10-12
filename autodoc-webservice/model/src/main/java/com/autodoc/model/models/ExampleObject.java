@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class ExampleObject implements Serializable {
+public class ExampleObject /*implements Serializable*/ {
     @Id
     //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")

@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class CategoryDaoImpl<T extends Serializable> extends AbstractHibernateDao implements CategoryDao {
+public class CategoryDaoImpl<T> extends AbstractHibernateDao implements CategoryDao {
     private Logger logger = Logger.getLogger(CategoryDaoImpl.class);
 
 

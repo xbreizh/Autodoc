@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "manufacturer")
 @Getter
 @Setter
-public class Manufacturer implements Serializable {
+public class Manufacturer /*implements Serializable */{
 
 
     // Constructors

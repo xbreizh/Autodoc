@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @ToString
-public class Address implements Serializable {
+public class Address /*implements Serializable */{
 
     // Constructors
 

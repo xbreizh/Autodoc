@@ -70,7 +70,7 @@ class CarControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}"));
         List<Car> cars = new ArrayList<>();
         cars.add(new Car());
-        String response = new Gson().toJson(cars);
+        String response = converter.convertObjectIntoGsonObject("car added");
         when(carManager.getAll()).thenReturn(cars);
         assertEquals(response, carControllerImpl.getAll());
     }

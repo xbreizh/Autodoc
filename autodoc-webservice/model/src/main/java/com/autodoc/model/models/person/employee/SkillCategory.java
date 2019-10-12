@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class SkillCategory implements Serializable {
+public class SkillCategory /*implements Serializable*/ {
 
 
     // Constructor

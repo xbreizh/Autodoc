@@ -4,18 +4,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractHibernateDao<T extends Serializable> {
+public abstract class AbstractHibernateDao<T> {
     @Inject
     SessionFactory sessionFactory;
 
-    public Class<Serializable> getClazz() {
+    public Class<Object> getClazz() {
         return clazz;
     }
 
-    private Class<Serializable> clazz;
+    private Class<Object> clazz;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -36,17 +37,17 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
     }
 
 
-    public Serializable create(Serializable entity) {
+    public Object create(Object entity) {
         getCurrentSession().saveOrUpdate(entity);
         return entity;
     }
 
-    public void delete(Serializable entity) {
+    public void delete(Object entity) {
         getCurrentSession().delete(entity);
 
     }
 
-    public Serializable update(Serializable entity) {
+    public Object update(Object entity) {
         return (T) getCurrentSession().merge(entity);
     }
 

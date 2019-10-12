@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class EmployeeDaoImpl<T extends Serializable> extends AbstractHibernateDao implements EmployeeDao {
+public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements EmployeeDao {
     @Override
     public Employee getByLogin(String login) {
         Query query = getCurrentSession().createQuery("From Employee where login= :login");

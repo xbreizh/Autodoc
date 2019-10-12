@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "carModel")
 @Getter
 @Setter
-public class CarModel implements Serializable {
+public class CarModel /*implements Serializable*/ {
 
     // Constructors
 

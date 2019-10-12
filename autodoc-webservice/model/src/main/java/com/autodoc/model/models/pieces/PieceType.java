@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class PieceType implements Serializable {
+public class PieceType /*implements Serializable*/ {
 
     // Constructors
 

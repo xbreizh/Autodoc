@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class TaskDaoImpl<T extends Serializable> extends AbstractHibernateDao implements TaskDao {
+public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
     private Logger logger = Logger.getLogger(TaskDaoImpl.class);
 
 
