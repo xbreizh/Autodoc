@@ -4,6 +4,7 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.models.car.Car;
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,8 @@ public class CarManagerImpl implements CarManager {
         try {
             carDao.create(car);
             return "car added";
-        } catch (Exception e) {
+        } catch (ConstraintViolationException e) {
+            System.out.println("error: "+e.getLocalizedMessage());
             return e.getMessage();
         }
 

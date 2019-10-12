@@ -29,10 +29,10 @@ public class Client extends Person {
     }
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
-    private List<Car> cars;
+    private transient List<Car> cars;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
-    private List<Bill> bills;
+    private transient List<Bill> bills;
 
 
 }

@@ -7,7 +7,9 @@ import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +35,7 @@ public class CarControllerImpl implements CarController {
 
         List<Car> list = carManager.getAll();
         System.out.println("list: "+list);
-        String response = converter.convertObjectIntoGsonObject(list);
+        String response = converter.convertObjectIntoGsonObject("car added");
 
         return response;
     }
@@ -58,12 +60,18 @@ public class CarControllerImpl implements CarController {
 
     @Override
     @PostMapping(value = "/add",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public String addCar(@RequestBody Car car) {
+            produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addCar(@RequestBody Car car) {
 
+        System.out.println("trying to add a car: "+car);
+        String response = carManager.save(car);
+        if (response.equals("car added")){
+            return ResponseEntity.ok("car added");
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
 
-
-        return carManager.save(car);
     }
 
 

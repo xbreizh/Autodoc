@@ -16,31 +16,9 @@ import java.util.List;
 @Table(name = "car")
 @Getter
 @Setter
-@ToString
 public class Car implements Serializable {
 
     // Constructors
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
-    private int id;
-
-    @NonNull
-    @Column(name = "registration")
-    private String registration;
-
-    // Parameters
-    @NonNull
-    @ManyToOne
-    private CarModel carModel;
-
-    @NonNull
-    @ManyToOne
-    private Client client;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "car", cascade = CascadeType.REMOVE)
-    private List<Bill> bills;
 
     public Car() {
     }
@@ -51,5 +29,38 @@ public class Car implements Serializable {
         this.client = client;
     }
 
+    // Parameters
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID")
+    private int id;
+
+    @NonNull
+    @Column(name = "registration", unique = true)
+    private String registration;
+
+    @NonNull
+    @ManyToOne
+    private CarModel carModel;
+
+    @NonNull
+    @ManyToOne
+    private Client client;
+
+    @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
+    private transient List<Bill> bills;
+
+
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", registration='" + registration + '\'' +
+                ", carModel=" + carModel +
+                ", client=" + client +
+                '}';
+    }
 }

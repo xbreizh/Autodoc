@@ -2,6 +2,7 @@ package com.autodoc.controllers.contract;
 
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
+import org.springframework.http.ResponseEntity;
 
 public interface CarController {
 
@@ -14,7 +15,7 @@ public interface CarController {
 
     String getCarByClient(String clientLastName, String clientFirstName);
 
-    String addCar(Car car);
+    ResponseEntity addCar(Car car);
 
     String updateCar();
 

@@ -51,6 +51,7 @@ public class CarModel implements Serializable {
     private transient List<Piece> pieces;
 
     @NonNull
+    @Column(unique=true)
     private String name;
 
     @NonNull

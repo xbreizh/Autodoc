@@ -3,7 +3,6 @@ package com.autodoc.model.models.car;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +23,7 @@ public class Manufacturer implements Serializable {
     private int id;
 
     @NonNull
-    @Column(unique=true)
+    @Column(unique = true)
     private String name;
 
     // Parameters
@@ -34,7 +33,6 @@ public class Manufacturer implements Serializable {
 
     public Manufacturer() {
     }
-
 
 
     public Manufacturer(String name) {
