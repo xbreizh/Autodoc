@@ -44,11 +44,11 @@ public class CarModel implements Serializable {
     @NonNull
     private Manufacturer manufacturer;
 
-    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE)
-    private List<Car> cars;
+    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private transient List<Car> cars;
 
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE)
-    private List<Piece> pieces;
+    private transient List<Piece> pieces;
 
     @NonNull
     private String name;
@@ -72,7 +72,6 @@ public class CarModel implements Serializable {
         return "CarModel{" +
                 "id=" + id +
                 ", manufacturer=" + manufacturer +
-                ", cars=" + cars +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", gearbox=" + gearbox +

@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd ">
 
     <context:component-scan base-package="com.autodoc"/>
 
@@ -45,7 +45,7 @@
                 <value>com.autodoc.model.models.tasks.TemplateSubTask</value>
                 <value>com.autodoc.model.models.person.employee.Skill</value>
                 <value>com.autodoc.model.models.person.employee.SkillCategory</value>
-                <value>com.autodoc.model.models.ExampleObject</value>
+               <!-- <value>com.autodoc.model.models.ExampleObject</value>-->
 
 
             </list>
@@ -65,8 +65,8 @@
     <!-- turn on spring transaction annotation -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <!-- turn on spring MVC annotation -->
-    <mvc:annotation-driven/>
+  <!--  &lt;!&ndash; turn on spring MVC annotation &ndash;&gt;
+    <mvc:annotation-driven/>-->
 
     <!-- Transaction Manager -->
     <bean id="transactionManager"
