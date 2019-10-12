@@ -1,7 +1,10 @@
 package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
+import com.autodoc.business.impl.authentication.JwtConnect;
 import com.autodoc.controllers.contract.ManufacturerController;
+import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.Manufacturer;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +38,9 @@ class ManufacturerControllerImplTest {
 
     private ManufacturerController manufacturerController;
     private ManufacturerManager manufacturerManager;
+    private GsonConverter gsonConverter;
     private MockMvc mockMvc;
+    private JwtConnect jwtConnect;
 
 
     @BeforeEach
@@ -48,9 +53,11 @@ class ManufacturerControllerImplTest {
 
 
         manufacturerManager = mock(ManufacturerManager.class);
-        manufacturerController = new ManufacturerControllerImpl(manufacturerManager);
+        manufacturerController = new ManufacturerControllerImpl(manufacturerManager, jwtConnect);
+        gsonConverter = new GsonConverter();
         System.out.println("context: " + webApplicationContext);
     }
+
 
 
     @Test

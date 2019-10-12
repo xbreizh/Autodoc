@@ -5,6 +5,7 @@ import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,13 @@ public class ManufacturerDaoImpl<T extends Serializable> extends AbstractHiberna
     }
 
 
-
-
+    @Override
+    public Manufacturer getByName(String name) {
+        Query query = getCurrentSession().createQuery("From Manufacturer where name= :name");
+        query.setParameter("name", name);
+        List<Manufacturer> manufacturers =query.getResultList();
+        System.out.println("list size: "+manufacturers);
+        if(manufacturers.size() > 0)return manufacturers.get(0);
+        return null;
+    }
 }

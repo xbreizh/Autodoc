@@ -40,6 +40,7 @@ public class Bill implements Serializable {
     private Date date;
 
     @NonNull
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @NonNull

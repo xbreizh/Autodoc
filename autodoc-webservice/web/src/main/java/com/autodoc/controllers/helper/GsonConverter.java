@@ -13,6 +13,9 @@ public class GsonConverter {
 
 
     public String convertObjectIntoGsonObject(Object list) {
-        return new Gson().toJson(list);
+        System.out.println("list to convert: "+list);
+        String convertedObject = new Gson().toJson(list);
+        System.out.println("object: "+convertedObject);
+        return convertedObject;
     }
 }

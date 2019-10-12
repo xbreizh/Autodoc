@@ -8,10 +8,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -36,6 +33,7 @@ public class Provider extends Person {
     @NonNull
     private String company;
     @NonNull
+    @Enumerated(EnumType.STRING)
     private Rate rate;
 
     public Provider() {

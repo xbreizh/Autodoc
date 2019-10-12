@@ -41,4 +41,9 @@ public class EmployeeManagerImpl implements EmployeeManager {
     public Employee getEmployeeByLogin(String login) {
         return employeeDao.getByLogin(login);
     }
+
+    @Override
+    public Employee getEmployeeByToken(String token) {
+        return employeeDao.getByToken(token);
+    }
 }

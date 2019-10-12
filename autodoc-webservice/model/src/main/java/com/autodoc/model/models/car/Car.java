@@ -25,6 +25,7 @@ public class Car implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private int id;
+
     @NonNull
     @Column(name = "registration")
     private String registration;
@@ -33,9 +34,11 @@ public class Car implements Serializable {
     @NonNull
     @ManyToOne
     private CarModel carModel;
+
     @NonNull
     @ManyToOne
     private Client client;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "car", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
 

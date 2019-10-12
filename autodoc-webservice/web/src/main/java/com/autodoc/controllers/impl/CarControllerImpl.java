@@ -32,6 +32,7 @@ public class CarControllerImpl implements CarController {
     public String getAll() {
 
         List<Car> list = carManager.getAll();
+        System.out.println("list: "+list);
         String response = converter.convertObjectIntoGsonObject(list);
 
         return response;
@@ -56,13 +57,13 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    @PostMapping(value = "/addCar",
+    @PostMapping(value = "/add",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String addCar(@RequestBody Car car) {
-        carManager.save(car);
 
 
-        return "index";
+
+        return carManager.save(car);
     }
 
 
@@ -101,15 +102,17 @@ public class CarControllerImpl implements CarController {
         return null;
     }
 
-    @RequestMapping(value = "/add/{name}",
-            method = RequestMethod.GET,
+   /* @RequestMapping(value = "/add/",
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String add(@PathVariable String name) {
+    public String add(@PathVariable Car car) {
 
-        System.out.println("name: " + name);
-        return null;
-    }
+        System.out.println("name: " + car);
+        String df = carManager.save(car);
+        System.out.println("df: "+df);
+        return df;
+    }*/
 
 
 }

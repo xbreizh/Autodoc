@@ -9,9 +9,11 @@ import java.util.List;
 public interface CarManager {
 
 
-    boolean save(Car car);
+    String save(Car car);
 
     List<Car> getAll();
 
     Car getByRegistration(String registration);
+
+    String update(Car car);
 }

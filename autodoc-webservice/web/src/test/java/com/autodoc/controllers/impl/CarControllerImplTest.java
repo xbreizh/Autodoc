@@ -57,7 +57,6 @@ class CarControllerImplTest {
 
         carManager = mock(CarManager.class);
         carControllerImpl = new CarControllerImpl(carManager);
-        System.out.println("context: " + webApplicationContext);
     }
 
 
@@ -94,19 +93,14 @@ class CarControllerImplTest {
     @Test
     void update() {
         Car car = new Car();
-        CarModel carModel = new CarModel();
-        carModel.setName("mazda");
-        car.setRegistration("abs");
-        car.setCarModel(carModel);
-
-        String response = converter.convertObjectIntoGsonObject(car);
-        System.out.println("car: " + response);
+        when(carManager.update(any(Car.class))).thenReturn("car updated");
+        assertEquals("car updated", carControllerImpl.addCar(car));
     }
 
     @Test
     void addCar() {
         Car car = new Car();
-        when(carManager.save(any(Car.class))).thenReturn(true);
-        // assertEquals("car added", carControllerImpl.addCar(car));
+        when(carManager.save(any(Car.class))).thenReturn("car added");
+        assertEquals("car added", carControllerImpl.addCar(car));
     }
 }

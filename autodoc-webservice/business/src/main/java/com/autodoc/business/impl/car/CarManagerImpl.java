@@ -23,12 +23,17 @@ public class CarManagerImpl implements CarManager {
 
 
     @Override
-    public boolean save(Car car) {
+    public String save(Car car) {
         logger.debug("trying to save a car");
         logger.info("trying to save a like: " + car);
         //car.setRegistration("morning");
-        carDao.create(car);
-        return true;
+        try {
+            carDao.create(car);
+            return "car added";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+
     }
 
     @Override
@@ -40,5 +45,15 @@ public class CarManagerImpl implements CarManager {
     public Car getByRegistration(String registration) {
         return null;
         //return carDao.getCarByRegistration(registration);
+    }
+
+    @Override
+    public String update(Car car) {
+        try {
+            carDao.update(car);
+            return "car added";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 }

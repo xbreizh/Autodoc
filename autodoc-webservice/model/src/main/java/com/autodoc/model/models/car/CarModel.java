@@ -1,6 +1,7 @@
 package com.autodoc.model.models.car;
 
 import com.autodoc.model.enums.FuelType;
+import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,13 +16,21 @@ import java.util.List;
 @Table(name = "carModel")
 @Getter
 @Setter
-@ToString
 public class CarModel implements Serializable {
 
     // Constructors
 
 
     public CarModel() {
+    }
+
+    public CarModel(@NonNull Manufacturer manufacturer, @NonNull String name, @NonNull String description, @NonNull GearBox gearbox, @NonNull String engine, @NonNull FuelType fuelType) {
+        this.manufacturer = manufacturer;
+        this.name = name;
+        this.description = description;
+        this.gearbox = gearbox;
+        this.engine = engine;
+        this.fuelType = fuelType;
     }
 
     // Parameters
@@ -48,13 +57,27 @@ public class CarModel implements Serializable {
     private String description;
 
     @NonNull
-    private String gearbox;
+    @Enumerated(EnumType.STRING)
+    private GearBox gearbox;
 
     @NonNull
     private String engine;
 
     @NonNull
+    @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
-
+    @Override
+    public String toString() {
+        return "CarModel{" +
+                "id=" + id +
+                ", manufacturer=" + manufacturer +
+                ", cars=" + cars +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", gearbox=" + gearbox +
+                ", engine='" + engine + '\'' +
+                ", fuelType=" + fuelType +
+                '}';
+    }
 }

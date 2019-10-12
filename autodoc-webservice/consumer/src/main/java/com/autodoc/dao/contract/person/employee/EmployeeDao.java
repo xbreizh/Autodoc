@@ -6,4 +6,6 @@ import com.autodoc.model.models.person.employee.Employee;
 public interface EmployeeDao extends IGenericDao {
 
     Employee getByLogin(String login);
+
+    Employee getByToken(String token);
 }

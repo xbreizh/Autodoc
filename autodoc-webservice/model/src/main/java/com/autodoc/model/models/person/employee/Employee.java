@@ -26,6 +26,14 @@ public class Employee extends Person {
     }
 
 
+    public Employee(String firstName, String lastName, String phoneNumber1, @NonNull List<Role> roles, @NonNull Date startDate, @NonNull String login, @NonNull String password) {
+        super(firstName, lastName, phoneNumber1);
+        this.roles = roles;
+        this.startDate = startDate;
+        this.login = login;
+        this.password = password;
+    }
+
     // Parameters
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private List<Bill> bills;

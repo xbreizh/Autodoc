@@ -13,7 +13,6 @@ import java.util.List;
 @Table(name = "manufacturer")
 @Getter
 @Setter
-@ToString
 public class Manufacturer implements Serializable {
 
 
@@ -30,7 +29,7 @@ public class Manufacturer implements Serializable {
 
     // Parameters
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private List<CarModel> carModels;
+    private transient List<CarModel> carModels;
 
 
     public Manufacturer() {
@@ -40,5 +39,13 @@ public class Manufacturer implements Serializable {
 
     public Manufacturer(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Manufacturer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -13,4 +13,6 @@ public interface EmployeeManager {
     List<Employee> getAll();
 
     Employee getEmployeeByLogin(String login);
+
+    Employee getEmployeeByToken(String token);
 }
