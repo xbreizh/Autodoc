@@ -39,9 +39,9 @@ public class ManufacturerFiller {
 
     public void fill(){
         System.out.println("getting here");
+        fillEmployee();
         fillManufacturer();
         fillCarModel();
-        fillEmployee();
         fillClient();
         fillCar();
     }
@@ -84,9 +84,10 @@ public class ManufacturerFiller {
         List<Role> roleList = new ArrayList<>();
         String login = "LMOLO";
         Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, new Date(),login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
-        if (employeeDao.getByLogin(login)==null) {
-            employeeDao.create(employee);
-        }
+        employeeDao.create(employee);
+       /* if (employeeDao.getByLogin(login)==null) {
+            System.out.println("employee created");
+        }*/
     }
 
 
