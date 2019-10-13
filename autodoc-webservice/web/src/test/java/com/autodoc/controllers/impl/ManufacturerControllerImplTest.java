@@ -55,7 +55,7 @@ class ManufacturerControllerImplTest {
         manufacturerManager = mock(ManufacturerManager.class);
         manufacturerController = new ManufacturerControllerImpl(manufacturerManager, jwtConnect);
         gsonConverter = new GsonConverter();
-        System.out.println("context: " + webApplicationContext);
+        logger.debug("context: " + webApplicationContext);
     }
 
 

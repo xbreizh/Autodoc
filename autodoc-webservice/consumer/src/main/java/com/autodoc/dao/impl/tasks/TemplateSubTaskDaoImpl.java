@@ -17,7 +17,7 @@ public class TemplateSubTaskDaoImpl<T> extends AbstractHibernateDao implements T
 
 
     public TemplateSubTaskDaoImpl() {
-        System.out.println("creating manuf dao");
+        logger.debug("creating manuf dao");
         this.setClazz(TemplateSubTask.class);
     }
 

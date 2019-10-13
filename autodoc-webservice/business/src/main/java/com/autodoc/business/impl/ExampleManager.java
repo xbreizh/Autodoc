@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class ExampleManager {
 
     public void shoutOut(){
-        System.out.println("Manager is here");
+        logger.debug("Manager is here");
     }
 
 }

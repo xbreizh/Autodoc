@@ -28,26 +28,26 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
-        System.out.println("req: " + requestTokenHeader);
-        System.out.println("ff: " + request.getQueryString());
+        logger.debug("req: " + requestTokenHeader);
+        logger.debug("ff: " + request.getQueryString());
         String username = null;
         String jwtToken = null;
 // JWT Token is in the form "Bearer token". Remove Bearer word and get
 // only the Token
 
-        System.out.println("request Header: " + requestTokenHeader);
+        logger.debug("request Header: " + requestTokenHeader);
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
-            System.out.println("here");
+            logger.debug("here");
 
             jwtToken = requestTokenHeader.substring(7);
-            System.out.println("jtoken: " + jwtToken);
+            logger.debug("jtoken: " + jwtToken);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-                System.out.println("user: " + username);
+                logger.debug("user: " + username);
             } catch (IllegalArgumentException e) {
-                System.out.println("Unable to get JWT Token");
+                logger.debug("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-                System.out.println("JWT Token has expired");
+                logger.debug("JWT Token has expired");
             }
         } else {
             logger.warn("JWT Token does not begin with Bearer String");

@@ -36,8 +36,9 @@ public class ManufacturerControllerImpl implements ManufacturerController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getAll() {
+
         List<Manufacturer> list = manufacturerManager.getAll();
-        System.out.println("list: "+list);
+        logger.debug("list: "+list);
         String response = converter.convertObjectIntoGsonObject(list);
 
         return response;

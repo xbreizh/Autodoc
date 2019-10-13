@@ -30,12 +30,12 @@ public class ClientControllerImpl implements ClientController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getAll() {
-        System.out.println("Called gettho");
+        logger.debug("Called gettho");
 
         List<Client> list = clientManager.getAll();
-        System.out.println("Loaded |" + list + "|");
+        logger.debug("Loaded |" + list + "|");
         String response = converter.convertObjectIntoGsonObject(list);
-        System.out.println("Returning |" + response + "|");
+        logger.debug("Returning |" + response + "|");
 
         return response;
     }

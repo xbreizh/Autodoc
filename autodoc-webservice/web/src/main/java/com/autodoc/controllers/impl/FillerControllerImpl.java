@@ -28,7 +28,8 @@ public class FillerControllerImpl {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String go() {
-        System.out.println("trying to fill");
+        logger.info("testing logger");
+        logger.debug("trying to fill");
         filler.fill();
         String response = converter.convertObjectIntoGsonObject("filling ok");
 

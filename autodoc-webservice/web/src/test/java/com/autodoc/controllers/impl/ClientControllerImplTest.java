@@ -52,7 +52,7 @@ class ClientControllerImplTest {
 
         clientManager = mock(ClientManager.class);
         clientController = new ClientControllerImpl(clientManager);
-        System.out.println("context: " + webApplicationContext);
+        logger.debug("context: " + webApplicationContext);
     }
 
 

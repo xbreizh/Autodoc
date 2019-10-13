@@ -31,12 +31,12 @@ public class EmployeeControllerImpl implements EmployeeController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getAll() {
-        System.out.println("Called gettho");
+        logger.debug("Called gettho");
 
         List<Employee> list = employeeManager.getAll();
-        System.out.println("Loaded |" + list + "|");
+        logger.debug("Loaded |" + list + "|");
         String response = converter.convertObjectIntoGsonObject(list);
-        System.out.println("Returning |" + response + "|");
+        logger.debug("Returning |" + response + "|");
 
         return response;
     }

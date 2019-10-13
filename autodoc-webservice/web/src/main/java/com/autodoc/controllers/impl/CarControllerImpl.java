@@ -34,7 +34,7 @@ public class CarControllerImpl implements CarController {
     public String getAll() {
 
         List<Car> list = carManager.getAll();
-        System.out.println("list: "+list);
+        logger.debug("list: "+list);
         String response = converter.convertObjectIntoGsonObject("car added");
 
         return response;
@@ -63,7 +63,7 @@ public class CarControllerImpl implements CarController {
             produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addCar(@RequestBody Car car) {
 
-        System.out.println("trying to add a car: "+car);
+        logger.debug("trying to add a car: "+car);
         String response = carManager.save(car);
         if (response.equals("car added")){
             return ResponseEntity.ok("car added");
@@ -116,9 +116,9 @@ public class CarControllerImpl implements CarController {
     @ResponseBody
     public String add(@PathVariable Car car) {
 
-        System.out.println("name: " + car);
+        logger.debug("name: " + car);
         String df = carManager.save(car);
-        System.out.println("df: "+df);
+        logger.debug("df: "+df);
         return df;
     }*/
 

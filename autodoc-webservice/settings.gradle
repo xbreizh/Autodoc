@@ -3,4 +3,5 @@ include 'web'
 include 'business'
 include 'model'
 include 'consumer'
+include 'technical'
 

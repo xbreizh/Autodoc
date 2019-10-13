@@ -24,10 +24,10 @@ class GsonConverterTest {
         manufacturers.add(new Manufacturer("AUDI"));
         manufacturers.add(new Manufacturer("BMW"));
         manufacturers.add(new Manufacturer("RENAULT"));
-        System.out.println("list: "+manufacturers);
+        logger.debug("list: "+manufacturers);
 
         String converted =  converter.convertObjectIntoGsonObject(manufacturers);
-        System.out.println("converted: "+converted);
+        logger.debug("converted: "+converted);
 
 
 

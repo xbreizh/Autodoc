@@ -1,5 +1,6 @@
 package com.autodoc.dao.impl.global;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public abstract class AbstractHibernateDao<T> {
     @Inject
     SessionFactory sessionFactory;
+    private Logger logger  = Logger.getLogger(AbstractHibernateDao.class);;
 
     public Class<Object> getClazz() {
         return clazz;
@@ -24,6 +26,7 @@ public abstract class AbstractHibernateDao<T> {
 
     public void setClazz(Class clazzToSet) {
         this.clazz = clazzToSet;
+
     }
 
 
@@ -32,7 +35,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public List<T> findAll() {
-        System.out.println("class: "+clazz.getName());
+        logger.debug("class: "+clazz.getName());
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
     }
 

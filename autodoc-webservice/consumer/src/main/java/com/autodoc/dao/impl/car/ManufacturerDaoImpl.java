@@ -21,7 +21,7 @@ public class ManufacturerDaoImpl<T> extends AbstractHibernateDao implements Manu
 
 
     public ManufacturerDaoImpl() {
-        System.out.println("creating manuf dao");
+        logger.debug("creating manuf dao");
 
         this.setClazz(Manufacturer.class);
     }
@@ -32,7 +32,7 @@ public class ManufacturerDaoImpl<T> extends AbstractHibernateDao implements Manu
         Query query = getCurrentSession().createQuery("From Manufacturer where name= :name");
         query.setParameter("name", name);
         List<Manufacturer> manufacturers =query.getResultList();
-        System.out.println("list size: "+manufacturers);
+        logger.debug("list size: "+manufacturers);
         if(manufacturers.size() > 0)return manufacturers.get(0);
         return null;
     }

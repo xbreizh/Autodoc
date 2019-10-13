@@ -17,7 +17,7 @@ public class CategoryDaoImpl<T> extends AbstractHibernateDao implements Category
 
 
     public CategoryDaoImpl() {
-        System.out.println("creating manuf dao");
+        logger.debug("creating manuf dao");
         this.setClazz(Category.class);
     }
 

@@ -17,7 +17,7 @@ public class PieceDaoImpl<T> extends AbstractHibernateDao implements PieceDao {
 
 
     public PieceDaoImpl() {
-        System.out.println("creating manuf dao");
+        logger.debug("creating manuf dao");
         this.setClazz(Piece.class);
     }
 

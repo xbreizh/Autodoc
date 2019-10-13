@@ -19,7 +19,7 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
 
 
     public ManufacturerManagerImpl(ManufacturerDaoImpl<Manufacturer> manufacturerDao, ManufacturerFiller manufacturerFiller) {
-        System.out.println("here");
+        logger.debug("here");
         this.manufacturerDao = manufacturerDao;
         this.manufacturerFiller = manufacturerFiller;
 
@@ -30,9 +30,9 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
     public List<Manufacturer> getAll() {
         List<Manufacturer> manufacturers = manufacturerDao.findAll();
         if (manufacturers.size()==0){
-            System.out.println("filling the dao");
+            logger.debug("filling the dao");
             manufacturerFiller.fill();
-            System.out.println(manufacturerDao.getByName("RENAULT").toString());
+            logger.debug(manufacturerDao.getByName("RENAULT").toString());
         }
         return manufacturers;
     }

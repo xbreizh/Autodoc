@@ -17,7 +17,7 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
 
 
     public TaskDaoImpl() {
-        System.out.println("creating manuf dao");
+        logger.debug("creating manuf dao");
         this.setClazz(Task.class);
     }
 

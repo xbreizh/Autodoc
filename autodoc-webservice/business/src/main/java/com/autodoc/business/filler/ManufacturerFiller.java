@@ -12,6 +12,7 @@ import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,8 @@ import java.util.List;
 @Transactional
 @Component
 public class ManufacturerFiller {
+
+    private Logger logger = Logger.getLogger(ManufacturerFiller.class);
 
     private ManufacturerDaoImpl<Manufacturer> manufacturerDao;
     private CarModelDaoImpl<CarModel> carModelDao;
@@ -38,7 +41,7 @@ public class ManufacturerFiller {
     }
 
     public void fill(){
-        System.out.println("getting here");
+        logger.debug("getting here");
         fillEmployee();
         fillManufacturer();
         fillCarModel();
@@ -47,7 +50,7 @@ public class ManufacturerFiller {
     }
 
     private void fillManufacturer(){
-        System.out.println("filling manufacturer");
+        logger.debug("filling manufacturer");
         String[] list = {"AUDI", "BMW", "RENAULT", "OPEL", "NISSAN", "TOYOTA"};
         for (int i = 0; i < list.length; i++) {
             manufacturerDao.create(new Manufacturer(list[i]));
@@ -56,7 +59,7 @@ public class ManufacturerFiller {
 
 
     private void fillCarModel(){
-        System.out.println("filling car model");
+        logger.debug("filling car model");
         Manufacturer man = manufacturerDao.getByName("NISSAN");
         carModelDao.create(new CarModel(man,"QASHQAI", "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL ));
         man = manufacturerDao.getByName("RENAULT");
@@ -66,13 +69,13 @@ public class ManufacturerFiller {
     }
 
     private void fillClient(){
-        System.out.println("filling client");
+        logger.debug("filling client");
         Client client = new Client("LOKII", "MOLO", "03938937837");
         clientDao.create(client);
     }
 
     private void fillCar(){
-        System.out.println("filling car");
+        logger.debug("filling car");
         CarModel carModel = carModelDao.findByName("AURIS");
         Client client = (Client) clientDao.findAll().get(0);
         Car car = new Car( "05D154875", carModel, client );
@@ -80,13 +83,13 @@ public class ManufacturerFiller {
     }
 
     private void fillEmployee(){
-        System.out.println("filling employee");
+        logger.debug("filling employee");
         List<Role> roleList = new ArrayList<>();
         String login = "LMOLO";
         Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, new Date(),login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
         employeeDao.create(employee);
        /* if (employeeDao.getByLogin(login)==null) {
-            System.out.println("employee created");
+            logger.debug("employee created");
         }*/
     }
 

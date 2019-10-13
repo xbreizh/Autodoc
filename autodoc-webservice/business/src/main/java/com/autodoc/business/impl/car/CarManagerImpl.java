@@ -32,7 +32,7 @@ public class CarManagerImpl implements CarManager {
             carDao.create(car);
             return "car added";
         } catch (ConstraintViolationException e) {
-            System.out.println("error: "+e.getLocalizedMessage());
+            logger.debug("error: "+e.getLocalizedMessage());
             return e.getMessage();
         }
 

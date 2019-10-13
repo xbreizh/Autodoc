@@ -32,6 +32,7 @@ dependencies {
     compile project(':model')
     compile project(':business')
     compile project(':consumer')
+    compile project(':technical')
     // to recognize webapp folder
     compile 'org.springframework:spring-core:5.1.9.RELEASE',
             'org.springframework:spring-web:5.1.9.RELEASE',

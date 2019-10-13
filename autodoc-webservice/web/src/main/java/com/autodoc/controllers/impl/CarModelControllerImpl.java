@@ -33,9 +33,9 @@ public class CarModelControllerImpl implements CarModelController {
     public String getAll() {
 
         List<CarModel> list = carModelManager.getAll();
-        System.out.println("Loaded |" + list + "|");
+        logger.debug("Loaded |" + list + "|");
         String response = converter.convertObjectIntoGsonObject(list);
-        System.out.println("Returning |" + response + "|");
+        logger.debug("Returning |" + response + "|");
 
         return response;
     }
