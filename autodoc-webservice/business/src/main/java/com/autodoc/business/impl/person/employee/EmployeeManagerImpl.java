@@ -2,7 +2,6 @@ package com.autodoc.business.impl.person.employee;
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
-import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

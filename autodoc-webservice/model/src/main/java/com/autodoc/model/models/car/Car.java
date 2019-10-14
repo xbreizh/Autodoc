@@ -6,17 +6,15 @@ import com.autodoc.model.models.person.client.Client;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "car")
 @Getter
 @Setter
-public class Car /*implements Serializable */{
+public class Car /*implements Serializable */ {
 
     // Constructors
 
@@ -51,7 +49,6 @@ public class Car /*implements Serializable */{
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
     private transient List<Bill> bills;
-
 
 
     @Override

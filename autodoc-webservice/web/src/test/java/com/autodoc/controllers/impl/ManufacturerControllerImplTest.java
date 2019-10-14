@@ -4,9 +4,9 @@ import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.business.impl.authentication.JwtConnect;
 import com.autodoc.controllers.contract.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
-import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.Manufacturer;
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -35,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = "classpath:mvc-dispatcher-servlet.xml")
 @WebAppConfiguration
 class ManufacturerControllerImplTest {
-
+    private Logger logger = Logger.getLogger(ManufacturerControllerImplTest.class);
     private ManufacturerController manufacturerController;
     private ManufacturerManager manufacturerManager;
     private GsonConverter gsonConverter;
@@ -59,7 +60,6 @@ class ManufacturerControllerImplTest {
     }
 
 
-
     @Test
     public void getAll() throws Exception {
         this.mockMvc.perform(
@@ -73,5 +73,19 @@ class ManufacturerControllerImplTest {
         String response = new Gson().toJson(manufacturers);
         when(manufacturerManager.getAll()).thenReturn(manufacturers);
         assertEquals(response, manufacturerController.getAll());
+    }
+
+    @Test
+    public void getByName() throws Exception {
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/manufacturer/getByName"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}"));
+        Manufacturer manufacturer = new Manufacturer();
+        String response = new Gson().toJson(manufacturer);
+        when(manufacturerManager.getByName(anyString())).thenReturn(manufacturer);
+        assertEquals(response, manufacturerController.getByName("Lotus"));
     }
 }

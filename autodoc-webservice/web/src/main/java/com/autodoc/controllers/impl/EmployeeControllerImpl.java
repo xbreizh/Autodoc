@@ -4,7 +4,6 @@ package com.autodoc.controllers.impl;
 import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.controllers.contract.EmployeeController;
 import com.autodoc.controllers.helper.GsonConverter;
-import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;

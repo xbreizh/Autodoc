@@ -5,14 +5,13 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "manufacturer")
 @Getter
 @Setter
-public class Manufacturer /*implements Serializable */{
+public class Manufacturer /*implements Serializable */ {
 
 
     // Constructors
@@ -27,7 +26,7 @@ public class Manufacturer /*implements Serializable */{
     private String name;
 
     // Parameters
-    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private transient List<CarModel> carModels;
 
 

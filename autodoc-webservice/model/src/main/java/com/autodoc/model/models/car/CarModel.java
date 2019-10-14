@@ -6,10 +6,8 @@ import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -44,14 +42,14 @@ public class CarModel /*implements Serializable*/ {
     @NonNull
     private Manufacturer manufacturer;
 
-    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private transient List<Car> cars;
 
-    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private transient List<Piece> pieces;
 
     @NonNull
-    @Column(unique=true)
+    @Column(unique = true)
     private String name;
 
     @NonNull

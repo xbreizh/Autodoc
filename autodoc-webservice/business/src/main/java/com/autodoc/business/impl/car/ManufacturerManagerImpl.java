@@ -1,7 +1,6 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
-import com.autodoc.business.filler.ManufacturerFiller;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
@@ -13,15 +12,13 @@ import java.util.List;
 @Transactional
 @Component
 public class ManufacturerManagerImpl implements ManufacturerManager {
-    private ManufacturerDaoImpl<Manufacturer> manufacturerDao;
+    private ManufacturerDaoImpl manufacturerDao;
     private Logger logger = Logger.getLogger(ManufacturerManagerImpl.class);
-    private ManufacturerFiller manufacturerFiller;
 
 
-    public ManufacturerManagerImpl(ManufacturerDaoImpl<Manufacturer> manufacturerDao, ManufacturerFiller manufacturerFiller) {
+    public ManufacturerManagerImpl(ManufacturerDaoImpl manufacturerDao) {
         logger.debug("here");
         this.manufacturerDao = manufacturerDao;
-        this.manufacturerFiller = manufacturerFiller;
 
     }
 
@@ -29,12 +26,14 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
     @Override
     public List<Manufacturer> getAll() {
         List<Manufacturer> manufacturers = manufacturerDao.findAll();
-        if (manufacturers.size()==0){
-            logger.debug("filling the dao");
-            manufacturerFiller.fill();
-            logger.debug(manufacturerDao.getByName("RENAULT").toString());
-        }
         return manufacturers;
+    }
+
+    @Override
+    public Manufacturer getByName(String name) {
+        logger.debug("trying to get: " + name);
+        if (name.isEmpty()) return null;
+        return manufacturerDao.getByName(name);
     }
 
 

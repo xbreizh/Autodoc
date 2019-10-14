@@ -41,7 +41,6 @@ public class JwtAuthenticationController {
     }
 
 
-
     private void authenticate(String username, String password) throws Exception {
         logger.debug("username: " + username);
         logger.debug("pwd: " + password);
@@ -55,9 +54,9 @@ public class JwtAuthenticationController {
     }
 
     private void checkToken(String token) throws Exception {
-        logger.debug("token: "+token);
+        logger.debug("token: " + token);
         String token2 = new GsonConverter().convertObjectIntoGsonObject(token);
-        logger.debug("token2: "+token2 );
+        logger.debug("token2: " + token2);
         try {
             jwtConnect.checkToken(token2);
         } catch (DisabledException e) {
@@ -66,6 +65,6 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-    
-    
+
+
 }

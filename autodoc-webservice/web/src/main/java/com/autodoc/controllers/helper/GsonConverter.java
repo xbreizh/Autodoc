@@ -1,6 +1,5 @@
 package com.autodoc.controllers.helper;
 
-import com.autodoc.business.filler.ManufacturerFiller;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 
@@ -15,9 +14,9 @@ public class GsonConverter {
 
 
     public String convertObjectIntoGsonObject(Object list) {
-        logger.debug("list to convert: "+list);
+        logger.debug("list to convert: " + list);
         String convertedObject = new Gson().toJson(list);
-        logger.debug("object: "+convertedObject);
+        logger.debug("object: " + convertedObject);
         return convertedObject;
     }
 }

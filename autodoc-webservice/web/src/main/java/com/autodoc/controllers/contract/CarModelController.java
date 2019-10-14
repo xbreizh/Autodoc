@@ -1,7 +1,5 @@
 package com.autodoc.controllers.contract;
 
-import com.autodoc.model.models.car.CarModel;
-
 public interface CarModelController {
 
 

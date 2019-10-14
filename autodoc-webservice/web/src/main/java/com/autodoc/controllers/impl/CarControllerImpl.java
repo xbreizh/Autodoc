@@ -34,7 +34,7 @@ public class CarControllerImpl implements CarController {
     public String getAll() {
 
         List<Car> list = carManager.getAll();
-        logger.debug("list: "+list);
+        logger.debug("list: " + list);
         String response = converter.convertObjectIntoGsonObject("car added");
 
         return response;
@@ -60,12 +60,12 @@ public class CarControllerImpl implements CarController {
 
     @Override
     @PostMapping(value = "/add",
-            produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addCar(@RequestBody Car car) {
 
-        logger.debug("trying to add a car: "+car);
+        logger.debug("trying to add a car: " + car);
         String response = carManager.save(car);
-        if (response.equals("car added")){
+        if (response.equals("car added")) {
             return ResponseEntity.ok("car added");
         }
         return ResponseEntity

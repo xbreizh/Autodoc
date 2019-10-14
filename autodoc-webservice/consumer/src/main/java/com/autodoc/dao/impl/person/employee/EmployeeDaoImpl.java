@@ -9,7 +9,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Repository
@@ -27,12 +26,12 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
 
     @Override
     public Employee getByToken(String token) {
-        logger.debug("token: "+token);
+        logger.debug("token: " + token);
         Query query = getCurrentSession().createQuery("From Employee where token= :token");
         query.setParameter("token", token);
         List<Employee> employees = query.getResultList();
-        logger.debug("found: "+employees.size());
-        if (employees.size() >0)return employees.get(0);
+        logger.debug("found: " + employees.size());
+        if (employees.size() > 0) return employees.get(0);
         return null;
     }
 

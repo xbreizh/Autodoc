@@ -3,8 +3,6 @@ package com.autodoc.controllers.impl;
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.car.CarModel;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

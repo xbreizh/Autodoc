@@ -2,7 +2,6 @@ package com.autodoc.dao.contract.global;
 
 import org.hibernate.SessionFactory;
 
-import java.io.Serializable;
 import java.util.List;
 
 public interface IGenericDao<T> {

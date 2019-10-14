@@ -4,6 +4,7 @@ import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.controllers.contract.ClientController;
 import com.autodoc.model.models.person.client.Client;
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = "classpath:mvc-dispatcher-servlet.xml")
 @WebAppConfiguration
 class ClientControllerImplTest {
-
+    private Logger logger = Logger.getLogger(ClientControllerImplTest.class);
 
     private ClientController clientController;
     private ClientManager clientManager;

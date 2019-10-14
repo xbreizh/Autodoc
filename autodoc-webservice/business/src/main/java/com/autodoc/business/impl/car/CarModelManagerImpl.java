@@ -12,11 +12,11 @@ import java.util.List;
 @Transactional
 @Component
 public class CarModelManagerImpl implements CarModelManager {
-    private CarModelDaoImpl<CarModel> carModelDao;
+    private CarModelDaoImpl carModelDao;
     private Logger logger = Logger.getLogger(CarModelManagerImpl.class);
 
 
-    public CarModelManagerImpl(CarModelDaoImpl<CarModel> carModelDao) {
+    public CarModelManagerImpl(CarModelDaoImpl carModelDao) {
         this.carModelDao = carModelDao;
 
     }
@@ -35,7 +35,7 @@ public class CarModelManagerImpl implements CarModelManager {
     @Override
     public CarModel getByName(String name) {
         CarModel carModel = carModelDao.findByName(name);
-        if(carModel!=null)return carModel;
+        if (carModel != null) return carModel;
         return null;
     }
 

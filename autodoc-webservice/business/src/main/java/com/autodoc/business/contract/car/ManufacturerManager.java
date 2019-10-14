@@ -11,4 +11,5 @@ public interface ManufacturerManager {
 
     List<Manufacturer> getAll();
 
+    Manufacturer getByName(String anyString);
 }

@@ -6,14 +6,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "address")
 @Setter
 @Getter
 @ToString
-public class Address /*implements Serializable */{
+public class Address /*implements Serializable */ {
 
     // Constructors
 

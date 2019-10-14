@@ -1,10 +1,7 @@
 package com.autodoc.business.impl.tasks;
 
-import com.autodoc.business.contract.tasks.TaskManager;
 import com.autodoc.business.contract.tasks.TemplateSubTaskManager;
-import com.autodoc.dao.impl.tasks.TaskDaoImpl;
 import com.autodoc.dao.impl.tasks.TemplateSubTaskDaoImpl;
-import com.autodoc.model.models.tasks.Task;
 import com.autodoc.model.models.tasks.TemplateSubTask;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;

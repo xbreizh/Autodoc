@@ -9,28 +9,31 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class CarModelDaoImpl<T> extends AbstractHibernateDao implements CarModelDao {
+public class CarModelDaoImpl extends AbstractHibernateDao implements CarModelDao {
     private Logger logger = Logger.getLogger(CarModelDaoImpl.class);
+    private Class cl = CarModel.class;
 
     public CarModelDaoImpl() {
         this.setClazz(CarModel.class);
     }
 
-
     @Override
     public CarModel findByName(String name) {
-        Query query = getCurrentSession().createQuery("From CarModel where name= :name");
+        Query query = getCurrentSession().createQuery("From CarModel where name= :name", cl);
         query.setParameter("name", name);
         logger.debug("in dao");
-        List<CarModel> result = (List<CarModel>) query.getResultList();
-        if(!result.isEmpty())return result.get(0);
+        List<CarModel> result = query.getResultList();
+        if (!result.isEmpty()) {
+            return (CarModel) result.get(0);
+        }
+
         logger.debug("here");
         return null;
+
     }
 
 

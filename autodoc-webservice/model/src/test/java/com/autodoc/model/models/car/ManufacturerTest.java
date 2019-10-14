@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ManufacturerTest {
 
     private Manufacturer manufacturer;
 
     @BeforeEach
-    void init(){
+    void init() {
         this.manufacturer = new Manufacturer();
     }
 
@@ -32,6 +32,6 @@ class ManufacturerTest {
         manufacturers.add(new Manufacturer("JACQUES"));
         assertEquals("[Manufacturer{id=0, name='PAUL'}, Manufacturer{id=0, name='JACQUES'}]", manufacturers.toString());
         String convertedObject = new Gson().toJson(manufacturers);
-        logger.debug("cc: "+convertedObject);
+        logger.debug("cc: " + convertedObject);
     }
 }

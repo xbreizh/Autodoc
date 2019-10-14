@@ -1,5 +1,6 @@
 package com.autodoc.business.filler;
 
+import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.dao.impl.person.client.ClientDaoImpl;
@@ -26,13 +27,13 @@ public class ManufacturerFiller {
 
     private Logger logger = Logger.getLogger(ManufacturerFiller.class);
 
-    private ManufacturerDaoImpl<Manufacturer> manufacturerDao;
-    private CarModelDaoImpl<CarModel> carModelDao;
+    private ManufacturerDaoImpl manufacturerDao;
+    private CarModelDaoImpl carModelDao;
     private EmployeeDaoImpl<Employee> employeeDao;
     private ClientDaoImpl<Client> clientDao;
-    private CarModelDaoImpl<Car> carDao;
+    private CarDaoImpl<Car> carDao;
 
-    public ManufacturerFiller(ManufacturerDaoImpl<Manufacturer> manufacturerDao, CarModelDaoImpl<CarModel> carModelDao, EmployeeDaoImpl<Employee> employeeDao, ClientDaoImpl<Client> clientDao, CarModelDaoImpl<Car> carDao) {
+    public ManufacturerFiller(ManufacturerDaoImpl manufacturerDao, CarModelDaoImpl carModelDao, EmployeeDaoImpl<Employee> employeeDao, ClientDaoImpl<Client> clientDao, CarDaoImpl<Car> carDao) {
         this.manufacturerDao = manufacturerDao;
         this.carModelDao = carModelDao;
         this.employeeDao = employeeDao;
@@ -40,7 +41,7 @@ public class ManufacturerFiller {
         this.carDao = carDao;
     }
 
-    public void fill(){
+    public void fill() {
         logger.debug("getting here");
         fillEmployee();
         fillManufacturer();
@@ -49,7 +50,7 @@ public class ManufacturerFiller {
         fillCar();
     }
 
-    private void fillManufacturer(){
+    private void fillManufacturer() {
         logger.debug("filling manufacturer");
         String[] list = {"AUDI", "BMW", "RENAULT", "OPEL", "NISSAN", "TOYOTA"};
         for (int i = 0; i < list.length; i++) {
@@ -58,35 +59,35 @@ public class ManufacturerFiller {
     }
 
 
-    private void fillCarModel(){
+    private void fillCarModel() {
         logger.debug("filling car model");
         Manufacturer man = manufacturerDao.getByName("NISSAN");
-        carModelDao.create(new CarModel(man,"QASHQAI", "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL ));
+        carModelDao.create(new CarModel(man, "QASHQAI", "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL));
         man = manufacturerDao.getByName("RENAULT");
-        carModelDao.create(new CarModel(man,"CLIO", "BEBOP", GearBox.MANUAL, "1528", FuelType.PETROL ));
+        carModelDao.create(new CarModel(man, "CLIO", "BEBOP", GearBox.MANUAL, "1528", FuelType.PETROL));
         man = manufacturerDao.getByName("TOYOTA");
-        carModelDao.create(new CarModel(man,"AURIS", "T SPIRIT D4D", GearBox.MANUAL, "1998", FuelType.HYBRID ));
+        carModelDao.create(new CarModel(man, "AURIS", "T SPIRIT D4D", GearBox.MANUAL, "1998", FuelType.HYBRID));
     }
 
-    private void fillClient(){
+    private void fillClient() {
         logger.debug("filling client");
         Client client = new Client("LOKII", "MOLO", "03938937837");
         clientDao.create(client);
     }
 
-    private void fillCar(){
+    private void fillCar() {
         logger.debug("filling car");
         CarModel carModel = carModelDao.findByName("AURIS");
         Client client = (Client) clientDao.findAll().get(0);
-        Car car = new Car( "05D154875", carModel, client );
+        Car car = new Car("05D154875", carModel, client);
         carDao.create(car);
     }
 
-    private void fillEmployee(){
+    private void fillEmployee() {
         logger.debug("filling employee");
         List<Role> roleList = new ArrayList<>();
         String login = "LMOLO";
-        Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, new Date(),login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, new Date(), login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
         employeeDao.create(employee);
        /* if (employeeDao.getByLogin(login)==null) {
             logger.debug("employee created");

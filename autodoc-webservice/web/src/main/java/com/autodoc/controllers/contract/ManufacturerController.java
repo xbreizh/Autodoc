@@ -4,4 +4,6 @@ public interface ManufacturerController {
 
     String getAll();
 
+    String getByName(String name);
+
 }
