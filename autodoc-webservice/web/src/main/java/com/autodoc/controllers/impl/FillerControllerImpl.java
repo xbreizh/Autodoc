@@ -6,7 +6,8 @@ import com.autodoc.controllers.helper.GsonConverter;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 
@@ -18,23 +19,20 @@ public class FillerControllerImpl {
 
     @Inject
     private GsonConverter converter;
-/*
-    public FillerControllerImpl(ManufacturerFiller filler) {
-        if (converter == null) converter = new GsonConverter();
-        this.filler = filler;
-    }*/
+
 
     @GetMapping(value = "/filler",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String go() {
+    public String fill() {
         logger.info("testing logger");
         logger.debug("trying to fill");
         filler.fill();
-        String response = converter.convertObjectIntoGsonObject("filling ok");
 
-        return response;
+        return "filling ok";
     }
+
+
 
 
 }

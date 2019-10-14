@@ -8,19 +8,22 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
     private static Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ResponseEntity notFoundHandler(Exception e) {
         logger.debug("Item not found. HTTP 500 returned.");
-        logger.debug("capturing 500 "+e.getMessage());
+        logger.debug("capturing 500 " + e.getMessage());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(e.getMessage());
     }
+
 
 }

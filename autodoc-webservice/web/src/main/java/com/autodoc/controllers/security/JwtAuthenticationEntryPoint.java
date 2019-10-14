@@ -1,5 +1,6 @@
 package com.autodoc.controllers.security;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 @Component
@@ -16,6 +18,12 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        PrintWriter writer = response.getWriter();
+        //writer.println("HTTP Status 401 - " + authException.getMessage());
+        writer.println(HttpStatus.UNAUTHORIZED+" - " + response.getHeader("exception"));
+        System.out.println("again: "+response.getHeader("test"));
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+
     }
 }
