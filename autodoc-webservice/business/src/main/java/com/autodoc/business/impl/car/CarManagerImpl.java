@@ -48,6 +48,7 @@ public class CarManagerImpl implements CarManager {
 
     @Override
     public Car getByRegistration(String registration) {
+        System.out.println("reg: "+registration);
         return carDao.getCarByRegistration(registration);
     }
 

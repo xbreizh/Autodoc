@@ -34,29 +34,20 @@ public class CarControllerImpl implements CarController {
 
         List<Car> list = carManager.getAll();
         logger.debug("list: " + list);
-        String response = converter.convertObjectIntoGsonObject("car added");
+        String response = converter.convertObjectIntoGsonObject(list);
 
-        if (response.equals("car added")) {
-            return ResponseEntity.ok("car added");
-        }
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
+        return ResponseEntity.ok(response);
     }
 
     @Override
     @GetMapping(value = "/getByRegistration",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getCarByRegistration(String registration) {
+    public ResponseEntity getCarByRegistration(@RequestBody String registration) {
         Car car = carManager.getByRegistration(registration);
         String response = converter.convertObjectIntoGsonObject(car);
-        if (response.equals("car added")) {
-            return ResponseEntity.ok("car added");
-        }
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
@@ -73,7 +64,7 @@ public class CarControllerImpl implements CarController {
     @PostMapping(value = "/add",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addCar(@RequestBody Car car) {
-
+        System.out.println("trying to add a car");
         logger.debug("trying to add a car: " + car);
         String response = carManager.save(car);
         if (response.equals("car added")) {
@@ -93,8 +84,8 @@ public class CarControllerImpl implements CarController {
 
         logger.debug("trying to update a car: " + car);
         String response = carManager.update(car);
-        if (response.equals("car update")) {
-            return ResponseEntity.ok("car update");
+        if (response.equals("car updated")) {
+            return ResponseEntity.ok(response);
         }
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -121,14 +112,6 @@ public class CarControllerImpl implements CarController {
     }
 
 
-    @RequestMapping(value = "/get",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String get() {
-        return null;
-    }
-
 
     @RequestMapping(value = "/getById",
             method = RequestMethod.GET,
@@ -138,17 +121,7 @@ public class CarControllerImpl implements CarController {
         return null;
     }
 
-   /* @RequestMapping(value = "/add/",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String add(@PathVariable Car car) {
 
-        logger.debug("name: " + car);
-        String df = carManager.save(car);
-        logger.debug("df: "+df);
-        return df;
-    }*/
 
 
 }

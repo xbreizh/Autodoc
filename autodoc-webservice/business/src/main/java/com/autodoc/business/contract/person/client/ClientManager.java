@@ -16,4 +16,6 @@ public interface ClientManager {
     String update(Client any);
 
     String delete(int anyInt);
+
+    Client getByName(String name);
 }

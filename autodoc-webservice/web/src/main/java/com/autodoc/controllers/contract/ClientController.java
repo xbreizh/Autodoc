@@ -8,7 +8,7 @@ public interface ClientController {
 
     ResponseEntity getAll();
 
-    Client getClientByName(String name);
+    ResponseEntity getClientByName(String name);
 
     ResponseEntity getClientById(int id);
 
@@ -17,5 +17,4 @@ public interface ClientController {
     ResponseEntity updateClient(Client client);
 
 
-    ResponseEntity deleteClient(int i);
 }

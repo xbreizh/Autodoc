@@ -38,8 +38,14 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public Client getClientByName(String name) {
-        return null;
+    @GetMapping(value = "/getByName",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity getClientByName(@RequestBody String name) {
+        Client client = clientManager.getByName(name);
+        String response = converter.convertObjectIntoGsonObject(client);
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
@@ -62,14 +68,21 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public ResponseEntity updateClient(Client client) {
-        return null;
+    @PostMapping(value = "/update",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateClient(@RequestBody Client client) {
+        logger.debug("trying to update a client: " + client);
+        String response = clientManager.update(client);
+        System.out.println("response: "+response);
+        if (response.equals("client updated")) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
-    @Override
-    public ResponseEntity deleteClient(int clientId) {
-        return null;
-    }
+
 
 
 }

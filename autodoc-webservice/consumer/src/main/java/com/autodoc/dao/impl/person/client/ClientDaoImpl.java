@@ -18,4 +18,8 @@ public class ClientDaoImpl extends AbstractHibernateDao implements ClientDao {
     }
 
 
+    @Override
+    public Client getByName(String name) {
+        return null;
+    }
 }

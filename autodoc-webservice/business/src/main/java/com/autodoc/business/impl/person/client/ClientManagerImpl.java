@@ -38,14 +38,28 @@ public class ClientManagerImpl implements ClientManager {
     public String update(Client client) {
         try {
             clientDao.update(client);
+            logger.info("client updated");
             return "client updated";
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return e.getMessage();
         }
     }
 
     @Override
-    public String delete(int anyInt) {
-        return null;
+    public String delete(int clientId) {
+        try {
+            clientDao.deleteById(clientId);
+            logger.info("client removed");
+            return "client removed";
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public Client getByName(String name) {
+        return clientDao.getByName(name);
     }
 }

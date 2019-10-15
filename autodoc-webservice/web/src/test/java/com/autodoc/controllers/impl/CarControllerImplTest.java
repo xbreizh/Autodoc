@@ -6,6 +6,8 @@ import com.autodoc.model.models.car.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -60,45 +62,81 @@ class CarControllerImplTest {
 
     @Test
     public void getAll() throws Exception {
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car());
+        when(carManager.getAll()).thenReturn(cars);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/car/getAll"))
+                        .get("/car/getAll")
+                        .header("Authorization", "Bearer test" ))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
-        List<Car> cars = new ArrayList<>();
-        cars.add(new Car());
-        String response = converter.convertObjectIntoGsonObject("car added");
-        when(carManager.getAll()).thenReturn(cars);
+
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(cars));
         assertEquals(response, carControllerImpl.getAll());
     }
 
 
     @Test
     void getByRegistration() throws Exception {
+        String registration = "abc123";
+        Car car = new Car();
+        car.setRegistration(registration);
+        when(carManager.getByRegistration(anyString())).thenReturn(car);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/car/getByRegistration"))
-                .andExpect(status().isOk())/*
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))*/
+                        .get("/car/getByRegistration")
+                        .header("Authorization", "Bearer test" )
+                        .content(converter.convertObjectIntoGsonObject(registration))
+                                .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
-        Car car = new Car();
-        when(carManager.getByRegistration(anyString())).thenReturn(car);
-        assertEquals(car, carControllerImpl.getCarByRegistration("abc123"));
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
+        assertEquals(response, carControllerImpl.getCarByRegistration(registration));
 
     }
 
     @Test
-    void update() {
+    void update() throws Exception {
         Car car = new Car();
-        when(carManager.update(any(Car.class))).thenReturn("car updated");
-        assertEquals("car updated", carControllerImpl.addCar(car));
+        car.setRegistration("newBetter");
+        String feedback = "car updated";
+        when(carManager.update(car)).thenReturn(feedback);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .post("/car/update")
+                        .header("Authorization", "Bearer test" )
+                        .content(converter.convertObjectIntoGsonObject(car))
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}"));
+
+        ResponseEntity response = ResponseEntity.ok(feedback);
+        assertEquals(response, carControllerImpl.updateCar(car));
     }
 
     @Test
-    void addCar() {
+    void addCar() throws Exception {
         Car car = new Car();
-        when(carManager.save(any(Car.class))).thenReturn("car added");
-        assertEquals("car added", carControllerImpl.addCar(car));
+        car.setRegistration("deded");
+        when(carManager.save(car)).thenReturn("car added");
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .post("/car/add")
+                        .header("Authorization", "Bearer test" )
+        .content(converter.convertObjectIntoGsonObject(car))
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}"));
+
+        ResponseEntity response = ResponseEntity.ok("car added");
+        assertEquals(response, carControllerImpl.addCar(car));
     }
 }
