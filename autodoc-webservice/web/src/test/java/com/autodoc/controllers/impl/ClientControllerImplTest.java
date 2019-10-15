@@ -23,6 +23,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -78,5 +79,37 @@ class ClientControllerImplTest {
         Client client = new Client();
         when(clientManager.save(any(Client.class))).thenReturn("car added");
         assertEquals("car added", clientController.addClient(client));
+    }
+
+
+    @Test
+    void getClientByName() {
+    }
+
+    @Test
+    void getClientById() {
+    }
+
+    @Test
+    void addClient() {
+        Client client = new Client();
+        String response = "client added";
+        when(clientManager.save(any(Client.class))).thenReturn(response);
+        assertEquals(response, clientController.addClient(client));
+    }
+
+    @Test
+    void updateClient() {
+        Client client = new Client();
+        String response = "client added";
+        when(clientManager.update(any(Client.class))).thenReturn(response);
+        assertEquals(response, clientController.updateClient(client));
+    }
+
+    @Test
+    void deleteClient() {
+        String response = "client removed";
+        when(clientManager.delete(anyInt())).thenReturn(response);
+        assertEquals(response, clientController.deleteClient(2));
     }
 }

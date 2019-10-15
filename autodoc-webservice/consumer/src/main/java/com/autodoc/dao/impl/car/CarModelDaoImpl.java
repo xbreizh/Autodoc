@@ -18,7 +18,7 @@ public class CarModelDaoImpl extends AbstractHibernateDao implements CarModelDao
     private Class cl = CarModel.class;
 
     public CarModelDaoImpl() {
-        this.setClazz(CarModel.class);
+
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CarModelDaoImpl extends AbstractHibernateDao implements CarModelDao
         logger.debug("in dao");
         List<CarModel> result = query.getResultList();
         if (!result.isEmpty()) {
-            return (CarModel) result.get(0);
+            return result.get(0);
         }
 
         logger.debug("here");

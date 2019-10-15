@@ -1,20 +1,21 @@
 package com.autodoc.controllers.contract;
 
 import com.autodoc.model.models.person.client.Client;
+import org.springframework.http.ResponseEntity;
 
 public interface ClientController {
 
 
-    String getAll();
+    ResponseEntity getAll();
 
     Client getClientByName(String name);
 
-    String getClientById(int id);
+    ResponseEntity getClientById(int id);
 
-    String addClient(Client client);
+    ResponseEntity addClient(Client client);
 
-    String updateClient();
+    ResponseEntity updateClient(Client client);
 
 
-    String deleteClient(int clientId);
+    ResponseEntity deleteClient(int i);
 }

@@ -16,4 +16,6 @@ public interface CarManager {
     Car getByRegistration(String registration);
 
     String update(Car car);
+
+    String updateClient(int carId, int clientId);
 }

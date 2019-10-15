@@ -5,7 +5,6 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.contract.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,30 +30,42 @@ public class CarControllerImpl implements CarController {
     @GetMapping(value = "/getAll",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getAll() {
+    public ResponseEntity getAll() {
 
         List<Car> list = carManager.getAll();
         logger.debug("list: " + list);
         String response = converter.convertObjectIntoGsonObject("car added");
 
-        return response;
+        if (response.equals("car added")) {
+            return ResponseEntity.ok("car added");
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
     @Override
     @GetMapping(value = "/getByRegistration",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Car getCarByRegistration(String registration) {
-        return carManager.getByRegistration(registration);
+    public ResponseEntity getCarByRegistration(String registration) {
+        Car car = carManager.getByRegistration(registration);
+        String response = converter.convertObjectIntoGsonObject(car);
+        if (response.equals("car added")) {
+            return ResponseEntity.ok("car added");
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
     @Override
-    public String getCarById(int id) {
+    public ResponseEntity getCarById(int id) {
         return null;
     }
 
     @Override
-    public String getCarByClient(String clientLastName, String clientFirstName) {
+    public ResponseEntity getCarByClient(String clientLastName, String clientFirstName) {
         return null;
     }
 
@@ -76,19 +87,36 @@ public class CarControllerImpl implements CarController {
 
 
     @Override
-    public String updateCar() {
+    @PostMapping(value = "/update",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateCar(@RequestBody Car car) {
 
-
-        return null;
+        logger.debug("trying to update a car: " + car);
+        String response = carManager.update(car);
+        if (response.equals("car update")) {
+            return ResponseEntity.ok("car update");
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
     @Override
-    public String updateCarClient(Client client) {
-        return null;
+    @PostMapping(value = "/updateClient",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateCarClient(@RequestBody int carId, @RequestBody int clientId) {
+        logger.debug("car id: " + carId + " / client id: " + clientId);
+        String response = carManager.updateClient(carId, clientId);
+        if (response.equals("car update")) {
+            return ResponseEntity.ok("car update");
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
     @Override
-    public String deleteCar(int carId) {
+    public ResponseEntity deleteCar(int carId) {
         return null;
     }
 
@@ -102,11 +130,11 @@ public class CarControllerImpl implements CarController {
     }
 
 
-    @RequestMapping(value = "/get/{id}",
+    @RequestMapping(value = "/getById",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String get(@PathVariable String id) {
+    public ResponseEntity get(@PathVariable int id) {
         return null;
     }
 

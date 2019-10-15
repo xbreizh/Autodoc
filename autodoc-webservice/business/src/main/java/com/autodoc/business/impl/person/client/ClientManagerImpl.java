@@ -12,11 +12,11 @@ import java.util.List;
 @Transactional
 @Component
 public class ClientManagerImpl implements ClientManager {
-    private ClientDaoImpl<Client> clientDao;
+    private ClientDaoImpl clientDao;
     private Logger logger = Logger.getLogger(ClientManagerImpl.class);
 
 
-    public ClientManagerImpl(ClientDaoImpl<Client> clientDao) {
+    public ClientManagerImpl(ClientDaoImpl clientDao) {
         this.clientDao = clientDao;
 
     }
@@ -25,11 +25,27 @@ public class ClientManagerImpl implements ClientManager {
     @Override
     public String save(Client client) {
         clientDao.create(client);
-        return "car added";
+        return "client added";
     }
 
     @Override
     public List<Client> getAll() {
+        logger.debug("trying to get clients");
+        return clientDao.findAll();
+    }
+
+    @Override
+    public String update(Client client) {
+        try {
+            clientDao.update(client);
+            return "client updated";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public String delete(int anyInt) {
         return null;
     }
 }

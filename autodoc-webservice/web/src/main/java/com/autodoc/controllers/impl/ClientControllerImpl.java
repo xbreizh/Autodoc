@@ -6,11 +6,11 @@ import com.autodoc.controllers.contract.ClientController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,15 +29,12 @@ public class ClientControllerImpl implements ClientController {
     @GetMapping(value = "/getAll",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getAll() {
-        logger.debug("Called gettho");
-
+    public ResponseEntity getAll() {
         List<Client> list = clientManager.getAll();
-        logger.debug("Loaded |" + list + "|");
+        logger.debug("list: " + list);
         String response = converter.convertObjectIntoGsonObject(list);
-        logger.debug("Returning |" + response + "|");
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @Override
@@ -46,22 +43,31 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public String getClientById(int id) {
+    public ResponseEntity getClientById(int id) {
         return null;
     }
 
     @Override
-    public String addClient(Client client) {
-        return clientManager.save(client);
+    @PostMapping(value = "/add",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addClient(@RequestBody Client client) {
+        logger.debug("trying to add a client: " + client);
+        String response = clientManager.save(client);
+        if (response.equals("client added")) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
     }
 
     @Override
-    public String updateClient() {
+    public ResponseEntity updateClient(Client client) {
         return null;
     }
 
     @Override
-    public String deleteClient(int clientId) {
+    public ResponseEntity deleteClient(int clientId) {
         return null;
     }
 

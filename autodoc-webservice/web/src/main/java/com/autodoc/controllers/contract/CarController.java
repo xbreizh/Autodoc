@@ -1,25 +1,24 @@
 package com.autodoc.controllers.contract;
 
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.person.client.Client;
 import org.springframework.http.ResponseEntity;
 
 public interface CarController {
 
 
-    String getAll();
+    ResponseEntity getAll();
 
-    Car getCarByRegistration(String registration);
+    ResponseEntity getCarByRegistration(String registration);
 
-    String getCarById(int id);
+    ResponseEntity getCarById(int id);
 
-    String getCarByClient(String clientLastName, String clientFirstName);
+    ResponseEntity getCarByClient(String clientLastName, String clientFirstName);
 
     ResponseEntity addCar(Car car);
 
-    String updateCar();
+    ResponseEntity updateCar(Car car);
 
-    String updateCarClient(Client client);
+    ResponseEntity updateCarClient(int carId, int clientId);
 
-    String deleteCar(int carId);
+    ResponseEntity deleteCar(int carId);
 }

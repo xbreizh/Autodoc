@@ -13,4 +13,7 @@ public interface ClientManager {
 
     List<Client> getAll();
 
+    String update(Client any);
+
+    String delete(int anyInt);
 }

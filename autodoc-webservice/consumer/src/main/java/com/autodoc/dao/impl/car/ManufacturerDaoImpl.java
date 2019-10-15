@@ -18,21 +18,18 @@ public class ManufacturerDaoImpl extends AbstractHibernateDao implements Manufac
     private Class cl = Manufacturer.class;
 
     public ManufacturerDaoImpl() {
-        logger.debug("creating manuf dao");
-
-        this.setClazz(Manufacturer.class);
     }
 
 
     @Override
     public Manufacturer getByName(String name) {
-        Query query = getCurrentSession().createQuery("From Manufacturer where name= :name");
+        Query query = getCurrentSession().createQuery("From Manufacturer where name= :name", cl);
         query.setParameter("name", name);
         logger.debug("in dao");
         List<Manufacturer> result = query.getResultList();
         if (!result.isEmpty()) {
             System.out.println("result: " + result.get(0).toString());
-            return (Manufacturer) result.get(0);
+            return result.get(0);
         }
 
         logger.debug("here");

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 class ManufacturerManagerImplTest {
 
     private ManufacturerManager manufacturerManager;
-    private ManufacturerDaoImpl<Manufacturer> manufacturerDao;
+    private ManufacturerDaoImpl manufacturerDao;
 
 
     @BeforeEach

@@ -11,7 +11,7 @@ public abstract class AbstractHibernateDao<T> {
     @Inject
     SessionFactory sessionFactory;
     private Logger logger = Logger.getLogger(AbstractHibernateDao.class);
-    ;
+
 
     public Class<Object> getClazz() {
         return clazz;
@@ -35,6 +35,7 @@ public abstract class AbstractHibernateDao<T> {
 
     public List<T> findAll() {
         logger.debug("class: " + clazz.getName());
+        logger.debug("getting all");
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
     }
 
