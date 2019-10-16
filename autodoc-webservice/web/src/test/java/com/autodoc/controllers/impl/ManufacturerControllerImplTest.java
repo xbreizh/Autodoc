@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
@@ -42,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = "classpath:mvc-dispatcher-servlet.xml")
 @WebAppConfiguration
 class ManufacturerControllerImplTest {
-    private final static String encoding = "application/json;charset=UTF-8";
+    private final static String encoding = "application/json;charset=ISO-8859-1";
     private Logger logger = Logger.getLogger(ManufacturerControllerImplTest.class);
     private ManufacturerController manufacturerController;
     private ManufacturerManager manufacturerManager;
@@ -50,8 +51,8 @@ class ManufacturerControllerImplTest {
     private MockMvc mockMvc;
     private FieldDescriptor[] descriptor = new FieldDescriptor[]{
             fieldWithPath("id").description("Id of the manufacturer"),
-            fieldWithPath("name").description("Name of the manufacturer")
-    //        fieldWithPath("carModels").description("The number of car models")
+            fieldWithPath("name").description("Name of the manufacturer"),
+            //fieldWithPath("carModels").description("The number of car models")
     };
     List<Manufacturer> manufacturers = new ArrayList<>();
     Manufacturer m1 = new Manufacturer("BMW");
@@ -96,8 +97,8 @@ class ManufacturerControllerImplTest {
                                 fieldWithPath("[]").description("An array of manufacturers"))
                                 .andWithPrefix(".[]", descriptor)
                 ));
-        System.out.println(manufacturers);
-        assertEquals(manufacturers, manufacturerController.getAll());
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(manufacturers));
+        assertEquals(response, manufacturerController.getAll());
     }
 
     @Test
@@ -121,6 +122,7 @@ class ManufacturerControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}",
                         responseFields(descriptor)
                 ));
-        System.out.println(m1);
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(m1));
+        assertEquals(response, manufacturerController.getByName("ww"));
     }
 }

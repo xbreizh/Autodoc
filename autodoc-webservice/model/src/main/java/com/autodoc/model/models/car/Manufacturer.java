@@ -64,10 +64,10 @@ public class Manufacturer /*implements Serializable */ {
         this.name = name;
     }
 
-   /* @JsonIgnore
+    @JsonIgnore
     public List<CarModel> getCarModels() {
         return carModels;
-    }*/
+    }
 
     public void setCarModels(List<CarModel> carModels) {
         this.carModels = carModels;
