@@ -51,9 +51,20 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    public ResponseEntity getCarById(int id) {
-        return null;
+    @GetMapping(value = "/getById/{carId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity getCarById(@PathVariable Integer carId) {
+        System.out.println("getting id: "+carId);
+        Car car= carManager.getById(carId);
+        String response = converter.convertObjectIntoGsonObject(car);
+
+        return ResponseEntity.ok(response);
     }
+
+
+
+
 
     @Override
     public ResponseEntity getCarByClient(String clientLastName, String clientFirstName) {
@@ -78,7 +89,7 @@ public class CarControllerImpl implements CarController {
 
 
     @Override
-    @PostMapping(value = "/update",
+    @PutMapping(value = "/update",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateCar(@RequestBody Car car) {
 
@@ -93,9 +104,9 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    @PostMapping(value = "/updateClient",
+    @PutMapping(value = "/updateClient/{carId}/{clientId}",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateCarClient(@RequestBody int carId, @RequestBody int clientId) {
+    public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) {
         logger.debug("car id: " + carId + " / client id: " + clientId);
         String response = carManager.updateClient(carId, clientId);
         if (response.equals("car update")) {
@@ -107,19 +118,13 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    public ResponseEntity deleteCar(int carId) {
+    @DeleteMapping(value = "/delete/{carId}",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteCar(@PathVariable Integer carId) {
         return null;
     }
 
 
-
-    @RequestMapping(value = "/getById",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity get(@PathVariable int id) {
-        return null;
-    }
 
 
 

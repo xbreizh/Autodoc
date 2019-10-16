@@ -26,6 +26,7 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
     @Override
     public List<Manufacturer> getAll() {
         List<Manufacturer> manufacturers = manufacturerDao.findAll();
+        logger.info("trying to get maufacturers: "+manufacturers);
         return manufacturers;
     }
 

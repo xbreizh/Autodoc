@@ -18,4 +18,6 @@ public interface ClientManager {
     String delete(int anyInt);
 
     Client getByName(String name);
+
+    Client getById(int id);
 }

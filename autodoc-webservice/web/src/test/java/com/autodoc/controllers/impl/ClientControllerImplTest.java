@@ -114,7 +114,7 @@ class ClientControllerImplTest {
                         .get("/client/getByName")
                         .header("Authorization", "Bearer test" )
                         .content(converter.convertObjectIntoGsonObject(name))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
@@ -124,7 +124,22 @@ class ClientControllerImplTest {
     }
 
     @Test
-    void getClientById() {
+    void getClientById() throws Exception {
+        Client client = new Client();
+        int id = 72;
+        when(clientManager.getById(anyInt())).thenReturn(client);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/client/getById/"+id)
+                        .header("Authorization", "Bearer test" )
+                        .content(converter.convertObjectIntoGsonObject(id))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}"));
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(client));
+        assertEquals(response, clientController.getClientById(id));
     }
 
     @Test
@@ -136,7 +151,7 @@ class ClientControllerImplTest {
                         .post("/client/add")
                         .header("Authorization", "Bearer test" )
                         .content(converter.convertObjectIntoGsonObject(client))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
@@ -152,10 +167,10 @@ class ClientControllerImplTest {
         when(clientManager.update(client)).thenReturn("client updated");
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .post("/client/update")
+                        .put("/client/update")
                         .header("Authorization", "Bearer test" )
                         .content(converter.convertObjectIntoGsonObject(client))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))

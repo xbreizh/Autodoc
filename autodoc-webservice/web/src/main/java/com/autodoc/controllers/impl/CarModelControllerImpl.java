@@ -51,10 +51,10 @@ public class CarModelControllerImpl implements CarModelController {
     }
 
 
-    @GetMapping(value = "/getByName",
+    @GetMapping(value = "/getByName/{name}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getByName(@RequestBody String name) {
+    public String getByName(@PathVariable String name) {
         logger.debug("getting: " + name);
         CarModel carModel = carModelManager.getByName(name);
         return converter.convertObjectIntoGsonObject(carModel);

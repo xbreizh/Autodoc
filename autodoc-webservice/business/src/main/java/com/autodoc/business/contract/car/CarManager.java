@@ -18,4 +18,6 @@ public interface CarManager {
     String update(Car car);
 
     String updateClient(int carId, int clientId);
+
+    Car getById(int id);
 }

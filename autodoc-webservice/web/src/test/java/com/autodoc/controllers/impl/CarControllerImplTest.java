@@ -25,14 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
@@ -46,7 +44,6 @@ class CarControllerImplTest {
     private CarControllerImpl carControllerImpl;
     private CarManager carManager;
     private MockMvc mockMvc;
-    @Inject
     private GsonConverter converter;
 
 
@@ -58,7 +55,7 @@ class CarControllerImplTest {
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();
 
-
+        converter = new GsonConverter();
         carManager = mock(CarManager.class);
         carControllerImpl = new CarControllerImpl(carManager);
     }
@@ -93,13 +90,33 @@ class CarControllerImplTest {
                         .get("/car/getByRegistration")
                         .header("Authorization", "Bearer test" )
                         .content(converter.convertObjectIntoGsonObject(registration))
-                                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
         assertEquals(response, carControllerImpl.getCarByRegistration(registration));
+
+    }
+
+    @Test
+    void getById() throws Exception {
+        int id = 445;
+        Car car = new Car();
+        when(carManager.getById(anyInt())).thenReturn(car);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/car/getById/{carId}",id)
+                        .header("Authorization", "Bearer test" )
+                        .content(converter.convertObjectIntoGsonObject(id))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}"));
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
+        assertEquals(response, carControllerImpl.getCarById(id));
 
     }
 
@@ -111,10 +128,10 @@ class CarControllerImplTest {
         when(carManager.update(car)).thenReturn(feedback);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .post("/car/update")
+                        .put("/car/update")
                         .header("Authorization", "Bearer test" )
                         .content(converter.convertObjectIntoGsonObject(car))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))

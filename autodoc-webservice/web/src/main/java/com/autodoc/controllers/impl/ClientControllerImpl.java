@@ -49,9 +49,19 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public ResponseEntity getClientById(int id) {
-        return null;
+    @GetMapping(value = "/getById/{clientId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity getClientById(@PathVariable Integer clientId) {
+        Client client = clientManager.getById(clientId);
+        String response = converter.convertObjectIntoGsonObject(client);
+
+        return ResponseEntity.ok(response);
     }
+
+
+
+
 
     @Override
     @PostMapping(value = "/add",
@@ -68,7 +78,7 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    @PostMapping(value = "/update",
+    @PutMapping(value = "/update",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateClient(@RequestBody Client client) {
         logger.debug("trying to update a client: " + client);

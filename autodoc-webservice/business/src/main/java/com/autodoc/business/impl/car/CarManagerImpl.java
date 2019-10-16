@@ -48,7 +48,7 @@ public class CarManagerImpl implements CarManager {
 
     @Override
     public Car getByRegistration(String registration) {
-        System.out.println("reg: "+registration);
+       logger.info("reg: "+registration);
         return carDao.getCarByRegistration(registration);
     }
 
@@ -70,5 +70,13 @@ public class CarManagerImpl implements CarManager {
         if (car == null) return "no car found";
         car.setClient(client);
         return update(car);
+    }
+
+    @Override
+    public Car getById(int id) {
+        logger.info("id passed: "+id);
+        Car car = (Car) carDao.findOne(id);
+        logger.info("car found: "+car);
+        return car;
     }
 }

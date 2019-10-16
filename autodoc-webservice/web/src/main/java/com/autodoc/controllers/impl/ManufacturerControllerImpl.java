@@ -39,7 +39,7 @@ public class ManufacturerControllerImpl implements ManufacturerController {
     public String getAll() {
 
         List<Manufacturer> list = manufacturerManager.getAll();
-        logger.debug("list: " + list);
+        logger.info("list: " + list);
         String response = converter.convertObjectIntoGsonObject(list);
 
         return response;

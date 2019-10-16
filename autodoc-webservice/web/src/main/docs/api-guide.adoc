@@ -26,7 +26,7 @@ include::{snippets}/CarControllerImplTest/getAll/curl-request.adoc[]
 
 === Get Car by Registration
 
-Obtains a specific person registered in the application by its unique identifier.
+Getting car details from a registration
 
 ==== Sample Request
 

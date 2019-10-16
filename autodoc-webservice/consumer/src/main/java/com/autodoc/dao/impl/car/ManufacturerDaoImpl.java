@@ -18,6 +18,7 @@ public class ManufacturerDaoImpl extends AbstractHibernateDao implements Manufac
     private Class cl = Manufacturer.class;
 
     public ManufacturerDaoImpl() {
+        this.setClazz(Manufacturer.class);
     }
 
 

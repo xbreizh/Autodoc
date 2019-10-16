@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -39,7 +40,7 @@ class ManufacturerControllerImplTest {
     private Logger logger = Logger.getLogger(ManufacturerControllerImplTest.class);
     private ManufacturerController manufacturerController;
     private ManufacturerManager manufacturerManager;
-    private GsonConverter gsonConverter;
+    private GsonConverter converter;
     private MockMvc mockMvc;
     private JwtConnect jwtConnect;
 
@@ -55,37 +56,44 @@ class ManufacturerControllerImplTest {
 
         manufacturerManager = mock(ManufacturerManager.class);
         manufacturerController = new ManufacturerControllerImpl(manufacturerManager, jwtConnect);
-        gsonConverter = new GsonConverter();
+        converter = new GsonConverter();
         logger.debug("context: " + webApplicationContext);
     }
 
 
     @Test
     public void getAll() throws Exception {
+        List<Manufacturer> manufacturers = new ArrayList<>();
+        manufacturers.add(new Manufacturer());
+        String response = new Gson().toJson(manufacturers);
+        when(manufacturerManager.getAll()).thenReturn(manufacturers);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get("/manufacturer/getAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
-        List<Manufacturer> manufacturers = new ArrayList<>();
-        manufacturers.add(new Manufacturer());
-        String response = new Gson().toJson(manufacturers);
-        when(manufacturerManager.getAll()).thenReturn(manufacturers);
+
         assertEquals(response, manufacturerController.getAll());
     }
 
     @Test
     public void getByName() throws Exception {
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/manufacturer/getByName"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
+        String name = "AUDI";
         Manufacturer manufacturer = new Manufacturer();
         String response = new Gson().toJson(manufacturer);
         when(manufacturerManager.getByName(anyString())).thenReturn(manufacturer);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/manufacturer/getByName")
+                .header("Authorization", "Bearer test" )
+                .content(converter.convertObjectIntoGsonObject(name))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}"));
+
         assertEquals(response, manufacturerController.getByName("Lotus"));
     }
 }

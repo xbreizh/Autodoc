@@ -10,7 +10,7 @@ public interface CarController {
 
     ResponseEntity getCarByRegistration(String registration);
 
-    ResponseEntity getCarById(int id);
+    ResponseEntity getCarById(Integer id);
 
     ResponseEntity getCarByClient(String clientLastName, String clientFirstName);
 
@@ -18,7 +18,7 @@ public interface CarController {
 
     ResponseEntity updateCar(Car car);
 
-    ResponseEntity updateCarClient(int carId, int clientId);
+    ResponseEntity updateCarClient(Integer carId, Integer clientId);
 
-    ResponseEntity deleteCar(int carId);
+    ResponseEntity deleteCar(Integer carId);
 }

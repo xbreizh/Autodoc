@@ -62,4 +62,9 @@ public class ClientManagerImpl implements ClientManager {
     public Client getByName(String name) {
         return clientDao.getByName(name);
     }
+
+    @Override
+    public Client getById(int id) {
+        return (Client) clientDao.findOne(id);
+    }
 }

@@ -10,7 +10,7 @@ public interface ClientController {
 
     ResponseEntity getClientByName(String name);
 
-    ResponseEntity getClientById(int id);
+    ResponseEntity getClientById(Integer id);
 
     ResponseEntity addClient(Client client);
 
