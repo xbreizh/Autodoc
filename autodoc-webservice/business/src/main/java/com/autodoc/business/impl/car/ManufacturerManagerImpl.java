@@ -34,7 +34,8 @@ public class ManufacturerManagerImpl implements ManufacturerManager {
     public Manufacturer getByName(String name) {
         logger.debug("trying to get: " + name);
         if (name.isEmpty()) return null;
-        return manufacturerDao.getByName(name);
+        Manufacturer manufacturer = manufacturerDao.getByName(name);
+        return manufacturer;
     }
 
 

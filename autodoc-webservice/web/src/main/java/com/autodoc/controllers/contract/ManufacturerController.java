@@ -1,9 +1,13 @@
 package com.autodoc.controllers.contract;
 
+import com.autodoc.model.models.car.Manufacturer;
+
+import java.util.List;
+
 public interface ManufacturerController {
 
-    String getAll();
+    List<Manufacturer> getAll();
 
-    String getByName(String name);
+    Manufacturer getByName(String name);
 
 }

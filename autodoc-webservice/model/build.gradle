@@ -21,6 +21,7 @@ dependencies {
             'org.hibernate:hibernate-core:4.3.7.Final',
             'com.google.code.gson:gson:1.7.2'
 
+    compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.1.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.8'
     testCompileOnly 'org.projectlombok:lombok:1.18.8'

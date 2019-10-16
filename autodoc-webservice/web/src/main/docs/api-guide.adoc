@@ -39,3 +39,24 @@ include::{snippets}/CarControllerImplTest/getByRegistration/http-response.adoc[]
 ==== CURL sample
 
 include::{snippets}/CarControllerImplTest/getByRegistration/curl-request.adoc[]
+
+=== Get Manufacturer by Name
+
+Getting manufacturer details by Name
+
+==== FIELDS sample
+
+include::{snippets}/ManufacturerControllerImplTest/getByName/response-fields.adoc[]
+
+==== Sample Request
+
+include::{snippets}/ManufacturerControllerImplTest/getByName/http-request.adoc[]
+
+==== Sample Response
+
+include::{snippets}/ManufacturerControllerImplTest/getByName/http-response.adoc[]
+
+==== CURL sample
+
+include::{snippets}/ManufacturerControllerImplTest/getByName/curl-request.adoc[]
+
