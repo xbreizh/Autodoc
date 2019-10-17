@@ -1,4 +1,4 @@
-package com.autodoc.controllers.security;
+package com.autodoc.controllers.impl.authentication.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

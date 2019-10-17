@@ -1,4 +1,4 @@
-package com.autodoc.controllers.security;
+package com.autodoc.controllers.impl.authentication.security;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

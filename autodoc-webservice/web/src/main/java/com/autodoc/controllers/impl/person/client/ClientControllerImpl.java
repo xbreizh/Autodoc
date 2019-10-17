@@ -1,4 +1,4 @@
-package com.autodoc.controllers.impl;
+package com.autodoc.controllers.impl.person.client;
 
 
 import com.autodoc.business.contract.person.client.ClientManager;

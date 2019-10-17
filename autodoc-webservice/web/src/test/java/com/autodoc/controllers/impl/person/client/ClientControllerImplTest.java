@@ -1,8 +1,10 @@
-package com.autodoc.controllers.impl;
+package com.autodoc.controllers.impl.person.client;
 
-import com.autodoc.business.contract.car.CarManager;
+import com.autodoc.business.contract.person.client.ClientManager;
+import com.autodoc.controllers.contract.person.client.ClientController;
 import com.autodoc.controllers.helper.GsonConverter;
-import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +14,7 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,78 +41,94 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 //@Sql(scripts = "classpath:resetDb.sql")
 @Transactional
-class CarControllerImplTest {
-
-
-    private CarControllerImpl carControllerImpl;
-    private CarManager carManager;
-    private MockMvc mockMvc;
+class ClientControllerImplTest {
+    private Logger logger = Logger.getLogger(ClientControllerImplTest.class);
+    @Inject
     private GsonConverter converter;
+    private ClientController clientController;
+    private ClientManager clientManager;
+    private MockMvc mockMvc;
 
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
                       RestDocumentationContextProvider restDocumentation) {
+        clientManager = mock(ClientManager.class);
+        clientController = new ClientControllerImpl(clientManager);
         /*this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*/
 
-        converter = new GsonConverter();
-        carManager = mock(CarManager.class);
-        carControllerImpl = new CarControllerImpl(carManager);
-        // using standalone
-        this.mockMvc = MockMvcBuilders.standaloneSetup(carControllerImpl).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
+// using standalone
+        this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
+        logger.debug("context: " + webApplicationContext);
     }
 
 
     @Test
     public void getAll() throws Exception {
-        List<Car> cars = new ArrayList<>();
-        cars.add(new Car());
-        when(carManager.getAll()).thenReturn(cars);
+        List<Client> clients = new ArrayList<>();
+        Client client = new Client("paul", "martin", "333225");
+        clients.add(client);
+        when(clientManager.getAll()).thenReturn(clients);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/car/getAll")
+                        .get("/client/getAll")
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
 
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(cars));
-        assertEquals(response, carControllerImpl.getAll());
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(clients));
+        assertEquals(response, clientController.getAll());
     }
 
 
-    @Test
-    void getByRegistration() throws Exception {
-        String registration = "abc123";
-        Car car = new Car();
-        car.setRegistration(registration);
-        when(carManager.getByRegistration(anyString())).thenReturn(car);
+  /*  @Test
+    void addClient() throws Exception {
+        ResponseEntity response = ResponseEntity.ok("client added");
+        when(clientManager.save(any(Client.class))).thenReturn("client added");
+        assertEquals(response, clientController.getAll());
+        String client = new Gson().toJson(new Client());
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/car/getByRegistration")
+                        .get("/client/add").content(client))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andDo(document("{ClassName}/{methodName}"));
+
+    }
+*/
+
+    @Test
+    void getClientByName() throws Exception {
+        Client client = new Client();
+        String name = "Gondry";
+        client.setLastName(name);
+        when(clientManager.getByName(anyString())).thenReturn(client);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/client/getByName")
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(registration))
+                        .content(converter.convertObjectIntoGsonObject(name))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
-        assertEquals(response, carControllerImpl.getCarByRegistration(registration));
-
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(client));
+        assertEquals(response, clientController.getClientByName(name));
     }
 
     @Test
-    void getById() throws Exception {
-        int id = 445;
-        Car car = new Car();
-        when(carManager.getById(anyInt())).thenReturn(car);
+    void getClientById() throws Exception {
+        Client client = new Client();
+        int id = 72;
+        when(clientManager.getById(anyInt())).thenReturn(client);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/car/getById/{carId}", id)
+                        .get("/client/getById/" + id)
                         .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(id))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -116,51 +136,47 @@ class CarControllerImplTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
-        assertEquals(response, carControllerImpl.getById(id));
-
+        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(client));
+        assertEquals(response, clientController.getClientById(id));
     }
 
     @Test
-    void update() throws Exception {
-        Car car = new Car();
-        car.setRegistration("newBetter");
-        String feedback = "car updated";
-        when(carManager.update(any(Car.class))).thenReturn(feedback);
+    void addClient() throws Exception {
+        Client client = new Client();
+        when(clientManager.save(any(Client.class))).thenReturn("client added");
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .put("/car/update")
+                        .post("/client/add")
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(car))
+                        .content(converter.convertObjectIntoGsonObject(client))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
 
-        ResponseEntity response = ResponseEntity.ok(feedback);
-        assertEquals(response, carControllerImpl.update(car));
+        ResponseEntity response = ResponseEntity.ok("client added");
+        assertEquals(response, clientController.addClient(client));
     }
 
     @Test
-    void addCar() throws Exception {
-        Car car = new Car();
-        car.setRegistration("deded");
-        when(carManager.save(any(Car.class))).thenReturn("car added");
-        System.out.println("converter: " + converter);
+    void updateClient() throws Exception {
+        Client client = new Client();
+        when(clientManager.update(any(Client.class))).thenReturn("client updated");
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .post("/car/add")
+                        .put("/client/update")
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(car))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(converter.convertObjectIntoGsonObject(client))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
-        System.out.println("status: " + status());
 
-        ResponseEntity response = ResponseEntity.ok("car added");
-        assertEquals(response, carControllerImpl.add(car));
+        ResponseEntity response = ResponseEntity.ok("client updated");
+        assertEquals(response, clientController.updateClient(client));
     }
+
+
 }

@@ -1,11 +1,10 @@
-package com.autodoc.controllers.impl;
+package com.autodoc.controllers.impl.car;
 
 
 import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.controllers.contract.car.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Manufacturer;
-import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

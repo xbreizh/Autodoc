@@ -1,4 +1,4 @@
-package com.autodoc.controllers.impl;
+package com.autodoc.controllers.impl.car;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.controllers.contract.car.ManufacturerController;

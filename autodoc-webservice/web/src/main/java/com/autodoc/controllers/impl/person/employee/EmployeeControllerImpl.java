@@ -1,4 +1,4 @@
-package com.autodoc.controllers.impl;
+package com.autodoc.controllers.impl.person.employee;
 
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;

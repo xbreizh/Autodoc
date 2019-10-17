@@ -1,4 +1,4 @@
-package com.autodoc.controllers.security;
+package com.autodoc.controllers.impl.authentication.security;
 
 import com.autodoc.business.impl.authentication.JwtConnect;
 import com.autodoc.business.impl.authentication.JwtTokenUtil;
