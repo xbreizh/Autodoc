@@ -22,11 +22,11 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
 
     @Override
     public Car getCarByRegistration(String registration) {
-        logger.debug("getting car by Registration: "+registration);
+        logger.debug("getting car by Registration: " + registration);
         Query query = getCurrentSession().createQuery("From Car where registration = :registration");
         query.setParameter("registration", registration);
         List<Car> cars = query.getResultList();
-        if(cars.size()>0)return cars.get(0);
+        if (cars.size() > 0) return cars.get(0);
         logger.debug("no car found");
         return null;
     }

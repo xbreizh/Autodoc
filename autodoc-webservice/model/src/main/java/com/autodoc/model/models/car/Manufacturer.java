@@ -39,8 +39,8 @@ public class Manufacturer /*implements Serializable */ {
 
     @Override
     public String toString() {
-        int carModelSize=0;
-        if(carModels!=null)carModelSize=carModels.size();
+        int carModelSize = 0;
+        if (carModels != null) carModelSize = carModels.size();
         return "Manufacturer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +

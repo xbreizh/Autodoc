@@ -1,28 +1,28 @@
 package com.autodoc.business.impl.person.client;
 
 import com.autodoc.business.contract.person.client.ClientManager;
+import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 @Component
-public class ClientManagerImpl implements ClientManager {
+public class ClientManagerImpl<T> extends AbstractGenericManager implements ClientManager {
     private ClientDaoImpl clientDao;
     private Logger logger = Logger.getLogger(ClientManagerImpl.class);
 
 
     public ClientManagerImpl(ClientDaoImpl clientDao) {
+        super(clientDao);
         this.clientDao = clientDao;
 
     }
 
 
-    @Override
+   /* @Override
     public String save(Client client) {
         clientDao.create(client);
         return "client added";
@@ -56,15 +56,15 @@ public class ClientManagerImpl implements ClientManager {
             logger.error(e.getMessage());
             return e.getMessage();
         }
-    }
+    }*/
 
     @Override
     public Client getByName(String name) {
         return clientDao.getByName(name);
     }
 
-    @Override
+ /*   @Override
     public Client getById(int id) {
-        return (Client) clientDao.findOne(id);
-    }
+        return (Client) clientDao.getById(id);
+    }*/
 }

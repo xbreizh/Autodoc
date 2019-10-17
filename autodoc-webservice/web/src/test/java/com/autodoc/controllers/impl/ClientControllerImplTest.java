@@ -1,13 +1,10 @@
 package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.person.client.ClientManager;
-import com.autodoc.controllers.contract.ClientController;
+import com.autodoc.controllers.contract.person.client.ClientController;
 import com.autodoc.controllers.helper.GsonConverter;
-import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
-import com.google.gson.Gson;
 import org.apache.log4j.Logger;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -77,7 +75,7 @@ class ClientControllerImplTest {
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get("/client/getAll")
-                        .header("Authorization", "Bearer test" ))
+                        .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
                 .andDo(document("{ClassName}/{methodName}"));
@@ -112,7 +110,7 @@ class ClientControllerImplTest {
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get("/client/getByName")
-                        .header("Authorization", "Bearer test" )
+                        .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(name))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
@@ -130,8 +128,8 @@ class ClientControllerImplTest {
         when(clientManager.getById(anyInt())).thenReturn(client);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/client/getById/"+id)
-                        .header("Authorization", "Bearer test" )
+                        .get("/client/getById/" + id)
+                        .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(id))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
@@ -149,7 +147,7 @@ class ClientControllerImplTest {
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .post("/client/add")
-                        .header("Authorization", "Bearer test" )
+                        .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(client))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
@@ -168,7 +166,7 @@ class ClientControllerImplTest {
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .put("/client/update")
-                        .header("Authorization", "Bearer test" )
+                        .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(client))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )

@@ -41,7 +41,7 @@ class CarModelDaoImplTest {
 
     @Test
     void findAll() {
-        assertNotNull(carModelDao.findAll());
+        assertNotNull(carModelDao.getAll());
 
     }
 
@@ -81,9 +81,9 @@ class CarModelDaoImplTest {
         CarModel cm = new CarModel(man, name, "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL);
         carModelDao.create(cm);
         int id = carModelDao.findByName(name).getId();
-        assertNotNull(carModelDao.findOne(id));
+        assertNotNull(carModelDao.getById(id));
         carModelDao.deleteById(id);
-        assertNull(carModelDao.findOne(id));
+        assertNull(carModelDao.getById(id));
     }
 
     @Test

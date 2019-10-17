@@ -1,1 +1,3 @@
-delete from car where id  notnull
+delete
+from car
+where id notnull

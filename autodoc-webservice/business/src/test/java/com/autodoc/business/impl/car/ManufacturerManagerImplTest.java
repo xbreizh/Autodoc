@@ -30,7 +30,7 @@ class ManufacturerManagerImplTest {
     @Test
     void getAll() {
         List<Manufacturer> list = new ArrayList<>();
-        when(manufacturerDao.findAll()).thenReturn(list);
+        when(manufacturerDao.getAll()).thenReturn(list);
         assertNotNull(manufacturerManager.getAll());
     }
 

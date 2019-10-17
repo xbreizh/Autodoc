@@ -21,7 +21,7 @@ class ManufacturerTest {
     @Test
     void testToString() {
         manufacturer.setName("John");
-        assertEquals("Manufacturer{id=0, name='John'}", manufacturer.toString());
+        assertEquals("Manufacturer{id=0, name='John', carModels=0}", manufacturer.toString());
     }
 
     @Test
@@ -30,7 +30,7 @@ class ManufacturerTest {
         List<Manufacturer> manufacturers = new ArrayList<>();
         manufacturers.add(new Manufacturer("PAUL"));
         manufacturers.add(new Manufacturer("JACQUES"));
-        assertEquals("[Manufacturer{id=0, name='PAUL'}, Manufacturer{id=0, name='JACQUES'}]", manufacturers.toString());
+        assertEquals("[Manufacturer{id=0, name='PAUL', carModels=0}, Manufacturer{id=0, name='JACQUES', carModels=0}]", manufacturers.toString());
         String convertedObject = new Gson().toJson(manufacturers);
         //logger.debug("cc: " + convertedObject);
     }

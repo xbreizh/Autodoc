@@ -2,7 +2,7 @@ package com.autodoc.controllers.impl;
 
 
 import com.autodoc.business.contract.car.CarManager;
-import com.autodoc.controllers.contract.CarController;
+import com.autodoc.controllers.contract.car.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Car;
 import org.apache.log4j.Logger;
@@ -31,9 +31,9 @@ public class CarControllerImpl implements CarController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getAll() {
-
+        logger.info("trying to get list of cars");
         List<Car> list = carManager.getAll();
-        logger.debug("list: " + list);
+        logger.info("list: " + list);
         String response = converter.convertObjectIntoGsonObject(list);
 
         return ResponseEntity.ok(response);
@@ -54,27 +54,24 @@ public class CarControllerImpl implements CarController {
     @GetMapping(value = "/getById/{carId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getCarById(@PathVariable Integer carId) {
-        System.out.println("getting id: "+carId);
-        Car car= carManager.getById(carId);
+    public ResponseEntity getById(@PathVariable Integer carId) {
+        System.out.println("getting id: " + carId);
+        Car car = (Car) carManager.getById(carId);
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);
     }
 
 
-
-
-
     @Override
-    public ResponseEntity getCarByClient(String clientLastName, String clientFirstName) {
+    public ResponseEntity getByClient(String clientLastName, String clientFirstName) {
         return null;
     }
 
     @Override
     @PostMapping(value = "/add",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addCar(@RequestBody Car car) {
+    public ResponseEntity add(@RequestBody Car car) {
         System.out.println("trying to add a car");
         logger.debug("trying to add a car: " + car);
         String response = carManager.save(car);
@@ -91,7 +88,7 @@ public class CarControllerImpl implements CarController {
     @Override
     @PutMapping(value = "/update",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateCar(@RequestBody Car car) {
+    public ResponseEntity update(@RequestBody Car car) {
 
         logger.debug("trying to update a car: " + car);
         String response = carManager.update(car);
@@ -120,13 +117,9 @@ public class CarControllerImpl implements CarController {
     @Override
     @DeleteMapping(value = "/delete/{carId}",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteCar(@PathVariable Integer carId) {
+    public ResponseEntity delete(@PathVariable Integer carId) {
         return null;
     }
-
-
-
-
 
 
 }

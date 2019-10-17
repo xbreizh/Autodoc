@@ -10,7 +10,7 @@ ext {
 
 jar {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}/html5") {
+    from("${asciidoctor.outputDir}/html5") {
         into 'static/docs'
     }
 }

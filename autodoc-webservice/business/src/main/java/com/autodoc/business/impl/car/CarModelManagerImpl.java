@@ -24,12 +24,12 @@ public class CarModelManagerImpl implements CarModelManager {
 
     @Override
     public List<CarModel> getAll() {
-        return carModelDao.findAll();
+        return carModelDao.getAll();
     }
 
     @Override
     public CarModel getById(int id) {
-        return (CarModel) carModelDao.findOne(id);
+        return (CarModel) carModelDao.getById(id);
     }
 
     @Override

@@ -15,9 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,7 +30,7 @@ class HomeControllerTest {
 
 
     @BeforeEach
-    public void setUp(WebApplicationContext webApplicationContext,
+    void setUp(WebApplicationContext webApplicationContext,
                       RestDocumentationContextProvider restDocumentation) {
 
         this.mockMvc = MockMvcBuilders

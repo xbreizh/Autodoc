@@ -1,16 +1,14 @@
 package com.autodoc.dao.contract.global;
 
-import org.hibernate.SessionFactory;
-
 import java.util.List;
 
 public interface IGenericDao<T> {
 
     void setClazz(Class<T> clazzToSet);
 
-    T findOne(final int id);
+    T getById(final int id);
 
-    List<T> findAll();
+    List<T> getAll();
 
     T create(final T entity);
 
@@ -20,6 +18,5 @@ public interface IGenericDao<T> {
 
     void deleteById(final int entityId);
 
-    void setSessionFactory(SessionFactory sessionFactory);
 
 }

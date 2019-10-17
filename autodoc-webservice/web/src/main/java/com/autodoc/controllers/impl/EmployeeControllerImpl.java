@@ -2,7 +2,7 @@ package com.autodoc.controllers.impl;
 
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;
-import com.autodoc.controllers.contract.EmployeeController;
+import com.autodoc.controllers.contract.person.employee.EmployeeController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
@@ -22,7 +22,7 @@ public class EmployeeControllerImpl implements EmployeeController {
     private GsonConverter converter;
 
     public EmployeeControllerImpl(EmployeeManager employeeManager) {
-        if (converter == null) converter = new GsonConverter();
+        converter = new GsonConverter();
         this.employeeManager = employeeManager;
     }
 

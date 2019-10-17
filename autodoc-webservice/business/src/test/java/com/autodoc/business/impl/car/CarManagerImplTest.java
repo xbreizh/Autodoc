@@ -1,8 +1,8 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
+import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.dao.impl.car.CarDaoImpl;
-import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,15 +23,15 @@ class CarManagerImplTest {
 
     private CarManager carManager;
     private CarDaoImpl carDao;
-    private ClientDaoImpl clientDao;
+    private ClientManager clientManager;
     private Car car;
 
 
     @BeforeEach
     void init() {
         carDao = mock(CarDaoImpl.class);
-        clientDao = mock(ClientDaoImpl.class);
-        carManager = new CarManagerImpl(carDao, clientDao);
+        clientManager = mock(ClientManager.class);
+        carManager = new CarManagerImpl(carDao, clientManager);
         car = new Car();
     }
 
@@ -40,15 +40,16 @@ class CarManagerImplTest {
         String registration = "abc123";
         car.setRegistration(registration);
         when(carDao.create(car)).thenReturn(car);
-        assertEquals("car added", carManager.save(car));
+        assertEquals("Car added", carManager.save(car));
     }
 
     @Test
     void getAll() {
         List<Car> carList = new ArrayList<>();
         carList.add(car);
-        when(carDao.findAll()).thenReturn(carList);
-        assertNotNull(carManager.getAll());
+        when(carDao.getAll()).thenReturn(carList);
+        assertNotNull(carManager.getAll()
+        );
     }
 
     @Test
@@ -70,7 +71,7 @@ class CarManagerImplTest {
     @Test
     @DisplayName("should return no client found")
     void updateClient() {
-        when(clientDao.findOne(anyInt())).thenReturn(null);
+        when(clientManager.getById(anyInt())).thenReturn(null);
         assertEquals("no client found", carManager.updateClient(2, 3));
     }
 
@@ -79,7 +80,7 @@ class CarManagerImplTest {
     void updateClient1() {
         Client client = new Client();
         int clientId = 4;
-        when(clientDao.findOne(anyInt())).thenReturn(client);
+        when(clientManager.getById(anyInt())).thenReturn(client);
         assertEquals("no car found", carManager.updateClient(2, clientId));
     }
 
@@ -88,8 +89,8 @@ class CarManagerImplTest {
     void updateClient2() {
         Client client = new Client();
         Car car = new Car();
-        when(clientDao.findOne(anyInt())).thenReturn(client);
-        when(carDao.findOne(anyInt())).thenReturn(car);
+        when(clientManager.getById(anyInt())).thenReturn(client);
+        when(carDao.getById(anyInt())).thenReturn(car);
         assertEquals("car updated", carManager.updateClient(2, 3));
     }
 }

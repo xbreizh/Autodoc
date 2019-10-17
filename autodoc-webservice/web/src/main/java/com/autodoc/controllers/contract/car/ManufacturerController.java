@@ -1,9 +1,6 @@
-package com.autodoc.controllers.contract;
+package com.autodoc.controllers.contract.car;
 
-import com.autodoc.model.models.car.Manufacturer;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface ManufacturerController {
 

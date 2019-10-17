@@ -1,23 +1,22 @@
 package com.autodoc.business.contract.car;
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.car.Car;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public interface CarManager {
+public interface CarManager extends IGenericManager {
 
 
-    String save(Car car);
+    // String save(Car car);
 
-    List<Car> getAll();
+    // List<Car> getAll();
 
     Car getByRegistration(String registration);
 
-    String update(Car car);
+    // String update(Car car);
 
     String updateClient(int carId, int clientId);
 
-    Car getById(int id);
+    // Car getById(int id);
 }

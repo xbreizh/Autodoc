@@ -29,11 +29,11 @@ public abstract class AbstractHibernateDao<T> {
     }
 
 
-    public T findOne(int id) {
+    public T getById(int id) {
         return (T) getCurrentSession().get(clazz, id);
     }
 
-    public List<T> findAll() {
+    public List<T> getAll() {
         logger.debug("class: " + clazz.getName());
         logger.debug("getting all");
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
@@ -56,11 +56,12 @@ public abstract class AbstractHibernateDao<T> {
 
 
     public void deleteById(final int entityId) {
-        T entity = findOne(entityId);
+        T entity = getById(entityId);
         delete(entity);
     }
 
     protected Session getCurrentSession() {
+        logger.debug("session: " + sessionFactory.getCurrentSession());
         return sessionFactory.getCurrentSession();
     }
 

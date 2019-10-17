@@ -78,7 +78,7 @@ public class ManufacturerFiller {
     private void fillCar() {
         logger.debug("filling car");
         CarModel carModel = carModelDao.findByName("AURIS");
-        Client client = (Client) clientDao.findAll().get(0);
+        Client client = (Client) clientDao.getAll().get(0);
         Car car = new Car("05D154875", carModel, client);
         carDao.create(car);
     }

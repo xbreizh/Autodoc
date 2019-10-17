@@ -2,7 +2,7 @@ package com.autodoc.controllers.impl;
 
 
 import com.autodoc.business.contract.car.ManufacturerManager;
-import com.autodoc.controllers.contract.ManufacturerController;
+import com.autodoc.controllers.contract.car.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.car.Manufacturer;
 import com.google.gson.Gson;
@@ -25,7 +25,7 @@ public class ManufacturerControllerImpl implements ManufacturerController {
     private GsonConverter converter;
 
     public ManufacturerControllerImpl(ManufacturerManager manufacturerManager) {
-        if (converter == null) converter = new GsonConverter();
+        converter = new GsonConverter();
         this.manufacturerManager = manufacturerManager;
     }
 
@@ -37,7 +37,6 @@ public class ManufacturerControllerImpl implements ManufacturerController {
 
         List<Manufacturer> list = manufacturerManager.getAll();
         logger.info("list: " + list);
-        Gson gson = new Gson();
         String response = converter.convertObjectIntoGsonObject(list);
         return ResponseEntity.ok(response);
     }

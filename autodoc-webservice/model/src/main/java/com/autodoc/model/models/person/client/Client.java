@@ -25,7 +25,7 @@ public class Client extends Person {
     public Client() {
     }
 
-    @OneToMany(mappedBy = "client", orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private transient List<Car> cars;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)

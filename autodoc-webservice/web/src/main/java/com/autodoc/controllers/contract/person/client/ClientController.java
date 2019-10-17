@@ -1,4 +1,4 @@
-package com.autodoc.controllers.contract;
+package com.autodoc.controllers.contract.person.client;
 
 import com.autodoc.model.models.person.client.Client;
 import org.springframework.http.ResponseEntity;

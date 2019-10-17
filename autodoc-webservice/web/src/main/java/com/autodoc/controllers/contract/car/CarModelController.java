@@ -1,4 +1,4 @@
-package com.autodoc.controllers.contract;
+package com.autodoc.controllers.contract.car;
 
 public interface CarModelController {
 

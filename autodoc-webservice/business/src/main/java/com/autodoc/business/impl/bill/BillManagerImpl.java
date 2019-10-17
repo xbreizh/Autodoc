@@ -33,7 +33,7 @@ public class BillManagerImpl implements BillManager {
 
     @Override
     public List<Bill> getAll() {
-        return billDao.findAll();
+        return billDao.getAll();
     }
 
 }

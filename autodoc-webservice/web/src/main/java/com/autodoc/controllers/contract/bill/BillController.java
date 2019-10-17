@@ -1,9 +1,10 @@
-package com.autodoc.controllers.contract;
+package com.autodoc.controllers.contract.bill;
 
+import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import org.springframework.http.ResponseEntity;
 
-public interface CarController {
+public interface BillController {
 
 
     ResponseEntity getAll();
@@ -12,9 +13,9 @@ public interface CarController {
 
     ResponseEntity getCarById(Integer id);
 
-    ResponseEntity getCarByClient(String clientLastName, String clientFirstName);
+    ResponseEntity getBillByClientId(int clientId);
 
-    ResponseEntity addCar(Car car);
+    ResponseEntity addBill(Bill bill);
 
     ResponseEntity updateCar(Car car);
 

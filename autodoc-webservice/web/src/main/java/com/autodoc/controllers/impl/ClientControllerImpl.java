@@ -2,7 +2,7 @@ package com.autodoc.controllers.impl;
 
 
 import com.autodoc.business.contract.person.client.ClientManager;
-import com.autodoc.controllers.contract.ClientController;
+import com.autodoc.controllers.contract.person.client.ClientController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
@@ -22,7 +22,7 @@ public class ClientControllerImpl implements ClientController {
     private GsonConverter converter;
 
     public ClientControllerImpl(ClientManager clientManager) {
-        if (converter == null) converter = new GsonConverter();
+        converter = new GsonConverter();
         this.clientManager = clientManager;
     }
 
@@ -53,14 +53,11 @@ public class ClientControllerImpl implements ClientController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getClientById(@PathVariable Integer clientId) {
-        Client client = clientManager.getById(clientId);
+        Client client = (Client) clientManager.getById(clientId);
         String response = converter.convertObjectIntoGsonObject(client);
 
         return ResponseEntity.ok(response);
     }
-
-
-
 
 
     @Override
@@ -83,7 +80,6 @@ public class ClientControllerImpl implements ClientController {
     public ResponseEntity updateClient(@RequestBody Client client) {
         logger.debug("trying to update a client: " + client);
         String response = clientManager.update(client);
-        System.out.println("response: "+response);
         if (response.equals("client updated")) {
             return ResponseEntity.ok(response);
         }
@@ -91,8 +87,6 @@ public class ClientControllerImpl implements ClientController {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
-
-
 
 
 }

@@ -1,8 +1,7 @@
 package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
-import com.autodoc.business.impl.authentication.JwtConnect;
-import com.autodoc.controllers.contract.ManufacturerController;
+import com.autodoc.controllers.contract.car.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
@@ -54,14 +53,14 @@ class ManufacturerControllerImplTest {
             fieldWithPath("name").description("Name of the manufacturer"),
             //fieldWithPath("carModels").description("The number of car models")
     };
-    List<Manufacturer> manufacturers = new ArrayList<>();
-    Manufacturer m1 = new Manufacturer("BMW");
-    Manufacturer m2 = new Manufacturer("AUDI");
+    private List<Manufacturer> manufacturers = new ArrayList<>();
+    private Manufacturer m1 = new Manufacturer("BMW");
+    private Manufacturer m2 = new Manufacturer("AUDI");
 
 
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext,
-                      RestDocumentationContextProvider restDocumentation) {
+               RestDocumentationContextProvider restDocumentation) {
         manufacturerManager = mock(ManufacturerManager.class);
         manufacturerController = new ManufacturerControllerImpl(manufacturerManager);
         converter = new GsonConverter();
