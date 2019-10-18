@@ -2,7 +2,6 @@ package com.autodoc.controllers.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.helper.GsonConverter;
-import com.autodoc.controllers.impl.car.CarControllerImpl;
 import com.autodoc.model.models.car.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,11 +40,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CarControllerImplTest {
 
 
+    String encoding = "application/json;charset=ISO-8859-1";
+    int id = 3;
+    String registration = "abc123";
+    String feedback = "";
+    List<Car> cars = new ArrayList<>();
+    Car car = new Car();
     private CarControllerImpl carControllerImpl;
     private CarManager carManager;
     private MockMvc mockMvc;
     private GsonConverter converter;
-
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
@@ -54,7 +58,8 @@ class CarControllerImplTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*/
-
+        car.setRegistration(registration);
+        cars.add(car);
         converter = new GsonConverter();
         carManager = mock(CarManager.class);
         carControllerImpl = new CarControllerImpl(carManager);
@@ -65,15 +70,13 @@ class CarControllerImplTest {
 
     @Test
     public void getAll() throws Exception {
-        List<Car> cars = new ArrayList<>();
-        cars.add(new Car());
         when(carManager.getAll()).thenReturn(cars);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get("/car/getAll")
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
 
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(cars));
@@ -83,9 +86,6 @@ class CarControllerImplTest {
 
     @Test
     void getByRegistration() throws Exception {
-        String registration = "abc123";
-        Car car = new Car();
-        car.setRegistration(registration);
         when(carManager.getByRegistration(anyString())).thenReturn(car);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
@@ -95,7 +95,7 @@ class CarControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
         assertEquals(response, carControllerImpl.getCarByRegistration(registration));
@@ -104,8 +104,6 @@ class CarControllerImplTest {
 
     @Test
     void getById() throws Exception {
-        int id = 445;
-        Car car = new Car();
         when(carManager.getById(anyInt())).thenReturn(car);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
@@ -115,7 +113,7 @@ class CarControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
         assertEquals(response, carControllerImpl.getById(id));
@@ -124,8 +122,6 @@ class CarControllerImplTest {
 
     @Test
     void update() throws Exception {
-        Car car = new Car();
-        car.setRegistration("newBetter");
         String feedback = "car updated";
         when(carManager.update(any(Car.class))).thenReturn(feedback);
         this.mockMvc.perform(
@@ -145,10 +141,8 @@ class CarControllerImplTest {
 
     @Test
     void addCar() throws Exception {
-        Car car = new Car();
-        car.setRegistration("deded");
-        when(carManager.save(any(Car.class))).thenReturn("car added");
-        System.out.println("converter: " + converter);
+        feedback = "car added";
+        when(carManager.save(any(Object.class))).thenReturn(feedback);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .post("/car/add")
@@ -157,11 +151,27 @@ class CarControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
-        System.out.println("status: " + status());
-
-        ResponseEntity response = ResponseEntity.ok("car added");
+        ResponseEntity response = ResponseEntity.ok(feedback);
         assertEquals(response, carControllerImpl.add(car));
+    }
+
+    @Test
+    void deleteCar() throws Exception {
+        feedback = "car deleted";
+        when(carManager.deleteById(any(Integer.class))).thenReturn(feedback);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .delete("/car/deleteById/{id}", id)
+                        .header("Authorization", "Bearer test")
+                        .content(converter.convertObjectIntoGsonObject(id))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(content().contentType(encoding))
+                .andExpect(status().isOk())
+                .andDo(document("{ClassName}/{methodName}"));
+        ResponseEntity response = ResponseEntity.ok(feedback);
+        assertEquals(response, carControllerImpl.delete(id));
     }
 }

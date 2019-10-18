@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface IGenericManager<T> {
 
-    //void setClazz(Class<T> clazzToSet);
 
     T getById(final int id);
 

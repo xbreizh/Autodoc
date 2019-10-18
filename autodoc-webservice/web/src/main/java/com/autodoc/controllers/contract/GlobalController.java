@@ -8,9 +8,5 @@ public interface GlobalController<T> {
 
     ResponseEntity getById(Integer id);
 
-    ResponseEntity add(final T entity);
-
-    ResponseEntity update(final T entity);
-
     ResponseEntity delete(Integer id);
 }

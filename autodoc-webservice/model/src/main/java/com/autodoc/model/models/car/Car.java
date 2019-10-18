@@ -12,8 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "car")
-@Getter
-@Setter
 public class Car /*implements Serializable */ {
 
     // Constructors
@@ -59,5 +57,45 @@ public class Car /*implements Serializable */ {
                 ", carModel=" + carModel +
                 ", client=" + client +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(String registration) {
+        this.registration = registration;
+    }
+
+    public CarModel getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(CarModel carModel) {
+        this.carModel = carModel;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<Bill> bills) {
+        this.bills = bills;
     }
 }

@@ -4,6 +4,7 @@ package com.autodoc.controllers.impl.car;
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.contract.car.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.models.car.Car;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -12,22 +13,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/car")
-public class CarControllerImpl implements CarController {
+public class CarControllerImpl extends GlobalControllerImpl<Car> implements CarController {
     private Logger logger = Logger.getLogger(CarControllerImpl.class);
     private CarManager carManager;
 
     private GsonConverter converter;
 
     public CarControllerImpl(CarManager carManager) {
+        super(carManager);
         if (converter == null) converter = new GsonConverter();
         this.carManager = carManager;
     }
 
-    @GetMapping(value = "/getAll",
+   /* @GetMapping(value = "/getAll",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getAll() {
@@ -37,7 +37,7 @@ public class CarControllerImpl implements CarController {
         String response = converter.convertObjectIntoGsonObject(list);
 
         return ResponseEntity.ok(response);
-    }
+    }*/
 
     @Override
     @GetMapping(value = "/getByRegistration",
@@ -50,7 +50,7 @@ public class CarControllerImpl implements CarController {
         return ResponseEntity.ok(response);
     }
 
-    @Override
+   /* @Override
     @GetMapping(value = "/getById/{carId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -60,7 +60,7 @@ public class CarControllerImpl implements CarController {
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);
-    }
+    }*/
 
 
     @Override
@@ -106,20 +106,25 @@ public class CarControllerImpl implements CarController {
     public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) {
         logger.debug("car id: " + carId + " / client id: " + clientId);
         String response = carManager.updateClient(carId, clientId);
-        if (response.equals("car update")) {
-            return ResponseEntity.ok("car update");
+        if (response.equals("car updated")) {
+            return ResponseEntity.ok(response);
         }
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
 
-    @Override
-    @DeleteMapping(value = "/delete/{carId}",
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity delete(@PathVariable Integer carId) {
-        return null;
-    }
-
+   /* @Override
+    @DeleteMapping(value = "/deleteById/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity delete(@PathVariable Integer id) {
+        String response = "car deleted";
+        if (response.equals(response)) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }*/
 
 }

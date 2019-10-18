@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarModelManager;
+import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.model.models.car.CarModel;
 import org.apache.log4j.Logger;
@@ -11,12 +12,13 @@ import java.util.List;
 
 @Transactional
 @Component
-public class CarModelManagerImpl implements CarModelManager {
+public class CarModelManagerImpl<T> extends AbstractGenericManager implements CarModelManager {
     private CarModelDaoImpl carModelDao;
     private Logger logger = Logger.getLogger(CarModelManagerImpl.class);
 
 
     public CarModelManagerImpl(CarModelDaoImpl carModelDao) {
+        super(carModelDao);
         this.carModelDao = carModelDao;
 
     }

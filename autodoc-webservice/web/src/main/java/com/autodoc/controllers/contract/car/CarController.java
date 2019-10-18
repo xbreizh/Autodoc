@@ -1,16 +1,17 @@
 package com.autodoc.controllers.contract.car;
 
+import com.autodoc.controllers.contract.GlobalController;
 import com.autodoc.model.models.car.Car;
 import org.springframework.http.ResponseEntity;
 
-public interface CarController/* extends GlobalController*/ {
+public interface CarController extends GlobalController {
 
 
-    ResponseEntity getAll();
+   // ResponseEntity getAll();
 
     ResponseEntity getCarByRegistration(String registration);
 
-    ResponseEntity getById(Integer id);
+    // ResponseEntity getById(Integer id);
 
     ResponseEntity getByClient(String clientLastName, String clientFirstName);
 
@@ -20,5 +21,5 @@ public interface CarController/* extends GlobalController*/ {
 
     ResponseEntity updateCarClient(Integer carId, Integer clientId);
 
-    ResponseEntity delete(Integer carId);
+   // ResponseEntity delete(Integer carId);
 }

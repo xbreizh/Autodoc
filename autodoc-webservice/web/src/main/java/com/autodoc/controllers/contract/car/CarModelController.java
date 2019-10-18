@@ -1,13 +1,15 @@
 package com.autodoc.controllers.contract.car;
 
+import org.springframework.http.ResponseEntity;
+
 public interface CarModelController {
 
 
-    String getAll();
+    //ResponseEntity getAll();
 
-    String getCarModelsByManufacturer(String manufacturer);
+    ResponseEntity getCarModelsByManufacturer(String manufacturer);
 
-    String getById(int id);
+    //ResponseEntity getById(Integer id);
 
 
 }

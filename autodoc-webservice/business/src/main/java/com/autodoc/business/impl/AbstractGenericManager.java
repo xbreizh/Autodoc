@@ -77,8 +77,10 @@ public abstract class AbstractGenericManager<T> implements IGenericManager {
 
     @Override
     public String delete(Object entity) {
+
         try {
             dao.delete((T) entity);
+
             return "car deleted";
         } catch (Exception e) {
             return e.getMessage();
@@ -88,8 +90,10 @@ public abstract class AbstractGenericManager<T> implements IGenericManager {
 
     @Override
     public String deleteById(int entityId) {
+        logger.info("trying to delete "+entityId);
         try {
-            dao.deleteById((entityId));
+            dao.deleteById(entityId);
+            System.out.println("sccuees");
             return "car deleted";
         } catch (Exception e) {
             return e.getMessage();

@@ -46,6 +46,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public void delete(Object entity) {
+        System.out.println("entity: "+entity);
         getCurrentSession().delete(entity);
 
     }
