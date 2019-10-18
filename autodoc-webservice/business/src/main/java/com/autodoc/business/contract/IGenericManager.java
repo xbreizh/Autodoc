@@ -2,12 +2,12 @@ package com.autodoc.business.contract;
 
 import java.util.List;
 
-public interface IGenericManager<T> {
+public interface IGenericManager<T, D> {
 
 
-    T getById(final int id);
+    D getById(final int id);
 
-    List<T> getAll();
+    List<D> getAll();
 
     String save(final T entity);
 
@@ -16,4 +16,8 @@ public interface IGenericManager<T> {
     String delete(final T entity);
 
     String deleteById(final int entityId);
+
+    D entityToDto(final T entity);
+
+    //T dtoToEntity(final D dto);
 }

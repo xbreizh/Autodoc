@@ -5,14 +5,16 @@ import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.CarDTO;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.client.ClientDTO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Component
-public class CarManagerImpl<T> extends AbstractGenericManager implements CarManager {
+public class CarManagerImpl<T, D> extends AbstractGenericManager implements CarManager {
     private CarDaoImpl<Car> carDao;
     private ClientManager clientManager;
     private Logger logger = Logger.getLogger(CarManagerImpl.class);
@@ -23,6 +25,7 @@ public class CarManagerImpl<T> extends AbstractGenericManager implements CarMana
         this.carDao = dao;
         logger.info("creating manager");
     }
+
 
 
   /*  public CarManagerImpl(CarDaoImpl<Car> carDao, ClientDaoImpl clientDao) {
@@ -55,9 +58,10 @@ public class CarManagerImpl<T> extends AbstractGenericManager implements CarMana
     }*/
 
     @Override
-    public Car getByRegistration(String registration) {
+    public CarDTO getByRegistration(String registration) {
         logger.info("reg: " + registration);
-        return carDao.getCarByRegistration(registration);
+        CarDTO carDTO = entityToDto(carDao.getCarByRegistration(registration));
+        return carDTO;
     }
 
 /*    @Override
@@ -79,6 +83,29 @@ public class CarManagerImpl<T> extends AbstractGenericManager implements CarMana
         car.setClient(client);
         return update(car);
     }
+
+/*    @Override
+    public CarDTO entityToDto(Car entity) {
+        CarDTO carDTO = new CarDTO();
+        carDTO.setId(car.getId());
+        carDTO.setRegistration(car.getRegistration());
+        carDTO.setCarModelId(car.getCarModel().getId());
+        carDTO.setCarModelId(car.getClient().getId());
+        System.out.println("magic conversion / mapping");
+    }*/
+
+    @Override
+    public CarDTO entityToDto(Object car1) {
+        CarDTO carDTO = new CarDTO();
+        Car car = (Car) car1;
+        carDTO.setId(car.getId());
+        carDTO.setRegistration(car.getRegistration());
+        carDTO.setCarModelId(car.getCarModel().getId());
+        carDTO.setClientId(car.getClient().getId());
+        System.out.println("magic conversion / mapping");
+        return carDTO;
+    }
+
 
    /* @Override
     public Car getById(int id) {

@@ -4,6 +4,7 @@ import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.car.CarModelDTO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Transactional
 @Component
-public class CarModelManagerImpl<T> extends AbstractGenericManager implements CarModelManager {
+public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements CarModelManager {
     private CarModelDaoImpl carModelDao;
     private Logger logger = Logger.getLogger(CarModelManagerImpl.class);
 
@@ -30,15 +31,24 @@ public class CarModelManagerImpl<T> extends AbstractGenericManager implements Ca
     }
 
     @Override
+    public CarModelDTO entityToDto(Object entity) {
+        CarModel carModel = (CarModel) entity;
+        CarModelDTO carModelDTO = new CarModelDTO();
+        return carModelDTO;
+    }
+
+    @Override
     public CarModel getById(int id) {
         return (CarModel) carModelDao.getById(id);
     }
 
     @Override
-    public CarModel getByName(String name) {
-        CarModel carModel = carModelDao.findByName(name);
+    public CarModelDTO getByName(String name) {
+        CarModelDTO carModel = entityToDto(carModelDao.findByName(name));
         if (carModel != null) return carModel;
         return null;
     }
+
+
 
 }

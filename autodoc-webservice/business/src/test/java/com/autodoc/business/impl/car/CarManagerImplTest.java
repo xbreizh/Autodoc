@@ -4,6 +4,8 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,22 +45,23 @@ class CarManagerImplTest {
         assertEquals("Car added", carManager.save(car));
     }
 
-    @Test
+  /*  @Test
     void getAll() {
         List<Car> carList = new ArrayList<>();
+        CarModel model= new CarModel(new Manufacturer("AUDI"), )
         carList.add(car);
         when(carDao.getAll()).thenReturn(carList);
         assertNotNull(carManager.getAll()
         );
-    }
+    }*/
 
-    @Test
+  /*  @Test
     void getByRegistration() {
         String registration = "abc123";
         car.setRegistration(registration);
         when(carDao.getCarByRegistration(anyString())).thenReturn(car);
         assertEquals(car, carManager.getByRegistration(registration));
-    }
+    }*/
 
     @Test
     void update() {

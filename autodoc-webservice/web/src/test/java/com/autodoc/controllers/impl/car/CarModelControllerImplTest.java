@@ -3,7 +3,11 @@ package com.autodoc.controllers.impl.car;
 import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.car.CarModelControllerImpl;
+import com.autodoc.model.enums.FuelType;
+import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.car.CarModelDTO;
+import com.autodoc.model.models.car.Manufacturer;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -30,10 +35,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
@@ -47,10 +55,22 @@ class CarModelControllerImplTest {
     private MockMvc mockMvc;
     String encoding = "application/json;charset=ISO-8859-1";
     int id = 3;
-    List<CarModel> carModels = new ArrayList<>();
-    CarModel carModel = new CarModel();
-    String name="Bob";
+    List<CarModelDTO> carModels = new ArrayList<>();
+    Manufacturer manufacturer = new Manufacturer("PLOP");
+    CarModelDTO carModel;
+    String name="quattro";
     private GsonConverter converter;
+    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
+            fieldWithPath("id").description("Id of the carModel"),
+            fieldWithPath("manufacturer.id").description("Id of the manufacturer"),
+            fieldWithPath("manufacturer.name").description("Name of the manufacturer"),
+            fieldWithPath("name").description("Name of the carModel"),
+            fieldWithPath("description").description("description of the carModel"),
+            fieldWithPath("gearbox").description("Gearbox of the carModel"),
+            fieldWithPath("engine").description("Engine of the carModel"),
+            fieldWithPath("fuelType").description("FuelType of the carModel")
+    };
+
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
@@ -59,7 +79,7 @@ class CarModelControllerImplTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*/
-
+        carModel = new CarModelDTO(manufacturer, name, "joli", GearBox.MANUAL, "2.0", FuelType.DIESEL);
         converter = new GsonConverter();
         carModels.add(carModel);
         carModelManager = mock(CarModelManager.class);
@@ -68,21 +88,6 @@ class CarModelControllerImplTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(carModelControllerImpl).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
     }
 
-
-  /*  @Test
-    public void getAll() throws Exception {
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/carModel/getAll"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
-        List<CarModel> carModels = new ArrayList<>();
-        carModels.add(new CarModel());
-        String response = new Gson().toJson(carModels);
-        when(carModelManager.getAll()).thenReturn(carModels);
-        assertEquals(response, carModelControllerImpl.getAll());
-    }*/
 
     @Test
     public void getAll() throws Exception {
@@ -93,27 +98,16 @@ class CarModelControllerImplTest {
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(encoding))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andDo(document("{ClassName}/{methodName}",
+                        responseFields(
+                                fieldWithPath("[]").description("An array of manufacturers"))
+                                .andWithPrefix(".[]", descriptor)
+                ));
 
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(carModels));
         assertEquals(response, carModelControllerImpl.getAll());
     }
 
-  /*  @Test
-    public void getById() throws Exception {
-        CarModel carModel = new CarModel();
-        carModel.setName("bob");
-        when(carModelManager.getById(anyInt())).thenReturn(carModel);
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/carModel/getById/{id}", 10))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}", pathParameters(
-                        parameterWithName("id").description("The id of the input to delete"))));
-        String response = new Gson().toJson(carModel);
-        assertEquals(response, carModelControllerImpl.getById(10));
-    }*/
 
     @Test
     void getById() throws Exception {
@@ -127,7 +121,9 @@ class CarModelControllerImplTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(encoding))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andDo(document("{ClassName}/{methodName}",
+                        responseFields(descriptor)
+                ));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(carModel));
         assertEquals(response, carModelControllerImpl.getById(id));
 
@@ -135,19 +131,24 @@ class CarModelControllerImplTest {
 
     @Test
     public void getByName() throws Exception {
+
         when(carModelManager.getByName(anyString())).thenReturn(carModel);
+
         this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/carModel/getByName")
-                        .header("Authorization", "Bearer test")
+                get("/carModel/getByName")
+                        .header("Authorization", "Bearer token")
                         .content(converter.convertObjectIntoGsonObject(name))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(encoding))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andExpect(jsonPath("$.name").value(name))
+                .andDo(document("{ClassName}/{methodName}",
+                        responseFields(descriptor)
+                ));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(carModel));
         assertEquals(response, carModelControllerImpl.getByName(name));
+
     }
 
 

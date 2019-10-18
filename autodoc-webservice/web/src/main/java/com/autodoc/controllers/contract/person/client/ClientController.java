@@ -1,20 +1,21 @@
 package com.autodoc.controllers.contract.person.client;
 
+import com.autodoc.controllers.contract.GlobalController;
 import com.autodoc.model.models.person.client.Client;
 import org.springframework.http.ResponseEntity;
 
-public interface ClientController {
+public interface ClientController extends GlobalController {
 
 
-    ResponseEntity getAll();
+  //  ResponseEntity getAll();
 
-    ResponseEntity getClientByName(String name);
+    ResponseEntity getByName(String name);
 
-    ResponseEntity getClientById(Integer id);
+  //  ResponseEntity getById(Integer id);
 
-    ResponseEntity addClient(Client client);
+    ResponseEntity add(Client client);
 
-    ResponseEntity updateClient(Client client);
+    ResponseEntity update(Client client);
 
 
 }

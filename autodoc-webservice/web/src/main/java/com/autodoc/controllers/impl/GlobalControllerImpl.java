@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 /*@Controller
 @RequestMapping("/*")*/
-public abstract class GlobalControllerImpl<T> implements GlobalController {
+public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
     private Logger logger = Logger.getLogger(GlobalControllerImpl.class);
     //private Class<Object> clazz;
 
-    private IGenericManager<T> manager;
+    private IGenericManager<T, D> manager;
     private GsonConverter converter;
 
     public GlobalControllerImpl(IGenericManager manager) {

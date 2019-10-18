@@ -2,6 +2,7 @@ package com.autodoc.business.contract.car;
 
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.car.CarModelDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 public interface CarModelManager extends IGenericManager {
 
 
-    List<CarModel> getAll();
+    //List<CarModelDTO> getAll();
 
-    CarModel getById(int id);
+    //CarModelDTO getById(int id);
 
-    CarModel getByName(String name);
+    CarModelDTO getByName(String name);
 }

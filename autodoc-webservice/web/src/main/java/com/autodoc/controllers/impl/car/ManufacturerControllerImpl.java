@@ -7,6 +7,7 @@ import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.Manufacturer;
+import com.autodoc.model.models.car.ManufacturerDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/manufacturer")
-public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacturer> implements ManufacturerController {
+public class ManufacturerControllerImpl extends GlobalControllerImpl<ManufacturerDTO, Manufacturer> implements ManufacturerController {
     private Logger logger = Logger.getLogger(ManufacturerControllerImpl.class);
     private ManufacturerManager manufacturerManager;
     private GsonConverter converter;
@@ -46,7 +47,7 @@ public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacture
     @ResponseBody
     public ResponseEntity getByName(@RequestBody String name) {
         logger.debug("trying to get: " + name);
-        Manufacturer manufacturer = manufacturerManager.getByName(name);
+        ManufacturerDTO manufacturer = manufacturerManager.getByName(name);
         logger.debug("manufacturer: " + manufacturer);
         String response = converter.convertObjectIntoGsonObject(manufacturer);
 

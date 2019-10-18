@@ -2,6 +2,7 @@ package com.autodoc.business.contract.person.client;
 
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.client.ClientDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,13 +11,14 @@ public interface ClientManager extends IGenericManager {
 
   /*  String save(Client client);
 
-    List<Client> getAll();
+    List<ClientDTO> getAll();
 
     String update(Client any);
 
     String delete(int anyInt);*/
 
-    Client getByName(String name);
+    ClientDTO getByName(String name);
+
 
     /* Client getById(int id);*/
 }

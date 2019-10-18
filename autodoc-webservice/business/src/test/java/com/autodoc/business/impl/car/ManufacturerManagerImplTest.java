@@ -3,14 +3,14 @@ package com.autodoc.business.impl.car;
 import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.model.models.car.Manufacturer;
+import com.autodoc.model.models.car.ManufacturerDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -36,8 +36,13 @@ class ManufacturerManagerImplTest {
 
     @Test
     void getByName() {
-        Manufacturer manufacturer = new Manufacturer();
-        when(manufacturerDao.getByName(anyString())).thenReturn(manufacturer);
-        assertEquals(manufacturer, manufacturerManager.getByName("TOP"));
+        String name = "BOB";
+        Manufacturer manufacturer1 = new Manufacturer(name);
+        when(manufacturerDao.getByName(anyString())).thenReturn(manufacturer1);
+        ManufacturerDTO manufacturer = (ManufacturerDTO) manufacturerManager.entityToDto(manufacturer1);
+        assertAll(
+                () -> assertEquals(name, manufacturerManager.getByName(name).getName()),
+                () -> assertEquals(name, manufacturerManager.getByName(name).getName())
+        );
     }
 }

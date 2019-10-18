@@ -4,15 +4,14 @@ import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.model.models.car.Manufacturer;
+import com.autodoc.model.models.car.ManufacturerDTO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 @Component
-public class ManufacturerManagerImpl<T> extends AbstractGenericManager implements ManufacturerManager {
+public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implements ManufacturerManager {
     private ManufacturerDaoImpl manufacturerDao;
     private Logger logger = Logger.getLogger(ManufacturerManagerImpl.class);
 
@@ -25,19 +24,26 @@ public class ManufacturerManagerImpl<T> extends AbstractGenericManager implement
     }
 
 
-    @Override
+   /* @Override
     public List<Manufacturer> getAll() {
         List<Manufacturer> manufacturers = manufacturerDao.getAll();
         logger.info("trying to get maufacturers: " + manufacturers);
         return manufacturers;
+    }*/
+
+    @Override
+    public ManufacturerDTO entityToDto(Object entity) {
+        Manufacturer manufacturer = (Manufacturer) entity;
+        ManufacturerDTO manufacturerDTO = new ManufacturerDTO(manufacturer.getName());
+        manufacturerDTO.setId(((Manufacturer) entity).getId());
+        return manufacturerDTO;
     }
 
     @Override
-    public Manufacturer getByName(String name) {
+    public ManufacturerDTO getByName(String name) {
         logger.debug("trying to get: " + name);
         if (name.isEmpty()) return null;
-        Manufacturer manufacturer = manufacturerDao.getByName(name);
-        return manufacturer;
+        return entityToDto(manufacturerDao.getByName(name));
     }
 
 

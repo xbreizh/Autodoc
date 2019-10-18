@@ -8,18 +8,18 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 @Component
-public abstract class AbstractGenericManager<T> implements IGenericManager {
+public abstract class AbstractGenericManager<T, D> implements IGenericManager {
 
-    private Logger logger = Logger.getLogger(AbstractHibernateDao.class);
+    private Logger logger = Logger.getLogger(AbstractGenericManager.class);
     //private Class<Object> clazz;
     private IGenericDao<T> dao;
 
     public AbstractGenericManager(IGenericDao dao) {
-
         this.dao = dao;
     }
 
@@ -54,14 +54,24 @@ public abstract class AbstractGenericManager<T> implements IGenericManager {
 
     @Override
     public Object getById(int id) {
-        return dao.getById(id);
+        return entityToDto(dao.getById(id));
     }
 
     @Override
     public List getAll() {
         logger.info("trying to find them all");
         logger.debug("dao: " + dao);
-        return dao.getAll();
+
+        return convertList(dao.getAll());
+    }
+
+    private List<D> convertList(List<T> list){
+        List<D> newList = new ArrayList<>();
+        for (T obj:dao.getAll()){
+            Object newObj = entityToDto(obj);
+            newList.add((D) newObj);
+        }
+        return newList;
     }
 
 
@@ -90,7 +100,7 @@ public abstract class AbstractGenericManager<T> implements IGenericManager {
 
     @Override
     public String deleteById(int entityId) {
-        logger.info("trying to delete "+entityId);
+        logger.info("trying to delete " + entityId);
         try {
             dao.deleteById(entityId);
             System.out.println("sccuees");

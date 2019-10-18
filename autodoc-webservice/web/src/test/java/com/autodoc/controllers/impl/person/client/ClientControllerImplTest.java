@@ -4,6 +4,7 @@ import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.controllers.contract.person.client.ClientController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.client.ClientDTO;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +33,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,12 +46,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 class ClientControllerImplTest {
     private Logger logger = Logger.getLogger(ClientControllerImplTest.class);
-    @Inject
-    private GsonConverter converter;
     private ClientController clientController;
     private ClientManager clientManager;
     private MockMvc mockMvc;
-
+    private GsonConverter converter;
+    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
+            fieldWithPath("id").description("Id of the car"),
+            fieldWithPath("firstName").description("FirstName of the carModel"),
+            fieldWithPath("lastName").description("LastName of the carModel"),
+            fieldWithPath("phoneNumber1").description("PhoneNumber1 of the carModel"),
+            fieldWithPath("phoneNumber2").description("PhoneNumber2 of the carModel").optional()
+    };
+    private  List<ClientDTO> clients = new ArrayList<>();
+    private String name = "Gondry";
+    private ClientDTO client = new ClientDTO("Jean", name, "03938937837");
+    private int id = 72;
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
@@ -59,8 +71,10 @@ class ClientControllerImplTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*/
-
-// using standalone
+        client.setPhoneNumber2("12345");
+        clients.add(client);
+        converter = new GsonConverter();
+        // using standalone
         this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
         logger.debug("context: " + webApplicationContext);
     }
@@ -68,9 +82,7 @@ class ClientControllerImplTest {
 
     @Test
     public void getAll() throws Exception {
-        List<Client> clients = new ArrayList<>();
-        Client client = new Client("paul", "martin", "333225");
-        clients.add(client);
+
         when(clientManager.getAll()).thenReturn(clients);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
@@ -78,7 +90,11 @@ class ClientControllerImplTest {
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andDo(document("{ClassName}/{methodName}",
+                        responseFields(
+                                fieldWithPath("[]").description("An array of manufacturers"))
+                                .andWithPrefix(".[]", descriptor)
+                ));
 
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(clients));
         assertEquals(response, clientController.getAll());
@@ -102,10 +118,7 @@ class ClientControllerImplTest {
 */
 
     @Test
-    void getClientByName() throws Exception {
-        Client client = new Client();
-        String name = "Gondry";
-        client.setLastName(name);
+    void getByName() throws Exception {
         when(clientManager.getByName(anyString())).thenReturn(client);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
@@ -116,15 +129,15 @@ class ClientControllerImplTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andDo(document("{ClassName}/{methodName}",
+                        responseFields(descriptor)
+                ));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(client));
-        assertEquals(response, clientController.getClientByName(name));
+        assertEquals(response, clientController.getByName(name));
     }
 
     @Test
-    void getClientById() throws Exception {
-        Client client = new Client();
-        int id = 72;
+    void getById() throws Exception {
         when(clientManager.getById(anyInt())).thenReturn(client);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
@@ -135,13 +148,15 @@ class ClientControllerImplTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andDo(document("{ClassName}/{methodName}",
+                        responseFields(descriptor)
+                ));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(client));
-        assertEquals(response, clientController.getClientById(id));
+        assertEquals(response, clientController.getById(id));
     }
 
     @Test
-    void addClient() throws Exception {
+    void add() throws Exception {
         Client client = new Client();
         when(clientManager.save(any(Client.class))).thenReturn("client added");
         this.mockMvc.perform(
@@ -156,11 +171,11 @@ class ClientControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}"));
 
         ResponseEntity response = ResponseEntity.ok("client added");
-        assertEquals(response, clientController.addClient(client));
+        assertEquals(response, clientController.add(client));
     }
 
     @Test
-    void updateClient() throws Exception {
+    void update() throws Exception {
         Client client = new Client();
         when(clientManager.update(any(Client.class))).thenReturn("client updated");
         this.mockMvc.perform(
@@ -175,7 +190,7 @@ class ClientControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}"));
 
         ResponseEntity response = ResponseEntity.ok("client updated");
-        assertEquals(response, clientController.updateClient(client));
+        assertEquals(response, clientController.update(client));
     }
 
 

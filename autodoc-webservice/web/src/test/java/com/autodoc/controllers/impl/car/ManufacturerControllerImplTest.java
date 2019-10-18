@@ -7,6 +7,7 @@ import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
+import com.autodoc.model.models.car.ManufacturerDTO;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,12 +51,11 @@ class ManufacturerControllerImplTest {
     private MockMvc mockMvc;
     private FieldDescriptor[] descriptor = new FieldDescriptor[]{
             fieldWithPath("id").description("Id of the manufacturer"),
-            fieldWithPath("name").description("Name of the manufacturer"),
-            //fieldWithPath("carModels").description("The number of car models")
+            fieldWithPath("name").description("Name of the manufacturer")
     };
-    private List<Manufacturer> manufacturers = new ArrayList<>();
-    private Manufacturer m1 = new Manufacturer("BMW");
-    private Manufacturer m2 = new Manufacturer("AUDI");
+    private List<ManufacturerDTO> manufacturers = new ArrayList<>();
+    private ManufacturerDTO m1 = new ManufacturerDTO("BMW");
+    private ManufacturerDTO m2 = new ManufacturerDTO("AUDI");
 
 
     @BeforeEach
@@ -102,7 +102,6 @@ class ManufacturerControllerImplTest {
 
     @Test
     public void getByName() throws Exception {
-        CarModel cm = new CarModel(m1, "quattro", "joli", GearBox.MANUAL, "2.0", FuelType.DIESEL);
         String name = m1.getName();
         int id = 3;
         m1.setId(id);

@@ -6,6 +6,7 @@ import com.autodoc.controllers.contract.car.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.CarDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/car")
-public class CarControllerImpl extends GlobalControllerImpl<Car> implements CarController {
+public class CarControllerImpl extends GlobalControllerImpl<CarDTO, Car> implements CarController {
     private Logger logger = Logger.getLogger(CarControllerImpl.class);
     private CarManager carManager;
 
@@ -44,7 +45,7 @@ public class CarControllerImpl extends GlobalControllerImpl<Car> implements CarC
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getCarByRegistration(@RequestBody String registration) {
-        Car car = carManager.getByRegistration(registration);
+        CarDTO car = carManager.getByRegistration(registration);
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);

@@ -6,6 +6,7 @@ import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.car.CarModelDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/carModel")
-public class CarModelControllerImpl extends GlobalControllerImpl<CarModel> implements CarModelController {
+public class CarModelControllerImpl extends GlobalControllerImpl<CarModelDTO, CarModel> implements CarModelController {
 
     private Logger logger = Logger.getLogger(CarModelControllerImpl.class);
     private CarModelManager carModelManager;
@@ -79,7 +80,7 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel> imple
     @ResponseBody
     public ResponseEntity getByName(@RequestBody String name) {
         logger.debug("getting: " + name);
-        CarModel carModel = carModelManager.getByName(name);
+        CarModelDTO carModel = carModelManager.getByName(name);
         String response = converter.convertObjectIntoGsonObject(carModel);
         return ResponseEntity.ok(response);
     }
