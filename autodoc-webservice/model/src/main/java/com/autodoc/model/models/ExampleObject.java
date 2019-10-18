@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @ToString
-public class ExampleObject /*implements Serializable*/ {
+public class ExampleObject {
     @Id
     //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")

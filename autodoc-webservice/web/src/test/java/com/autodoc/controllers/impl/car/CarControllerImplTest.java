@@ -2,13 +2,8 @@ package com.autodoc.controllers.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.helper.GsonConverter;
-import com.autodoc.model.enums.FuelType;
-import com.autodoc.model.enums.GearBox;
+import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.car.CarDTO;
-import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.car.Manufacturer;
-import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +53,7 @@ class CarControllerImplTest {
     //Manufacturer manufacturer = new Manufacturer("Mazda");
     String name = "Clio";
     //CarModel carModel = new CarModel(manufacturer, name, "joli", GearBox.MANUAL, "2.0", FuelType.DIESEL);
-    CarDTO car ;
+    CarDTO car;
 
     private CarControllerImpl carControllerImpl;
     private CarManager carManager;

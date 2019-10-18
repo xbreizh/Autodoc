@@ -4,17 +4,14 @@ import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.controllers.contract.car.CarModelController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
-import com.autodoc.model.models.car.Car;
+import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.car.CarModelDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/carModel")
@@ -64,7 +61,7 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModelDTO, Ca
     @DeleteMapping(value = "/deleteById/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity delete(@PathVariable Integer id) {
-        logger.info("trying to delete: "+id);
+        logger.info("trying to delete: " + id);
         String response = "impossible action";
         if (response.equals(response)) {
             return ResponseEntity.ok(response);

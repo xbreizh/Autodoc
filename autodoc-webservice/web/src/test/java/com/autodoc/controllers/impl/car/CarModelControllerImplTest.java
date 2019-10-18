@@ -2,13 +2,10 @@ package com.autodoc.controllers.impl.car;
 
 import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.controllers.helper.GsonConverter;
-import com.autodoc.controllers.impl.car.CarModelControllerImpl;
+import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
-import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.car.CarModelDTO;
 import com.autodoc.model.models.car.Manufacturer;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,10 +35,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
@@ -58,7 +52,7 @@ class CarModelControllerImplTest {
     List<CarModelDTO> carModels = new ArrayList<>();
     Manufacturer manufacturer = new Manufacturer("PLOP");
     CarModelDTO carModel;
-    String name="quattro";
+    String name = "quattro";
     private GsonConverter converter;
     private FieldDescriptor[] descriptor = new FieldDescriptor[]{
             fieldWithPath("id").description("Id of the carModel"),

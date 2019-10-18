@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 /*@Controller
 @RequestMapping("/*")*/
 public abstract class GlobalControllerImpl<T, D> implements GlobalController {
@@ -63,13 +64,11 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     }
 
 
-
-
     @Override
     @DeleteMapping(value = "/deleteById/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity delete(@PathVariable Integer id) {
-        logger.info("trying to delete: "+id);
+        logger.info("trying to delete: " + id);
         String response = manager.deleteById(id);
         if (response.equals(response)) {
             return ResponseEntity.ok(response);

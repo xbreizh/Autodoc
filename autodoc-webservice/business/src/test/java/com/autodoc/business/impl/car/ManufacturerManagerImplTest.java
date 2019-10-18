@@ -2,8 +2,8 @@ package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
+import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.models.car.Manufacturer;
-import com.autodoc.model.models.car.ManufacturerDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

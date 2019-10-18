@@ -4,10 +4,9 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.car.CarDaoImpl;
+import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.car.CarDTO;
 import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.client.ClientDTO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,7 +95,7 @@ public class CarManagerImpl<T, D> extends AbstractGenericManager implements CarM
 
     @Override
     public CarDTO entityToDto(Object car1) {
-        CarDTO carDTO = new CarDTO();
+        CarDTO carDTO = new CarDTO("abc123", 2, 4);
         Car car = (Car) car1;
         carDTO.setId(car.getId());
         carDTO.setRegistration(car.getRegistration());

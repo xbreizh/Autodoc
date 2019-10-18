@@ -4,20 +4,13 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

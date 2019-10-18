@@ -20,7 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Bill /*implements Serializable*/ {
+public class Bill {
 
     // Constructors
 

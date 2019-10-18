@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 public interface CarController extends GlobalController {
 
 
-   // ResponseEntity getAll();
+    // ResponseEntity getAll();
 
     ResponseEntity getCarByRegistration(String registration);
 
@@ -21,5 +21,5 @@ public interface CarController extends GlobalController {
 
     ResponseEntity updateCarClient(Integer carId, Integer clientId);
 
-   // ResponseEntity delete(Integer carId);
+    // ResponseEntity delete(Integer carId);
 }

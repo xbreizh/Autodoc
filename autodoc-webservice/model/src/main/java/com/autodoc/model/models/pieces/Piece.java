@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class Piece /*implements Serializable*/ {
+public class Piece {
 
     // Constructors
 

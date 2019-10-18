@@ -1,8 +1,7 @@
 package com.autodoc.business.contract.car;
 
 import com.autodoc.business.contract.IGenericManager;
-import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.car.CarDTO;
+import com.autodoc.model.dtos.car.CarDTO;
 import org.springframework.stereotype.Service;
 
 @Service

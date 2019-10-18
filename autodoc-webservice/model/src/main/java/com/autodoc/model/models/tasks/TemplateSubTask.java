@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class TemplateSubTask /*implements Serializable*/ {
+public class TemplateSubTask {
 
     // Constructors
 

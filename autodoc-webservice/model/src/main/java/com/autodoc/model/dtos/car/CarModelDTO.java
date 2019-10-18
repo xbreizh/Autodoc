@@ -1,7 +1,9 @@
-package com.autodoc.model.models.car;
+package com.autodoc.model.dtos.car;
 
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
+import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.NonNull;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CarModelDTO /*implements Serializable*/ {
+public class CarModelDTO {
 
     // Constructors
 

@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class Country /*implements Serializable*/ {
+public class Country {
 
     // Constructor
 

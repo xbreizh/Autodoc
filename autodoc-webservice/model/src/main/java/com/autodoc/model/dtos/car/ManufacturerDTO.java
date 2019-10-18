@@ -1,6 +1,7 @@
-package com.autodoc.model.models.car;
+package com.autodoc.model.dtos.car;
 
 
+import com.autodoc.model.models.car.CarModel;
 import lombok.NonNull;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -26,8 +27,6 @@ public class ManufacturerDTO /*implements Serializable */ {
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @Transient
     private List<CarModel> carModels;
-
-
 
 
     public ManufacturerDTO(String name) {

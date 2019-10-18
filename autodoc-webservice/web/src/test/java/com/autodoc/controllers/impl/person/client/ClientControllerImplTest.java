@@ -3,8 +3,8 @@ package com.autodoc.controllers.impl.person.client;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.controllers.contract.person.client.ClientController;
 import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.client.ClientDTO;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +56,7 @@ class ClientControllerImplTest {
             fieldWithPath("phoneNumber1").description("PhoneNumber1 of the carModel"),
             fieldWithPath("phoneNumber2").description("PhoneNumber2 of the carModel").optional()
     };
-    private  List<ClientDTO> clients = new ArrayList<>();
+    private List<ClientDTO> clients = new ArrayList<>();
     private String name = "Gondry";
     private ClientDTO client = new ClientDTO("Jean", name, "03938937837");
     private int id = 72;

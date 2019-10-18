@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 public interface ClientController extends GlobalController {
 
 
-  //  ResponseEntity getAll();
+    //  ResponseEntity getAll();
 
     ResponseEntity getByName(String name);
 
-  //  ResponseEntity getById(Integer id);
+    //  ResponseEntity getById(Integer id);
 
     ResponseEntity add(Client client);
 

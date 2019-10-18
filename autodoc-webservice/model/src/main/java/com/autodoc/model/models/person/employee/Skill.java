@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-public class Skill /*implements Serializable*/ {
+public class Skill {
 
     // Constructors
 

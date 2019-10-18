@@ -1,8 +1,7 @@
 package com.autodoc.business.contract.car;
 
 import com.autodoc.business.contract.IGenericManager;
-import com.autodoc.model.models.car.Manufacturer;
-import com.autodoc.model.models.car.ManufacturerDTO;
+import com.autodoc.model.dtos.car.ManufacturerDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

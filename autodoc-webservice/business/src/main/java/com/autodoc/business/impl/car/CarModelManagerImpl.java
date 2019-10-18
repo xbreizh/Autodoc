@@ -3,8 +3,8 @@ package com.autodoc.business.impl.car;
 import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
+import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.car.CarModelDTO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +48,6 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
         if (carModel != null) return carModel;
         return null;
     }
-
 
 
 }

@@ -1,4 +1,4 @@
-package com.autodoc.model.models.person.client;
+package com.autodoc.model.dtos.person.client;
 
 
 import com.autodoc.model.models.person.PersonDTO;
@@ -17,7 +17,6 @@ public class ClientDTO extends PersonDTO {
 
     public ClientDTO() {
     }
-
 
 
 }

@@ -1,4 +1,4 @@
-package com.autodoc.model.models.car;
+package com.autodoc.model.dtos.car;
 
 
 import lombok.Getter;
@@ -6,29 +6,25 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-
 @Setter
 @Getter
 @ToString
-public class CarDTO /*implements Serializable */ {
+public class CarDTO {
 
-    // Constructors
-
-    private int id;
-    @NonNull
-    @Column(name = "registration", unique = true)
-    private String registration;
 
     // Parameters
     @NonNull
+    private int id;
+    @NonNull
     private int carModelId;
+    @NonNull
+    private String registration;
+
     @NonNull
     private int clientId;
 
-    public CarDTO() {
-    }
 
+    // Constructors
     public CarDTO(String registration, int carModelId, int clientId) {
         this.registration = registration;
         this.carModelId = carModelId;

@@ -3,9 +3,7 @@ package com.autodoc.model.models.car;
 
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.client.Client;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;

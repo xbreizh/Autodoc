@@ -2,7 +2,6 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
-import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import org.apache.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Component;
@@ -65,9 +64,9 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager {
         return convertList(dao.getAll());
     }
 
-    private List<D> convertList(List<T> list){
+    private List<D> convertList(List<T> list) {
         List<D> newList = new ArrayList<>();
-        for (T obj:dao.getAll()){
+        for (T obj : dao.getAll()) {
             Object newObj = entityToDto(obj);
             newList.add((D) newObj);
         }

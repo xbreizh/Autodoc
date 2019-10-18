@@ -5,17 +5,14 @@ import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.controllers.contract.car.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
-import com.autodoc.model.models.car.Car;
+import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.models.car.Manufacturer;
-import com.autodoc.model.models.car.ManufacturerDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/manufacturer")
@@ -58,7 +55,7 @@ public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacture
     @DeleteMapping(value = "/deleteById/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity delete(@PathVariable Integer id) {
-        logger.info("trying to delete: "+id);
+        logger.info("trying to delete: " + id);
         String response = "impossible action";
         if (response.equals(response)) {
             return ResponseEntity.ok(response);
