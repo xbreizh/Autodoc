@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 public class CarManagerImpl<T, D> extends AbstractGenericManager implements CarManager {
+    private Logger logger = Logger.getLogger(CarManagerImpl.class);
     private CarDaoImpl<Car> carDao;
     private ClientManager clientManager;
-    private Logger logger = Logger.getLogger(CarManagerImpl.class);
 
     public CarManagerImpl(CarDaoImpl dao, ClientManager clientManager) {
         super(dao);

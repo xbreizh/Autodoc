@@ -1,13 +1,12 @@
 package com.autodoc.business.contract.tasks;
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.tasks.TemplateSubTask;
 
-import java.util.List;
-
-public interface TemplateSubTaskManager {
+public interface TemplateSubTaskManager extends IGenericManager {
 
 
     String save(TemplateSubTask templateSubTask);
 
-    List<TemplateSubTask> getAll();
+    //  List<TemplateSubTask> getAll();
 }

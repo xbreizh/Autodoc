@@ -1,13 +1,12 @@
 package com.autodoc.business.contract.person.employee;
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.person.employee.Skill;
 
-import java.util.List;
-
-public interface SkillManager {
+public interface SkillManager extends IGenericManager {
 
 
     String save(Skill skill);
 
-    List<Skill> getAll();
+    //  List<Skill> getAll();
 }

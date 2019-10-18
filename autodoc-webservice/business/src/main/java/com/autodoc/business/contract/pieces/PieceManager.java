@@ -1,12 +1,11 @@
 package com.autodoc.business.contract.pieces;
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.pieces.Piece;
 
-import java.util.List;
-
-public interface PieceManager {
+public interface PieceManager extends IGenericManager {
 
     String save(Piece piece);
 
-    List<Piece> getAll();
+    //   List<Piece> getAll();
 }

@@ -1,12 +1,11 @@
 package com.autodoc.business.contract.pieces;
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.pieces.Category;
 
-import java.util.List;
-
-public interface CategoryManager {
+public interface CategoryManager extends IGenericManager {
 
     String save(Category category);
 
-    List<Category> getAll();
+//    List<Category> getAll();
 }

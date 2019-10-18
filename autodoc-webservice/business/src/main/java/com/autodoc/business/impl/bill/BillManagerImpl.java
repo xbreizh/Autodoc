@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.bill;
 
 import com.autodoc.business.contract.bill.BillManager;
+import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.bill.BillDaoImpl;
 import com.autodoc.model.models.bill.Bill;
 import org.apache.log4j.Logger;
@@ -11,12 +12,13 @@ import java.util.List;
 
 @Transactional
 @Component
-public class BillManagerImpl implements BillManager {
+public class BillManagerImpl<T, D> extends AbstractGenericManager implements BillManager {
     private BillDaoImpl<Bill> billDao;
     private Logger logger = Logger.getLogger(BillManagerImpl.class);
 
 
     public BillManagerImpl(BillDaoImpl<Bill> billDao) {
+        super(billDao);
         this.billDao = billDao;
 
     }
@@ -34,6 +36,11 @@ public class BillManagerImpl implements BillManager {
     @Override
     public List<Bill> getAll() {
         return billDao.getAll();
+    }
+
+    @Override
+    public Object entityToDto(Object entity) {
+        return null;
     }
 
 }

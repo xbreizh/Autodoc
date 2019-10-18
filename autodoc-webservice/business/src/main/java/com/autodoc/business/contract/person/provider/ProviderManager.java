@@ -1,13 +1,12 @@
 package com.autodoc.business.contract.person.provider;
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.models.person.provider.Provider;
 
-import java.util.List;
-
-public interface ProviderManager {
+public interface ProviderManager extends IGenericManager {
 
 
     String save(Provider provider);
 
-    List<Provider> getAll();
+    //  List<Provider> getAll();
 }
