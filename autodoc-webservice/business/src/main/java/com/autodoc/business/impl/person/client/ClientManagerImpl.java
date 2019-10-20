@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 public class ClientManagerImpl<T, D> extends AbstractGenericManager implements ClientManager {
-    private ClientDaoImpl clientDao;
     private Logger logger = Logger.getLogger(ClientManagerImpl.class);
+    private ClientDaoImpl clientDao;
 
     public ClientManagerImpl(ClientDaoImpl clientDao) {
         super(clientDao);
@@ -21,42 +21,6 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
 
     }
 
-
-   /* @Override
-    public String save(Client client) {
-        clientDao.create(client);
-        return "client added";
-    }
-
-    @Override
-    public List<Client> getAll() {
-        logger.debug("trying to get clients");
-        return clientDao.findAll();
-    }
-
-    @Override
-    public String update(Client client) {
-        try {
-            clientDao.update(client);
-            logger.info("client updated");
-            return "client updated";
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return e.getMessage();
-        }
-    }
-
-    @Override
-    public String delete(int clientId) {
-        try {
-            clientDao.deleteById(clientId);
-            logger.info("client removed");
-            return "client removed";
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return e.getMessage();
-        }
-    }*/
 
     @Override
     public ClientDTO getByName(String name) {
@@ -73,16 +37,20 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         clientDTO.setId(client.getId());
         clientDTO.setPhoneNumber1(client.getPhoneNumber1());
         clientDTO.setPhoneNumber2(client.getPhoneNumber2());
-        System.out.println("magic conversion / mapping");
         return clientDTO;
     }
 
+    @Override
+    public Client dtoToEntity(Object entity) {
+        ClientDTO dto = (ClientDTO) entity;
+        Client client = new Client();
+        client.setId(dto.getId());
+        client.setFirstName(dto.getFirstName());
+        client.setLastName(dto.getLastName());
+        client.setPhoneNumber1(dto.getPhoneNumber1());
+        client.setPhoneNumber2(dto.getPhoneNumber2());
+        return client;
+    }
 
 
-
-
- /*   @Override
-    public Client getById(int id) {
-        return (Client) clientDao.getById(id);
-    }*/
 }

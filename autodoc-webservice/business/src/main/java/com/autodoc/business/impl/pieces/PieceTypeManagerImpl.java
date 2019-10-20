@@ -20,19 +20,16 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
         this.pieceTypeDao = pieceTypeDao;
     }
 
-    @Override
-    public String save(PieceType pieceType) {
-        pieceTypeDao.create(pieceType);
-        return "piece added";
-    }
 
     @Override
     public Object entityToDto(Object entity) {
         return null;
     }
 
-/*    @Override
-    public List<PieceType> getAll() {
+    @Override
+    public Object dtoToEntity(Object entity) {
         return null;
-    }*/
+    }
+
+
 }

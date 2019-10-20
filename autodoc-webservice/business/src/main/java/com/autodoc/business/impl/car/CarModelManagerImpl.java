@@ -38,6 +38,11 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
     }
 
     @Override
+    public Object dtoToEntity(Object entity) {
+        return null;
+    }
+
+    @Override
     public CarModel getById(int id) {
         return (CarModel) carModelDao.getById(id);
     }

@@ -8,13 +8,13 @@ import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/client")
@@ -29,16 +29,6 @@ public class ClientControllerImpl extends GlobalControllerImpl<ClientDTO, Client
         this.clientManager = clientManager;
     }
 
-    @GetMapping(value = "/getAll",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getAll() {
-        List<Client> list = clientManager.getAll();
-        logger.debug("list: " + list);
-        String response = converter.convertObjectIntoGsonObject(list);
-
-        return ResponseEntity.ok(response);
-    }
 
     @Override
     @GetMapping(value = "/getByName",
@@ -49,46 +39,6 @@ public class ClientControllerImpl extends GlobalControllerImpl<ClientDTO, Client
         String response = converter.convertObjectIntoGsonObject(client);
 
         return ResponseEntity.ok(response);
-    }
-
-  /*  @Override
-    @GetMapping(value = "/getById/{clientId}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getClientById(@PathVariable Integer clientId) {
-        Client client = (Client) clientManager.getById(clientId);
-        String response = converter.convertObjectIntoGsonObject(client);
-
-        return ResponseEntity.ok(response);
-    }*/
-
-
-    @Override
-    @PostMapping(value = "/add",
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity add(@RequestBody Client client) {
-        logger.debug("trying to add a client: " + client);
-        String response = clientManager.save(client);
-        if (response.equals("client added")) {
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
-    }
-
-    @Override
-    @PutMapping(value = "/update",
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody Client client) {
-        logger.debug("trying to update a client: " + client);
-        String response = clientManager.update(client);
-        if (response.equals("client updated")) {
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
     }
 
 

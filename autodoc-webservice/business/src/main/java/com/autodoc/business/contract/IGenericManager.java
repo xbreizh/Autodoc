@@ -9,15 +9,15 @@ public interface IGenericManager<T, D> {
 
     List<D> getAll();
 
-    String save(final T entity);
+    String save(final D entity);
 
-    String update(final T entity);
+    String update(final D entity);
 
-    String delete(final T entity);
+    String delete(final D entity);
 
     String deleteById(final int entityId);
 
     D entityToDto(final T entity);
 
-    //T dtoToEntity(final D dto);
+    T dtoToEntity(final D entity);
 }

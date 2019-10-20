@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 public interface TemplateSubTaskController {
 
 
-    ResponseEntity getAll();
+    ResponseEntity getByName(String name);
 
 
 }

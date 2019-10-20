@@ -19,19 +19,16 @@ public class TemplateSubTaskManagerImpl<T, D> extends AbstractGenericManager imp
         this.templateSubTaskDao = templateSubTaskDao;
     }
 
-    @Override
-    public String save(TemplateSubTask templateSubTask) {
-        templateSubTaskDao.create(templateSubTask);
-        return "piece added";
-    }
 
     @Override
     public Object entityToDto(Object entity) {
         return null;
     }
 
-   /* @Override
-    public List<TemplateSubTask> getAll() {
+    @Override
+    public Object dtoToEntity(Object entity) {
         return null;
-    }*/
+    }
+
+
 }

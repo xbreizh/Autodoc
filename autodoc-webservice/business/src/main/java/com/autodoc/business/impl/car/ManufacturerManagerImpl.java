@@ -24,19 +24,17 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     }
 
 
-   /* @Override
-    public List<Manufacturer> getAll() {
-        List<Manufacturer> manufacturers = manufacturerDao.getAll();
-        logger.info("trying to get maufacturers: " + manufacturers);
-        return manufacturers;
-    }*/
-
     @Override
     public ManufacturerDTO entityToDto(Object entity) {
         Manufacturer manufacturer = (Manufacturer) entity;
         ManufacturerDTO manufacturerDTO = new ManufacturerDTO(manufacturer.getName());
         manufacturerDTO.setId(((Manufacturer) entity).getId());
         return manufacturerDTO;
+    }
+
+    @Override
+    public Object dtoToEntity(Object entity) {
+        return null;
     }
 
     @Override

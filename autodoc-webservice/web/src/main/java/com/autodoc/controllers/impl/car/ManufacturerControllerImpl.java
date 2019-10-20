@@ -54,7 +54,7 @@ public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacture
     @Override
     @DeleteMapping(value = "/deleteById/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity delete(@PathVariable Integer id) {
+    public ResponseEntity deleteById(@PathVariable Integer id) {
         logger.info("trying to delete: " + id);
         String response = "impossible action";
         if (response.equals(response)) {

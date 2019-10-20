@@ -25,14 +25,14 @@ public class JwtConnect implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
         //User authentication management
-        Employee employee = employeeManager.getEmployeeByLogin(login);
+        Employee employee = employeeManager.getByLogin(login);
         logger.debug("");
         if (employee != null) {
             logger.debug("found: " + login);
             // TODO
             // create token mgt entity and token generation config
             if (employee.getLogin().equals(login)) {
-                logger.debug("new password: " + new BCryptPasswordEncoder().encode("abc123").toString());
+                logger.debug("new password: " + new BCryptPasswordEncoder().encode("abc123"));
                 // return new User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
                 //User user = new User(login, "$2a$10$uY/HyJBjWPp9DXAyuEGUJu2wGzldUhkTu7CUPuaZeCjoo3Ig3CWn2",
                 User user = new User(login, employee.getPassword(),
@@ -47,12 +47,10 @@ public class JwtConnect implements UserDetailsService {
 
     public void checkToken(String token) {
         //User authentication management
-        Employee employee = employeeManager.getEmployeeByToken(token);
+        Employee employee = employeeManager.getByToken(token);
         logger.debug("employee: " + employee);
-        if (employee != null) {
-            if (tokenIsExpired(token)) {
-                throw new UsernameNotFoundException("Token expired");
-            }
+        if (employee != null && tokenIsExpired(token)) {
+            throw new UsernameNotFoundException("Token expired");
         }
         throw new UsernameNotFoundException("Invalid token: " + token);
     }

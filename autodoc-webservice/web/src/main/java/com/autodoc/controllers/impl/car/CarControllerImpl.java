@@ -28,17 +28,6 @@ public class CarControllerImpl extends GlobalControllerImpl<CarDTO, Car> impleme
         this.carManager = carManager;
     }
 
-   /* @GetMapping(value = "/getAll",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getAll() {
-        logger.info("trying to get list of cars");
-        List<Car> list = carManager.getAll();
-        logger.info("list: " + list);
-        String response = converter.convertObjectIntoGsonObject(list);
-
-        return ResponseEntity.ok(response);
-    }*/
 
     @Override
     @GetMapping(value = "/getByRegistration",
@@ -51,55 +40,12 @@ public class CarControllerImpl extends GlobalControllerImpl<CarDTO, Car> impleme
         return ResponseEntity.ok(response);
     }
 
-   /* @Override
-    @GetMapping(value = "/getById/{carId}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getById(@PathVariable Integer carId) {
-        System.out.println("getting id: " + carId);
-        Car car = (Car) carManager.getById(carId);
-        String response = converter.convertObjectIntoGsonObject(car);
-
-        return ResponseEntity.ok(response);
-    }*/
-
 
     @Override
     public ResponseEntity getByClient(String clientLastName, String clientFirstName) {
         return null;
     }
 
-    @Override
-    @PostMapping(value = "/add",
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity add(@RequestBody Car car) {
-        System.out.println("trying to add a car");
-        logger.debug("trying to add a car: " + car);
-        String response = carManager.save(car);
-        if (response.equals("car added")) {
-            return ResponseEntity.ok("car added");
-        }
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
-
-    }
-
-
-    @Override
-    @PutMapping(value = "/update",
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody Car car) {
-
-        logger.debug("trying to update a car: " + car);
-        String response = carManager.update(car);
-        if (response.equals("car updated")) {
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
-    }
 
     @Override
     @PutMapping(value = "/updateClient/{carId}/{clientId}",
@@ -115,17 +61,5 @@ public class CarControllerImpl extends GlobalControllerImpl<CarDTO, Car> impleme
                 .body(response);
     }
 
-   /* @Override
-    @DeleteMapping(value = "/deleteById/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity delete(@PathVariable Integer id) {
-        String response = "car deleted";
-        if (response.equals(response)) {
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(response);
-    }*/
 
 }

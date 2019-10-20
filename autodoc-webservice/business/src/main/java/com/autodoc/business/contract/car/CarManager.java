@@ -8,15 +8,9 @@ import org.springframework.stereotype.Service;
 public interface CarManager extends IGenericManager {
 
 
-    // String save(Car car);
-
-    // List<Car> getAll();
-
     CarDTO getByRegistration(String registration);
 
-    // String update(Car car);
 
     String updateClient(int carId, int clientId);
 
-    // Car getById(int id);
 }

@@ -1,17 +1,10 @@
 package com.autodoc.business.contract.bill;
 
-import com.autodoc.model.models.bill.Bill;
+import com.autodoc.business.contract.IGenericManager;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public interface BillManager {
-
-
-    boolean save(Bill bill);
-
-    List<Bill> getAll();
+public interface BillManager extends IGenericManager {
 
 
 }

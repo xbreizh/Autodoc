@@ -1,20 +1,10 @@
 package com.autodoc.controllers.contract.person.employee;
 
-import com.autodoc.model.models.person.employee.Employee;
+import org.springframework.http.ResponseEntity;
 
 public interface SkillCategoryController {
 
 
-    String getAll();
+    ResponseEntity getByName(String name);
 
-    Employee getEmployeeByName(String name);
-
-    String getEmployeeById(int id);
-
-    String addEmployee(Employee employee);
-
-    String updateEmployee();
-
-
-    String deleteEmployee(int employeeId);
 }

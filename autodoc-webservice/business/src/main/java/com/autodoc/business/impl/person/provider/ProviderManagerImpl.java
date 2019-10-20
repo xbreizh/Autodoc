@@ -19,15 +19,14 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         this.providerDao = providerDao;
     }
 
-    @Override
-    public String save(Provider provider) {
-        providerDao.create(provider);
-        return "car added";
-    }
-
 
     @Override
     public Object entityToDto(Object entity) {
+        return null;
+    }
+
+    @Override
+    public Object dtoToEntity(Object entity) {
         return null;
     }
 }

@@ -11,28 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 public class SubTaskManagerImpl<T, D> extends AbstractGenericManager implements SubTaskManager {
-    private SubTaskDaoImpl<SubTask> subTaskDao;
     private Logger logger = Logger.getLogger(SubTaskManagerImpl.class);
 
 
     public SubTaskManagerImpl(SubTaskDaoImpl<SubTask> subTaskDao) {
         super(subTaskDao);
-        this.subTaskDao = subTaskDao;
     }
 
-    @Override
-    public String save(SubTask subTask) {
-        subTaskDao.create(subTask);
-        return "piece added";
-    }
 
     @Override
     public Object entityToDto(Object entity) {
         return null;
     }
-/*
+
     @Override
-    public List<SubTask> getAll() {
+    public Object dtoToEntity(Object entity) {
         return null;
-    }*/
+    }
+
 }
