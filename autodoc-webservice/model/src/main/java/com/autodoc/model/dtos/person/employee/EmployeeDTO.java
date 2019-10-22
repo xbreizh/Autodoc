@@ -2,45 +2,42 @@ package com.autodoc.model.dtos.person.employee;
 
 import com.autodoc.model.dtos.person.PersonDTO;
 import com.autodoc.model.enums.Role;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.List;
 
-@Setter
-@Getter
-@ToString
+@Data
 public class EmployeeDTO extends PersonDTO {
 
     @NonNull
     private int id;
-    @NonNull
+
+    @NotNull(message = "role should not be null")
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
-    @NonNull
+
+    @PastOrPresent
     private Date startDate;
-    @NonNull
+
+    @NotNull(message = "login cannot be null")
     private String login;
-    @NonNull
-    private String password;
-    private String token;
-    @NonNull
+
+    @PastOrPresent
     private Date lastConnection;
-    private Date tokenExpiration;
 
 
-    public EmployeeDTO(@NonNull int id, @NonNull String lastName, @NonNull String firstName, @NonNull String phoneNumber1, @NonNull int id1, @NonNull List<Role> roles, @NonNull Date startDate, @NonNull String login, @NonNull String password, Date tokenExpiration) {
+    public EmployeeDTO(@NonNull int id, @NonNull String lastName, @NonNull String firstName, @NonNull String phoneNumber1, @NonNull int id1, @NotNull(message = "role should not be null") List<Role> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login, @PastOrPresent Date lastConnection) {
         super(id, lastName, firstName, phoneNumber1);
         this.id = id1;
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;
-        this.password = password;
-        this.tokenExpiration = tokenExpiration;
+        this.lastConnection = lastConnection;
     }
 }

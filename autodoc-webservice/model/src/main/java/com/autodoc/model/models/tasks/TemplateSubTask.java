@@ -1,19 +1,11 @@
 package com.autodoc.model.models.tasks;
 
-import com.autodoc.model.models.pieces.Piece;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "templateSubTask")
-@Getter
-@Setter
-@ToString
+@Data
 public class TemplateSubTask {
 
     // Constructors
@@ -25,22 +17,14 @@ public class TemplateSubTask {
 
     // Parameters
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+
     private int id;
 
-    @OneToMany
-    private List<SubTask> subTasks;
 
-    @NonNull
-    @OneToMany
-    private List<Piece> pieces;
-
-    @NonNull
+    @NotNull(message = "name cannot be null")
     private String name;
 
-    @NonNull
+    @Min(value = 1, message = "estimated Time cannot be null")
     private double estimatedTime;
 
 }

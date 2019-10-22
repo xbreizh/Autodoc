@@ -40,25 +40,32 @@ public abstract class AbstractHibernateDao<T> {
     }
 
 
-    public Object create(Object entity) {
-        getCurrentSession().saveOrUpdate(entity);
-        return entity;
+    public String create(T entity) {
+        try {
+            getCurrentSession().saveOrUpdate(entity);
+            return "";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
-    public void delete(Object entity) {
+    public String delete(T entity) {
         System.out.println("entity: " + entity);
         getCurrentSession().delete(entity);
+        return "";
 
     }
 
-    public Object update(Object entity) {
-        return (T) getCurrentSession().merge(entity);
+    public String update(T entity) {
+        getCurrentSession().merge(entity);
+        return "";
     }
 
 
-    public void deleteById(final int entityId) {
+    public String deleteById(final int entityId) {
         T entity = getById(entityId);
         delete(entity);
+        return "";
     }
 
     protected Session getCurrentSession() {

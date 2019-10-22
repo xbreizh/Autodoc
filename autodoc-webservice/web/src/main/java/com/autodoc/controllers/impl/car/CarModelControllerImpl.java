@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/carModel")
-public class CarModelControllerImpl extends GlobalControllerImpl<CarModelDTO, CarModel> implements CarModelController {
+public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarModelDTO> implements CarModelController {
 
     private Logger logger = Logger.getLogger(CarModelControllerImpl.class);
     private CarModelManager carModelManager;

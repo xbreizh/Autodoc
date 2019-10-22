@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements EmployeeManager {
 
-    private EmployeeDaoImpl<Employee> employeeDao;
+    private EmployeeDaoImpl employeeDao;
 
-    public EmployeeManagerImpl(EmployeeDaoImpl<Employee> employeeDao) {
+    public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
         super(employeeDao);
         this.employeeDao = employeeDao;
     }

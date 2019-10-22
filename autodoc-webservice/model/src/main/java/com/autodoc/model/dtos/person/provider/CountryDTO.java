@@ -1,24 +1,20 @@
 package com.autodoc.model.dtos.person.provider;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Setter
-@Getter
-@ToString
+import javax.validation.constraints.NotNull;
+
+@Data
 public class CountryDTO {
 
     // Constructor
-    @NonNull
     private int id;
 
     // Parameters
-    @NonNull
+    @NotNull(message = "name cannot be null")
     private String name;
 
-    public CountryDTO(@NonNull int id, @NonNull String name) {
+    public CountryDTO(int id, @NotNull(message = "name cannot be null") String name) {
         this.id = id;
         this.name = name;
     }

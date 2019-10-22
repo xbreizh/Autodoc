@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements EmployeeDao {
+public class EmployeeDaoImpl extends AbstractHibernateDao implements EmployeeDao {
     private Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 
     @Override

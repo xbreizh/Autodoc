@@ -29,11 +29,11 @@ public class ManufacturerFiller {
 
     private ManufacturerDaoImpl manufacturerDao;
     private CarModelDaoImpl carModelDao;
-    private EmployeeDaoImpl<Employee> employeeDao;
+    private EmployeeDaoImpl employeeDao;
     private ClientDaoImpl clientDao;
-    private CarDaoImpl<Car> carDao;
+    private CarDaoImpl carDao;
 
-    public ManufacturerFiller(ManufacturerDaoImpl manufacturerDao, CarModelDaoImpl carModelDao, EmployeeDaoImpl<Employee> employeeDao, ClientDaoImpl clientDao, CarDaoImpl<Car> carDao) {
+    public ManufacturerFiller(ManufacturerDaoImpl manufacturerDao, CarModelDaoImpl carModelDao, EmployeeDaoImpl employeeDao, ClientDaoImpl clientDao, CarDaoImpl carDao) {
         this.manufacturerDao = manufacturerDao;
         this.carModelDao = carModelDao;
         this.employeeDao = employeeDao;

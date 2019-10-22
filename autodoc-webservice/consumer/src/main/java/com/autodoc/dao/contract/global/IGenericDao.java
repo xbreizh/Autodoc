@@ -10,13 +10,13 @@ public interface IGenericDao<T> {
 
     List<T> getAll();
 
-    T create(final T entity);
+    String create(final T entity);
 
-    T update(final T entity);
+    String update(final T entity);
 
-    void delete(final T entity);
+    String delete(final T entity);
 
-    void deleteById(final int entityId);
+    String deleteById(final int entityId);
 
 
 }

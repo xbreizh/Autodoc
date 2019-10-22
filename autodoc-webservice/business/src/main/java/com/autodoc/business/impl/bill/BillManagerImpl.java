@@ -3,6 +3,7 @@ package com.autodoc.business.impl.bill;
 import com.autodoc.business.contract.bill.BillManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.bill.BillDaoImpl;
+import com.autodoc.model.models.bill.Bill;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +12,12 @@ import java.util.List;
 
 @Transactional
 @Component
-public class BillManagerImpl<Bill> extends AbstractGenericManager implements BillManager {
-    private BillDaoImpl<Bill> billDao;
+public class BillManagerImpl extends AbstractGenericManager implements BillManager {
+    private BillDaoImpl billDao;
     private Logger logger = Logger.getLogger(BillManagerImpl.class);
 
 
-    public BillManagerImpl(BillDaoImpl<Bill> billDao) {
+    public BillManagerImpl(BillDaoImpl billDao) {
         super(billDao);
         this.billDao = billDao;
 

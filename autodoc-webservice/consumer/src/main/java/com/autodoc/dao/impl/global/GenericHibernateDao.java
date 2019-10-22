@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class GenericHibernateDao<T>
-        extends AbstractHibernateDao<T> implements IGenericDao {
+        extends AbstractHibernateDao<T> implements IGenericDao<T> {
 
 }

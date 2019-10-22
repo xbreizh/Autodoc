@@ -1,14 +1,13 @@
 package com.autodoc.model.dtos.person.employee;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
-@Setter
-@Getter
-@ToString
+@Data
 public class SkillDTO {
 
     // Constructors
@@ -22,14 +21,13 @@ public class SkillDTO {
 
     // Parameters
 
-    @NonNull
     private int id;
 
-    @NonNull
+    @NotNull(message = "name cannot be null")
     private String name;
 
 
-    @NonNull
+    @Min(value = 1, message = "skillCategoryId cannot be null")
     private int skillCategoryId;
 
 

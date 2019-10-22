@@ -1,28 +1,26 @@
 package com.autodoc.model.dtos.pieces;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
-@Getter
-@Setter
-@ToString
+@Data
 public class PieceTypeDTO {
 
     // Constructors
 
-    @NonNull
     private int id;
 
     // Parameters
-    @NonNull
+    @Min(value = 1, message = "categoryId cannot be null")
     private int categoryId;
-    @NonNull
+
+    @NotNull(message = "name cannot be null")
     private String name;
 
-    public PieceTypeDTO(@NonNull int id, @NonNull int categoryId, @NonNull String name) {
+    public PieceTypeDTO(int id, @Min(value = 1, message = "categoryId cannot be null") int categoryId, @NotNull(message = "name cannot be null") String name) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;

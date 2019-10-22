@@ -30,7 +30,8 @@ subprojects {
                 'org.postgresql:postgresql:42.2.8',
                 'org.hibernate:hibernate-core:5.4.5.Final',
                 'com.google.code.gson:gson:2.8.5',
-                'org.springframework.data:spring-data-jpa:2.1.10.RELEASE'
+                'org.springframework.data:spring-data-jpa:2.1.10.RELEASE',
+                'org.hibernate:hibernate-validator:6.0.17.Final'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
         testCompile 'org.mockito:mockito-core:3.0.0'

@@ -3,9 +3,9 @@ package com.autodoc.model.models.car;
 
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.client.Client;
-import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -31,15 +31,15 @@ public class Car /*implements Serializable */ {
     @Column(name = "ID")
     private int id;
 
-    @NonNull
+    @NotNull(message = "registration missing")
     @Column(name = "registration", unique = true)
     private String registration;
 
-    @NonNull
+    @NotNull(message = "carModel missing or invalid")
     @ManyToOne
     private CarModel carModel;
 
-    @NonNull
+    @NotNull(message = "client missing or invalid")
     @ManyToOne
     private Client client;
 

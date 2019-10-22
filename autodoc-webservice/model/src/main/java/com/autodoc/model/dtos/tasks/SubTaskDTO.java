@@ -1,14 +1,13 @@
 package com.autodoc.model.dtos.tasks;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
-@Getter
-@Setter
-@ToString
+@Data
 public class SubTaskDTO {
 
     // Constructors
@@ -18,19 +17,19 @@ public class SubTaskDTO {
 
 
     // Parameters
-    @NonNull
+    @Min(value = 1, message = "templateSubTaskId cannot be null")
     private int templateSubTaskId;
-    @NonNull
+
+    @NotNull(message = "name cannot be null")
     private String name;
-    @NonNull
+
+    @Min(value = 1, message = "estimated Time cannot be null")
     private double estimatedTime;
 
-    public SubTaskDTO(@NonNull int id, @NonNull int templateSubTaskId, @NonNull String name, @NonNull double estimatedTime) {
+    public SubTaskDTO(@NonNull int id, @Min(value = 1, message = "templateSubTaskId cannot be null") int templateSubTaskId, @NotNull(message = "name cannot be null") String name, @Min(value = 1, message = "estimated Time cannot be null") double estimatedTime) {
         this.id = id;
         this.templateSubTaskId = templateSubTaskId;
         this.name = name;
         this.estimatedTime = estimatedTime;
     }
-
-
 }

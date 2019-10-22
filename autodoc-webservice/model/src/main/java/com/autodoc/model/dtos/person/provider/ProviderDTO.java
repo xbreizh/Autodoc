@@ -2,35 +2,36 @@ package com.autodoc.model.dtos.person.provider;
 
 import com.autodoc.model.dtos.person.PersonDTO;
 import com.autodoc.model.enums.Rate;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
-@Setter
-@Getter
-@ToString
+@Data
 public class ProviderDTO extends PersonDTO {
 
     private String website;
 
 
     // Parameters
-    @NonNull
     private int id;
+    @Email
     private String email1;
+    @Email
     private String email2;
-    @NonNull
+
+    @NotNull(message = "company cannot be null")
     private String company;
-    @NonNull
+
+    @NotNull(message = "rate cannot be null")
     @Enumerated(EnumType.STRING)
     private Rate rate;
 
-    public ProviderDTO(@NonNull int id, @NonNull String lastName, @NonNull String firstName, @NonNull String phoneNumber1, String website, @NonNull int id1, String email1, String email2, @NonNull String company, @NonNull Rate rate) {
-        super(id, lastName, firstName, phoneNumber1);
+    public ProviderDTO(int id, @NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1, String phoneNumber2, String website, int id1, @Email String email1, @Email String email2, @NotNull(message = "company cannot be null") String company, @NotNull(message = "rate cannot be null") Rate rate) {
+        super(id, lastName, firstName, phoneNumber1, phoneNumber2);
         this.website = website;
         this.id = id1;
         this.email1 = email1;

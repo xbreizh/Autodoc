@@ -3,7 +3,6 @@ package com.autodoc.business.impl;
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import org.apache.log4j.Logger;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @Transactional
 @Component
-public abstract class AbstractGenericManager<T, D> implements IGenericManager {
+public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
 
     private Logger logger = Logger.getLogger(AbstractGenericManager.class);
     //private Class<Object> clazz;
@@ -33,15 +32,32 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager {
     }*/
 
 
-    public String save(Object object) {
-        logger.debug("trying to save a " + object.getClass());
-        try {
-            dao.create((T) object);
+    public String save(D object) throws Exception {
+        logger.info("trying to save a " + object.getClass());
+        T objectToSave = dtoToEntity((D) object);
+        System.out.println("save: " + objectToSave);
+        String feedback = dao.create(objectToSave);
+        System.out.println("re: " + feedback);
+        if (feedback.isEmpty()) {
+            return object.getClass().getSimpleName() + " added";
+        }
+            /*.equals("");
             return object.getClass().getSimpleName() + " added";
         } catch (ConstraintViolationException e) {
+            System.out.println("error: "+e.getLocalizedMessage());
+            System.out.println(e.getMessage());
             logger.debug("error: " + e.getLocalizedMessage());
+            System.out.println("eee: "+e.getStackTrace());
+            System.out.println("rr: "+e.getSQL());
             return e.getMessage();
-        }
+        }*/
+        System.out.println("ra: " + feedback);
+        return feedback;
+          /*  logger.info("ee: "+feedback+"fin");
+            Exception exception = new Exception(feedback);
+        System.out.println("dede: "+exception.getMessage());
+            throw exception;*/
+        // return feedback;
 
     }
 
@@ -52,7 +68,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager {
     }*/
 
     @Override
-    public Object getById(int id) {
+    public D getById(int id) {
         return entityToDto(dao.getById(id));
     }
 

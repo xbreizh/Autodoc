@@ -1,26 +1,25 @@
 package com.autodoc.model.dtos.car;
 
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Setter
-@Getter
-@ToString
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+@Data
 public class CarDTO {
 
 
     // Parameters
-    @NonNull
     private int id;
-    @NonNull
+
+    @Min(value = 1, message = "carModelId cannot be null")
     private int carModelId;
-    @NonNull
+
+    @NotNull(message = "registration cannot be null")
     private String registration;
 
-    @NonNull
+    @Min(value = 1, message = "clientId cannot be null")
     private int clientId;
 
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/client")
-public class ClientControllerImpl extends GlobalControllerImpl<ClientDTO, Client> implements ClientController {
+public class ClientControllerImpl extends GlobalControllerImpl<Client, ClientDTO> implements ClientController {
     private Logger logger = Logger.getLogger(ClientControllerImpl.class);
     private ClientManager clientManager;
     private GsonConverter converter;

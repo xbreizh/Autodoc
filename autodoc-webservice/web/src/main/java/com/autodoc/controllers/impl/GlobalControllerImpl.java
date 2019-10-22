@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
@@ -34,16 +36,17 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     }
 
     //@Override
-    //@Override
     @PostMapping(value = "/add",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity add(@RequestBody D obj) {
+    public ResponseEntity add(@RequestBody @Valid D obj) throws Exception {
         getClassName(obj);
-        logger.debug("trying to add a " + type);
+        logger.info("trying to add a " + type);
+        System.out.println("skrak: " + manager.save(obj));
         String response = manager.save(obj);
         if (response.equals(type + " added")) {
             return ResponseEntity.ok(type + " added");
         }
+        System.out.println("trok: " + response);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);

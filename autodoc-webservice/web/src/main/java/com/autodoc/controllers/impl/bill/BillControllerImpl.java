@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/bill")
-public class BillControllerImpl extends GlobalControllerImpl<BillDTO, Bill> implements BillController {
+public class BillControllerImpl extends GlobalControllerImpl<Bill, BillDTO> implements BillController {
     private Logger logger = Logger.getLogger(BillControllerImpl.class);
     private BillManager billManager;
 

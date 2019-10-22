@@ -4,7 +4,6 @@ import com.autodoc.business.contract.person.employee.SkillManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.dtos.person.employee.SkillDTO;
-import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.person.employee.Skill;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class SkillManagerImpl<T, D> extends AbstractGenericManager implements SkillManager {
 
-    private EmployeeDaoImpl<Employee> employeeDao;
+    private EmployeeDaoImpl employeeDao;
 
-    public SkillManagerImpl(EmployeeDaoImpl<Employee> employeeDao) {
+    public SkillManagerImpl(EmployeeDaoImpl employeeDao) {
         super(employeeDao);
         this.employeeDao = employeeDao;
     }

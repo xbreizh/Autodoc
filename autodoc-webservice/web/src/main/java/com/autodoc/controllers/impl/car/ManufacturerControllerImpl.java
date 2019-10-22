@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/manufacturer")
-public class ManufacturerControllerImpl extends GlobalControllerImpl<ManufacturerDTO, Manufacturer> implements ManufacturerController {
+public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacturer, ManufacturerDTO> implements ManufacturerController {
     private Logger logger = Logger.getLogger(ManufacturerControllerImpl.class);
     private ManufacturerManager manufacturerManager;
     private GsonConverter converter;

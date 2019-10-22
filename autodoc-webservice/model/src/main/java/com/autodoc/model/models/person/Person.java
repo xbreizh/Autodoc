@@ -3,7 +3,6 @@ package com.autodoc.model.models.person;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @Setter
 @Getter
-@ToString
 public abstract class Person /*implements Serializable */ {
 
     // Constructors
@@ -31,18 +29,28 @@ public abstract class Person /*implements Serializable */ {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    protected int id;
 
     @NonNull
-    private String firstName;
+    protected String firstName;
 
     @NonNull
-    private String lastName;
+    protected String lastName;
 
     @NonNull
-    private String phoneNumber1;
+    protected String phoneNumber1;
 
-    private String phoneNumber2;
+    protected String phoneNumber2;
 
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber2='" + phoneNumber2 + '\'' +
+                '}';
+    }
 }

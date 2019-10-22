@@ -2,18 +2,17 @@ package com.autodoc.model.dtos.bill;
 
 
 import com.autodoc.model.enums.Status;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class BillDTO {
 
     // Constructors
@@ -23,35 +22,28 @@ public class BillDTO {
 
 
     // Parameters
-    @NonNull
+    @FutureOrPresent(message = "date should nto be in the past")
     private Date date;
-    @NonNull
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
-    @NonNull
-    private int carId;
-    @NonNull
-    private int clientId;
-    @NonNull
-    private int employeeId;
-    @NonNull
-    private double total;
-    @NonNull
-    private double vat;
-    @NonNull
-    private double discount;
 
-    public BillDTO(@NonNull int id, @NonNull Date date, @NonNull Status status, @NonNull int carId, @NonNull int clientId, @NonNull int employeeId, @NonNull double total, @NonNull double vat, @NonNull double discount) {
-        this.id = id;
-        this.date = date;
-        this.status = status;
-        this.carId = carId;
-        this.clientId = clientId;
-        this.employeeId = employeeId;
-        this.total = total;
-        this.vat = vat;
-        this.discount = discount;
-    }
+    @Min(value = 1, message = "carId cannot be null")
+    private int carId;
+
+    @Min(value = 1, message = "clientId cannot be null")
+    private int clientId;
+
+    @Min(value = 1, message = "employeeId cannot be null")
+    private int employeeId;
+
+    @Min(value = 1, message = "total cannot be null")
+    private double total;
+
+    private static final double vat = 00.195;
+
+    private double discount;
 
 
 }

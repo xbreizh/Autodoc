@@ -9,7 +9,7 @@ public interface IGenericManager<T, D> {
 
     List<D> getAll();
 
-    String save(final D entity);
+    String save(final D entity) throws Exception;
 
     String update(final D entity);
 
