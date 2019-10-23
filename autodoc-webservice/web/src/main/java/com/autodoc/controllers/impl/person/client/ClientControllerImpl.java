@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/client")
+@RequestMapping("/clients")
 public class ClientControllerImpl extends GlobalControllerImpl<Client, ClientDTO> implements ClientController {
     private Logger logger = Logger.getLogger(ClientControllerImpl.class);
     private ClientManager clientManager;

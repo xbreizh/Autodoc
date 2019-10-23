@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/manufacturer")
+@RequestMapping("/manufacturers")
 public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacturer, ManufacturerDTO> implements ManufacturerController {
     private Logger logger = Logger.getLogger(ManufacturerControllerImpl.class);
     private ManufacturerManager manufacturerManager;

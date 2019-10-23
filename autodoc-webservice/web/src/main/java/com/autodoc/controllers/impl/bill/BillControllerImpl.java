@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/bill")
+@RequestMapping("/bills")
 public class BillControllerImpl extends GlobalControllerImpl<Bill, BillDTO> implements BillController {
     private Logger logger = Logger.getLogger(BillControllerImpl.class);
     private BillManager billManager;

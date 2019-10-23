@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/car")
+@RequestMapping("/cars")
 public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> implements CarController {
     private Logger logger = Logger.getLogger(CarControllerImpl.class);
     private CarManager carManager;

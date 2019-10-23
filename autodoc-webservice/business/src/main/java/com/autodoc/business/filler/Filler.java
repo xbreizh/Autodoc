@@ -23,9 +23,9 @@ import java.util.List;
 
 @Transactional
 @Component
-public class ManufacturerFiller {
+public class Filler {
 
-    private Logger logger = Logger.getLogger(ManufacturerFiller.class);
+    private Logger logger = Logger.getLogger(Filler.class);
 
     private ManufacturerDaoImpl manufacturerDao;
     private CarModelDaoImpl carModelDao;
@@ -33,7 +33,7 @@ public class ManufacturerFiller {
     private ClientDaoImpl clientDao;
     private CarDaoImpl carDao;
 
-    public ManufacturerFiller(ManufacturerDaoImpl manufacturerDao, CarModelDaoImpl carModelDao, EmployeeDaoImpl employeeDao, ClientDaoImpl clientDao, CarDaoImpl carDao) {
+    public Filler(ManufacturerDaoImpl manufacturerDao, CarModelDaoImpl carModelDao, EmployeeDaoImpl employeeDao, ClientDaoImpl clientDao, CarDaoImpl carDao) {
         this.manufacturerDao = manufacturerDao;
         this.carModelDao = carModelDao;
         this.employeeDao = employeeDao;

@@ -48,7 +48,10 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public D getById(int id) throws Exception {
-        if (dao.getById(id) == null) throw new EntityNotFoundException("no record found!");
+        if (dao.getById(id) == null) {
+            exception ="no record found";
+            return null;
+        }
         return entityToDto(dao.getById(id));
     }
 

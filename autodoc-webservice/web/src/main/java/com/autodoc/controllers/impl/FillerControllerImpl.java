@@ -1,7 +1,7 @@
 package com.autodoc.controllers.impl;
 
 
-import com.autodoc.business.filler.ManufacturerFiller;
+import com.autodoc.business.filler.Filler;
 import com.autodoc.controllers.helper.GsonConverter;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class FillerControllerImpl {
     private Logger logger = Logger.getLogger(FillerControllerImpl.class);
     @Inject
-    private ManufacturerFiller filler;
+    private Filler filler;
 
     @Inject
     private GsonConverter converter;

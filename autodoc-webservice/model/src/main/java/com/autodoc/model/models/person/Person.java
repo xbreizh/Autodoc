@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @Setter
 @Getter
-public abstract class Person /*implements Serializable */ {
+public abstract class Person {
 
     // Constructors
 

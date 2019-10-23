@@ -15,10 +15,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 @Transactional
 @Component
 public class CarManagerImpl extends AbstractGenericManager implements CarManager {
-    private Logger logger = Logger.getLogger(CarManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
     private CarDaoImpl carDao;
     private CarModelManager carModelManager;
     private ClientManager clientManager;
@@ -30,13 +32,13 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         this.clientManager = clientManager;
         this.carDao = dao;
         this.mapper = new ModelMapper();
-        logger.info("creating manager");
+        LOGGER.info("creating manager");
     }
 
 
     @Override
     public CarDTO getByRegistration(String registration) {
-        logger.info("reg: " + registration);
+        LOGGER.info("reg: " + registration);
         CarDTO carDTO = entityToDto(carDao.getCarByRegistration(registration));
         return carDTO;
     }
@@ -56,30 +58,30 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
     @Override
     public CarDTO entityToDto(Object car1) {
-        logger.info("converting into dto");
+        LOGGER.info("converting into dto");
 
-        CarDTO carDTO = mapper.map(car1, CarDTO.class);
+        CarDTO dto = mapper.map(car1, CarDTO.class);
         Car car = (Car) car1;
 
-        carDTO.setCarModelId(car.getCarModel().getId());
-        carDTO.setClientId(car.getClient().getId());
-        return carDTO;
+        dto.setCarModelId(car.getCarModel().getId());
+        dto.setClientId(car.getClient().getId());
+        return dto;
     }
 
     @Override
     public Car dtoToEntity(Object entity) throws Exception {
-        logger.info("converting into entity");
+        LOGGER.info("converting into entity");
         resetException();
         CarDTO dto = (CarDTO) entity;
         System.out.println("dto: " + dto);
         Car car = mapper.map(dto, Car.class);
-        Client client = (Client) clientManager.getById(dto.getClientId());
+        Client client = (Client) clientManager.dtoToEntity(clientManager.getById(dto.getClientId()));
         if (client == null) {
-            throw new Exception("invalid ccalient id: " + dto.getClientId());
+            throw new EntityNotFoundException("invalid clientId: " + dto.getClientId());
             //exception += "\n invalid clientId: "+dto.getClientId();
 
         }
-        CarModel carModel = (CarModel) carModelManager.getById(dto.getCarModelId());
+        CarModel carModel = (CarModel) carModelManager.dtoToEntity(carModelManager.getById(dto.getCarModelId()));
         if (carModel == null) {
             exception += "\n invalid carModelId: " + dto.getCarModelId();
         }
@@ -89,7 +91,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         car.setClient(client);
         car.setCarModel(carModel);
         //car.setRegistration(dto.getRegistration());
-        logger.info("car: " + car);
+        LOGGER.info("car: " + car);
         return car;
     }
 

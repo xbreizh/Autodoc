@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.util.NestedServletException;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
@@ -27,7 +28,7 @@ public class ControllerExceptionHandler extends RuntimeException {
     private static final Logger LOGGER = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({SQLException.class, ConstraintViolationException.class})
+    @ExceptionHandler({Exception.class, SQLException.class, ConstraintViolationException.class, NestedServletException.class})
     public ResponseEntity notFoundHandler(Exception e, HttpServletRequest req) {
         LOGGER.info("Item not found. HTTP 500 returned.");
         LOGGER.debug("req: " + req.getRequestURI());

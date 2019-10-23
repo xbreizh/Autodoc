@@ -29,5 +29,6 @@ public abstract class PersonDTO {
         this.phoneNumber1 = phoneNumber1;
     }
 
-
+    public PersonDTO() {
+    }
 }
