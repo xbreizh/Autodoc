@@ -56,8 +56,7 @@ class CarModelControllerImplTest {
     private GsonConverter converter;
     private FieldDescriptor[] descriptor = new FieldDescriptor[]{
             fieldWithPath("id").description("Id of the carModel"),
-            fieldWithPath("manufacturer.id").description("Id of the manufacturer"),
-            fieldWithPath("manufacturer.name").description("Name of the manufacturer"),
+            fieldWithPath("manufacturerId").description("Id of the manufacturer"),
             fieldWithPath("name").description("Name of the carModel"),
             fieldWithPath("description").description("description of the carModel"),
             fieldWithPath("gearbox").description("Gearbox of the carModel"),
@@ -73,7 +72,7 @@ class CarModelControllerImplTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*/
-        carModel = new CarModelDTO(manufacturer, name, "joli", GearBox.MANUAL, "2.0", FuelType.DIESEL);
+        carModel = new CarModelDTO(2, name, "joli", GearBox.MANUAL, "2.0", FuelType.DIESEL);
         converter = new GsonConverter();
         carModels.add(carModel);
         carModelManager = mock(CarModelManager.class);
@@ -88,7 +87,7 @@ class CarModelControllerImplTest {
         when(carModelManager.getAll()).thenReturn(carModels);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/carModel/getAll")
+                        .get("/carModel")
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(encoding))
@@ -97,7 +96,7 @@ class CarModelControllerImplTest {
                                 fieldWithPath("[]").description("An array of manufacturers"))
                                 .andWithPrefix(".[]", descriptor)
                 ));
-
+        System.out.println("carModels: "+carModels);
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(carModels));
         assertEquals(response, carModelControllerImpl.getAll());
     }
@@ -108,7 +107,7 @@ class CarModelControllerImplTest {
         when(carModelManager.getById(anyInt())).thenReturn(carModel);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/carModel/getById/{carModelId}", id)
+                        .get("/carModel/{carModelId}", id)
                         .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(id))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)

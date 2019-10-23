@@ -5,13 +5,13 @@ import java.util.List;
 public interface IGenericManager<T, D> {
 
 
-    D getById(final int id);
+    D getById(final int id) throws Exception;
 
     List<D> getAll();
 
     String save(final D entity) throws Exception;
 
-    String update(final D entity);
+    D update(final D entity) throws Exception;
 
     String delete(final D entity);
 
@@ -19,5 +19,5 @@ public interface IGenericManager<T, D> {
 
     D entityToDto(final T entity);
 
-    T dtoToEntity(final D entity);
+    T dtoToEntity(final D entity) throws Exception;
 }

@@ -175,7 +175,7 @@ class ClientControllerImplTest {
 
     @Test
     void update() throws Exception {
-        Client client = new Client();
+        ClientDTO client = new ClientDTO("Doe", "John", "12121212");
         when(clientManager.update(any(Client.class))).thenReturn("client updated");
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders

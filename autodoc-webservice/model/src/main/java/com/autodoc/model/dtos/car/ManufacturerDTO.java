@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class ManufacturerDTO extends PersonDTO {
+public class ManufacturerDTO {
 
 
     // Constructors
@@ -24,8 +24,7 @@ public class ManufacturerDTO extends PersonDTO {
     // Parameters
 
 
-    public ManufacturerDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1, @NotNull(message = "name cannot be null") String name) {
-        super(lastName, firstName, phoneNumber1);
+    public ManufacturerDTO(@NotNull(message = "name cannot be null") String name) {
         this.name = name;
     }
 }

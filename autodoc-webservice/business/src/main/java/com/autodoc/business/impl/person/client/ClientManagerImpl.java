@@ -6,6 +6,7 @@ import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClientManagerImpl<T, D> extends AbstractGenericManager implements ClientManager {
     private Logger logger = Logger.getLogger(ClientManagerImpl.class);
     private ClientDaoImpl clientDao;
+    private ModelMapper mapper;
 
     public ClientManagerImpl(ClientDaoImpl clientDao) {
         super(clientDao);
+        this.mapper = new ModelMapper();
         this.clientDao = clientDao;
 
     }

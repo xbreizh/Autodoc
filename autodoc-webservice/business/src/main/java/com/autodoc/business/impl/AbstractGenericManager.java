@@ -5,6 +5,7 @@ import com.autodoc.dao.contract.global.IGenericDao;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,62 +14,41 @@ import java.util.List;
 @Component
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
 
+    protected String exception = "";
     private Logger logger = Logger.getLogger(AbstractGenericManager.class);
-    //private Class<Object> clazz;
     private IGenericDao<T> dao;
 
     public AbstractGenericManager(IGenericDao dao) {
         this.dao = dao;
+
     }
 
-    //@Inject
-    // AbstractHibernateDao<T> dao;
+    protected void resetException() {
+        exception = "";
+    }
 
 
-
-
-   /* public Class<Object> getClazz() {
-        return clazz;
-    }*/
-
-
-    public String save(D object) throws Exception {
+    public String save(D object) {
         logger.info("trying to save a " + object.getClass());
-        T objectToSave = dtoToEntity((D) object);
-        System.out.println("save: " + objectToSave);
-        String feedback = dao.create(objectToSave);
-        System.out.println("re: " + feedback);
-        if (feedback.isEmpty()) {
-            return object.getClass().getSimpleName() + " added";
-        }
-            /*.equals("");
-            return object.getClass().getSimpleName() + " added";
-        } catch (ConstraintViolationException e) {
-            System.out.println("error: "+e.getLocalizedMessage());
-            System.out.println(e.getMessage());
-            logger.debug("error: " + e.getLocalizedMessage());
-            System.out.println("eee: "+e.getStackTrace());
-            System.out.println("rr: "+e.getSQL());
+        try {
+            T objectToSave = dtoToEntity((D) object);
+            if (!exception.isEmpty()) return exception;
+            String feedback = dao.create(objectToSave);
+            if (feedback.isEmpty()) {
+                return object.getClass().getSimpleName() + " added";
+            }
+            return feedback;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
             return e.getMessage();
-        }*/
-        System.out.println("ra: " + feedback);
-        return feedback;
-          /*  logger.info("ee: "+feedback+"fin");
-            Exception exception = new Exception(feedback);
-        System.out.println("dede: "+exception.getMessage());
-            throw exception;*/
-        // return feedback;
+        }
 
     }
 
-/*
-    @Override
-    public void setClazz(Class clazzToSet) {
-
-    }*/
 
     @Override
-    public D getById(int id) {
+    public D getById(int id) throws Exception {
+        if (dao.getById(id) == null) throw new EntityNotFoundException("no record found!");
         return entityToDto(dao.getById(id));
     }
 
@@ -76,7 +56,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public List getAll() {
         logger.info("trying to find them all");
         logger.debug("dao: " + dao);
-
         return convertList(dao.getAll());
     }
 
@@ -91,18 +70,22 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     @Override
-    public String update(Object entity) {
-        try {
-            dao.update((T) entity);
-            return "car updated";
-        } catch (Exception e) {
-            return e.getMessage();
+    public D update(Object entity) throws Exception {
+
+        T obj = dtoToEntity((D) entity);
+        if (!exception.isEmpty()) {
+            throw new Exception(exception);
+
         }
+
+        D dto = entityToDto((T) dao.update(obj));
+        if (!exception.isEmpty()) return null;
+        return dto;
+
     }
 
     @Override
     public String delete(Object entity) {
-
         try {
             dao.delete((T) entity);
 
@@ -115,14 +98,13 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public String deleteById(int entityId) {
+
         logger.info("trying to delete " + entityId);
-        try {
-            dao.deleteById(entityId);
-            System.out.println("sccuees");
-            return "car deleted";
-        } catch (Exception e) {
-            return e.getMessage();
+        if (dao.getById(entityId) == null) {
+            return "notFound";
         }
+        dao.deleteById(entityId);
+        return "";
     }
 
 

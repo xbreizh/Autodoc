@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "manufacturer")
-public class Manufacturer /*implements Serializable */ {
+public class Manufacturer  {
 
 
     // Constructors

@@ -5,6 +5,7 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.pieces.PieceDaoImpl;
 import com.autodoc.model.models.pieces.Piece;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class PieceManagerImpl<T, D> extends AbstractGenericManager implements PieceManager {
     private PieceDaoImpl<Piece> pieceDao;
     private Logger logger = Logger.getLogger(PieceManagerImpl.class);
-
+    private ModelMapper mapper;
     public PieceManagerImpl(PieceDaoImpl<Piece> pieceDao) {
         super(pieceDao);
+        this.mapper = new ModelMapper();
         this.pieceDao = pieceDao;
     }
 

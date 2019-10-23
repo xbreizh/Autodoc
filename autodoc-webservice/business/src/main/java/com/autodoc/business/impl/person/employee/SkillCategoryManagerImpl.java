@@ -7,6 +7,7 @@ import com.autodoc.model.dtos.person.employee.SkillDTO;
 import com.autodoc.model.models.person.employee.Skill;
 import com.autodoc.model.models.person.employee.SkillCategory;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,10 @@ public class SkillCategoryManagerImpl<T, D> extends AbstractGenericManager imple
 
     private Logger logger = Logger.getLogger(SkillCategoryManagerImpl.class);
     private SkillCategoryDaoImpl<SkillCategory> skillCategoryDao;
-
+    private ModelMapper mapper;
     public SkillCategoryManagerImpl(SkillCategoryDaoImpl<SkillCategory> skillCategoryDao) {
         super(skillCategoryDao);
+        this.mapper = new ModelMapper();
         this.skillCategoryDao = skillCategoryDao;
     }
 

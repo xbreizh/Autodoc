@@ -7,6 +7,7 @@ import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
+import javassist.NotFoundException;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,11 +49,11 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
 
 
     @Override
-    @PutMapping(value = "/updateClient/{carId}/{clientId}",
+    @PatchMapping(value = "/updateClient/{carId}/{clientId}",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) {
+    public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) throws Exception {
         logger.debug("car id: " + carId + " / client id: " + clientId);
-        String response = carManager.updateClient(carId, clientId);
+        CarDTO response = carManager.updateClient(carId, clientId);
         if (response.equals("car updated")) {
             return ResponseEntity.ok(response);
         }

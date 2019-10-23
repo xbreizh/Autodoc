@@ -6,6 +6,7 @@ import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +17,11 @@ import java.util.List;
 public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements CarModelManager {
     private CarModelDaoImpl carModelDao;
     private Logger logger = Logger.getLogger(CarModelManagerImpl.class);
-
+    private ModelMapper mapper;
 
     public CarModelManagerImpl(CarModelDaoImpl carModelDao) {
         super(carModelDao);
+        this.mapper = new ModelMapper();
         this.carModelDao = carModelDao;
 
     }

@@ -5,17 +5,19 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.person.employee.Employee;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Component
 public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements EmployeeManager {
-
+    private ModelMapper mapper;
     private EmployeeDaoImpl employeeDao;
 
     public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
         super(employeeDao);
+        this.mapper = new ModelMapper();
         this.employeeDao = employeeDao;
     }
 

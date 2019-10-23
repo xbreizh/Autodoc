@@ -5,6 +5,7 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.tasks.TaskDaoImpl;
 import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaskManagerImpl<T, D> extends AbstractGenericManager implements TaskManager {
     private TaskDaoImpl<Task> taskDao;
     private Logger logger = Logger.getLogger(TaskManagerImpl.class);
+    private ModelMapper mapper;
 
     public TaskManagerImpl(TaskDaoImpl<Task> taskDao) {
         super(taskDao);
+        this.mapper = new ModelMapper();
         this.taskDao = taskDao;
     }
 

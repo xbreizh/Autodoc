@@ -6,6 +6,7 @@ import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implements ManufacturerManager {
     private ManufacturerDaoImpl manufacturerDao;
     private Logger logger = Logger.getLogger(ManufacturerManagerImpl.class);
-
+    private ModelMapper mapper;
 
     public ManufacturerManagerImpl(ManufacturerDaoImpl manufacturerDao) {
         super(manufacturerDao);
+        this.mapper = new ModelMapper();
         logger.debug("here");
         this.manufacturerDao = manufacturerDao;
 

@@ -5,6 +5,7 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.pieces.CategoryDaoImpl;
 import com.autodoc.model.models.pieces.Category;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class CategoryManagerImpl<T, D> extends AbstractGenericManager implements CategoryManager {
     private CategoryDaoImpl<Category> categoryDao;
     private Logger logger = Logger.getLogger(CategoryManagerImpl.class);
-
+    private ModelMapper mapper;
     public CategoryManagerImpl(CategoryDaoImpl<Category> categoryDao) {
         super(categoryDao);
+        this.mapper = new ModelMapper();
         this.categoryDao = categoryDao;
     }
 

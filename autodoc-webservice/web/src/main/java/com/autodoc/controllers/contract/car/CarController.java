@@ -1,6 +1,7 @@
 package com.autodoc.controllers.contract.car;
 
 import com.autodoc.controllers.contract.GlobalController;
+import javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
 
 public interface CarController extends GlobalController {
@@ -11,5 +12,5 @@ public interface CarController extends GlobalController {
 
     ResponseEntity getByClient(String clientLastName, String clientFirstName);
 
-    ResponseEntity updateCarClient(Integer carId, Integer clientId);
+    ResponseEntity updateCarClient(Integer carId, Integer clientId) throws Exception;
 }

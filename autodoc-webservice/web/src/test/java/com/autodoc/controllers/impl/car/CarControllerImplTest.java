@@ -166,7 +166,7 @@ class CarControllerImplTest {
     @Test
     void addCar() throws Exception {
         feedback = "car added";
-        Car car = new Car();
+        CarDTO car = new CarDTO(registration, 2,2);
         when(carManager.save(any(Object.class))).thenReturn(feedback);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders

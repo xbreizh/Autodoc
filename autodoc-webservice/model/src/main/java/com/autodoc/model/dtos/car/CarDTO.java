@@ -1,12 +1,15 @@
 package com.autodoc.model.dtos.car;
 
 
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class CarDTO {
 
 

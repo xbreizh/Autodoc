@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
@@ -38,7 +39,8 @@ class CarManagerImplTest {
         assertEquals("Car added", carManager.save(car));
     }
 
-  /*  @Test
+  */
+/*  @Test
     void getAll() {
         List<Car> carList = new ArrayList<>();
         CarModel model= new CarModel(new Manufacturer("AUDI"), )
@@ -46,15 +48,18 @@ class CarManagerImplTest {
         when(carDao.getAll()).thenReturn(carList);
         assertNotNull(carManager.getAll()
         );
-    }*/
+    }*//*
 
-  /*  @Test
+
+  */
+/*  @Test
     void getByRegistration() {
         String registration = "abc123";
         car.setRegistration(registration);
         when(carDao.getCarByRegistration(anyString())).thenReturn(car);
         assertEquals(car, carManager.getByRegistration(registration));
-    }*/
+    }*//*
+
 
     @Test
     void update() {
@@ -89,4 +94,4 @@ class CarManagerImplTest {
         when(carDao.getById(anyInt())).thenReturn(car);
         assertEquals("car updated", carManager.updateClient(2, 3));
     }
-}
+}*/

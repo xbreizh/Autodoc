@@ -5,6 +5,7 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.provider.AddressDaoImpl;
 import com.autodoc.model.models.person.provider.Address;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class AddressManagerImpl<T, D> extends AbstractGenericManager implements AddressManager {
     private AddressDaoImpl<Address> addressDao;
     private Logger logger = Logger.getLogger(AddressManagerImpl.class);
-
+    private ModelMapper mapper;
 
     public AddressManagerImpl(AddressDaoImpl<Address> addressDao) {
         super(addressDao);
+        this.mapper = new ModelMapper();
         this.addressDao = addressDao;
     }
 

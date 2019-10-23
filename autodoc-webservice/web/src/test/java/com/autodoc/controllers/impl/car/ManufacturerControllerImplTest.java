@@ -81,7 +81,7 @@ class ManufacturerControllerImplTest {
     void getAll() throws Exception {
         when(manufacturerManager.getAll()).thenReturn(manufacturers);
         this.mockMvc.perform(
-                get("/manufacturer/getAll")
+                get("/manufacturer")
                         .header("Authorization", "Bearer token"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -93,14 +93,13 @@ class ManufacturerControllerImplTest {
                                 .andWithPrefix(".[]", descriptor)
                 ));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(manufacturers));
-        assertEquals(response, manufacturerController.getAll());
+        assertEquals(response, manufacturerController);
     }
 
     @Test
     public void getByName() throws Exception {
         String name = m1.getName();
         int id = 3;
-        m1.setId(id);
         when(manufacturerManager.getByName(anyString())).thenReturn(m1);
 
         this.mockMvc.perform(
