@@ -22,4 +22,6 @@ public class SkillCategoryDTO {
 
     @NotNull(message = "name cannot be null")
     private String name;
+
+
 }

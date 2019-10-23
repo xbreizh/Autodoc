@@ -26,4 +26,9 @@ public class TaskDTO {
     @Min(value = 1, message = "globalPrice cannot be null")
     private long globalPrice;
 
+    public TaskDTO(@NotNull(message = "name cannot be null") String name, @NonNull List<Integer> subTasks, @Min(value = 1, message = "globalPrice cannot be null") long globalPrice) {
+        this.name = name;
+        this.subTasks = subTasks;
+        this.globalPrice = globalPrice;
+    }
 }

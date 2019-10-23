@@ -27,9 +27,12 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     @Override
     public ManufacturerDTO entityToDto(Object entity) {
         Manufacturer manufacturer = (Manufacturer) entity;
-        ManufacturerDTO manufacturerDTO = new ManufacturerDTO(manufacturer.getName());
+       /* ManufacturerDTO manufacturerDTO = new ManufacturerDTO();
+        manufacturerDTO.setName(manufacturer.getName());
         manufacturerDTO.setId(((Manufacturer) entity).getId());
-        return manufacturerDTO;
+        return manufacturerDTO;*/
+        //TODO MODELMAPPING
+        return null;
     }
 
     @Override

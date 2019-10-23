@@ -2,8 +2,7 @@ package com.autodoc.model.dtos.person.employee;
 
 import com.autodoc.model.dtos.person.PersonDTO;
 import com.autodoc.model.enums.Role;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,11 +11,12 @@ import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class EmployeeDTO extends PersonDTO {
 
-    @NonNull
-    private int id;
 
     @NotNull(message = "role should not be null")
     @Enumerated(EnumType.STRING)
@@ -31,13 +31,10 @@ public class EmployeeDTO extends PersonDTO {
     @PastOrPresent
     private Date lastConnection;
 
-
-    public EmployeeDTO(@NonNull int id, @NonNull String lastName, @NonNull String firstName, @NonNull String phoneNumber1, @NonNull int id1, @NotNull(message = "role should not be null") List<Role> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login, @PastOrPresent Date lastConnection) {
-        super(id, lastName, firstName, phoneNumber1);
-        this.id = id1;
+    public EmployeeDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1, @NotNull(message = "role should not be null") List<Role> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login) {
+        super(lastName, firstName, phoneNumber1);
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;
-        this.lastConnection = lastConnection;
     }
 }

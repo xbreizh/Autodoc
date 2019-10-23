@@ -1,7 +1,6 @@
 package com.autodoc.model.dtos.person.employee;
 
 import lombok.Data;
-import lombok.NonNull;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -12,8 +11,7 @@ public class SkillDTO {
 
     // Constructors
 
-    public SkillDTO(@NonNull int id, @NonNull String name, @NonNull int skillCategoryId) {
-        this.id = id;
+    public SkillDTO(@NotNull(message = "name cannot be null") String name, @Min(value = 1, message = "skillCategoryId cannot be null") int skillCategoryId) {
         this.name = name;
         this.skillCategoryId = skillCategoryId;
     }

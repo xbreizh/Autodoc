@@ -20,8 +20,7 @@ public class PieceTypeDTO {
     @NotNull(message = "name cannot be null")
     private String name;
 
-    public PieceTypeDTO(int id, @Min(value = 1, message = "categoryId cannot be null") int categoryId, @NotNull(message = "name cannot be null") String name) {
-        this.id = id;
+    public PieceTypeDTO(@Min(value = 1, message = "categoryId cannot be null") int categoryId, @NotNull(message = "name cannot be null") String name) {
         this.categoryId = categoryId;
         this.name = name;
     }

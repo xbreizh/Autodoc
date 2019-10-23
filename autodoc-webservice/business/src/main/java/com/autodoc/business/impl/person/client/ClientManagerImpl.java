@@ -31,13 +31,14 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
     @Override
     public ClientDTO entityToDto(Object entity) {
         Client client = (Client) entity;
-        ClientDTO clientDTO = new ClientDTO();
+        /*ClientDTO clientDTO = new ClientDTO();
         clientDTO.setFirstName(client.getFirstName());
         clientDTO.setLastName(client.getLastName());
         clientDTO.setId(client.getId());
         clientDTO.setPhoneNumber1(client.getPhoneNumber1());
         clientDTO.setPhoneNumber2(client.getPhoneNumber2());
-        return clientDTO;
+        return clientDTO;*/
+        return null;
     }
 
     @Override

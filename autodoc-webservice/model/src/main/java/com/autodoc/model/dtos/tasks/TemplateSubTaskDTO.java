@@ -5,7 +5,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.OneToMany;
 import java.util.List;
 
 
@@ -16,13 +15,12 @@ public class TemplateSubTaskDTO {
 
     // Constructors
 
-    @NonNull
+
     private int id;
 
 
     // Parameters
-    @OneToMany
-    private List<Integer> subTasks;
+
     @NonNull
     private List<Integer> pieces;
     @NonNull
@@ -30,12 +28,9 @@ public class TemplateSubTaskDTO {
     @NonNull
     private double estimatedTime;
 
-    public TemplateSubTaskDTO(@NonNull int id, List<Integer> subTasks, @NonNull List<Integer> pieces, @NonNull String name, @NonNull double estimatedTime) {
-        this.id = id;
-        this.subTasks = subTasks;
+    public TemplateSubTaskDTO(@NonNull List<Integer> pieces, @NonNull String name, @NonNull double estimatedTime) {
         this.pieces = pieces;
         this.name = name;
         this.estimatedTime = estimatedTime;
     }
-
 }

@@ -33,8 +33,9 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
     @Override
     public CarModelDTO entityToDto(Object entity) {
         CarModel carModel = (CarModel) entity;
-        CarModelDTO carModelDTO = new CarModelDTO();
-        return carModelDTO;
+       /* CarModelDTO carModelDTO = new CarModelDTO();
+        return carModelDTO;*/
+        return null;
     }
 
     @Override
@@ -50,8 +51,7 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
     @Override
     public CarModelDTO getByName(String name) {
         CarModelDTO carModel = entityToDto(carModelDao.findByName(name));
-        if (carModel != null) return carModel;
-        return null;
+        return carModel;
     }
 
 

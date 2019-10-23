@@ -16,10 +16,7 @@ public class CategoryDTO {
     @NotNull(message = "name cannot be null")
     private String name;
 
-    public CategoryDTO(int id, @NotNull(message = "name cannot be null") String name) {
-        this.id = id;
+    public CategoryDTO(@NotNull(message = "name cannot be null") String name) {
         this.name = name;
     }
-
-
 }

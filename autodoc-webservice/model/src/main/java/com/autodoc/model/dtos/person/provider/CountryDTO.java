@@ -14,8 +14,7 @@ public class CountryDTO {
     @NotNull(message = "name cannot be null")
     private String name;
 
-    public CountryDTO(int id, @NotNull(message = "name cannot be null") String name) {
-        this.id = id;
+    public CountryDTO(@NotNull(message = "name cannot be null") String name) {
         this.name = name;
     }
 }
