@@ -2,7 +2,6 @@ package com.autodoc.model.dtos.car;
 
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

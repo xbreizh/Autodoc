@@ -2,7 +2,6 @@ package com.autodoc.business.contract.car;
 
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.dtos.car.CarDTO;
-import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

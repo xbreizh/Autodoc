@@ -96,7 +96,7 @@ class CarModelControllerImplTest {
                                 fieldWithPath("[]").description("An array of manufacturers"))
                                 .andWithPrefix(".[]", descriptor)
                 ));
-        System.out.println("carModels: "+carModels);
+        System.out.println("carModels: " + carModels);
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(carModels));
         assertEquals(response, carModelControllerImpl.getAll());
     }

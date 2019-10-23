@@ -2,7 +2,6 @@ package com.autodoc.model.dtos.person.client;
 
 
 import com.autodoc.model.dtos.person.PersonDTO;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

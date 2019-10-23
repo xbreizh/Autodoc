@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements ProviderManager {
     private ProviderDaoImpl<Provider> providerDao;
     private Logger logger = Logger.getLogger(ProviderManagerImpl.class);
-    ModelMapper mapper ;
+    ModelMapper mapper;
+
     public ProviderManagerImpl(ProviderDaoImpl<Provider> providerDao) {
         super(providerDao);
         this.mapper = new ModelMapper();

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "manufacturer")
-public class Manufacturer  {
+public class Manufacturer {
 
 
     // Constructors

@@ -4,9 +4,6 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.contract.car.CarModelDao;
-import com.autodoc.dao.contract.global.IGenericDao;
-import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
@@ -17,8 +14,6 @@ import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.ConstraintViolationException;
 
 @Transactional
 @Component
@@ -51,7 +46,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     public CarDTO updateClient(int carId, int clientId) throws Exception {
         CarDTO carDto = (CarDTO) carDao.getById(carId);
         Client client = (Client) clientManager.getById(clientId);
-        if (client == null) throw  new NotFoundException("client not found");
+        if (client == null) throw new NotFoundException("client not found");
         /*if (car == null) return "no car found";
         car.setClient(client);
         return car;*/
@@ -79,14 +74,14 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         System.out.println("dto: " + dto);
         Car car = mapper.map(dto, Car.class);
         Client client = (Client) clientManager.getById(dto.getClientId());
-        if(client ==null) {
-            throw new Exception("invalid ccalient id: "+dto.getClientId());
+        if (client == null) {
+            throw new Exception("invalid ccalient id: " + dto.getClientId());
             //exception += "\n invalid clientId: "+dto.getClientId();
 
         }
         CarModel carModel = (CarModel) carModelManager.getById(dto.getCarModelId());
-        if(carModel ==null){
-            exception +="\n invalid carModelId: "+dto.getCarModelId();
+        if (carModel == null) {
+            exception += "\n invalid carModelId: " + dto.getCarModelId();
         }
 
         System.out.println("client: " + client);
@@ -97,8 +92,6 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         logger.info("car: " + car);
         return car;
     }
-
-
 
 
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 @Named
 public class JwtConnect implements UserDetailsService {
-    private Logger logger = Logger.getLogger(JwtConnect.class);
+    private static final Logger LOGGER = Logger.getLogger(JwtConnect.class);
     private EmployeeManager employeeManager;
 
     public JwtConnect(EmployeeManager employeeManager) {
@@ -26,19 +26,19 @@ public class JwtConnect implements UserDetailsService {
 
         //User authentication management
         Employee employee = employeeManager.getByLogin(login);
-        logger.debug("");
+        LOGGER.debug("");
         if (employee != null) {
-            logger.debug("found: " + login);
+            LOGGER.debug("found: " + login);
             // TODO
             // create token mgt entity and token generation config
             if (employee.getLogin().equals(login)) {
-                logger.debug("new password: " + new BCryptPasswordEncoder().encode("abc123"));
+                LOGGER.debug("new password: " + new BCryptPasswordEncoder().encode("abc123"));
                 // return new User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
                 //User user = new User(login, "$2a$10$uY/HyJBjWPp9DXAyuEGUJu2wGzldUhkTu7CUPuaZeCjoo3Ig3CWn2",
                 User user = new User(login, employee.getPassword(),
                         new ArrayList<>());
-                logger.debug("user: " + user);
-                logger.debug("user: " + user);
+                LOGGER.debug("user: " + user);
+                LOGGER.debug("user: " + user);
                 return user;
             }
         }
@@ -48,7 +48,7 @@ public class JwtConnect implements UserDetailsService {
     public void checkToken(String token) {
         //User authentication management
         Employee employee = employeeManager.getByToken(token);
-        logger.debug("employee: " + employee);
+        LOGGER.debug("employee: " + employee);
         if (employee != null && tokenIsExpired(token)) {
             throw new UsernameNotFoundException("Token expired");
         }

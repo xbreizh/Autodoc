@@ -15,6 +15,7 @@ public class CategoryManagerImpl<T, D> extends AbstractGenericManager implements
     private CategoryDaoImpl<Category> categoryDao;
     private Logger logger = Logger.getLogger(CategoryManagerImpl.class);
     private ModelMapper mapper;
+
     public CategoryManagerImpl(CategoryDaoImpl<Category> categoryDao) {
         super(categoryDao);
         this.mapper = new ModelMapper();

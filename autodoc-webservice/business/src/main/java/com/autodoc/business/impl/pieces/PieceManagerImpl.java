@@ -15,6 +15,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
     private PieceDaoImpl<Piece> pieceDao;
     private Logger logger = Logger.getLogger(PieceManagerImpl.class);
     private ModelMapper mapper;
+
     public PieceManagerImpl(PieceDaoImpl<Piece> pieceDao) {
         super(pieceDao);
         this.mapper = new ModelMapper();

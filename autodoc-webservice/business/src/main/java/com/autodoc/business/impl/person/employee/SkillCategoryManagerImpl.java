@@ -18,6 +18,7 @@ public class SkillCategoryManagerImpl<T, D> extends AbstractGenericManager imple
     private Logger logger = Logger.getLogger(SkillCategoryManagerImpl.class);
     private SkillCategoryDaoImpl<SkillCategory> skillCategoryDao;
     private ModelMapper mapper;
+
     public SkillCategoryManagerImpl(SkillCategoryDaoImpl<SkillCategory> skillCategoryDao) {
         super(skillCategoryDao);
         this.mapper = new ModelMapper();

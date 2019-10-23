@@ -94,9 +94,9 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity deleteById(@PathVariable Integer id) {
         System.out.println("trying to delete: " + id);
         String response = manager.deleteById(id);
-        if(response.equals("notFound")) return ResponseEntity
+        if (response.equals("notFound")) return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("invalid id: "+id);
+                .body("invalid id: " + id);
         if (response.equals(response)) {
             return ResponseEntity.status(204).body(response);
         }

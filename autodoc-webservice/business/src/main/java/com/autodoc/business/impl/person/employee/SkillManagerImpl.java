@@ -15,6 +15,7 @@ public class SkillManagerImpl<T, D> extends AbstractGenericManager implements Sk
 
     private EmployeeDaoImpl employeeDao;
     private ModelMapper mapper;
+
     public SkillManagerImpl(EmployeeDaoImpl employeeDao) {
         super(employeeDao);
         this.mapper = new ModelMapper();

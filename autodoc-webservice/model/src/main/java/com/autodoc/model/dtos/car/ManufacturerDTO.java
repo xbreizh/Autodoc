@@ -1,8 +1,6 @@
 package com.autodoc.model.dtos.car;
 
 
-import com.autodoc.model.dtos.person.PersonDTO;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
