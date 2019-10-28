@@ -18,7 +18,7 @@ class EmployeeManagerImplTest {
 
 
     private EmployeeManager employeeManager;
-    private EmployeeDaoImpl<Employee> employeeDao;
+    private EmployeeDaoImpl employeeDao;
 
     @BeforeEach
     void init() {

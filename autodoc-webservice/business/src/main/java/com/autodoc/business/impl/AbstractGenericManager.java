@@ -5,7 +5,6 @@ import com.autodoc.dao.contract.global.IGenericDao;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
 
     protected String exception = "";
-    private Logger logger = Logger.getLogger(AbstractGenericManager.class);
+    private Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
     private IGenericDao<T> dao;
 
     public AbstractGenericManager(IGenericDao dao) {
@@ -29,17 +28,18 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     public String save(D object) {
-        logger.info("trying to save a " + object.getClass());
+        LOGGER.info("trying to save a " + object.getClass());
         try {
             T objectToSave = dtoToEntity((D) object);
             if (!exception.isEmpty()) return exception;
-            String feedback = dao.create(objectToSave);
-            if (feedback.isEmpty()) {
-                return object.getClass().getSimpleName() + " added";
+            String feedback = "";
+            feedback = Integer.toString(dao.create(objectToSave));
+            if (!feedback.equals("0")) {
+                return object.getClass().getSimpleName() + " added "+feedback;
             }
-            return feedback;
+            return "issue while saving";
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             return e.getMessage();
         }
 
@@ -47,9 +47,20 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     @Override
+    public void checkDataInsert(Object dto) throws Exception {
+        System.out.println("checking insert data");
+    }
+
+    @Override
+    public void checkDataUpdate(Object dto) throws Exception {
+        System.out.println("checking update data");
+    }
+
+
+    @Override
     public D getById(int id) throws Exception {
         if (dao.getById(id) == null) {
-            exception ="no record found";
+            exception = "no record found";
             return null;
         }
         return entityToDto(dao.getById(id));
@@ -57,8 +68,8 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public List getAll() {
-        logger.info("trying to find them all");
-        logger.debug("dao: " + dao);
+        LOGGER.info("trying to find them all");
+        LOGGER.debug("dao: " + dao);
         return convertList(dao.getAll());
     }
 
@@ -102,9 +113,9 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     @Override
     public String deleteById(int entityId) {
 
-        logger.info("trying to delete " + entityId);
+        LOGGER.info("trying to delete " + entityId);
         if (dao.getById(entityId) == null) {
-            return "notFound";
+            return "not Found";
         }
         dao.deleteById(entityId);
         return "";

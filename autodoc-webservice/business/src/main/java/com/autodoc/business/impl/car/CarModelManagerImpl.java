@@ -15,8 +15,8 @@ import java.util.List;
 @Transactional
 @Component
 public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements CarModelManager {
+    private final static Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
     private CarModelDaoImpl carModelDao;
-    private Logger logger = Logger.getLogger(CarModelManagerImpl.class);
     private ModelMapper mapper;
 
     public CarModelManagerImpl(CarModelDaoImpl carModelDao) {
@@ -34,16 +34,18 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
 
     @Override
     public CarModelDTO entityToDto(Object entity) {
-        CarModel carModel = (CarModel) entity;
-       /* CarModelDTO carModelDTO = new CarModelDTO();
-        return carModelDTO;*/
-        return null;
+        CarModelDTO dto = mapper.map(entity, CarModelDTO.class);
+        return dto;
     }
 
     @Override
-    public Object dtoToEntity(Object entity) {
-        return null;
+    public CarModel dtoToEntity(Object entity) throws Exception {
+        CarModelDTO dto = (CarModelDTO) entity;
+        CarModel carModel = mapper.map(entity, CarModel.class);
+        checkDataInsert(dto);
+        return carModel;
     }
+
 
     @Override
     public CarModel getById(int id) {
@@ -53,7 +55,7 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
     @Override
     public CarModelDTO getByName(String name) {
         CarModelDTO carModel = entityToDto(carModelDao.findByName(name));
-        return carModel;
+        return entityToDto(carModelDao.findByName(name));
     }
 
 

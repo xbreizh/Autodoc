@@ -29,6 +29,13 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     }
 
 
+    @GetMapping("/{id}")
+    public CarDTO findUserById(@PathVariable("id") CarDTO user) {
+        System.out.println("trying to find by id: ");
+        return user;
+    }
+
+
     @Override
     @GetMapping(value = "/getByRegistration",
             produces = MediaType.APPLICATION_JSON_VALUE)

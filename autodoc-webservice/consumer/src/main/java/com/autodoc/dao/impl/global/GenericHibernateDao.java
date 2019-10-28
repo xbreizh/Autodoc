@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public class GenericHibernateDao<T>
         extends AbstractHibernateDao<T> implements IGenericDao<T> {
 
+
 }

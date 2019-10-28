@@ -57,6 +57,7 @@ dependencies {
             'io.jsonwebtoken:jjwt:0.9.1'
 
 
+
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
 

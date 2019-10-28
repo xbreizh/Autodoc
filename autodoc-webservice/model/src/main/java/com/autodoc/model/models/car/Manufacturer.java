@@ -5,6 +5,8 @@ import lombok.NonNull;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -19,8 +21,9 @@ public class Manufacturer {
     @Column(name = "ID")
     private int id;
 
-    @NonNull
+    @NotNull(message = "name should not be null")
     @Column(unique = true)
+    @Size(min = 2, max = 50, message = "name should have between 2 and 50 characters")
     private String name;
 
     // Parameters

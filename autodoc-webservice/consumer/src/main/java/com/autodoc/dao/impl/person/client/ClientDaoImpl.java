@@ -22,4 +22,5 @@ public class ClientDaoImpl extends AbstractHibernateDao implements ClientDao {
     public Client getByName(String name) {
         return null;
     }
+
 }

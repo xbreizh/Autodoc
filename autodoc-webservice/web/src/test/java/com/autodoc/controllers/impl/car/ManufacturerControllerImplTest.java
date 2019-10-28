@@ -50,8 +50,8 @@ class ManufacturerControllerImplTest {
             fieldWithPath("name").description("Name of the manufacturer")
     };
     private List<ManufacturerDTO> manufacturers = new ArrayList<>();
-    private ManufacturerDTO m1 = new ManufacturerDTO("BMW");
-    private ManufacturerDTO m2 = new ManufacturerDTO("AUDI");
+    private ManufacturerDTO m1 = new ManufacturerDTO("BMW", "Paul", "Marchand", "091918918181");
+    private ManufacturerDTO m2 = new ManufacturerDTO("AUDI", "Guiorghe", "Baloti", "123434344");
 
 
     @BeforeEach

@@ -5,6 +5,7 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.person.employee.Employee;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements EmployeeManager {
     private ModelMapper mapper;
     private EmployeeDaoImpl employeeDao;
+    private final static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
 
     public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
         super(employeeDao);
@@ -30,12 +32,17 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     @Override
     public EmployeeDTO entityToDto(Object entity) {
-        return null;
+        EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
+        LOGGER.info("converted into dto");
+        return dto;
     }
 
     @Override
-    public Employee dtoToEntity(Object entity) {
-        return null;
+    public Employee dtoToEntity(Object entity) throws Exception {
+        EmployeeDTO dto = (EmployeeDTO) entity;
+        Employee employee = mapper.map(entity, Employee.class);
+        checkDataInsert(dto);
+        return employee;
     }
 
     @Override

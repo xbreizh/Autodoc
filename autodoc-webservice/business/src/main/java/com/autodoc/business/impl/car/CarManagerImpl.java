@@ -7,7 +7,6 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
 import javassist.NotFoundException;
 import org.apache.log4j.Logger;
@@ -57,42 +56,46 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
 
     @Override
-    public CarDTO entityToDto(Object car1) {
+    public CarDTO entityToDto(Object entity) {
         LOGGER.info("converting into dto");
 
-        CarDTO dto = mapper.map(car1, CarDTO.class);
-        Car car = (Car) car1;
-
-        dto.setCarModelId(car.getCarModel().getId());
-        dto.setClientId(car.getClient().getId());
+        CarDTO dto = mapper.map(entity, CarDTO.class);
         return dto;
     }
 
     @Override
-    public Car dtoToEntity(Object entity) throws Exception {
+    public Car dtoToEntity(Object obj) throws Exception {
         LOGGER.info("converting into entity");
         resetException();
-        CarDTO dto = (CarDTO) entity;
-        System.out.println("dto: " + dto);
-        Car car = mapper.map(dto, Car.class);
-        Client client = (Client) clientManager.dtoToEntity(clientManager.getById(dto.getClientId()));
-        if (client == null) {
-            throw new EntityNotFoundException("invalid clientId: " + dto.getClientId());
-            //exception += "\n invalid clientId: "+dto.getClientId();
-
-        }
-        CarModel carModel = (CarModel) carModelManager.dtoToEntity(carModelManager.getById(dto.getCarModelId()));
-        if (carModel == null) {
-            exception += "\n invalid carModelId: " + dto.getCarModelId();
-        }
-
-        System.out.println("client: " + client);
-        System.out.println("carModel: " + carModel);
-        car.setClient(client);
-        car.setCarModel(carModel);
-        //car.setRegistration(dto.getRegistration());
+        CarDTO dto = (CarDTO) obj;
+        Car car = mapper.map(obj, Car.class);
+        checkDatas(dto);
+        checkCarModelExist(dto.getCarModelId());
         LOGGER.info("car: " + car);
         return car;
+    }
+
+    private void checkDatas(CarDTO dto) throws Exception {
+        checkRegistrationValid(dto.getRegistration());
+        checkClientExist(dto.getClientId());
+    }
+
+    private void checkRegistrationValid(String registration) {
+        /*TODO VALIDATION REGISTRATION*/
+    }
+
+    private void checkClientExist(int clientId) throws Exception {
+        if (clientManager.getById(clientId) == null) {
+            throw new EntityNotFoundException("invalid clientId: " + clientId);
+
+        }
+    }
+
+    private void checkCarModelExist(int carModelId) throws Exception {
+        if (carModelManager.getById(carModelId) == null) {
+            throw new EntityNotFoundException("invalid carModelId: " + carModelId);
+
+        }
     }
 
 

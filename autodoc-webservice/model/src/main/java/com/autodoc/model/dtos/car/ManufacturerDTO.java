@@ -1,31 +1,28 @@
 package com.autodoc.model.dtos.car;
 
 
-import com.autodoc.model.dtos.person.PersonDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @ToString
-public class ManufacturerDTO extends PersonDTO {
-
-
-    // Constructors
+public class ManufacturerDTO extends ResourceSupport {
 
 
     @NotNull(message = "name cannot be null")
+    @Size(min = 2, max = 50, message = "name should have between 2 and 50 characters")
     private String name;
 
-    // Parameters
+    Link link = new Link("http://localhost:8080/spring-security-rest/api/customers/10A");
 
-
-    public ManufacturerDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1, @NotNull(message = "name cannot be null") String name) {
-        super(lastName, firstName, phoneNumber1);
-
+    public ManufacturerDTO(@NotNull(message = "name cannot be null") @Size(min = 2, max = 50, message = "name should have between 2 and 50 characters") String name) {
         this.name = name;
     }
 

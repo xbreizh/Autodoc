@@ -14,13 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implements ManufacturerManager {
     private ManufacturerDaoImpl manufacturerDao;
-    private Logger logger = Logger.getLogger(ManufacturerManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ManufacturerManagerImpl.class);
     private ModelMapper mapper;
 
     public ManufacturerManagerImpl(ManufacturerDaoImpl manufacturerDao) {
         super(manufacturerDao);
         this.mapper = new ModelMapper();
-        logger.debug("here");
         this.manufacturerDao = manufacturerDao;
 
     }
@@ -28,26 +27,38 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
 
     @Override
     public ManufacturerDTO entityToDto(Object entity) {
-        Manufacturer manufacturer = (Manufacturer) entity;
-       /* ManufacturerDTO manufacturerDTO = new ManufacturerDTO();
-        manufacturerDTO.setName(manufacturer.getName());
-        manufacturerDTO.setId(((Manufacturer) entity).getId());
-        return manufacturerDTO;*/
-        //TODO MODELMAPPING
-        return null;
+        ManufacturerDTO dto = mapper.map(entity, ManufacturerDTO.class);
+        LOGGER.info("converted into dto");
+        return dto;
     }
 
     @Override
-    public Object dtoToEntity(Object entity) {
-        return null;
+    public Manufacturer dtoToEntity(Object entity) throws Exception {
+        LOGGER.info("converted into ");
+        ManufacturerDTO dto = (ManufacturerDTO) entity;
+        Manufacturer manufacturer = mapper.map(entity, Manufacturer.class);
+        checkDataInsert(dto);
+        return manufacturer;
     }
 
     @Override
     public ManufacturerDTO getByName(String name) {
-        logger.debug("trying to get: " + name);
+        LOGGER.debug("trying to get: " + name);
         if (name.isEmpty()) return null;
         return entityToDto(manufacturerDao.getByName(name));
     }
 
+
+    @Override
+    public void checkDataInsert(Object dtoToCheck) throws Exception {
+        ManufacturerDTO dto = (ManufacturerDTO) dtoToCheck;
+        if(dto.getName()==null || dto.getName().isEmpty()){
+            throw new Exception("there should be a name");
+        }
+        if(manufacturerDao.getByName(dto.getName())!=null){
+            throw new Exception("Manufacturer already exist with that name");
+        }
+        System.out.println("all good");
+    }
 
 }

@@ -53,6 +53,7 @@ class CarModelControllerImplTest {
     Manufacturer manufacturer = new Manufacturer("PLOP");
     CarModelDTO carModel;
     String name = "quattro";
+    String domain = "/carModels";
     private GsonConverter converter;
     private FieldDescriptor[] descriptor = new FieldDescriptor[]{
             fieldWithPath("id").description("Id of the carModel"),
@@ -87,7 +88,7 @@ class CarModelControllerImplTest {
         when(carModelManager.getAll()).thenReturn(carModels);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/carModel")
+                        .get(domain)
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(encoding))
@@ -107,7 +108,7 @@ class CarModelControllerImplTest {
         when(carModelManager.getById(anyInt())).thenReturn(carModel);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/carModel/{carModelId}", id)
+                        .get(domain + "/{carModelId}", id)
                         .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(id))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -128,7 +129,7 @@ class CarModelControllerImplTest {
         when(carModelManager.getByName(anyString())).thenReturn(carModel);
 
         this.mockMvc.perform(
-                get("/carModel/getByName")
+                get(domain + "/getByName")
                         .header("Authorization", "Bearer token")
                         .content(converter.convertObjectIntoGsonObject(name))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)

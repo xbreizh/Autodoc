@@ -2,7 +2,10 @@ package com.autodoc.model.dtos.person.provider;
 
 import com.autodoc.model.dtos.person.PersonDTO;
 import com.autodoc.model.enums.Rate;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

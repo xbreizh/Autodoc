@@ -37,7 +37,7 @@ subprojects {
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
         testCompile 'org.mockito:mockito-core:3.0.0'
         testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '2.1'
-
+        compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '0.25.1.RELEASE'
         compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
 

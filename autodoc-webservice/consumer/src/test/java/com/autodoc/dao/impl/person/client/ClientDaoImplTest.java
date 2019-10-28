@@ -1,10 +1,8 @@
 package com.autodoc.dao.impl.person.client;
 
-import org.junit.jupiter.api.Test;
-
 class ClientDaoImplTest {
 
-    @Test
+   /* @Test
     void getClazz() {
     }
 
@@ -42,5 +40,5 @@ class ClientDaoImplTest {
 
     @Test
     void getCurrentSession() {
-    }
+    }*/
 }

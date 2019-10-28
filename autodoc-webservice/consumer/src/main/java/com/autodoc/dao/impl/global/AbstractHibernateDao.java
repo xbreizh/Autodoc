@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 
 public abstract class AbstractHibernateDao<T> {
@@ -40,12 +42,16 @@ public abstract class AbstractHibernateDao<T> {
     }
 
 
-    public String create(T entity) {
+    public int create(T entity) {
         try {
-            getCurrentSession().saveOrUpdate(entity);
-            return "";
+
+            return (Integer)getCurrentSession().save(entity);
+           /* int i = (Integer) ser;
+            System.out.println("id foung: "+i);
+            //System.out.println("Id to return: "+idToReturn);
+            return "";*/
         } catch (Exception e) {
-            return e.getMessage();
+            return 0;
         }
     }
 
@@ -57,8 +63,9 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public String update(T entity) {
-        getCurrentSession().merge(entity);
-        return "";
+        T obj = (T) getCurrentSession().merge(entity);
+        if(obj!=null)return "updated";
+        return null;
     }
 
 

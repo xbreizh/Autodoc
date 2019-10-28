@@ -10,7 +10,7 @@ public interface IGenericDao<T> {
 
     List<T> getAll();
 
-    String create(final T entity);
+    int create(final T entity);
 
     String update(final T entity);
 

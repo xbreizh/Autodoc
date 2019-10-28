@@ -9,6 +9,9 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -37,6 +40,17 @@ public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
         query.setParameter("lastName", lastName);
         return query.getResultList();
 
+    }
+
+    public List<Car> getByCriteria() {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Car> cr = cb.createQuery(Car.class);
+        Root<Car> root = cr.from(Car.class);
+        cr.select(root);
+
+        Query<Car> query = getCurrentSession().createQuery(cr);
+        List<Car> results = query.getResultList();
+        return results;
     }
 
 

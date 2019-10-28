@@ -3,6 +3,7 @@ package com.autodoc.business.impl.bill;
 import com.autodoc.business.contract.bill.BillManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.bill.BillDaoImpl;
+import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.models.bill.Bill;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -40,13 +41,17 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     }
 
     @Override
-    public Object entityToDto(Object entity) {
-        return null;
+    public BillDTO entityToDto(Object entity) {
+        BillDTO dto = mapper.map(entity, BillDTO.class);
+        return dto;
     }
 
     @Override
-    public Object dtoToEntity(Object entity) {
-        return null;
+    public Bill dtoToEntity(Object entity) throws Exception {
+        BillDTO dto = (BillDTO) entity;
+        Bill bill = mapper.map(entity, Bill.class);
+        checkDataInsert(dto);
+        return bill;
     }
 
 }

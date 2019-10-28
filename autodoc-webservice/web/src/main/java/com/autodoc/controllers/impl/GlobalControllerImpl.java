@@ -51,7 +51,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         logger.info("trying to add a " + type);
         String response = manager.save(obj);
         if (response.equals(type + " added")) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(type+"created");
+            return ResponseEntity.status(HttpStatus.CREATED).body(type + "created");
         }
         System.out.println("trok: " + response);
         return ResponseEntity
