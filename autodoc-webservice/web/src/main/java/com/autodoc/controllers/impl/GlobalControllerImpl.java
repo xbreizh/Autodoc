@@ -30,7 +30,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     }
 
     @Override
-    @GetMapping(value = "",
+    @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getAll() {

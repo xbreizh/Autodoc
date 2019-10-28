@@ -16,6 +16,8 @@ public class SkillDTO {
         this.skillCategoryId = skillCategoryId;
     }
 
+    public SkillDTO() {
+    }
 
     // Parameters
 

@@ -28,7 +28,7 @@ public abstract class Person {
     // Parameters
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
     @NonNull

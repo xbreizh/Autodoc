@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 public interface SkillController {
 
 
-    ResponseEntity getByName(String name);
+    ResponseEntity getByName(String name) throws Exception;
 
 
 }

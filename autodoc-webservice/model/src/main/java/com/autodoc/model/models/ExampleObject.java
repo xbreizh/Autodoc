@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @ToString
 public class ExampleObject {
     @Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
 

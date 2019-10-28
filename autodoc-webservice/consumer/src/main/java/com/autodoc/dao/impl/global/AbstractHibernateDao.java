@@ -35,6 +35,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public List<T> getAll() {
+        System.out.println("in the dao: "+clazz.getName());
         LOGGER.debug("class: " + clazz.getName());
         LOGGER.debug("getting all");
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();

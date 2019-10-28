@@ -2,7 +2,7 @@ package com.autodoc.dao.impl.person.employee;
 
 import com.autodoc.dao.contract.person.employee.SkillDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
-import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.employee.Skill;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -14,7 +14,7 @@ public class SkillDaoImpl<T> extends AbstractHibernateDao implements SkillDao {
     private static final Logger LOGGER = Logger.getLogger(SkillDaoImpl.class);
 
     public SkillDaoImpl() {
-        this.setClazz(Client.class);
+        this.setClazz(Skill.class);
     }
 
 

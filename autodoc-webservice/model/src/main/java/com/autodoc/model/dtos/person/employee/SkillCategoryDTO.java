@@ -15,6 +15,8 @@ public class SkillCategoryDTO {
         this.name = name;
     }
 
+    public SkillCategoryDTO() {
+    }
 
     // Parameters
     private int id;

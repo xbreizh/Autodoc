@@ -5,6 +5,6 @@ import org.springframework.http.ResponseEntity;
 public interface SkillCategoryController {
 
 
-    ResponseEntity getByName(String name);
+    ResponseEntity getByName(String name) throws Exception;
 
 }

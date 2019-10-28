@@ -77,6 +77,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public List getAll() {
+        System.out.println("getting ghtm all: ");
         LOGGER.info("trying to find them all");
         LOGGER.debug("dao: " + dao);
         return convertList(dao.getAll());

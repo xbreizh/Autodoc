@@ -36,6 +36,12 @@ public class Provider extends Person {
     @Enumerated(EnumType.STRING)
     private Rate rate;
 
+    public Provider(String firstName, String lastName, String phoneNumber1, String email1, @NonNull String company) {
+        super(firstName, lastName, phoneNumber1);
+        this.email1 = email1;
+        this.company = company;
+    }
+
     public Provider() {
     }
 

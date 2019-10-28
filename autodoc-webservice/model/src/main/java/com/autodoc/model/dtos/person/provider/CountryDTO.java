@@ -17,4 +17,7 @@ public class CountryDTO {
     public CountryDTO(@NotNull(message = "name cannot be null") String name) {
         this.name = name;
     }
+
+    public CountryDTO() {
+    }
 }
