@@ -5,7 +5,6 @@ import com.autodoc.business.impl.person.client.ClientManagerImpl;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
-import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Sql(scripts = "classpath:resetDb.sql")
 @Transactional
 class ClientControllerImplTest {
-    private Logger logger = Logger.getLogger(ClientControllerImplTest.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientControllerImplTest.class);
     private ClientControllerImpl clientController;
     private ClientManager clientManager;
     private MockMvc mockMvc;
@@ -75,7 +74,7 @@ class ClientControllerImplTest {
         converter = new GsonConverter();
         // using standalone
         this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
-        logger.debug("context: " + webApplicationContext);
+        LOGGER.debug("context: " + webApplicationContext);
     }
 
 

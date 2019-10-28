@@ -5,8 +5,7 @@ import com.autodoc.business.impl.authentication.JwtRequest;
 import com.autodoc.business.impl.authentication.JwtResponse;
 import com.autodoc.business.impl.authentication.JwtTokenUtil;
 import com.autodoc.controllers.helper.GsonConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,7 +20,7 @@ import javax.inject.Inject;
 @CrossOrigin
 public class JwtAuthenticationController {
 
-    private static Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
+    private static Logger LOGGER = Logger.getLogger(JwtAuthenticationController.class);
     @Inject
     private AuthenticationManager authenticationManager;
     @Inject
@@ -31,19 +30,19 @@ public class JwtAuthenticationController {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        logger.debug("create autjhentication token");
+        LOGGER.debug("create autjhentication token");
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = jwtConnect
                 .loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        logger.debug("token returned: " + token);
+        LOGGER.debug("token returned: " + token);
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
 
     private void authenticate(String username, String password) throws Exception {
-        logger.debug("username: " + username);
-        logger.debug("pwd: " + password);
+        LOGGER.debug("username: " + username);
+        LOGGER.debug("pwd: " + password);
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
@@ -54,9 +53,9 @@ public class JwtAuthenticationController {
     }
 
     private void checkToken(String token) throws Exception {
-        logger.debug("token: " + token);
+        LOGGER.debug("token: " + token);
         String token2 = new GsonConverter().convertObjectIntoGsonObject(token);
-        logger.debug("token2: " + token2);
+        LOGGER.debug("token2: " + token2);
         try {
             jwtConnect.checkToken(token2);
         } catch (DisabledException e) {

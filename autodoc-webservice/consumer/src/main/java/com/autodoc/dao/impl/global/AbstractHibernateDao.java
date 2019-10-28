@@ -3,16 +3,15 @@ package com.autodoc.dao.impl.global;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import javax.inject.Inject;
-import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.List;
 
 public abstract class AbstractHibernateDao<T> {
     @Inject
     SessionFactory sessionFactory;
-    private Logger logger = Logger.getLogger(AbstractHibernateDao.class);
+    private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
 
 
     public Class<Object> getClazz() {
@@ -36,8 +35,8 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public List<T> getAll() {
-        logger.debug("class: " + clazz.getName());
-        logger.debug("getting all");
+        LOGGER.debug("class: " + clazz.getName());
+        LOGGER.debug("getting all");
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
     }
 
@@ -45,7 +44,7 @@ public abstract class AbstractHibernateDao<T> {
     public int create(T entity) {
         try {
 
-            return (Integer)getCurrentSession().save(entity);
+            return (Integer) getCurrentSession().save(entity);
            /* int i = (Integer) ser;
             System.out.println("id foung: "+i);
             //System.out.println("Id to return: "+idToReturn);
@@ -64,10 +63,17 @@ public abstract class AbstractHibernateDao<T> {
 
     public String update(T entity) {
         T obj = (T) getCurrentSession().merge(entity);
-        if(obj!=null)return "updated";
+        if (obj != null) return "updated";
         return null;
     }
 
+    //@Override
+    public T getByName(String name) {
+        Query query = getCurrentSession().createQuery("from " + clazz.getName() + "where name = :name");
+        query.setParameter(name, name);
+        if (query.getResultList().isEmpty()) return null;
+        return (T) query.getResultList().get(0);
+    }
 
     public String deleteById(final int entityId) {
         T entity = getById(entityId);
@@ -76,7 +82,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     protected Session getCurrentSession() {
-        logger.debug("session: " + sessionFactory.getCurrentSession());
+        LOGGER.debug("session: " + sessionFactory.getCurrentSession());
         return sessionFactory.getCurrentSession();
     }
 

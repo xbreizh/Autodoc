@@ -7,6 +7,7 @@ import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     private ManufacturerDaoImpl manufacturerDao;
     private static final Logger LOGGER = Logger.getLogger(ManufacturerManagerImpl.class);
     private ModelMapper mapper;
+    private Link link = new Link("http://localhost:8087/autodoc/manufacturers/");
 
     public ManufacturerManagerImpl(ManufacturerDaoImpl manufacturerDao) {
         super(manufacturerDao);
@@ -28,6 +30,9 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     @Override
     public ManufacturerDTO entityToDto(Object entity) {
         ManufacturerDTO dto = mapper.map(entity, ManufacturerDTO.class);
+        dto.add(link);
+        Manufacturer manufacturer = (Manufacturer) entity;
+        dto.setIdentifier(manufacturer.getId());
         LOGGER.info("converted into dto");
         return dto;
     }
@@ -52,10 +57,10 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     @Override
     public void checkDataInsert(Object dtoToCheck) throws Exception {
         ManufacturerDTO dto = (ManufacturerDTO) dtoToCheck;
-        if(dto.getName()==null || dto.getName().isEmpty()){
+        if (dto.getName() == null || dto.getName().isEmpty()) {
             throw new Exception("there should be a name");
         }
-        if(manufacturerDao.getByName(dto.getName())!=null){
+        if (manufacturerDao.getByName(dto.getName()) != null) {
             throw new Exception("Manufacturer already exist with that name");
         }
         System.out.println("all good");

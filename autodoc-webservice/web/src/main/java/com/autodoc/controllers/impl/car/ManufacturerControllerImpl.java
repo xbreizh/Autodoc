@@ -12,12 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/manufacturers")
 public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacturer, ManufacturerDTO> implements ManufacturerController {
-    private Logger logger = Logger.getLogger(ManufacturerControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ManufacturerControllerImpl.class);
     private ManufacturerManager manufacturerManager;
     private GsonConverter converter;
 
@@ -34,28 +36,17 @@ public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacture
     public ResponseEntity getAll() {
 
         List<Manufacturer> list = manufacturerManager.getAll();
-        logger.info("list: " + list);
+        LOGGER.info("list: " + list);
         String response = converter.convertObjectIntoGsonObject(list);
         return ResponseEntity.ok(response);
     }*/
 
-    @GetMapping(value = "/getByName",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getByName(@RequestBody String name) {
-        logger.debug("trying to get: " + name);
-        ManufacturerDTO manufacturer = manufacturerManager.getByName(name);
-        logger.debug("manufacturer: " + manufacturer);
-        String response = converter.convertObjectIntoGsonObject(manufacturer);
-
-        return ResponseEntity.ok(response);
-    }
 
     @Override
     @DeleteMapping(value = "/deleteById/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteById(@PathVariable Integer id) {
-        logger.info("trying to delete: " + id);
+        LOGGER.info("trying to delete: " + id);
         String response = "impossible action";
         if (response.equals(response)) {
             return ResponseEntity.ok(response);

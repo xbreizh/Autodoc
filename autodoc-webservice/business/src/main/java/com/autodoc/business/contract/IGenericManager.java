@@ -24,4 +24,6 @@ public interface IGenericManager<T, D> {
     void checkDataInsert(Object dto) throws Exception;
 
     void checkDataUpdate(Object dto) throws Exception;
+
+    D getByName(String name) throws Exception;
 }

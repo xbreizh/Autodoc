@@ -32,6 +32,6 @@ class ManufacturerTest {
         manufacturers.add(new Manufacturer("JACQUES"));
         assertEquals("[Manufacturer{id=0, name='PAUL', carModels=0}, Manufacturer{id=0, name='JACQUES', carModels=0}]", manufacturers.toString());
         String convertedObject = new Gson().toJson(manufacturers);
-        //logger.debug("cc: " + convertedObject);
+        //LOGGER.debug("cc: " + convertedObject);
     }
 }

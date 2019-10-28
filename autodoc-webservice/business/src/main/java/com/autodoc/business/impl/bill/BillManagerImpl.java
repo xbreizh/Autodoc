@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class BillManagerImpl extends AbstractGenericManager implements BillManager {
     private BillDaoImpl billDao;
-    private Logger logger = Logger.getLogger(BillManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
     private ModelMapper mapper;
 
     public BillManagerImpl(BillDaoImpl billDao) {
@@ -29,8 +29,8 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public String save(Object bill) {
-        logger.debug("trying to save a car");
-        logger.info("trying to save a like: " + bill);
+        LOGGER.debug("trying to save a car");
+        LOGGER.info("trying to save a like: " + bill);
         billDao.create(bill);
         return "car created";
     }

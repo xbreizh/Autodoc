@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class SkillDaoImpl<T> extends AbstractHibernateDao implements SkillDao {
-    private Logger logger = Logger.getLogger(SkillDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(SkillDaoImpl.class);
 
     public SkillDaoImpl() {
         this.setClazz(Client.class);

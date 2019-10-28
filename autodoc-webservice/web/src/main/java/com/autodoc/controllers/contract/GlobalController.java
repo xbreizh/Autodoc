@@ -8,6 +8,8 @@ public interface GlobalController<T, D> {
 
     ResponseEntity getById(Integer id) throws Exception;
 
+    ResponseEntity getByName(String name) throws Exception;
+
     ResponseEntity deleteById(Integer id);
 
 

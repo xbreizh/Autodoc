@@ -25,7 +25,7 @@ import java.util.List;
 @Component
 public class Filler {
 
-    private Logger logger = Logger.getLogger(Filler.class);
+    private static final Logger LOGGER = Logger.getLogger(Filler.class);
 
     private ManufacturerDaoImpl manufacturerDao;
     private CarModelDaoImpl carModelDao;
@@ -42,7 +42,7 @@ public class Filler {
     }
 
     public void fill() {
-        logger.debug("getting here");
+        LOGGER.debug("getting here");
         fillEmployee();
         fillManufacturer();
         fillCarModel();
@@ -51,7 +51,7 @@ public class Filler {
     }
 
     private void fillManufacturer() {
-        logger.debug("filling manufacturer");
+        LOGGER.debug("filling manufacturer");
         String[] list = {"AUDI", "BMW", "RENAULT", "OPEL", "NISSAN", "TOYOTA"};
         for (int i = 0; i < list.length; i++) {
             manufacturerDao.create(new Manufacturer(list[i]));
@@ -60,7 +60,7 @@ public class Filler {
 
 
     private void fillCarModel() {
-        logger.debug("filling car model");
+        LOGGER.debug("filling car model");
         Manufacturer man = manufacturerDao.getByName("NISSAN");
         carModelDao.create(new CarModel(man, "QASHQAI", "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL));
         man = manufacturerDao.getByName("RENAULT");
@@ -70,13 +70,13 @@ public class Filler {
     }
 
     private void fillClient() {
-        logger.debug("filling client");
+        LOGGER.debug("filling client");
         Client client = new Client("LOKII", "MOLO", "03938937837");
         clientDao.create(client);
     }
 
     private void fillCar() {
-        logger.debug("filling car");
+        LOGGER.debug("filling car");
         CarModel carModel = carModelDao.findByName("AURIS");
         Client client = (Client) clientDao.getAll().get(0);
         Car car = new Car("05D154875", carModel, client);
@@ -84,13 +84,13 @@ public class Filler {
     }
 
     private void fillEmployee() {
-        logger.debug("filling employee");
+        LOGGER.debug("filling employee");
         List<Role> roleList = new ArrayList<>();
         String login = "LMOLO";
         Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, new Date(), login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
         employeeDao.create(employee);
        /* if (employeeDao.getByLogin(login)==null) {
-            logger.debug("employee created");
+            LOGGER.debug("employee created");
         }*/
     }
 

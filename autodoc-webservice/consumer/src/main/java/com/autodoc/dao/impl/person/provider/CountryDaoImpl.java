@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CountryDaoImpl<T> extends AbstractHibernateDao implements CountryDao {
-    private Logger logger = Logger.getLogger(CountryDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CountryDaoImpl.class);
 
     public CountryDaoImpl() {
         this.setClazz(Country.class);

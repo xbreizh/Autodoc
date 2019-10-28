@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class TemplateSubTaskDaoImpl<T> extends AbstractHibernateDao implements TemplateSubTaskDao {
-    private Logger logger = Logger.getLogger(TemplateSubTaskDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(TemplateSubTaskDaoImpl.class);
 
 
     public TemplateSubTaskDaoImpl() {
-        logger.debug("creating manuf dao");
+        LOGGER.debug("creating manuf dao");
         this.setClazz(TemplateSubTask.class);
     }
 

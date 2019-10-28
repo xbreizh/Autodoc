@@ -58,9 +58,8 @@ class ManufacturerManagerImplTest {
         ManufacturerDTO manufacturer = new ManufacturerDTO(name);
         when(manufacturerDao.getByName(anyString())).thenReturn(null);
         when(manufacturerDao.create(any(Manufacturer.class))).thenReturn("");
-        assertEquals(manufacturer.getClass().getSimpleName()+" added", manufacturerManager.save(manufacturer));
+        assertEquals(manufacturer.getClass().getSimpleName() + " added", manufacturerManager.save(manufacturer));
     }
-
 
 
     @Test
@@ -70,8 +69,8 @@ class ManufacturerManagerImplTest {
         when(manufacturerDao.getById(anyInt())).thenReturn(manufacturer);
         ManufacturerDTO dto = (ManufacturerDTO) manufacturerManager.getById(3);
         assertAll(
-                ()-> assertEquals(ManufacturerDTO.class.getSimpleName(), manufacturerManager.getById(3).getClass().getSimpleName()),
-                ()-> assertEquals(name, dto.getName())
+                () -> assertEquals(ManufacturerDTO.class.getSimpleName(), manufacturerManager.getById(3).getClass().getSimpleName()),
+                () -> assertEquals(name, dto.getName())
         );
 
     }

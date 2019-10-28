@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ProviderDaoImpl<T> extends AbstractHibernateDao implements ProviderDao {
-    private Logger logger = Logger.getLogger(ProviderDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ProviderDaoImpl.class);
 
     public ProviderDaoImpl() {
         this.setClazz(Provider.class);

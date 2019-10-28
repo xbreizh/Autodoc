@@ -19,4 +19,5 @@ public interface IGenericDao<T> {
     String deleteById(final int entityId);
 
 
+    T getByName(String name);
 }

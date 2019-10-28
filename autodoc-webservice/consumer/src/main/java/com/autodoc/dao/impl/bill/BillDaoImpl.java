@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class BillDaoImpl extends AbstractHibernateDao implements BillDao {
-    private Logger logger = Logger.getLogger(BillDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(BillDaoImpl.class);
 
     public BillDaoImpl() {
         this.setClazz(Car.class);

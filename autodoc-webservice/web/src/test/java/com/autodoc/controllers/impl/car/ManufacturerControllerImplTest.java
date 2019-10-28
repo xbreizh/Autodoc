@@ -4,7 +4,6 @@ import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.controllers.contract.car.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
-import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 class ManufacturerControllerImplTest {
     private final static String encoding = "application/json;charset=ISO-8859-1";
-    private Logger logger = Logger.getLogger(ManufacturerControllerImplTest.class);
+    private static final Logger LOGGER = Logger.getLogger(ManufacturerControllerImplTest.class);
     private ManufacturerController manufacturerController;
     private ManufacturerManager manufacturerManager;
     private GsonConverter converter;
@@ -70,7 +69,7 @@ class ManufacturerControllerImplTest {
 
         // using standalone
         this.mockMvc = MockMvcBuilders.standaloneSetup(manufacturerController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
-        logger.debug("context: " + webApplicationContext);
+        LOGGER.debug("context: " + webApplicationContext);
         manufacturers.add(m1);
         manufacturers.add(m2);
 

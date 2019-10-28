@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class PieceDaoImpl<T> extends AbstractHibernateDao implements PieceDao {
-    private Logger logger = Logger.getLogger(PieceDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(PieceDaoImpl.class);
 
 
     public PieceDaoImpl() {
-        logger.debug("creating manuf dao");
+        LOGGER.debug("creating manuf dao");
         this.setClazz(Piece.class);
     }
 

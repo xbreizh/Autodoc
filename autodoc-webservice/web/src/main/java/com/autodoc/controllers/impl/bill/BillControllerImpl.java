@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/bills")
 public class BillControllerImpl extends GlobalControllerImpl<Bill, BillDTO> implements BillController {
-    private Logger logger = Logger.getLogger(BillControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(BillControllerImpl.class);
     private BillManager billManager;
 
     private GsonConverter converter;
@@ -25,5 +25,8 @@ public class BillControllerImpl extends GlobalControllerImpl<Bill, BillDTO> impl
         this.billManager = billManager;
     }
 
-
+/*
+    public ResponseEntity getByName(String name) throws Exception {
+        return null;
+    }*/
 }

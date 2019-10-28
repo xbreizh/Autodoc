@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/cars")
 public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> implements CarController {
-    private Logger logger = Logger.getLogger(CarControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
     private CarManager carManager;
 
     private GsonConverter converter;
@@ -48,6 +48,15 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     }
 
 
+    @GetMapping(value = "/name",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity getByName(@RequestParam(value = "name") String name) throws Exception {
+        LOGGER.error("trying to use a not yet implemented method");
+        throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
+    }
+
+
     @Override
     public ResponseEntity getByClient(String clientLastName, String clientFirstName) {
         return null;
@@ -58,7 +67,7 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @PatchMapping(value = "/updateClient/{carId}/{clientId}",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) throws Exception {
-        logger.debug("car id: " + carId + " / client id: " + clientId);
+        LOGGER.debug("car id: " + carId + " / client id: " + clientId);
         CarDTO response = carManager.updateClient(carId, clientId);
         if (response.equals("car updated")) {
             return ResponseEntity.ok(response);

@@ -1,8 +1,7 @@
 package com.autodoc.controllers.impl.exceptions;
 
+import org.apache.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -25,7 +24,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @ControllerAdvice
 public class ControllerExceptionHandler extends RuntimeException {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ControllerExceptionHandler.class);
+    private static final Logger LOGGER = Logger.getLogger(ControllerExceptionHandler.class);
 
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler({Exception.class, SQLException.class, ConstraintViolationException.class, NestedServletException.class})

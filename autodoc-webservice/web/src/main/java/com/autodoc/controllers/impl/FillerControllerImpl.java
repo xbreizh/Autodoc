@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 @Controller
 public class FillerControllerImpl {
-    private Logger logger = Logger.getLogger(FillerControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(FillerControllerImpl.class);
     @Inject
     private Filler filler;
 
@@ -25,8 +25,8 @@ public class FillerControllerImpl {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String fill() {
-        logger.info("testing logger");
-        logger.debug("trying to fill");
+        LOGGER.info("testing LOGGER");
+        LOGGER.debug("trying to fill");
         filler.fill();
 
         return "filling ok";

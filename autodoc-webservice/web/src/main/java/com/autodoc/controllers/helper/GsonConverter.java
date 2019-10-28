@@ -7,16 +7,16 @@ import javax.inject.Named;
 
 @Named
 public class GsonConverter {
-    private Logger logger = Logger.getLogger(GsonConverter.class);
+    private static final Logger LOGGER = Logger.getLogger(GsonConverter.class);
 
     public GsonConverter() {
     }
 
 
     public String convertObjectIntoGsonObject(Object list) {
-        logger.debug("list to convert: " + list);
+        LOGGER.debug("list to convert: " + list);
         String convertedObject = new Gson().toJson(list);
-        logger.debug("object: " + convertedObject);
+        LOGGER.debug("object: " + convertedObject);
         return convertedObject;
     }
 }

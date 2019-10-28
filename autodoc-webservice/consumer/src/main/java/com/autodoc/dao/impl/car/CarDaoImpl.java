@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
-    private Logger logger = Logger.getLogger(CarDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CarDaoImpl.class);
 
     public CarDaoImpl() {
         this.setClazz(Car.class);
@@ -25,12 +25,12 @@ public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
 
     @Override
     public Car getCarByRegistration(String registration) {
-        logger.debug("getting car by Registration: " + registration);
+        LOGGER.debug("getting car by Registration: " + registration);
         Query query = getCurrentSession().createQuery("From Car where registration = :registration");
         query.setParameter("registration", registration);
         List<Car> cars = query.getResultList();
         if (cars.size() > 0) return cars.get(0);
-        logger.debug("no car found");
+        LOGGER.debug("no car found");
         return null;
     }
 

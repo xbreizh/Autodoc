@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
 
     protected String exception = "";
-    private Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
+    private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
     private IGenericDao<T> dao;
 
     public AbstractGenericManager(IGenericDao dao) {
@@ -35,7 +35,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             String feedback = "";
             feedback = Integer.toString(dao.create(objectToSave));
             if (!feedback.equals("0")) {
-                return object.getClass().getSimpleName() + " added "+feedback;
+                return object.getClass().getSimpleName() + " added " + feedback;
             }
             return "issue while saving";
         } catch (Exception e) {
@@ -64,6 +64,15 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             return null;
         }
         return entityToDto(dao.getById(id));
+    }
+
+    @Override
+    public D getByName(String name) throws Exception {
+        if (dao.getByName(name) == null) {
+            exception = "no record found";
+            return null;
+        }
+        return entityToDto(dao.getByName(name));
     }
 
     @Override

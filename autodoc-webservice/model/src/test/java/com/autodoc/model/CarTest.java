@@ -19,7 +19,7 @@ class CarTest {
     void testToString() {
         car.setRegistration("ploc");
         car.setId(122);
-        //logger.debug(car);
+        //LOGGER.debug(car);
         assertEquals("Car{id=122, registration='ploc', carModel=null, client=null}", car.toString());
 
     }

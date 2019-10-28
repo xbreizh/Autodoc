@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class CategoryDaoImpl<T> extends AbstractHibernateDao implements CategoryDao {
-    private Logger logger = Logger.getLogger(CategoryDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CategoryDaoImpl.class);
 
 
     public CategoryDaoImpl() {
-        logger.debug("creating manuf dao");
+        LOGGER.debug("creating manuf dao");
         this.setClazz(Category.class);
     }
 

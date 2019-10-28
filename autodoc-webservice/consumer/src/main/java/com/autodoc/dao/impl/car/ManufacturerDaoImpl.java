@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ManufacturerDaoImpl extends AbstractHibernateDao implements ManufacturerDao {
-    private Logger logger = Logger.getLogger(ManufacturerDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ManufacturerDaoImpl.class);
     private Class cl = Manufacturer.class;
 
     public ManufacturerDaoImpl() {
@@ -26,14 +26,14 @@ public class ManufacturerDaoImpl extends AbstractHibernateDao implements Manufac
     public Manufacturer getByName(String name) {
         Query query = getCurrentSession().createQuery("From Manufacturer where name= :name", cl);
         query.setParameter("name", name);
-        logger.debug("in dao");
+        LOGGER.debug("in dao");
         List<Manufacturer> result = query.getResultList();
         if (!result.isEmpty()) {
             System.out.println("result: " + result.get(0).toString());
             return result.get(0);
         }
 
-        logger.debug("here");
+        LOGGER.debug("here");
         return null;
     }
 

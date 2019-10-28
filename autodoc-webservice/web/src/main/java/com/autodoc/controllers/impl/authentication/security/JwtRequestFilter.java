@@ -5,6 +5,7 @@ import com.autodoc.business.impl.authentication.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
+import org.apache.log4j.Logger;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,40 +26,40 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtConnect jwtUserDetailsService;
     @Inject
     private JwtTokenUtil jwtTokenUtil;
-
+    private static final Logger LOGGER = Logger.getLogger(JwtRequestFilter.class);
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
-        logger.debug("req: " + requestTokenHeader);
-        logger.debug("ff: " + request.getQueryString());
+        LOGGER.debug("req: " + requestTokenHeader);
+        LOGGER.debug("ff: " + request.getQueryString());
         String username = null;
         String jwtToken = null;
 // JWT Token is in the form "Bearer token". Remove Bearer word and get
 // only the Token
 
-        logger.debug("request Header: " + requestTokenHeader);
+        LOGGER.debug("request Header: " + requestTokenHeader);
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
-            logger.debug("here");
+            LOGGER.debug("here");
 
             jwtToken = requestTokenHeader.substring(7);
-            logger.debug("jtoken: " + jwtToken);
+            LOGGER.debug("jtoken: " + jwtToken);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-                logger.debug("user: " + username);
+                LOGGER.debug("user: " + username);
             } catch (IllegalArgumentException e) {
-                logger.debug("Unable to get JWT Token");
+                LOGGER.debug("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-                logger.debug("JWT Token has expired");
+                LOGGER.debug("JWT Token has expired");
             } catch (SignatureException e) {
                 response.setHeader("exception", "Invalid token");
-                logger.error("stuff");
+                LOGGER.error("stuff");
             } catch (MalformedJwtException e) {
                 response.setHeader("exception", "Malformed token");
-                logger.error("malformed");
+                LOGGER.error("malformed");
             }
         } else {
-            logger.warn("JWT Token does not begin with Bearer String");
+            LOGGER.warn("JWT Token does not begin with Bearer String");
         }
 // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

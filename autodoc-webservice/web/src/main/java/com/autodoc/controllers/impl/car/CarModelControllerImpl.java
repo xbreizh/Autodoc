@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/carModels")
 public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarModelDTO> implements CarModelController {
 
-    private Logger logger = Logger.getLogger(CarModelControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CarModelControllerImpl.class);
     private CarModelManager carModelManager;
     private GsonConverter converter;
 
@@ -33,9 +33,9 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
     public ResponseEntity getAll() {
 
         List<CarModel> list = carModelManager.getAll();
-        logger.debug("Loaded |" + list + "|");
+        LOGGER.debug("Loaded |" + list + "|");
         String response = converter.convertObjectIntoGsonObject(list);
-        logger.debug("Returning |" + response + "|");
+        LOGGER.debug("Returning |" + response + "|");
 
 
         return ResponseEntity.ok(response);
@@ -61,7 +61,7 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
     @DeleteMapping(value = "/deleteById/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteById(@PathVariable Integer id) {
-        logger.info("trying to delete: " + id);
+        LOGGER.info("trying to delete: " + id);
         String response = "impossible action";
         if (response.equals(response)) {
             return ResponseEntity.ok(response);
@@ -76,7 +76,7 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getByName(@RequestBody String name) {
-        logger.debug("getting: " + name);
+        LOGGER.debug("getting: " + name);
         CarModelDTO carModel = carModelManager.getByName(name);
         String response = converter.convertObjectIntoGsonObject(carModel);
         return ResponseEntity.ok(response);

@@ -1,7 +1,6 @@
 package com.autodoc.model.models.car;
 
 
-import lombok.NonNull;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
