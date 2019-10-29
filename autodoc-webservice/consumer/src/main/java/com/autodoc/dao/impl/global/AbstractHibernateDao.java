@@ -14,11 +14,11 @@ public abstract class AbstractHibernateDao<T> {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
 
 
-    public Class<Object> getClazz() {
+    public Class<T> getClazz() {
         return clazz;
     }
 
-    private Class<Object> clazz;
+    private Class<T> clazz;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -35,6 +35,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public List<T> getAll() {
+        System.out.println("in the dao: "+clazz.getName());
         LOGGER.debug("class: " + clazz.getName());
         LOGGER.debug("getting all");
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
@@ -43,7 +44,6 @@ public abstract class AbstractHibernateDao<T> {
 
     public int create(T entity) {
         try {
-
             return (Integer) getCurrentSession().save(entity);
         } catch (Exception e) {
             return 0;
@@ -51,7 +51,6 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public String delete(T entity) {
-        LOGGER.info("entity: " + entity);
         getCurrentSession().delete(entity);
         return "";
 

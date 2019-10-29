@@ -1,5 +1,6 @@
 package com.autodoc.business.filler;
 
+import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
@@ -7,6 +8,7 @@ import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.contract.person.employee.SkillCategoryDao;
 import com.autodoc.dao.contract.person.employee.SkillDao;
+import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
@@ -17,6 +19,8 @@ import com.autodoc.dao.contract.tasks.TemplateSubTaskDao;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.enums.Role;
+import com.autodoc.model.enums.Status;
+import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
@@ -24,6 +28,7 @@ import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.person.employee.Skill;
 import com.autodoc.model.models.person.employee.SkillCategory;
+import com.autodoc.model.models.person.provider.Address;
 import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
@@ -74,6 +79,10 @@ public class Filler {
     private TaskDao taskDao;
     @Inject
     private SubTaskDao subTaskDao;
+    @Inject
+    private AddressDao addressDao;
+    @Inject
+    private BillDao billDao;
 
     public Filler() {
 
@@ -95,7 +104,36 @@ public class Filler {
         fillTemplateSubTask();
         fillSubTasks();
         fillTasks();
+        fillAddresses();
+        fillBills();
     }
+
+    private void fillBills() {
+        LOGGER.debug("filling bills");
+        Car car = (Car) carDao.getById(1);
+        Car car2 = (Car) carDao.getById(2);
+        Employee employee = (Employee) employeeDao.getById(1);
+        List<Task> tasks = taskDao.getAll();
+        Bill bill1 = new Bill(new Date(), Status.PENDING, car,  employee, tasks, 125.44, 19, 20);
+        Bill bill2 = new Bill(new Date(), Status.PENDING, car2, employee, tasks, 84.44, 19, 0);
+        Bill bill3 = new Bill(new Date(), Status.PENDING, car,  employee, tasks, 1451.44, 19, 0);
+        billDao.create(bill1);
+        /*billDao.create(bill2);
+        billDao.create(bill3);*/
+
+    }
+
+
+    private void fillAddresses() {
+        LOGGER.debug("filling addresses");
+        Country country1 = (Country) countryDao.getById(1);
+        Country country2 = (Country) countryDao.getById(3);
+        Address address1 = new Address(country1, "21, Corry street", "Biarritz");
+        Address address2 = new Address(country2, "23, Madison Boulevard", "Portmarnock");
+        addressDao.create(address1);
+        addressDao.create(address2);
+    }
+
 
     private void fillTasks() {
         LOGGER.debug("filling Tasks");
@@ -242,9 +280,12 @@ public class Filler {
     private void fillCar() {
         LOGGER.debug("filling car");
         CarModel carModel = carModelDao.findByName("AURIS");
+        CarModel carModel1 = carModelDao.findByName("CLIO");
         Client client = (Client) clientDao.getAll().get(0);
         Car car = new Car("05D154875", carModel, client);
+        Car car1 = new Car("D12447F", carModel1, client);
         carDao.create(car);
+        carDao.create(car1);
     }
 
     private void fillEmployee() {
@@ -252,6 +293,9 @@ public class Filler {
         List<Role> roleList = new ArrayList<>();
         String login = "LMOLO";
         Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, new Date(), login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        List<Role> roles = new ArrayList<>();
+        roles.add(Role.MECANIC);
+        employee.setRoles(roles);
         employeeDao.create(employee);
     }
 

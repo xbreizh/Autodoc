@@ -14,8 +14,8 @@ import java.util.Date;
 @Data
 public class BillDTO {
 
-
-
+    public BillDTO() {
+    }
 
     private int id;
 

@@ -48,9 +48,6 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         CarDTO carDto = (CarDTO) carDao.getById(carId);
         Client client = (Client) clientManager.getById(clientId);
         if (client == null) throw new NotFoundException("client not found");
-        /*if (car == null) return "no car found";
-        car.setClient(client);
-        return car;*/
         return null;
     }
 
@@ -68,7 +65,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         LOGGER.info("converting into entity");
         resetException();
         CarDTO dto = (CarDTO) obj;
-        Car car = mapper.map(obj, Car.class);
+        Car car = mapper.map(dto, Car.class);
         checkDatas(dto);
         checkCarModelExist(dto.getCarModelId());
         LOGGER.info("car: " + car);

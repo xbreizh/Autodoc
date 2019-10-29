@@ -29,10 +29,10 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public String save(Object bill) {
-        LOGGER.debug("trying to save a car");
+        LOGGER.debug("trying to save a bill");
         LOGGER.info("trying to save a like: " + bill);
         billDao.create(bill);
-        return "car created";
+        return "bill created";
     }
 
     @Override
@@ -42,14 +42,16 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public BillDTO entityToDto(Object entity) {
+        System.out.println("convert to dto");
         BillDTO dto = mapper.map(entity, BillDTO.class);
         return dto;
     }
 
     @Override
     public Bill dtoToEntity(Object entity) throws Exception {
+        System.out.println("converts to entity");
         BillDTO dto = (BillDTO) entity;
-        Bill bill = mapper.map(entity, Bill.class);
+        Bill bill = mapper.map(dto, Bill.class);
         checkDataInsert(dto);
         return bill;
     }

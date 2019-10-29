@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,6 @@ import java.util.List;
 @Table(name = "bill")
 @Getter
 @Setter
-@ToString
 public class Bill {
 
 
@@ -27,45 +27,60 @@ public class Bill {
     public Bill() {
     }
 
-
-
+    public Bill(@NotNull Date date, @NotNull Status status, @NotNull Car car, @NotNull Employee employee, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
+        this.date = date;
+        this.status = status;
+        this.car = car;
+        this.employee = employee;
+        this.tasks = tasks;
+        this.total = total;
+        this.vat = vat;
+        this.discount = discount;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
-    @NonNull
+    @NotNull
     private Date date;
 
-    @NonNull
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @NonNull
+    @NotNull
     @ManyToOne
     private Car car;
 
-    @NonNull
-    @ManyToOne
-    private Client client;
 
-    @NonNull
+    @NotNull
     @ManyToOne
     private Employee employee;
 
-    @NonNull
+    @NotNull
     @ManyToMany(cascade = CascadeType.REMOVE)
-    private List<Task> tasks;
+    private transient List<Task> tasks;
 
-    @NonNull
+    @NotNull
     private double total;
 
-    @NonNull
+    @NotNull
     private double vat;
 
-    @NonNull
+    @NotNull
     private double discount;
 
-
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "id=" + id +
+                ", date=" + date +
+                ", status=" + status +
+                ", total=" + total +
+                ", vat=" + vat +
+                ", discount=" + discount +
+                '}';
+    }
 }

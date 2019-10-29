@@ -86,7 +86,8 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     private List<D> convertList(List<T> list) {
         List<D> newList = new ArrayList<>();
         for (T obj : list) {
-            Object newObj = entityToDto(obj);
+            System.out.println("here");
+            Object newObj = (T)entityToDto(obj);
             newList.add((D) newObj);
         }
         return newList;

@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 public class CarDTO {
 
-
+    public CarDTO() {
+    }
 
     private int id;
 

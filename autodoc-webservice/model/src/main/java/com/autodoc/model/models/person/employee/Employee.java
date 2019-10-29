@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "employee")
 @Setter
 @Getter
-@ToString
 public class Employee extends Person {
 
 
@@ -27,7 +26,7 @@ public class Employee extends Person {
     }
 
 
-    public Employee(String firstName, String lastName, String phoneNumber1, @NonNull List<Role> roles, @NonNull Date startDate, @NonNull String login, @NonNull String password) {
+    public Employee(String firstName, String lastName, String phoneNumber1, @NotNull List<Role> roles, @NotNull Date startDate, @NotNull String login, @NotNull String password) {
         super(firstName, lastName, phoneNumber1);
         this.roles = roles;
         this.startDate = startDate;
@@ -36,21 +35,21 @@ public class Employee extends Person {
     }
 
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
-    private List<Bill> bills;
+    @OneToMany(mappedBy = "employee",cascade = CascadeType.REMOVE)
+    private transient List<Bill> bills;
 
     @NotNull
     @ElementCollection(targetClass = Role.class)
     @Enumerated(EnumType.STRING)
-    private List<Role> roles;
+    private transient List<Role> roles;
 
 
     @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-    private List<Skill> skills;
+    private transient List<Skill> skills;
 
 
     @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-    private List<SubTask> subTasks;
+    private transient List<SubTask> subTasks;
 
     @NotNull
     private Date startDate;
@@ -58,7 +57,7 @@ public class Employee extends Person {
     @NotNull
     private String login;
 
-    @NonNull
+    @NotNull
     private String password;
 
     private String token;
@@ -67,5 +66,20 @@ public class Employee extends Person {
 
     private Date tokenExpiration;
 
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                ", id=" + id +
+                ", login='" + login + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
+                ", startDate=" + startDate +
+                ", lastConnection=" + lastConnection +
+                ", tokenExpiration=" + tokenExpiration +
+                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber2='" + phoneNumber2 + '\'' +
+                '}';
+    }
 }

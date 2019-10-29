@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 public class CarModelDTO {
 
 
+    public CarModelDTO() {
+    }
 
     private int id;
 

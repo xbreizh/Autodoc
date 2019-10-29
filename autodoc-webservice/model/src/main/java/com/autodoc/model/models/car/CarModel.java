@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class CarModel {
     public CarModel() {
     }
 
-    public CarModel(@NonNull Manufacturer manufacturer, @NonNull String name, @NonNull String description, @NonNull GearBox gearbox, @NonNull String engine, @NonNull FuelType fuelType) {
+    public CarModel(@NotNull Manufacturer manufacturer, @NotNull String name, @NotNull String description, @NotNull GearBox gearbox, @NotNull String engine, @NotNull FuelType fuelType) {
         this.manufacturer = manufacturer;
         this.name = name;
         this.description = description;
@@ -39,7 +40,7 @@ public class CarModel {
     private int id;
 
     @ManyToOne
-    @NonNull
+    @NotNull
     private Manufacturer manufacturer;
 
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
@@ -48,21 +49,21 @@ public class CarModel {
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private transient List<Piece> pieces;
 
-    @NonNull
+    @NotNull
     @Column(unique = true)
     private String name;
 
-    @NonNull
+    @NotNull
     private String description;
 
-    @NonNull
+    @NotNull
     @Enumerated(EnumType.STRING)
     private GearBox gearbox;
 
-    @NonNull
+    @NotNull
     private String engine;
 
-    @NonNull
+    @NotNull
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
