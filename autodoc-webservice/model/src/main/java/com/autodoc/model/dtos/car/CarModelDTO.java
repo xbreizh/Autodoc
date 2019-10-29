@@ -16,12 +16,12 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class CarModelDTO {
 
-    // Constructors
+
 
     private int id;
 
 
-    // Parameters
+
     @Min(value = 1, message = "manufacturerId cannot be null")
     private int manufacturerId;
 

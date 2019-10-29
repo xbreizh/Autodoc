@@ -11,9 +11,9 @@ import java.util.List;
 @Data
 public class TaskDTO {
 
-    // Constructors
 
-    // Parameters
+
+
     private int id;
     @NotNull(message = "name cannot be null")
     String name;
@@ -30,5 +30,8 @@ public class TaskDTO {
         this.name = name;
         this.subTasks = subTasks;
         this.globalPrice = globalPrice;
+    }
+
+    public TaskDTO() {
     }
 }

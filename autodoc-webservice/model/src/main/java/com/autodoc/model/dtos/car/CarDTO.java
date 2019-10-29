@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class CarDTO {
 
 
-    // Parameters
+
     private int id;
 
     @Min(value = 1, message = "carModelId cannot be null")
@@ -29,7 +29,7 @@ public class CarDTO {
     private int clientId;
 
 
-    // Constructors
+
     public CarDTO(String registration, int carModelId, int clientId) {
         this.registration = registration;
         this.carModelId = carModelId;

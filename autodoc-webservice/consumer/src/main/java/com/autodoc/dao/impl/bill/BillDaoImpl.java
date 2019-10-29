@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class BillDaoImpl extends AbstractHibernateDao implements BillDao {
+public class BillDaoImpl<T> extends AbstractHibernateDao implements BillDao {
     private static final Logger LOGGER = Logger.getLogger(BillDaoImpl.class);
 
     public BillDaoImpl() {

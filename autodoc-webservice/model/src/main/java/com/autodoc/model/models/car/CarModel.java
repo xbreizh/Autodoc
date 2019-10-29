@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class CarModel {
 
-    // Constructors
+
 
 
     public CarModel() {
@@ -31,7 +31,7 @@ public class CarModel {
         this.fuelType = fuelType;
     }
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

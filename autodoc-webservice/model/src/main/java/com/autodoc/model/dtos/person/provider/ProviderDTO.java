@@ -15,13 +15,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class ProviderDTO extends PersonDTO {
 
     private String website;
 
 
-    // Parameters
+
     @Email(message = "invalid email")
     @NotNull(message = "email cannot be null")
     private String email1;

@@ -36,13 +36,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         LOGGER.info("converting into dto");
         ClientDTO dto = mapper.map(client1, ClientDTO.class);
 
-        // Client client = (Client) client1;
-        //ClientDTO dto = mapper.map(client, ClientDTO.class);
-       /* dto.setFirstName(client.getFirstName());
-        dto.setLastName(client.getLastName());
-        dto.setId(client.getId());
-        dto.setPhoneNumber1(client.getPhoneNumber1());
-        dto.setPhoneNumber2(client.getPhoneNumber2());*/
+
         return dto;
     }
 
@@ -53,11 +47,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         Client client = mapper.map(dto, Client.class);
 
         checkDataInsert(dto);
-        /*client.setId(dto.getId());
-        client.setFirstName(dto.getFirstName());
-        client.setLastName(dto.getLastName());
-        client.setPhoneNumber1(dto.getPhoneNumber1());
-        client.setPhoneNumber2(dto.getPhoneNumber2());*/
+
         return client;
     }
 

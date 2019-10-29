@@ -18,13 +18,13 @@ import java.util.List;
 @ToString
 public class Provider extends Person {
 
-    // Constructors
+
 
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Address> addresses;
 
-    // Parameters
+
     @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Piece> pieces;
     private String website;

@@ -10,7 +10,7 @@ public class CountryDTO {
     // Constructor
     private int id;
 
-    // Parameters
+
     @NotNull(message = "name cannot be null")
     private String name;
 

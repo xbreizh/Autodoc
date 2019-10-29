@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
 @Getter
 public abstract class Person {
 
-    // Constructors
+
 
     public Person() {
     }
@@ -25,7 +25,7 @@ public abstract class Person {
         this.phoneNumber1 = phoneNumber1;
     }
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

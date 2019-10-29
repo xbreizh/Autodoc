@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class PieceTypeDTO {
 
-    // Constructors
+
 
     private int id;
 
-    // Parameters
+
     @Min(value = 1, message = "categoryId cannot be null")
     private int categoryId;
 
@@ -23,5 +23,8 @@ public class PieceTypeDTO {
     public PieceTypeDTO(@Min(value = 1, message = "categoryId cannot be null") int categoryId, @NotNull(message = "name cannot be null") String name) {
         this.categoryId = categoryId;
         this.name = name;
+    }
+
+    public PieceTypeDTO() {
     }
 }

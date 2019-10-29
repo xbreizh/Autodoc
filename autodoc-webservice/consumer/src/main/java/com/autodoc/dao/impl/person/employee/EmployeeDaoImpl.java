@@ -13,8 +13,12 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class EmployeeDaoImpl extends AbstractHibernateDao implements EmployeeDao {
+public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements EmployeeDao {
     private static final Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
+
+    public EmployeeDaoImpl() {
+        this.setClazz(Employee.class);
+    }
 
     @Override
     public Employee getByLogin(String login) {
@@ -29,9 +33,9 @@ public class EmployeeDaoImpl extends AbstractHibernateDao implements EmployeeDao
         LOGGER.debug("token: " + token);
         Query query = getCurrentSession().createQuery("From Employee where token= :token");
         query.setParameter("token", token);
-        List<Employee> employees = query.getResultList();
+        List<Employee> employees = (List<Employee>) query.getResultList();
         LOGGER.debug("found: " + employees.size());
-        if (employees.size() > 0) return employees.get(0);
+        if (employees.isEmpty()) return employees.get(0);
         return null;
     }
 

@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class SkillDTO {
 
-    // Constructors
 
-    public SkillDTO(@NotNull(message = "name cannot be null") String name, @Min(value = 1, message = "skillCategoryId cannot be null") int skillCategoryId) {
+
+    public SkillDTO(@NotNull(message = "name cannot be null") String name) {
         this.name = name;
         this.skillCategoryId = skillCategoryId;
     }
@@ -19,7 +19,7 @@ public class SkillDTO {
     public SkillDTO() {
     }
 
-    // Parameters
+
 
     private int id;
 

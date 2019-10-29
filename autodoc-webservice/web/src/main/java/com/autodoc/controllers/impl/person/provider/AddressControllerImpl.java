@@ -20,6 +20,7 @@ public class AddressControllerImpl extends GlobalControllerImpl<Address, Address
 
     public AddressControllerImpl(AddressManager manager) {
         super(manager);
+        LOGGER.debug("initializing " + this.getClass());
         converter = new GsonConverter();
         this.manager = manager;
     }

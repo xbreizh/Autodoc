@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
 @ToString
 public class Employee extends Person {
 
-    // Constructors
+
 
     public Employee() {
     }
@@ -34,11 +35,11 @@ public class Employee extends Person {
         this.password = password;
     }
 
-    // Parameters
+
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
 
-    @NonNull
+    @NotNull
     @ElementCollection(targetClass = Role.class)
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
@@ -51,10 +52,10 @@ public class Employee extends Person {
     @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
     private List<SubTask> subTasks;
 
-    @NonNull
+    @NotNull
     private Date startDate;
 
-    @NonNull
+    @NotNull
     private String login;
 
     @NonNull

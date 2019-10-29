@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class CarModelDaoImpl extends AbstractHibernateDao implements CarModelDao {
+public class CarModelDaoImpl<T> extends AbstractHibernateDao implements CarModelDao {
     private static final Logger LOGGER = Logger.getLogger(CarModelDaoImpl.class);
     private Class cl = CarModel.class;
 
@@ -26,7 +26,7 @@ public class CarModelDaoImpl extends AbstractHibernateDao implements CarModelDao
         Query query = getCurrentSession().createQuery("From CarModel where name= :name", cl);
         query.setParameter("name", name);
         LOGGER.debug("in dao");
-        List<CarModel> result = query.getResultList();
+        List<CarModel> result = (List<CarModel>)query.getResultList();
         if (!result.isEmpty()) {
             return result.get(0);
         }

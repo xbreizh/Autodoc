@@ -18,7 +18,7 @@ public class SkillCategoryDTO {
     public SkillCategoryDTO() {
     }
 
-    // Parameters
+
     private int id;
 
 

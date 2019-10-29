@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
+public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
     private static final Logger LOGGER = Logger.getLogger(CarDaoImpl.class);
 
     public CarDaoImpl() {

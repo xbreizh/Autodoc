@@ -27,7 +27,7 @@ public class SkillCategory {
     }
 
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

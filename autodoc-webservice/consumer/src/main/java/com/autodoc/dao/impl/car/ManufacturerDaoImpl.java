@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class ManufacturerDaoImpl extends AbstractHibernateDao implements ManufacturerDao {
+public class ManufacturerDaoImpl<T> extends AbstractHibernateDao implements ManufacturerDao {
     private static final Logger LOGGER = Logger.getLogger(ManufacturerDaoImpl.class);
     private Class cl = Manufacturer.class;
 

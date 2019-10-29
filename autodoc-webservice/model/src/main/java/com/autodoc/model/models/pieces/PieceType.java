@@ -15,18 +15,16 @@ import java.util.List;
 @ToString
 public class PieceType {
 
-    // Constructors
+
 
     public PieceType() {
     }
 
 
-    public PieceType(String name, Category category) {
-        this.name = name;
-        this.category = category;
-    }
+    public PieceType(String name) {
+        this.name = name; }
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +33,6 @@ public class PieceType {
 
     @OneToMany(mappedBy = "pieceType", cascade = CascadeType.REMOVE)
     private List<Piece> pieces;
-
-    @ManyToOne
-    @NonNull
-    private Category category;
 
 
     @NonNull

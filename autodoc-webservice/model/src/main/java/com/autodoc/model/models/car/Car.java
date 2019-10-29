@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "car")
 public class Car /*implements Serializable */ {
 
-    // Constructors
+
 
     public Car() {
     }
@@ -23,7 +23,7 @@ public class Car /*implements Serializable */ {
         this.client = client;
     }
 
-    // Parameters
+
 
 
     @Id

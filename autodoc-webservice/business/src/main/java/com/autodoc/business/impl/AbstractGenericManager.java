@@ -48,12 +48,12 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public void checkDataInsert(Object dto) throws Exception {
-        System.out.println("checking insert data");
+        LOGGER.info("checking insert data");
     }
 
     @Override
     public void checkDataUpdate(Object dto) throws Exception {
-        System.out.println("checking update data");
+        LOGGER.info("checking update data");
     }
 
 
@@ -77,7 +77,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public List getAll() {
-        System.out.println("getting ghtm all: ");
+        LOGGER.info("getting ghtm all: ");
         LOGGER.info("trying to find them all");
         LOGGER.debug("dao: " + dao);
         return convertList(dao.getAll());
@@ -85,7 +85,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     private List<D> convertList(List<T> list) {
         List<D> newList = new ArrayList<>();
-        for (T obj : dao.getAll()) {
+        for (T obj : list) {
             Object newObj = entityToDto(obj);
             newList.add((D) newObj);
         }

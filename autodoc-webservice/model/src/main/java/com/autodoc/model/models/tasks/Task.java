@@ -15,17 +15,16 @@ import java.util.List;
 @NoArgsConstructor
 public class Task {
 
-    // Constructors
+
 
     @NotNull(message = "name cannot be null")
     String name;
 
 
-    public Task(List<SubTask> subTasks) {
+    public Task(@NotNull(message = "name cannot be null") String name, @NonNull List<SubTask> subTasks) {
+        this.name = name;
         this.subTasks = subTasks;
     }
-
-    // Parameters
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +41,8 @@ public class Task {
     // to be used for global offers
     private long globalPrice;
 
-    public Task(@NotNull(message = "name cannot be null") String name, List<Bill> bills, @NonNull List<SubTask> subTasks, long globalPrice) {
+    public Task(@NotNull(message = "name cannot be null") String name, @NonNull List<SubTask> subTasks, long globalPrice) {
         this.name = name;
-        this.bills = bills;
         this.subTasks = subTasks;
         this.globalPrice = globalPrice;
     }

@@ -9,14 +9,12 @@ import javax.validation.constraints.NotNull;
 @Data
 public class SubTaskDTO {
 
-    // Constructors
 
 
     private int id;
 
 
-    // Parameters
-    @Min(value = 1, message = "templateSubTaskId cannot be null")
+    //@Min(value = 1, message = "templateSubTaskId cannot be null")
     private int templateSubTaskId;
 
     @NotNull(message = "name cannot be null")
@@ -29,5 +27,8 @@ public class SubTaskDTO {
         this.templateSubTaskId = templateSubTaskId;
         this.name = name;
         this.estimatedTime = estimatedTime;
+    }
+
+    public SubTaskDTO() {
     }
 }

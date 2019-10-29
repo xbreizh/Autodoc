@@ -8,13 +8,12 @@ import javax.validation.constraints.NotNull;
 @Data
 public class AddressDTO {
 
-    // Constructors
+
 
 
     private int id;
 
 
-    // Parameters
     @Min(value = 1, message = "providerId cannot be null")
     private int providerId;
 
@@ -34,5 +33,8 @@ public class AddressDTO {
         this.countryId = countryId;
         this.streetName = streetName;
         this.city = city;
+    }
+
+    public AddressDTO() {
     }
 }

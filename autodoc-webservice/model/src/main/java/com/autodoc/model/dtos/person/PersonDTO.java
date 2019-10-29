@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 public abstract class PersonDTO {
     private int id;
-    // Parameters
+
     @NotNull(message = "lastName cannot be null")
     private String lastName;
     @NotNull(message = "firstName cannot be null")

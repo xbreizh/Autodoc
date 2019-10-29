@@ -35,7 +35,6 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public List<T> getAll() {
-        System.out.println("in the dao: "+clazz.getName());
         LOGGER.debug("class: " + clazz.getName());
         LOGGER.debug("getting all");
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
@@ -46,17 +45,13 @@ public abstract class AbstractHibernateDao<T> {
         try {
 
             return (Integer) getCurrentSession().save(entity);
-           /* int i = (Integer) ser;
-            System.out.println("id foung: "+i);
-            //System.out.println("Id to return: "+idToReturn);
-            return "";*/
         } catch (Exception e) {
             return 0;
         }
     }
 
     public String delete(T entity) {
-        System.out.println("entity: " + entity);
+        LOGGER.info("entity: " + entity);
         getCurrentSession().delete(entity);
         return "";
 

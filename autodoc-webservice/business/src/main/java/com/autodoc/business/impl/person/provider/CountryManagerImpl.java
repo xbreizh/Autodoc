@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 public class CountryManagerImpl<T, D> extends AbstractGenericManager implements CountryManager {
-    private CountryDaoImpl<Country> providerDao;
     private static final Logger LOGGER = Logger.getLogger(CountryManagerImpl.class);
     ModelMapper mapper;
+    private CountryDaoImpl providerDao;
 
-    public CountryManagerImpl(CountryDaoImpl<Country> providerDao) {
+    public CountryManagerImpl(CountryDaoImpl providerDao) {
         super(providerDao);
         this.mapper = new ModelMapper();
         this.providerDao = providerDao;

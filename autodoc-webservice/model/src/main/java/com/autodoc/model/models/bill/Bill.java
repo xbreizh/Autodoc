@@ -22,13 +22,13 @@ import java.util.List;
 @ToString
 public class Bill {
 
-    // Constructors
+
 
     public Bill() {
     }
 
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

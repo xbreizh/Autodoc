@@ -25,7 +25,7 @@ public class Country {
         this.name = name;
     }
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

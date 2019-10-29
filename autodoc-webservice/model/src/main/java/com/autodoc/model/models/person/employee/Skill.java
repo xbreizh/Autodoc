@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -15,17 +16,17 @@ import java.util.List;
 @ToString
 public class Skill {
 
-    // Constructors
+
 
     public Skill() {
     }
 
-    public Skill(String name, SkillCategory skillCategory) {
+    public Skill(String name, SkillCategory skillCategory ){
         this.name = name;
         this.skillCategory = skillCategory;
     }
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +37,7 @@ public class Skill {
     private String name;
 
     @ManyToOne
-    @NonNull
+   // @NotNull
     private SkillCategory skillCategory;
 
     @ManyToMany(cascade = CascadeType.REMOVE)

@@ -12,15 +12,20 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
-public class Address /*implements Serializable */ {
+public class Address {
 
-    // Constructors
 
-    public Address() {
+
+     public Address(@NonNull Country country, @NonNull String streetName, @NonNull String city) {
+        this.country = country;
+        this.streetName = streetName;
+        this.city = city;
     }
 
 
-    // Parameters
+    public Address() {
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +48,6 @@ public class Address /*implements Serializable */ {
 
     @NonNull
     private String city;
+
+
 }

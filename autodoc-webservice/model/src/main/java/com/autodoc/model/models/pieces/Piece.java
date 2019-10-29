@@ -17,7 +17,7 @@ import javax.persistence.*;
 @ToString
 public class Piece {
 
-    // Constructors
+
 
 
     public Piece() {
@@ -32,7 +32,7 @@ public class Piece {
         this.sellPrice = sellPrice;
     }
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

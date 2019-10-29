@@ -14,13 +14,13 @@ import java.util.Date;
 @Data
 public class BillDTO {
 
-    // Constructors
+
 
 
     private int id;
 
 
-    // Parameters
+
     @FutureOrPresent(message = "date should nto be in the past")
     private Date date;
 

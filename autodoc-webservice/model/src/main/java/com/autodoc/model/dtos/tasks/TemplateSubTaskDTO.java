@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -13,23 +14,21 @@ import java.util.List;
 @ToString
 public class TemplateSubTaskDTO {
 
-    // Constructors
+
 
 
     private int id;
 
+    public TemplateSubTaskDTO() {
+    }
 
-    // Parameters
 
-    @NonNull
-    private List<Integer> pieces;
-    @NonNull
+    @NotNull(message = "name should not be null")
     private String name;
-    @NonNull
+    @NotNull(message = "estimatedTime should not be null")
     private double estimatedTime;
 
-    public TemplateSubTaskDTO(@NonNull List<Integer> pieces, @NonNull String name, @NonNull double estimatedTime) {
-        this.pieces = pieces;
+    public TemplateSubTaskDTO(@NotNull String name, @NotNull double estimatedTime) {
         this.name = name;
         this.estimatedTime = estimatedTime;
     }

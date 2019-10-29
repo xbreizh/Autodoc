@@ -16,14 +16,19 @@ import java.util.List;
 @ToString
 public class TemplateSubTask {
 
-    // Constructors
+
 
     public TemplateSubTask() {
 
     }
 
+    public TemplateSubTask(@NonNull List<Piece> pieces, @NonNull String name, @NonNull double estimatedTime) {
+        this.pieces = pieces;
+        this.name = name;
+        this.estimatedTime = estimatedTime;
+    }
 
-    // Parameters
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,7 +16,7 @@ public class SubTaskManagerImpl<T, D> extends AbstractGenericManager implements 
     private static final Logger LOGGER = Logger.getLogger(SubTaskManagerImpl.class);
     private ModelMapper mapper;
 
-    public SubTaskManagerImpl(SubTaskDaoImpl<SubTask> subTaskDao) {
+    public SubTaskManagerImpl(SubTaskDaoImpl subTaskDao) {
         super(subTaskDao);
         this.mapper = new ModelMapper();
     }
@@ -24,7 +24,8 @@ public class SubTaskManagerImpl<T, D> extends AbstractGenericManager implements 
 
     @Override
     public SubTaskDTO entityToDto(Object entity) {
-        SubTaskDTO dto = mapper.map(entity, SubTaskDTO.class);
+        SubTask subTask = (SubTask) entity;
+        SubTaskDTO dto = mapper.map(subTask, SubTaskDTO.class);
         LOGGER.info("converted into dto");
         return dto;
     }

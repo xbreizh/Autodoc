@@ -13,7 +13,7 @@ import java.util.List;
 public class Manufacturer {
 
 
-    // Constructors
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Manufacturer {
     @Size(min = 2, max = 50, message = "name should have between 2 and 50 characters")
     private String name;
 
-    // Parameters
+
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @Transient
     private List<CarModel> carModels;
