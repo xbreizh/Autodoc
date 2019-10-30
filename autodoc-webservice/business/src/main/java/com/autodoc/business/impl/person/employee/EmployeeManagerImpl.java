@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements EmployeeManager {
+    private final static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
     private ModelMapper mapper;
     private EmployeeDaoImpl employeeDao;
-    private final static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
 
     public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
         super(employeeDao);
@@ -34,6 +34,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     public EmployeeDTO entityToDto(Object entity) {
         System.out.println("converting");
         EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
+        dto.setRoles(((Employee) entity).getRoles());
+        System.out.println("dto: "+dto);
         LOGGER.info("converted into dto");
         return dto;
     }

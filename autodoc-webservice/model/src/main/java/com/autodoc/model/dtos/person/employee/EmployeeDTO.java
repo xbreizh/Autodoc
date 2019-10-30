@@ -5,7 +5,6 @@ import com.autodoc.model.enums.Role;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,7 +15,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode(callSuper = true)
 public class EmployeeDTO extends PersonDTO {
 
@@ -39,8 +37,20 @@ public class EmployeeDTO extends PersonDTO {
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;
+        this.roles = roles;
     }
 
     public EmployeeDTO() {
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeDTO{" +
+                "roles=" + roles +
+                ", startDate=" + startDate +
+                ", login='" + login + '\'' +
+                ", lastConnection=" + lastConnection +
+                '}';
+
     }
 }

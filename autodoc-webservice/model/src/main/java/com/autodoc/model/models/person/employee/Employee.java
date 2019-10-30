@@ -5,9 +5,7 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
 import com.autodoc.model.models.tasks.SubTask;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,9 +37,9 @@ public class Employee extends Person {
     private transient List<Bill> bills;
 
     @NotNull
-    @ElementCollection(targetClass = Role.class)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private transient List<Role> roles;
+    private List<Role> roles;
 
 
     @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)

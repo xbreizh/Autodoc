@@ -116,10 +116,10 @@ public class Filler {
         List<Task> tasks = taskDao.getAll();
         Bill bill1 = new Bill(new Date(), Status.PENDING, car,  employee, tasks, 125.44, 19, 20);
         Bill bill2 = new Bill(new Date(), Status.PENDING, car2, employee, tasks, 84.44, 19, 0);
-        Bill bill3 = new Bill(new Date(), Status.PENDING, car,  employee, tasks, 1451.44, 19, 0);
+        Bill bill3 = new Bill(new Date(), Status.CANCELLED, car,  employee, tasks, 1451.44, 19, 0);
         billDao.create(bill1);
-        /*billDao.create(bill2);
-        billDao.create(bill3);*/
+        billDao.create(bill2);
+        billDao.create(bill3);
 
     }
 
@@ -160,16 +160,8 @@ public class Filler {
         subTask1.setEstimatedTime(11);
         TemplateSubTask t = (TemplateSubTask) templateSubTaskDao.getById(1);
         subTask1.setTemplateSubTask(t);
-        System.out.println(subTask1);
         subTask1.setId(12);
-       /* SubTask subTask2 = new SubTask(pieces, employees, "SUBTASK2", 50);
-        SubTask subTask3 = new SubTask(pieces, employees, "SUBTASK3", 80);*/
-        //subTask3.setTemplateSubTask((TemplateSubTask) templateSubTaskDao.getById(1));
-        //System.out.println("subtask 1: " + subTask1);
-       // System.out.println(subTask1);
         subTaskDao.create(subTask1);
-       /* subTaskDao.create(subTask2);
-        subTaskDao.create(subTask3);*/
     }
 
 

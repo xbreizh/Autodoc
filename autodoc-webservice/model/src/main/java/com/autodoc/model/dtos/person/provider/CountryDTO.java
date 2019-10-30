@@ -7,8 +7,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CountryDTO {
 
-    // Constructor
+
     private int id;
+
+
 
 
     @NotNull(message = "name cannot be null")

@@ -10,8 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 @Component
 public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements CarModelManager {
@@ -28,11 +26,6 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
 
 
     @Override
-    public List<CarModel> getAll() {
-        return carModelDao.getAll();
-    }
-
-    @Override
     public CarModelDTO entityToDto(Object entity) {
         CarModelDTO dto = mapper.map(entity, CarModelDTO.class);
         return dto;
@@ -46,15 +39,8 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
         return carModel;
     }
 
-
-    @Override
-    public CarModel getById(int id) {
-        return (CarModel) carModelDao.getById(id);
-    }
-
     @Override
     public CarModelDTO getByName(String name) {
-        CarModelDTO carModel = entityToDto(carModelDao.findByName(name));
         return entityToDto(carModelDao.findByName(name));
     }
 
