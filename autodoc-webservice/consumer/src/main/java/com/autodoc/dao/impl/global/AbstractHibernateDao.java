@@ -90,29 +90,32 @@ public abstract class AbstractHibernateDao<T> {
 
     public List<T> getByCriteria(List<Search> search) throws Exception {
         if (search == null) throw new Exception("no search criteria provided");
-
+        if(getSearchField()==null)throw new Exception("no search criteria available for that entity");
         String request = buildCriteriaRequest(search);
+        System.out.println("req: "+request);
         Query query = sessionFactory.getCurrentSession().createQuery(request);
         return query.getResultList();
     }
 
 
     protected String buildCriteriaRequest(List<Search> searchList) throws Exception {
-        Map<String, SearchType> authorizedSearchFieldList = getSearchField();
-        System.out.println("list authorized: "+authorizedSearchFieldList);
-        if (authorizedSearchFieldList == null) return null;
         StringBuilder builder = new StringBuilder();
         String init="from "+clazz.getSimpleName();
+        Map<String, SearchType> authorizedSearchFieldList = getSearchField();
+
+        if (authorizedSearchFieldList == null) return null;
+
         builder.append(init);
-        System.out.println(builder.toString());
+
         for (Search s : searchList) {
             if (s.getValue()==null||s.getValue().isEmpty())throw new Exception(s.getFieldName()+"cannot be null");
             if(s.getValue().length() > maxCharacters)throw new Exception(s.getValue()+"cannot is more than the authorized "+maxCharacters);
             s.setValue(s.getValue().toUpperCase());
             checkIfInvalidField(authorizedSearchFieldList, s);
             checkIfInvalidValue(s.getCompare(), s.getValue());
-
+            System.out.println("old val: "+s.getValue());
             if(s.getCompare() ==Compare.STRINGCONTAINS || s.getCompare()==Compare.STRINGDOESNOTCONTAIN)s.setValue("\'%"+s.getValue()+"%\'");
+            System.out.println("new val: "+s.getValue());
             if (builder.toString().equals(init)){
                 builder.append(" where ");
             }else {
@@ -166,7 +169,8 @@ public abstract class AbstractHibernateDao<T> {
     }
 
 
-    protected Map<String, SearchType> getSearchField() {
+    public Map<String, SearchType> getSearchField() {
+
         return null;
     }
 

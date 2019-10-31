@@ -2,6 +2,7 @@ package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.model.enums.Compare;
+import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.search.Search;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +12,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
@@ -43,9 +42,19 @@ class CountryDaoImplTest {
 
     @Test
     void getByCriteria() throws Exception {
-        Search search = new Search("id", Compare.NUMBERLESSOREQUALS, "33");
+        Search search = new Search("name", Compare.STRINGCONTAINS, "e");
+        Search search1 = new Search("id", Compare.NUMBERBIGGERTHAN, "2");
         List<Search> searchList = new ArrayList<>();
         searchList.add(search);
-        assertTrue(!dao.getByCriteria(searchList).isEmpty());
+        searchList.add(search1);
+        List<Country> list = dao.getByCriteria(searchList);
+        System.out.println("list: "+list);
+        assertTrue(!list.isEmpty());
+    }
+
+    @Test
+    void getSearchFields()throws Exception{
+        System.out.println(dao.getSearchField());
+        assertNotNull(dao.getSearchField());
     }
 }

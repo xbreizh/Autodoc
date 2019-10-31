@@ -21,7 +21,7 @@ public class CountryDaoImpl<T> extends AbstractHibernateDao implements CountryDa
     }
 
 
-    protected Map<String, SearchType> getSearchField() {
+    public Map<String, SearchType> getSearchField() {
 
         return  Country.SEARCH_FIELD;
     }

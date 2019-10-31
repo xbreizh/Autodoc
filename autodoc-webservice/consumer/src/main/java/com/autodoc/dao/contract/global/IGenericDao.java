@@ -1,8 +1,10 @@
 package com.autodoc.dao.contract.global;
 
+import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IGenericDao<T> {
 
@@ -24,4 +26,6 @@ public interface IGenericDao<T> {
     T getByName(String name);
 
     List<T> getByCriteria(List<Search> search) throws Exception;
+
+    Map<String, SearchType> getSearchField();
 }
