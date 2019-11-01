@@ -2,12 +2,19 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
+import com.autodoc.model.enums.SearchType;
+import com.autodoc.model.models.search.Search;
+import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Component
@@ -16,6 +23,9 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     protected String exception = "";
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
     private IGenericDao<T> dao;
+
+    String[] globalComparator = {"equals", "notEquals"};
+    String[] numberComparator = {"smaller", "bigger", "smallerOrEqual", };
 
     public AbstractGenericManager(IGenericDao dao) {
         this.dao = dao;
@@ -130,6 +140,76 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         }
         dao.deleteById(entityId);
         return "";
+    }
+
+    public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {
+        List<Search> search = convertDtoIntoSearch(dtoList);
+        return convertList(dao.getByCriteria(search));
+    }
+
+    private List<Search> convertDtoIntoSearch(List<SearchDTO> dtoList) throws Exception {
+        Map<String, SearchType> authorizedList=dao.getSearchField();
+        List<Search> searchList = new ArrayList<>();
+        for (SearchDTO dto:dtoList){
+            String field = dto.getFieldName().toUpperCase();
+            String compare = dto.getCompare().toUpperCase();
+            String value = dto.getValue().toUpperCase();
+            dto.setFieldName(field);
+            /*for (Map.Entry<String, SearchType> entry : authorizedList.entrySet()) {
+                System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+            }*/
+            if (!authorizedList.containsKey(field))throw new Exception(field+" is an invalid search criteria");
+            String type = authorizedList.get(field).toString().toUpperCase();
+            if(!isCompareCriteria(type, dto))throw new Exception(compare+" is invalid or can't be used with "+field);
+            if(type.equals("INTEGER")) {
+                if(!IsValidNumber(value))throw new Exception(value+" is not a valid number");
+            }
+            if(type.equals("DATE"))checkDateValue(value);
+            Search search = new Search(field, compare, value);
+            searchList.add(search);
+        }
+        return searchList;
+    }
+
+    private boolean checkDateValue(String dateStr) {
+        DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(dateStr);
+        } catch (ParseException e) {
+            LOGGER.error("invalid date: "+dateStr);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean IsValidNumber(String value) {
+        System.out.println("test");
+        try {
+            Double.parseDouble(value);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            System.out.println("oh");
+            return false;
+        }
+        return true;
+    }
+
+
+
+    boolean isCompareCriteria(String type, SearchDTO dto) {
+        System.out.println("type: "+type);
+        System.out.println("dto: "+dto);
+        int found=0;
+        for (SearchType searchType: SearchType.values()){
+            if (searchType.name().equals(type)){
+                for (String[] str:searchType.getValues()) {
+                    if (str[0].equalsIgnoreCase(dto.getCompare())) {
+                       return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 

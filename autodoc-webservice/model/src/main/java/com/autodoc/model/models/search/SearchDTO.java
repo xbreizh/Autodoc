@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 
 @Getter @Setter
-public class Search {
+public class SearchDTO {
 
 
     @NotNull(message = "fieldName cannot be null")
@@ -19,7 +19,7 @@ public class Search {
     String value;
 
 
-    public Search(String fieldName, String compare, String value) {
+    public SearchDTO(String fieldName, String compare, String value) {
         this.fieldName = fieldName;
         this.compare = compare;
         this.value = value;

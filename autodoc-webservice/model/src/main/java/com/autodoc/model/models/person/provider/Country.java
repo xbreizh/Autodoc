@@ -26,8 +26,8 @@ public class Country  {
 
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
-        result.put("name", SearchType.STRING);
-        result.put("id", SearchType.INTEGER);
+        result.put("NAME", SearchType.STRING);
+        result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }
 

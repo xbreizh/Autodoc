@@ -1,5 +1,7 @@
 package com.autodoc.business.contract;
 
+import com.autodoc.model.models.search.SearchDTO;
+
 import java.util.List;
 
 public interface IGenericManager<T, D> {
@@ -26,4 +28,6 @@ public interface IGenericManager<T, D> {
     void checkDataUpdate(Object dto) throws Exception;
 
     D getByName(String name) throws Exception;
+
+    List<D> searchByCriteria(List<SearchDTO> search) throws Exception;
 }

@@ -1,6 +1,8 @@
 package com.autodoc.model.enums;
 
 public enum Compare {
+
+
     //numbers
     NUMBEREQUALS("Integer", "="), NUMBERNOTEQUALS("Integer", "!="),NUMBERBIGGERTHAN("Integer", ">"), NUMBERSMALLERTHAN("Integer", "<"),
     NUMBERLESSOREQUALS("Integer", "<="), NUMBERMOREOREQUALS("Integer", ">="),

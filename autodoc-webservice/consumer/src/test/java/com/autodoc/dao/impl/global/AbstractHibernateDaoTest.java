@@ -1,10 +1,10 @@
 package com.autodoc.dao.impl.global;
 
+import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.car.Car;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
+//@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class AbstractHibernateDaoTest {
 
@@ -41,6 +41,29 @@ class AbstractHibernateDaoTest {
 
     @Test
     void create() {
+        String typo="STRING";
+        String compare="EQUALs";
+
+        for (SearchType type: SearchType.values()){
+            if (type.name().equals(typo)){
+                for (String[] str:type.getValues()) {
+                    if (str[0].equalsIgnoreCase(compare)) {
+                        System.out.println("found it");
+                        System.out.println(type + " " + str[0] + " / " + str[1]);
+                    }
+                }
+            }
+        }
+
+
+    }
+
+
+    @Test
+    void isCompare(){
+
+
+
     }
 
     @Test
