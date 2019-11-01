@@ -6,6 +6,7 @@ import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -70,6 +71,8 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
                 .status(HttpStatus.FORBIDDEN)
                 .body(response);
     }
+
+
 
 
     @GetMapping(value = "/getByName",

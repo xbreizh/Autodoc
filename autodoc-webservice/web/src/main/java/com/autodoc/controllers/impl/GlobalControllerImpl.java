@@ -3,6 +3,7 @@ package com.autodoc.controllers.impl;
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.controllers.contract.GlobalController;
 import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class GlobalControllerImpl<T, D> implements GlobalController {
@@ -60,6 +63,22 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
     }
 
+
+   // @Override
+    @PostMapping(value = "/criteria",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity searchByCriteria(@RequestBody @Valid SearchDTO searchDTO)throws Exception{
+        System.out.println("getting by criteria");
+       /* for (SearchDTO s: searchDTOs) {
+            LOGGER.info("searching by criteria: " + s.getFieldName() + " " + s.getCompare() + " " + s.getValue());
+        }*/
+       List<SearchDTO> searchDTOS = new ArrayList<>();
+       searchDTOS.add(searchDTO);
+        String response = converter.convertObjectIntoGsonObject(manager.searchByCriteria(searchDTOS));
+        LOGGER.info(response);
+        return ResponseEntity.ok(response);
+    }
+
     //@Override
     // @Override
     @PutMapping(value = "/update",
@@ -105,7 +124,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @DeleteMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteById(@PathVariable Integer id) {
-        System.out.println("trying to delete: " + id);
+        LOGGER.info("trying to delete: " + id);
         String response = manager.deleteById(id);
         if (response.equals("notFound")) return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -118,7 +137,10 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
                 .body(response);
     }
 
+
+
     private void getClassName(D obj) {
         type = obj.getClass().getSimpleName();
     }
 }
+

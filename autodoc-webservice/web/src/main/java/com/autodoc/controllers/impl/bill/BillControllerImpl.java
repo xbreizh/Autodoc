@@ -25,8 +25,5 @@ public class BillControllerImpl extends GlobalControllerImpl<Bill, BillDTO> impl
         this.billManager = billManager;
     }
 
-/*
-    public ResponseEntity getByName(String name) throws Exception {
-        return null;
-    }*/
+
 }

@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -144,6 +145,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {
         List<Search> search = convertDtoIntoSearch(dtoList);
+        System.out.println("trying to get it: "+dtoList.get(0));
         return convertList(dao.getByCriteria(search));
     }
 
@@ -155,9 +157,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             String compare = dto.getCompare().toUpperCase();
             String value = dto.getValue().toUpperCase();
             dto.setFieldName(field);
-            /*for (Map.Entry<String, SearchType> entry : authorizedList.entrySet()) {
-                System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
-            }*/
             if (!authorizedList.containsKey(field))throw new Exception(field+" is an invalid search criteria");
             String type = authorizedList.get(field).toString().toUpperCase();
             if(!isCompareCriteria(type, dto))throw new Exception(compare+" is invalid or can't be used with "+field);
@@ -165,10 +164,52 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
                 if(!IsValidNumber(value))throw new Exception(value+" is not a valid number");
             }
             if(type.equals("DATE"))checkDateValue(value);
+            if(type.equals("STRING"))value = checkAndAdaptValue(compare, value);
             Search search = new Search(field, compare, value);
+            search.setCompare(replaceCompareValueWithSqlCompare(type, compare));
             searchList.add(search);
         }
         return searchList;
+    }
+
+    private String checkAndAdaptValue(String compare, String value) throws Exception {
+        if (value==null || value.isEmpty())throw new Exception("value cannot be null");
+        String[] containsValues={"CONTAINS", "DOESNOTCONTAIN"};
+        if (Arrays.asList(containsValues).contains(compare))value="%"+value+"%";
+        return value;
+
+    }
+
+    private String replaceCompareValueWithSqlCompare(String type, String compare) throws Exception {
+        System.out.println("compare: "+compare);
+        for (SearchType searchType: SearchType.values()){
+            if (searchType.name().equals(type)){
+                for (String[] str:searchType.getValues()) {
+                    if (str[0].equalsIgnoreCase(compare)) {
+                        System.out.println("replacing: "+str[0]+" with "+str[1]);
+                        return str[1];
+                    }
+                }
+            }
+        }
+        throw new Exception("something went wrong with replacing the compare");
+    }
+
+    boolean isCompareCriteria(String type, SearchDTO dto) {
+        System.out.println("type: "+type);
+        System.out.println("dto: "+dto);
+        int found=0;
+        for (SearchType searchType: SearchType.values()){
+            if (searchType.name().equals(type)){
+                for (String[] str:searchType.getValues()) {
+                    if (str[0].equalsIgnoreCase(dto.getCompare())) {
+                        dto.setCompare(str[1]);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private boolean checkDateValue(String dateStr) {
@@ -195,22 +236,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
 
-
-    boolean isCompareCriteria(String type, SearchDTO dto) {
-        System.out.println("type: "+type);
-        System.out.println("dto: "+dto);
-        int found=0;
-        for (SearchType searchType: SearchType.values()){
-            if (searchType.name().equals(type)){
-                for (String[] str:searchType.getValues()) {
-                    if (str[0].equalsIgnoreCase(dto.getCompare())) {
-                       return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
 
 
 }

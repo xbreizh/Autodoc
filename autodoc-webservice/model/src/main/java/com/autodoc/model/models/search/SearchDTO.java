@@ -33,4 +33,7 @@ public class SearchDTO {
                 ", value='" + value + '\'' +
                 '}';
     }
+
+    public SearchDTO() {
+    }
 }

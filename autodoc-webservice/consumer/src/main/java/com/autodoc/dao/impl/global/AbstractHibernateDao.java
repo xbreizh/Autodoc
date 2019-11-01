@@ -99,6 +99,30 @@ public abstract class AbstractHibernateDao<T> {
 
 
     protected String buildCriteriaRequest(List<Search> searchList) throws Exception {
+
+        StringBuilder sb = new StringBuilder();
+        String init="from "+clazz.getSimpleName();
+        sb.append(init);
+        Search search = searchList.get(0);
+        //String type="";
+
+
+
+
+
+
+
+
+
+
+
+
+
+        sb.append(" where "+search.getFieldName()+" "+search.getCompare()+" '"+search.getValue()+"'");
+        return sb.toString();
+
+
+
        /* StringBuilder builder = new StringBuilder();
         String init="from "+clazz.getSimpleName();
         Map<String, SearchType> authorizedSearchFieldList = getSearchField();
@@ -127,7 +151,7 @@ public abstract class AbstractHibernateDao<T> {
         LOGGER.info("query build: "+builder.toString());
 
         return builder.toString();*/
-       return null;
+       //return null;
     }
 
 
