@@ -11,5 +11,5 @@ public interface CarDao extends IGenericDao {
 
     List<Car> getCarByClient(String lastName);
 
-    List<Car> getByCriteria();
+  //  List<Car> getByCriteria();
 }

@@ -151,14 +151,15 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     private List<Search> convertDtoIntoSearch(List<SearchDTO> dtoList) throws Exception {
         Map<String, SearchType> authorizedList=dao.getSearchField();
+        if(authorizedList==null)throw new Exception("no criteria available");
         List<Search> searchList = new ArrayList<>();
         for (SearchDTO dto:dtoList){
-            String field = dto.getFieldName().toUpperCase();
+            String field = dto.getFieldName();
             String compare = dto.getCompare().toUpperCase();
             String value = dto.getValue().toUpperCase();
             dto.setFieldName(field);
             if (!authorizedList.containsKey(field))throw new Exception(field+" is an invalid search criteria");
-            String type = authorizedList.get(field).toString().toUpperCase();
+            String type = authorizedList.get(field).toString();
             if(!isCompareCriteria(type, dto))throw new Exception(compare+" is invalid or can't be used with "+field);
             if(type.equals("INTEGER")) {
                 if(!IsValidNumber(value))throw new Exception(value+" is not a valid number");

@@ -68,7 +68,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @PostMapping(value = "/criteria",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity searchByCriteria(@RequestBody @Valid SearchDTO searchDTO)throws Exception{
-        System.out.println("getting by criteria");
+        System.out.println("getting by criteria: "+searchDTO);
        /* for (SearchDTO s: searchDTOs) {
             LOGGER.info("searching by criteria: " + s.getFieldName() + " " + s.getCompare() + " " + s.getValue());
         }*/

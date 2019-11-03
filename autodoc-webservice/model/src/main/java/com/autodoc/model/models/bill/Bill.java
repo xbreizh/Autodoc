@@ -1,20 +1,18 @@
 package com.autodoc.model.models.bill;
 
 
+import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.enums.Status;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "bill")
@@ -22,16 +20,29 @@ import java.util.List;
 @Setter
 public class Bill {
 
+    public static Map<String, SearchType> getSearchField() {
+        return SEARCH_FIELD;
+    }
+
+    public static final Map<String, SearchType> SEARCH_FIELD = createMap();
+
+    private static Map<String, SearchType> createMap() {
+        Map<String, SearchType> result = new HashMap<>();
+        result.put("NAME", SearchType.STRING);
+        result.put("ID", SearchType.INTEGER);
+        return Collections.unmodifiableMap(result);
+    }
 
 
     public Bill() {
     }
 
-    public Bill(@NotNull Date date, @NotNull Status status, @NotNull Car car, @NotNull Employee employee, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
+    public Bill(@NotNull Date date, @NotNull Status status, @NotNull Car car, @NotNull Employee employee,@NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
         this.date = date;
         this.status = status;
         this.car = car;
         this.employee = employee;
+        this.client = client;
         this.tasks = tasks;
         this.total = total;
         this.vat = vat;
@@ -53,6 +64,10 @@ public class Bill {
     @NotNull
     @ManyToOne
     private Car car;
+
+    @NotNull
+    @ManyToOne
+    private Client client;
 
 
     @NotNull

@@ -113,10 +113,11 @@ public class Filler {
         Car car = (Car) carDao.getById(1);
         Car car2 = (Car) carDao.getById(2);
         Employee employee = (Employee) employeeDao.getById(1);
+        Client client = (Client) clientDao.getById(1);
         List<Task> tasks = taskDao.getAll();
-        Bill bill1 = new Bill(new Date(), Status.PENDING, car,  employee, tasks, 125.44, 19, 20);
-        Bill bill2 = new Bill(new Date(), Status.PENDING, car2, employee, tasks, 84.44, 19, 0);
-        Bill bill3 = new Bill(new Date(), Status.CANCELLED, car,  employee, tasks, 1451.44, 19, 0);
+        Bill bill1 = new Bill(new Date(), Status.PENDING, car,  employee, client, tasks, 125.44, 19, 20);
+        Bill bill2 = new Bill(new Date(), Status.PENDING, car2, employee, client, tasks, 84.44, 19, 0);
+        Bill bill3 = new Bill(new Date(), Status.CANCELLED, car,  employee, client, tasks, 1451.44, 19, 0);
         billDao.create(bill1);
         billDao.create(bill2);
         billDao.create(bill3);

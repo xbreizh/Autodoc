@@ -2,6 +2,7 @@ package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
+import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.car.Car;
 import org.apache.log4j.Logger;
 import org.hibernate.query.Query;
@@ -9,10 +10,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -21,6 +20,11 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
 
     public CarDaoImpl() {
         this.setClazz(Car.class);
+    }
+
+    public Map<String, SearchType> getSearchField() {
+
+        return  Car.SEARCH_FIELD;
     }
 
     @Override
@@ -42,7 +46,7 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
 
     }
 
-    public List<Car> getByCriteria() {
+ /*   public List<Car> getByCriteria() {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Car> cr = cb.createQuery(Car.class);
         Root<Car> root = cr.from(Car.class);
@@ -52,6 +56,6 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
         List<Car> results = query.getResultList();
         return results;
     }
-
+*/
 
 }

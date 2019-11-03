@@ -2,11 +2,14 @@ package com.autodoc.dao.impl.pieces;
 
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
+import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+
+import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -19,5 +22,9 @@ public class PieceTypeDaoImpl<T> extends AbstractHibernateDao implements PieceTy
         this.setClazz(PieceType.class);
     }
 
+    public Map<String, SearchType> getSearchField() {
+
+        return  PieceType.SEARCH_FIELD;
+    }
 
 }

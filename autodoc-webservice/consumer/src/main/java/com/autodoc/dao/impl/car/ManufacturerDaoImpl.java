@@ -2,6 +2,7 @@ package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
+import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
 import org.hibernate.query.Query;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -37,5 +39,10 @@ public class ManufacturerDaoImpl<T> extends AbstractHibernateDao implements Manu
         return null;
     }
 
+
+    public Map<String, SearchType> getSearchField() {
+
+        return  Manufacturer.SEARCH_FIELD;
+    }
 
 }
