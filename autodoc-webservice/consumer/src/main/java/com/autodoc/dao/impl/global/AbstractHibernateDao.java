@@ -103,22 +103,17 @@ public abstract class AbstractHibernateDao<T> {
         StringBuilder sb = new StringBuilder();
         String init="from "+clazz.getSimpleName();
         sb.append(init);
-        Search search = searchList.get(0);
-        //String type="";
+       // Search search = searchList.get(0);
+        for (Search search: searchList) {
+            if (sb.toString().equals(init)){
+                sb.append(" where ");
+            }else{
+                sb.append(" and ");
+            }
+            sb.append(search.getFieldName()+" "+search.getCompare()+" '"+search.getValue()+"'");
 
-
-
-
-
-
-
-
-
-
-
-
-
-        sb.append(" where "+search.getFieldName()+" "+search.getCompare()+" '"+search.getValue()+"'");
+        }
+        //sb.append(" where "+search.getFieldName()+" "+search.getCompare()+" '"+search.getValue()+"'");
         return sb.toString();
 
 

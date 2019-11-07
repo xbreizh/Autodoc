@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,16 +66,18 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
    // @Override
     @PostMapping(value = "/criteria",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchByCriteria(@RequestBody @Valid SearchDTO searchDTO)throws Exception{
-        System.out.println("getting by criteria: "+searchDTO);
+    public ResponseEntity searchByCriteria(@RequestBody @Valid List<SearchDTO> searchDTO)throws Exception{
+
+        System.out.println("getting by criteria: "+searchDTO.get(0));
        /* for (SearchDTO s: searchDTOs) {
             LOGGER.info("searching by criteria: " + s.getFieldName() + " " + s.getCompare() + " " + s.getValue());
-        }*/
+        }
        List<SearchDTO> searchDTOS = new ArrayList<>();
-       searchDTOS.add(searchDTO);
-        String response = converter.convertObjectIntoGsonObject(manager.searchByCriteria(searchDTOS));
+       searchDTOS.add(searchDTO);*/
+        String response = converter.convertObjectIntoGsonObject(manager.searchByCriteria(searchDTO));
         LOGGER.info(response);
         return ResponseEntity.ok(response);
+       // return ResponseEntity.ok("glop");
     }
 
     //@Override

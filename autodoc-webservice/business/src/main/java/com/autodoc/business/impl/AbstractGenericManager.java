@@ -146,6 +146,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {
         List<Search> search = convertDtoIntoSearch(dtoList);
         System.out.println("trying to get it: "+dtoList.get(0));
+        System.out.println("length: "+search.size());
         return convertList(dao.getByCriteria(search));
     }
 
@@ -170,6 +171,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             search.setCompare(replaceCompareValueWithSqlCompare(type, compare));
             searchList.add(search);
         }
+
         return searchList;
     }
 

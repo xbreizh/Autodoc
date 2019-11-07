@@ -25,6 +25,7 @@ public class Car  {
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
         result.put("carModel.id", SearchType.INTEGER);
+        result.put("client.id", SearchType.INTEGER);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }
