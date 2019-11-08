@@ -29,6 +29,8 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     public BillDTO entityToDto(Object entity) {
         System.out.println("convert to dto");
         BillDTO dto = mapper.map(entity, BillDTO.class);
+        Bill bill = (Bill) entity;
+        dto.setRegistration(((Bill) entity).getCar().getRegistration());
         return dto;
     }
 

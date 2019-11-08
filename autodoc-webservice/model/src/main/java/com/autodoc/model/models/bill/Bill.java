@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity
-@Table(name = "bill")
+@Table(name = "BILL")
 @Getter
 @Setter
 public class Bill {
@@ -28,7 +28,8 @@ public class Bill {
 
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
-        result.put("NAME", SearchType.STRING);
+        result.put("client.Id", SearchType.INTEGER);
+        result.put("car.registration", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }

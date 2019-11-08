@@ -31,6 +31,9 @@ public class BillDTO {
     @Min(value = 1, message = "carId cannot be null")
     private int carId;
 
+    @NotNull( message = "car Registration cannot be null")
+    private String registration;
+
     @Min(value = 1, message = "clientId cannot be null")
     private int clientId;
 
@@ -44,12 +47,15 @@ public class BillDTO {
 
     private double discount;
 
-    public BillDTO(@FutureOrPresent(message = "date should nto be in the past") Date date, @NotNull Status status, @Min(value = 1, message = "carId cannot be null") int carId, @Min(value = 1, message = "clientId cannot be null") int clientId, @Min(value = 1, message = "employeeId cannot be null") int employeeId, @Min(value = 1, message = "total cannot be null") double total) {
+    public BillDTO(int id, @FutureOrPresent(message = "date should nto be in the past") Date date, @NotNull Status status, @Min(value = 1, message = "carId cannot be null") int carId, @NotNull(message = "car Registration cannot be null") String registration, @Min(value = 1, message = "clientId cannot be null") int clientId, @Min(value = 1, message = "employeeId cannot be null") int employeeId, @Min(value = 1, message = "total cannot be null") double total, double discount) {
+        this.id = id;
         this.date = date;
         this.status = status;
         this.carId = carId;
+        this.registration = registration;
         this.clientId = clientId;
         this.employeeId = employeeId;
         this.total = total;
+        this.discount = discount;
     }
 }
