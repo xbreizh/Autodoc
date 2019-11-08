@@ -12,10 +12,7 @@ import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Transactional
 @Component
@@ -145,8 +142,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {
         List<Search> search = convertDtoIntoSearch(dtoList);
-        System.out.println("trying to get it: "+dtoList.get(0));
-        System.out.println("length: "+search.size());
         return convertList(dao.getByCriteria(search));
     }
 
@@ -155,11 +150,25 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         if(authorizedList==null)throw new Exception("no criteria available");
         List<Search> searchList = new ArrayList<>();
         for (SearchDTO dto:dtoList){
+            boolean found=false;
             String field = dto.getFieldName();
             String compare = dto.getCompare().toUpperCase();
             String value = dto.getValue().toUpperCase();
             dto.setFieldName(field);
-            if (!authorizedList.containsKey(field))throw new Exception(field+" is an invalid search criteria");
+            Iterator it = authorizedList.entrySet().iterator();
+
+            // checks if the field passed is in the authorized list
+            // if so, the field takes the key value (for avoiding case sensitive issue on sql request)
+            // and found turns gets "true" value
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                String keyName = pair.getKey().toString();
+                if (keyName.equalsIgnoreCase(field)){
+                    field=keyName;
+                    found=true;
+                }
+            }
+            if (!found)throw new Exception(field+" is an invalid search criteria");
             String type = authorizedList.get(field).toString();
             if(!isCompareCriteria(type, dto))throw new Exception(compare+" is invalid or can't be used with "+field);
             if(type.equals("INTEGER")) {
@@ -189,7 +198,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             if (searchType.name().equals(type)){
                 for (String[] str:searchType.getValues()) {
                     if (str[0].equalsIgnoreCase(compare)) {
-                        System.out.println("replacing: "+str[0]+" with "+str[1]);
                         return str[1];
                     }
                 }
