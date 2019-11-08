@@ -30,6 +30,11 @@ public class CarModel {
         Map<String, SearchType> result = new HashMap<>();
         result.put("NAME", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
+        result.put("manufacturer.name", SearchType.STRING);
+        result.put("gearbox", SearchType.STRING);
+        result.put("fuelType", SearchType.STRING);
+        result.put("engine", SearchType.STRING);
+
         return Collections.unmodifiableMap(result);
     }
 

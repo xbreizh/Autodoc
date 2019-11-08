@@ -28,7 +28,8 @@ public class Client extends Person {
 
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
-        result.put("NAME", SearchType.STRING);
+        result.put("firstname", SearchType.STRING);
+        result.put("lastname", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }

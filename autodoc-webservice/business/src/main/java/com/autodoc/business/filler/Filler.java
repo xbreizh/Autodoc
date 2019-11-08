@@ -289,7 +289,15 @@ public class Filler {
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MECANIC);
         employee.setRoles(roles);
+        String login2 = "MALIK";
+        Employee employee2 = new Employee("MALIK", "GAUMONT", "0862547895", roleList, new Date(), login2, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        List<Role> roles2 = new ArrayList<>();
+        roles2.add(Role.MECANIC);
+        roles2.add(Role.MANAGER);
+        employee.setRoles(roles);
+        employee2.setRoles(roles2);
         employeeDao.create(employee);
+        employeeDao.create(employee2);
     }
 
 

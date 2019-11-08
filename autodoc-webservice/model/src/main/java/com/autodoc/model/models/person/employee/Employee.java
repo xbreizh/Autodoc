@@ -26,8 +26,11 @@ public class Employee extends Person {
 
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
-        result.put("NAME", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
+        result.put("firstname", SearchType.STRING);
+        result.put("lastname", SearchType.STRING);
+        result.put("login", SearchType.STRING);
+        result.put("startDate", SearchType.DATE);
         return Collections.unmodifiableMap(result);
     }
 

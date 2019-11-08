@@ -2,6 +2,7 @@ package com.autodoc.dao.impl.person.employee;
 
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
+import com.autodoc.model.enums.Role;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
@@ -31,7 +32,11 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
     public Employee getByLogin(String login) {
         Query query = getCurrentSession().createQuery("From Employee where login= :login");
         query.setParameter("login", login);
-        return (Employee) query.getSingleResult();
+        List<Employee> employees = (List<Employee>) query.getResultList();
+        LOGGER.debug("found: " + employees.size());
+        System.out.println("size: "+employees.size());
+        if (!employees.isEmpty()) return employees.get(0);
+        return null;
 
     }
 
@@ -42,7 +47,31 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
         query.setParameter("token", token);
         List<Employee> employees = (List<Employee>) query.getResultList();
         LOGGER.debug("found: " + employees.size());
-        if (employees.isEmpty()) return employees.get(0);
+        if (!employees.isEmpty()) return employees.get(0);
+        return null;
+    }
+
+    @Override
+    public List<Employee> getByRole(List<Role> roles) {
+        if (roles==null)return null;
+        String init = "select * from employee where  ";
+        StringBuilder sb = new StringBuilder(init);
+        for(Role role:roles){
+            String condition = "id in (select employee_id from employee_roles where roles like '%"+role+"%')";
+            if(!sb.toString().equals(init)){
+                sb.append(" and ");
+            }
+            sb.append( condition);
+        }
+        System.out.println("query so far: "+sb);
+        Query query = getCurrentSession().createNativeQuery(sb.toString(), Employee.class);
+
+
+        List<Employee> employees = (List<Employee>) query.getResultList();
+        //System.out.println("emp: "+employees.get(0).getLogin());
+        System.out.println("size: "+employees.size());
+        LOGGER.debug("found: " + employees.size());
+        if (!employees.isEmpty()) return employees;
         return null;
     }
 

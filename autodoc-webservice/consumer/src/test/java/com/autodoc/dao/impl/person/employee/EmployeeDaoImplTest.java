@@ -1,6 +1,7 @@
-package com.autodoc.dao.impl.car;
+package com.autodoc.dao.impl.person.employee;
 
-import com.autodoc.dao.contract.person.provider.CountryDao;
+import com.autodoc.dao.contract.person.employee.EmployeeDao;
+import com.autodoc.model.enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,19 +10,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
-class CountryDaoImplTest {
+class EmployeeDaoImplTest {
+
 
     @Inject
-    private CountryDao dao;
+    private EmployeeDao employeeDao;
 
 
     @BeforeEach
@@ -33,24 +36,30 @@ class CountryDaoImplTest {
 
     @Test
     void getAll() {
-        assertEquals(6, dao.getAll().size());
+        assertEquals(1, employeeDao.getAll().size());
+    }
+
+
+    @Test
+    void getByLogin() {
+        assertNotNull( employeeDao.getByLogin("LMOLO"));
+
     }
 
     /*@Test
-    void getByCriteria() throws Exception {
-        Search search = new Search("name", SearchType., "e");
-        Search search1 = new Search("id", Compare.NUMBERBIGGERTHAN, "2");
-        List<Search> searchList = new ArrayList<>();
-        searchList.add(search);
-        searchList.add(search1);
-        List<Country> list = dao.getByCriteria(searchList);
-        System.out.println("list: "+list);
-        assertTrue(!list.isEmpty());
+    void getByToken() {
+        Employee employee = (Employee) employeeDao.getAll().get(0);
+        String token = employee.getToken();
+        assertEquals(employee, employeeDao.getByToken(token));
     }*/
 
     @Test
-    void getSearchFields()throws Exception{
-        System.out.println(dao.getSearchField());
-        assertNotNull(dao.getSearchField());
+    void getByRole() {
+        List<Role> roles = new ArrayList<>();
+        roles.add(Role.MANAGER);
+        roles.add(Role.MECANIC);
+        assertEquals(1, employeeDao.getByRole(roles).size());
     }
+
+
 }

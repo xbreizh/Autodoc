@@ -6,6 +6,7 @@ public enum SearchType {
     STRING(new String[]{"EQUALS", "="}, new String[]{"NOTEQUALS","!="}, new String[]{"CONTAINS", "LIKE"}, new String[]{"DOESNOTCONTAIN", "NOT LIKE"}),
     DATE(new String[]{"BEFORE", "<"}, new String[]{"AFTER", ">"}, new String[]{"ON", "="}, new String[]{"NOTON", "NOT ON"});
 
+
     String[][] values;
     SearchType(String[]...values){
 

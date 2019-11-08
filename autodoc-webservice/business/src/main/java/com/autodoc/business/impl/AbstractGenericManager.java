@@ -91,7 +91,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         return convertList(dao.getAll());
     }
 
-    private List<D> convertList(List<T> list) {
+    protected List<D> convertList(List<T> list) {
         List<D> newList = new ArrayList<>();
         for (T obj : list) {
             System.out.println("here");

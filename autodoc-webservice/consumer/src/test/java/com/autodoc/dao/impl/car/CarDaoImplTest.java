@@ -32,7 +32,7 @@ class CarDaoImplTest {
 
     @Test
     void getAll() {
-        assertEquals(1, carDao.getAll().size());
+        assertEquals(2, carDao.getAll().size());
     }
 
    /* @Test

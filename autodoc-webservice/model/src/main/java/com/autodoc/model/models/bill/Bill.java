@@ -30,6 +30,8 @@ public class Bill {
         Map<String, SearchType> result = new HashMap<>();
         result.put("client.Id", SearchType.INTEGER);
         result.put("car.registration", SearchType.STRING);
+        result.put("total", SearchType.INTEGER);
+        result.put("status", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }

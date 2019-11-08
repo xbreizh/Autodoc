@@ -28,6 +28,7 @@ public class Skill {
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
         result.put("NAME", SearchType.STRING);
+        result.put("skillCategory.name", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }
