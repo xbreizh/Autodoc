@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.autodoc</groupId>
+    <artifactId>autodoc-webapp</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <projectName>autodoc</projectName>
+        <project.version>1.0-SNAPSHOT</project.version>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <github-sha>48de6675c9a47fb7db09067a0563f0ed64f61f6b</github-sha>
+        <cxf.version>3.2.7</cxf.version>
+        <jdk.version>8</jdk.version>
+        <spring.version>5.1.5.RELEASE</spring.version>
+        <spring-security.version>5.1.5.RELEASE</spring-security.version>
+        <log4j.version>1.2.17</log4j.version>
+        <junit.jupiter.version>5.4.0</junit.jupiter.version>
+        <cxf.scope>compile</cxf.scope>
+        <jaxws.scope>compile</jaxws.scope>
+        <compileSource>1.8</compileSource>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <jaxws.version>2.3.0</jaxws.version>
+        <jaxws.scope>compile</jaxws.scope>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <modules>
+        <module>web</module>
+        <module>business</module>
+        <module>service</module>
+        <module>model</module>
+        <module>technical</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-library -->
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-library</artifactId>
+                <version>2.1</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/name.falgout.jeffrey.testing.junit5/mockito-extension -->
+            <dependency>
+                <groupId>name.falgout.jeffrey.testing.junit5</groupId>
+                <artifactId>mockito-extension</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>2.25.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+
+
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

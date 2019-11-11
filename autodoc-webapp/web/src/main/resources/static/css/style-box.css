@@ -1,0 +1,60 @@
+body{
+    background-color: #f7cfc1;
+}
+.container {
+    margin-top: 10vh;
+    height: 80vh;
+    background-color: #e6e1e1;
+}
+
+.row {
+    height: 30%;
+}
+
+h2, h4, h5 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+.roundBorder {
+    border-radius: 5px;
+    border: 2px solid lightslategrey;
+}
+
+.passwordInfo{
+    border-style: dotted;
+    box-sizing: border-box;
+    background-color: antiquewhite;
+}
+
+.toolTip .toolTipText {
+    visibility: hidden;
+    width: 120px;
+    background-color: #a5c3ff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.toolTipText {
+    list-style-type: none;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.toolTip:hover .toolTipText {
+    visibility: visible;
+}
+

@@ -1,0 +1,102 @@
+body{
+    height: 100%;
+    background-color: #f7cfc1;
+}
+.container {
+    min-height: 100%;
+    height: 100%;
+    background-color: #e6e1e1;
+}
+
+.navbar{
+    background-color: #f75757;
+    height: 25%;
+}
+
+html {
+    overflow-y: scroll;
+    height: 100%;
+}
+
+
+.row {
+    height: 30%;
+}
+
+h2, h4, h5 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {table-layout:fixed; }
+tr, td { overflow:hidden;white-space:nowrap;  }
+td:hover{
+    overflow: visible;
+    word-break: break-all;
+    white-space: normal;
+    height:auto;
+}
+
+.roundBorder {
+    border-radius: 5px;
+    border: 2px solid lightslategrey;
+}
+
+.passwordInfo{
+    border-style: dotted;
+    box-sizing: border-box;
+    background-color: antiquewhite;
+}
+
+.toolTip .toolTipText {
+    visibility: hidden;
+    width: 120px;
+    background-color: #a5c3ff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.toolTipText {
+    list-style-type: none;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.toolTip:hover .toolTipText {
+    visibility: visible;
+}
+
+.table-fixed tbody {
+    height: 25%;
+    overflow-y: auto;
+    width: 100%;
+}
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+    display: block;
+}
+.table-fixed tr:after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+.table-fixed tbody td,
+.table-fixed thead > tr > th {
+    float: left;
+}
