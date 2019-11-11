@@ -88,7 +88,10 @@ public class Filler {
 
     }
 
-    public void fill() {
+    public void fill() throws Exception {
+        if(!manufacturerDao.getAll().isEmpty()){
+            throw new Exception("Basic data already filled");
+        }
         LOGGER.debug("getting here");
         fillEmployee();
         fillManufacturer();
