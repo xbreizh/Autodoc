@@ -1,14 +1,13 @@
 package com.autodoc.helper;
 
 import org.apache.log4j.Logger;
-import com.autodoc.model.Loan;
-import com.autodoc.model.Member;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Named;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Named
 public class LibraryHelperImpl implements LibraryHelper {
@@ -21,7 +20,7 @@ public class LibraryHelperImpl implements LibraryHelper {
         mv.addObject("error", error);
     }
 
-    @Override
+  /*  @Override
     public void checkMaxReserved(Member member, ModelAndView mv) {
 
         int nbReserved = 0;
@@ -69,7 +68,7 @@ public class LibraryHelperImpl implements LibraryHelper {
                 String[].class);
         logger.info(Arrays.toString(isbnList));
         mv.addObject("isbnList", isbnList);
-    }
+    }*/
 
     @Override
     public Map<String, String> generateSearchMap(String isbn, String author, String title) {
