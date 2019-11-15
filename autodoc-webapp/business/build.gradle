@@ -19,5 +19,6 @@ dependencies {
     testCompile 'org.springframework:spring-test:5.1.5.RELEASE'
     testCompile 'org.mockito:mockito-core:2.25.0'
     testCompile 'org.mockito:mockito-junit-jupiter:2.23.0'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
     testCompile 'jstl:jstl:1.2'
 }

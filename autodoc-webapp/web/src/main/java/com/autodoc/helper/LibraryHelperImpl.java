@@ -87,6 +87,7 @@ public class LibraryHelperImpl implements LibraryHelper {
     @Override
     public String getConnectedLogin() {
         Authentication authentication = getAuthentication();
+        logger.info("get connected login");
         return authentication.getPrincipal().toString();
 
 
@@ -94,6 +95,7 @@ public class LibraryHelperImpl implements LibraryHelper {
 
     @Override
     public String getConnectedToken() {
+        logger.info("get connected token");
         Authentication authentication = getAuthentication();
         return authentication.getDetails().toString();
     }

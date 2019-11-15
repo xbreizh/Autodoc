@@ -1,12 +1,17 @@
 package com.autodoc.business.impl;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Named;
 import java.util.Arrays;
@@ -16,41 +21,47 @@ import java.util.List;
 public class ConnectManagerImpl implements AuthenticationProvider {
 
     private static final String ROLE = "USER";
-    private Logger logger = Logger.getLogger(this.getClass().getName());
-    // private ConnectService connectService;
-
+    private static final String BASE_URL = "http://localhost:8087/autodoc/";
+    private static JSONObject personJsonObject;
+    private Logger logger = Logger.getLogger(ConnectManagerImpl.class);
 
     @Override
     public UsernamePasswordAuthenticationToken authenticate(Authentication authentication) {
         System.out.println("trying to authenticate");
-        String token = "tok";
+        String token = "";
         String exception = "";
-       /* logger.info(authentication.getPrincipal().toString());
-        GetTokenRequestType getTokenRequestType = new GetTokenRequestType();
         String login = authentication.getName().toUpperCase();
         String password = (String) authentication.getCredentials();
-        getTokenRequestType.setLogin(login);
-        getTokenRequestType.setPassword(password);
-        logger.info("login: " + login + " \n passwordd: " + password);
 
-        GetTokenResponseType responseType;*/
-       /* try {
-            responseType = getConnectServicePort().getToken(getTokenRequestType);
-            token = responseType.getReturn();
-        } catch (WebServiceException e) {
-            exception = "issue connecting to remote API: " + e.getMessage();
-            logger.error(exception);
+        RestTemplate restTemplate;
 
-        } catch (BusinessExceptionConnect businessExceptionConnect) {
-            exception = "issue while trying to get the token";
+        restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        personJsonObject = new JSONObject();
+        personJsonObject.put("username", login);
+        personJsonObject.put("password", password);
 
-        }*/
+        HttpEntity<String> request =
+                new HttpEntity<String>(personJsonObject.toString(), headers);
 
-        logger.info("token found: " + token);
+        try {
+            token = restTemplate.postForObject(BASE_URL + "/authenticate", request, String.class);
+        }catch (Exception e){
+            throw new
+                    BadCredentialsException("External system authentication failed");
+        }
+        //JsonNode root = objectMapper.readTree(token);
+
+
+        logger.info(authentication.getPrincipal().toString());
+
+
+         logger.info("token found: " + token);
 
         if (!token.equals("wrong credentials") && exception.isEmpty()) {
 
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("login", token, buildUserAuthority());
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(login, token, buildUserAuthority());
 
             logger.info("trucko: " + auth.getAuthorities());
             logger.info("cred: " + auth.getCredentials());
