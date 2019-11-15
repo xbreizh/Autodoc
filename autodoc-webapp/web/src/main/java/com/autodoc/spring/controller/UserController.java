@@ -89,9 +89,19 @@ public class UserController {
     @RequestMapping("/")
     public ModelAndView home(String error) {
         logger.info("getting home");
-       /* String token = helper.getConnectedToken();
+        System.out.println("home home");
+        String login = helper.getConnectedLogin();
+        if (login.equalsIgnoreCase("POlo")) {
+            return new ModelAndView(HOME);
+        } else {
+            return new ModelAndView(LOGIN);
+        }
+        //return mv;
+
+        /* String token = helper.getConnectedToken();
         String login = helper.getConnectedLogin();
         Member member = memberManager.getMember(token, login);
+
 
         ModelAndView mv = new ModelAndView(HOME);
         if (member != null) {
@@ -104,11 +114,7 @@ public class UserController {
             helper.addingPopup(mv, error);
 
             mv.addObject("member", member);*/
-        return new ModelAndView(HOME);
-       /* } else {
-            return new ModelAndView(LOGIN);
-        }
-        return mv;*/
+
     }
 
 
