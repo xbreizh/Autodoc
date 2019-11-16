@@ -23,21 +23,36 @@ public class ManufacturerDaoImpl<T> extends AbstractHibernateDao implements Manu
         this.setClazz(Manufacturer.class);
     }
 
-
     @Override
     public Manufacturer getByName(String name) {
-        Query query = getCurrentSession().createQuery("From Manufacturer where name= :name", cl);
+        System.out.println("get manufacturer by name: "+name);
+        String req = "From Manufacturer where name= :name";
+        Query query = getCurrentSession().createQuery(req, cl);
         query.setParameter("name", name);
         LOGGER.debug("in dao");
+        System.out.println("request: "+req);
         List<Manufacturer> result = query.getResultList();
         if (!result.isEmpty()) {
             System.out.println("result: " + result.get(0).toString());
             return result.get(0);
         }
-
+        System.out.println("result is empty");
         LOGGER.debug("here");
         return null;
     }
+/*
+@Override
+    public Manufacturer getByName(String name) {
+    System.out.println("getting by name");
+        Query query = getCurrentSession().createQuery("from "+className+"   where name = :name");
+        query.setParameter(name, name);
+        if (query.getResultList().isEmpty()) return null;
+        return (Manufacturer) query.getResultList().get(0);
+    }
+*/
+
+
+
 
 
     public Map<String, SearchType> getSearchField() {

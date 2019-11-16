@@ -4,14 +4,14 @@ import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.models.person.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,7 +36,7 @@ class EmployeeManagerImplTest {
     }
 
 
-    @Test
+/*    @Test
     @DisplayName("should not return exception if valid roles")
     void checkRoleValuesValid() {
         String[] rolesArray = {"MANAGER", "Mecanic"};
@@ -54,9 +54,18 @@ class EmployeeManagerImplTest {
         assertThrows(Exception.class,
                 ()->employeeManager.checkRoleValuesValid(rolesToCheck));
 
-    }
+    }*/
 
     @Test
     void getByRoles() {
+    }
+
+    @Test
+    void getByLogin() {
+        String login = "Bob56";
+        Employee employee = new Employee();
+        employee.setLogin(login);
+        when(employeeDao.getByLogin(anyString())).thenReturn(employee);
+        assertEquals(login, employeeManager.getEmployeeByLogin(login).getLogin());
     }
 }

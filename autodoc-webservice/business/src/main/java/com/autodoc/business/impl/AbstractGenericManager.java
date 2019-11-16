@@ -80,6 +80,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             exception = "no record found";
             return null;
         }
+        System.out.println("record found!! ");
         return entityToDto(dao.getByName(name));
     }
 

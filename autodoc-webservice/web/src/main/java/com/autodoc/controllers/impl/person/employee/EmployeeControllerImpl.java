@@ -12,9 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,10 +31,14 @@ public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, Emplo
 
 
     @Override
-    public ResponseEntity getByName(String name) {
-        EmployeeDTO employee = employeeManager.getEmployeeByLogin("name");
+    @GetMapping(value = "/name",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity getByName(@RequestParam(value = "name") String name) {
+        System.out.println("getting employee by name: "+name);
+        EmployeeDTO employee = employeeManager.getEmployeeByLogin(name);
         String response = converter.convertObjectIntoGsonObject(employee);
-
+        System.out.println("response: "+response);
         return ResponseEntity.ok(response);
     }
 
