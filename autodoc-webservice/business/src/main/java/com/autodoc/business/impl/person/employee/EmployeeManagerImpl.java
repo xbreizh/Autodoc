@@ -39,7 +39,10 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     public EmployeeDTO entityToDto(Object entity) {
         System.out.println("converting");
         EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
+        dto.setFirstName(((Employee) entity).getFirstName());
         dto.setRoles(((Employee) entity).getRoles());
+        dto.setLastName(((Employee) entity).getLastName());
+        dto.setPhoneNumber1(((Employee) entity).getPhoneNumber1());
         System.out.println("dto: "+dto);
         LOGGER.info("converted into dto");
         return dto;
@@ -56,7 +59,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     @Override
     public EmployeeDTO getEmployeeByLogin(String login) {
         System.out.println("getting by login: "+login);
-        return entityToDto(employeeDao.getByLogin(login));
+        EmployeeDTO dto = entityToDto(employeeDao.getByLogin(login));
+        return dto;
     }
 
     @Override
