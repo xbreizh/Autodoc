@@ -10,26 +10,34 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Employee extends Person{
+public class Employee /*extends Person*/{
 
-    @NotNull(message = "role should not be null")
+    //@NotNull(message = "role should not be null")
     private List<String> roles;
 
-    @PastOrPresent
+   // @PastOrPresent
     private Date startDate;
 
-    @NotNull(message = "login cannot be null")
+    //@NotNull(message = "login cannot be null")
     private String login;
 
-    @PastOrPresent
+   // @PastOrPresent
     private Date lastConnection;
 
-    public Employee(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1, @NotNull(message = "role should not be null") List<String> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login) {
-        super(lastName, firstName, phoneNumber1);
+    private String firstName;
+
+    private String lastName;
+
+    private String phoneNumber1;
+
+    public Employee(List<String> roles, Date startDate, String login, Date lastConnection, String firstName, String lastName, String phoneNumber1) {
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;
-        this.roles = roles;
+        this.lastConnection = lastConnection;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber1 = phoneNumber1;
     }
 
     public Employee() {
@@ -37,12 +45,14 @@ public class Employee extends Person{
 
     @Override
     public String toString() {
-        return "EmployeeDTO{" +
+        return "Employee{" +
                 "roles=" + roles +
                 ", startDate=" + startDate +
                 ", login='" + login + '\'' +
                 ", lastConnection=" + lastConnection +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber1='" + phoneNumber1 + '\'' +
                 '}';
-
     }
 }

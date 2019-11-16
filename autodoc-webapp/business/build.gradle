@@ -22,5 +22,6 @@ dependencies {
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
     testCompile 'jstl:jstl:1.2'
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.5.0'
+    compile 'com.google.code.gson:gson:2.8.5'
 
 }
