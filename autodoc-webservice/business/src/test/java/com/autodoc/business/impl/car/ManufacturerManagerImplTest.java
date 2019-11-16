@@ -37,7 +37,7 @@ class ManufacturerManagerImplTest {
 
     @Test
     void getByName() {
-        String name = "BOB";
+        String name = "bob";
         Manufacturer manufacturer1 = new Manufacturer(name);
         when(manufacturerDao.getByName(anyString())).thenReturn(manufacturer1);
         ManufacturerDTO manufacturer = (ManufacturerDTO) manufacturerManager.entityToDto(manufacturer1);

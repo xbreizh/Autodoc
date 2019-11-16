@@ -1,7 +1,9 @@
 package com.autodoc.spring.controller;
 
+import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
+import com.autodoc.model.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -36,6 +38,7 @@ public class UserController {
     /* private MemberManager memberManager;
      private BookManager bookManager;
      private LoanManager loanManager;*/
+    private EmployeeManager employeeManager;
     private LibraryHelper helper;
 
     private PasswordCheckerImpl passwordChecker;
@@ -90,33 +93,33 @@ public class UserController {
     public ModelAndView home(String error) {
         logger.info("getting home");
         System.out.println("home home");
-        String login = helper.getConnectedLogin();
-        if (login.equalsIgnoreCase("POlo")) {
+        /*String login = helper.getConnectedLogin();
+        if (login.equalsIgnoreCase(login)) {
             return new ModelAndView(HOME);
         } else {
             return new ModelAndView(LOGIN);
-        }
+        }*/
         //return mv;
 
-        /* String token = helper.getConnectedToken();
+        String token = helper.getConnectedToken();
         String login = helper.getConnectedLogin();
-        Member member = memberManager.getMember(token, login);
+        Employee employee = employeeManager.getEmployee(token, login);
 
 
         ModelAndView mv = new ModelAndView(HOME);
-        if (member != null) {
-            logger.info("Member retrieved: " + member);
+        if (employee != null) {
+            logger.info("Employee retrieved: " + employee);
 
             //checking
-            helper.checkOverdue(member, mv);
+            /*helper.checkOverdue(member, mv);
             helper.getIsbnRentedList(member, mv);
-            helper.checkMaxReserved(member, mv);
+            helper.checkMaxReserved(member, mv);*/
             helper.addingPopup(mv, error);
 
-            mv.addObject("member", member);*/
-
+            mv.addObject("member", employee);
+        }
+        return mv;
     }
-
 
     @GetMapping("/login")
     public ModelAndView login() {

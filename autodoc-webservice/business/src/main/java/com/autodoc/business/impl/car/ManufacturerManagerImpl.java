@@ -49,6 +49,9 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     @Override
     public ManufacturerDTO getByName(String name) {
         LOGGER.debug("trying to get: " + name);
+        System.out.println("trying to get "+name);
+        name = name.toUpperCase();
+        System.out.println("name now: "+name);
         if (name.isEmpty()) return null;
         return entityToDto(manufacturerDao.getByName(name));
     }

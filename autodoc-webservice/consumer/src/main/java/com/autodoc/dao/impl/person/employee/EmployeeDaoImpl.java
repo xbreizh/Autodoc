@@ -18,7 +18,7 @@ import java.util.Map;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements EmployeeDao {
     private static final Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
-
+    private Class cl = Employee.class;
     public EmployeeDaoImpl() {
         this.setClazz(Employee.class);
     }
@@ -30,11 +30,11 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
 
     @Override
     public Employee getByLogin(String login) {
-        Query query = getCurrentSession().createQuery("From Employee where login= :login");
+        Query query = getCurrentSession().createQuery("From Employee where login= :login", cl);
         query.setParameter("login", login);
-        List<Employee> employees = (List<Employee>) query.getResultList();
+        List<Employee> employees =  query.getResultList();
         LOGGER.debug("found: " + employees.size());
-        System.out.println("size: "+employees.size());
+        System.out.println("size in dao: "+employees.size());
         if (!employees.isEmpty()) return employees.get(0);
         return null;
 

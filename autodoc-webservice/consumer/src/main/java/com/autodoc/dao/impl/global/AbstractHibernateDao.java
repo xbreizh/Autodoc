@@ -42,6 +42,15 @@ public abstract class AbstractHibernateDao<T> {
         return (T) getCurrentSession().get(clazz, id);
     }
 
+
+    //@Override
+    public T getByName(String name) {
+        Query query = getCurrentSession().createQuery("from " + clazz.getName() + "where name = :name");
+        query.setParameter(name, name);
+        if (query.getResultList().isEmpty()) return null;
+        return (T) query.getResultList().get(0);
+    }
+
     public List<T> getAll() {
         System.out.println("in the dao: " + clazz.getName());
         LOGGER.debug("class: " + clazz.getName());
@@ -69,13 +78,7 @@ public abstract class AbstractHibernateDao<T> {
         return null;
     }
 
-    //@Override
-    public T getByName(String name) {
-        Query query = getCurrentSession().createQuery("from " + clazz.getName() + "where name = :name");
-        query.setParameter(name, name);
-        if (query.getResultList().isEmpty()) return null;
-        return (T) query.getResultList().get(0);
-    }
+
 
     public String deleteById(final int entityId) {
         T entity = getById(entityId);

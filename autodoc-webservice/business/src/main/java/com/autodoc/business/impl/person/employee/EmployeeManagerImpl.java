@@ -55,6 +55,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     @Override
     public EmployeeDTO getEmployeeByLogin(String login) {
+        System.out.println("getting by login: "+login);
         return entityToDto(employeeDao.getByLogin(login));
     }
 
@@ -65,6 +66,9 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     @Override
     public Employee getByLogin(String login) {
+
+        login = login.toUpperCase();
+        System.out.println("login to find: "+login);
         return employeeDao.getByLogin(login);
     }
 
