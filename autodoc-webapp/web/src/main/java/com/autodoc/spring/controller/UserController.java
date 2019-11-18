@@ -34,16 +34,23 @@ public class UserController {
     private static final String SEND_EMAIL_OK = "passwordReset/passwordResetLinkOk";
     private static final String RESET_KO = "passwordReset/passwordResetLinkKo";
     private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
-    private static Logger logger = Logger.getLogger(UserController.class);
+    private static Logger LOGGER = Logger.getLogger(UserController.class);
     /* private MemberManager memberManager;
      private BookManager bookManager;
      private LoanManager loanManager;*/
+    @Inject
     private EmployeeManager employeeManager;
     private LibraryHelper helper;
 
     private PasswordCheckerImpl passwordChecker;
 
-   /* @Inject
+    public UserController(EmployeeManager employeeManager, LibraryHelper helper, PasswordCheckerImpl passwordChecker) {
+        this.employeeManager = employeeManager;
+        this.helper = helper;
+        this.passwordChecker = passwordChecker;
+    }
+
+    /* @Inject
     public UserController(MemberManager memberManager, BookManager bookManager, LoanManager loanManager, LibraryHelper helper, PasswordCheckerImpl passwordChecker) {
         this.memberManager = memberManager;
         this.bookManager = bookManager;
@@ -73,7 +80,7 @@ public class UserController {
     @ExceptionHandler({WebServiceException.class, NullPointerException.class, TemplateInputException.class})
     public ModelAndView handleErrorWebServiceException(HttpServletRequest request, Exception e) {
         logError(request, e);
-        logger.error(request.getMethod());
+        LOGGER.error(request.getMethod());
         return new ModelAndView(ERROR);
     }
 
@@ -86,12 +93,12 @@ public class UserController {
     }
 
     private void logError(HttpServletRequest request, Exception e) {
-        logger.error("error: " + e + " / request: " + request.getMethod());
+        LOGGER.error("error: " + e + " / request: " + request.getMethod());
     }
 
     @RequestMapping("/")
     public ModelAndView home(String error) {
-        logger.info("getting home");
+        LOGGER.info("getting home");
         System.out.println("home home");
         /*String login = helper.getConnectedLogin();
         if (login.equalsIgnoreCase(login)) {
@@ -104,17 +111,17 @@ public class UserController {
         String token = helper.getConnectedToken();
         String login = helper.getConnectedLogin();
         Employee employee = employeeManager.getEmployee(token, login);
-
-
+        System.out.println("login:  + login");
+        System.out.println("getting here: "+employee);
         ModelAndView mv = new ModelAndView(HOME);
         if (employee != null) {
-            logger.info("Employee retrieved: " + employee);
-
+            LOGGER.info("Employee retrieved: " + employee);
+            LOGGER.info("found it");
             //checking
             /*helper.checkOverdue(member, mv);
             helper.getIsbnRentedList(member, mv);
             helper.checkMaxReserved(member, mv);*/
-            helper.addingPopup(mv, error);
+            //helper.addingPopup(mv, error);
 
             mv.addObject("member", employee);
         }

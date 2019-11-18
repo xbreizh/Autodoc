@@ -66,6 +66,7 @@ public class ConnectManagerImpl implements AuthenticationProvider {
             logger.info("trucko: " + auth.getAuthorities());
             logger.info("cred: " + auth.getCredentials());
             logger.info("login: " + auth.getName());
+            logger.info("principal: "+auth.getPrincipal());
 
             auth.setDetails(token);
             return auth;

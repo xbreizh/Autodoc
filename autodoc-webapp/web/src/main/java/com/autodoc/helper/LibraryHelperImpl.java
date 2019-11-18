@@ -87,7 +87,7 @@ public class LibraryHelperImpl implements LibraryHelper {
     @Override
     public String getConnectedLogin() {
         Authentication authentication = getAuthentication();
-        logger.info("get connected login");
+        logger.info("get connected login "+authentication.getPrincipal().toString());
         return authentication.getPrincipal().toString();
 
 
@@ -97,7 +97,16 @@ public class LibraryHelperImpl implements LibraryHelper {
     public String getConnectedToken() {
         logger.info("get connected token");
         Authentication authentication = getAuthentication();
-        return authentication.getDetails().toString();
+        String token = authentication.getDetails().toString();
+        String newToken = cleanToken(token);
+        System.out.println("new token: "+newToken);
+        return newToken;
+    }
+
+    private String cleanToken(String token) {
+        String newToken=token.replace("{\"token\":\"", "");
+        newToken = newToken.replace("\"}", "");
+        return newToken;
     }
 
     private Authentication getAuthentication() {
