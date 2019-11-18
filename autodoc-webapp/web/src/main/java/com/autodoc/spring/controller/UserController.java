@@ -123,7 +123,7 @@ public class UserController {
             helper.checkMaxReserved(member, mv);*/
             //helper.addingPopup(mv, error);
 
-            mv.addObject("member", employee);
+            mv.addObject("employee", employee);
         }
         return mv;
     }
@@ -140,6 +140,33 @@ public class UserController {
 
         return mv;
     }
+
+
+    @GetMapping("/employees")
+    public ModelAndView employees() {
+        ModelAndView mv = new ModelAndView("employees");
+
+
+        return mv;
+    }
+
+    @GetMapping("/stocks")
+    public ModelAndView stocks() {
+        ModelAndView mv = new ModelAndView("stocks");
+
+        return mv;
+    }
+
+    @GetMapping("/operations")
+    public ModelAndView operations() {
+        ModelAndView mv = new ModelAndView("operations");
+
+        return mv;
+    }
+
+
+
+
 
 /*
 
