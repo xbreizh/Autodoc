@@ -7,10 +7,7 @@ import com.autodoc.model.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -102,16 +99,7 @@ public class UserController {
     @RequestMapping("/")
     public ModelAndView home(String error) {
         LOGGER.info("getting home");
-
-        String token = helper.getConnectedToken();
-        String login = helper.getConnectedLogin();
-        Employee employee = employeeManager.getEmployee(token, login);
-        ModelAndView mv = new ModelAndView(LOGIN);
-        if (employee != null) {
-            LOGGER.info("Employee retrieved: " + employee);
-            mv = new ModelAndView(HOME);
-            mv.addObject("employee", employee);
-        }
+        ModelAndView mv = checkAndAddEmployeeDetails(HOME);
         return mv;
     }
 
@@ -132,26 +120,29 @@ public class UserController {
     @GetMapping("/employees")
     public ModelAndView employees() {
         LOGGER.info("retrieving employees");
-        ModelAndView mv = new ModelAndView("employees");
+        ModelAndView mv = checkAndAddEmployeeDetails("employees");
         List<Employee> employees = employeeManager.getEmployeeList(helper.getConnectedToken());
-        Employee employee = employeeManager.getEmployee(helper.getConnectedToken(), helper.getConnectedLogin());
-        employee.setLastConnection(new Date());
         mv.addObject("employees", employees);
-        mv.addObject("employee", employee);
-        System.out.println("employees number: "+employees.size());
         return mv;
     }
 
     @GetMapping("/stocks")
     public ModelAndView stocks() {
-        ModelAndView mv = new ModelAndView("stocks");
+        ModelAndView mv = checkAndAddEmployeeDetails("stocks");
 
         return mv;
     }
 
     @GetMapping("/operations")
     public ModelAndView operations() {
-        ModelAndView mv = new ModelAndView("operations");
+        ModelAndView mv = checkAndAddEmployeeDetails("operations");
+
+        return mv;
+    }
+
+    @GetMapping("/repairs")
+    public ModelAndView repairs() {
+        ModelAndView mv = checkAndAddEmployeeDetails("repairs");
 
         return mv;
     }
@@ -159,17 +150,30 @@ public class UserController {
     @GetMapping("/myProfile")
     public ModelAndView myProfile() {
         LOGGER.info("retrieving myProfile");
-        ModelAndView mv = new ModelAndView("myProfile");
+        ModelAndView mv = checkAndAddEmployeeDetails("myProfile");
+
+        return mv;
+    }
+
+    private ModelAndView checkAndAddEmployeeDetails(String viewName) {
+        ModelAndView mv = new ModelAndView(viewName);
         Employee employee = employeeManager.getEmployee(helper.getConnectedToken(), helper.getConnectedLogin());
-        LOGGER.info("employee: "+employee);
-        employee.setLastConnection(new Date());
-        mv.addObject("employee", employee);
         if(employee==null)mv=new ModelAndView(LOGIN);
-        System.out.println("view: "+mv.getViewName());
+        mv.addObject("employee", employee);
         return mv;
     }
 
 
+
+
+    @PostMapping("/searchCar")
+    public ModelAndView searchCar(String registration) {
+        LOGGER.info("retrieving searchCar");
+        LOGGER.info("car found: "+registration);
+        ModelAndView mv = checkAndAddEmployeeDetails("fragments/searchCar_result");
+
+        return mv;
+    }
 
 
 
@@ -311,6 +315,5 @@ public class UserController {
     }
 
 */
-
 }
 
