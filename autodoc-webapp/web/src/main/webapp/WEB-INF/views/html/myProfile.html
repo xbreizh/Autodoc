@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns="http://www.w3.org/1999/html"
+       xmlns:th="http://www.w3.org/1999/xhtml">
+<title>myProfile</title>
+
+<div th:replace="fragments/header :: head1"></div>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <div th:fragment="myProfile" xmlns:th="http://www.w3.org/1999/xhtml">
+
+        myProfile<br><br>
+
+
+        <h2 class="loginDetails">
+            Login: <td data-th-text="${employee.login}"></td><br>
+            FirstName: <td data-th-text="${employee.firstName}"></td><br>
+            LastName: <td data-th-text="${employee.lastName}"></td><br>
+            PhoneNumber1: <td data-th-text="${employee.phoneNumber1}"></td><br>
+            Last Connection: <td data-th-text="${employee.lastConnection}"></td><br>
+            Role(s): <p th:each="role : ${employee.roles}"
+               th:text="${role}">role</p>
+        </h2>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
+
+

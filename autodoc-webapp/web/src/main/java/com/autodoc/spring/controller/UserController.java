@@ -99,30 +99,14 @@ public class UserController {
     @RequestMapping("/")
     public ModelAndView home(String error) {
         LOGGER.info("getting home");
-        System.out.println("home home");
-        /*String login = helper.getConnectedLogin();
-        if (login.equalsIgnoreCase(login)) {
-            return new ModelAndView(HOME);
-        } else {
-            return new ModelAndView(LOGIN);
-        }*/
-        //return mv;
 
         String token = helper.getConnectedToken();
         String login = helper.getConnectedLogin();
         Employee employee = employeeManager.getEmployee(token, login);
-        System.out.println("login:  + login");
-        System.out.println("getting here: "+employee);
-        ModelAndView mv = new ModelAndView(HOME);
+        ModelAndView mv = new ModelAndView(LOGIN);
         if (employee != null) {
             LOGGER.info("Employee retrieved: " + employee);
-            LOGGER.info("found it");
-            //checking
-            /*helper.checkOverdue(member, mv);
-            helper.getIsbnRentedList(member, mv);
-            helper.checkMaxReserved(member, mv);*/
-            //helper.addingPopup(mv, error);
-
+            mv = new ModelAndView(HOME);
             mv.addObject("employee", employee);
         }
         return mv;
@@ -161,6 +145,18 @@ public class UserController {
     public ModelAndView operations() {
         ModelAndView mv = new ModelAndView("operations");
 
+        return mv;
+    }
+
+    @GetMapping("/myProfile")
+    public ModelAndView myProfile() {
+        LOGGER.info("retrieving myProfile");
+        ModelAndView mv = new ModelAndView("myProfile");
+        Employee employee = employeeManager.getEmployee(helper.getConnectedToken(), helper.getConnectedLogin());
+        LOGGER.info("employee: "+employee);
+        mv.addObject("employee", employee);
+        if(employee==null)mv=new ModelAndView(LOGIN);
+        System.out.println("view: "+mv.getViewName());
         return mv;
     }
 
