@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class EmployeeManagerImplTest {
     private static final String baseUrl = "http://localhost:8087/autodoc/";
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDE4MzM0OSwiaWF0IjoxNTc0MTY1MzQ5fQ.2NvcsD73cI1m-wosIPHgCDEUk6BbQW93-kZOBYWxoWiBTuUr4VXCcfq9nac5izm5wRO9f07GbXTc0eiNGi7J8Q";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDIwMTczOCwiaWF0IjoxNTc0MTgzNzM4fQ.0jpYZCY5-OdzmtgOOLetf8iINcAYSUcwzQy5_b2hjGxe7HolEI_aNUWiPZGva-I3dhmOh3Bn4fw-cgunpT4-zw";
     // String url = "http://localhost:8087/autodoc/employees";
     private EmployeeManager employeeManager;
 

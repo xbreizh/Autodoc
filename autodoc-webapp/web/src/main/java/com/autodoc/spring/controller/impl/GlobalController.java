@@ -1,4 +1,4 @@
-package com.autodoc.spring.controller;
+package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
@@ -7,7 +7,10 @@ import com.autodoc.model.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -16,13 +19,11 @@ import org.thymeleaf.exceptions.TemplateInputException;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 @ControllerAdvice
-public class UserController {
+@RequestMapping("/")
+public class GlobalController {
     private static final String LOGIN = "login";
     private static final String HOME = "home";
     private static final String RESET = "passwordReset/passwordReset";
@@ -34,33 +35,19 @@ public class UserController {
     private static final String SEND_EMAIL_OK = "passwordReset/passwordResetLinkOk";
     private static final String RESET_KO = "passwordReset/passwordResetLinkKo";
     private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
-    private static Logger LOGGER = Logger.getLogger(UserController.class);
-    /* private MemberManager memberManager;
-     private BookManager bookManager;
-     private LoanManager loanManager;*/
+    private static Logger LOGGER = Logger.getLogger(GlobalController.class);
+    LibraryHelper helper;
     @Inject
     private EmployeeManager employeeManager;
-    private LibraryHelper helper;
-
     private PasswordCheckerImpl passwordChecker;
 
-    public UserController(EmployeeManager employeeManager, LibraryHelper helper, PasswordCheckerImpl passwordChecker) {
-        this.employeeManager = employeeManager;
+    public GlobalController(LibraryHelper helper, PasswordCheckerImpl passwordChecker) {
         this.helper = helper;
         this.passwordChecker = passwordChecker;
     }
 
-    /* @Inject
-    public UserController(MemberManager memberManager, BookManager bookManager, LoanManager loanManager, LibraryHelper helper, PasswordCheckerImpl passwordChecker) {
-        this.memberManager = memberManager;
-        this.bookManager = bookManager;
-        this.loanManager = loanManager;
-        this.helper = helper;
-        this.passwordChecker = passwordChecker;
-    }*/
-
     @Inject
-    public UserController(LibraryHelper helper) {
+    public GlobalController(LibraryHelper helper) {
         this.helper = helper;
     }
 
@@ -117,15 +104,6 @@ public class UserController {
     }
 
 
-    @GetMapping("/employees")
-    public ModelAndView employees() {
-        LOGGER.info("retrieving employees");
-        ModelAndView mv = checkAndAddEmployeeDetails("employees");
-        List<Employee> employees = employeeManager.getEmployeeList(helper.getConnectedToken());
-        mv.addObject("employees", employees);
-        return mv;
-    }
-
     @GetMapping("/stocks")
     public ModelAndView stocks() {
         ModelAndView mv = checkAndAddEmployeeDetails("stocks");
@@ -147,18 +125,11 @@ public class UserController {
         return mv;
     }
 
-    @GetMapping("/myProfile")
-    public ModelAndView myProfile() {
-        LOGGER.info("retrieving myProfile");
-        ModelAndView mv = checkAndAddEmployeeDetails("myProfile");
 
-        return mv;
-    }
-
-    private ModelAndView checkAndAddEmployeeDetails(String viewName) {
+    ModelAndView checkAndAddEmployeeDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
         Employee employee = employeeManager.getEmployee(helper.getConnectedToken(), helper.getConnectedLogin());
-        if(employee==null)mv=new ModelAndView(LOGIN);
+        if (employee == null) mv = new ModelAndView(LOGIN);
         mv.addObject("employee", employee);
         return mv;
     }
@@ -166,14 +137,7 @@ public class UserController {
 
 
 
-    @PostMapping("/searchCar")
-    public ModelAndView searchCar(String registration) {
-        LOGGER.info("retrieving searchCar");
-        LOGGER.info("car found: "+registration);
-        ModelAndView mv = checkAndAddEmployeeDetails("fragments/searchCar_result");
 
-        return mv;
-    }
 
 
 
