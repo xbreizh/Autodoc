@@ -12,19 +12,29 @@
 
     <div th:fragment="myProfile" xmlns:th="http://www.w3.org/1999/xhtml">
 
-        myProfile<br><br>
+        <h2>myProfile</h2>
 
 
-        <h2 class="loginDetails">
-            Login: <td data-th-text="${employee.login}"></td><br>
-            FirstName: <td data-th-text="${employee.firstName}"></td><br>
-            LastName: <td data-th-text="${employee.lastName}"></td><br>
-            PhoneNumber1: <td data-th-text="${employee.phoneNumber1}"></td><br>
-            Last Connection: <td data-th-text="${employee.lastConnection}"></td><br>
-            Role(s): <p th:each="role : ${employee.roles}"
-               th:text="${role}">role</p>
-        </h2>
+        <div th:fragment="profile" xmlns:th="http://www.w3.org/1999/xhtml">
 
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th th:text="Login">Login</th>
+                    <th th:text="FirstName">FirstName</th>
+                    <th th:text="LastName">LastName</th>
+                    <th th:text="PhoneNumber1">PhoneNumber1</th>
+                    <th th:text="LastConnection">Last Connection</th>
+                    <th th:text="Roles">Role(s)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:replace="fragments/employeeDetails :: employeeDetails"></tr>
+
+                </tbody>
+            </table>
+
+        </div>
     </div>
 
 </div>
