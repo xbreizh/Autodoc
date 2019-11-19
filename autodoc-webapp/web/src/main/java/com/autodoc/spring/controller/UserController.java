@@ -19,6 +19,9 @@ import org.thymeleaf.exceptions.TemplateInputException;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -128,9 +131,14 @@ public class UserController {
 
     @GetMapping("/employees")
     public ModelAndView employees() {
+        LOGGER.info("retrieving employees");
         ModelAndView mv = new ModelAndView("employees");
-
-
+        List<Employee> employees = employeeManager.getEmployeeList(helper.getConnectedToken());
+        Employee employee = employeeManager.getEmployee(helper.getConnectedToken(), helper.getConnectedLogin());
+        employee.setLastConnection(new Date());
+        mv.addObject("employees", employees);
+        mv.addObject("employee", employee);
+        System.out.println("employees number: "+employees.size());
         return mv;
     }
 
@@ -154,6 +162,7 @@ public class UserController {
         ModelAndView mv = new ModelAndView("myProfile");
         Employee employee = employeeManager.getEmployee(helper.getConnectedToken(), helper.getConnectedLogin());
         LOGGER.info("employee: "+employee);
+        employee.setLastConnection(new Date());
         mv.addObject("employee", employee);
         if(employee==null)mv=new ModelAndView(LOGIN);
         System.out.println("view: "+mv.getViewName());
