@@ -3,6 +3,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.CarManager;
 import com.autodoc.business.contract.EmployeeManager;
+import com.autodoc.contract.CarService;
 import com.autodoc.model.Car;
 import com.autodoc.model.Employee;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,6 +25,11 @@ public class CarManagerImpl extends GlobalManager implements CarManager {
     private static final String BASE_URL = "http://localhost:8087/autodoc/cars";
     private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
 
+    private CarService carService;
+
+    public CarManagerImpl(CarService carService) {
+        this.carService = carService;
+    }
 
     @Override
     public Car getByRegistration(String token, String registration) {
@@ -45,22 +52,7 @@ public class CarManagerImpl extends GlobalManager implements CarManager {
     @Override
     public Car getById(String token, int id) {
         LOGGER.info("trying to get car by id");
-        setupHeader(token);
-
-        try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
-            LOGGER.info("id: " + id);
-            String url = BASE_URL+"/"+id;
-            ResponseEntity<Car> response = restTemplate.exchange(url, HttpMethod.GET, request, Car.class);
-            System.out.println("stop");
-            System.out.println("car: " + response.getBody());
-            return response.getBody();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new
-                    BadCredentialsException("External system authentication failed");
-        }
+        return (Car) carService.getById(token, id);
     }
 
    /* @Override

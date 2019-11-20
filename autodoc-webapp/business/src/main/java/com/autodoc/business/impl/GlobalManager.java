@@ -23,4 +23,6 @@ public abstract class GlobalManager {
 
         this.request = new HttpEntity<>( headers);
     }
+
+
 }
