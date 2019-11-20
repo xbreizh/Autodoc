@@ -3,23 +3,17 @@ package com.autodoc.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 @Getter
 @Setter
 public class Car {
 
     private int id;
 
-    //@Min(value = 1, message = "carModelId cannot be null")
-    private int carModelId;
+    private CarModel model;
 
-    //@NotNull(message = "registration cannot be null")
     private String registration;
 
-    //@Min(value = 1, message = "clientId cannot be null")
-    private int clientId;
+    private Client client;
 
 
     public Car() {
@@ -28,18 +22,23 @@ public class Car {
 
     public Car(int id, int carModelId, String registration, int clientId) {
         this.id = id;
-        this.carModelId = carModelId;
+        this.model = model;
         this.registration = registration;
-        this.clientId = clientId;
+        this.client = client;
     }
 
     @Override
     public String toString() {
+        String modelName ="";
+        String clientName = "";
+        if(model!=null)modelName = model.getName();
+        if(client!=null)clientName = client.getLastName();
+
         return "Car{" +
                 "id=" + id +
-                ", carModelId=" + carModelId +
+                ", model=" + modelName +
                 ", registration='" + registration + '\'' +
-                ", clientId=" + clientId +
+                ", client=" + clientName +
                 '}';
     }
 }
