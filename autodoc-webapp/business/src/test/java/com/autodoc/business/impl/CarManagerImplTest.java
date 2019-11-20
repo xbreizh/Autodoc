@@ -15,7 +15,7 @@ class CarManagerImplTest {
 
     private static final String BASE_URL = "http://localhost:8087/autodoc/";
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDIwMTczOCwiaWF0IjoxNTc0MTgzNzM4fQ.0jpYZCY5-OdzmtgOOLetf8iINcAYSUcwzQy5_b2hjGxe7HolEI_aNUWiPZGva-I3dhmOh3Bn4fw-cgunpT4-zw";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI3MTMyNiwiaWF0IjoxNTc0MjUzMzI2fQ.jgs9QiIhXKF2Li6VY6PwaVYb6ubdtyYEw-MbJLzO3zIszR5mkArZeVznXSkU1v5lk7yKvxMVeJgoJ7BGL0U4aA";
     // String url = "http://localhost:8087/autodoc/employees";
     private CarManager carManager;
 

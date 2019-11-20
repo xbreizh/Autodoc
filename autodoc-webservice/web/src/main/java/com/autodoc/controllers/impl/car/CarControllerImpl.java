@@ -37,10 +37,10 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
 
 
     @Override
-    @GetMapping(value = "/getByRegistration",
+    @GetMapping(value = "/registration",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getCarByRegistration(@RequestBody String registration) {
+    public ResponseEntity getCarByRegistration(@RequestParam(value = "registration") String registration) {
         CarDTO car = carManager.getByRegistration(registration);
         String response = converter.convertObjectIntoGsonObject(car);
 
