@@ -9,9 +9,11 @@ import java.util.List;
 public interface CarManager {
 
 
-    Car getByRegistration(String token, String registration);
+   // Car getByRegistration(String token, String registration);
 
     Car getById(String token, int id);
+
+    Car getByRegistration(String connectedToken, String registration);
 
     //List<Employee> getEmployeeList(String token);
 

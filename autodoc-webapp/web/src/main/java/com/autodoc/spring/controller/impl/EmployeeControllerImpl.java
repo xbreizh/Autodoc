@@ -41,7 +41,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     public ModelAndView employees() {
         LOGGER.info("retrieving employees");
         ModelAndView mv = checkAndAddEmployeeDetails("employees");
-        List<Employee> employees = employeeManager.getEmployeeList(helper.getConnectedToken());
+        List<Employee> employees = employeeManager.getAll(helper.getConnectedToken());
         mv.addObject("employees", employees);
         return mv;
     }

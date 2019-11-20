@@ -1,26 +1,31 @@
 package com.autodoc.business.impl;
 
 
-import com.autodoc.business.contract.CarManager;
 import com.autodoc.business.contract.ClientManager;
-import com.autodoc.model.Car;
+import com.autodoc.contract.ClientService;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.model.Client;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 
 import javax.inject.Named;
 
 @Named
-public class ClientManagerImpl extends GlobalManager implements ClientManager {
+public class ClientManagerImplImpl extends GlobalManagerImpl<Client> implements ClientManager {
 
     private static final String BASE_URL = "http://localhost:8087/autodoc/clients";
-    private static final Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientManagerImplImpl.class);
+
+    private ClientService service;
+
+    public ClientManagerImplImpl(ClientService service) {
+        super(service);
+    }
 
 
 
-    @Override
+
+
+  /*  @Override
     public Client getById(String token, int id) {
         LOGGER.info("trying to get employee by login");
         setupHeader(token);
@@ -36,7 +41,7 @@ public class ClientManagerImpl extends GlobalManager implements ClientManager {
             throw new
                     BadCredentialsException("External system authentication failed");
         }
-    }
+    }*/
 
 
 }
