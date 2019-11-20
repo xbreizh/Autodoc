@@ -28,16 +28,12 @@ public class CarManagerImpl extends GlobalManager implements CarManager {
     public Car getByRegistration(String token, String registration) {
         LOGGER.info("trying to get car by registration");
         setupHeader(token);
-        System.out.println("body: "+request.getBody());
-
-        System.out.println("request: "+request);
         try {
             LOGGER.info("restTemplate ready");
             LOGGER.info("token: " + token);
             LOGGER.info("registration: " + registration);
 
-            ResponseEntity<Car> response = restTemplate.exchange(BASE_URL+"/1", HttpMethod.GET, request, Car.class);
-            System.out.println("car: " + response.getBody().toString());
+            ResponseEntity<Car> response = restTemplate.exchange(BASE_URL+"/registration?registration="+registration, HttpMethod.GET, request, Car.class);
             return response.getBody();
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -6,19 +6,13 @@ import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
-import org.thymeleaf.exceptions.TemplateInputException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.WebServiceException;
 
 @Controller
 @ControllerAdvice
@@ -101,7 +95,7 @@ public class GlobalController {
 
     ModelAndView checkAndAddEmployeeDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
-        Employee employee = employeeManager.getEmployee(helper.getConnectedToken(), helper.getConnectedLogin());
+        Employee employee = employeeManager.getEmployeeByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
         if (employee == null) mv = new ModelAndView(LOGIN);
         mv.addObject("employee", employee);
         return mv;
