@@ -1,11 +1,13 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
+import com.autodoc.contract.EmployeeService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.inject.Inject;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,10 +19,12 @@ class EmployeeManagerImplTest {
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI3MTMyNiwiaWF0IjoxNTc0MjUzMzI2fQ.jgs9QiIhXKF2Li6VY6PwaVYb6ubdtyYEw-MbJLzO3zIszR5mkArZeVznXSkU1v5lk7yKvxMVeJgoJ7BGL0U4aA";
     // String url = "http://localhost:8087/autodoc/employees";
     private EmployeeManager employeeManager;
+    @Inject
+    private EmployeeService service;
 
     @BeforeEach
     void init() {
-        employeeManager = new EmployeeManagerImpl();
+        employeeManager = new EmployeeManagerImpl(service);
     }
 
     @Test
@@ -30,7 +34,7 @@ class EmployeeManagerImplTest {
 
         String login = "LMOLO";
 
-       assertNotNull(employeeManager.getEmployeeByLogin(token, login));
+       assertNotNull(employeeManager.getByLogin(token, login));
 
     }
 
@@ -41,7 +45,7 @@ class EmployeeManagerImplTest {
 
         int id =2;
 
-        assertNotNull(employeeManager.getEmployeeById(token, id));
+        assertNotNull(employeeManager.getById(token, id));
 
     }
 
@@ -62,6 +66,6 @@ class EmployeeManagerImplTest {
 
     @Test
     void getEmployeeList() {
-        assertNotNull(employeeManager.getEmployeeList(token));
+        assertNotNull(employeeManager.getAll(token));
     }
 }

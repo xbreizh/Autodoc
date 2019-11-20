@@ -2,58 +2,41 @@ package com.autodoc.business.impl;
 
 
 import com.autodoc.business.contract.CarManager;
-import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.contract.CarService;
 import com.autodoc.model.Car;
-import com.autodoc.model.Employee;
 import org.apache.log4j.Logger;
-import org.springframework.http.*;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 @Named
-public class CarManagerImpl extends GlobalManager implements CarManager {
+public class CarManagerImpl extends GlobalManagerImpl<Car> implements CarManager {
 
-    private static final String BASE_URL = "http://localhost:8087/autodoc/cars";
     private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
 
-    private CarService carService;
 
-    public CarManagerImpl(CarService carService) {
-        this.carService = carService;
+    private CarService service;
+
+    public CarManagerImpl(CarService service) {
+        super(service);
+        this.service=service;
+        System.out.println("created stuff" + service);
     }
 
     @Override
     public Car getByRegistration(String token, String registration) {
         LOGGER.info("trying to get car by registration");
-        setupHeader(token);
-        try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
-            LOGGER.info("registration: " + registration);
-
-            ResponseEntity<Car> response = restTemplate.exchange(BASE_URL+"/registration?registration="+registration, HttpMethod.GET, request, Car.class);
-            return response.getBody();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new
-                    BadCredentialsException("External system authentication failed");
-        }
+        System.out.println(service);
+        return service.getByRegistration(token, registration);
     }
 
-    @Override
+
+
+
+  /*  @Override
     public Car getById(String token, int id) {
         LOGGER.info("trying to get car by id");
         return (Car) carService.getById(token, id);
-    }
+    }*/
 
    /* @Override
     public Employee getEmployee(String token, String login) {

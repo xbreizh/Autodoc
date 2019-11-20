@@ -1,4 +1,4 @@
 package com.autodoc.contract;
 
-public interface ClientService {
+public interface ClientService extends GlobalService {
 }

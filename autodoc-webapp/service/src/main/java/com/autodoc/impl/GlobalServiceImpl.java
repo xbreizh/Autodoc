@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class GlobalServiceImpl<T> implements GlobalService {
 
-    private static final String BASE_URL = "http://localhost:8087/autodoc/";
+    static final String BASE_URL = "http://localhost:8087/autodoc/";
     private static final Logger LOGGER = Logger.getLogger(GlobalServiceImpl.class);
     RestTemplate restTemplate;
     HttpEntity<?> request;
@@ -59,7 +59,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
             ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
             LOGGER.info("stop");
             System.out.println("req: "+request);
-            return response.getBody();
+            return (T)response.getBody();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new
@@ -69,7 +69,23 @@ public class GlobalServiceImpl<T> implements GlobalService {
 
     @Override
     public Object getByName(String token, String name) {
-        return null;
+        LOGGER.info("trying to get employee by login");
+        setupHeader(token);
+        try {
+            LOGGER.info("restTemplate ready");
+            LOGGER.info("token: " + token);
+            LOGGER.info("login: " + name);
+            String className = getClassName();
+            String url = BASE_URL+className+"/name?name=" + name;
+            System.out.println("url: "+url);
+            ResponseEntity<T> res = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
+            System.out.println("deded: " + res.getBody());
+            return res.getBody();
+        } catch (Exception e) {
+            System.out.println("error occured");
+            throw new
+                    BadCredentialsException("External system authentication failed");
+        }
     }
 
     @Override

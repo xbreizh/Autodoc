@@ -4,6 +4,7 @@ import com.autodoc.contract.ClientService;
 import com.autodoc.contract.GlobalService;
 import com.autodoc.model.Car;
 import com.autodoc.model.Client;
+import com.autodoc.model.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class GlobalServiceImplTest {
 
 
     private  GlobalService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI3MTMyNiwiaWF0IjoxNTc0MjUzMzI2fQ.jgs9QiIhXKF2Li6VY6PwaVYb6ubdtyYEw-MbJLzO3zIszR5mkArZeVznXSkU1v5lk7yKvxMVeJgoJ7BGL0U4aA";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI4OTQxNCwiaWF0IjoxNTc0MjcxNDE0fQ.vKKtg7YvrRIGOrfvXyvomQdLSP1Z5rnP4OidTli-qCta98jZ27KfMqekE8aH2Dg6ck5OpmoFKCmCjGuSn6BO_w";
 
     @BeforeEach
     void init(){
@@ -59,7 +60,13 @@ class GlobalServiceImplTest {
     }
 
     @Test
+    @DisplayName("should return an employee by Name")
     void testGetClassName() {
+        service = new EmployeeServiceImpl();
+        String login = "LMOLO";
+        Employee employee = (Employee) service.getByName(token, login);
+        System.out.println(employee);
+        assertNotNull(employee);
     }
 
     @Test
