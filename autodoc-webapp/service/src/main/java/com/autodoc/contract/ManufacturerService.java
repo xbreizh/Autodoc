@@ -1,4 +1,4 @@
 package com.autodoc.contract;
 
-public interface ManufacturerService {
+public interface ManufacturerService extends GlobalService{
 }

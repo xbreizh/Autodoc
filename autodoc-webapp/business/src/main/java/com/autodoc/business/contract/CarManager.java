@@ -6,7 +6,7 @@ import com.autodoc.model.Employee;
 
 import java.util.List;
 
-public interface CarManager {
+public interface CarManager extends GlobalManager{
 
 
    // Car getByRegistration(String token, String registration);
