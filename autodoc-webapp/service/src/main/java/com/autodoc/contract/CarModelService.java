@@ -1,4 +1,4 @@
 package com.autodoc.contract;
 
-public interface CarModelService {
+public interface CarModelService extends GlobalService{
 }

@@ -17,11 +17,11 @@
         <tr>
             <th th:text="Id">Id</th>
             <th th:text="Registration">Registration</th>
-            <th th:text="Manufacturer">Manufacturer</th>
+           <!-- <th th:text="Manufacturer">Manufacturer</th>
             <th th:text="Model">Model</th>
             <th th:text="Gearbox">Gearbox</th>
             <th th:text="Enging">Engine</th>
-            <th th:text="FuelType">FuelType</th>
+            <th th:text="FuelType">FuelType</th>-->
             <th th:text="Owner">Owner</th>
         </tr>
         </thead>
@@ -32,11 +32,11 @@
             <tr th:fragment="carDetails" xmlns:th="http://www.w3.org/1999/xhtml">
                 <td th:text="${car.id}">id</td>
                 <td th:text="${car.registration}">registration</td>
-                <td th:text="${car.model.manufacturer.name}">manufacturer</td>
+               <!-- <td th:text="${car.model.manufacturer.name}">manufacturer</td>
                 <td th:text="${car.model.name}">model</td>
                 <td th:text="${car.model.gearbox}">gearbox</td>
                 <td th:text="${car.model.engine}">engine</td>
-                <td th:text="${car.model.fuelType}">fuelType</td>
+                <td th:text="${car.model.fuelType}">fuelType</td>-->
                 <td th:text="${car.client.lastName}">clientLastName</td>
             </tr>
 

@@ -37,6 +37,6 @@ public class Employee extends Person {
                 ", startDate=" + startDate +
                 ", login='" + login + '\'' +
                 ", lastConnection=" + lastConnection +
-                '}';
+                "} " + super.toString();
     }
 }
