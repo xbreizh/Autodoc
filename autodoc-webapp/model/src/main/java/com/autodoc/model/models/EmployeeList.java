@@ -1,5 +1,6 @@
-package com.autodoc.model;
+package com.autodoc.model.models;
 
+import com.autodoc.model.models.person.employee.Employee;
 import lombok.Getter;
 import lombok.Setter;
 

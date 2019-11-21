@@ -5,7 +5,7 @@ import com.autodoc.contract.GlobalService;
 
 import java.util.List;
 
-public abstract class GlobalManagerImpl<T> implements GlobalManager {
+public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     GlobalService service;
 
@@ -14,11 +14,24 @@ public abstract class GlobalManagerImpl<T> implements GlobalManager {
     }
 
     public T getById(String token, int id){
-        return (T) service.getById(token, id);
+        System.out.println("getting by id");
+        System.out.println(service);
+        D obj = (D)  service.getById(token, id);
+        System.out.println("className: "+obj.getClass().getName());
+        T cc = (T)dtoToEntity(obj);
+        System.out.println("className: "+cc.getClass().getName());
+        return dtoToEntity(obj);
     }
 
     public T getByName(String token, String name){
-        return (T) service.getByName(token, name);
+
+        D obj = (D) service.getByName(token, name);
+        return dtoToEntity(obj);
+    }
+
+    public T dtoToEntity(Object obj) {
+
+        return null;
     }
 
     public List<T> getAll(String token){

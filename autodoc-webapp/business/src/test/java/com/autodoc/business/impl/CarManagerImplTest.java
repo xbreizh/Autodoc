@@ -3,7 +3,7 @@ package com.autodoc.business.impl;
 import com.autodoc.business.contract.CarManager;
 import com.autodoc.contract.CarService;
 import com.autodoc.impl.CarServiceImpl;
-import com.autodoc.model.Car;
+import com.autodoc.model.models.car.Car;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

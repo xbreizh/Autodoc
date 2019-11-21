@@ -2,6 +2,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.ClientService;
+import com.autodoc.impl.ClientServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,20 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ClientManagerImplTest {
 
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI3MTMyNiwiaWF0IjoxNTc0MjUzMzI2fQ.jgs9QiIhXKF2Li6VY6PwaVYb6ubdtyYEw-MbJLzO3zIszR5mkArZeVznXSkU1v5lk7yKvxMVeJgoJ7BGL0U4aA";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDM2MDgxNywiaWF0IjoxNTc0MzQyODE3fQ.GbMKAFeTXG3ThuZGE0W5hQqYB3x5rB9jTrFwfU9D62oZoE_jPaKiR7p3CF2KSBpJFUrtxORV8XKHUMPCktAWXw";
     private ClientManager clientManager;
-    @Inject
+    //@Inject
     private ClientService service;
 
     @BeforeEach
     void init() {
-        clientManager = new ClientManagerImplImpl(service);
+        service = new ClientServiceImpl();
+        clientManager = new ClientManagerImpl(service);
     }
 
     @Test
     void getById() {
 
-        int id = 2;
+        int id = 1;
         assertNotNull(clientManager.getById(token, id));
     }
 }

@@ -1,10 +1,11 @@
 package com.autodoc.impl;
 
-import com.autodoc.contract.ClientService;
 import com.autodoc.contract.GlobalService;
-import com.autodoc.model.Car;
-import com.autodoc.model.Client;
-import com.autodoc.model.Employee;
+import com.autodoc.model.dtos.person.client.ClientDTO;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
+import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class GlobalServiceImplTest {
 
 
     private  GlobalService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI4OTQxNCwiaWF0IjoxNTc0MjcxNDE0fQ.vKKtg7YvrRIGOrfvXyvomQdLSP1Z5rnP4OidTli-qCta98jZ27KfMqekE8aH2Dg6ck5OpmoFKCmCjGuSn6BO_w";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDM2MDgxNywiaWF0IjoxNTc0MzQyODE3fQ.GbMKAFeTXG3ThuZGE0W5hQqYB3x5rB9jTrFwfU9D62oZoE_jPaKiR7p3CF2KSBpJFUrtxORV8XKHUMPCktAWXw";
 
     @BeforeEach
     void init(){
@@ -24,7 +25,7 @@ class GlobalServiceImplTest {
 
     @Test
     void getClassName() {
-        service = new GlobalServiceImpl();
+        service = new CarServiceImpl();
         System.out.println(service.getClassName());
         assertEquals("cars", service.getClassName());
 
@@ -51,10 +52,7 @@ class GlobalServiceImplTest {
     void getClientById() {
         service = new ClientServiceImpl();
         int id=1;
-        /*System.out.println(service);
-        Client client = (Client) service.getById(token, id);
-        System.out.println("client: "+client);*/
-        Client client = (Client) service.getById(token, id);
+        ClientDTO client = (ClientDTO) service.getById(token, id);
         System.out.println(client);
         assertNotNull(service.getById(token, id));
     }
@@ -64,7 +62,7 @@ class GlobalServiceImplTest {
     void testGetClassName() {
         service = new EmployeeServiceImpl();
         String login = "LMOLO";
-        Employee employee = (Employee) service.getByName(token, login);
+        EmployeeDTO employee = (EmployeeDTO) service.getByName(token, login);
         System.out.println(employee);
         assertNotNull(employee);
     }

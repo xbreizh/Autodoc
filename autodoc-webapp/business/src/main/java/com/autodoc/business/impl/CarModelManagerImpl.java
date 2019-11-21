@@ -3,13 +3,14 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.contract.CarModelService;
-import com.autodoc.model.CarModel;
+import com.autodoc.model.dtos.car.CarModelDTO;
+import com.autodoc.model.models.car.CarModel;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
-public class CarModelManagerImpl extends GlobalManagerImpl<CarModel> implements CarModelManager {
+public class CarModelManagerImpl extends GlobalManagerImpl<CarModel, CarModelDTO> implements CarModelManager {
 
     private static final Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
 
