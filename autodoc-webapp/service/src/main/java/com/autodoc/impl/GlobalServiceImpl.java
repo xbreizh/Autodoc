@@ -1,7 +1,6 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.GlobalService;
-import com.autodoc.model.Car;
 import org.apache.log4j.Logger;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,8 +18,9 @@ public class GlobalServiceImpl<T> implements GlobalService {
     HttpEntity<?> request;
 
     public String getClassName() {
-
-        return getObjectClass().getSimpleName().toLowerCase()+"s";
+        String className = getObjectClass().getSimpleName().toLowerCase();
+        String newClassname = className.replaceAll("dto", "s");
+        return newClassname;
     }
 
 

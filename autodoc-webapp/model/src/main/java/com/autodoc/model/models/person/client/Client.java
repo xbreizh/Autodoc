@@ -1,8 +1,8 @@
-package com.autodoc.model;
+package com.autodoc.model.models.person.client;
 
+import com.autodoc.model.models.person.Person;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter

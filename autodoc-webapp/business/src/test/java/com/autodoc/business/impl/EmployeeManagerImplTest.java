@@ -2,6 +2,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.contract.EmployeeService;
+import com.autodoc.impl.EmployeeServiceImpl;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,11 +20,12 @@ class EmployeeManagerImplTest {
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI3MTMyNiwiaWF0IjoxNTc0MjUzMzI2fQ.jgs9QiIhXKF2Li6VY6PwaVYb6ubdtyYEw-MbJLzO3zIszR5mkArZeVznXSkU1v5lk7yKvxMVeJgoJ7BGL0U4aA";
     // String url = "http://localhost:8087/autodoc/employees";
     private EmployeeManager employeeManager;
-    @Inject
+    //@Inject
     private EmployeeService service;
 
     @BeforeEach
     void init() {
+        service = new EmployeeServiceImpl();
         employeeManager = new EmployeeManagerImpl(service);
     }
 

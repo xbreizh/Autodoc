@@ -1,5 +1,6 @@
-package com.autodoc.model;
+package com.autodoc.model.models.car;
 
+import com.autodoc.model.models.person.client.Client;
 import lombok.Getter;
 import lombok.Setter;
 

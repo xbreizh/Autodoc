@@ -1,12 +1,12 @@
 package com.autodoc.business.contract;
 
 
-import com.autodoc.model.Client;
+import com.autodoc.model.models.person.client.Client;
 
 public interface ClientManager extends GlobalManager{
 
 
-    Client getById(String token, int id);
+   // Client getById(String token, int id);
 
 
 }

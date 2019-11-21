@@ -1,4 +1,4 @@
-package com.autodoc.model;
+package com.autodoc.model.dtos.car;
 
 import lombok.Getter;
 import lombok.Setter;

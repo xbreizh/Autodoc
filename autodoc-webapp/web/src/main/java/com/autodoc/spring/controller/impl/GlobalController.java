@@ -3,7 +3,7 @@ package com.autodoc.spring.controller.impl;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
-import com.autodoc.model.Employee;
+import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
