@@ -34,7 +34,6 @@ class CarDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         filler.fill();
-        String name = "PLOP";
 
     }
 

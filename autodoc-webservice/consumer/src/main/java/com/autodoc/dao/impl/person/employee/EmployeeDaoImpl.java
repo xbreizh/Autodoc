@@ -11,6 +11,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -69,11 +70,10 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
 
 
         List<Employee> employees = (List<Employee>) query.getResultList();
-        //System.out.println("emp: "+employees.get(0).getLogin());
         System.out.println("size: "+employees.size());
         LOGGER.debug("found: " + employees.size());
         if (!employees.isEmpty()) return employees;
-        return null;
+        return new ArrayList<>();
     }
 
 

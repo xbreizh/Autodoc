@@ -36,7 +36,7 @@ class CountryDaoImplTest {
     void getById() {
         Country country = new Country("ALASKA");
         countryDao.create(country);
-        System.out.println(countryDao.getAll().get(0));
-        assertNotNull(countryDao.getById(286));
+        Country country1 = (Country) countryDao.getAll().get(0);
+        assertNotNull(countryDao.getById(country1.getId()));
     }
 }
