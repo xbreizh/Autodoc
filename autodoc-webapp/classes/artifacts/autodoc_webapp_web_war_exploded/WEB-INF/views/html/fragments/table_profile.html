@@ -1,0 +1,28 @@
+<div th:fragment="profile" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="Login">Login</th>
+            <th th:text="FirstName">FirstName</th>
+            <th th:text="LastName">LastName</th>
+            <th th:text="Email">Email</th>
+            <th th:text="DateJoin">DateJoin</th>
+            <th th:text="Reminder">Reminder</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${member.login}">login</td>
+            <td th:text="${member.firstName}">firstName</td>
+            <td th:text="${member.lastName}">lastName</td>
+            <td th:text="${member.email}">Email</td>
+            <td th:text="${#dates.format(member.dateJoin, 'dd-MM-yyyy')}">dateJoin</td>
+            <td th:replace="fragments/reminder :: reminder">reminder</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--form-->
+
+</div>
