@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         logger.info("http: " + http);
-        http.authorizeRequests().antMatchers( "/user**", "/error").authenticated()
+        http.authorizeRequests().antMatchers("/user**", "/error").authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .and()

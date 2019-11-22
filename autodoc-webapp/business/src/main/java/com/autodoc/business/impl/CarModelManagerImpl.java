@@ -3,8 +3,8 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.contract.CarModelService;
-import com.autodoc.model.models.CarModel;
-import com.autodoc.model.dtos.CarModelDTO;
+import com.autodoc.model.dtos.car.CarModelDTO;
+import com.autodoc.model.models.car.CarModel;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;

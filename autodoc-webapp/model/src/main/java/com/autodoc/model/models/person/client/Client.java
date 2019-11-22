@@ -1,5 +1,6 @@
-package com.autodoc.model.models;
+package com.autodoc.model.models.person.client;
 
+import com.autodoc.model.models.person.Person;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,10 @@ public class Client extends Person {
     }
 
 
-    public Client(int id, String firstName, String lastName, String phoneNumber1) {
-        super(id, firstName, lastName, phoneNumber1);
+    public Client(String firstName, String lastName, String phoneNumber1) {
+        super(firstName, lastName, phoneNumber1);
     }
+
 
     @Override
     public String toString() {

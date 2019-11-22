@@ -47,7 +47,7 @@ public class ConnectManagerImpl implements AuthenticationProvider {
 
         try {
             token = restTemplate.postForObject(BASE_URL + "/authenticate", request, String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new
                     BadCredentialsException("External system authentication failed");
         }
@@ -57,7 +57,7 @@ public class ConnectManagerImpl implements AuthenticationProvider {
         logger.info(authentication.getPrincipal().toString());
 
 
-         logger.info("token found: " + token);
+        logger.info("token found: " + token);
 
         if (!token.equals("wrong credentials") && exception.isEmpty()) {
 
@@ -66,7 +66,7 @@ public class ConnectManagerImpl implements AuthenticationProvider {
             logger.info("trucko: " + auth.getAuthorities());
             logger.info("cred: " + auth.getCredentials());
             logger.info("login: " + auth.getName());
-            logger.info("principal: "+auth.getPrincipal());
+            logger.info("principal: " + auth.getPrincipal());
 
             auth.setDetails(token);
             return auth;

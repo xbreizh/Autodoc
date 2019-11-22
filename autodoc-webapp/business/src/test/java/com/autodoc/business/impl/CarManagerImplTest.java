@@ -3,13 +3,12 @@ package com.autodoc.business.impl;
 import com.autodoc.business.contract.CarManager;
 import com.autodoc.contract.CarService;
 import com.autodoc.impl.CarServiceImpl;
-import com.autodoc.model.models.Car;
+import com.autodoc.model.models.car.Car;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
 
 class CarManagerImplTest {
 

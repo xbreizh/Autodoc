@@ -2,13 +2,13 @@ package com.autodoc.business.contract;
 
 import java.util.List;
 
-public interface GlobalManager<T> {
+public interface GlobalManager<T, D> {
 
-    T getById(String token, int id);
+    D getById(String token, int id);
 
-    T getByName(String token, String name);
+    D getByName(String token, String name);
 
-    List<T> getAll(String token);
+    List<D> getAll(String token);
 
     void add(T obj);
 

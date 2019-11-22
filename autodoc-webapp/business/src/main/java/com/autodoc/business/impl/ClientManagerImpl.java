@@ -3,31 +3,43 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.ClientService;
-import com.autodoc.model.models.Client;
-import com.autodoc.model.dtos.ClientDTO;
+import com.autodoc.model.dtos.person.client.ClientDTO;
+import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
-public class ClientManagerImplImpl extends GlobalManagerImpl<Client, ClientDTO> implements ClientManager {
+public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> implements ClientManager {
 
     private static final String BASE_URL = "http://localhost:8087/autodoc/clients";
-    private static final Logger LOGGER = Logger.getLogger(ClientManagerImplImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
 
     private ClientService service;
 
-    public ClientManagerImplImpl(ClientService service) {
+    public ClientManagerImpl(ClientService service) {
         super(service);
     }
 
 
+    public Client dtoToEntity(Object obj) {
 
+        ClientDTO dto = (ClientDTO) obj;
+        System.out.println("dto: " + dto);
+        Client client = new Client();
+        client.setId(dto.getId());
+        client.setId(dto.getId());
+        client.setFirstName(dto.getFirstName());
+        client.setLastName(dto.getLastName());
+        client.setPhoneNumber1(dto.getPhoneNumber1());
+        client.setPhoneNumber2(dto.getPhoneNumber2());
+        return client;
+    }
 
 
   /*  @Override
     public Client getById(String token, int id) {
-        LOGGER.info("trying to get employee by login");
+        LOGGER.info("trying to get client by login");
         setupHeader(token);
         try {
             LOGGER.info("restTemplate ready");

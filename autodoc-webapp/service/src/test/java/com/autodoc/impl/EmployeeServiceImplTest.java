@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class EmployeeServiceImplTest {
 
     private CarService service;
-    private String token="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI4OTQxNCwiaWF0IjoxNTc0MjcxNDE0fQ.vKKtg7YvrRIGOrfvXyvomQdLSP1Z5rnP4OidTli-qCta98jZ27KfMqekE8aH2Dg6ck5OpmoFKCmCjGuSn6BO_w";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDI4OTQxNCwiaWF0IjoxNTc0MjcxNDE0fQ.vKKtg7YvrRIGOrfvXyvomQdLSP1Z5rnP4OidTli-qCta98jZ27KfMqekE8aH2Dg6ck5OpmoFKCmCjGuSn6BO_w";
 
     @BeforeEach
-    void init(){
+    void init() {
         service = new CarServiceImpl();
     }
 

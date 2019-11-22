@@ -23,7 +23,7 @@ class AppTest {
 
     private static JSONObject personJsonObject;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String baseUrl="http://localhost:8087/autodoc/";
+    private static final String baseUrl = "http://localhost:8087/autodoc/";
 
 
     @Test
@@ -44,9 +44,9 @@ class AppTest {
                 new HttpEntity<String>(personJsonObject.toString(), headers);
 
         String token =
-                restTemplate.postForObject(baseUrl+"/authenticate", request, String.class);
+                restTemplate.postForObject(baseUrl + "/authenticate", request, String.class);
         JsonNode root = objectMapper.readTree(token);
-        System.out.println("tokent: "+token);
+        System.out.println("tokent: " + token);
         assertNotNull(token);
         assertNotNull(root);
         //assertNotNull(root.path("name").asText());
@@ -54,7 +54,7 @@ class AppTest {
 
     @Test
     @DisplayName("should return \"INVALID CREDENTIALS\" if invalid token")
-    public void authenticate2()throws IOException {
+    public void authenticate2() throws IOException {
         RestTemplate restTemplate;
 
         restTemplate = new RestTemplate();
@@ -67,10 +67,9 @@ class AppTest {
         HttpEntity<String> request =
                 new HttpEntity<String>(personJsonObject.toString(), headers);
 
-        assertThrows(HttpClientErrorException.class, ()-> restTemplate.postForObject(baseUrl+"/authenticate", request, String.class));
+        assertThrows(HttpClientErrorException.class, () -> restTemplate.postForObject(baseUrl + "/authenticate", request, String.class));
 
     }
-
 
 
 }

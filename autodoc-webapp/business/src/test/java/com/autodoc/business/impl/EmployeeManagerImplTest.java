@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +19,7 @@ class EmployeeManagerImplTest {
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDQ0MzM2MCwiaWF0IjoxNTc0NDI1MzYwfQ.mTJ6FN0YYL-YvcIjPZ9Q60-8xr8bvutjC1-Yq9GVtMCBbtd7AuCxVIHJrObtxwRioVvGMrjBVoNWWTopO3BE5Q";
     // String url = "http://localhost:8087/autodoc/employees";
     private EmployeeManager employeeManager;
-    @Inject
+    //@Inject
     private EmployeeService service;
 
     @BeforeEach
@@ -37,7 +36,7 @@ class EmployeeManagerImplTest {
         String login = "LMOLO";
         System.out.println(employeeManager.getByLogin(token, login));
 
-       assertNotNull(employeeManager.getByLogin(token, login));
+        assertNotNull(employeeManager.getByLogin(token, login));
 
     }
 
@@ -46,19 +45,18 @@ class EmployeeManagerImplTest {
     public void getEmployeeById()
             throws IOException {
 
-        int id =2;
+        int id = 2;
 
         assertNotNull(employeeManager.getById(token, id));
 
     }
 
 
-
     @Test
-    void cleanToken(){
+    void cleanToken() {
         String crypt = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDExNDU5OCwiaWF0IjoxNTc0MDk2NTk4fQ.NQ0-Cg5lmlQNLxFAmtPYyGstNPHaob43xeYJ7q27MZkKAPnKrmG7eGFIbP4iPsnAbpsKIT-XLKhHCsrRGK7zPw";
-        String token = "{\"token\":\""+crypt+"\"}";
-        String newToken=token.replace("{\"token\":\"", "");
+        String token = "{\"token\":\"" + crypt + "\"}";
+        String newToken = token.replace("{\"token\":\"", "");
         newToken = newToken.replace("\"}", "");
         assertEquals(crypt, newToken);
     }

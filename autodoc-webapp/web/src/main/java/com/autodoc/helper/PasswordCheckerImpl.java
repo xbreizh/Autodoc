@@ -3,13 +3,13 @@ package com.autodoc.helper;
 import javax.inject.Named;
 
 @Named
-public class PasswordCheckerImpl implements PasswordChecker{
+public class PasswordCheckerImpl implements PasswordChecker {
 
     private int minLength = 3;
     private int maxLength = 12;
 
     @Override
-    public String checkValidity(String password, String confirmPassword){
+    public String checkValidity(String password, String confirmPassword) {
         String specialChars = "~`!@#$%^&*()-_=+\\|[{]};:'\",<.>/?";
 
         boolean upperCasePresent = false;
@@ -17,7 +17,7 @@ public class PasswordCheckerImpl implements PasswordChecker{
         boolean numberPresent = false;
         boolean specialCharacterPresent = false;
         // check Equals
-        if(!password.equals(confirmPassword)) {
+        if (!password.equals(confirmPassword)) {
             return "password mismatch";
         }
 
@@ -50,8 +50,7 @@ public class PasswordCheckerImpl implements PasswordChecker{
             }
         }
 
-        if (!numberPresent) return true;
-        return false;
+        return !numberPresent;
     }
 
     private boolean checkIfUpperCasePresent(String password, boolean upperCasePresent) {
@@ -63,8 +62,7 @@ public class PasswordCheckerImpl implements PasswordChecker{
                 break;
             }
         }
-        if (!upperCasePresent) return true;
-        return false;
+        return !upperCasePresent;
     }
 
     private boolean checkIfLowerCasePresent(String password, boolean lowerCasePresent) {
@@ -76,8 +74,7 @@ public class PasswordCheckerImpl implements PasswordChecker{
                 break;
             }
         }
-        if (!lowerCasePresent) return true;
-        return false;
+        return !lowerCasePresent;
     }
 
     private boolean checkIfSpecialCharacterPresent(String password, String specialChars, boolean specialCharacterPresent) {
@@ -89,7 +86,6 @@ public class PasswordCheckerImpl implements PasswordChecker{
                 break;
             }
         }
-        if (!specialCharacterPresent) return true;
-        return false;
+        return !specialCharacterPresent;
     }
 }

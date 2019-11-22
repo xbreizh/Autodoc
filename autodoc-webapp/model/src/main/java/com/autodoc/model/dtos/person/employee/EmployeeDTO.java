@@ -1,5 +1,7 @@
-package com.autodoc.model.models;
+package com.autodoc.model.dtos.person.employee;
 
+import com.autodoc.model.dtos.person.PersonDTO;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,31 +10,32 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Employee extends Person {
+@EqualsAndHashCode(callSuper = true)
+public class EmployeeDTO extends PersonDTO {
+
 
     private List<String> roles;
 
+    // @PastOrPresent
     private Date startDate;
 
+    // @NotNull(message = "login cannot be null")
     private String login;
 
+    //  @PastOrPresent
     private Date lastConnection;
 
-
-    public Employee(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {
-        super(id, firstName, lastName, phoneNumber1);
+    public EmployeeDTO(int id, String lastName, String firstName, String phoneNumber1, String phoneNumber2, List<String> roles, Date startDate, String login, Date lastConnection) {
+        super(id, lastName, firstName, phoneNumber1, phoneNumber2);
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;
         this.lastConnection = lastConnection;
     }
 
-    public Employee() {
-    }
-
     @Override
     public String toString() {
-        return "Employee{" +
+        return "EmployeeDTO{" +
                 "roles=" + roles +
                 ", startDate=" + startDate +
                 ", login='" + login + '\'' +

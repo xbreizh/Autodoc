@@ -1,4 +1,4 @@
-package com.autodoc.model.models;
+package com.autodoc.model.models.car;
 
 import lombok.Getter;
 import lombok.Setter;

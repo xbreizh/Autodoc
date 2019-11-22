@@ -1,11 +1,12 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.CarService;
-import com.autodoc.model.dtos.CarDTO;
+import com.autodoc.model.dtos.car.CarDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

@@ -1,8 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.CarService;
-import com.autodoc.model.models.Car;
-import com.autodoc.model.dtos.CarDTO;
+import com.autodoc.model.dtos.car.CarDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +10,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import javax.inject.Named;
 
 @Named
-public class CarServiceImpl extends GlobalServiceImpl<Car> implements CarService {
+public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarService {
     private static Logger LOGGER = Logger.getLogger(CarServiceImpl.class);
 
     Class getObjectClass() {
-        return Car.class;
+        return CarDTO.class;
     }
 
     @Override

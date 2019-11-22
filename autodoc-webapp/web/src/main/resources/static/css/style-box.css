@@ -1,6 +1,7 @@
-body{
+body {
     background-color: #f7cfc1;
 }
+
 .container {
     margin-top: 10vh;
     height: 80vh;
@@ -25,7 +26,7 @@ a {
     border: 2px solid lightslategrey;
 }
 
-.passwordInfo{
+.passwordInfo {
     border-style: dotted;
     box-sizing: border-box;
     background-color: antiquewhite;
@@ -48,6 +49,7 @@ a {
 .toolTipText {
     list-style-type: none;
 }
+
 .tooltip {
     position: relative;
     display: inline-block;

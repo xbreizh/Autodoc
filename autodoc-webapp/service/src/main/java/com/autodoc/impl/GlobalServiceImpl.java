@@ -18,12 +18,13 @@ public class GlobalServiceImpl<T> implements GlobalService {
     HttpEntity<?> request;
 
     public String getClassName() {
-
-        return getObjectClass().getSimpleName().toLowerCase()+"s";
+        String className = getObjectClass().getSimpleName().toLowerCase();
+        String newClassname = className.replaceAll("dto", "s");
+        return newClassname;
     }
 
 
-    Class getObjectClass(){
+    Class getObjectClass() {
         return null;
     }
 
@@ -31,7 +32,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
 
     }
 
-    void setupHeader(String token){
+    void setupHeader(String token) {
         System.out.println("setting up");
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -39,7 +40,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
         headers.setBearerAuth(token);
         this.restTemplate = new RestTemplate();
 
-        this.request = new HttpEntity<>( headers);
+        this.request = new HttpEntity<>(headers);
     }
 
 
@@ -53,12 +54,12 @@ public class GlobalServiceImpl<T> implements GlobalService {
             LOGGER.info("token: " + token);
             LOGGER.info("id: " + id);
             String className = getClassName();
-            String url = BASE_URL+className+"/"+id;
-            LOGGER.info("url: "+url);
+            String url = BASE_URL + className + "/" + id;
+            LOGGER.info("url: " + url);
             ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
             LOGGER.info("stop");
-            System.out.println("req: "+request);
-            return (T)response.getBody();
+            System.out.println("req: " + request);
+            return response.getBody();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new
@@ -75,8 +76,8 @@ public class GlobalServiceImpl<T> implements GlobalService {
             LOGGER.info("token: " + token);
             LOGGER.info("login: " + name);
             String className = getClassName();
-            String url = BASE_URL+className+"/name?name=" + name;
-            System.out.println("url: "+url);
+            String url = BASE_URL + className + "/name?name=" + name;
+            System.out.println("url: " + url);
             ResponseEntity<T> res = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
             System.out.println("deded: " + res.getBody());
             return res.getBody();
