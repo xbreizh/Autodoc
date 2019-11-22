@@ -6,7 +6,9 @@ import com.autodoc.model.models.car.Car;
 import com.autodoc.spring.controller.contract.CarController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -28,7 +30,12 @@ public class CarControllerImpl extends GlobalController implements CarController
         LOGGER.info("retrieving searchCar");
         LOGGER.info("car found: "+registration);
         ModelAndView mv = checkAndAddEmployeeDetails("car");
-        Car car = (Car) carManager.getByRegistration(helper.getConnectedToken(), registration);
+
+        Car car = carManager.getByRegistration(helper.getConnectedToken(), registration);
+        if (car == null) {
+            mv = checkAndAddEmployeeDetails("searchCar");
+            mv.addObject("message", "no car found");
+        }
         System.out.println("car found: "+car);
         System.out.println("owner: "+car.getClient().getLastName());
         mv.addObject("car", car);
