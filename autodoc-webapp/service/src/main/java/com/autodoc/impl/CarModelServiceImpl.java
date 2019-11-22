@@ -1,7 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.CarModelService;
-import com.autodoc.model.CarModel;
+import com.autodoc.model.models.CarModel;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;

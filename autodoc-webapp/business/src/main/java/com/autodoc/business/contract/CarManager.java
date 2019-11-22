@@ -1,10 +1,7 @@
 package com.autodoc.business.contract;
 
 
-import com.autodoc.model.Car;
-import com.autodoc.model.Employee;
-
-import java.util.List;
+import com.autodoc.model.models.Car;
 
 public interface CarManager extends GlobalManager{
 

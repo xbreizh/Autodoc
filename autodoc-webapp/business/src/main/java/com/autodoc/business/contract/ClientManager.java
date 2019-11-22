@@ -1,7 +1,7 @@
 package com.autodoc.business.contract;
 
 
-import com.autodoc.model.Client;
+import com.autodoc.model.models.Client;
 
 public interface ClientManager extends GlobalManager{
 

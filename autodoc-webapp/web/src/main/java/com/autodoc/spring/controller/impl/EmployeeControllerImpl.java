@@ -2,7 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.model.Employee;
+import com.autodoc.model.models.Employee;
 import com.autodoc.spring.controller.contract.EmployeeController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;

@@ -1,42 +1,49 @@
-package com.autodoc.model;
+package com.autodoc.model.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-public class Employee extends Person {
+public class EmployeeDTO {
 
+
+  /*  @NotNull(message = "role should not be null")
+    @Enumerated(EnumType.STRING)*/
     private List<String> roles;
 
+    @PastOrPresent
     private Date startDate;
 
+    @NotNull(message = "login cannot be null")
     private String login;
 
+    @PastOrPresent
     private Date lastConnection;
 
-
-    public Employee(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {
-        super(id, firstName, lastName, phoneNumber1);
+    public EmployeeDTO(List<String> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login, @PastOrPresent Date lastConnection) {
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;
         this.lastConnection = lastConnection;
     }
 
-    public Employee() {
+    public EmployeeDTO() {
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "EmployeeDTO{" +
                 "roles=" + roles +
                 ", startDate=" + startDate +
                 ", login='" + login + '\'' +
                 ", lastConnection=" + lastConnection +
-                "} " + super.toString();
+                '}';
+
     }
 }

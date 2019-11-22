@@ -1,7 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.ClientService;
-import com.autodoc.model.Client;
+import com.autodoc.model.models.Client;
 
 import javax.inject.Named;
 

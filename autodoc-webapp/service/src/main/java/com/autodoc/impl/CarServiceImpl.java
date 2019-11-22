@@ -1,8 +1,8 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.CarService;
-import com.autodoc.model.Car;
-import com.autodoc.model.CarDTO;
+import com.autodoc.model.models.Car;
+import com.autodoc.model.dtos.CarDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

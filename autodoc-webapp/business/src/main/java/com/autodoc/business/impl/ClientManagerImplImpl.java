@@ -3,14 +3,14 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.ClientService;
-import com.autodoc.contract.GlobalService;
-import com.autodoc.model.Client;
+import com.autodoc.model.models.Client;
+import com.autodoc.model.dtos.ClientDTO;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
-public class ClientManagerImplImpl extends GlobalManagerImpl<Client> implements ClientManager {
+public class ClientManagerImplImpl extends GlobalManagerImpl<Client, ClientDTO> implements ClientManager {
 
     private static final String BASE_URL = "http://localhost:8087/autodoc/clients";
     private static final Logger LOGGER = Logger.getLogger(ClientManagerImplImpl.class);

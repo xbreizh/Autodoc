@@ -5,17 +5,16 @@ import com.autodoc.business.contract.CarManager;
 import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.CarService;
-import com.autodoc.model.Car;
-import com.autodoc.model.CarDTO;
-import com.autodoc.model.CarModel;
-import com.autodoc.model.Client;
+import com.autodoc.model.models.Car;
+import com.autodoc.model.dtos.CarDTO;
+import com.autodoc.model.models.Client;
 import org.apache.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-public class CarManagerImpl extends GlobalManagerImpl<Car> implements CarManager {
+public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements CarManager {
 
     private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
 
@@ -46,6 +45,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car> implements CarManager
 
     private Car convertIntoEntity(String token, CarDTO dto) {
         Car car = new Car();
+        car.setId(dto.getId());
         car.setRegistration(dto.getRegistration());
         car.setClient(setClient(token, dto.getClientId()));
         return car;

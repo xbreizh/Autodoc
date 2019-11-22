@@ -2,7 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.CarManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.model.Car;
+import com.autodoc.model.models.Car;
 import com.autodoc.spring.controller.contract.CarController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.EmployeeService;
-import com.autodoc.model.Employee;
+import com.autodoc.model.models.Employee;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;

@@ -1,7 +1,6 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.GlobalService;
-import com.autodoc.model.Car;
 import org.apache.log4j.Logger;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;

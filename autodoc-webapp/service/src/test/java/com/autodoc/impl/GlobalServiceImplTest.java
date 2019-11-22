@@ -1,10 +1,9 @@
 package com.autodoc.impl;
 
-import com.autodoc.contract.ClientService;
 import com.autodoc.contract.GlobalService;
-import com.autodoc.model.Car;
-import com.autodoc.model.Client;
-import com.autodoc.model.Employee;
+import com.autodoc.model.models.Car;
+import com.autodoc.model.models.Client;
+import com.autodoc.model.models.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -5,7 +5,7 @@ import com.autodoc.contract.GlobalService;
 
 import java.util.List;
 
-public abstract class GlobalManagerImpl<T> implements GlobalManager {
+public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     GlobalService service;
 

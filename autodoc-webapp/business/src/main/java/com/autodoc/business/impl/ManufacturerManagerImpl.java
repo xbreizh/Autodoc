@@ -3,13 +3,14 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ManufacturerManager;
 import com.autodoc.contract.ManufacturerService;
-import com.autodoc.model.Manufacturer;
+import com.autodoc.model.models.Manufacturer;
+import com.autodoc.model.dtos.ManufacturerDTO;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
-public class ManufacturerManagerImpl extends GlobalManagerImpl<Manufacturer> implements ManufacturerManager {
+public class ManufacturerManagerImpl extends GlobalManagerImpl<Manufacturer, ManufacturerDTO> implements ManufacturerManager {
 
     private static final Logger LOGGER = Logger.getLogger(ManufacturerManagerImpl.class);
 
