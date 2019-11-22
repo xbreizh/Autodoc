@@ -1,0 +1,38 @@
+
+<div th:fragment="searchCar_result" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+    PAF LE RESULTAT
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="Id">Id</th>
+            <th th:text="Registration">registration</th>
+            <th th:text="carModelId">carModelId</th>
+            <th th:text="clientId">clientId</th>
+        </tr>
+        </thead>
+        <tbody>
+
+      <!--  <th:block data-th-each="employee : ${employees}">-->
+
+            <!-- <tr th:replace="fragments/employeeDetails :: employeeDetails"></tr>-->
+            <tr th:fragment="carDetails" xmlns:th="http://www.w3.org/1999/xhtml">
+                <td th:text="${car.id}">lastName</td>
+                <td th:text="${car.registration}">registration</td>
+                <td th:text="${car.carModelId}">carModelId</td>
+                <td th:text="${car.clientId}">clientId</td>
+            </tr>
+
+
+     <!--   </th:block>-->
+
+        </tbody>
+    </table>
+</div>
+
+
+
+

@@ -1,0 +1,21 @@
+<td th:fragment="reminder" xmlns:th="http://www.w3.org/1999/xhtml">
+    <form id="reminder-form" method="post" th:action="@{/reminder}" th:object="${reserve}">
+
+        <input class="form-control" id="reminder"
+               name="reminder"
+               onClick="this.form.submit();"
+               th:checked="${member.reminder}"
+               th:value="${member.reminder}"
+               type="checkbox">
+        <input class="form-control"
+               id="login"
+               name="login"
+               placeholder="login"
+               th:value="${member.login}"
+               type="hidden">
+
+
+    </form>
+
+</td>
+
