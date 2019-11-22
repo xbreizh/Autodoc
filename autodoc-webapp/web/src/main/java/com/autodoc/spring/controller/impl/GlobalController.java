@@ -44,8 +44,6 @@ public class GlobalController {
     }
 
 
-
-
     private void logError(HttpServletRequest request, Exception e) {
         LOGGER.error("error: " + e + " / request: " + request.getMethod());
     }
@@ -95,7 +93,7 @@ public class GlobalController {
 
     ModelAndView checkAndAddEmployeeDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
-        Employee employee = (Employee) employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
+        Employee employee = employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
         if (employee == null) mv = new ModelAndView(LOGIN);
         mv.addObject("employee", employee);
         return mv;
