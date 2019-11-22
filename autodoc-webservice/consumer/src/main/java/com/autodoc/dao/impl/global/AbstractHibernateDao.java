@@ -39,7 +39,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public T getById(int id) {
-        return (T) getCurrentSession().get(clazz, id);
+        return getCurrentSession().get(clazz, id);
     }
 
 
@@ -66,24 +66,22 @@ public abstract class AbstractHibernateDao<T> {
         }
     }
 
-    public String delete(T entity) {
+    public boolean delete(T entity) {
         getCurrentSession().delete(entity);
-        return "";
+        return true;
 
     }
 
-    public String update(T entity) {
+    public boolean update(T entity) {
         T obj = (T) getCurrentSession().merge(entity);
-        if (obj != null) return "updated";
-        return null;
+        return obj != null;
     }
 
 
-
-    public String deleteById(final int entityId) {
+    public boolean deleteById(final int entityId) {
         T entity = getById(entityId);
         delete(entity);
-        return "";
+        return true;
     }
 
     protected Session getCurrentSession() {

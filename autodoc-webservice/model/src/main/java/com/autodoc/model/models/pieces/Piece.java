@@ -75,7 +75,7 @@ public class Piece {
     @NonNull
     private String brand;
 
-    @NonNull
+
     private long buyingPrice;
 
 

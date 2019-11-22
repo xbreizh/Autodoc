@@ -2,6 +2,7 @@ package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
+import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.models.car.CarModel;
@@ -31,17 +32,21 @@ class CarModelDaoImplTest {
 
     private Manufacturer man;
 
+    @Inject
+    private Filler filler;
+
+
     @BeforeEach
-    void init() {
-        String name = "PLOP";
-        manufacturerDao.create(new Manufacturer(name));
-        man = manufacturerDao.getByName(name);
+    void init() throws Exception {
+        filler.fill();
+        man = (Manufacturer) manufacturerDao.getAll().get(0);
+
     }
 
 
     @Test
     void findAll() {
-        assertNotNull(carModelDao.getAll());
+        assertEquals(3, carModelDao.getAll().size());
 
     }
 

@@ -53,6 +53,7 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
 
     @Override
     public List<Employee> getByRole(List<Role> roles) {
+        System.out.println("roles received: " + roles);
         if (roles==null)return null;
         String init = "select * from employee where  ";
         StringBuilder sb = new StringBuilder(init);

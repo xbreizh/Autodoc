@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Named;
+
+@Named
 @Controller
 @RequestMapping("/cars")
 public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> implements CarController {
@@ -40,8 +43,10 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @GetMapping(value = "/registration",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getCarByRegistration(@RequestParam(value = "registration") String registration) {
+    public ResponseEntity getByRegistration(@RequestParam(value = "registration") String registration) {
         CarDTO car = carManager.getByRegistration(registration);
+        if (car == null) return ResponseEntity
+                .status(HttpStatus.NOT_FOUND).body("no car found");
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);

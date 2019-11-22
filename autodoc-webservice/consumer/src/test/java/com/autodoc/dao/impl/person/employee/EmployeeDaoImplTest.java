@@ -1,7 +1,9 @@
 package com.autodoc.dao.impl.person.employee;
 
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
+import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.Role;
+import com.autodoc.model.models.person.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,18 +27,18 @@ class EmployeeDaoImplTest {
 
     @Inject
     private EmployeeDao employeeDao;
-
+    @Inject
+    private Filler filler;
 
     @BeforeEach
-    void init() {
-
-        String name = "PLOP";
+    void init() throws Exception {
+        filler.fill();
 
     }
 
     @Test
     void getAll() {
-        assertEquals(1, employeeDao.getAll().size());
+        assertEquals(2, employeeDao.getAll().size());
     }
 
 
@@ -58,6 +60,9 @@ class EmployeeDaoImplTest {
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MANAGER);
         roles.add(Role.MECANIC);
+        Employee employee = (Employee) employeeDao.getAll().get(0);
+        System.out.println("roles: " + employee.getRoles());
+        System.out.println("size avl" + employeeDao.getAll().get(0));
         assertEquals(1, employeeDao.getByRole(roles).size());
     }
 

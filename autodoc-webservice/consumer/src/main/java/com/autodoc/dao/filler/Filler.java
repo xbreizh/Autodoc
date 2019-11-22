@@ -1,4 +1,4 @@
-package com.autodoc.business.filler;
+package com.autodoc.dao.filler;
 
 import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
@@ -37,19 +37,19 @@ import com.autodoc.model.models.tasks.SubTask;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.model.models.tasks.TemplateSubTask;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Transactional
-@Component
+@Named
 public class Filler {
 
-    private static final Logger LOGGER = Logger.getLogger(Filler.class);
+    static final Logger LOGGER = Logger.getLogger(Filler.class);
 
     @Inject
     private ManufacturerDao manufacturerDao;
@@ -89,34 +89,35 @@ public class Filler {
     }
 
     public void fill() throws Exception {
-        if(!manufacturerDao.getAll().isEmpty()){
-            throw new Exception("Basic data already filled");
+        if (manufacturerDao.getAll().isEmpty()) {
+            // throw new Exception("Basic data already filled");
+
+            LOGGER.debug("getting here");
+            fillEmployee();
+            fillManufacturer();
+            fillCarModel();
+            fillClient();
+            fillCar();
+            fillCountry();
+            fillSkillCategory();
+            fillSkill();
+            fillProvider();
+            fillPieceTypes();
+            fillPieces();
+            fillTemplateSubTask();
+            fillSubTasks();
+            fillTasks();
+            fillAddresses();
+            fillBills();
         }
-        LOGGER.debug("getting here");
-        fillEmployee();
-        fillManufacturer();
-        fillCarModel();
-        fillClient();
-        fillCar();
-        fillCountry();
-        fillSkillCategory();
-        fillSkill();
-        fillProvider();
-        fillPieceTypes();
-        fillPieces();
-        fillTemplateSubTask();
-        fillSubTasks();
-        fillTasks();
-        fillAddresses();
-        fillBills();
     }
 
-    private void fillBills() {
+    void fillBills() {
         LOGGER.debug("filling bills");
-        Car car = (Car) carDao.getById(1);
-        Car car2 = (Car) carDao.getById(2);
-        Employee employee = (Employee) employeeDao.getById(1);
-        Client client = (Client) clientDao.getById(1);
+        Car car = (Car) carDao.getAll().get(1);
+        Car car2 = (Car) carDao.getAll().get(1);
+        Employee employee = (Employee) employeeDao.getAll().get(0);
+        Client client = (Client) clientDao.getAll().get(0);
         List<Task> tasks = taskDao.getAll();
         Bill bill1 = new Bill(new Date(), Status.PENDING, car,  employee, client, tasks, 125.44, 19, 20);
         Bill bill2 = new Bill(new Date(), Status.PENDING, car2, employee, client, tasks, 84.44, 19, 0);
@@ -128,10 +129,11 @@ public class Filler {
     }
 
 
-    private void fillAddresses() {
+    void fillAddresses() {
         LOGGER.debug("filling addresses");
-        Country country1 = (Country) countryDao.getById(1);
-        Country country2 = (Country) countryDao.getById(3);
+        Country country1 = (Country) countryDao.getAll().get(0);
+        Country country2 = (Country) countryDao.getAll().get(1);
+        System.out.println("country1: " + country1);
         Address address1 = new Address(country1, "21, Corry street", "Biarritz");
         Address address2 = new Address(country2, "23, Madison Boulevard", "Portmarnock");
         addressDao.create(address1);
@@ -139,7 +141,7 @@ public class Filler {
     }
 
 
-    private void fillTasks() {
+    void fillTasks() {
         LOGGER.debug("filling Tasks");
         List<SubTask> subTasks = subTaskDao.getAll();
         System.out.println("sub: " + subTasks.get(0));
@@ -152,7 +154,7 @@ public class Filler {
 
     }
 
-    private void fillSubTasks() {
+    void fillSubTasks() {
         LOGGER.debug("filling subTasks");
         System.out.println("filling subtask");
         List<Employee> employees = employeeDao.getAll();
@@ -169,7 +171,7 @@ public class Filler {
     }
 
 
-    private void fillPieceTypes() {
+    void fillPieceTypes() {
         LOGGER.debug("filling pieceCategories");
         PieceType pieceType1 = new PieceType("BRAKE");
         PieceType pieceType2 = new PieceType("LAMP");
@@ -179,7 +181,7 @@ public class Filler {
         pieceTypeDao.create(pieceType3);
     }
 
-    private void fillPieces() {
+    void fillPieces() {
         LOGGER.debug("filling pieces");
         Provider provider = (Provider) providerDao.getById(1);
         PieceType pieceType1 = (PieceType) pieceTypeDao.getById(1);
@@ -194,14 +196,14 @@ public class Filler {
         pieceDao.create(piece4);
     }
 
-    private void fillTemplateSubTask() {
+    void fillTemplateSubTask() {
         LOGGER.debug("filling templateSubTasks");
         List<Piece> pieces = pieceDao.getAll();
         TemplateSubTask templateSubTask1 = new TemplateSubTask(pieces, "Template", 123);
         templateSubTaskDao.create(templateSubTask1);
     }
 
-    private void fillProvider() {
+    void fillProvider() {
         LOGGER.debug("filling providers");
         Provider provider = new Provider("Paul", "Morigo", "121215", "info@mazda.ie", "MAZDA");
         providerDao.create(provider);
@@ -209,7 +211,7 @@ public class Filler {
         providerDao.create(provider1);
     }
 
-    private void fillSkill() {
+    void fillSkill() {
         LOGGER.debug("filling skills");
         Skill skill = new Skill();
         Skill skill1 = new Skill();
@@ -228,7 +230,7 @@ public class Filler {
     }
 
 
-    private void fillSkillCategory() {
+    void fillSkillCategory() {
         LOGGER.debug("filling skill categories");
         String[] list = {"VIDANGE", "FREIN", "PNEUS", "MAINTENANCE", "CLIMATISATION"};
         for (int i = 0; i < list.length; i++) {
@@ -238,7 +240,7 @@ public class Filler {
     }
 
 
-    private void fillCountry() {
+    void fillCountry() {
         LOGGER.debug("filling countries");
         String[] list = {"SPAIN", "IRELAND", "MEXICO", "JAPAN", "NEW-ZEALAND", "BELGIUM"};
         for (int i = 0; i < list.length; i++) {
@@ -246,7 +248,7 @@ public class Filler {
         }
     }
 
-    private void fillManufacturer() {
+    void fillManufacturer() {
         LOGGER.debug("filling manufacturer");
         String[] list = {"AUDI", "BMW", "RENAULT", "OPEL", "NISSAN", "TOYOTA"};
         for (int i = 0; i < list.length; i++) {
@@ -255,7 +257,7 @@ public class Filler {
     }
 
 
-    private void fillCarModel() {
+    void fillCarModel() {
         LOGGER.debug("filling car model");
         Manufacturer man = manufacturerDao.getByName("NISSAN");
         carModelDao.create(new CarModel(man, "QASHQAI", "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL));
@@ -265,7 +267,7 @@ public class Filler {
         carModelDao.create(new CarModel(man, "AURIS", "T SPIRIT D4D", GearBox.MANUAL, "1998", FuelType.HYBRID));
     }
 
-    private void fillClient() {
+    void fillClient() {
         LOGGER.debug("filling client");
         Client client = new Client("LOKII", "MOLO", "03938937837");
         Client client1 = new Client("ROGER", "MOORE", "0584759852");
@@ -273,7 +275,7 @@ public class Filler {
         clientDao.create(client1);
     }
 
-    private void fillCar() {
+    void fillCar() {
         LOGGER.debug("filling car");
         CarModel carModel = carModelDao.findByName("AURIS");
         CarModel carModel1 = carModelDao.findByName("CLIO");
@@ -284,7 +286,7 @@ public class Filler {
         carDao.create(car1);
     }
 
-    private void fillEmployee() {
+    void fillEmployee() {
         LOGGER.debug("filling employee");
         List<Role> roleList = new ArrayList<>();
         String login = "LMOLO";

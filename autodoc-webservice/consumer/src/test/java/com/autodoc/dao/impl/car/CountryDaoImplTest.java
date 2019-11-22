@@ -1,6 +1,7 @@
 package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.person.provider.CountryDao;
+import com.autodoc.dao.filler.Filler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,11 +24,13 @@ class CountryDaoImplTest {
     @Inject
     private CountryDao dao;
 
+    @Inject
+    private Filler filler;
+
 
     @BeforeEach
-    void init() {
-
-        String name = "PLOP";
+    void init() throws Exception {
+        filler.fill();
 
     }
 
@@ -49,7 +52,7 @@ class CountryDaoImplTest {
     }*/
 
     @Test
-    void getSearchFields()throws Exception{
+    void getSearchFields() throws Exception {
         System.out.println(dao.getSearchField());
         assertNotNull(dao.getSearchField());
     }

@@ -30,7 +30,8 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     @Override
     public ManufacturerDTO entityToDto(Object entity) {
         ManufacturerDTO dto = mapper.map(entity, ManufacturerDTO.class);
-        dto.add(link);
+
+        //.add(link);
         Manufacturer manufacturer = (Manufacturer) entity;
         dto.setIdentifier(manufacturer.getId());
         LOGGER.info("converted into dto");

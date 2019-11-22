@@ -1,8 +1,7 @@
-package com.autodoc.dao.impl.car;
+package com.autodoc.dao.impl.person.provider;
 
-import com.autodoc.dao.contract.car.ManufacturerDao;
-import com.autodoc.dao.filler.Filler;
-import org.junit.jupiter.api.BeforeEach;
+import com.autodoc.dao.contract.person.provider.CountryDao;
+import com.autodoc.model.models.person.provider.Country;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,31 +17,26 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(SpringExtension.class)
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
-class ManufacturerDaoImplTest {
+class CountryDaoImplTest {
+
 
     @Inject
-    ManufacturerDao manufacturerDao;
-
-    @Inject
-    private Filler filler;
+    private CountryDao countryDao;
 
 
-    @BeforeEach
-    void init() throws Exception {
-        filler.fill();
-
+    @Test
+    void save() {
+        Country country = new Country("ALASKA");
+        countryDao.create(country);
+        assertEquals(1, countryDao.getAll().size());
     }
 
 
     @Test
-    void getAll() {
-        assertEquals(6, manufacturerDao.getAll().size());
-    }
-
-
-    @Test
-    void getByName() {
-        String name = "TOYOTA";
-        assertNotNull(manufacturerDao.getByName(name));
+    void getById() {
+        Country country = new Country("ALASKA");
+        countryDao.create(country);
+        System.out.println(countryDao.getAll().get(0));
+        assertNotNull(countryDao.getById(286));
     }
 }

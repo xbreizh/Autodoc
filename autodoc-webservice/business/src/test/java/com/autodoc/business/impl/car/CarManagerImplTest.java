@@ -1,82 +1,135 @@
-/*
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
+import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.business.contract.person.client.ClientManager;
+import com.autodoc.dao.contract.car.CarDao;
+import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.impl.car.CarDaoImpl;
+import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
+@ExtendWith(SpringExtension.class)
+//@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
+@Transactional
 class CarManagerImplTest {
 
+    // @Inject
     private CarManager carManager;
-    private CarDaoImpl carDao;
+    //@Inject
+    private CarDao carDao;
+    private ClientDao clientDao;
+    //@Inject
     private ClientManager clientManager;
+    // @Inject
+    private CarModelManager carModelManager;
     private Car car;
 
 
     @BeforeEach
     void init() {
+        //clientDao= new ClientDaoImpl<>();
         carDao = mock(CarDaoImpl.class);
+        carModelManager = mock(CarModelManager.class);
         clientManager = mock(ClientManager.class);
-        carManager = new CarManagerImpl(carDao, clientManager);
+        clientDao = mock(ClientDao.class);
+        // System.out.println(carDao);
+        //System.out.println(clientDao);
+        //clientManager = new ClientManagerImpl<Client, ClientDTO>(clientDao);
+        carManager = new CarManagerImpl(clientManager, carDao, carModelManager);
+        //System.out.println(clientManager);
+        //System.out.println(carManager);
         car = new Car();
     }
 
     @Test
-    void save() {
-        String registration = "abc123";
-        car.setRegistration(registration);
-        when(carDao.create(car)).thenReturn(car);
-        assertEquals("Car added", carManager.save(car));
-    }
-
-  */
-/*  @Test
-    void getAll() {
-        List<Car> carList = new ArrayList<>();
-        CarModel model= new CarModel(new Manufacturer("AUDI"), )
-        carList.add(car);
-        when(carDao.getAll()).thenReturn(carList);
-        assertNotNull(carManager.getAll()
-        );
-    }*//*
-
-
- */
-/*  @Test
+    @DisplayName("should return null if registration not found")
     void getByRegistration() {
-        String registration = "abc123";
-        car.setRegistration(registration);
-        when(carDao.getCarByRegistration(anyString())).thenReturn(car);
-        assertEquals(car, carManager.getByRegistration(registration));
-    }*//*
+        String reg = "dede";
+        when(carDao.getCarByRegistration(reg)).thenReturn(null);
+        assertNull(carManager.getByRegistration(reg));
+    }
 
 
     @Test
-    void update() {
-        String registration = "abc123";
-        car.setRegistration(registration);
-        when(carDao.update(car)).thenReturn(car);
-        assertEquals("car updated", carManager.update(car));
+    @DisplayName("should return car if registration found")
+    void getByRegistration1() {
+        System.out.println("dao: " + carDao);
+        String reg = "dede";
+        when(carDao.getCarByRegistration(reg)).thenReturn(new Car());
+        assertNotNull(carManager.getByRegistration(reg));
     }
 
+
+    @Test
+    void save() throws Exception {
+        String registration = "abc123";
+        String id = "1111";
+        CarDTO dto = new CarDTO();
+        dto.setRegistration(registration);
+        dto.setClientId(2);
+        dto.setId(3);
+        dto.setCarModelId(3);
+        when(clientManager.getById(anyInt())).thenReturn(new Client());
+        when(carModelManager.getById(anyInt())).thenReturn(new CarModel());
+        when(carDao.create(any(Car.class))).thenReturn(Integer.parseInt(id));
+        assertEquals(id, carManager.save(dto));
+    }
+
+    @Test
+    void getAll() {
+        List<Car> carList = new ArrayList<>();
+        carList.add(new Car());
+        carList.add(new Car());
+        when(carDao.getAll()).thenReturn(carList);
+        assertAll(
+                () -> assertNotNull(carManager.getAll()),
+                () -> assertEquals(2, carManager.getAll().size())
+        );
+    }
+
+
+    @Test
+    void update() throws Exception {
+        String registration = "abc123";
+        CarDTO dto = new CarDTO();
+        dto.setRegistration(registration);
+        dto.setClientId(2);
+        dto.setId(3);
+        dto.setCarModelId(3);
+        when(carDao.update(any(Car.class))).thenReturn(true);
+        when(clientManager.getById(anyInt())).thenReturn(new Client());
+        when(carModelManager.getById(anyInt())).thenReturn(new CarModel());
+        assertTrue(carManager.update(dto));
+    }
+/*
     @Test
     @DisplayName("should return no client found")
     void updateClient() {
         when(clientManager.getById(anyInt())).thenReturn(null);
         assertEquals("no client found", carManager.updateClient(2, 3));
-    }
+    }*/
 
-    @Test
+  /*  @Test
     @DisplayName("should return no car found")
     void updateClient1() {
         Client client = new Client();
@@ -93,5 +146,5 @@ class CarManagerImplTest {
         when(clientManager.getById(anyInt())).thenReturn(client);
         when(carDao.getById(anyInt())).thenReturn(car);
         assertEquals("car updated", carManager.updateClient(2, 3));
-    }
-}*/
+    }*/
+}

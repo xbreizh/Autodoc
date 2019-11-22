@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.CountryManager;
@@ -138,4 +139,4 @@ class CountryManagerImplTest {
     @Test
     void dtoToEntity() {
     }
-}
+}*/

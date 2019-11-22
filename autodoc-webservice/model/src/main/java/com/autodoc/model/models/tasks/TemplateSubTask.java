@@ -37,7 +37,7 @@ public class TemplateSubTask {
 
     }
 
-    public TemplateSubTask(@NonNull List<Piece> pieces, @NonNull String name, @NonNull double estimatedTime) {
+    public TemplateSubTask(@NonNull List<Piece> pieces, @NonNull String name, double estimatedTime) {
         this.pieces = pieces;
         this.name = name;
         this.estimatedTime = estimatedTime;
@@ -60,7 +60,6 @@ public class TemplateSubTask {
     @NonNull
     private String name;
 
-    @NonNull
     private double estimatedTime;
 
 }

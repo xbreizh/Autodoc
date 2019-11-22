@@ -13,11 +13,11 @@ public interface IGenericManager<T, D> {
 
     String save(final D entity) throws Exception;
 
-    D update(final D entity) throws Exception;
+    boolean update(final D entity) throws Exception;
 
-    String delete(final D entity);
+    boolean delete(final D entity) throws Exception;
 
-    String deleteById(final int entityId);
+    boolean deleteById(final int entityId);
 
     D entityToDto(final T entity);
 

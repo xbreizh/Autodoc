@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 public interface CarController extends GlobalController {
 
 
-    ResponseEntity getCarByRegistration(String registration);
+    ResponseEntity getByRegistration(String registration);
 
 
     ResponseEntity getByClient(String clientLastName, String clientFirstName);

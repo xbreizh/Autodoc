@@ -16,11 +16,11 @@ public interface IGenericDao<T> {
 
     int create(final T entity);
 
-    String update(final T entity);
+    boolean update(final T entity);
 
-    String delete(final T entity);
+    boolean delete(final T entity);
 
-    String deleteById(final int entityId);
+    boolean deleteById(final int entityId);
 
 
     T getByName(String name);

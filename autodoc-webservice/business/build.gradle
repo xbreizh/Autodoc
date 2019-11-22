@@ -14,7 +14,7 @@ dependencies {
             'org.springframework.security:spring-security-config:5.1.6.RELEASE',
             'org.springframework.security:spring-security-core:5.1.6.RELEASE',
             'io.jsonwebtoken:jjwt:0.9.1'
-
+    testCompile group: 'org.springframework', name: 'spring-test', version: '5.1.9.RELEASE'
 
     /* // to recognize webapp folder
      compile 'org.springframework:spring-core:4.1.2.RELEASE',

@@ -1,3 +1,4 @@
+/*
 package com.autodoc;
 
 import java.awt.*;
@@ -30,11 +31,13 @@ public class OAuth2Client {
 
     }
 
-    /**
+    */
+/**
      *
      * get all Customers
      *
-     */
+     *//*
+
     private void getCars() {
         Car[] cars = oauth2RestTemplate.getForObject(CRM_OAUTH2_URI, Car[].class);
         for (Car car : cars) {
@@ -42,11 +45,13 @@ public class OAuth2Client {
         }
     }
 
-    /**
+    */
+/**
      *
      * OAuth2 Rest template
      * @return
-     */
+     *//*
+
     private OAuth2RestTemplate restTemplate() {
         System.out.println("getting OAuth2RestTemplate ...");
 
@@ -73,3 +78,4 @@ public class OAuth2Client {
     }
 
 }
+*/

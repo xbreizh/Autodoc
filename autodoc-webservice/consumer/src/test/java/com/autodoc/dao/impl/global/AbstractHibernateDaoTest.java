@@ -1,7 +1,9 @@
 package com.autodoc.dao.impl.global;
 
+import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.car.Car;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,6 +22,16 @@ class AbstractHibernateDaoTest {
 
     @Inject
     GenericHibernateDao genericHibernateDao;
+
+    @Inject
+    private Filler filler;
+
+
+    @BeforeEach
+    void init() throws Exception {
+        filler.fill();
+
+    }
 
     @Test
     void setClazz() {

@@ -30,6 +30,9 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     }
 
+    public AbstractGenericManager() {
+    }
+
     protected void resetException() {
         exception = "";
     }
@@ -38,12 +41,11 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public String save(D object) {
         LOGGER.info("trying to save a " + object.getClass());
         try {
-            T objectToSave = dtoToEntity((D) object);
+            T objectToSave = dtoToEntity(object);
             if (!exception.isEmpty()) return exception;
-            String feedback = "";
-            feedback = Integer.toString(dao.create(objectToSave));
+            String feedback = Integer.toString(dao.create(objectToSave));
             if (!feedback.equals("0")) {
-                return object.getClass().getSimpleName() + " added " + feedback;
+                return feedback;
             }
             return "issue while saving";
         } catch (Exception e) {
@@ -96,7 +98,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         List<D> newList = new ArrayList<>();
         for (T obj : list) {
             System.out.println("here");
-            Object newObj = (T)entityToDto(obj);
+            Object newObj = entityToDto(obj);
             newList.add((D) newObj);
         }
         return newList;
@@ -104,41 +106,47 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     @Override
-    public D update(Object entity) throws Exception {
-
+    public boolean update(Object entity) throws Exception {
+        System.out.println("entity: " + entity.getClass());
         T obj = dtoToEntity((D) entity);
-        if (!exception.isEmpty()) {
+        System.out.println("obj: " + obj.getClass());
+       /* if (!exception.isEmpty()) {
             throw new Exception(exception);
 
         }
 
         D dto = entityToDto((T) dao.update(obj));
         if (!exception.isEmpty()) return null;
-        return dto;
+        return dto;*/
+
+        return dao.update(obj);
 
     }
 
     @Override
-    public String delete(Object entity) {
-        try {
+    public boolean delete(Object entity) throws Exception {
+        LOGGER.info("trying to delete " + entity.toString());
+        T obj = dtoToEntity((D) entity);
+        return dao.delete((T) entity);
+       /* try {
             dao.delete((T) entity);
 
             return "car deleted";
         } catch (Exception e) {
             return e.getMessage();
-        }
+        }*/
 
     }
 
     @Override
-    public String deleteById(int entityId) {
+    public boolean deleteById(int entityId) {
 
         LOGGER.info("trying to delete " + entityId);
-        if (dao.getById(entityId) == null) {
+      /*  if (dao.getById(entityId) == null) {
             return "not Found";
-        }
-        dao.deleteById(entityId);
-        return "";
+        }*/
+        return dao.deleteById(entityId);
+        //return "";
     }
 
     public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {

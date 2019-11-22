@@ -9,7 +9,7 @@ import java.util.List;
 
 class GsonConverterTest {
     GsonConverter converter;
-    private static final Logger LOGGER = Logger.getLogger(GsonConverterTest.class);
+    // private static final Logger LOGGER = Logger.getLogger(GsonConverterTest.class);
 
     @BeforeEach
     void init() {
@@ -22,10 +22,10 @@ class GsonConverterTest {
         manufacturers.add(new Manufacturer("AUDI"));
         manufacturers.add(new Manufacturer("BMW"));
         manufacturers.add(new Manufacturer("RENAULT"));
-        LOGGER.debug("list: " + manufacturers);
+        //      LOGGER.debug("list: " + manufacturers);
 
         String converted = converter.convertObjectIntoGsonObject(manufacturers);
-        LOGGER.debug("converted: " + converted);
+        //    LOGGER.debug("converted: " + converted);
 
 
     }

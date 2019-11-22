@@ -87,9 +87,9 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity update(@RequestBody D obj) throws Exception {
         getClassName(obj);
         LOGGER.debug("trying to update a " + obj);
-        D response = manager.update(obj);
-        if (response.equals(obj + " updated")) {
-            return ResponseEntity.ok(response);
+        boolean response = manager.update(obj);
+        if (response) {
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -125,11 +125,11 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteById(@PathVariable Integer id) {
         LOGGER.info("trying to delete: " + id);
-        String response = manager.deleteById(id);
-        if (response.equals("notFound")) return ResponseEntity
+        boolean response = manager.deleteById(id);
+        if (!response) return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("invalid id: " + id);
-        if (response.equals(response)) {
+        if (response) {
             return ResponseEntity.status(204).body(response);
         }
         return ResponseEntity

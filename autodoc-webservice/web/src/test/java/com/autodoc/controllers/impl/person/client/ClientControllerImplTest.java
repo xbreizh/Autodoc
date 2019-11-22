@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Sql(scripts = "classpath:resetDb.sql")
 @Transactional
 class ClientControllerImplTest {
-    private static final Logger LOGGER = Logger.getLogger(ClientControllerImplTest.class);
+    //private static final Logger LOGGER = Logger.getLogger(ClientControllerImplTest.class);
     private ClientControllerImpl clientController;
     private ClientManager clientManager;
     private MockMvc mockMvc;
@@ -74,7 +74,7 @@ class ClientControllerImplTest {
         converter = new GsonConverter();
         // using standalone
         this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
-        LOGGER.debug("context: " + webApplicationContext);
+        // LOGGER.debug("context: " + webApplicationContext);
     }
 
 
@@ -175,7 +175,7 @@ class ClientControllerImplTest {
     @Test
     void update() throws Exception {
         ClientDTO client = new ClientDTO("Doe", "John", "12121212");
-        when(clientManager.update(any(Client.class))).thenReturn("client updated");
+        when(clientManager.update(any(Client.class))).thenReturn(true);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .put("/client/update")

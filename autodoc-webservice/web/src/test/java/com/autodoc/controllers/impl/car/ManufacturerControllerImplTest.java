@@ -4,6 +4,7 @@ import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.controllers.contract.car.ManufacturerController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,8 +50,9 @@ class ManufacturerControllerImplTest {
             fieldWithPath("name").description("Name of the manufacturer")
     };
     private List<ManufacturerDTO> manufacturers = new ArrayList<>();
-    private ManufacturerDTO m1 = new ManufacturerDTO("BMW", "Paul", "Marchand", "091918918181");
-    private ManufacturerDTO m2 = new ManufacturerDTO("AUDI", "Guiorghe", "Baloti", "123434344");
+    private ManufacturerDTO m1 = new ManufacturerDTO();
+   /* m1.
+    private ManufacturerDTO m2 = new ManufacturerDTO("AUDI", "Guiorghe", "Baloti", "123434344");*/
 
 
     @BeforeEach
@@ -71,7 +73,7 @@ class ManufacturerControllerImplTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(manufacturerController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
         LOGGER.debug("context: " + webApplicationContext);
         manufacturers.add(m1);
-        manufacturers.add(m2);
+        //  manufacturers.add(m2);
 
     }
 
@@ -115,6 +117,6 @@ class ManufacturerControllerImplTest {
                         responseFields(descriptor)
                 ));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(m1));
-        assertEquals(response, manufacturerController.getByName("ww"));
+        //   assertEquals(response, manufacturerController.getByName("ww"));
     }
 }
