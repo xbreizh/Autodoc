@@ -33,7 +33,7 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
 
         //.add(link);
         Manufacturer manufacturer = (Manufacturer) entity;
-        dto.setIdentifier(manufacturer.getId());
+        dto.setId(manufacturer.getId());
         LOGGER.info("converted into dto");
         return dto;
     }

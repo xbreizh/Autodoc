@@ -1,11 +1,11 @@
 package com.autodoc.controllers.contract.person.client;
 
-import org.springframework.http.ResponseEntity;
+import com.autodoc.controllers.contract.GlobalController;
 
-public interface ClientController {
+public interface ClientController extends GlobalController {
 
 
-    ResponseEntity getByName(String name);
+    // ResponseEntity getByName(String name);
 
 
 }

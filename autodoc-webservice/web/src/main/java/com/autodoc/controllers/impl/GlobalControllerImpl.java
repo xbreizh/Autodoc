@@ -38,10 +38,11 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity getAll() {
         LOGGER.info("trying to get list of ");
         String response = converter.convertObjectIntoGsonObject(manager.getAll());
-
-        return ResponseEntity.ok()
-                //.headers(responseHeaders)
+        System.out.println("response " + response);
+        ResponseEntity entity = ResponseEntity.ok()
+                .headers(responseHeaders)
                 .body(response);
+        return entity;
         // return ResponseEntity.ok(response);
     }
 

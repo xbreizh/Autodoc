@@ -69,7 +69,7 @@ class FillerTest {
     private BillDao billDao;
 
     @BeforeEach()
-    void init() {
+    void init() throws InterruptedException {
         filler.fillEmployee();
         filler.fillManufacturer();
         filler.fillCarModel();
@@ -86,6 +86,7 @@ class FillerTest {
         filler.fillTasks();
         filler.fillAddresses();
         filler.fillBills();
+        // Thread.sleep(2); // quick pause between fill up if required
     }
 
     @Test

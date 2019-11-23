@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
@@ -20,8 +21,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@ContextConfiguration(locations = "classpath:mvc-dispatcher-servlet.xml")
 @WebAppConfiguration
+@ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
+@Transactional
 class HomeControllerTest {
 
     @Inject

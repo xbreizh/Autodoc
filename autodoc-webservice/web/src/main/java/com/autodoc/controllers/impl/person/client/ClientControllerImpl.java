@@ -8,13 +8,8 @@ import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/clients")
@@ -28,18 +23,5 @@ public class ClientControllerImpl extends GlobalControllerImpl<Client, ClientDTO
         converter = new GsonConverter();
         this.clientManager = clientManager;
     }
-
-
-    @Override
-    @GetMapping(value = "/getByName",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getByName(@RequestBody String name) {
-        ClientDTO client = clientManager.getByName(name);
-        String response = converter.convertObjectIntoGsonObject(client);
-
-        return ResponseEntity.ok(response);
-    }
-
 
 }

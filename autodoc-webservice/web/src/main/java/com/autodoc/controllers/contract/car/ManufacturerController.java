@@ -1,6 +1,8 @@
 package com.autodoc.controllers.contract.car;
 
-public interface ManufacturerController {
+import com.autodoc.controllers.contract.GlobalController;
+
+public interface ManufacturerController extends GlobalController {
 
 
     // ResponseEntity getByName(String name);
