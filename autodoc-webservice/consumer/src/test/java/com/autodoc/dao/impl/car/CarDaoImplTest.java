@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
@@ -29,11 +30,19 @@ class CarDaoImplTest {
 
     @Inject
     private Filler filler;
+    String clientName;
+    String registration;
+    int id;
+    Car car;
 
 
     @BeforeEach
     void init() throws Exception {
         filler.fill();
+        car = (Car) carDao.getAll().get(0);
+        id = car.getId();
+        registration = car.getRegistration();
+        clientName = car.getClient().getLastName();
 
     }
 
@@ -46,11 +55,10 @@ class CarDaoImplTest {
     @DisplayName("should return a car")
     void getByRegistration() {
         assertAll(
-                () -> assertNotNull(carDao.getCarByRegistration("D12447F")),
-                () -> assertThat((carDao.getCarByRegistration("D12447F")), instanceOf(Car.class))
+                () -> assertNotNull(carDao.getCarByRegistration(registration)),
+                () -> assertThat((carDao.getCarByRegistration(registration)), instanceOf(Car.class))
         );
 
-        assertNotNull(carDao.getCarByRegistration("D12447F"));
     }
 
     @Test
@@ -58,5 +66,22 @@ class CarDaoImplTest {
     void getByRegistration1() {
 
         assertNull(carDao.getCarByRegistration("dede"));
+    }
+
+    @Test
+    @DisplayName("should return null")
+    void getByClient() {
+
+        assertTrue(carDao.getCarByClient("toto").isEmpty());
+    }
+
+    @Test
+    @DisplayName("should return list of car for a client")
+    void getByClient1() {
+        assertAll(
+                () -> assertFalse(carDao.getCarByClient(clientName).isEmpty()),
+                () -> assertThat(carDao.getCarByClient(clientName), instanceOf(ArrayList.class))
+        );
+
     }
 }

@@ -33,7 +33,6 @@ class EmployeeDaoImplTest {
 
     @BeforeEach
     void init() throws Exception {
-        // filler = Filler.getFiller();
         filler.fill();
         System.out.println("here");
     }

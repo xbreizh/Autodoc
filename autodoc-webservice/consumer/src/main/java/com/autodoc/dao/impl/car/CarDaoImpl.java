@@ -10,6 +10,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +41,11 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
 
     @Override
     public List<Car> getCarByClient(String lastName) {
-        Query query = getCurrentSession().createQuery("From Car where Client.lastName= :lastName");
+        lastName = lastName.toUpperCase();
+        System.out.println("Last:" + lastName);
+        Query query = getCurrentSession().createQuery("From Car where client.lastName= :lastName");
         query.setParameter("lastName", lastName);
+        if (query.getResultList() == null) return new ArrayList<>();
         return query.getResultList();
 
     }
