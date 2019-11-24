@@ -32,11 +32,11 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     }
 
 
-    @GetMapping("/{id}")
-    public CarDTO findUserById(@PathVariable("id") CarDTO user) {
+ /*   @GetMapping("/{id}")
+    public CarDTO getById(@PathVariable("id") CarDTO carDTO) {
         System.out.println("trying to find by id: ");
-        return user;
-    }
+        return carDTO;
+    }*/
 
 
     @Override
@@ -45,8 +45,7 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @ResponseBody
     public ResponseEntity getByRegistration(@RequestParam(value = "registration") String registration) {
         CarDTO car = carManager.getByRegistration(registration);
-        if (car == null) return ResponseEntity
-                .status(HttpStatus.NOT_FOUND).body("no car found");
+        if (car == null) return notFoundResponse;
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);

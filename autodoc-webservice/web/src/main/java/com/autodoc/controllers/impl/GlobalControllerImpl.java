@@ -23,6 +23,9 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     private IGenericManager<T, D> manager;
     private GsonConverter converter;
 
+    protected ResponseEntity notFoundResponse = ResponseEntity
+            .status(HttpStatus.NOT_FOUND).body("");
+
     public GlobalControllerImpl(IGenericManager manager) {
        /* responseHeaders=new HttpHeaders();
         responseHeaders.set("Autodoc-Header",
@@ -39,6 +42,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         LOGGER.info("trying to get list of ");
         String response = converter.convertObjectIntoGsonObject(manager.getAll());
         System.out.println("response " + response);
+
         ResponseEntity entity = ResponseEntity.ok()
                 .headers(responseHeaders)
                 .body(response);
@@ -83,11 +87,12 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
     //@Override
     // @Override
-    @PutMapping(value = "/update",
+    @PutMapping(
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity update(@RequestBody D obj) throws Exception {
         getClassName(obj);
         LOGGER.debug("trying to update a " + obj);
+        System.out.println("trying to update: " + obj);
         boolean response = manager.update(obj);
         if (response) {
             return ResponseEntity.ok().build();
@@ -104,6 +109,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @ResponseBody
     public ResponseEntity getById(@PathVariable Integer id) throws Exception {
         String response = converter.convertObjectIntoGsonObject(manager.getById(id));
+        if (response == null) return notFoundResponse;
 
         return ResponseEntity.ok(response);
     }
@@ -116,7 +122,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         LOGGER.debug("trying to get: " + name);
         System.out.println("trying to get by name: "+name);
         String response = converter.convertObjectIntoGsonObject(manager.getByName(name));
-
+        if (response == null) return notFoundResponse;
         return ResponseEntity.ok(response);
     }
 
