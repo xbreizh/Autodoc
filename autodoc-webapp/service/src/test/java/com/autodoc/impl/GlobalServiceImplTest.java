@@ -4,19 +4,18 @@ import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GlobalServiceImplTest {
 
 
     private  GlobalService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDM2MDgxNywiaWF0IjoxNTc0MzQyODE3fQ.GbMKAFeTXG3ThuZGE0W5hQqYB3x5rB9jTrFwfU9D62oZoE_jPaKiR7p3CF2KSBpJFUrtxORV8XKHUMPCktAWXw";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDcxMjY5MCwiaWF0IjoxNTc0Njk0NjkwfQ.6fFaipPO2S46l0vORn-eo2uJQKLNLghgtNIJ6KE_cBWm8CloPbGrOUv7-DWrnsb5-gqpOOamugNBe7CJ12-e1w";
 
     @BeforeEach
     void init(){

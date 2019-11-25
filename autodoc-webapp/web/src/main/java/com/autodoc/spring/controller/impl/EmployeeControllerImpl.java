@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Controller
@@ -19,13 +18,14 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeControllerImpl extends GlobalController implements EmployeeController {
 
-    @Inject
+    // @Inject
     EmployeeManager employeeManager;
 
     private static Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
 
-    public EmployeeControllerImpl(LibraryHelper helper) {
+    public EmployeeControllerImpl(LibraryHelper helper, EmployeeManager employeeManager) {
         super(helper);
+        this.employeeManager = employeeManager;
     }
 
     @GetMapping("/myProfile")
@@ -37,11 +37,16 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     }
 
 
-    @GetMapping("/employees")
+    @GetMapping("")
     public ModelAndView employees() {
         LOGGER.info("retrieving employees");
         ModelAndView mv = checkAndAddEmployeeDetails("employees");
+        System.out.println("helper: " + helper.getConnectedToken());
+        System.out.println(employeeManager);
+//        employeeManager.getAll("gettall: "+helper.getConnectedToken());
         List<Employee> employees = employeeManager.getAll(helper.getConnectedToken());
+        System.out.println("employees: " + employees.size());
+        System.out.println("emp: " + employees.get(0));
         mv.addObject("employees", employees);
         return mv;
     }

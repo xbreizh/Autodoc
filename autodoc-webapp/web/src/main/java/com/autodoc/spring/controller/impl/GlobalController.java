@@ -28,14 +28,25 @@ public class GlobalController {
     private static final String RESET_KO = "passwordReset/passwordResetLinkKo";
     private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
     private static Logger LOGGER = Logger.getLogger(GlobalController.class);
-    LibraryHelper helper;
-    @Inject
-    private EmployeeManager employeeManager;
-    private PasswordCheckerImpl passwordChecker;
 
     public GlobalController(LibraryHelper helper, PasswordCheckerImpl passwordChecker) {
         this.helper = helper;
         this.passwordChecker = passwordChecker;
+        // this.employeeManager = employeeManager;
+    }
+
+    LibraryHelper helper;
+
+    public void setHelper(LibraryHelper helper) {
+        this.helper = helper;
+    }
+
+    @Inject
+    private EmployeeManager employeeManager;
+    private PasswordCheckerImpl passwordChecker;
+
+    public void setEmployeeManager(EmployeeManager employeeManager) {
+        this.employeeManager = employeeManager;
     }
 
     @Inject
@@ -90,10 +101,14 @@ public class GlobalController {
         return mv;
     }
 
-
     ModelAndView checkAndAddEmployeeDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
+        System.out.println("view: " + mv);
+        System.out.println(helper.getConnectedToken());
+        System.out.println(helper.getConnectedLogin());
+        System.out.println("em: " + employeeManager);
         Employee employee = employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
+        System.out.println("employee found: " + employee);
         if (employee == null) mv = new ModelAndView(LOGIN);
         mv.addObject("employee", employee);
         return mv;

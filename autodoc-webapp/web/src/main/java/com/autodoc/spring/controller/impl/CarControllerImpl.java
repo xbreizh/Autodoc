@@ -15,7 +15,7 @@ import javax.inject.Inject;
 
 @Controller
 @ControllerAdvice
-@RequestMapping("/car")
+@RequestMapping("/cars")
 public class CarControllerImpl extends GlobalController implements CarController {
     private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
     @Inject

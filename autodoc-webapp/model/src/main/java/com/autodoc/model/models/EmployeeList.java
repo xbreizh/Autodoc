@@ -1,6 +1,6 @@
 package com.autodoc.model.models;
 
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 
 public class EmployeeList {
-    private List<Employee> employees;
+    private List<EmployeeDTO> employees;
 
     public EmployeeList() {
         employees = new ArrayList<>();
