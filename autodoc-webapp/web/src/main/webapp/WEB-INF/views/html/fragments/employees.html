@@ -1,29 +1,12 @@
 <tr th:fragment="employeeDetails" xmlns:th="http://www.w3.org/1999/xhtml">
     <td th:text="${employee.login}">login</td>
-    w
     <td th:text="${employee.firstName}">firstName</td>
-    w
     <td th:text="${employee.lastName}">lastName</td>
-    w
-    <!-- <td th:text="${employee.PhoneNumber1}">PhoneNumber1</td>w
-     <td th:text="${employee.lastConnection} ? ${#dates.format(employee.lastConnection, 'dd-MM-yyyy')}">lastConnection</td>
+    <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
+    <!-- <td th:text="${employee.lastConnection} ? ${#dates.format(employee.lastConnection, 'dd-MM-yyyy')}">lastConnection</td>
      <td th:each="role : ${employee.roles}"
          th:text="${role}">role</td>
      <td th:replace="fragments/employees :: edit_form"></td>
      <td th:replace="fragments/employees :: edit_pwd"></td>
      <td th:replace="fragments/employees :: disable"></td>-->
 </tr>
-
-
-<!--
-<tr th:fragment="edit_form" xmlns:th="http://www.w3.org/1999/xhtml">
-    edit form
-</tr>
-
-<tr th:fragment="edit_pwd" xmlns:th="http://www.w3.org/1999/xhtml">
-    edit_pwd
-</tr>
-
-<tr th:fragment="disable" xmlns:th="http://www.w3.org/1999/xhtml">
-    disable
-</tr>-->

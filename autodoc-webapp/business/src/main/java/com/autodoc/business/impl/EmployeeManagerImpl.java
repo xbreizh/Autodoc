@@ -32,6 +32,9 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
         employee.setRoles(dto.getRoles());
+        employee.setPhoneNumber1(dto.getPhoneNumber1());
+        // if(!dto.getPhoneNumber2().isEmpty())employee.setPhoneNumber2(dto.getPhoneNumber2());
+        // employee.setStartDate(dto.getStartDate());
         //TODO
         // finish listing
 

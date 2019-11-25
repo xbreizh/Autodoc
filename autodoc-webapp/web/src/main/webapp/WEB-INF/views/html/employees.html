@@ -23,8 +23,8 @@
                 <th th:text="Login">Login</th>
                 <th th:text="FirstName">FirstName</th>
                 <th th:text="LastName">LastName</th>
-                <!-- <th th:text="PhoneNumber1">PhoneNumber1</th>
-                 <th th:text="LastConnection">Last Connection</th>
+                <th th:text="PhoneNumber1">PhoneNumber1</th>
+                <!-- <th th:text="LastConnection">Last Connection</th>
                  <th th:text="Roles">Role(s)</th>
                  <th th:text="Edit">Edit</th>
                  <th th:text="ResetPwd">Reset Pwd</th>
@@ -35,22 +35,7 @@
 
         <th:block data-th-each="employee : ${employees}">
 
-            <tr th:fragment="employeeDetails" xmlns:th="http://www.w3.org/1999/xhtml">
-                <td th:text="${employee.login}">login</td>
-                w
-                <td th:text="${employee.firstName}">firstName</td>
-                w
-                <td th:text="${employee.lastName}">lastName</td>
-                w
-                <!--  <td th:text="${employee.PhoneNumber1}">PhoneNumber1</td>w
-                  <td th:text="${employee.lastConnection} ? ${#dates.format(employee.lastConnection, 'dd-MM-yyyy')}">lastConnection</td>
-                  <td th:each="role : ${employee.roles}"
-                      th:text="${role}">role</td>
-                  <td th:replace="fragments/employees :: edit_form"></td>
-                  <td th:replace="fragments/employees :: edit_pwd"></td>
-                  <td th:replace="fragments/employees :: disable"></td>-->
-            </tr>
-
+            <tr th:replace="fragments/employees :: employeeDetails"></tr>
 
         </th:block>
 
