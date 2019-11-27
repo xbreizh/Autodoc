@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +34,12 @@ import static org.mockito.Mockito.when;
 @Transactional
 class CarManagerImplTest {
 
-    // @Inject
+    @Inject
+    private CarManager carManager1;
     private CarManager carManager;
     //@Inject
     private CarDao carDao;
+    private CarDao carDao1;
     private ClientDao clientDao;
     //@Inject
     private ClientManager clientManager;
@@ -51,6 +54,7 @@ class CarManagerImplTest {
         carDao = mock(CarDaoImpl.class);
         carModelManager = mock(CarModelManager.class);
         clientManager = mock(ClientManager.class);
+        //clientManager1 = mock(carDao1);
         clientDao = mock(ClientDao.class);
         // System.out.println(carDao);
         //System.out.println(clientDao);
@@ -105,6 +109,13 @@ class CarManagerImplTest {
                 () -> assertNotNull(carManager.getAll()),
                 () -> assertEquals(2, carManager.getAll().size())
         );
+    }
+
+    @Test
+    void getAllInte() {
+        System.out.println(carManager1);
+        System.out.println(carManager1.getAll());
+        // assertNotNull(carManager1.getAll());
     }
 
 

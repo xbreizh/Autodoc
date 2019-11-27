@@ -2,9 +2,8 @@ package com.autodoc.business.contract.car;
 
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.dtos.car.CarDTO;
-import org.springframework.stereotype.Service;
 
-@Service
+/*@Service*/
 public interface CarManager extends IGenericManager {
 
 

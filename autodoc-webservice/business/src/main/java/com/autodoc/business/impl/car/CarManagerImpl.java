@@ -38,10 +38,10 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         LOGGER.info("creating manager");
     }
 
-    public CarManagerImpl() {
-        this.mapper = new ModelMapper();
-    }
-
+    /*   public CarManagerImpl() {
+           this.mapper = new ModelMapper();
+       }
+   */
     @Override
     public CarDTO getByRegistration(String registration) {
         LOGGER.info("reg: " + registration);

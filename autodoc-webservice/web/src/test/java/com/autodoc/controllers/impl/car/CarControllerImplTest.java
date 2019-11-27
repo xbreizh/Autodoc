@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -146,6 +147,31 @@ class CarControllerImplTest {
         carController = new CarControllerImpl(carManager);
         when(carManager.getByRegistration(anyString())).thenReturn(new CarDTO());
         assertNotNull(carController.getByRegistration("dede"));
+        /*this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get("/car/getByRegistration")
+                        .header("Authorization", "Bearer test")
+                        .content(converter.convertObjectIntoGsonObject(registration))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(encoding))
+                .andDo(document("{ClassName}/{methodName}"));
+        ResponseEntity response = ResponseEntity.notFound().build();*/
+        // ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
+        // assertEquals(response, carControllerImpl.getCarByRegistration(registration));
+
+    }
+
+
+    @Test
+    @DisplayName("should return 404 if registration is invalid")
+    void getById() throws Exception {
+        //when(carManager.getByRegistration(anyString())).thenReturn(null);
+        carManager = mock(CarManager.class);
+        carController = new CarControllerImpl(carManager);
+        when(carManager.getById(anyInt())).thenReturn(new CarDTO());
+        assertNotNull(carController.getById(3));
         /*this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get("/car/getByRegistration")

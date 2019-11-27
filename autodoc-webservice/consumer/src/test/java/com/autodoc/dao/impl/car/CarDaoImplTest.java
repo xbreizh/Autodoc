@@ -68,6 +68,14 @@ class CarDaoImplTest {
         assertNull(carDao.getCarByRegistration("dede"));
     }
 
+
+    @Test
+    @DisplayName("should return null")
+    void getById() {
+
+        assertNotNull(carDao.getById(1));
+    }
+
     @Test
     @DisplayName("should return null")
     void getByClient() {
