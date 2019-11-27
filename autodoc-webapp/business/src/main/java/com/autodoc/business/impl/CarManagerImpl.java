@@ -36,13 +36,16 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     public Car getByRegistration(String token, String registration) {
         LOGGER.info("trying to get car by registration");
         System.out.println(service);
-        Car car = dtoToEntity(token, service.getByRegistration(token, registration));
+        CarDTO dto = service.getByRegistration(token, registration);
+        if (dto == null) return null;
+        Car car = dtoToEntity(token, dto);
+        System.out.println("yoyho");
         if (car == null) {
             LOGGER.info("car is null");
             return null;
         }
         // CarModel carModel = carModelManager.getById(token, car.)
-        System.out.println(car.getClient().getLastName());
+        // System.out.println(car.getClient().getLastName());
         return car;
     }
 

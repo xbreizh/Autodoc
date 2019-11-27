@@ -1,7 +1,6 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.CarService;
-import com.autodoc.model.models.car.Car;
 import com.autodoc.model.dtos.car.CarDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpMethod;
@@ -28,12 +27,15 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
             LOGGER.info("registration: " + registration);
             String url = BASE_URL + getClassName() + "/registration?registration=" + registration;
             LOGGER.info("url: " + url);
+            //System.out.println("retour: "+restTemplate.exchange(url, HttpMethod.GET, request, CarDTO.class));
             ResponseEntity<CarDTO> response = restTemplate.exchange(url, HttpMethod.GET, request, CarDTO.class);
-            LOGGER.info("object found: " + response.getBody());
+            LOGGER.info("object found: " + response);
             //checkObjectFields()
             return response.getBody();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("before");
+            if (e.getMessage().equals("404 null")) return null;
+            System.out.println("after");
             throw new
                     BadCredentialsException("External system authentication failed");
         }
