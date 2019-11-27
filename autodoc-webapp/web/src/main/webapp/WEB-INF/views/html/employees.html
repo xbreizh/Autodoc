@@ -9,29 +9,21 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div th:replace="fragments/menu :: menu"></div>
+    <td th:text="${#lists.size(employee.roles)}">role list size</td>
 
 
- <!--   <div th:fragment="employees" xmlns:th="http://www.w3.org/1999/xhtml">-->
-
-
-
-  <!--  <div th:text="${#lists.size(employees)}">size</div>-->
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th th:text="Login">Login</th>
-                <th th:text="FirstName">FirstName</th>
-                <th th:text="LastName">LastName</th>
-                <th th:text="PhoneNumber1">PhoneNumber1</th>
-                <!-- <th th:text="LastConnection">Last Connection</th>
-                 <th th:text="Roles">Role(s)</th>
-                 <th th:text="Edit">Edit</th>
-                 <th th:text="ResetPwd">Reset Pwd</th>
-                 <th th:text="Disable">Enable/Disable</th>-->
-            </tr>
-            </thead>
-            <tbody>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="Login">Login</th>
+            <th th:text="FirstName">FirstName</th>
+            <th th:text="LastName">LastName</th>
+            <th th:text="PhoneNumber1">PhoneNumber1</th>
+            <th th:text="StartDate">StartDate</th>
+            <th th:text="Roles">Roles</th>
+        </tr>
+        </thead>
+        <tbody>
 
         <th:block data-th-each="employee : ${employees}">
 
@@ -39,15 +31,12 @@
 
         </th:block>
 
-            </tbody>
-        </table>
-
-    </div>
-
-<!--
+        </tbody>
+    </table>
 
 </div>
--->
+
+
 
 
 </body>

@@ -1,11 +1,8 @@
 package com.autodoc.model.dtos.person;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import javax.validation.constraints.NotNull;
 
 
 @Getter
@@ -22,12 +19,11 @@ public abstract class PersonDTO {
     private String phoneNumber1;
     private String phoneNumber2;
 
-    public PersonDTO(int id, String lastName, String firstName, String phoneNumber1, String phoneNumber2) {
+    public PersonDTO(int id, String firstName, String lastName, String phoneNumber1) {
         this.id = id;
-        this.lastName = lastName;
         this.firstName = firstName;
+        this.lastName = lastName;
         this.phoneNumber1 = phoneNumber1;
-        this.phoneNumber2 = phoneNumber2;
     }
 
     public PersonDTO() {

@@ -25,8 +25,8 @@ public class EmployeeDTO extends PersonDTO {
     //  @PastOrPresent
     private Date lastConnection;
 
-    public EmployeeDTO(int id, String lastName, String firstName, String phoneNumber1, String phoneNumber2, List<String> roles, Date startDate, String login, Date lastConnection) {
-        super(id, lastName, firstName, phoneNumber1, phoneNumber2);
+    public EmployeeDTO(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {
+        super(id, firstName, lastName, phoneNumber1);
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;

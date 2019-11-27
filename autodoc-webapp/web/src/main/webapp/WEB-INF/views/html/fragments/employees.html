@@ -3,10 +3,6 @@
     <td th:text="${employee.firstName}">firstName</td>
     <td th:text="${employee.lastName}">lastName</td>
     <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
-    <!-- <td th:text="${employee.lastConnection} ? ${#dates.format(employee.lastConnection, 'dd-MM-yyyy')}">lastConnection</td>
-     <td th:each="role : ${employee.roles}"
-         th:text="${role}">role</td>
-     <td th:replace="fragments/employees :: edit_form"></td>
-     <td th:replace="fragments/employees :: edit_pwd"></td>
-     <td th:replace="fragments/employees :: disable"></td>-->
+    <td th:text="${employee.startDate}">startDate</td>
+    <td th:text="${employee.roles}">roles</td>
 </tr>
