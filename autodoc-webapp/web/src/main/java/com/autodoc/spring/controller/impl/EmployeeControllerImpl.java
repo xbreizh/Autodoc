@@ -2,7 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.spring.controller.contract.EmployeeController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -44,7 +44,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         System.out.println("helper: " + helper.getConnectedToken());
         System.out.println(employeeManager);
 //        employeeManager.getAll("gettall: "+helper.getConnectedToken());
-        List<Employee> employees = employeeManager.getAll(helper.getConnectedToken());
+        List<EmployeeDTO> employees = employeeManager.getAll(helper.getConnectedToken());
         System.out.println("employees: " + employees.size());
         System.out.println("emp: " + employees.get(0));
         mv.addObject("employees", employees);

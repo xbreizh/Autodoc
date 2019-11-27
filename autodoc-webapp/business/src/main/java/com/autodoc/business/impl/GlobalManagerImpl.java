@@ -18,7 +18,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         System.out.println(service);
         D obj = (D)  service.getById(token, id);
         System.out.println("className: "+obj.getClass().getName());
-        T cc = (T)dtoToEntity(obj);
+        T cc = dtoToEntity(obj);
         System.out.println("className: "+cc.getClass().getName());
         return dtoToEntity(obj);
     }
@@ -35,6 +35,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     public List<T> getAll(String token){
+
         return (List<T>) service.getAll(token);
     }
 

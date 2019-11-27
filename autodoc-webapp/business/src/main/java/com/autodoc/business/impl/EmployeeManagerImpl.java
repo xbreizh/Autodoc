@@ -13,18 +13,20 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
 
     @Inject
     EmployeeService service;
+
     public EmployeeManagerImpl(EmployeeService service) {
         super(service);
-        this.service=service;
+        this.service = service;
     }
 
     @Override
     public Employee getByLogin(String token, String login) {
-        System.out.println("service: "+service);
+        System.out.println("serviceee: " + service);
         return dtoToEntity(service.getByName(token, login));
     }
 
     public Employee dtoToEntity(Object obj) {
+
         EmployeeDTO dto = (EmployeeDTO) obj;
         Employee employee = new Employee();
         employee.setId(dto.getId());
@@ -33,10 +35,9 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         employee.setLastName(dto.getLastName());
         employee.setRoles(dto.getRoles());
         employee.setPhoneNumber1(dto.getPhoneNumber1());
-        // if(!dto.getPhoneNumber2().isEmpty())employee.setPhoneNumber2(dto.getPhoneNumber2());
-        // employee.setStartDate(dto.getStartDate());
-        //TODO
-        // finish listing
+        employee.setPhoneNumber2(dto.getPhoneNumber2());
+        employee.setStartDate(dto.getStartDate());
+        employee.setLastConnection(dto.getLastConnection());
 
 
         return employee;

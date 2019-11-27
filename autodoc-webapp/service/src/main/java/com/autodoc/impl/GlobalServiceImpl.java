@@ -114,6 +114,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
                 obj = obj;
                 newList.add((T) obj);
             }
+
             return newList;
           /*  System.out.println(restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass()));
             ResponseEntity<Object[]> res = restTemplate.exchange(url, HttpMethod.GET, request, Object[].class);
