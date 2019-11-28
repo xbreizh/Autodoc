@@ -22,7 +22,7 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
     }
 
 
-    public Client dtoToEntity(Object obj) {
+    public Client dtoToEntity(String token, Object obj) {
 
         ClientDTO dto = (ClientDTO) obj;
         System.out.println("dto: "+dto);

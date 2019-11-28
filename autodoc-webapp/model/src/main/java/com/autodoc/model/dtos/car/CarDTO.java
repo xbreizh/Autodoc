@@ -9,7 +9,7 @@ public class CarDTO {
 
     private int id;
 
-    private int modelId;
+    private int carModelId;
 
     private String registration;
 
@@ -20,9 +20,9 @@ public class CarDTO {
     }
 
 
-    public CarDTO(int id, int modelId, String registration, int clientId) {
+    public CarDTO(int id, int carModelId, String registration, int clientId) {
         this.id = id;
-        this.modelId = modelId;
+        this.carModelId = carModelId;
         this.registration = registration;
         this.clientId = clientId;
     }
@@ -31,7 +31,7 @@ public class CarDTO {
     public String toString() {
         return "CarDTO{" +
                 "id=" + id +
-                ", modelId=" + modelId +
+                ", carModelId=" + carModelId +
                 ", registration='" + registration + '\'' +
                 ", clientId=" + clientId +
                 '}';

@@ -17,7 +17,7 @@
             <tr th:fragment="carDetails" xmlns:th="http://www.w3.org/1999/xhtml">
                 <td th:text="${car.id}">lastName</td>
                 <td th:text="${car.registration}">registration</td>
-                <td th:text="${model.manufacturer}">manufacturer</td>
+                <td th:text="${model.manufacturer.name}">manufacturer</td>
                 <td th:text="${model.name}">model</td>
             </tr>
 

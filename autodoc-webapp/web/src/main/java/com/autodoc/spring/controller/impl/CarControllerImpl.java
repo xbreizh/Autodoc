@@ -45,6 +45,8 @@ public class CarControllerImpl extends GlobalController implements CarController
         System.out.println("car found: " + registration);
         System.out.println("owner: "+car.getClient().getLastName());
         mv.addObject("car", car);
+        mv.addObject("client", car.getClient());
+        mv.addObject("model", car.getModel());
         return mv;
     }
 

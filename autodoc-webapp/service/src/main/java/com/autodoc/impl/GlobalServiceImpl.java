@@ -22,6 +22,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
 
     }
 
+
     public String getClassName() {
         String className = getObjectClass().getSimpleName().toLowerCase();
         String newClassname = className.replaceAll("dto", "s");

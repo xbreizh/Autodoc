@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarServiceImplTest {
 
     private CarService service;
-    private String token="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDg5MTcwMiwiaWF0IjoxNTc0ODczNzAyfQ.l7uhfrP7qTg4KvhrEjumpZY-14j2o09bw-8PH1usG-vUkfuhmLevrvlLgjWSxZ12kwECA1T_XPZ1ncDOzBVd_w";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDk2ODA1MCwiaWF0IjoxNTc0OTUwMDUwfQ.BfKxkfEVLatJRdOfVph7XqJHnCBWPGFKyaq2exJNUYFMr9lU0-EgQIQ_vecx8oqQIV1GEJ3vP8mSjUhu1vfrdA";
 
     @BeforeEach
     void init(){
@@ -29,9 +29,13 @@ class CarServiceImplTest {
     @DisplayName("should retuen carDto if registration is valid")
     void getByRegistration() {
         String registration = "05D154875";
-       Object obj = service.getByRegistration(token, registration);
-       assertAll(
+        CarDTO obj = service.getByRegistration(token, registration);
+        System.out.println("model: " + obj.getCarModelId());
+        System.out.println("client: " + obj.getClientId());
+        assertAll(
                () -> assertNotNull(obj),
+                () -> assertNotEquals(0, obj.getCarModelId()),
+                () -> assertNotEquals(0, obj.getClientId()),
                () -> assertThat(obj, instanceOf(CarDTO.class))
        );
     }
@@ -40,10 +44,8 @@ class CarServiceImplTest {
     @DisplayName("should return null if invalid registration")
     void getByRegistration1() {
         String registration = "05errrrf";
-        Object obj = service.getByRegistration(token, registration);
+        CarDTO obj = service.getByRegistration(token, registration);
         assertNull(obj);
-
-
     }
 
     @Test

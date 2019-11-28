@@ -4,6 +4,7 @@ import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.Manufacturer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class GlobalServiceImplTest {
 
 
     private  GlobalService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDcxMjY5MCwiaWF0IjoxNTc0Njk0NjkwfQ.6fFaipPO2S46l0vORn-eo2uJQKLNLghgtNIJ6KE_cBWm8CloPbGrOUv7-DWrnsb5-gqpOOamugNBe7CJ12-e1w";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDk1MzUzMSwiaWF0IjoxNTc0OTM1NTMxfQ.bIHrPZsU3QXPsMmupHb7hebHR5P3krJ32HlTfsbNNqQqzqO4miDuGY9qlLuiDu3hGQDzkja7T0xZlG051ncdJQ";
 
     @BeforeEach
     void init(){
@@ -23,6 +24,7 @@ class GlobalServiceImplTest {
     }
 
     @Test
+    @DisplayName("should return cars")
     void getClassName() {
         service = new CarServiceImpl();
         System.out.println(service.getClassName());
@@ -30,6 +32,17 @@ class GlobalServiceImplTest {
 
 
     }
+
+    @Test
+    @DisplayName("should return carModels")
+    void getClassName1() {
+        service = new CarModelServiceImpl();
+        System.out.println(service.getClassName());
+        assertEquals("carModels", service.getClassName());
+
+
+    }
+
 
     @Test
     void setupHeader() {
@@ -42,7 +55,19 @@ class GlobalServiceImplTest {
         int id=1;
         System.out.println(service);
         Car car = (Car) service.getById(token, id);
-        System.out.println("car: "+car);
+        System.out.println("cars: " + car);
+        assertNotNull(service.getById(token, id));
+    }
+
+
+    @Test
+    @DisplayName("should return a manufacturer object")
+    void getManufacturerById() {
+        service = new ManufacturerServiceImpl();
+        int id = 1;
+        System.out.println(service);
+        Manufacturer manufacturer = (Manufacturer) service.getById(token, id);
+        System.out.println("manufacturers: " + manufacturer);
         assertNotNull(service.getById(token, id));
     }
 

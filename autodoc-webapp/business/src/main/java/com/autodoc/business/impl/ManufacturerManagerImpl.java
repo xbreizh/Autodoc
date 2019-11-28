@@ -20,7 +20,16 @@ public class ManufacturerManagerImpl extends GlobalManagerImpl<Manufacturer, Man
     public ManufacturerManagerImpl(ManufacturerService service) {
         super(service);
         this.service = service;
-        System.out.println("created stuff" + service);
+        System.out.println("created stuff " + service);
+    }
+
+    public Manufacturer dtoToEntity(String token, Object obj) {
+        LOGGER.info("converting into entito");
+        ManufacturerDTO dto = (ManufacturerDTO) obj;
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setId(dto.getIdentifier());
+        manufacturer.setName(dto.getName());
+        return manufacturer;
     }
 
 }

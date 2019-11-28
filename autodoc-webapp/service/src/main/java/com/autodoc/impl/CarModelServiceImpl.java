@@ -15,4 +15,9 @@ public class CarModelServiceImpl extends GlobalServiceImpl<CarModelDTO> implemen
     }
 
 
+    public String getClassName() {
+        return "carModels";
+    }
+
+
 }
