@@ -52,7 +52,7 @@ public class CarControllerImpl extends GlobalController implements CarController
         if (registration == null) return false;
         int length = registration.length();
         System.out.println("length: " + length);
-        return length >= 5 && length <= 8;
+        return length >= 5 && length <= 10;
     }
 
 

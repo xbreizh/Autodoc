@@ -1,14 +1,7 @@
-<div th:fragment="searchCar" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="row">
+<div th:fragment="searchCar_form" xmlns:th="http://www.w3.org/1999/xhtml">
 
-        <div class="col-6">
             <form method="post" th:action="@{/cars/searchCar}" th:object="${registration}">
-                <div class="form-group">
-                    <div class="col text-center">
-                        <p data-th-text="${message}" style="color: red">Error Message</p>
 
-                    </div>
-                </div>
                 <div class="form-group col text-center ">
                     <input class="form-control"
                            id="registration"
@@ -30,10 +23,14 @@
                     </div>
 
                 </div>
+                <div class="form-group">
+                    <div class="col text-center">
+                        <p data-th-text="${message}" style="color: red">Error Message</p>
+
+                    </div>
+                </div>
 
             </form>
 
-        </div>
-        <div class="col-6">Client Details</div>
-    </div>
+
 </div>
