@@ -4,6 +4,8 @@ import com.autodoc.model.models.person.client.Client;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Size;
+
 @Getter
 @Setter
 public class Car {
@@ -12,6 +14,7 @@ public class Car {
 
     private CarModel model;
 
+    @Size(min = 3, max = 7)
     private String registration;
 
     private Client client;
@@ -20,6 +23,10 @@ public class Car {
     public Car() {
     }
 
+
+    public Car(@Size(min = 3, max = 7, message = "registration must be between 3 and 7 characters") String registration) {
+        this.registration = registration;
+    }
 
     public Car(int id, int carModelId, String registration, int clientId) {
         this.id = id;

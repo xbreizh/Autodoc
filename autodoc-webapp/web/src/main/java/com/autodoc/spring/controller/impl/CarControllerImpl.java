@@ -28,8 +28,13 @@ public class CarControllerImpl extends GlobalController implements CarController
     @PostMapping("/searchCar")
     public ModelAndView searchCar(String registration) {
         LOGGER.info("retrieving searchCar");
-        LOGGER.info("car found: "+registration);
         ModelAndView mv = checkAndAddEmployeeDetails("operations");
+        if (!validateRegistration(registration)) {
+            mv.addObject("message", "invalid registration");
+            return mv;
+        }
+
+        LOGGER.info("car found: "+registration);
 
         Car car = carManager.getByRegistration(helper.getConnectedToken(), registration);
         if (car == null) {
@@ -37,12 +42,18 @@ public class CarControllerImpl extends GlobalController implements CarController
             mv.addObject("message", "no car found");
             return mv;
         }
-        System.out.println("car found: "+car);
+        System.out.println("car found: " + registration);
         System.out.println("owner: "+car.getClient().getLastName());
         mv.addObject("car", car);
         return mv;
     }
 
+    private boolean validateRegistration(String registration) {
+        if (registration == null) return false;
+        int length = registration.length();
+        System.out.println("length: " + length);
+        return length >= 5 && length <= 8;
+    }
 
 
 }

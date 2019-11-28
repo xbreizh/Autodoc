@@ -2,16 +2,23 @@
     <div class="row">
 
         <div class="col-6">
-            <form method="post" th:action="@{/cars/searchCar}" th:object="${searchCar}">
-                <div class="form-group col text-center ">
-                    <input
-                            class="form-control"
-                            id="registration"
-                            name="registration"
-                            placeholder="registration"
-                            th:value="${registration}"
-                            type="text">
+            <form method="post" th:action="@{/cars/searchCar}" th:object="${registration}">
+                <div class="form-group">
+                    <div class="col text-center">
+                        <p data-th-text="${message}" style="color: red">Error Message</p>
+
+                    </div>
                 </div>
+                <div class="form-group col text-center ">
+                    <input class="form-control"
+                           id="registration"
+                           name="registration"
+                           placeholder="registration"
+                           required
+                           th:value="${registration}" type="text">
+
+                </div>
+
                 <div class="form-group">
 
                     <div class="col text-center">
@@ -23,24 +30,10 @@
                     </div>
 
                 </div>
+
             </form>
-            <td th:text="${message}">message</td>
 
         </div>
-        <div class="col-6 my-auto " style="background-color: #fff2e6" >For better performance, the system currently limits the search result to <strong>30</strong> items.<br>
-            If you can't find what you're looking for, please refine the search or get in touch with our team. Thanks
-        </div>
-
-
+        <div class="col-6">Client Details</div>
     </div>
-
-    <br><br><br>
-   <!-- <div th:if="${!#strings.isEmpty(title) or !#strings.isEmpty(author) or !#strings.isEmpty(isbn) }">
-        <div th:if="${#lists.isEmpty(books)}">
-            <h2 style="background-color: #ff9999">No Result found!</h2>
-        </div>
-        <div th:unless="${#lists.isEmpty(books)}">
-    <div th:replace="fragments/search_result :: search_result"></div>
-        </div>
-    </div>-->
 </div>
