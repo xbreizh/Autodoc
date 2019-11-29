@@ -10,7 +10,6 @@ import com.autodoc.impl.CarServiceImpl;
 import com.autodoc.impl.ClientServiceImpl;
 import com.autodoc.impl.ManufacturerServiceImpl;
 import com.autodoc.model.models.car.Car;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CarManagerImplTest {
 
-    private static final String BASE_URL = "http://localhost:8087/autodoc/";
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    // private static final String BASE_URL = "http://localhost:8087/autodoc/";
+    // private final ObjectMapper objectMapper = new ObjectMapper();
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDk2ODA1MCwiaWF0IjoxNTc0OTUwMDUwfQ.BfKxkfEVLatJRdOfVph7XqJHnCBWPGFKyaq2exJNUYFMr9lU0-EgQIQ_vecx8oqQIV1GEJ3vP8mSjUhu1vfrdA";
     // String url = "http://localhost:8087/autodoc/employees";
     private CarManager carManager;

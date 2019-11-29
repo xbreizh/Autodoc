@@ -1,18 +1,13 @@
-<div class="align-middle" th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="menu" th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml">
 
 
-    <div class="row d-flex flex-column">
-        <div class="col-4" style="color:green;align-content: center"><a style="text-decoration: none; color: black"
-                                                                        th:href="@{/myProfile}">MY PROFILE</a></div>
-        <div class="col-4" style="color:red;align-content: center" ><a style="text-decoration: none; color: black" th:href="@{/employees}">EMPLOYEES</a></div>
-        <div class="col-4" style="color:yellow;align-content: center" ><a style="text-decoration: none; color: black" th:href="@{/operations}">OPERATIONS</a></div>
-        <div class="col-4" style="color:green;align-content: center" ><a style="text-decoration: none; color: black" th:href="@{/stocks}">STOCKS</a></div>
-        <div class="col-4" style="color:green;align-content: center"><a style="text-decoration: none; color: black"
-                                                                        th:href="@{/orders}">ORDERS</a></div>
-        <div class="col-4" style="color:green;align-content: center"><a style="text-decoration: none; color: black"
-                                                                        th:href="@{/bills}">BILLS</a></div>
+    <div class="row d-flex row" style="justify-content: space-evenly">
+        <div><a href="/autodoc/employees">EMPLOYEES</a></div>
+        <div><a href="/autodoc/operations">OPERATIONS</a></div>
+        <div><a href="/autodoc/stocks">STOCKS</a></div>
+        <div><a href="/autodoc/orders">ORDERS</a></div>
+        <div><a href="/autodoc/bills">BILLS</a></div>
     </div>
-
 
 
 </div>
