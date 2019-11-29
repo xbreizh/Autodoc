@@ -1,8 +1,11 @@
 <tr th:fragment="employeeDetails" xmlns:th="http://www.w3.org/1999/xhtml">
-    <td th:text="${employee.login}">login</td>
-    <td th:text="${employee.firstName}">firstName</td>
-    <td th:text="${employee.lastName}">lastName</td>
-    <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
-    <td th:text="${#dates.format(employee.startDate, 'dd-MM-yyyy')}">startDate</td>
-    <td th:text="${employee.roles}">roles</td>
+    <td contenteditable="true" th:contenteditable="${employee.login}">login</td>
+    <td contenteditable="true" th:text="${employee.firstName}">firstName</td>
+    <td contenteditable="true" th:text="${employee.lastName}">lastName</td>
+    <td contenteditable="true" th:text="${employee.phoneNumber1}">phoneNumber1</td>
+    <td contenteditable="true" th:text="${#dates.format(employee.startDate, 'dd-MM-yyyy')}">startDate</td>
+    <td contenteditable="true" th:text="${employee.roles}">roles</td>
+    <td>
+        <button class="btn btn-primary" id="export-btn">Save</button>
+    </td>
 </tr>

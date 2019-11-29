@@ -9,7 +9,7 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div th:replace="fragments/menu :: menu"></div>
-    <td th:text="${#lists.size(employee.roles)}">role list size</td>
+
 
 
     <table class="table table-striped">
@@ -21,6 +21,7 @@
             <th th:text="PhoneNumber1">PhoneNumber1</th>
             <th th:text="StartDate">StartDate</th>
             <th th:text="Roles">Roles</th>
+            <th th:text="Edit">Edit</th>
         </tr>
         </thead>
         <tbody>

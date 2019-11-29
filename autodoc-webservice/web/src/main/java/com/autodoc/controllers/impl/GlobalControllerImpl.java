@@ -108,10 +108,14 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getById(@PathVariable Integer id) throws Exception {
-        String response = converter.convertObjectIntoGsonObject(manager.getById(id));
-        if (response == null) return notFoundResponse;
-
-        return ResponseEntity.ok(response);
+        Object received = (D) manager.getById(id);
+        if (received == null) return notFoundResponse;
+        System.out.println("reaced ");
+        String response = converter.convertObjectIntoGsonObject(received);
+        System.out.println("returned: "+manager.getById(id));
+        ResponseEntity entity = ResponseEntity.ok(response);
+        System.out.println("entity: "+entity);
+        return entity;
     }
 
     @Override

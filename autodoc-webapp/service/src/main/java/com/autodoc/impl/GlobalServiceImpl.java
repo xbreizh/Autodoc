@@ -4,6 +4,7 @@ import com.autodoc.contract.GlobalService;
 import org.apache.log4j.Logger;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
     }
 
     void setupHeader(String token) {
-        System.out.println("setting up");
+        LOGGER.info("setting up");
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -47,8 +48,9 @@ public class GlobalServiceImpl<T> implements GlobalService {
 
     @Override
     public Object getById(String token, int id) {
-        LOGGER.info("trying to get car by id");
+        LOGGER.info("trying to get object by id");
         setupHeader(token);
+
 
         try {
             LOGGER.info("restTemplate ready");
@@ -57,15 +59,22 @@ public class GlobalServiceImpl<T> implements GlobalService {
             String className = getClassName();
             String url = BASE_URL + className + "/" + id;
             LOGGER.info("url: " + url);
+            LOGGER.info("mokoro: " + restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass()));
             ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
+            LOGGER.info("resp: " + response.getStatusCodeValue());
+            if (response.getStatusCodeValue() == 404) return null;
             LOGGER.info("stop");
-            System.out.println("req: " + request);
+            LOGGER.info("req: " + request);
             return response.getBody();
+        } catch (HttpClientErrorException.NotFound exception) {
+            LOGGER.info(exception.getMessage());
+            LOGGER.info(exception.getClass().getCanonicalName());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new
                     BadCredentialsException("External system authentication failed");
         }
+        return null;
     }
 
     @Override
@@ -78,12 +87,13 @@ public class GlobalServiceImpl<T> implements GlobalService {
             LOGGER.info("login: " + name);
             String className = getClassName();
             String url = BASE_URL + className + "/name?name=" + name;
-            System.out.println("url: " + url);
-            ResponseEntity<T> res = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
-            System.out.println("deded: " + res.getBody());
-            return res.getBody();
+            LOGGER.info("url: " + url);
+            ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
+            if (response.getStatusCodeValue() == 404) return null;
+            LOGGER.info("deded: " + response.getBody());
+            return response.getBody();
         } catch (Exception e) {
-            System.out.println("error occured");
+            LOGGER.info("error occured");
             throw new
                     BadCredentialsException("External system authentication failed");
         }
@@ -98,16 +108,16 @@ public class GlobalServiceImpl<T> implements GlobalService {
             LOGGER.info("token: " + token);
             String className = getClassName();
             String url = BASE_URL + className;
-        /*    System.out.println("url: "+url);
+        /*    LOGGER.info("url: "+url);
           //  ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(url, Object[].class);
             ResponseEntity<Object[]> res =restTemplate.exchange(url, HttpMethod.GET, request, Object[].class);
             // res = (T) res;
-          //  System.out.println("res: "+restTemplate.exchange(url, HttpMethod.GET, request, Employee[].class));
-            System.out.println(res.getBody().toString());*/
-            System.out.println(ArrayList.class);
+          //  LOGGER.info("res: "+restTemplate.exchange(url, HttpMethod.GET, request, Employee[].class));
+            LOGGER.info(res.getBody().toString());*/
+            LOGGER.info(ArrayList.class);
             ResponseEntity<ArrayList> response = restTemplate.exchange(url, HttpMethod.GET, request, ArrayList.class);
-            System.out.println("result: " + response.getBody().get(0));
-            System.out.println("result: " + response.getBody().get(1));
+            LOGGER.info("result: " + response.getBody().get(0));
+            LOGGER.info("result: " + response.getBody().get(1));
 
 
             List<T> newList = new ArrayList<>();
@@ -117,15 +127,15 @@ public class GlobalServiceImpl<T> implements GlobalService {
             }
 
             return newList;
-          /*  System.out.println(restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass()));
+          /*  LOGGER.info(restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass()));
             ResponseEntity<Object[]> res = restTemplate.exchange(url, HttpMethod.GET, request, Object[].class);
-            System.out.println("deded: " + res.getBody());
+            LOGGER.info("deded: " + res.getBody());
             //T[] objects = res.getBody();*/
-            // System.out.println("obj: "+objects);
+            // LOGGER.info("obj: "+objects);
             //return Arrays.asList(objects);
             //return null;
         } catch (Exception e) {
-            System.out.println("error occured");
+            LOGGER.info("error occured");
             throw new
                     BadCredentialsException("External system authentication failed");
         }

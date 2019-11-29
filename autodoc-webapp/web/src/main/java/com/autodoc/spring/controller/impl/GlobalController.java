@@ -115,8 +115,12 @@ public class GlobalController {
     }
 
 
-
-
+    @GetMapping("/myProfile")
+    public ModelAndView myProfile() {
+        LOGGER.info("retrieving myProfile");
+        ModelAndView mv = checkAndAddEmployeeDetails("myProfile");
+        return mv;
+    }
 
 
 

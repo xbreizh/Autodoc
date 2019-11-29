@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -118,5 +119,28 @@ class ManufacturerControllerImplTest {
                 ));
         ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(manufacturerDTO));
         assertEquals(response, manufacturerController.getByName("sdsdsdsd"));
+    }
+
+    @Test
+    public void getByid() throws Exception {
+        String name = manufacturerDTO.getName();
+        int id = 3;
+        when(manufacturerManager.getById(anyInt())).thenReturn(manufacturerDTO);
+    assertEquals(200, manufacturerController.getById(id).getStatusCodeValue());
+        this.mockMvc.perform(
+                get(urlItem + "/" + id)
+                        .header("Authorization", "Bearer token")
+                        .content(converter.convertObjectIntoGsonObject(name))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(encoding))
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.id").value(id))
+                .andDo(document("{ClassName}/{methodName}",
+                        responseFields(descriptor)
+                ));
+      /*  ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(manufacturerDTO));
+        assertEquals(response, manufacturerController.getByName("sdsdsdsd"));*/
     }
 }

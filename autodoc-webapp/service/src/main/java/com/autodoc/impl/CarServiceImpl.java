@@ -30,6 +30,7 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
             //System.out.println("retour: "+restTemplate.exchange(url, HttpMethod.GET, request, CarDTO.class));
             ResponseEntity<CarDTO> response = restTemplate.exchange(url, HttpMethod.GET, request, CarDTO.class);
             LOGGER.info("object found: " + response);
+            if (response.getStatusCodeValue() == 404) return null;
             //checkObjectFields()
             return response.getBody();
         } catch (Exception e) {

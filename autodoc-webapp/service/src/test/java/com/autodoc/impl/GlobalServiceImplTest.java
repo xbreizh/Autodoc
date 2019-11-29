@@ -1,22 +1,21 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.GlobalService;
+import com.autodoc.model.dtos.car.CarDTO;
+import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
-import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.car.Manufacturer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GlobalServiceImplTest {
 
 
-    private  GlobalService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDk1MzUzMSwiaWF0IjoxNTc0OTM1NTMxfQ.bIHrPZsU3QXPsMmupHb7hebHR5P3krJ32HlTfsbNNqQqzqO4miDuGY9qlLuiDu3hGQDzkja7T0xZlG051ncdJQ";
+    private GlobalService service;
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NTA1OTQ1OSwiaWF0IjoxNTc1MDQxNDU5fQ.gJCEsF1qgI-USKDeUW952b-K8P-hoiJYHYbuBrbQyaXFm7z7lXu2iIq_7R5_BzKwKd1ARc05crxNvfio9zojeQ";
 
     @BeforeEach
     void init(){
@@ -52,11 +51,19 @@ class GlobalServiceImplTest {
     @DisplayName("should return a car object")
     void getCarById() {
         service = new CarServiceImpl();
-        int id=1;
+        int id = 1;
         System.out.println(service);
-        Car car = (Car) service.getById(token, id);
-        System.out.println("cars: " + car);
+        CarDTO carDTO = (CarDTO) service.getById(token, id);
+        System.out.println("cars: " + carDTO);
         assertNotNull(service.getById(token, id));
+    }
+
+    @Test
+    @DisplayName("should return null if id invalid")
+    void getCarById1() {
+        service = new CarServiceImpl();
+        int id = 1222;
+        assertNull(service.getById(token, id));
     }
 
 
@@ -66,8 +73,8 @@ class GlobalServiceImplTest {
         service = new ManufacturerServiceImpl();
         int id = 1;
         System.out.println(service);
-        Manufacturer manufacturer = (Manufacturer) service.getById(token, id);
-        System.out.println("manufacturers: " + manufacturer);
+        ManufacturerDTO dto = (ManufacturerDTO) service.getById(token, id);
+        System.out.println("manufacturers: " + dto);
         assertNotNull(service.getById(token, id));
     }
 

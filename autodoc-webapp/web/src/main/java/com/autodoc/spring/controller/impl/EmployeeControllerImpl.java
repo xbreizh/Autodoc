@@ -28,19 +28,13 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         this.employeeManager = employeeManager;
     }
 
-    @GetMapping("/myProfile")
-    public ModelAndView myProfile() {
-        LOGGER.info("retrieving myProfile");
-        ModelAndView mv = checkAndAddEmployeeDetails("myProfile");
 
-        return mv;
-    }
 
 
     @GetMapping("")
     public ModelAndView employees() {
         LOGGER.info("retrieving employees");
-        ModelAndView mv = checkAndAddEmployeeDetails("employees");
+        ModelAndView mv = checkAndAddEmployeeDetails("employees_edit");
         System.out.println("helper: " + helper.getConnectedToken());
         System.out.println(employeeManager);
 //        employeeManager.getAll("gettall: "+helper.getConnectedToken());
