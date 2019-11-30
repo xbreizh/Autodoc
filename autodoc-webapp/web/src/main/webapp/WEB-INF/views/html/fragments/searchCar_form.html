@@ -1,36 +1,19 @@
-<div th:fragment="searchCar_form" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="searchCar_form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
-            <form method="post" th:action="@{/cars/searchCar}" th:object="${registration}">
 
-                <div class="form-group col text-center ">
-                    <input class="form-control"
-                           id="registration"
-                           name="registration"
-                           placeholder="registration"
-                           required
-                           th:value="${registration}" type="text">
-
-                </div>
-
-                <div class="form-group">
-
-                    <div class="col text-center">
-                        <input class="form-control btn btn-info"
-                               id="search-submit"
-                               name="search-submit"
-                               type="submit"
-                               value="Search">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <div class="col text-center">
-                        <p data-th-text="${message}" style="color: red">Error Message</p>
-
-                    </div>
-                </div>
-
-            </form>
-
+    <form action="#" method="post" th:action="@{/cars/searchCar}" th:object="${registrationForm}">
+        <table>
+            <tr>
+                <td>Registration:</td>
+                <td><input th:field="*{registration}" type="text"/></td>
+                <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 
 </div>

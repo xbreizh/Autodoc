@@ -3,16 +3,20 @@ package com.autodoc.spring.controller.impl;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
+import com.autodoc.model.dtos.RegistrationForm;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @ControllerAdvice
@@ -88,11 +92,29 @@ public class GlobalController {
     }
 
     @GetMapping("/operations")
-    public ModelAndView operations() {
+    public ModelAndView operations(RegistrationForm registrationForm) {
+        System.out.println("show form");
+        //return "operations";
         ModelAndView mv = checkAndAddEmployeeDetails("operations");
-
         return mv;
     }
+
+    @GetMapping("/person")
+    public String showForm(RegistrationForm personForm) {
+        System.out.println("show form");
+        return "operations";
+    }
+
+    @PostMapping("/person")
+    public String checkPersonInfo(@Valid RegistrationForm personForm, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
+
+        return "redirect:/results";
+    }
+
 
     @GetMapping("/repairs")
     public ModelAndView repairs() {
