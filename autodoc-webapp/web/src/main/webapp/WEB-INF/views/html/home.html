@@ -11,8 +11,10 @@
     <div th:replace="fragments/menu :: menu"></div>
 
 
-
     <br><br><br>
+    <h3 th:text="#{welcome.message}">Hello, Placeholder</h3>
+    <p th:text="#{ticket.type.BUG}">BUG</p>
+    <div th:text="${#locale}"></div>
 
 
 </div>
