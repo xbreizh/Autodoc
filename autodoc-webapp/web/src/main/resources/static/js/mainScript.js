@@ -15,6 +15,16 @@ function toggle_displays(t, d) {
     }
 }
 
+/*function toggling() {
+    var checkBox = document.getElementById("myCheck");
+    var text = document.getElementById("text");
+    if (checkBox.checked == true){
+        text.style.display = "block";
+    } else {
+        text.style.display = "none";
+    }
+}*/
+
 function showLoans() {
     var x = document.getElementById('myLoans');
     x.style.display = "block";

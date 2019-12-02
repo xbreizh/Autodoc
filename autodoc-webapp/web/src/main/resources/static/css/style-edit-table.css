@@ -35,3 +35,13 @@
 .table-add:hover {
     color: #0b0;
 }
+
+#form-edit {
+    display: none;
+
+}
+
+#table-display {
+    background-color: blue;
+    display: block;
+}

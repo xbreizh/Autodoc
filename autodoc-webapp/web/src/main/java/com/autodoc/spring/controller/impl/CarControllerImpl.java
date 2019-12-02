@@ -29,15 +29,12 @@ public class CarControllerImpl extends GlobalController implements CarController
     }
 
     @PostMapping("/searchCar")
-    public ModelAndView searchCar(@Valid RegistrationForm personForm, BindingResult bindingResult) {
-        System.out.println("getting herer: " + personForm);
+    public ModelAndView searchCar(@Valid RegistrationForm registrationForm, BindingResult bindingResult) {
+        System.out.println("getting herer: " + registrationForm);
         LOGGER.info("retrieving searchCar");
-        String registration = personForm.getRegistration();
+        String registration = registrationForm.getRegistration();
         ModelAndView mv = checkAndAddEmployeeDetails("operations");
-        /*if (!validateRegistration(registration)) {
-            mv.addObject("message", "invalid registration");
-            return mv;
-        }*/
+
         if (bindingResult.hasErrors()) {
             return mv;
         }
@@ -60,12 +57,12 @@ public class CarControllerImpl extends GlobalController implements CarController
 
     }
 
-    private boolean validateRegistration(String registration) {
+   /* private boolean validateRegistration(String registration) {
         if (registration == null) return false;
         int length = registration.length();
         System.out.println("length: " + length);
         return length >= 5 && length <= 10;
-    }
+    }*/
 
 
 }

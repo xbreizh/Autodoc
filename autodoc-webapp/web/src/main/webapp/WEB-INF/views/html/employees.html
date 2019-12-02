@@ -9,34 +9,70 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div th:replace="fragments/menu :: menu"></div>
+    <div class="row">
+        <!-- <div class="col-1">Id</div>-->
+        <div class="col-2">Login</div>
+        <div class="col-2">FirstName</div>
+        <div class="col-2">LastName</div>
+        <div class="col-2">PhoneNumber1</div>
+        <div class="col-2">Edit</div>
+    </div>
+    <div class="row">
 
+        <div class="col-10">
+            <div style="display: block; background-color: greenyellow" th:id="'mic' + ${employee.id}">
+                <div class="row">
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th th:text="Login">Login</th>
-            <th th:text="FirstName">FirstName</th>
-            <th th:text="LastName">LastName</th>
-            <th th:text="PhoneNumber1">PhoneNumber1</th>
-            <th th:text="StartDate">StartDate</th>
-            <th th:text="Roles">Roles</th>
-            <th th:text="Edit">Edit</th>
-        </tr>
-        </thead>
-        <tbody>
+                    <!--  <div class="col-1" th:text="${employee.id}">Id</div>-->
+                    <div class="col-2" th:text="${employee.login}">Login</div>
+                    <div class="col-2" th:text="${employee.firstName}">firstName</div>
+                    <div class="col-2" th:text="${employee.lastName}">lastName</div>
+                    <div class="col-2" th:text="${employee.phoneNumber1}">phoneNumber1</div>
+                </div>
+            </div>
+            <div style="display: none; background-color: orangered" th:id="'micForm' + ${employee.id}">
+                <div class="row">
 
-        <th:block data-th-each="employee : ${employees}">
+                    <!-- <div class="col-1" th:text="${employee.id}">Id</div>-->
+                    <div class="col-2" th:text="${employee.login}">Login</div>
+                    <div class="col-2" th:text="${employee.firstName}">firstName</div>
+                    <div class="col-2" th:text="${employee.lastName}">lastName</div>
+                    <div class="col-2" th:text="${employee.phoneNumber1}">phoneNumber1</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <label style="display: block" th:id="'switch' + ${employee.id}">
+                <input onclick="toggle_displays('mic0', 'micForm0', 'save0');"
+                       type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div style="display: none" th:id="'save' + ${employee.id}">
+                <button class="btn btn-warning" type="button">Save</button>
+            </div>
+        </div>
+    </div>
 
-            <tr th:replace="fragments/employees :: employeeDetails"></tr>
-
-        </th:block>
-
-        </tbody>
-    </table>
 
 </div>
 
+<script>
+    function toggle_displays(a, b, c) {
+        let text = document.getElementById(a);
+        let form = document.getElementById(b);
+        let save = document.getElementById(c);
 
+        if (text.style.display === "block") {
+            text.style.display = "none";
+            form.style.display = "block";
+            save.style.display = "block";
+        } else {
+            text.style.display = "block";
+            form.style.display = "none";
+            save.style.display = "none";
+        }
+    }
+</script>
 
 
 </body>

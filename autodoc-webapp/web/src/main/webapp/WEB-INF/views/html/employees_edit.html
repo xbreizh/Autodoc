@@ -1,74 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html"
-      xmlns:th="http:/www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <title>myProfile</title>
 
 <div th:replace="fragments/header :: head1"></div>
 <body>
-<!--<body translate="no">-->
-
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div th:replace="fragments/menu :: menu"></div>
 
+    <!-- <div th:replace="fragments/searchCar_form :: searchCar_form"></div>-->
 
-    <table class="table-editable table table-striped" id="table">
-        <thead>
-        <tr>
-            <th th:text="Login">Login</th>
-            <th th:text="FirstName">FirstName</th>
-            <th th:text="LastName">LastName</th>
-            <th th:text="PhoneNumber1">PhoneNumber1</th>
-            <th th:text="StartDate">StartDate</th>
-            <th th:text="Roles">Roles</th>
-            <th th:text="Edit">Edit</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <th:block data-th-each="employee : ${employees}">
-
-            <tr th:replace="fragments/employees :: employeeDetails"></tr>
-
-        </th:block>
-
-        </tbody>
-    </table>
-
-</div>
-<!--  <tr>
-      <td contenteditable="true">Stir Fry</td>
-      <td contenteditable="true">stir-fry</td>
-      <td>
-          <span class="table-remove glyphicon glyphicon-remove"></span>
-      </td>
-      <td>
-          <span class="table-up glyphicon glyphicon-arrow-up"></span>
-          <span class="table-down glyphicon glyphicon-arrow-down"></span>
-      </td>
-  </tr>
-
-  <tr class="hide">
-      <td contenteditable="true">Untitled</td>
-      <td contenteditable="true">undefined</td>
-      <td>
-          <span class="table-remove glyphicon glyphicon-remove"></span>
-      </td>
-      <td>
-          <span class="table-up glyphicon glyphicon-arrow-up"></span>
-          <span class="table-down glyphicon glyphicon-arrow-down"></span>
-      </td>
-  </tr>
-</table>
-</div>-->
+    <form action="#" method="post" th:action="@{/employees}" th:object="${employeeForm}">
+        <table>
+            <tr>
+                <td>Login:</td>
+                <td><input th:field="*{login}" type="text"/></td>
+                <td th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</td>
+            </tr>
+            <tr>
+                <td>FirstName:</td>
+                <td><input th:field="*{firstName}" type="text"/></td>
+                <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
+            </tr>
+            <tr>
+                <td>LastName:</td>
+                <td><input th:field="*{lastName}" type="text"/></td>
+                <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 
 </div>
-<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-<script src='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js'></script>
 
 </body>
 </html>

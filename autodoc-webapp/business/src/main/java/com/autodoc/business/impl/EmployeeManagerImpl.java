@@ -29,7 +29,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
 
         EmployeeDTO dto = (EmployeeDTO) obj;
         Employee employee = new Employee();
-        employee.setId(dto.getId());
+       // employee.setId(dto.getId());
         employee.setLogin(dto.getLogin());
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
