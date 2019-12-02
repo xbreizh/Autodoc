@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
-<title>myProfile</title>
+<div th:fragment="employees_edit" xmlns:th="http:/www.w3.org/1999/xhtml">
 
-<div th:replace="fragments/header :: head1"></div>
-<body>
-<div class="container">
-    <div th:replace="fragments/navbar :: navbar"></div>
-
-    <div th:replace="fragments/menu :: menu"></div>
-
-    <!-- <div th:replace="fragments/searchCar_form :: searchCar_form"></div>-->
-
-    <form action="#" method="post" th:action="@{/employees}" th:object="${employeeForm}">
+    <!--<form action="#" method="post" th:action="@{/employees}" th:object="${employeeForm}">
         <table>
             <tr>
                 <td>Login:</td>
@@ -34,9 +23,37 @@
                 </td>
             </tr>
         </table>
+    </form>-->
+
+
+    <form action="#" method="post" th:action="@{/employees}"
+          th:object="${employeeForm}">
+
+        <!-- <input type="reset" id="resetButton" name="reset" th:value="Reset"/>-->
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th> Login</th>
+                <th> FirstName</th>
+                <th> LastName</th>
+                <th>PhoneNumber1</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td th:text="${employee.id}">id</td>
+
+            <td><input id="firstName" name="firstName" th:value="${employee.firstName}" type="text"/></td>
+            <td><input id="lastName" name="lastName" th:value="${employee.lastName}" type="text"/></td>
+            <td><input id="phoneNumber1" name="phoneNumber1" th:value="${employee.phoneNumber1}" type="text"/></td>
+            <td><input id="submitButton" th:value="Save" type="submit"></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--  <td>Registration:</td>
+          <td><input th:field="*{registration}" type="text"/></td>
+          <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</td>-->
     </form>
 
 </div>
 
-</body>
-</html>

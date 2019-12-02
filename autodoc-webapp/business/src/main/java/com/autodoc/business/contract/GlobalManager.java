@@ -10,11 +10,11 @@ public interface GlobalManager<T, D> {
 
     List<D> getAll(String token);
 
-    void add(T obj);
+    void add(String token, T obj);
 
-    void update(T obj);
+    void update(String token, T obj);
 
-    void delete(int id);
+    void delete(String token, int id);
 
 
 }

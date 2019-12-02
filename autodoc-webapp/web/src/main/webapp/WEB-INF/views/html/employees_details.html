@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http:/www.w3.org/1999/xhtml">
+<title>myProfile</title>
+
+<div th:replace="fragments/header :: head1"></div>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <h2>Employee details</h2>
+
+
+    <h1>Form</h1>
+
+    <form action="#" method="post" th:action="@{/greeting}" th:object="${employeeForm}">
+        <p>id: <input readonly="readonly" th:field="*{id}" type="text"/></p>
+        <p>login: <input th:field="*{login}" type="text"/></p>
+        <p>firstName: <input th:field="*{firstName}" type="text"/></p>
+        <p>lastName: <input th:field="*{lastName}" type="text"/></p>
+        <p>phoneNumber1: <input th:field="*{phoneNumber1}" type="text"/></p>
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    </form>
+</div>
+
+</body>
+</html>
+
+
+
+

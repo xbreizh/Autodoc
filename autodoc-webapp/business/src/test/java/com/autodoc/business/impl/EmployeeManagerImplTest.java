@@ -10,13 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeManagerImplTest {
-    private static final String baseUrl = "http://localhost:8087/autodoc/";
+    // private static final String baseUrl = "http://localhost:8087/autodoc/";
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDcxMjY5MCwiaWF0IjoxNTc0Njk0NjkwfQ.6fFaipPO2S46l0vORn-eo2uJQKLNLghgtNIJ6KE_cBWm8CloPbGrOUv7-DWrnsb5-gqpOOamugNBe7CJ12-e1w";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NTM0MTAyNiwiaWF0IjoxNTc1MzIzMDI2fQ.KqWMEon3T6K9WtftNvCKo9OLLOMZo2hbmoNWr2X6Bsezb_8xpoDDPVyXrdjrrYh0LXxif58J39S1BrL0B99VdQ";
     // String url = "http://localhost:8087/autodoc/employees";
     private EmployeeManager employeeManager;
     //@Inject
@@ -45,9 +44,20 @@ class EmployeeManagerImplTest {
     public void getEmployeeById()
             throws IOException {
 
-        int id = 2;
+        int id = 1;
 
         assertNotNull(employeeManager.getById(token, id));
+
+    }
+
+    @Test
+    @DisplayName("should return a valid employee")
+    public void getEmployeeById1()
+            throws IOException {
+
+        int id = 3333331;
+        System.out.println("dede: " + employeeManager.getById(token, id));
+        assertNull(employeeManager.getById(token, id));
 
     }
 

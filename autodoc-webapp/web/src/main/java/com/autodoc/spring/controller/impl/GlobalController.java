@@ -4,6 +4,8 @@ import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.dtos.RegistrationForm;
+import com.autodoc.model.dtos.person.employee.EmployeeForm;
+import com.autodoc.model.models.Greeting;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -125,14 +127,10 @@ public class GlobalController {
 
     ModelAndView checkAndAddEmployeeDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
-        System.out.println("view: " + mv);
-        System.out.println(helper.getConnectedToken());
-        System.out.println(helper.getConnectedLogin());
-        System.out.println("em: " + employeeManager);
-        Employee employee = employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
-        System.out.println("employee found: " + employee);
-        if (employee == null) mv = new ModelAndView(LOGIN);
-        mv.addObject("employee", employee);
+        Employee connected = employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
+        System.out.println("connected found: " + connected);
+        if (connected == null) mv = new ModelAndView(LOGIN);
+        mv.addObject("connected", connected);
         return mv;
     }
 
@@ -145,6 +143,17 @@ public class GlobalController {
     }
 
 
+    @GetMapping("/greeting")
+    public ModelAndView greetingForm(EmployeeForm employeeForm) {
+        ModelAndView mv = new ModelAndView("greeting");
+        mv.addObject("employeeForm", employeeForm);
+        return mv;
+    }
+
+    @PostMapping("/greeting")
+    public String greetingSubmit(Greeting employeeForm) {
+        return "result";
+    }
 
 
 /*

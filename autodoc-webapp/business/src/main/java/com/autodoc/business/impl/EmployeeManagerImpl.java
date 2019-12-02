@@ -4,12 +4,15 @@ import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.contract.EmployeeService;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.person.employee.Employee;
+import org.apache.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO> implements EmployeeManager {
+
+    private static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
 
     @Inject
     EmployeeService service;
@@ -22,14 +25,16 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
     @Override
     public Employee getByLogin(String token, String login) {
         System.out.println("serviceee: " + service);
-        return dtoToEntity(service.getByName(token, login));
+        return dtoToEntity(token, service.getByName(token, login));
     }
 
-    public Employee dtoToEntity(Object obj) {
+    public Employee dtoToEntity(String token, Object obj) {
 
         EmployeeDTO dto = (EmployeeDTO) obj;
         Employee employee = new Employee();
-       // employee.setId(dto.getId());
+        int id = dto.getId();
+        LOGGER.info("id: " + id);
+        employee.setId(id);
         employee.setLogin(dto.getLogin());
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
