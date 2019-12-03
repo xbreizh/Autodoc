@@ -20,6 +20,7 @@ public class ExceptionControllerImpl implements ExceptionController {
     private static final String DENIED = "/errors/403";
     private static final String ERROR = "/errors/service";
     private static final String NOT_FOUND = "/errors/404";
+    private static final String BAD_REQUEST = "/errors/400";
 
 
     public ExceptionControllerImpl() {

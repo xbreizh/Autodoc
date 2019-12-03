@@ -7,6 +7,7 @@ import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.spring.controller.contract.EmployeeController;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -61,12 +62,13 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         LOGGER.info("lastC: " + employee.getLastConnection());
         LOGGER.info("startDate: " + employee.getStartDate());
         mv.addObject("employeeForm", employee);
+        mv.addObject("showForm", false);
         mv.addObject("employee", employee);
         return mv;
     }
 
 
-    @PostMapping(value = "/update/{id}")
+    @PutMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
         LOGGER.info("trying to update member with id " + employeeForm.getId());
@@ -76,6 +78,9 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
             Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
             mv.addObject("employee", employee);
             mv.addObject("employeeForm", employeeForm);
+            JSONObject jsonobject = new JSONObject();
+            jsonobject.put("showForm", "true");
+            mv.addObject("showForm", jsonobject);
             return mv;
         }
         // Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());

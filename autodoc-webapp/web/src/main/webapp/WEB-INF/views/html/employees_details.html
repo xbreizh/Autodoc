@@ -24,7 +24,7 @@
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${employee.id}">
 
-        <form action="#" method="post" th:action="@{'/employees/update/' + ${employee.id}}" th:object="${employeeForm}">
+        <form action="#" method="post" th:action="@{'/employees/' + ${employee.id}}" th:object="${employeeForm}">
             <table>
                 <tr>
                     <td>Id:</td>
@@ -70,6 +70,8 @@
                 </tr>
             </table>
         </form>
+        showForm
+        <td th:text="${showForm}">showForm</td>
     </div>
     <div style="display: block; background-color: orangered" th:id="'mic' + ${employee.id}">
         <table>
@@ -107,25 +109,27 @@
             </tr>
         </table>
 
+        showForm
+        <td th:text="${showForm}">showForm</td>
     </div>
 </div>
-
 
 <script>
     function toggle_displays(a, b) {
         let text = document.getElementById(a);
         let form = document.getElementById(b);
-        //  let save = document.getElementById(c);
+        let sed = jQuery.parseJson(showForm);
+        alert(errorMessage.error);
+
 
         if (text.style.display === "block") {
             text.style.display = "none";
             form.style.display = "block";
-            //save.style.display = "block";
         } else {
             text.style.display = "block";
             form.style.display = "none";
-            //  save.style.display = "none";
         }
+
     }
 </script>
 
