@@ -50,16 +50,6 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
 
     }
 
- /*   public List<Car> getByCriteria() {
-        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
-        CriteriaQuery<Car> cr = cb.createQuery(Car.class);
-        Root<Car> root = cr.from(Car.class);
-        cr.select(root);
 
-        Query<Car> query = getCurrentSession().createQuery(cr);
-        List<Car> results = query.getResultList();
-        return results;
-    }
-*/
 
 }

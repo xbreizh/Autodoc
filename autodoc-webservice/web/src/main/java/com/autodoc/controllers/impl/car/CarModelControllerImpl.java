@@ -6,13 +6,14 @@ import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/carModels")
@@ -75,7 +76,7 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
 
 
 
-    @GetMapping(value = "/getByName",
+/*    @GetMapping(value = "/getByName",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getByName(@RequestBody String name) {
@@ -83,7 +84,7 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
         CarModelDTO carModel = carModelManager.getByName(name);
         String response = converter.convertObjectIntoGsonObject(carModel);
         return ResponseEntity.ok(response);
-    }
+    }*/
 /*
     @Override
     @GetMapping(value = "/getByName",

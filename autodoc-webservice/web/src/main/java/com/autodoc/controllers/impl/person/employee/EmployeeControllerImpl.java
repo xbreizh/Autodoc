@@ -20,13 +20,13 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, EmployeeDTO> implements EmployeeController {
     private static final Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
-    private EmployeeManager employeeManager;
+    private EmployeeManager manager;
     private GsonConverter converter;
 
-    public EmployeeControllerImpl(EmployeeManager employeeManager) {
-        super(employeeManager);
+    public EmployeeControllerImpl(EmployeeManager manager) {
+        super(manager);
         converter = new GsonConverter();
-        this.employeeManager = employeeManager;
+        this.manager = manager;
     }
 
 
@@ -35,10 +35,12 @@ public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, Emplo
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getByName(@RequestParam(value = "name") String name) {
-        System.out.println("getting employee by name: "+name);
-        EmployeeDTO employee = employeeManager.getEmployeeByLogin(name);
+        System.out.println("getting employee by name: " + name);
+        Object received = manager.getEmployeeByLogin(name);
+        if (received == null) return notFoundResponse;
+        EmployeeDTO employee = manager.getEmployeeByLogin(name);
         String response = converter.convertObjectIntoGsonObject(employee);
-        System.out.println("response: "+response);
+        System.out.println("response: " + response);
         return ResponseEntity.ok(response);
     }
 
@@ -47,7 +49,7 @@ public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, Emplo
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getByRoles(@RequestBody List<RoleListDTO> roles) throws Exception {
         System.out.println("trying to get by role: "+roles.get(0));
-        List<EmployeeDTO> employees = employeeManager.getByRoles(roles);
+        List<EmployeeDTO> employees = manager.getByRoles(roles);
         String response = converter.convertObjectIntoGsonObject(employees);
 
         return ResponseEntity.ok(response);

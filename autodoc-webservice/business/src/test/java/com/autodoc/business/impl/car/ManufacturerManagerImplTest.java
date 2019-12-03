@@ -56,16 +56,6 @@ class ManufacturerManagerImplTest {
         fail();
     }
 
-/*    @Test
-    void save() throws Exception {
- String name = "zop";
-        ManufacturerDTO manufacturer = new ManufacturerDTO(name);
-        when(manufacturerDao.getByName(anyString())).thenReturn(null);
-        when(manufacturerDao.create(any(Manufacturer.class))).thenReturn("");
-        assertEquals(manufacturer.getClass().getSimpleName() + " added", manufacturerManager.save(manufacturer));
-
-    }*/
-
 
     @Test
     void getById() throws Exception {
@@ -91,15 +81,6 @@ class ManufacturerManagerImplTest {
         assertEquals(2, manufacturerManager.getAll().size());
     }
 
- /*   @Test
-    void update() throws Exception {
-        int id = 3;
-        String name = "John";
-        ManufacturerDTO dto = new ManufacturerDTO(name);
-        when(manufacturerDao.update(dto)).thenReturn("");
-        assertEquals(name, dto.getName());
-
-    }*/
 
 
     @Test
@@ -117,19 +98,6 @@ class ManufacturerManagerImplTest {
         when(manufacturerDao.deleteById(anyInt())).thenReturn(true);
         assertTrue(manufacturerManager.deleteById(id));
     }
-
-/*    @Test
-    void entityToDto() {
-        fail();
-    }*/
-
-   /* @Test
-    void dtoToEntity() throws Exception {
-        String name = "Paul";
-        ManufacturerDTO dto = new ManufacturerDTO(name);
-        Manufacturer manufacturer = (Manufacturer) manufacturerManager.dtoToEntity(dto);
-        assertEquals(name, manufacturer.getName());
-    }*/
 
 
 }

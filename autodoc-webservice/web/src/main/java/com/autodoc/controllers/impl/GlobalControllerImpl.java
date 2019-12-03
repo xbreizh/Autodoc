@@ -125,8 +125,10 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @ResponseBody
     public ResponseEntity getByName(@RequestParam(value = "name") String name) throws Exception {
         LOGGER.debug("trying to get: " + name);
-        System.out.println("trying to get by name: "+name);
-        String response = converter.convertObjectIntoGsonObject(manager.getByName(name));
+        Object received = manager.getByName(name);
+        if (received == null) return notFoundResponse;
+        System.out.println("trying to get by name: " + name);
+        String response = converter.convertObjectIntoGsonObject(received);
         if (response == null) return notFoundResponse;
         return ResponseEntity.ok(response);
     }

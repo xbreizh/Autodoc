@@ -9,6 +9,7 @@ import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,19 +83,18 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
             throw new Exception("That login is already used: " + dto.getLogin());
         }
         System.out.println("transferring data: " + dto);
-        dto.setId(0);
-        System.out.println("transferring data: " + dto);
+      /*  dto.setId(0);
+        System.out.println("transferring data: " + dto);*/
         checkDataInsert(dto);
         Employee employee = new Employee();
         employee.setLogin(dto.getLogin().toUpperCase());
         employee.setFirstName(dto.getFirstName().toUpperCase());
         employee.setLastName(dto.getLastName().toUpperCase());
         employee.setRoles(dto.getRoles());
-        employee.setPassword(dto.getPassword());
+        employee.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
         employee.setStartDate(new Date());
         employee.setPhoneNumber1(dto.getPhoneNumber1());
         if (dto.getPhoneNumber2() != null) employee.setPhoneNumber2(dto.getPhoneNumber2());
-        System.out.println("after transfert: " + employee);
         employee.setLogin(dto.getLogin());
         return employee;
 
@@ -103,8 +103,9 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     @Override
     public EmployeeDTO getEmployeeByLogin(String login) {
         System.out.println("getting by login: " + login);
-        EmployeeDTO dto = entityToDto(employeeDao.getByLogin(login));
-        return dto;
+        Employee employee = employeeDao.getByLogin(login);
+        if (employee == null) return null;
+        return entityToDto(employeeDao.getByLogin(login));
     }
 
     @Override
@@ -148,13 +149,16 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     }
 
     public List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws Exception {
-        System.out.println("trying to validate roles");
+        System.out.println("trying to validate roles: " + roles.size());
+        if (roles.isEmpty()) throw new Exception("no role provided");
         List<Role> roleList = new ArrayList<>();
         for (RoleListDTO role : roles) {
             boolean found = false;
             for (Role role1 : Role.values()) {
+                if (role.getRole() == null) throw new Exception("there shouldn't be any empty role");
                 if (role.getRole().equalsIgnoreCase(role1.name())) {
                     found = true;
+                    System.out.println("found: " + role);
                     roleList.add(role1);
                 }
             }

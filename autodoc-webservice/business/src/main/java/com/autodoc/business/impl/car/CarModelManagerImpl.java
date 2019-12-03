@@ -2,7 +2,7 @@ package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.impl.car.CarModelDaoImpl;
+import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
 import org.apache.log4j.Logger;
@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements CarModelManager {
     private final static Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
-    private CarModelDaoImpl carModelDao;
+    private CarModelDao carModelDao;
     private ModelMapper mapper;
 
-    public CarModelManagerImpl(CarModelDaoImpl carModelDao) {
+    public CarModelManagerImpl(CarModelDao carModelDao) {
         super(carModelDao);
         this.mapper = new ModelMapper();
         this.carModelDao = carModelDao;
@@ -41,7 +41,10 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
 
     @Override
     public CarModelDTO getByName(String name) {
-        return entityToDto(carModelDao.findByName(name));
+        System.out.println("trying to get by name: " + name);
+        CarModel carModel = (CarModel) carModelDao.getByName(name);
+        if (carModel == null) return null;
+        return entityToDto(carModel);
     }
 
 

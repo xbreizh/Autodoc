@@ -2,7 +2,7 @@ package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
+import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implements ManufacturerManager {
-    private ManufacturerDaoImpl manufacturerDao;
+    private ManufacturerDao manufacturerDao;
     private static final Logger LOGGER = Logger.getLogger(ManufacturerManagerImpl.class);
     private ModelMapper mapper;
     private Link link = new Link("http://localhost:8087/autodoc/manufacturers/");
 
-    public ManufacturerManagerImpl(ManufacturerDaoImpl manufacturerDao) {
+    public ManufacturerManagerImpl(ManufacturerDao manufacturerDao) {
         super(manufacturerDao);
         this.mapper = new ModelMapper();
         this.manufacturerDao = manufacturerDao;

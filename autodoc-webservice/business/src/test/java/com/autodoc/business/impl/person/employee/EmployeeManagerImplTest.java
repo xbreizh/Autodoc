@@ -2,15 +2,18 @@ package com.autodoc.business.impl.person.employee;
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
+import com.autodoc.model.dtos.RoleListDTO;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.person.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -68,7 +71,55 @@ class EmployeeManagerImplTest {
     }*/
 
     @Test
-    void getByRoles() {
+    @DisplayName("should throw an exception is roles empty")
+    void getByRoles() throws Exception {
+        List<RoleListDTO> roleList = new ArrayList<>();
+        RoleListDTO roleListDTO = new RoleListDTO();
+        roleListDTO.setRole("role");
+        List<EmployeeDTO> list = new ArrayList<>();
+        list.add(new EmployeeDTO());
+        when(employeeDao.getByRole(anyList())).thenReturn(list);
+        assertThrows(Exception.class, () -> employeeManager.getByRoles(roleList));
+    }
+
+    @Test
+    @DisplayName("should return the list if role valid")
+    void getByRoles2() throws Exception {
+        String login = "rogoma";
+        List<RoleListDTO> roleList = new ArrayList<>();
+        RoleListDTO roleListDTO = new RoleListDTO();
+        roleListDTO.setRole("mecanic");
+        roleList.add(roleListDTO);
+        List<Employee> list = new ArrayList<>();
+        Employee employee = new Employee();
+        employee.setLogin(login);
+        list.add(employee);
+        when(employeeDao.getByRole(anyList())).thenReturn(list);
+        assertEquals(login, employeeManager.getByRoles(roleList).get(0).getLogin());
+    }
+
+    @Test
+    @DisplayName("should throw an exception is roles has no name")
+    void getByRoles1() throws Exception {
+        List<RoleListDTO> roleList = new ArrayList<>();
+        roleList.add(new RoleListDTO());
+        List<EmployeeDTO> list = new ArrayList<>();
+        list.add(new EmployeeDTO());
+        when(employeeDao.getByRole(anyList())).thenReturn(list);
+        assertThrows(Exception.class, () -> employeeManager.getByRoles(roleList));
+    }
+
+    @Test
+    @DisplayName("should throw an exception is roles invalid")
+    void getByRoles3() throws Exception {
+        List<RoleListDTO> roleList = new ArrayList<>();
+        RoleListDTO roleListDTO = new RoleListDTO();
+        roleListDTO.setRole("mos");
+        roleList.add(roleListDTO);
+        List<EmployeeDTO> list = new ArrayList<>();
+        list.add(new EmployeeDTO());
+        when(employeeDao.getByRole(anyList())).thenReturn(list);
+        assertThrows(Exception.class, () -> employeeManager.getByRoles(roleList));
     }
 
     @Test

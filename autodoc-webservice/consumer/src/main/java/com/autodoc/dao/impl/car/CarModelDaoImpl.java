@@ -29,11 +29,12 @@ public class CarModelDaoImpl<T> extends AbstractHibernateDao implements CarModel
     }
 
     @Override
-    public CarModel findByName(String name) {
+    public CarModel getByName(String name) {
+        System.out.println("MEMEMEME");
         Query query = getCurrentSession().createQuery("From CarModel where name= :name", cl);
         query.setParameter("name", name);
         LOGGER.debug("in dao");
-        List<CarModel> result = (List<CarModel>)query.getResultList();
+        List<CarModel> result = (List<CarModel>) query.getResultList();
         if (!result.isEmpty()) {
             return result.get(0);
         }

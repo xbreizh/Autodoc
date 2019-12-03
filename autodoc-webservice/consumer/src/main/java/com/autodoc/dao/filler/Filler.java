@@ -259,11 +259,11 @@ public class Filler {
 
     void fillCarModel() {
         LOGGER.debug("filling car model");
-        Manufacturer man = manufacturerDao.getByName("NISSAN");
+        Manufacturer man = (Manufacturer) manufacturerDao.getByName("NISSAN");
         carModelDao.create(new CarModel(man, "QASHQAI", "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL));
-        man = manufacturerDao.getByName("RENAULT");
+        man = (Manufacturer) manufacturerDao.getByName("RENAULT");
         carModelDao.create(new CarModel(man, "CLIO", "BEBOP", GearBox.MANUAL, "1528", FuelType.PETROL));
-        man = manufacturerDao.getByName("TOYOTA");
+        man = (Manufacturer) manufacturerDao.getByName("TOYOTA");
         carModelDao.create(new CarModel(man, "AURIS", "T SPIRIT D4D", GearBox.MANUAL, "1998", FuelType.HYBRID));
     }
 
@@ -277,8 +277,8 @@ public class Filler {
 
     void fillCar() {
         LOGGER.debug("filling car");
-        CarModel carModel = carModelDao.findByName("AURIS");
-        CarModel carModel1 = carModelDao.findByName("CLIO");
+        CarModel carModel = (CarModel) carModelDao.getByName("AURIS");
+        CarModel carModel1 = (CarModel) carModelDao.getByName("CLIO");
         Client client = (Client) clientDao.getAll().get(0);
         Car car = new Car("05D154875", carModel, client);
         Car car1 = new Car("D12447F", carModel1, client);
