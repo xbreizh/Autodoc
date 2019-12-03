@@ -47,6 +47,9 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     public void update(String token, Object obj) {
+        LOGGER.info("stuff to update: " + obj);
+        D objToUpdate = (D) obj;
+        service.update(token, objToUpdate);
 
     }
 

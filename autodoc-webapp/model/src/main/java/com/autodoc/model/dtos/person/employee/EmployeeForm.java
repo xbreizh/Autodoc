@@ -26,10 +26,14 @@ public class EmployeeForm {
     @Size(min = 3, max = 12, message = "{lastName.size}")
     private String lastName;
 
-    @Size(min = 8, max = 12, message = "{phoneNumber1.size}")
+    @Size(min = 8, max = 12, message = "{phoneNumber.size}")
     private String phoneNumber1;
 
-    @Size(min = 1, max = 3)
+
+    @Size(min = 8, max = 12, message = "{phoneNumber.size}")
+    private String phoneNumber2;
+
+    @Size(min = 1, max = 3, message = "{roles.size}")
     private List<String> roles;
 
 }

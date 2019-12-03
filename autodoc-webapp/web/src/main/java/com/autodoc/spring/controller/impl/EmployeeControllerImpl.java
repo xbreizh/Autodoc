@@ -50,12 +50,17 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ModelAndView employeeById(@PathVariable Integer id, @Valid EmployeeForm employeeForm) {
+    public ModelAndView employeeById(@PathVariable Integer id, @Valid EmployeeDTO employeeForm, BindingResult bindingResult) {
         LOGGER.info("trying to get member with id " + id);
+        LOGGER.info("employee: " + employeeForm);
         ModelAndView mv = checkAndAddEmployeeDetails("employees_details");
+        // if(employeeForm.getLogin()==null) {
+        System.out.println("employee is null");
         Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), id);
-        mv.addObject("employeeForm", employeeForm);
-        //if (employee==null)return mv;
+        LOGGER.info("phonennumber: " + employee.getPhoneNumber1());
+        LOGGER.info("lastC: " + employee.getLastConnection());
+        LOGGER.info("startDate: " + employee.getStartDate());
+        mv.addObject("employeeForm", employee);
         mv.addObject("employee", employee);
         return mv;
     }
@@ -63,20 +68,25 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView employeeById(EmployeeForm employeeForm, BindingResult bindingResult) {
+    public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
         LOGGER.info("trying to update member with id " + employeeForm.getId());
-        LOGGER.info("member received: " + employeeForm.getId());
-       /* ModelAndView mv = checkAndAddEmployeeDetails("employees_details");
-       // Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
-        //if (employee==null)return mv;
-        EmployeeDTO dto = convertFormIntoDto(employeeForm);
-        Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
-        LOGGER.info("employee retrieved: "+employee);
+        ModelAndView mv = checkAndAddEmployeeDetails("employees_details");
         mv.addObject("employeeForm", new EmployeeForm());
+        if (bindingResult.hasErrors()) {
+            Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
+            mv.addObject("employee", employee);
+            mv.addObject("employeeForm", employeeForm);
+            return mv;
+        }
+        // Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
+        //if (employee==null)return mv;
+        // EmployeeDTO dto = convertFormIntoDto(employeeForm);
+        // Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
+        LOGGER.info("employee retrieved: " + employeeForm);
+       /* mv.addObject("employeeForm", new EmployeeForm());
         mv.addObject("employee", employee);*/
-        ModelAndView mv = new ModelAndView("greeting");
-        mv.addObject("employeeForm", employeeForm);
-        return mv;
+        employeeManager.update(helper.getConnectedToken(), employeeForm);
+        return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());
     }
 
     private EmployeeDTO convertFormIntoDto(EmployeeForm employeeForm) {

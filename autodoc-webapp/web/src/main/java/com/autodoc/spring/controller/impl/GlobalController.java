@@ -4,7 +4,6 @@ import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.dtos.RegistrationForm;
-import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.Greeting;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
@@ -144,9 +143,13 @@ public class GlobalController {
 
 
     @GetMapping("/greeting")
-    public ModelAndView greetingForm(EmployeeForm employeeForm) {
+    public ModelAndView greetingForm(Greeting greeting) {
         ModelAndView mv = new ModelAndView("greeting");
-        mv.addObject("employeeForm", employeeForm);
+        Greeting greeting2 = new Greeting();
+        greeting2.setContent("merry stuff");
+        greeting2.setId(3);
+        mv.addObject("greeting", greeting2);
+
         return mv;
     }
 

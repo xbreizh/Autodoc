@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Size;
+
 
 @Getter
 @Setter
@@ -11,12 +13,13 @@ import lombok.ToString;
 public abstract class PersonDTO {
     private int id;
 
-   // @NotNull(message = "lastName cannot be null")
+    @Size(min = 3, max = 12, message = "{lastName.size}")
     private String lastName;
-   // @NotNull(message = "firstName cannot be null")
+    @Size(min = 3, max = 12, message = "{firstName.size}")
     private String firstName;
-   // @NotNull(message = "phoneNumber1 cannot be null")
+    @Size(min = 8, max = 12, message = "{phoneNumber.size}")
     private String phoneNumber1;
+    @Size(min = 8, max = 12, message = "{phoneNumber.size}")
     private String phoneNumber2;
 
     public PersonDTO(int id, String firstName, String lastName, String phoneNumber1) {

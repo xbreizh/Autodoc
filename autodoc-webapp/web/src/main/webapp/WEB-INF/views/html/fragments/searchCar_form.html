@@ -5,7 +5,7 @@
         <table>
             <tr>
                 <td>Registration:</td>
-                <td><input th:field="*{registration}" type="text"/></td>
+                <td><input autofocus="autofocus" th:field="*{registration}" type="text"/></td>
                 <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</td>
             </tr>
             <tr>

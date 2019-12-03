@@ -5,6 +5,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -16,13 +19,14 @@ public class EmployeeDTO extends PersonDTO {
 
     private List<String> roles;
 
-    // @PastOrPresent
+    @NotNull
+    @PastOrPresent
     private Date startDate;
 
-    // @NotNull(message = "login cannot be null")
+    @Size(min = 3, max = 12, message = "{login.size}")
     private String login;
 
-    //  @PastOrPresent
+    @PastOrPresent
     private Date lastConnection;
 
     public EmployeeDTO(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {
