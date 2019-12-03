@@ -15,12 +15,10 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-//@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class EmployeeDaoImplTest {
 
@@ -46,30 +44,45 @@ class EmployeeDaoImplTest {
 
     @Test
     void getByLogin() {
-        assertNotNull( employeeDao.getByLogin("LMOLO"));
+        assertNotNull(employeeDao.getByLogin("LMOLO"));
 
     }
 
-    /*@Test
-    void getByToken() {
-        Employee employee = (Employee) employeeDao.getAll().get(0);
-        String token = employee.getToken();
-        assertEquals(employee, employeeDao.getByToken(token));
-    }*/
 
     @Test
-    void getByRole() throws Exception {
+    void getByRole() {
 
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MANAGER);
         roles.add(Role.MECANIC);
-        Employee employee = (Employee) employeeDao.getAll().get(1);
-        System.out.println("roles: " + employee.getRoles());
-
-        System.out.println("ids: " + employeeDao.getAll().get(0) + " / " + employeeDao.getAll().get(1));
-        // assertEquals(1, employeeDao.getByRole(roles).size());
+        assertNotNull(employeeDao.getByRole(roles));
     }
 
+    @Test
+    void update() {
+        int id = 2;
+        String login = "MOLOK";
+        Employee employee = (Employee) employeeDao.getById(id);
+        employee.setLogin(login);
+        assertEquals(login, ((Employee) employeeDao.getById(id)).getLogin());
+    }
+
+    @Test
+    void deleteById() {
+        int id = 2;
+        assertNotNull(employeeDao.getById(id));
+        employeeDao.deleteById(id);
+        assertNull(employeeDao.getById(id));
+    }
+
+    @Test
+    void deleteByObject() {
+        int id = 2;
+        Employee employee = (Employee) employeeDao.getById(id);
+        assertNotNull(employee);
+        employeeDao.delete(employee);
+        assertNull(employeeDao.getById(id));
+    }
 
 
 }

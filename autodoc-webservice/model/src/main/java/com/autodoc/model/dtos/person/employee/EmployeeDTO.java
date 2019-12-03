@@ -29,6 +29,10 @@ public class EmployeeDTO extends PersonDTO {
     @NotNull(message = "login cannot be null")
     private String login;
 
+
+    @NotNull(message = "password cannot be null")
+    private String password;
+
     @PastOrPresent
     private Date lastConnection;
 
@@ -50,7 +54,6 @@ public class EmployeeDTO extends PersonDTO {
                 ", startDate=" + startDate +
                 ", login='" + login + '\'' +
                 ", lastConnection=" + lastConnection +
-                '}';
-
+                "} " + super.toString();
     }
 }

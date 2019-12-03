@@ -53,12 +53,12 @@ class AbstractHibernateDaoTest {
 
     @Test
     void create() {
-        String typo="STRING";
-        String compare="EQUALs";
+        String typo = "STRING";
+        String compare = "EQUALs";
 
-        for (SearchType type: SearchType.values()){
-            if (type.name().equals(typo)){
-                for (String[] str:type.getValues()) {
+        for (SearchType type : SearchType.values()) {
+            if (type.name().equals(typo)) {
+                for (String[] str : type.getValues()) {
                     if (str[0].equalsIgnoreCase(compare)) {
                         System.out.println("found it");
                         System.out.println(type + " " + str[0] + " / " + str[1]);
@@ -72,8 +72,7 @@ class AbstractHibernateDaoTest {
 
 
     @Test
-    void isCompare(){
-
+    void isCompare() {
 
 
     }
@@ -84,6 +83,7 @@ class AbstractHibernateDaoTest {
 
     @Test
     void update() {
+
     }
 
     @Test

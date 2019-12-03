@@ -40,8 +40,9 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     public String save(D object) {
         LOGGER.info("trying to save a " + object.getClass());
+        System.out.println("trying to save: " + object.getClass());
         try {
-            T objectToSave = dtoToEntity(object);
+            T objectToSave = transferInsert(object);
             if (!exception.isEmpty()) return exception;
             String feedback = Integer.toString(dao.create(objectToSave));
             if (!feedback.equals("0")) {
@@ -53,6 +54,33 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             return e.getMessage();
         }
 
+    }
+
+    public T transferInsert(D obj) throws Exception {
+        return dtoToEntity(obj);
+    }
+
+    @Override
+    public boolean update(Object entity) throws Exception {
+        System.out.println("entity: " + entity.getClass());
+        /* T obj = dtoToEntity((D) entity);*/
+        T obj = transferUpdate((D) entity);
+        System.out.println("obj: " + obj.getClass());
+       /* if (!exception.isEmpty()) {
+            throw new Exception(exception);
+
+        }
+
+        D dto = entityToDto((T) dao.update(obj));
+        if (!exception.isEmpty()) return null;
+        return dto;*/
+
+        return dao.update(obj);
+
+    }
+
+    public T transferUpdate(D obj) throws Exception {
+        return dtoToEntity(obj);
     }
 
 
@@ -105,23 +133,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
 
-    @Override
-    public boolean update(Object entity) throws Exception {
-        System.out.println("entity: " + entity.getClass());
-        T obj = dtoToEntity((D) entity);
-        System.out.println("obj: " + obj.getClass());
-       /* if (!exception.isEmpty()) {
-            throw new Exception(exception);
 
-        }
-
-        D dto = entityToDto((T) dao.update(obj));
-        if (!exception.isEmpty()) return null;
-        return dto;*/
-
-        return dao.update(obj);
-
-    }
 
     @Override
     public boolean delete(Object entity) throws Exception {

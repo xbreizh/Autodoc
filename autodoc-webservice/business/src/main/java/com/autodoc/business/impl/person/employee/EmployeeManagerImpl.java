@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -43,7 +44,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         dto.setRoles(((Employee) entity).getRoles());
         dto.setLastName(((Employee) entity).getLastName());
         dto.setPhoneNumber1(((Employee) entity).getPhoneNumber1());
-        System.out.println("dto: "+dto);
+        System.out.println("dto: " + dto);
         LOGGER.info("converted into dto");
         return dto;
     }
@@ -56,9 +57,52 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         return employee;
     }
 
+
+    @Override
+    public Employee transferUpdate(Object obj) throws Exception {
+        EmployeeDTO dto = (EmployeeDTO) obj;
+        if (dto.getId() == 0) throw new Exception("invalid id: " + 0);
+        Employee employee = (Employee) employeeDao.getById(dto.getId());
+        if (employee == null) return null;
+        if (dto.getLogin() != null) employee.setLogin(dto.getLogin().toUpperCase());
+        if (dto.getFirstName() != null) employee.setFirstName(dto.getFirstName().toUpperCase());
+        if (dto.getLastName() != null) employee.setLastName(dto.getLastName().toUpperCase());
+        if (dto.getPhoneNumber1() != null) employee.setPhoneNumber1(dto.getPhoneNumber1().toUpperCase());
+        if (dto.getPhoneNumber2() != null) employee.setPhoneNumber2(dto.getPhoneNumber2().toUpperCase());
+        if (dto.getRoles() != null) employee.setRoles(dto.getRoles());
+
+        return employee;
+    }
+
+    public Employee transferInsert(Object obj) throws Exception {
+        EmployeeDTO dto = (EmployeeDTO) obj;
+        Employee employee1 = employeeDao.getByLogin(dto.getLogin().toUpperCase());
+        System.out.println("employee1: " + employee1);
+        if (employeeDao.getByLogin(dto.getLogin()) != null) {
+            throw new Exception("That login is already used: " + dto.getLogin());
+        }
+        System.out.println("transferring data: " + dto);
+        dto.setId(0);
+        System.out.println("transferring data: " + dto);
+        checkDataInsert(dto);
+        Employee employee = new Employee();
+        employee.setLogin(dto.getLogin().toUpperCase());
+        employee.setFirstName(dto.getFirstName().toUpperCase());
+        employee.setLastName(dto.getLastName().toUpperCase());
+        employee.setRoles(dto.getRoles());
+        employee.setPassword(dto.getPassword());
+        employee.setStartDate(new Date());
+        employee.setPhoneNumber1(dto.getPhoneNumber1());
+        if (dto.getPhoneNumber2() != null) employee.setPhoneNumber2(dto.getPhoneNumber2());
+        System.out.println("after transfert: " + employee);
+        employee.setLogin(dto.getLogin());
+        return employee;
+
+    }
+
     @Override
     public EmployeeDTO getEmployeeByLogin(String login) {
-        System.out.println("getting by login: "+login);
+        System.out.println("getting by login: " + login);
         EmployeeDTO dto = entityToDto(employeeDao.getByLogin(login));
         return dto;
     }
@@ -72,7 +116,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     public Employee getByLogin(String login) {
 
         login = login.toUpperCase();
-        System.out.println("login to find: "+login);
+        System.out.println("login to find: " + login);
         return employeeDao.getByLogin(login);
     }
 
@@ -90,14 +134,14 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
             roleList.add(role.getRole());
         }*/
         List<Employee> employeeList = employeeDao.getByRole(roleList);
-        System.out.println("role: "+roleList.get(0));
+        System.out.println("role: " + roleList.get(0));
         List<EmployeeDTO> employeeDTOList = new ArrayList<>();
-        for (Employee employee: employeeList){
-           // Employee employee = (Employee)obj;
+        for (Employee employee : employeeList) {
+            // Employee employee = (Employee)obj;
             EmployeeDTO dto = entityToDto(employee);
             employeeDTOList.add(dto);
         }
-        System.out.println("size found: "+employeeDTOList.size());
+        System.out.println("size found: " + employeeDTOList.size());
         System.out.println(employeeDTOList.get(0));
 
         return employeeDTOList;
@@ -106,17 +150,17 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     public List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws Exception {
         System.out.println("trying to validate roles");
         List<Role> roleList = new ArrayList<>();
-        for (RoleListDTO role: roles){
-            boolean found=false;
-            for (Role role1: Role.values()){
-                if(role.getRole().equalsIgnoreCase(role1.name())){
-                    found=true;
+        for (RoleListDTO role : roles) {
+            boolean found = false;
+            for (Role role1 : Role.values()) {
+                if (role.getRole().equalsIgnoreCase(role1.name())) {
+                    found = true;
                     roleList.add(role1);
                 }
             }
-            if (!found)throw new Exception("wrong value for role: "+role);
+            if (!found) throw new Exception("wrong value for role: " + role);
         }
-        System.out.println("all roles are valid: "+roles);
+        System.out.println("all roles are valid: " + roles);
         return roleList;
     }
 }

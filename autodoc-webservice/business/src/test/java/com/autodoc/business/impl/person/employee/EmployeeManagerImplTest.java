@@ -35,6 +35,17 @@ class EmployeeManagerImplTest {
         assertNotNull(employeeManager.getAll());
     }
 
+  /*  @Test
+    void update() {
+        EmployeeDTO dto = new EmployeeDTO();
+        int id = 2;
+        dto.setLogin("MALEK");
+        Employee employee = employeeDao.getById(id)
+        employeeDao.update(employee);
+        when(employeeDao.getAll()).thenReturn(list);
+        assertNotNull(employeeManager.getAll());
+    }*/
+
 
 /*    @Test
     @DisplayName("should not return exception if valid roles")

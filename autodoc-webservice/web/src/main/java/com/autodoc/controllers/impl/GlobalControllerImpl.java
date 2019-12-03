@@ -56,6 +56,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity add(@RequestBody @Valid D obj) throws Exception {
         getClassName(obj);
         LOGGER.info("trying to add a " + type);
+        System.out.println("object received: " + obj);
         String response = manager.save(obj);
         if (response.equals(type + " added")) {
             return ResponseEntity.status(HttpStatus.CREATED).body(type + "created");
@@ -108,7 +109,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getById(@PathVariable Integer id) throws Exception {
-        Object received = (D) manager.getById(id);
+        Object received = manager.getById(id);
         if (received == null) return notFoundResponse;
         System.out.println("reaced ");
         String response = converter.convertObjectIntoGsonObject(received);
