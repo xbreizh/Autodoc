@@ -1,7 +1,6 @@
 package com.autodoc.business.impl.person.client;
 
 import com.autodoc.business.contract.person.client.ClientManager;
-import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
@@ -13,15 +12,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-//@Sql(scripts = "classpath:resetDb_scripts/resetDbClient.sql")
 @Transactional
 class ClientManagerImplTest {
 
-    ClientDao clientDao;
+    ClientDaoImpl clientDao;
 
     ClientManager clientManager;
 
@@ -30,15 +31,11 @@ class ClientManagerImplTest {
 
     @BeforeEach
     void init() {
-        //clientDao= new ClientDaoImpl<>();
         clientDao = mock(ClientDaoImpl.class);
-        clientManager = mock(ClientManager.class);
-        clientDao = mock(ClientDao.class);
-        // System.out.println(clientDao);
-        //System.out.println(clientDao);
-        //clientManager = new ClientManagerImpl<Client, ClientDTO>(clientDao);
-
+        clientManager = new ClientManagerImpl(clientDao);
+        // clientDao = mock(ClientDao.class);
         client = new Client();
+        dto = new ClientDTO();
     }
 
 
@@ -47,6 +44,17 @@ class ClientManagerImplTest {
     void entityToDto() {
 
         clientManager.entityToDto(client);
+    }
+
+
+    @Test
+    void save() throws Exception {
+        int id = 9;
+        dto.setFirstName("mo");
+        dto.setLastName("ma");
+        dto.setPhoneNumber1("yok");
+        when(clientDao.create(any(Client.class))).thenReturn(id);
+        assertEquals(Integer.toString(id), clientManager.save(dto));
     }
 
 

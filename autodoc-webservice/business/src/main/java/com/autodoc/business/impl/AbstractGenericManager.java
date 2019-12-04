@@ -45,6 +45,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             T objectToSave = transferInsert(object);
             if (!exception.isEmpty()) return exception;
             String feedback = Integer.toString(dao.create(objectToSave));
+            System.out.println("feedback: " + feedback);
             if (!feedback.equals("0")) {
                 return feedback;
             }
@@ -57,6 +58,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     public T transferInsert(D obj) throws Exception {
+        System.out.println("here now");
         return dtoToEntity(obj);
     }
 

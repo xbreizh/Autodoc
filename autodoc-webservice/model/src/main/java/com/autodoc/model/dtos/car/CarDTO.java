@@ -15,6 +15,7 @@ public class CarDTO {
 
     private int id;
     @Min(value = 1, message = "carModelId cannot be null")
+    @NotNull
     private int carModelId;
     @NotNull(message = "registration cannot be null")
     private String registration;

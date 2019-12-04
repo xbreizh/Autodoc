@@ -53,8 +53,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     @Override
     public Employee dtoToEntity(Object entity) throws Exception {
         EmployeeDTO dto = (EmployeeDTO) entity;
-        Employee employee = mapper.map(entity, Employee.class);
         checkDataInsert(dto);
+        Employee employee = mapper.map(entity, Employee.class);
         return employee;
     }
 
