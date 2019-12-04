@@ -20,22 +20,23 @@ import java.util.Map;
 public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements EmployeeDao {
     private static final Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
     private Class cl = Employee.class;
+
     public EmployeeDaoImpl() {
         this.setClazz(Employee.class);
     }
 
     public Map<String, SearchType> getSearchField() {
 
-        return  Employee.SEARCH_FIELD;
+        return Employee.SEARCH_FIELD;
     }
 
     @Override
     public Employee getByLogin(String login) {
         Query query = getCurrentSession().createQuery("From Employee where login= :login", cl);
         query.setParameter("login", login);
-        List<Employee> employees =  query.getResultList();
+        List<Employee> employees = query.getResultList();
         LOGGER.debug("found: " + employees.size());
-        System.out.println("size in dao: "+employees.size());
+        System.out.println("size in dao: " + employees.size());
         if (!employees.isEmpty()) return employees.get(0);
         return null;
 
@@ -52,29 +53,39 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
         return null;
     }
 
+
     @Override
     public List<Employee> getByRole(List<Role> roles) {
         System.out.println("roles received: " + roles);
-        if (roles==null)return null;
+        if (roles == null) return null;
         String init = "select * from employee where  ";
         StringBuilder sb = new StringBuilder(init);
-        for(Role role:roles){
-            String condition = "id in (select employee_id from employee_roles where roles like '%"+role+"%')";
-            if(!sb.toString().equals(init)){
+        for (Role role : roles) {
+            String condition = "id in (select employee_id from employee_roles where roles like '%" + role + "%')";
+            if (!sb.toString().equals(init)) {
                 sb.append(" and ");
             }
-            sb.append( condition);
+            sb.append(condition);
         }
-        System.out.println("query so far: "+sb);
+        System.out.println("query so far: " + sb);
         Query query = getCurrentSession().createNativeQuery(sb.toString(), Employee.class);
 
 
         List<Employee> employees = (List<Employee>) query.getResultList();
-        System.out.println("size: "+employees.size());
+        System.out.println("size: " + employees.size());
         LOGGER.debug("found: " + employees.size());
         if (!employees.isEmpty()) return employees;
         return new ArrayList<>();
     }
 
+
+    public boolean deleteById(int entityId) {
+        System.out.println("trying to delete element with id: " + entityId);
+        Employee entity = getCurrentSession().get(Employee.class, entityId);
+        entity.setRoles(null);
+        getCurrentSession().update(entity);
+        getCurrentSession().delete(entity);
+        return true;
+    }
 
 }

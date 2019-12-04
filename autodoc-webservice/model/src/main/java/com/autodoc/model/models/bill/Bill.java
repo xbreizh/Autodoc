@@ -9,6 +9,8 @@ import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -66,20 +68,23 @@ public class Bill {
 
     @NotNull
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Car car;
 
     @NotNull
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Client client;
 
 
     @NotNull
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employee;
 
     @NotNull
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    private transient List<Task> tasks;
+    @ManyToMany
+    private List<Task> tasks;
 
     @NotNull
     private double total;

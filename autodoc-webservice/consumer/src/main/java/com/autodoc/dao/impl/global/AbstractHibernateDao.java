@@ -19,11 +19,18 @@ public abstract class AbstractHibernateDao<T> {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
     @Inject
     SessionFactory sessionFactory;
+    int maxCharacters = 22;
     private Class<T> clazz;
     private String dateFormat;
-    int maxCharacters=22;
 
-
+    public static boolean isValidNumber(String strNum) {
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
 
     public Class<T> getClazz() {
         return clazz;
@@ -41,7 +48,6 @@ public abstract class AbstractHibernateDao<T> {
     public T getById(int id) {
         return getCurrentSession().get(clazz, id);
     }
-
 
     //@Override
     public T getByName(String name) {
@@ -67,6 +73,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public boolean delete(T entity) {
+        System.out.println("I want to delete: " + entity);
         getCurrentSession().delete(entity);
         return true;
 
@@ -78,11 +85,16 @@ public abstract class AbstractHibernateDao<T> {
         return obj != null;
     }
 
-
-    public boolean deleteById(final int entityId) {
-        T entity = getById(entityId);
+    public boolean deleteById(int entityId) {
+        System.out.println("trying to delete element with id: " + entityId);
+        T entity = getCurrentSession().get(clazz, entityId);
+        System.out.println(entity);
+        if (entity == null) {
+            System.out.println("entity not found");
+            return false;
+        }
         delete(entity);
-        return true;
+        return getById(entityId) == null;
     }
 
     protected Session getCurrentSession() {
@@ -92,27 +104,26 @@ public abstract class AbstractHibernateDao<T> {
 
     public List<T> getByCriteria(List<Search> search) throws Exception {
         if (search == null) throw new Exception("no search criteria provided");
-        if(getSearchField()==null)throw new Exception("no search criteria available for that entity");
+        if (getSearchField() == null) throw new Exception("no search criteria available for that entity");
         String request = buildCriteriaRequest(search);
-        System.out.println("req: "+request);
+        System.out.println("req: " + request);
         Query query = sessionFactory.getCurrentSession().createQuery(request);
         return query.getResultList();
     }
 
-
     protected String buildCriteriaRequest(List<Search> searchList) throws Exception {
 
         StringBuilder sb = new StringBuilder();
-        String init="from "+clazz.getSimpleName();
+        String init = "from " + clazz.getSimpleName();
         sb.append(init);
-       // Search search = searchList.get(0);
-        for (Search search: searchList) {
-            if (sb.toString().equals(init)){
+        // Search search = searchList.get(0);
+        for (Search search : searchList) {
+            if (sb.toString().equals(init)) {
                 sb.append(" where ");
-            }else{
+            } else {
                 sb.append(" and ");
             }
-            sb.append(search.getFieldName()+" "+search.getCompare()+" '"+search.getValue()+"'");
+            sb.append(search.getFieldName() + " " + search.getCompare() + " '" + search.getValue() + "'");
 
         }
         //sb.append(" where "+search.getFieldName()+" "+search.getCompare()+" '"+search.getValue()+"'");
@@ -148,16 +159,14 @@ public abstract class AbstractHibernateDao<T> {
         LOGGER.info("query build: "+builder.toString());
 
         return builder.toString();*/
-       //return null;
+        //return null;
     }
-
-
 
     private void checkIfInvalidValue(Compare compare, String value) throws Exception {
         String type = compare.getType();
         if (type.equals("Integer")) {
             if (!isValidNumber(value)) throw new Exception(value + " is not a number");
-        } else if(type.equals("Date")){
+        } else if (type.equals("Date")) {
             if (!isValidDate(value)) throw new Exception(value + "is not a date");
         }
     }
@@ -166,15 +175,6 @@ public abstract class AbstractHibernateDao<T> {
         if (!authorizedSearchFieldList.containsKey(s.getFieldName())) {
             throw new Exception("invalid criteria: " + s.getFieldName());
         }
-    }
-
-    public static boolean isValidNumber(String strNum) {
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
     }
 
     public boolean isValidDate(String dateStr) {

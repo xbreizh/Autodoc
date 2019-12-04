@@ -25,7 +25,7 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
 
     public Map<String, SearchType> getSearchField() {
 
-        return  Car.SEARCH_FIELD;
+        return Car.SEARCH_FIELD;
     }
 
     @Override
@@ -49,7 +49,6 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
         return query.getResultList();
 
     }
-
 
 
 }

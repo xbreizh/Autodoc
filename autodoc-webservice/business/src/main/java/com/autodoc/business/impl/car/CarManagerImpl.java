@@ -2,6 +2,7 @@ package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.business.impl.AbstractGenericManager;
+import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
@@ -26,6 +27,8 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     private CarDao carDao;
     private CarModelDao carModelDao;
     private ClientDao clientDao;
+    @Inject
+    private BillDao billDao;
     // @Inject
     private ModelMapper mapper;
 
@@ -39,10 +42,20 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         LOGGER.info("creating manager");
     }
 
-    /*   public CarManagerImpl() {
-           this.mapper = new ModelMapper();
-       }
-   */
+
+    public boolean deleteById(int entityId) throws Exception {
+       /* Car car = (Car) carDao.getById(entityId);
+        System.out.println("removing bills");
+        for (Bill bill: car.getBills()){
+            billDao.deleteById(bill.getId());
+        }
+        car = (Car) carDao.getById(entityId);
+        System.out.println("new bill size: "+car.getBills().size());*/
+        return carDao.deleteById(entityId);
+
+
+    }
+
     @Override
     public CarDTO getByRegistration(String registration) {
         LOGGER.info("reg: " + registration);

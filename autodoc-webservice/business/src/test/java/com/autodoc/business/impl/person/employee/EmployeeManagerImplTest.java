@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -69,6 +68,22 @@ class EmployeeManagerImplTest {
                 ()->employeeManager.checkRoleValuesValid(rolesToCheck));
 
     }*/
+
+    @Test
+    @DisplayName("should return true if dao returns true")
+    void deleteById() throws Exception {
+
+        when(employeeDao.deleteById(anyInt())).thenReturn(true);
+        assertTrue(employeeManager.deleteById(3));
+    }
+
+    @Test
+    @DisplayName("should return false if dao returns false")
+    void deleteById1() throws Exception {
+
+        when(employeeDao.deleteById(anyInt())).thenReturn(false);
+        assertFalse(employeeManager.deleteById(3));
+    }
 
     @Test
     @DisplayName("should throw an exception is roles empty")

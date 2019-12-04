@@ -137,7 +137,8 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @Override
     @DeleteMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteById(@PathVariable Integer id) {
+    public ResponseEntity deleteById(@PathVariable Integer id) throws Exception {
+        System.out.println("trying to delete");
         LOGGER.info("trying to delete: " + id);
         boolean response = manager.deleteById(id);
         if (!response) return ResponseEntity

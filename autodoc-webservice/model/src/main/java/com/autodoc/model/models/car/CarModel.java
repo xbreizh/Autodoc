@@ -63,10 +63,10 @@ public class CarModel {
     private Manufacturer manufacturer;
 
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private transient List<Car> cars;
+    private List<Car> cars;
 
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private transient List<Piece> pieces;
+    private List<Piece> pieces;
 
     @NotNull
     @Column(unique = true)

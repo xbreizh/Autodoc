@@ -140,14 +140,12 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     @Override
-    public boolean deleteById(int entityId) {
+    public boolean deleteById(int entityId) throws Exception {
+        T entity = dao.getById(entityId);
+        if (entity == null) throw new Exception("id is invalid: " + entityId);
+        System.out.println("deleting by iud manager");
 
-        LOGGER.info("trying to delete " + entityId);
-      /*  if (dao.getById(entityId) == null) {
-            return "not Found";
-        }*/
         return dao.deleteById(entityId);
-        //return "";
     }
 
     public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {

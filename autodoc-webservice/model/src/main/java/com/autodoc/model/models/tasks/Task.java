@@ -48,7 +48,7 @@ public class Task {
     private int id;
 
     @ManyToMany(mappedBy = "tasks", cascade = CascadeType.REMOVE)
-    private transient List<Bill> bills;
+    private List<Bill> bills;
 
 
     @NonNull

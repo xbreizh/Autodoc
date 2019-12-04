@@ -17,7 +17,7 @@ public interface IGenericManager<T, D> {
 
     boolean delete(final D entity) throws Exception;
 
-    boolean deleteById(final int entityId);
+    boolean deleteById(final int entityId) throws Exception;
 
     D entityToDto(final T entity);
 

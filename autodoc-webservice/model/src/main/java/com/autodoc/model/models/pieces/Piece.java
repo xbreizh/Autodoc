@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -57,15 +59,19 @@ public class Piece {
 
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private SubTask subTask;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private CarModel carModel;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Provider provider;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private PieceType pieceType;
 
 

@@ -42,7 +42,6 @@ public class Manufacturer {
 
 
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @Transient
     private List<CarModel> carModels;
 
 

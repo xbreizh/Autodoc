@@ -26,6 +26,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -238,69 +239,52 @@ class CarControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isNotFound())
-                   .andExpect(content().contentType(encoding))
+                .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
         // ResponseEntity response = ResponseEntity.notFound().build();
         // ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
         // assertEquals(response, carControllerImpl.getCarByRegistration(registration));
     }
 
-
-
-  /*  @Test
-    void update() throws Exception {
-        Car car = new Car();
-        String feedback = "car updated";
-        when(carManager.update(any(Car.class))).thenReturn(feedback);
+    @Test
+    @DisplayName("should return 200 if element is deleted")
+    void deleteById() throws Exception {
+        int id = 24;
+        carManager = mock(CarManager.class);
+        carController = new CarControllerImpl(carManager);
+        when(carManager.deleteById(anyInt())).thenReturn(true);
+        assertEquals(204, carController.deleteById(id).getStatusCodeValue());
+        System.out.println(carController.getById(id));
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .put("/car/update")
+                        .delete("/cars/" + id)
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(car))
+                        .content(converter.convertObjectIntoGsonObject(registration))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
-
-        ResponseEntity response = ResponseEntity.ok(feedback);
-        assertEquals(response, carControllerImpl.update(car));
-    }*/
-
-   /* @Test
-    void addCar() throws Exception {
-        feedback = "car added";
-        CarDTO car = new CarDTO(registration, 2, 2);
-        when(carManager.save(any(Object.class))).thenReturn(feedback);
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .post("/car/add")
-                        .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(car))
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        )
-                .andExpect(status().isOk())
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
-        ResponseEntity response = ResponseEntity.ok(feedback);
-        assertEquals(response, carControllerImpl.add(car));
     }
 
     @Test
-    void deleteCar() throws Exception {
-        feedback = "car deleted";
-        when(carManager.deleteById(any(Integer.class))).thenReturn(feedback);
+    @DisplayName("should return 200 if element is deleted")
+    void deleteById1() throws Exception {
+        int id = 24;
+        carManager = mock(CarManager.class);
+        carController = new CarControllerImpl(carManager);
+        when(carManager.deleteById(anyInt())).thenReturn(false);
+        assertEquals(404, carController.deleteById(id).getStatusCodeValue());
+        System.out.println(carController.getById(id));
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .delete("/car/deleteById/{id}", id)
+                        .delete("/cars/" + id)
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(id))
+                        .content(converter.convertObjectIntoGsonObject(registration))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentType(encoding))
-                .andExpect(status().isOk())
                 .andDo(document("{ClassName}/{methodName}"));
-        ResponseEntity response = ResponseEntity.ok(feedback);
-        assertEquals(response, carControllerImpl.deleteById(id));
-    }*/
+    }
 }

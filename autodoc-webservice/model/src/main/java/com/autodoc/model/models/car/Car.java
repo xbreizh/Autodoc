@@ -60,7 +60,7 @@ public class Car  {
     private Client client;
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
-    private transient List<Bill> bills;
+    private List<Bill> bills;
 
 
     @Override

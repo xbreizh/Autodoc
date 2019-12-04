@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarDaoImplTest {
 
     @Inject
-    private CarDao carDao;
+    private CarDao dao;
 
     @Inject
     private Filler filler;
@@ -39,7 +39,7 @@ class CarDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         filler.fill();
-        car = (Car) carDao.getAll().get(0);
+        car = (Car) dao.getAll().get(0);
         id = car.getId();
         registration = car.getRegistration();
         clientName = car.getClient().getLastName();
@@ -48,7 +48,7 @@ class CarDaoImplTest {
 
     @Test
     void getAll() {
-        assertEquals(2, carDao.getAll().size());
+        assertEquals(2, dao.getAll().size());
     }
 
     @Test
@@ -65,10 +65,18 @@ class CarDaoImplTest {
     }
 
     @Test
+    void deleteById() {
+        int id = 2;
+        assertNotNull(dao.getById(id));
+        dao.deleteById(id);
+        assertNull(dao.getById(id));
+    }
+
+    @Test
     @DisplayName("should return null")
     void getByRegistration1() {
 
-        assertNull(carDao.getCarByRegistration("dede"));
+        assertNull(dao.getCarByRegistration("dede"));
     }
 
 
@@ -83,15 +91,15 @@ class CarDaoImplTest {
     @DisplayName("should return null")
     void getByClient() {
 
-        assertTrue(carDao.getCarByClient("toto").isEmpty());
+        assertTrue(dao.getCarByClient("toto").isEmpty());
     }
 
     @Test
     @DisplayName("should return list of car for a client")
     void getByClient1() {
         assertAll(
-                () -> assertFalse(carDao.getCarByClient(clientName).isEmpty()),
-                () -> assertThat(carDao.getCarByClient(clientName), instanceOf(ArrayList.class))
+                () -> assertFalse(dao.getCarByClient(clientName).isEmpty()),
+                () -> assertThat(dao.getCarByClient(clientName), instanceOf(ArrayList.class))
         );
 
     }

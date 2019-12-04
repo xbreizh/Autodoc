@@ -41,11 +41,11 @@ public class Client extends Person {
     public Client() {
     }
 
-    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private transient List<Car> cars;
+    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Car> cars;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private transient List<Bill> bills;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Bill> bills;
 
 
     @Override

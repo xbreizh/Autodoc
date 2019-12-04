@@ -8,6 +8,7 @@ import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -187,6 +188,13 @@ class CarManagerImplTest {
 
     @Test
     void checkIfExistingCar() {
+    }
+
+    @Test
+    void deleteById() throws Exception {
+        when(carDao.getById(anyInt())).thenReturn(new Manufacturer());
+        when(carDao.deleteById(anyInt())).thenReturn(true);
+        assertTrue(carManager.deleteById(2));
     }
 /*
     @Test

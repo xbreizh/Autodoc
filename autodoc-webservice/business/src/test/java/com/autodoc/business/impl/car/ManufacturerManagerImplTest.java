@@ -85,7 +85,7 @@ class ManufacturerManagerImplTest {
 
     @Test
     @DisplayName("return false when dao returns false")
-    void deleteById() {
+    void deleteById() throws Exception {
         int id = 3;
         when(manufacturerDao.getById(id)).thenReturn(false);
         assertFalse(manufacturerManager.deleteById(id));
@@ -93,9 +93,10 @@ class ManufacturerManagerImplTest {
 
     @Test
     @DisplayName("return true when dao returns true")
-    void deleteById1() {
+    void deleteById1() throws Exception {
         int id = 3;
         when(manufacturerDao.deleteById(anyInt())).thenReturn(true);
+        when(manufacturerDao.getById(id)).thenReturn(new Manufacturer());
         assertTrue(manufacturerManager.deleteById(id));
     }
 

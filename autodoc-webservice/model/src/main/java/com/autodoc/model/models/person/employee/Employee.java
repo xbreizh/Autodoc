@@ -48,8 +48,8 @@ public class Employee extends Person {
     }
 
 
-    @OneToMany(mappedBy = "employee",cascade = CascadeType.REMOVE)
-    private transient List<Bill> bills;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private List<Bill> bills;
 
     @NotNull
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -58,11 +58,11 @@ public class Employee extends Person {
 
 
     @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-    private transient List<Skill> skills;
+    private List<Skill> skills;
 
 
     @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-    private transient List<SubTask> subTasks;
+    private List<SubTask> subTasks;
 
     @NotNull
     private Date startDate;

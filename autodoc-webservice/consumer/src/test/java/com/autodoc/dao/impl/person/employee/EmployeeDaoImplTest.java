@@ -24,7 +24,7 @@ class EmployeeDaoImplTest {
 
 
     @Inject
-    private EmployeeDao employeeDao;
+    private EmployeeDao dao;
     @Inject
     private Filler filler;
 
@@ -37,14 +37,14 @@ class EmployeeDaoImplTest {
 
     @Test
     void getAll() {
-        System.out.println("emp[l" + employeeDao);
-        assertEquals(2, employeeDao.getAll().size());
+        System.out.println("emp[l" + dao);
+        assertEquals(2, dao.getAll().size());
     }
 
 
     @Test
     void getByLogin() {
-        assertNotNull(employeeDao.getByLogin("LMOLO"));
+        assertNotNull(dao.getByLogin("LMOLO"));
 
     }
 
@@ -55,33 +55,36 @@ class EmployeeDaoImplTest {
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MANAGER);
         roles.add(Role.MECANIC);
-        assertNotNull(employeeDao.getByRole(roles));
+        assertNotNull(dao.getByRole(roles));
     }
 
     @Test
     void update() {
         int id = 2;
         String login = "MOLOK";
-        Employee employee = (Employee) employeeDao.getById(id);
+        Employee employee = (Employee) dao.getById(id);
         employee.setLogin(login);
-        assertEquals(login, ((Employee) employeeDao.getById(id)).getLogin());
+        assertEquals(login, ((Employee) dao.getById(id)).getLogin());
     }
 
     @Test
     void deleteById() {
         int id = 2;
-        assertNotNull(employeeDao.getById(id));
-        employeeDao.deleteById(id);
-        assertNull(employeeDao.getById(id));
+        assertAll(
+                () -> assertNotNull(dao.getById(id)),
+                () -> assertTrue(dao.deleteById(id)),
+                () -> assertNull(dao.getById(id))
+        );
     }
+
 
     @Test
     void deleteByObject() {
         int id = 2;
-        Employee employee = (Employee) employeeDao.getById(id);
+        Employee employee = (Employee) dao.getById(id);
         assertNotNull(employee);
-        employeeDao.delete(employee);
-        assertNull(employeeDao.getById(id));
+        dao.delete(employee);
+        assertNull(dao.getById(id));
     }
 
 

@@ -10,7 +10,7 @@ public interface GlobalController<T, D> {
 
     ResponseEntity getByName(String name) throws Exception;
 
-    ResponseEntity deleteById(Integer id);
+    ResponseEntity deleteById(Integer id) throws Exception;
 
    // ResponseEntity searchByCriteria(List<SearchDTO> searchDTOs)throws Exception;
 
