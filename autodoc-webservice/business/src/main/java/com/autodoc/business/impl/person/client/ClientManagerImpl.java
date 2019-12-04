@@ -25,10 +25,10 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
     }
 
 
-    @Override
+ /*   @Override
     public ClientDTO getByName(String name) {
         return entityToDto(clientDao.getByName(name));
-    }
+    }*/
 
 
     @Override

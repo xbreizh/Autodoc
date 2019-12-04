@@ -48,10 +48,18 @@ class ClientDaoImplTest {
     }
 
     @Test
-    @DisplayName("should return client if alid id")
+    @DisplayName("should return client if valid id")
     void getById1() {
 
         assertEquals(client, clientDao.getById(id));
+    }
+
+
+    @Test
+    @DisplayName("should return client if valid name")
+    void getByName() {
+
+        assertNotNull(clientDao.getByName("MOLO"));
     }
 
     @Test

@@ -33,7 +33,7 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
     @Override
     public Employee getByLogin(String login) {
         Query query = getCurrentSession().createQuery("From Employee where login= :login", cl);
-        query.setParameter("login", login);
+        query.setParameter("login", login.toUpperCase());
         List<Employee> employees = query.getResultList();
         LOGGER.debug("found: " + employees.size());
         System.out.println("size in dao: " + employees.size());
