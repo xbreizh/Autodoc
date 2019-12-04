@@ -62,19 +62,8 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public boolean update(Object entity) throws Exception {
-        System.out.println("entity: " + entity.getClass());
-        /* T obj = dtoToEntity((D) entity);*/
+
         T obj = transferUpdate((D) entity);
-        System.out.println("obj: " + obj.getClass());
-       /* if (!exception.isEmpty()) {
-            throw new Exception(exception);
-
-        }
-
-        D dto = entityToDto((T) dao.update(obj));
-        if (!exception.isEmpty()) return null;
-        return dto;*/
-
         return dao.update(obj);
 
     }

@@ -1,9 +1,8 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
-import com.autodoc.business.contract.car.CarModelManager;
-import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.dao.contract.car.CarDao;
+import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.dtos.car.CarDTO;
@@ -18,50 +17,32 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-//@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class CarManagerImplTest {
 
-    @Inject
-    private CarManager carManager1;
     private CarManager carManager;
-    //@Inject
     private CarDao carDao;
-    private CarDao carDao1;
     private ClientDao clientDao;
-    //@Inject
-    private ClientManager clientManager;
-    // @Inject
-    private CarModelManager carModelManager;
+    private CarModelDao carModelDao;
     private Car car;
 
 
     @BeforeEach
     void init() {
-        //clientDao= new ClientDaoImpl<>();
         carDao = mock(CarDaoImpl.class);
-        carModelManager = mock(CarModelManager.class);
-        clientManager = mock(ClientManager.class);
-        //clientManager1 = mock(carDao1);
+        carModelDao = mock(CarModelDao.class);
         clientDao = mock(ClientDao.class);
-        // System.out.println(carDao);
-        //System.out.println(clientDao);
-        //clientManager = new ClientManagerImpl<Client, ClientDTO>(clientDao);
-        carManager = new CarManagerImpl(clientManager, carDao, carModelManager);
-        //System.out.println(clientManager);
-        //System.out.println(carManager);
+        carManager = new CarManagerImpl(clientDao, carDao, carModelDao);
         car = new Car();
     }
 
@@ -78,25 +59,25 @@ class CarManagerImplTest {
     @DisplayName("should return car if registration found")
     void getByRegistration1() {
         System.out.println("dao: " + carDao);
-        String reg = "dede";
+        String reg = "DEDE";
         when(carDao.getCarByRegistration(reg)).thenReturn(new Car());
-        assertNotNull(carManager.getByRegistration(reg));
+        assertNotNull(carManager.getByRegistration("dede"));
     }
 
 
     @Test
     void save() throws Exception {
         String registration = "abc123";
-        String id = "1111";
+        int id = 111;
         CarDTO dto = new CarDTO();
         dto.setRegistration(registration);
         dto.setClientId(2);
         dto.setId(3);
         dto.setCarModelId(3);
-        when(clientManager.getById(anyInt())).thenReturn(new Client());
-        when(carModelManager.getById(anyInt())).thenReturn(new CarModel());
-        when(carDao.create(any(Car.class))).thenReturn(Integer.parseInt(id));
-        assertEquals(id, carManager.save(dto));
+        when(clientDao.getById(anyInt())).thenReturn(new Client());
+        when(carModelDao.getById(anyInt())).thenReturn(new CarModel());
+        when(carDao.create(any(Car.class))).thenReturn(id);
+        assertEquals(Integer.toString(id), carManager.save(dto));
     }
 
     @Test
@@ -111,26 +92,101 @@ class CarManagerImplTest {
         );
     }
 
-    @Test
-    void getAllInte() {
-        System.out.println(carManager1);
-        System.out.println(carManager1.getAll());
-        // assertNotNull(carManager1.getAll());
-    }
-
 
     @Test
     void update() throws Exception {
         String registration = "abc123";
+        int id = 5;
+        car.setId(id);
+        car.setRegistration(registration);
         CarDTO dto = new CarDTO();
         dto.setRegistration(registration);
         dto.setClientId(2);
         dto.setId(3);
         dto.setCarModelId(3);
+        when(carDao.getById(anyInt())).thenReturn(car);
         when(carDao.update(any(Car.class))).thenReturn(true);
-        when(clientManager.getById(anyInt())).thenReturn(new Client());
-        when(carModelManager.getById(anyInt())).thenReturn(new CarModel());
+        when(clientDao.getById(anyInt())).thenReturn(new Client());
+        when(carModelDao.getById(anyInt())).thenReturn(new CarModel());
         assertTrue(carManager.update(dto));
+    }
+
+    @Test
+    void updateClient() {
+    }
+
+    @Test
+    void entityToDto() {
+    }
+
+    @Test
+    void dtoToEntity() {
+    }
+
+    @Test
+    @DisplayName("should update the car")
+    void transferUpdate() throws Exception {
+        int id = 4;
+        int carModelId = 4;
+        int clientId = 5;
+        String registration = "ABC123";
+        Car car = new Car();
+        car.setRegistration(registration);
+        car.setId(id);
+        CarDTO dto = new CarDTO();
+        Client client = new Client();
+        client.setId(clientId);
+        CarModel carModel = new CarModel();
+        carModel.setId(carModelId);
+        dto.setId(id);
+        dto.setCarModelId(carModelId);
+        dto.setClientId(clientId);
+        when(carDao.getById(anyInt())).thenReturn(car);
+        when(carModelDao.getById(anyInt())).thenReturn(carModel);
+        when(clientDao.getById(anyInt())).thenReturn(client);
+        when(carDao.getCarByRegistration(anyString())).thenReturn(car);
+        carManager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(registration, car.getRegistration()),
+                () -> assertEquals(carModelId, car.getCarModel().getId()),
+                () -> assertEquals(clientId, car.getClient().getId())
+        );
+
+    }
+
+    @Test
+    @DisplayName("should update the car")
+    void transferUpdate1() throws Exception {
+        int id = 4;
+        int carModelId = 4;
+        int clientId = 5;
+        String registration = "ABC123";
+        Car car = new Car();
+        car.setRegistration(registration);
+        car.setId(id);
+        CarDTO dto = new CarDTO();
+        Client client = new Client();
+        client.setId(clientId);
+        CarModel carModel = new CarModel();
+        carModel.setId(carModelId);
+        dto.setId(id);
+        dto.setCarModelId(carModelId);
+        dto.setClientId(clientId);
+        when(carDao.getById(anyInt())).thenReturn(car);
+        when(carModelDao.getById(anyInt())).thenReturn(carModel);
+        when(clientDao.getById(anyInt())).thenReturn(client);
+        when(carDao.getCarByRegistration(anyString())).thenReturn(car);
+        carManager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(registration, car.getRegistration()),
+                () -> assertEquals(carModelId, car.getCarModel().getId()),
+                () -> assertEquals(clientId, car.getClient().getId())
+        );
+
+    }
+
+    @Test
+    void checkIfExistingCar() {
     }
 /*
     @Test
