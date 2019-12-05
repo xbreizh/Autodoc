@@ -71,21 +71,28 @@ class FillerTest {
     void init() throws InterruptedException {
         filler.fillEmployee();
         filler.fillManufacturer();
+        Thread.sleep(2);
         filler.fillCarModel();
         filler.fillClient();
+        Thread.sleep(2);
         filler.fillCar();
         filler.fillCountry();
         filler.fillSkillCategory();
+        Thread.sleep(2);
         filler.fillSkill();
         filler.fillProvider();
         filler.fillAddresses();
+        Thread.sleep(2);
         filler.fillPieceTypes();
+        Thread.sleep(2);
         filler.fillPieces();
         filler.fillTemplateSubTask();
+        Thread.sleep(2);
         filler.fillSubTasks();
         filler.fillTasks();
+        Thread.sleep(2);
         filler.fillBills();
-        // Thread.sleep(2); // quick pause between fill up if required
+        Thread.sleep(2); // quick pause between fill up if required
     }
 
     @Test

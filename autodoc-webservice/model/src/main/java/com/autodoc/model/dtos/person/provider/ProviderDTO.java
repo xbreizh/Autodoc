@@ -31,7 +31,7 @@ public class ProviderDTO extends PersonDTO {
     @NotNull(message = "company cannot be null")
     private String company;
 
-    @NotNull(message = "rate cannot be null")
+    //@NotNull(message = "rate cannot be null")
     @Enumerated(EnumType.STRING)
     private Rate rate;
 

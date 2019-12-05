@@ -61,11 +61,11 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
     public Client transferUpdate(Object obj) throws Exception {
         ClientDTO dto = (ClientDTO) obj;
         int id = dto.getId();
+        if (id == 0) throw new Exception("id cannot be null");
         String firstName = dto.getFirstName();
         String lastName = dto.getLastName();
         String phoneNumber1 = dto.getPhoneNumber1();
         String phoneNumber2 = dto.getPhoneNumber2();
-        if (id == 0) throw new Exception("id cannot be null");
         Client client = (Client) clientDao.getById(id);
         if (client == null) throw new Exception("invalid id");
         if (firstName != null) client.setFirstName(firstName.toUpperCase());

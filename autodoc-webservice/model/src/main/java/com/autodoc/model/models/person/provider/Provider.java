@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -45,9 +46,9 @@ public class Provider extends Person {
     private String website;
     private String email1;
     private String email2;
-    @NonNull
+    @NotNull
     private String company;
-    @NonNull
+    // @NonNull
     @Enumerated(EnumType.STRING)
     private Rate rate;
 
