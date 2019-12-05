@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.employee;
 
 import com.autodoc.dao.contract.person.employee.SkillCategoryDao;
@@ -30,3 +31,4 @@ public class SkillCategoryDaoImpl<T> extends AbstractHibernateDao implements Ski
 }
 
 
+*/

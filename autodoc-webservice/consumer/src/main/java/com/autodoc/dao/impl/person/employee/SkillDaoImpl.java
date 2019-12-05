@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.employee;
 
 import com.autodoc.dao.contract.person.employee.SkillDao;
@@ -25,3 +26,4 @@ public class SkillDaoImpl<T> extends AbstractHibernateDao implements SkillDao {
         return  Skill.SEARCH_FIELD;
     }
 }
+*/

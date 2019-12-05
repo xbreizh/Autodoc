@@ -57,9 +57,9 @@ public class Employee extends Person {
     private List<Role> roles;
 
 
-    @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
+  /*  @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
     private List<Skill> skills;
-
+*/
 
     @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
     private List<SubTask> subTasks;

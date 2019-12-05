@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.employee;
 
 import com.autodoc.business.contract.person.employee.SkillManager;
@@ -46,3 +47,4 @@ public class SkillManagerImpl<T, D> extends AbstractGenericManager implements Sk
     }
 
 }
+*/

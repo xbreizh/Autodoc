@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.person.employee;
 
 
@@ -36,3 +37,4 @@ public class SkillCategoryControllerImpl extends GlobalControllerImpl<SkillCateg
 
 
 }
+*/

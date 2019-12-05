@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.models.person.employee;
 
 import com.autodoc.model.enums.SearchType;
@@ -60,3 +61,4 @@ public class Skill {
     @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Employee> employees;
 }
+*/

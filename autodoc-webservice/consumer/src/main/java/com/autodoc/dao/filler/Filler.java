@@ -6,8 +6,6 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
-import com.autodoc.dao.contract.person.employee.SkillCategoryDao;
-import com.autodoc.dao.contract.person.employee.SkillDao;
 import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
@@ -26,8 +24,6 @@ import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
-import com.autodoc.model.models.person.employee.Skill;
-import com.autodoc.model.models.person.employee.SkillCategory;
 import com.autodoc.model.models.person.provider.Address;
 import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.person.provider.Provider;
@@ -63,10 +59,10 @@ public class Filler {
     private CarDao carDao;
     @Inject
     private CountryDao countryDao;
-    @Inject
+ /*   @Inject
     private SkillCategoryDao skillCategoryDao;
     @Inject
-    private SkillDao skillDao;
+    private SkillDao skillDao;*/
     @Inject
     private ProviderDao providerDao;
     @Inject
@@ -99,8 +95,8 @@ public class Filler {
             fillClient();
             fillCar();
             fillCountry();
-            fillSkillCategory();
-            fillSkill();
+          /*  fillSkillCategory();
+            fillSkill();*/
             fillProvider();
             fillPieceTypes();
             fillPieces();
@@ -211,7 +207,7 @@ public class Filler {
         providerDao.create(provider1);
     }
 
-    void fillSkill() {
+  /*  void fillSkill() {
         LOGGER.debug("filling skills");
         Skill skill = new Skill();
         Skill skill1 = new Skill();
@@ -237,7 +233,7 @@ public class Filler {
             skillCategoryDao.create(new SkillCategory(list[i]));
         }
 
-    }
+    }*/
 
 
     void fillCountry() {

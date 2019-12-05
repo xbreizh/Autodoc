@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.models.person.employee;
 
 import com.autodoc.model.enums.SearchType;
@@ -56,3 +57,4 @@ public class SkillCategory {
     @NonNull
     private String name;
 }
+*/

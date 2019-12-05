@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.employee;
 
 import com.autodoc.business.contract.person.employee.SkillCategoryManager;
@@ -40,3 +41,4 @@ public class SkillCategoryManagerImpl<T, D> extends AbstractGenericManager imple
         return skillCategory;
     }
 }
+*/
