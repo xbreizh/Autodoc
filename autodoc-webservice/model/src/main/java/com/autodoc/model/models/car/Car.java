@@ -4,6 +4,8 @@ package com.autodoc.model.models.car;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.client.Client;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,8 @@ import java.util.Map;
 
 @Entity
 @Table(name = "car")
+@Setter
+@Getter
 public class Car  {
 
     public static Map<String, SearchType> getSearchField() {
@@ -73,7 +77,7 @@ public class Car  {
                 '}';
     }
 
-    public int getId() {
+   /* public int getId() {
         return id;
     }
 
@@ -111,5 +115,5 @@ public class Car  {
 
     public void setBills(List<Bill> bills) {
         this.bills = bills;
-    }
+    }*/
 }

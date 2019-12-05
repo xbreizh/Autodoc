@@ -43,6 +43,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         System.out.println("trying to save: " + object.getClass());
         try {
             T objectToSave = transferInsert(object);
+            System.out.println("object to save: " + objectToSave);
             if (!exception.isEmpty()) return exception;
             String feedback = Integer.toString(dao.create(objectToSave));
             System.out.println("feedback: " + feedback);

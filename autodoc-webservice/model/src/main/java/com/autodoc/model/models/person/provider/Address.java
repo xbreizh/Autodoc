@@ -3,51 +3,60 @@ package com.autodoc.model.models.person.provider;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "address")
 @Setter
 @Getter
-@ToString
 public class Address {
 
 
-
-     public Address(@NonNull Country country, @NonNull String streetName, @NonNull String city) {
-        this.country = country;
-        this.streetName = streetName;
-        this.city = city;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
 
 
     public Address() {
 
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private int id;
+    @ManyToOne
+    @NotNull(message = "country missing or invalid")
+    private Country country;
 
     @ManyToOne
     @NonNull
     private Provider provider;
-
-    @ManyToOne
-    @NonNull
-    private Country country;
-
-    @NonNull
+    @NotNull(message = "streetName missing or invalid")
+    @Size(min = 2, max = 30, message = "streetName mush have between {min} and {max} characters")
     private String streetName;
+    @NotNull(message = "city missing or invalid")
+    @Size(min = 2, max = 30, message = "city mush have between {min} and {max} characters")
+    private String city;
 
 
     private String postcode;
 
-    @NonNull
-    private String city;
+    public Address(@NotNull Country country, @NotNull String streetName, @NotNull String city) {
+        this.country = country;
+        this.streetName = streetName;
+        this.city = city;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", country=" + country +
+                ", streetName='" + streetName + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", city='" + city + '\'' +
+                '}';
+    }
 }
+
+

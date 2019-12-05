@@ -3,6 +3,8 @@ package com.autodoc.dao.impl.car;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,20 +23,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-//@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class CarDaoImplTest {
 
-    @Inject
-    private CarDao dao;
-
-    @Inject
-    private Filler filler;
     String clientName;
     String registration;
     int id;
     Car car;
-
+    @Inject
+    private CarDao dao;
+    @Inject
+    private Filler filler;
 
     @BeforeEach
     void init() throws Exception {
@@ -80,12 +79,28 @@ class CarDaoImplTest {
     }
 
 
-   /* @Test
+    @Test
     @DisplayName("should return null")
     void getById() {
 
-        assertNotNull(carDao.getById(1));
-    }*/
+        assertNotNull(dao.getById(1));
+    }
+
+    @Test
+    @DisplayName("should add car")
+    void add() {
+        assertEquals(2, dao.getAll().size());
+        Car car = new Car();
+        CarModel carModel = new CarModel();
+        carModel.setId(1);
+        Client client = new Client();
+        client.setId(1);
+        car.setClient(client);
+        car.setCarModel(carModel);
+        car.setRegistration("abc123");
+        System.out.println(dao.create(car));
+        assertEquals(3, dao.getAll().size());
+    }
 
     @Test
     @DisplayName("should return null")

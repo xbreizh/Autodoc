@@ -44,13 +44,6 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
 
     public boolean deleteById(int entityId) throws Exception {
-       /* Car car = (Car) carDao.getById(entityId);
-        System.out.println("removing bills");
-        for (Bill bill: car.getBills()){
-            billDao.deleteById(bill.getId());
-        }
-        car = (Car) carDao.getById(entityId);
-        System.out.println("new bill size: "+car.getBills().size());*/
         return carDao.deleteById(entityId);
 
 

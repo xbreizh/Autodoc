@@ -2,10 +2,11 @@ package com.autodoc.model.models.person.provider;
 
 import com.autodoc.model.enums.SearchType;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,6 @@ public class Country  {
     }
 
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -50,7 +50,8 @@ public class Country  {
     @OneToMany(mappedBy = "country", cascade = CascadeType.REMOVE)
     private List<Address> addressList;
 
-    @NonNull
+    @NotNull(message = "name cannot be null")
+    @Size(min = 2, max = 30, message = "name should have between {min} and {max} characters")
     private String name;
 
     @Override

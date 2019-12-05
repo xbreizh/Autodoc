@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-//@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class FillerTest {
 
@@ -79,12 +78,12 @@ class FillerTest {
         filler.fillSkillCategory();
         filler.fillSkill();
         filler.fillProvider();
+        filler.fillAddresses();
         filler.fillPieceTypes();
         filler.fillPieces();
         filler.fillTemplateSubTask();
         filler.fillSubTasks();
         filler.fillTasks();
-        filler.fillAddresses();
         filler.fillBills();
         // Thread.sleep(2); // quick pause between fill up if required
     }
