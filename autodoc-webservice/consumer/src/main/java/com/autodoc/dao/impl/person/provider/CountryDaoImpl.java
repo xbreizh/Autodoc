@@ -5,6 +5,7 @@ import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.person.provider.Country;
 import org.apache.log4j.Logger;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,17 @@ public class CountryDaoImpl<T> extends AbstractHibernateDao implements CountryDa
 
     public Map<String, SearchType> getSearchField() {
 
-        return  Country.SEARCH_FIELD;
+        return Country.SEARCH_FIELD;
+    }
+
+    @Override
+    public Country getByName(String name) {
+        System.out.println("get country by name: " + name);
+        String req = "From Country where name= :name";
+        Query query = getCurrentSession().createQuery("From Country where name= :name");
+        query.setParameter("name", name.toUpperCase());
+        if (query.getResultList().isEmpty()) return null;
+        return (Country) query.getResultList().get(0);
     }
 
 

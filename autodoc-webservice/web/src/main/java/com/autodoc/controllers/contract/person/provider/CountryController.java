@@ -1,6 +1,8 @@
 package com.autodoc.controllers.contract.person.provider;
 
-public interface CountryController {
+import com.autodoc.controllers.contract.GlobalController;
+
+public interface CountryController extends GlobalController {
 
 
 }

@@ -30,18 +30,6 @@ public class ManufacturerControllerImpl extends GlobalControllerImpl<Manufacture
     }
 
 
-/*    @GetMapping(value = "/getAll",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getAll() {
-
-        List<Manufacturer> list = manufacturerManager.getAll();
-        LOGGER.info("list: " + list);
-        String response = converter.convertObjectIntoGsonObject(list);
-        return ResponseEntity.ok(response);
-    }*/
-
-
     @Override
     @DeleteMapping(value = "/deleteById/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
