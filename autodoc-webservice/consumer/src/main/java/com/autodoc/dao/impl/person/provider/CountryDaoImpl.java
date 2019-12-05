@@ -30,7 +30,6 @@ public class CountryDaoImpl<T> extends AbstractHibernateDao implements CountryDa
     @Override
     public Country getByName(String name) {
         System.out.println("get country by name: " + name);
-        String req = "From Country where name= :name";
         Query query = getCurrentSession().createQuery("From Country where name= :name");
         query.setParameter("name", name.toUpperCase());
         if (query.getResultList().isEmpty()) return null;

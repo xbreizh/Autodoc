@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 class CarManagerImplTest {
 
     private CarManager carManager;
-    private CarDao carDao;
+    private CarDao dao;
     private ClientDao clientDao;
     private CarModelDao carModelDao;
     private Car car;
@@ -40,10 +40,10 @@ class CarManagerImplTest {
 
     @BeforeEach
     void init() {
-        carDao = mock(CarDaoImpl.class);
+        dao = mock(CarDaoImpl.class);
         carModelDao = mock(CarModelDao.class);
         clientDao = mock(ClientDao.class);
-        carManager = new CarManagerImpl(clientDao, carDao, carModelDao);
+        carManager = new CarManagerImpl(clientDao, dao, carModelDao);
         car = new Car();
     }
 
@@ -51,7 +51,7 @@ class CarManagerImplTest {
     @DisplayName("should return null if registration not found")
     void getByRegistration() {
         String reg = "dede";
-        when(carDao.getCarByRegistration(reg)).thenReturn(null);
+        when(dao.getCarByRegistration(reg)).thenReturn(null);
         assertNull(carManager.getByRegistration(reg));
     }
 
@@ -59,9 +59,9 @@ class CarManagerImplTest {
     @Test
     @DisplayName("should return car if registration found")
     void getByRegistration1() {
-        System.out.println("dao: " + carDao);
+        System.out.println("dao: " + dao);
         String reg = "DEDE";
-        when(carDao.getCarByRegistration(reg)).thenReturn(new Car());
+        when(dao.getCarByRegistration(reg)).thenReturn(new Car());
         assertNotNull(carManager.getByRegistration("dede"));
     }
 
@@ -77,7 +77,7 @@ class CarManagerImplTest {
         dto.setCarModelId(3);
         when(clientDao.getById(anyInt())).thenReturn(new Client());
         when(carModelDao.getById(anyInt())).thenReturn(new CarModel());
-        when(carDao.create(any(Car.class))).thenReturn(id);
+        when(dao.create(any(Car.class))).thenReturn(id);
         assertEquals(Integer.toString(id), carManager.save(dto));
     }
 
@@ -86,7 +86,7 @@ class CarManagerImplTest {
         List<Car> carList = new ArrayList<>();
         carList.add(new Car());
         carList.add(new Car());
-        when(carDao.getAll()).thenReturn(carList);
+        when(dao.getAll()).thenReturn(carList);
         assertAll(
                 () -> assertNotNull(carManager.getAll()),
                 () -> assertEquals(2, carManager.getAll().size())
@@ -105,8 +105,8 @@ class CarManagerImplTest {
         dto.setClientId(2);
         dto.setId(3);
         dto.setCarModelId(3);
-        when(carDao.getById(anyInt())).thenReturn(car);
-        when(carDao.update(any(Car.class))).thenReturn(true);
+        when(dao.getById(anyInt())).thenReturn(car);
+        when(dao.update(any(Car.class))).thenReturn(true);
         when(clientDao.getById(anyInt())).thenReturn(new Client());
         when(carModelDao.getById(anyInt())).thenReturn(new CarModel());
         assertTrue(carManager.update(dto));
@@ -142,10 +142,10 @@ class CarManagerImplTest {
         dto.setId(id);
         dto.setCarModelId(carModelId);
         dto.setClientId(clientId);
-        when(carDao.getById(anyInt())).thenReturn(car);
+        when(dao.getById(anyInt())).thenReturn(car);
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(clientDao.getById(anyInt())).thenReturn(client);
-        when(carDao.getCarByRegistration(anyString())).thenReturn(car);
+        when(dao.getCarByRegistration(anyString())).thenReturn(car);
         carManager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(registration, car.getRegistration()),
@@ -173,10 +173,10 @@ class CarManagerImplTest {
         dto.setId(id);
         dto.setCarModelId(carModelId);
         dto.setClientId(clientId);
-        when(carDao.getById(anyInt())).thenReturn(car);
+        when(dao.getById(anyInt())).thenReturn(car);
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(clientDao.getById(anyInt())).thenReturn(client);
-        when(carDao.getCarByRegistration(anyString())).thenReturn(car);
+        when(dao.getCarByRegistration(anyString())).thenReturn(car);
         carManager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(registration, car.getRegistration()),
@@ -192,8 +192,8 @@ class CarManagerImplTest {
 
     @Test
     void deleteById() throws Exception {
-        when(carDao.getById(anyInt())).thenReturn(new Manufacturer());
-        when(carDao.deleteById(anyInt())).thenReturn(true);
+        when(dao.getById(anyInt())).thenReturn(new Manufacturer());
+        when(dao.deleteById(anyInt())).thenReturn(true);
         assertTrue(carManager.deleteById(2));
     }
 /*

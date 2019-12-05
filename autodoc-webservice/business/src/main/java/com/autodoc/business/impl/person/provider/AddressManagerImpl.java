@@ -71,9 +71,6 @@ public class AddressManagerImpl<T, D> extends AbstractGenericManager implements 
         AddressDTO dto = (AddressDTO) obj;
         System.out.println("dto received: " + dto);
         String countryName = dto.getCountryName();
-        /*String streetName = dto.getStreetName();
-        String postCode = dto.getPostcode();
-        String city = dto.getCity();*/
         int id = dto.getId();
         Address address = (Address) addressDao.getById(id);
         if (address == null) throw new Exception("invalid address id: " + id);

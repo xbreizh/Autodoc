@@ -42,8 +42,6 @@
                 <value>com.autodoc.model.models.pieces.PieceType</value>
                 <value>com.autodoc.model.models.person.provider.Country</value>
                 <value>com.autodoc.model.models.tasks.TemplateSubTask</value>
-                <value>com.autodoc.model.models.person.employee.Skill</value>
-                <value>com.autodoc.model.models.person.employee.SkillCategory</value>
             </list>
         </property>
         <property name="hibernateProperties">

@@ -132,13 +132,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         LOGGER.info("trying to delete " + entity.toString());
         T obj = dtoToEntity((D) entity);
         return dao.delete((T) entity);
-       /* try {
-            dao.delete((T) entity);
-
-            return "car deleted";
-        } catch (Exception e) {
-            return e.getMessage();
-        }*/
 
     }
 

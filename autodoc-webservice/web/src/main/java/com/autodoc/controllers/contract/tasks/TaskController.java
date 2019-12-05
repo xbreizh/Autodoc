@@ -1,11 +1,11 @@
 package com.autodoc.controllers.contract.tasks;
 
-import org.springframework.http.ResponseEntity;
+import com.autodoc.controllers.contract.GlobalController;
 
-public interface TaskController {
+public interface TaskController extends GlobalController {
 
 
-    ResponseEntity getByName(String name);
+    //  ResponseEntity getByName(String name);
 
 
 }

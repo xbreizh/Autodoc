@@ -6,8 +6,6 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
-import com.autodoc.dao.contract.person.employee.SkillCategoryDao;
-import com.autodoc.dao.contract.person.employee.SkillDao;
 import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
@@ -46,10 +44,10 @@ class FillerTest {
     private CarDao carDao;
     @Inject
     private CountryDao countryDao;
-    @Inject
+   /* @Inject
     private SkillCategoryDao skillCategoryDao;
     @Inject
-    private SkillDao skillDao;
+    private SkillDao skillDao;*/
     @Inject
     private ProviderDao providerDao;
     @Inject
@@ -76,10 +74,10 @@ class FillerTest {
         filler.fillClient();
         Thread.sleep(2);
         filler.fillCar();
-        filler.fillCountry();
+        filler.fillCountry();/*
         filler.fillSkillCategory();
         Thread.sleep(2);
-        filler.fillSkill();
+        filler.fillSkill();*/
         filler.fillProvider();
         filler.fillAddresses();
         Thread.sleep(2);
@@ -143,7 +141,7 @@ class FillerTest {
         assertEquals(2, providerDao.getAll().size());
     }
 
-    @Test
+  /*  @Test
     void fillSkill() {
         assertEquals(3, skillDao.getAll().size());
     }
@@ -151,7 +149,7 @@ class FillerTest {
     @Test
     void fillSkillCategory() {
         assertEquals(5, skillCategoryDao.getAll().size());
-    }
+    }*/
 
     @Test
     void fillCountry() {

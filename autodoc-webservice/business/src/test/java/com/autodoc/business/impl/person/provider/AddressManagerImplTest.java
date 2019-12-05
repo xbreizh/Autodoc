@@ -18,8 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -48,60 +47,6 @@ class AddressManagerImplTest {
     }
 
 
-  /*  @Test
-    void searchByCriteria() throws Exception {
-        List<SearchDTO> searchList = new ArrayList<>();
-        SearchDTO dto1 = new SearchDTO("name", "equals", "belgium");
-        searchList.add(dto1);
-        when(addressDao.getSearchField()).thenReturn(Address.getSearchField());
-        System.out.println("auth: "+Address.SEARCH_FIELD);
-        List<Address> addressList = new ArrayList<>();
-        Address address1 = new Address("Suisse");
-        addressList.add(address1);
-        when(addressDao.getByCriteria(anyList())).thenReturn(searchList);
-        assertNotNull(addressManager.searchByCriteria(searchList));
-    }
-
-    @Test
-    @DisplayName("raise exception when invalid name")
-    void searchByCriteria1() throws Exception {
-        List<SearchDTO> searchList = new ArrayList<>();
-        String fieldName = "named";
-        SearchDTO dto1 = new SearchDTO(fieldName, "equals", "belgium");
-        searchList.add(dto1);
-        when(addressDao.getSearchField()).thenReturn(Address.getSearchField());
-        Exception thrown =assertThrows(Exception.class,()->addressManager.searchByCriteria(searchList));
-
-        assertEquals(fieldName.toUpperCase()+" is an invalid search criteria", thrown.getMessage());
-    }
-
-    @Test
-    @DisplayName("raise exception when invalid compare")
-    void searchByCriteria2() throws Exception {
-        List<SearchDTO> searchList = new ArrayList<>();
-        String fieldName = "name";
-        SearchDTO dto = new SearchDTO(fieldName, "equales", "belgium");
-        searchList.add(dto);
-        when(addressDao.getSearchField()).thenReturn(Address.getSearchField());
-        Exception thrown =assertThrows(Exception.class,()->addressManager.searchByCriteria(searchList));
-
-        assertEquals(dto.getCompare().toUpperCase()+" is invalid or can't be used with "+ dto.getFieldName(), thrown.getMessage());
-    }
-
-    @Test
-    @DisplayName("raise exception when invalid compare")
-    void searchByCriteria3() throws Exception {
-        List<SearchDTO> searchList = new ArrayList<>();
-        String fieldName = "id";
-        SearchDTO dto = new SearchDTO(fieldName, "equals", "belgium");
-        searchList.add(dto);
-        when(addressDao.getSearchField()).thenReturn(Address.getSearchField());
-        Exception thrown =assertThrows(Exception.class,()->addressManager.searchByCriteria(searchList));
-
-        assertEquals(dto.getValue().toUpperCase()+" is not a valid number", thrown.getMessage());
-    }*/
-
-
     @Test
     void resetException() {
     }
@@ -109,14 +54,15 @@ class AddressManagerImplTest {
     @Test
     void save() throws Exception {
         Country country = new Country();
+        country.setId(2);
         int id = 9;
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setCity("Dundalk");
         addressDTO.setStreetName("test streetname");
         // addressDTO.setPostcode("dede");
-        addressDTO.setCountryId(2);
+        addressDTO.setCountryName("BELGIUM");
         when(addressDao.create(any(Address.class))).thenReturn(id);
-        when(countryDao.getById(anyInt())).thenReturn(country);
+        when(countryDao.getByName(anyString())).thenReturn(country);
         assertEquals(Integer.toString(id), addressManager.save(addressDTO));
     }
 
