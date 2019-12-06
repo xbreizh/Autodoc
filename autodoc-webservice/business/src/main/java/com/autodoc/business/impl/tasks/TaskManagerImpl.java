@@ -126,6 +126,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
 
     private void transferTemplateToEntity(TaskDTO dto, Task task) throws Exception {
         String template = dto.getTemplate();
+
         if (template != null) {
             System.out.println();
             if (!template.equalsIgnoreCase("true") && !template.equalsIgnoreCase("false")) {
@@ -135,6 +136,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
             System.out.println("passing template value: " + task);
         }
     }
+
 
     private void updatePieces(TaskDTO dto, Task task) throws Exception {
         if (dto.getPieces() != null) {

@@ -65,9 +65,11 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public int create(T entity) {
+        System.out.println("trying to create");
         try {
             return (Integer) getCurrentSession().save(entity);
         } catch (Exception e) {
+            System.out.println("error while creating");
             return 0;
         }
     }

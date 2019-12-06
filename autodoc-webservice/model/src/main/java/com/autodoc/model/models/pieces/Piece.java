@@ -7,8 +7,6 @@ import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -29,13 +27,10 @@ public class Piece {
     private int id;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private CarModel carModel;
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Provider provider;
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private PieceType pieceType;
     @NonNull
     private String name;
@@ -75,13 +70,11 @@ public class Piece {
         return "Piece{" +
                 "id=" + id +
                 ", carModel=" + carModel +
-                ", provider=" + provider +
                 ", pieceType=" + pieceType +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", buyingPrice=" + buyingPrice +
                 ", sellPrice=" + sellPrice +
-                ", tasks=" + tasks +
                 '}';
     }
 }

@@ -8,7 +8,6 @@ import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,8 +25,4 @@ public class PieceTypeControllerImpl extends GlobalControllerImpl<PieceType, Pie
     }
 
 
-    @Override
-    public ResponseEntity getByName(String name) {
-        return null;
-    }
 }

@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implements PieceTypeManager {
-    private PieceTypeDaoImpl<PieceType> pieceTypeDao;
     private static final Logger LOGGER = Logger.getLogger(PieceTypeManagerImpl.class);
+    private PieceTypeDaoImpl<PieceType> pieceTypeDao;
     private ModelMapper mapper;
 
     public PieceTypeManagerImpl(PieceTypeDaoImpl<PieceType> pieceTypeDao) {
@@ -32,10 +32,34 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
     }
 
     @Override
-    public PieceType dtoToEntity(Object entity) throws Exception {
-        PieceTypeDTO dto = (PieceTypeDTO) entity;
-        PieceType pieceType = mapper.map(entity, PieceType.class);
-        checkDataInsert(dto);
+    public Object dtoToEntity(Object entity) throws Exception {
+        throw new Exception("error");
+
+    }
+
+    @Override
+    public PieceType transferInsert(Object obj) throws Exception {
+        PieceTypeDTO dto = (PieceTypeDTO) obj;
+        String name = dto.getName().toUpperCase();
+        PieceType pieceType = new PieceType();
+        pieceType.setName(name.toUpperCase());
+        PieceType pieceTypeCheck = pieceTypeDao.getByName(name);
+        if (pieceTypeCheck != null) throw new Exception("that pieceType already exist");
+        return pieceType;
+    }
+
+    @Override
+    public void checkDataInsert(Object obj) throws Exception {
+        System.out.println("just passing");
+
+    }
+
+    public PieceType transferUpdate(Object obj) throws Exception {
+        PieceTypeDTO dto = (PieceTypeDTO) obj;
+        int id = dto.getId();
+        PieceType pieceType = (PieceType) pieceTypeDao.getById(dto.getId());
+        if (pieceType == null) throw new Exception("invalid id: " + id);
+        pieceType.setName(dto.getName().toUpperCase());
         return pieceType;
     }
 

@@ -7,7 +7,6 @@ import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,7 +19,6 @@ import java.util.Map;
 @Table(name = "provider")
 @Setter
 @Getter
-@ToString
 public class Provider extends Person {
 
     public static Map<String, SearchType> getSearchField() {
@@ -62,4 +60,20 @@ public class Provider extends Person {
     }
 
 
+    @Override
+    public String toString() {
+        return "Provider{" +
+                "addresses=" + addresses +
+                ", website='" + website + '\'' +
+                ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", company='" + company + '\'' +
+                ", rate=" + rate +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber2='" + phoneNumber2 + '\'' +
+                "} " + super.toString();
+    }
 }

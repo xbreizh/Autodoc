@@ -4,7 +4,6 @@ import com.autodoc.model.enums.SearchType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -16,7 +15,6 @@ import java.util.Map;
 @Table(name = "pieceType")
 @Getter
 @Setter
-@ToString
 public class PieceType {
 
 
@@ -54,4 +52,12 @@ public class PieceType {
     @NonNull
     private String name;
 
+
+    @Override
+    public String toString() {
+        return "PieceType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -2,7 +2,6 @@ package com.autodoc.model.dtos.pieces;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@ToString
 public class PieceDTO {
 
     public PieceDTO() {
@@ -39,15 +37,17 @@ public class PieceDTO {
     @Min(value = 1, message = "sellPrice cannot be null")
     private double sellPrice;
 
-    public PieceDTO(@Min(value = 1, message = "carModelId cannot be null") int carModelId, @Min(value = 1, message = "providerId cannot be null") int providerId, @Min(value = 1, message = "pieceTypeId cannot be null") int pieceTypeId, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") double buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") double sellPrice) {
-        this.carModelId = carModelId;
-        this.providerId = providerId;
-        this.pieceTypeId = pieceTypeId;
-        this.name = name;
-        this.brand = brand;
-        this.buyingPrice = buyingPrice;
-        this.sellPrice = sellPrice;
+    @Override
+    public String toString() {
+        return "PieceDTO{" +
+                "buyingPrice=" + buyingPrice +
+                ", id=" + id +
+                ", carModelId=" + carModelId +
+                ", providerId=" + providerId +
+                ", pieceTypeId=" + pieceTypeId +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", sellPrice=" + sellPrice +
+                '}';
     }
-
-
 }
