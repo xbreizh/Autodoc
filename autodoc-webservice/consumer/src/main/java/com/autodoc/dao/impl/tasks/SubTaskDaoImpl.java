@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.tasks;
 
 import com.autodoc.dao.contract.tasks.SubTaskDao;
@@ -28,3 +29,4 @@ public class SubTaskDaoImpl<T> extends AbstractHibernateDao implements SubTaskDa
 
 
 }
+*/

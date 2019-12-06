@@ -1,9 +1,10 @@
 package com.autodoc.business.impl.tasks;
 
+import com.autodoc.business.contract.pieces.PieceManager;
 import com.autodoc.business.contract.tasks.TaskManager;
-import com.autodoc.dao.contract.tasks.SubTaskDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.tasks.TaskDTO;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,13 +30,14 @@ class TaskManagerImplTest {
     private TaskManager manager;
     private TaskDao dao;
     private Task task;
-    private SubTaskDao subTaskDao;
+    private PieceManager pieceManager;
+
 
     @BeforeEach
     void setUp() {
         dao = mock(TaskDao.class);
-        subTaskDao = mock(SubTaskDao.class);
-        manager = new TaskManagerImpl(dao);
+        pieceManager = mock(PieceManager.class);
+        manager = new TaskManagerImpl(dao, pieceManager);
         task = new Task();
     }
 
@@ -49,11 +51,10 @@ class TaskManagerImplTest {
         String name = "tache";
         int id = 34;
         dto.setName(name);
-        long price = 12345678910L;
-        dto.setGlobalPrice(price);
+        double price = 12345678910L;
+        dto.setPrice(price);
         List<Integer> subTaskList = new ArrayList<>();
         subTaskList.add(id);
-        dto.setSubTasks(subTaskList);
         when(dao.create(any(Task.class))).thenReturn(id);
         manager.save(dto);
         assertEquals(Integer.toString(id), manager.save(dto));
@@ -69,15 +70,31 @@ class TaskManagerImplTest {
         String name = "tache";
         int id = 34;
         dto.setName(name);
-        long price = 12345678910L;
-        dto.setGlobalPrice(price);
+        double price = 12345678910L;
+        dto.setPrice(price);
         List<Integer> subTaskList = new ArrayList<>();
         subTaskList.add(id);
-        dto.setSubTasks(subTaskList);
         when(dao.update(any(Task.class))).thenReturn(true);
         manager.update(dto);
         assertEquals(true, manager.update(dto));
     }
+
+    @Test
+    void updateTemplate() throws Exception {
+        TaskDTO dto = new TaskDTO();
+        String name = "tache";
+        int id = 34;
+        dto.setName(name);
+        dto.setId(id);
+        double price = 12345678910L;
+        dto.setPrice(price);
+        List<Integer> subTaskList = new ArrayList<>();
+        subTaskList.add(id);
+        when(dao.getById(anyInt())).thenReturn(task);
+        when(pieceManager.getById(anyInt())).thenReturn(null);
+        assertEquals(true, manager.updateTemplate(dto));
+    }
+
 
     @Test
     void transferUpdate() {
@@ -136,9 +153,24 @@ class TaskManagerImplTest {
 
     @Test
     void deleteById() throws Exception {
+        List<Piece> pieceList = new ArrayList<>();
+        pieceList.add(new Piece());
+        task.setPieces(pieceList);
+        task.setTemplate(false);
         when(dao.deleteById(anyInt())).thenReturn(true);
-        when(dao.getById(anyInt())).thenReturn(new Task());
+        when(dao.getById(anyInt())).thenReturn(task);
         assertTrue(manager.deleteById(2));
+    }
+
+    @Test
+    void deleteTemplateById() throws Exception {
+        List<Piece> pieceList = new ArrayList<>();
+        pieceList.add(new Piece());
+        task.setPieces(pieceList);
+        task.setTemplate(true);
+        when(dao.deleteById(anyInt())).thenReturn(true);
+        when(dao.getById(anyInt())).thenReturn(task);
+        assertTrue(manager.deleteTemplateById(2));
     }
 
     @Test

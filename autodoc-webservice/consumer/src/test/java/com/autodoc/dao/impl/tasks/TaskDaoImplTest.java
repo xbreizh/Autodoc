@@ -28,9 +28,9 @@ class TaskDaoImplTest {
 
     @BeforeEach
     void init() throws Exception {
-        filler.fill();
-        task = (Task) dao.getAll().get(0);
-        id = task.getId();
+        // filler.fill();
+        //task = (Task) dao.getAll().get(0);
+        //id = task.getId();
     }
 
     @Test
@@ -51,9 +51,9 @@ class TaskDaoImplTest {
         Task task = new Task();
         task.setId(222);
         task.setName("derf");
-        assertEquals(3, dao.getAll().size());
+        assertEquals(0, dao.getAll().size());
         dao.create(task);
-        assertEquals(4, dao.getAll().size());
+        assertEquals(1, dao.getAll().size());
     }
 
     @Test
@@ -69,11 +69,22 @@ class TaskDaoImplTest {
     @Test
     void deleteById() {
         Task task = (Task) dao.getAll().get(0);
+        task = (Task) dao.getById(1);
         int id = task.getId();
         assertAll(
                 () -> assertNotNull(dao.getById(id)),
                 () -> assertTrue(dao.deleteById(id)),
                 () -> assertNull(dao.getById(id))
         );
+    }
+
+    @Test
+    void getSearchField() {
+    }
+
+    @Test
+    void testDeleteById() {
+        task = (Task) dao.getById(1);
+        dao.deleteById(2);
     }
 }

@@ -17,9 +17,7 @@ import java.util.Map;
 
 @Entity
 @Table(name = "skill")
-@Setter
-@Getter
-@ToString
+
 public class Skill {
 
     public static Map<String, SearchType> getSearchField() {
@@ -34,14 +32,6 @@ public class Skill {
         result.put("skillCategory.name", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
-    }
-
-    public Skill() {
-    }
-
-    public Skill(String name, SkillCategory skillCategory ){
-        this.name = name;
-        this.skillCategory = skillCategory;
     }
 
 

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.models.tasks;
 
 import com.autodoc.model.enums.SearchType;
@@ -44,13 +45,15 @@ public class SubTask {
         this.estimatedTime = estimatedTime;
     }
 
+*/
 /*    public SubTask(TemplateSubTask templateSubTask, List<Employee> employees) {
         this.templateSubTask = templateSubTask;
         this.pieces = templateSubTask.getPieces();
         this.estimatedTime = templateSubTask.getEstimatedTime();
         this.name = templateSubTask.getName();
         this.employees = employees;
-    }*/
+    }*//*
+
 
 
 
@@ -75,7 +78,7 @@ public class SubTask {
     private List<Employee> employees;
 
     @ManyToOne
-    private TemplateSubTask templateSubTask;
+    private TemplateTask templateTask;
 
     @NotNull
     private String name;
@@ -88,7 +91,7 @@ public class SubTask {
         int templateSubTaskId = 0;
         int pieceSize=0;
         int employeeSize=0;
-        if(templateSubTask!=null)templateSubTaskId=templateSubTask.getId();
+        if(templateTask !=null)templateSubTaskId= templateTask.getId();
         if(employees!=null)employeeSize=employees.size();
         if(pieces!=null)pieceSize=pieces.size();
         return "SubTask{" +
@@ -101,3 +104,4 @@ public class SubTask {
                 '}';
     }
 }
+*/

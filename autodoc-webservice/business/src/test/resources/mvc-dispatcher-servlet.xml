@@ -36,15 +36,10 @@
                 <value>com.autodoc.model.models.car.Manufacturer</value>
                 <value>com.autodoc.model.models.person.provider.Address</value>
                 <value>com.autodoc.model.models.person.provider.Provider</value>
-                <value>com.autodoc.model.models.tasks.SubTask</value>
                 <value>com.autodoc.model.models.tasks.Task</value>
                 <value>com.autodoc.model.models.pieces.Piece</value>
                 <value>com.autodoc.model.models.pieces.PieceType</value>
                 <value>com.autodoc.model.models.person.provider.Country</value>
-                <value>com.autodoc.model.models.tasks.TemplateSubTask</value>
-                <!-- <value>com.autodoc.model.models.ExampleObject</value>-->
-
-
             </list>
         </property>
         <property name="hibernateProperties">

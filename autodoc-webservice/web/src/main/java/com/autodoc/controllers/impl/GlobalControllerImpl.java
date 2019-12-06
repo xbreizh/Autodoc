@@ -155,7 +155,6 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     }
 
 
-
     private void getClassName(D obj) {
         type = obj.getClass().getSimpleName();
     }

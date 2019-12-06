@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.tasks;
 
 import com.autodoc.business.contract.tasks.SubTaskManager;
@@ -39,3 +40,4 @@ public class SubTaskManagerImpl<T, D> extends AbstractGenericManager implements 
     }
 
 }
+*/

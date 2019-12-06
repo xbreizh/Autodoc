@@ -11,9 +11,7 @@ import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
-import com.autodoc.dao.contract.tasks.SubTaskDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
-import com.autodoc.dao.contract.tasks.TemplateSubTaskDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,22 +42,15 @@ class FillerTest {
     private CarDao carDao;
     @Inject
     private CountryDao countryDao;
-   /* @Inject
-    private SkillCategoryDao skillCategoryDao;
-    @Inject
-    private SkillDao skillDao;*/
     @Inject
     private ProviderDao providerDao;
-    @Inject
-    private TemplateSubTaskDao templateSubTaskDao;
     @Inject
     private PieceDao pieceDao;
     @Inject
     private PieceTypeDao pieceTypeDao;
     @Inject
     private TaskDao taskDao;
-    @Inject
-    private SubTaskDao subTaskDao;
+
     @Inject
     private AddressDao addressDao;
     @Inject
@@ -84,9 +75,7 @@ class FillerTest {
         filler.fillPieceTypes();
         Thread.sleep(2);
         filler.fillPieces();
-        filler.fillTemplateSubTask();
         Thread.sleep(2);
-        filler.fillSubTasks();
         filler.fillTasks();
         Thread.sleep(2);
         filler.fillBills();
@@ -116,10 +105,6 @@ class FillerTest {
         assertEquals(3, taskDao.getAll().size());
     }
 
-    @Test
-    void fillSubTasks() {
-        assertEquals(1, subTaskDao.getAll().size());
-    }
 
     @Test
     void fillPieceTypes() {
@@ -131,10 +116,6 @@ class FillerTest {
         assertEquals(4, pieceDao.getAll().size());
     }
 
-    @Test
-    void fillTemplateSubTask() {
-        assertEquals(1, templateSubTaskDao.getAll().size());
-    }
 
     @Test
     void fillProvider() {

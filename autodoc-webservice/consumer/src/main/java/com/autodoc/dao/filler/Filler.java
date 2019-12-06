@@ -11,9 +11,7 @@ import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
-import com.autodoc.dao.contract.tasks.SubTaskDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
-import com.autodoc.dao.contract.tasks.TemplateSubTaskDao;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.enums.Role;
@@ -29,9 +27,7 @@ import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
-import com.autodoc.model.models.tasks.SubTask;
 import com.autodoc.model.models.tasks.Task;
-import com.autodoc.model.models.tasks.TemplateSubTask;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,22 +55,16 @@ public class Filler {
     private CarDao carDao;
     @Inject
     private CountryDao countryDao;
- /*   @Inject
-    private SkillCategoryDao skillCategoryDao;
-    @Inject
-    private SkillDao skillDao;*/
     @Inject
     private ProviderDao providerDao;
-    @Inject
-    private TemplateSubTaskDao templateSubTaskDao;
+
     @Inject
     private PieceDao pieceDao;
     @Inject
     private PieceTypeDao pieceTypeDao;
     @Inject
     private TaskDao taskDao;
-    @Inject
-    private SubTaskDao subTaskDao;
+
     @Inject
     private AddressDao addressDao;
     @Inject
@@ -95,13 +85,9 @@ public class Filler {
             fillClient();
             fillCar();
             fillCountry();
-          /*  fillSkillCategory();
-            fillSkill();*/
             fillProvider();
             fillPieceTypes();
             fillPieces();
-            fillTemplateSubTask();
-            fillSubTasks();
             fillTasks();
             fillAddresses();
             fillBills();
@@ -115,9 +101,9 @@ public class Filler {
         Employee employee = (Employee) employeeDao.getAll().get(0);
         Client client = (Client) clientDao.getAll().get(0);
         List<Task> tasks = taskDao.getAll();
-        Bill bill1 = new Bill(new Date(), Status.PENDING, car,  employee, client, tasks, 125.44, 19, 20);
+        Bill bill1 = new Bill(new Date(), Status.PENDING, car, employee, client, tasks, 125.44, 19, 20);
         Bill bill2 = new Bill(new Date(), Status.PENDING, car2, employee, client, tasks, 84.44, 19, 0);
-        Bill bill3 = new Bill(new Date(), Status.CANCELLED, car,  employee, client, tasks, 1451.44, 19, 0);
+        Bill bill3 = new Bill(new Date(), Status.CANCELLED, car, employee, client, tasks, 1451.44, 19, 0);
         billDao.create(bill1);
         billDao.create(bill2);
         billDao.create(bill3);
@@ -139,31 +125,13 @@ public class Filler {
 
     void fillTasks() {
         LOGGER.debug("filling Tasks");
-        List<SubTask> subTasks = subTaskDao.getAll();
-        System.out.println("sub: " + subTasks.get(0));
-        Task task1 = new Task("BATTERY CHANGE", subTasks.subList(0,1), 123);
-        Task task2 = new Task("BULB CHANGE", subTasks.subList(0,1), 123);
-        Task task3 = new Task("OIL CHANGE", subTasks.subList(0,1), 123);
+        Task task1 = new Task("BATTERY CHANGE", "BATTERY CHANGE", 123, 60.00, true);
+        Task task2 = new Task("BULB CHANGE", "INSPECTION, CHANGE IF REQUIRED", 123, 30, false);
+        Task task3 = new Task("OIL CHANGE", "CHECK AND CHANGE OIL, CHECK FILTER", 123, 120, false);
         taskDao.create(task1);
         taskDao.create(task2);
         taskDao.create(task3);
 
-    }
-
-    void fillSubTasks() {
-        LOGGER.debug("filling subTasks");
-        System.out.println("filling subtask");
-        List<Employee> employees = employeeDao.getAll();
-        List<Piece> pieces = pieceDao.getAll();
-        SubTask subTask1 = new SubTask();
-        subTask1.setName("name");
-        subTask1.setPieces(pieces);
-        subTask1.setEmployees(employees);
-        subTask1.setEstimatedTime(11);
-        TemplateSubTask t = (TemplateSubTask) templateSubTaskDao.getById(1);
-        subTask1.setTemplateSubTask(t);
-        subTask1.setId(12);
-        subTaskDao.create(subTask1);
     }
 
 
@@ -192,12 +160,6 @@ public class Filler {
         pieceDao.create(piece4);
     }
 
-    void fillTemplateSubTask() {
-        LOGGER.debug("filling templateSubTasks");
-        List<Piece> pieces = pieceDao.getAll();
-        TemplateSubTask templateSubTask1 = new TemplateSubTask(pieces, "Template", 123);
-        templateSubTaskDao.create(templateSubTask1);
-    }
 
     void fillProvider() {
         LOGGER.debug("filling providers");
@@ -206,34 +168,6 @@ public class Filler {
         Provider provider1 = new Provider("JACQUES", "PLACO", "124542", "info@RENAUDO.ie", "RENAUDO");
         providerDao.create(provider1);
     }
-
-  /*  void fillSkill() {
-        LOGGER.debug("filling skills");
-        Skill skill = new Skill();
-        Skill skill1 = new Skill();
-        Skill skill2 = new Skill();
-        SkillCategory skillCat1 = (SkillCategory) skillCategoryDao.getById(1);
-        SkillCategory skillCat2 = (SkillCategory) skillCategoryDao.getById(1);
-        skill.setSkillCategory(skillCat1);
-        skill.setName("changement de courroie");
-        skillDao.create(skill);
-        skill1.setSkillCategory(skillCat2);
-        skill1.setName("changement de tambours");
-        skillDao.create(skill1);
-        skill2.setSkillCategory(skillCat1);
-        skill2.setName("changement de plaquettes");
-        skillDao.create(skill2);
-    }
-
-
-    void fillSkillCategory() {
-        LOGGER.debug("filling skill categories");
-        String[] list = {"VIDANGE", "FREIN", "PNEUS", "MAINTENANCE", "CLIMATISATION"};
-        for (int i = 0; i < list.length; i++) {
-            skillCategoryDao.create(new SkillCategory(list[i]));
-        }
-
-    }*/
 
 
     void fillCountry() {

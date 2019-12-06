@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.dtos.tasks;
 
 import lombok.Data;
@@ -32,3 +33,4 @@ public class SubTaskDTO {
     public SubTaskDTO() {
     }
 }
+*/

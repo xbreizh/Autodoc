@@ -45,6 +45,7 @@ class CarDaoImplTest {
 
     }
 
+
     @Test
     void getAll() {
         assertEquals(2, dao.getAll().size());

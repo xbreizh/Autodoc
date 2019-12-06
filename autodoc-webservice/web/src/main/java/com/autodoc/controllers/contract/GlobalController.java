@@ -12,11 +12,6 @@ public interface GlobalController<T, D> {
 
     ResponseEntity deleteById(Integer id) throws Exception;
 
-   // ResponseEntity searchByCriteria(List<SearchDTO> searchDTOs)throws Exception;
-
-    // ResponseEntity add( D obj) throws Exception;
-
-
 
 
 }

@@ -1,9 +1,10 @@
+/*
 package com.autodoc.dao.impl.tasks;
 
-import com.autodoc.dao.contract.tasks.TemplateSubTaskDao;
+import com.autodoc.dao.contract.tasks.TemplateTaskDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.enums.SearchType;
-import com.autodoc.model.models.tasks.TemplateSubTask;
+import com.autodoc.model.models.tasks.TemplateTask;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -13,18 +14,19 @@ import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class TemplateSubTaskDaoImpl<T> extends AbstractHibernateDao implements TemplateSubTaskDao {
-    private static final Logger LOGGER = Logger.getLogger(TemplateSubTaskDaoImpl.class);
+public class TemplateTaskDaoImpl<T> extends AbstractHibernateDao implements TemplateTaskDao {
+    private static final Logger LOGGER = Logger.getLogger(TemplateTaskDaoImpl.class);
 
 
-    public TemplateSubTaskDaoImpl() {
-        this.setClazz(TemplateSubTask.class);
+    public TemplateTaskDaoImpl() {
+        this.setClazz(TemplateTask.class);
     }
 
     public Map<String, SearchType> getSearchField() {
 
-        return  TemplateSubTask.SEARCH_FIELD;
+        return  TemplateTask.SEARCH_FIELD;
     }
 
 
 }
+*/

@@ -38,4 +38,14 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
         return (Task) query.getResultList().get(0);
     }
 
+
+    public boolean deleteById(int id) {
+        System.out.println("deleting tasks");
+        System.out.println("get task by id: " + id);
+        Query query = getCurrentSession().createQuery("delete From Task where id= :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+        return true;
+    }
+
 }

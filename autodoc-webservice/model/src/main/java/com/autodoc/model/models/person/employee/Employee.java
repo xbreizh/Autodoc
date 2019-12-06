@@ -4,7 +4,6 @@ import com.autodoc.model.enums.Role;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
-import com.autodoc.model.models.tasks.SubTask;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +17,44 @@ import java.util.*;
 @Getter
 public class Employee extends Person {
 
+    public static final Map<String, SearchType> SEARCH_FIELD = createMap();
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private List<Bill> bills;
+    @NotNull
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private List<Role> roles;
+    /* @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
+     private List<SubTask> subTasks;*/
+    @NotNull
+    private Date startDate;
+    @NotNull
+    private String login;
+    @NotNull
+    private String password;
+
+
+    /*  @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
+      private List<Skill> skills;
+  */
+    private String token;
+    private Date lastConnection;
+    private Date tokenExpiration;
+
+    public Employee() {
+    }
+
+    public Employee(String firstName, String lastName, String phoneNumber1, @NotNull List<Role> roles, @NotNull Date startDate, @NotNull String login, @NotNull String password) {
+        super(firstName, lastName, phoneNumber1);
+        this.roles = roles;
+        this.startDate = startDate;
+        this.login = login;
+        this.password = password;
+    }
+
     public static Map<String, SearchType> getSearchField() {
         return SEARCH_FIELD;
     }
-
-    public static final Map<String, SearchType> SEARCH_FIELD = createMap();
 
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
@@ -33,51 +65,6 @@ public class Employee extends Person {
         result.put("startDate", SearchType.DATE);
         return Collections.unmodifiableMap(result);
     }
-
-
-    public Employee() {
-    }
-
-
-    public Employee(String firstName, String lastName, String phoneNumber1, @NotNull List<Role> roles, @NotNull Date startDate, @NotNull String login, @NotNull String password) {
-        super(firstName, lastName, phoneNumber1);
-        this.roles = roles;
-        this.startDate = startDate;
-        this.login = login;
-        this.password = password;
-    }
-
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
-    private List<Bill> bills;
-
-    @NotNull
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private List<Role> roles;
-
-
-  /*  @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-    private List<Skill> skills;
-*/
-
-    @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-    private List<SubTask> subTasks;
-
-    @NotNull
-    private Date startDate;
-
-    @NotNull
-    private String login;
-
-    @NotNull
-    private String password;
-
-    private String token;
-
-    private Date lastConnection;
-
-    private Date tokenExpiration;
 
     @Override
     public String toString() {
