@@ -1,11 +1,10 @@
 package com.autodoc.controllers.contract.pieces;
 
-import org.springframework.http.ResponseEntity;
+import com.autodoc.controllers.contract.GlobalController;
 
-public interface PieceController {
+public interface PieceController extends GlobalController {
 
 
-    ResponseEntity getByName(String name);
 
 
 }

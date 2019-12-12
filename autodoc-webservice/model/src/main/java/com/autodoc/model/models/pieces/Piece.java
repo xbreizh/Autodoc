@@ -38,6 +38,8 @@ public class Piece {
     private String brand;
     private double buyingPrice;
     private double sellPrice;
+    private int quantity;
+
     @ManyToMany
     private List<Task> tasks;
 
@@ -45,13 +47,14 @@ public class Piece {
     public Piece() {
     }
 
-    public Piece(Provider provider, PieceType pieceType, String name, String brand, double buyingPrice, double sellPrice) {
+    public Piece(Provider provider, PieceType pieceType, String name, String brand, double buyingPrice, double sellPrice, int quantity) {
         this.provider = provider;
         this.pieceType = pieceType;
         this.name = name;
         this.brand = brand;
         this.buyingPrice = buyingPrice;
         this.sellPrice = sellPrice;
+        this.quantity = quantity;
     }
 
     public static Map<String, SearchType> getSearchField() {
@@ -67,14 +70,22 @@ public class Piece {
 
     @Override
     public String toString() {
+        int carModelId =0;
+        int providerId=0;
+        int pieceTypeId=0;
+        if(carModel!=null)carModelId=carModel.getId();
+        if(pieceType!=null)pieceTypeId=pieceType.getId();
+        if(provider!=null)providerId=provider.getId();
         return "Piece{" +
                 "id=" + id +
-                ", carModel=" + carModel +
-                ", pieceType=" + pieceType +
+                ", carModel=" + carModelId +
+                ", provider=" + providerId +
+                ", pieceType=" + pieceTypeId +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", buyingPrice=" + buyingPrice +
                 ", sellPrice=" + sellPrice +
+                ", quantity=" + quantity +
                 '}';
     }
 }

@@ -37,6 +37,8 @@ public class PieceDTO {
     @Min(value = 1, message = "sellPrice cannot be null")
     private double sellPrice;
 
+    private int quantity;
+
     @Override
     public String toString() {
         return "PieceDTO{" +

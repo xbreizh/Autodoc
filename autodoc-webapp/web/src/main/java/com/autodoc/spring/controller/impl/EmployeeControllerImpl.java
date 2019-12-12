@@ -41,13 +41,16 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         if (bindingResult.hasErrors()) {
             return mv;
         }
-//        employeeManager.getAll("gettall: "+helper.getConnectedToken());
         List<EmployeeDTO> employees = employeeManager.getAll(helper.getConnectedToken());
-        System.out.println("employee: " + employees.size());
-        System.out.println("emp: " + employees.get(0));
+
+        if (employees.isEmpty()) {
+            return sendError(mv, "no employee found");
+        }
+
         mv.addObject("employees", employees);
         return mv;
     }
+
 
     @GetMapping(value = "/{id}")
     @ResponseBody

@@ -46,8 +46,6 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
             LOGGER.info("car is null");
             return null;
         }
-        // CarModel carModel = carModelManager.getById(token, car.)
-        // System.out.println(car.getClient().getLastName());
         return car;
     }
 

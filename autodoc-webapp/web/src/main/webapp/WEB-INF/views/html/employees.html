@@ -10,32 +10,40 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th th:text="Login">Login</th>
-            <th th:text="FirstName">FirstName</th>
-            <th th:text="LastName">LastName</th>
-            <th th:text="PhoneNumber1">PhoneNumber1</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:fragment="employeeDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
-        <tr th:each="employee : ${employees}">
-            <td th:text="${employee.login}">Login</td>
-            <td th:text="${employee.firstName}">firstName</td>
-            <td th:text="${employee.lastName}">lastName</td>
-            <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
-            <td><a th:href="@{'/employees/' + ${employee.id}}">
-                <button class="btn btn-warning" type="button">Edit</button>
-            </a></td>
+    <td th:if="${error != null}">
+    <td th:text="${error}"></td>
 
-        </tr>
+    <div th:if="${not #lists.isEmpty(employees)}">
 
 
-        </tbody>
-    </table>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th th:text="Login">Login</th>
+                <th th:text="FirstName">FirstName</th>
+                <th th:text="LastName">LastName</th>
+                <th th:text="PhoneNumber1">PhoneNumber1</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:fragment="employeeDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.login}">Login</td>
+                <td th:text="${employee.firstName}">firstName</td>
+                <td th:text="${employee.lastName}">lastName</td>
+                <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
+                <td><a th:href="@{'/employees/' + ${employee.id}}">
+                    <button class="btn btn-warning" type="button">Edit</button>
+                </a></td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
 </div>
 
 </body>

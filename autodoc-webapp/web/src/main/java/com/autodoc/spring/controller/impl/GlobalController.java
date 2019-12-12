@@ -141,6 +141,11 @@ public class GlobalController {
         return mv;
     }
 
+    ModelAndView sendError(ModelAndView mv, String error) {
+        mv.addObject("error", error);
+        return mv;
+    }
+
 
     @GetMapping("/greeting")
     public ModelAndView greetingForm(Greeting greeting) {
@@ -156,6 +161,10 @@ public class GlobalController {
     @PostMapping("/greeting")
     public String greetingSubmit(Greeting employeeForm) {
         return "result";
+    }
+
+    public void addError(ModelAndView model, String error) {
+        model.addObject("error", error);
     }
 
 

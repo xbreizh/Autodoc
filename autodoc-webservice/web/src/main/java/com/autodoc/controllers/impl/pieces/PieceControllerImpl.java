@@ -26,8 +26,4 @@ public class PieceControllerImpl extends GlobalControllerImpl<Piece, PieceDTO> i
     }
 
 
-    @Override
-    public ResponseEntity getByName(String name) {
-        return null;
-    }
 }
