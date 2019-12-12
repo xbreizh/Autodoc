@@ -39,7 +39,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     @Override
     public EmployeeDTO entityToDto(Object entity) {
-        System.out.println("converting");
+        System.out.println("converting: "+entity);
         EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
         dto.setFirstName(((Employee) entity).getFirstName());
         dto.setRoles(((Employee) entity).getRoles());
@@ -61,6 +61,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     @Override
     public Employee transferUpdate(Object obj) throws Exception {
+        System.out.println("transfer update: "+obj);
         EmployeeDTO dto = (EmployeeDTO) obj;
         if (dto.getId() == 0) throw new Exception("invalid id: " + 0);
         Employee employee = (Employee) employeeDao.getById(dto.getId());

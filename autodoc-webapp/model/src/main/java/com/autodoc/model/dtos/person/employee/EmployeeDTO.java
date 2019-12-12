@@ -37,6 +37,10 @@ public class EmployeeDTO extends PersonDTO {
         this.lastConnection = lastConnection;
     }
 
+
+    public EmployeeDTO() {
+    }
+
     @Override
     public String toString() {
         return "EmployeeDTO{" +

@@ -72,6 +72,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     public T transferUpdate(D obj) throws Exception {
+        System.out.println("transfer update generic");
         return dtoToEntity(obj);
     }
 

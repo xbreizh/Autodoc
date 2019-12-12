@@ -74,6 +74,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
         LOGGER.info("trying to update member with id " + employeeForm.getId());
         ModelAndView mv = checkAndAddEmployeeDetails("employees_details");
+        LOGGER.info("empl: " + employeeForm);
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
