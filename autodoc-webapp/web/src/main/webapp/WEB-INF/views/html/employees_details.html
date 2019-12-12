@@ -15,7 +15,7 @@
 
     <h1>Form</h1>
     <label style="display: block" th:id="'switch' + ${employee.id}">
-        <input onclick="toggle_displays('mic1', 'micForm1');"
+        <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
     </label>
@@ -24,7 +24,7 @@
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${employee.id}">
 
-        <form action="#" method="post" th:action="@{'/employees/' + ${employee.id}}" th:object="${employeeForm}">
+        <form action="#" method="post" th:action="@{'/employees/update/' + ${employee.id}}" th:object="${employeeForm}">
             <table>
                 <tr>
                     <td>Id:</td>
@@ -111,24 +111,52 @@
 
         showForm
         <td th:text="${showForm}">showForm</td>
+
     </div>
 </div>
 
 <script>
-    function toggle_displays(a, b) {
-        let text = document.getElementById(a);
-        let form = document.getElementById(b);
-        let sed = jQuery.parseJson(showForm);
-        alert(errorMessage.error);
 
+    window.onload = checkToggle;
+    let start = 0;
 
-        if (text.style.display === "block") {
-            text.style.display = "none";
-            form.style.display = "block";
-        } else {
-            text.style.display = "block";
-            form.style.display = "none";
+    function checkToggle() {
+
+        let showFormVar = parseInt("[[${showForm}]]");
+        let showForm = start + showFormVar;
+        if (showForm === 0) {
+            toggle_displays();
+
         }
+        start++;
+    }
+
+
+    function toggle_displays() {
+        var divs = document.getElementsByTagName("div");
+
+        for (var i = divs.length; i;) {
+            var div = divs[--i];
+
+            if (div.id.indexOf("fo") > -1) {
+
+                if (div.style.display === 'block') {
+                    div.style.display = 'none';
+                } else {
+                    div.style.display = 'block';
+                }
+            }
+            if (div.id.indexOf("mic") > -1) {
+
+                if (div.style.display === 'block') {
+                    div.style.display = 'none';
+                } else {
+                    div.style.display = 'block';
+                }
+            }
+
+        }
+
 
     }
 </script>

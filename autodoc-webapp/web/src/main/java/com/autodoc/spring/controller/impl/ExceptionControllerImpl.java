@@ -27,6 +27,7 @@ public class ExceptionControllerImpl implements ExceptionController {
     }
 
     private void logError(HttpServletRequest request, Exception e) {
+        LOGGER.error("request: " + request.getRequestURI());
         LOGGER.error("error: " + e + " / request: " + request.getMethod());
     }
 
