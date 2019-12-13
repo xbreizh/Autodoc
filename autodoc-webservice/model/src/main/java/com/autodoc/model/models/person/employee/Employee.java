@@ -37,6 +37,7 @@ public class Employee extends Person {
     /*  @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
       private List<Skill> skills;
   */
+
     private String token;
     private Date lastConnection;
     private Date tokenExpiration;

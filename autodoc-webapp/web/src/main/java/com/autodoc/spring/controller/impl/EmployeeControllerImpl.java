@@ -90,20 +90,48 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());
     }
 
-    @GetMapping(value = "/news")
-    public ModelAndView getCreate(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
-        LOGGER.info("employee: " + employeeForm);
-        ModelAndView mv = checkAndAddEmployeeDetails("employees_new");
-        //System.out.println("employee is null");
-        /*
+    @GetMapping(value = "/delete/{id}")
+    @ResponseBody
+    public ModelAndView delete(@PathVariable Integer id, @Valid EmployeeDTO employeeForm, BindingResult bindingResult) {
+        LOGGER.info("trying to delete member with id " + id);
+        //  LOGGER.info("employee: " + employeeForm);
+        employeeManager.delete(helper.getConnectedToken(), id);
+        //   ModelAndView mv = checkAndAddEmployeeDetails("employees");
+     /*   System.out.println("employee is null");
+        Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + employee.getPhoneNumber1());
         LOGGER.info("lastC: " + employee.getLastConnection());
-        LOGGER.info("startDate: " + employee.getStartDate());*/
-        if (employeeForm == null) employeeForm = new EmployeeForm();
-        mv.addObject("employeeForm", employeeForm);
+        LOGGER.info("startDate: " + employee.getStartDate());
+
+
+
+        List<EmployeeDTO> employees = employeeManager.getAll(helper.getConnectedToken());
+        if (employees.isEmpty()) {
+            return sendError(mv, "no employee found");
+        }
+
+      //  mv.addObject("employeeForm", employee);
+        mv.addObject("showForm", 1);*/
+        //mv.addObject("employee", employee);
+        return new ModelAndView("redirect:" + "/employees");
+    }
+
+    @GetMapping(value = "/new")
+    public ModelAndView getCreate() {
+        LOGGER.info("getting create form");
+        ModelAndView mv = checkAndAddEmployeeDetails("employees_new");
+        mv.addObject("employeeForm", new EmployeeForm());
         mv.addObject("showForm", 1);
         return mv;
     }
+
+   /* @PostMapping(value = "/delete")
+    public ModelAndView delete(Integer id) {
+        LOGGER.info("deleting "+id);
+      //  ModelAndView mv = checkAndAddEmployeeDetails("employees");
+        employeeManager.delete(helper.getConnectedToken(), id);
+        return new ModelAndView("redirect:" + "/employees/" );
+    }*/
 
 
     @PostMapping(value = "/new")
@@ -115,8 +143,6 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
-            /*Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
-            mv.addObject("employee", employee);*/
             mv.addObject("employeeForm", employeeForm);
             mv.addObject("showForm", 1);
             return mv;

@@ -62,7 +62,8 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     public void delete(String token, int id) {
-
+        LOGGER.info("deleting: " + id);
+        service.delete(token, id);
     }
 
 }

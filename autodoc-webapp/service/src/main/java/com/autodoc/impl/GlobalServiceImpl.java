@@ -117,7 +117,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
             LOGGER.info(ArrayList.class);
             ResponseEntity<ArrayList> response = restTemplate.exchange(url, HttpMethod.GET, request, ArrayList.class);
             LOGGER.info("result: " + response.getBody().get(0));
-            LOGGER.info("result: " + response.getBody().get(1));
+
 
 
             List<T> newList = new ArrayList<>();
@@ -153,6 +153,60 @@ public class GlobalServiceImpl<T> implements GlobalService {
 
     @Override
     public int delete(String token, int id) {
+        LOGGER.info("trying to delete object by id");
+        setupHeader(token);
+
+
+        String className = getClassName();
+        String url = BASE_URL + className + "/" + id;
+
+      /*  LOGGER.info("restTemplate ready");
+        LOGGER.info("token: " + token);
+        LOGGER.info("id: " + id);
+        LOGGER.info("url: " + url);
+        LOGGER.info("mokoro: " + restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()));
+        //restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()).getStatusCodeValue();
+        restTemplate.exchange(url, HttpMethod.DELETE, request, Void.class);
+
+        String entityUrl = fooResourceUrl + "/" + existingResource.getId();*/
+        //restTemplate.exchange(url, HttpMethod.DELETE, request, Void.class);
+        HttpHeaders header = new HttpHeaders();
+        header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        header.setContentType(MediaType.APPLICATION_JSON);
+        header.setBearerAuth(token);
+        restTemplate.exchange(url, HttpMethod.DELETE,
+                new HttpEntity<>(header), String.class);
+       /* Map<String, String> params = new HashMap<>();
+        params.put("id", Integer.toString(id));
+        restTemplate.delete(url, params);*/
+
+
+      /*  try {
+            LOGGER.info("restTemplate ready");
+            LOGGER.info("token: " + token);
+            LOGGER.info("id: " + id);
+            String className = getClassName();
+            String url = BASE_URL + className + "/" + id;
+            LOGGER.info("url: " + url);
+            LOGGER.info("mokoro: " + restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()));
+            //restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()).getStatusCodeValue();
+            restTemplate.exchange(url, HttpMethod.DELETE, request, Void.class).getStatusCodeValue();
+            *//*LOGGER.info("resp: " + response.getStatusCodeValue());
+            if (response.getStatusCodeValue() == 404) return 0;
+            LOGGER.info("stop");
+            LOGGER.info("req: " + request);
+            return response.getStatusCodeValue();*//*
+            //LOGGER.info("response code: "+statusCodevalue);
+            //return 2;
+        } catch (HttpClientErrorException.NotFound exception) {
+            LOGGER.info(exception.getMessage());
+            LOGGER.info(exception.getClass().getCanonicalName());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            LOGGER.error(e.);
+            throw new
+                    BadCredentialsException("External system authentication failed");
+        }*/
         return 0;
     }
 

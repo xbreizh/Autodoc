@@ -54,5 +54,18 @@ public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implemen
         return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
     }
 
+  /*  @Override
+    public int delete(String token, int id){
+        setupHeader(token);
+        String url = BASE_URL + getClassName();
+        LOGGER.info("service delete id: " + id);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+        HttpEntity<Integer> requestInsert = new HttpEntity<>(id, headers);
+        return restTemplate.exchange(url, HttpMethod.DELETE, requestInsert, Void.class).getStatusCodeValue();
+    }*/
+
 }
 
