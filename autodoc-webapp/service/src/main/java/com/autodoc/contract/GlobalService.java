@@ -14,11 +14,11 @@ public interface GlobalService<T> {
 
     List<T> getByCriteria(String token, Map<String, String> criteria);
 
-    void create(String token, T object);
+    int create(String token, T object);
 
-    void update(String token, T object);
+    int update(String token, T object);
 
-    void delete(String token, int id);
+    int delete(String token, int id);
 
 
     String getClassName();

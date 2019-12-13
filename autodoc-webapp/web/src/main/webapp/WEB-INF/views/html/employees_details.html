@@ -24,54 +24,7 @@
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${employee.id}">
 
-        <form action="#" method="post" th:action="@{'/employees/update/' + ${employee.id}}" th:object="${employeeForm}">
-            <table>
-                <tr>
-                    <td>Id:</td>
-                    <td th:text="${employee.id}">Login</td>
-                </tr>
-                <tr>
-                    <td>Start Date:</td>
-                    <td th:text="${employee.startDate}">Start Date</td>
-                </tr>
-                <tr>
-                    <td>Last Connection:</td>
-                    <td th:text="${employee.lastConnection}">Last Connection</td>
-                </tr>
-                <tr>
-                    <td>Login:</td>
-                    <td><input th:field="*{login}" type="text"/></td>
-                    <td th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</td>
-                </tr>
-                <tr>
-                    <td>FirstName:</td>
-                    <td><input th:field="*{firstName}" type="text"/></td>
-                    <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
-                </tr>
-                <tr>
-                    <td>LastName:</td>
-                    <td><input th:field="*{lastName}" type="text"/></td>
-                    <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
-                </tr>
-                <tr>
-                    <td>PhoneNumber1:</td>
-                    <td><input th:field="*{phoneNumber1}" type="text"/></td>
-                    <td th:errors="*{phoneNumber1}" th:if="${#fields.hasErrors('phoneNumber1')}">PhoneNumber1 Error</td>
-                </tr>
-                <tr>
-                    <td>PhoneNumber2:</td>
-                    <td><input th:field="*{phoneNumber2}" type="text"/></td>
-                    <td th:errors="*{phoneNumber2}" th:if="${#fields.hasErrors('phoneNumber2')}">PhoneNumber2 Error</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="submit">Submit</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        showForm
-        <td th:text="${showForm}">showForm</td>
+        <div th:replace="fragments/employees_form :: form"></div>
     </div>
     <div style="display: block; background-color: orangered" th:id="'mic' + ${employee.id}">
         <table>

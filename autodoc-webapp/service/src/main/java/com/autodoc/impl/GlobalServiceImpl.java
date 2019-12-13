@@ -142,18 +142,18 @@ public class GlobalServiceImpl<T> implements GlobalService {
     }
 
     @Override
-    public void create(String token, Object object) {
-
+    public int create(String token, Object object) {
+        return 0;
     }
 
     @Override
-    public void update(String token, Object object) {
-
+    public int update(String token, Object object) {
+        return 0;
     }
 
     @Override
-    public void delete(String token, int id) {
-
+    public int delete(String token, int id) {
+        return 0;
     }
 
     @Override

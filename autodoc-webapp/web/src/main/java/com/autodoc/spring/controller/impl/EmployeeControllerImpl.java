@@ -90,6 +90,43 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());
     }
 
+    @GetMapping(value = "/news")
+    public ModelAndView getCreate(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
+        LOGGER.info("employee: " + employeeForm);
+        ModelAndView mv = checkAndAddEmployeeDetails("employees_new");
+        //System.out.println("employee is null");
+        /*
+        LOGGER.info("phoneMumber: " + employee.getPhoneNumber1());
+        LOGGER.info("lastC: " + employee.getLastConnection());
+        LOGGER.info("startDate: " + employee.getStartDate());*/
+        if (employeeForm == null) employeeForm = new EmployeeForm();
+        mv.addObject("employeeForm", employeeForm);
+        mv.addObject("showForm", 1);
+        return mv;
+    }
+
+
+    @PostMapping(value = "/new")
+    @ResponseBody
+    public ModelAndView create(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
+        LOGGER.info("trying to create member ");
+        ModelAndView mv = checkAndAddEmployeeDetails("employees_new");
+        LOGGER.info("empl: " + employeeForm);
+        mv.addObject("employeeForm", new EmployeeForm());
+        if (bindingResult.hasErrors()) {
+            LOGGER.error("binding has errors");
+            /*Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
+            mv.addObject("employee", employee);*/
+            mv.addObject("employeeForm", employeeForm);
+            mv.addObject("showForm", 1);
+            return mv;
+        }
+        LOGGER.info("carrying on");
+        LOGGER.info("employee retrieved: " + employeeForm);
+        employeeManager.add(helper.getConnectedToken(), employeeForm);
+        return new ModelAndView("redirect:" + "/employees/");
+    }
+
     private EmployeeDTO convertFormIntoDto(EmployeeForm employeeForm) {
         LOGGER.info("TODO");
         return null;

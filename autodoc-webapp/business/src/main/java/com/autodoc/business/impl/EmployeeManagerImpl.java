@@ -17,6 +17,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
     // @Inject
     EmployeeService service;
 
+
     public EmployeeManagerImpl(EmployeeService service) {
         super(service);
         this.service = service;
@@ -49,22 +50,22 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         return employee;
     }
 
-    public void update(String token, Object obj) {
+    public EmployeeDTO formToDto(Object obj) {
         LOGGER.info("stuff to update: " + obj);
         EmployeeForm dto = (EmployeeForm) obj;
         LOGGER.info("dto: " + dto);
         LOGGER.info(dto.getFirstName());
         EmployeeDTO employee = new EmployeeDTO();
-        employee.setId(dto.getId());
+        if (dto.getId() != 0) employee.setId(dto.getId());
         employee.setLogin(dto.getLogin());
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
         employee.setRoles(dto.getRoles());
         employee.setPhoneNumber1(dto.getPhoneNumber1());
         employee.setPhoneNumber2(dto.getPhoneNumber2());
+        if (dto.getPassword() != null) employee.setPassword(dto.getPassword());
         LOGGER.info("entity transferred: " + employee);
-        service.update(token, employee);
-
+        return employee;
     }
 
 

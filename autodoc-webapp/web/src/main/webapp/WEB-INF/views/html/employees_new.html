@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http:/www.w3.org/1999/xhtml">
+<title>myProfile</title>
+
+<div th:replace="fragments/header :: head1"></div>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <h3>New new</h3>
+
+
+    <form action="#" method="post" th:action="@{'/employees/new/'}" th:object="${employeeForm}">
+        <table>
+            <tr>
+                <td>Id:</td>
+                <td th:text="${id}">Login</td>
+            </tr>
+            <tr>
+                <td>Start Date:</td>
+                <td th:text="${startDate}">Start Date</td>
+            </tr>
+            <tr>
+                <td>Last Connection:</td>
+                <td th:text="${lastConnection}">Last Connection</td>
+            </tr>
+            <tr>
+                <td>Login:</td>
+                <td><input th:field="*{login}" type="text"/></td>
+                <td th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input th:field="*{password}" type="text"/></td>
+                <td th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password Error</td>
+            </tr>
+            <tr>
+                <td>FirstName:</td>
+                <td><input th:field="*{firstName}" type="text"/></td>
+                <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
+            </tr>
+            <tr>
+                <td>LastName:</td>
+                <td><input th:field="*{lastName}" type="text"/></td>
+                <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
+            </tr>
+            <tr>
+                <td>PhoneNumber1:</td>
+                <td><input th:field="*{phoneNumber1}" type="text"/></td>
+                <td th:errors="*{phoneNumber1}" th:if="${#fields.hasErrors('phoneNumber1')}">PhoneNumber1 Error</td>
+            </tr>
+            <tr>
+                <td>PhoneNumber2:</td>
+                <td><input th:field="*{phoneNumber2}" type="text"/></td>
+                <td th:errors="*{phoneNumber2}" th:if="${#fields.hasErrors('phoneNumber2')}">PhoneNumber2 Error</td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
+</body>
+</html>
+
+
+
+

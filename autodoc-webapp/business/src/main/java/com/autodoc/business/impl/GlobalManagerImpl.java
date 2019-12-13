@@ -43,14 +43,22 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     public void add(String token, Object obj) {
+        LOGGER.info("stuff to insert: " + obj);
+        D objToInsert = formToDto(obj);
+        service.create(token, objToInsert);
 
     }
 
     public void update(String token, Object obj) {
         LOGGER.info("stuff to update: " + obj);
-        D objToUpdate = (D) obj;
+        D objToUpdate = formToDto(obj);
         service.update(token, objToUpdate);
 
+    }
+
+    public D formToDto(Object obj) {
+        LOGGER.error("not configured");
+        return null;
     }
 
     public void delete(String token, int id) {
