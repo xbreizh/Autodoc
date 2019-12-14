@@ -2,6 +2,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.contract.GlobalService;
+import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -37,9 +38,10 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
 
-    public List<T> getAll(String token){
-
-        return (List<T>) service.getAll(token);
+    public List<T> getAll(String token) {
+        //List<D> list = (List<D>)service.getAll(token);
+        //return  convertList(service.getAll(token));
+        return service.getAll(token);
     }
 
     public void add(String token, Object obj) {
@@ -64,6 +66,15 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     public void delete(String token, int id) {
         LOGGER.info("deleting: " + id);
         service.delete(token, id);
+    }
+
+    public int getMax(String token) {
+
+        return 0;
+    }
+
+    List<Employee> convertList(List<Object> list) {
+        return null;
     }
 
 }

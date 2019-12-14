@@ -33,6 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -216,16 +218,19 @@ public class Filler {
         carDao.create(car1);
     }
 
-    void fillEmployee() {
+    void fillEmployee() throws ParseException {
         LOGGER.debug("filling employee");
         List<Role> roleList = new ArrayList<>();
         String login = "LMOLO";
-        Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, new Date(), login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        String pattern = "MM-dd-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = simpleDateFormat.parse("12-01-2018");
+        Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, date, login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MECANIC);
         employee.setRoles(roles);
         String login2 = "MALIK";
-        Employee employee2 = new Employee("MALIK", "GAUMONT", "0862547895", roleList, new Date(), login2, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        Employee employee2 = new Employee("MALIK", "GAUMONT", "0862547895", roleList, date, login2, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
         List<Role> roles2 = new ArrayList<>();
         roles2.add(Role.MECANIC);
         roles2.add(Role.MANAGER);

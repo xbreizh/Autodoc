@@ -8,4 +8,6 @@ public interface EmployeeManager extends GlobalManager {
 
     Employee getByLogin(String token, String login);
 
+    int getMax(String token);
+
 }

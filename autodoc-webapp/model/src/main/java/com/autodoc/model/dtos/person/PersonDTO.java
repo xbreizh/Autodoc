@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @ToString
-public abstract class PersonDTO {
+public abstract class PersonDTO implements Comparable {
     private int id;
 
     @Size(min = 3, max = 12, message = "{lastName.size}")
@@ -31,4 +31,13 @@ public abstract class PersonDTO {
 
     public PersonDTO() {
     }
+
+
+    @Override
+    public int compareTo(Object o) {
+        PersonDTO dto = (PersonDTO) o;
+        return Integer.compare(this.getId(), dto.getId());
+    }
+
+
 }

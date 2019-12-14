@@ -8,6 +8,8 @@ import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO> implements EmployeeManager {
@@ -68,5 +70,26 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         return employee;
     }
 
+    public List<Employee> convertList(List<Object> list) {
+        LOGGER.info("converting list");
+        List<Employee> newList = new ArrayList<>();
+        for (Object obj : list) {
+            EmployeeDTO dto = (EmployeeDTO) obj;
+            Employee employee = new Employee();
+            int id = dto.getId();
+            LOGGER.info("id: " + id);
+            employee.setId(id);
+            employee.setLogin(dto.getLogin());
+            employee.setFirstName(dto.getFirstName());
+            employee.setLastName(dto.getLastName());
+            employee.setRoles(dto.getRoles());
+            employee.setPhoneNumber1(dto.getPhoneNumber1());
+            employee.setPhoneNumber2(dto.getPhoneNumber2());
+            employee.setStartDate(dto.getStartDate());
+            employee.setLastConnection(dto.getLastConnection());
 
+            newList.add(employee);
+        }
+        return newList;
+    }
 }

@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @Controller
 @ControllerAdvice
 @RequestMapping("/")
-public class GlobalController {
+public class GlobalController<D, T> {
     private static final String LOGIN = "login";
     private static final String HOME = "home";
     private static final String RESET = "passwordReset/passwordReset";

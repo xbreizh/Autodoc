@@ -2,6 +2,7 @@ package com.autodoc.impl;
 
 import com.autodoc.contract.EmployeeService;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
+import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Named
-public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implements EmployeeService {
+public class EmployeeServiceImpl extends GlobalServiceImpl<Employee> implements EmployeeService {
     private static Logger LOGGER = Logger.getLogger(EmployeeServiceImpl.class);
 
     Class getObjectClass() {
@@ -54,18 +55,6 @@ public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implemen
         return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
     }
 
-  /*  @Override
-    public int delete(String token, int id){
-        setupHeader(token);
-        String url = BASE_URL + getClassName();
-        LOGGER.info("service delete id: " + id);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
-        HttpEntity<Integer> requestInsert = new HttpEntity<>(id, headers);
-        return restTemplate.exchange(url, HttpMethod.DELETE, requestInsert, Void.class).getStatusCodeValue();
-    }*/
 
 }
 

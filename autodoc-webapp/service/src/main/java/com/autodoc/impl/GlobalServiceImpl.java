@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class GlobalServiceImpl<T> implements GlobalService {
+public class GlobalServiceImpl<D> implements GlobalService {
 
     static final String BASE_URL = "http://localhost:8087/autodoc/";
     private static final Logger LOGGER = Logger.getLogger(GlobalServiceImpl.class);
@@ -47,7 +47,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
 
 
     @Override
-    public Object getById(String token, int id) {
+    public D getById(String token, int id) {
         LOGGER.info("trying to get object by id");
         setupHeader(token);
 
@@ -60,7 +60,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
             String url = BASE_URL + className + "/" + id;
             LOGGER.info("url: " + url);
             LOGGER.info("mokoro: " + restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass()));
-            ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
+            ResponseEntity<D> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
             LOGGER.info("resp: " + response.getStatusCodeValue());
             if (response.getStatusCodeValue() == 404) return null;
             LOGGER.info("stop");
@@ -78,7 +78,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
     }
 
     @Override
-    public Object getByName(String token, String name) {
+    public D getByName(String token, String name) {
         LOGGER.info("trying to get employee by login");
         setupHeader(token);
         try {
@@ -88,7 +88,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
             String className = getClassName();
             String url = BASE_URL + className + "/name?name=" + name;
             LOGGER.info("url: " + url);
-            ResponseEntity<T> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
+            ResponseEntity<D> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
             if (response.getStatusCodeValue() == 404) return null;
             LOGGER.info("deded: " + response.getBody());
             return response.getBody();
@@ -100,7 +100,7 @@ public class GlobalServiceImpl<T> implements GlobalService {
     }
 
     @Override
-    public List getAll(String token) {
+    public List<D> getAll(String token) {
         LOGGER.info("trying to get employee by login");
         setupHeader(token);
         try {
@@ -108,32 +108,18 @@ public class GlobalServiceImpl<T> implements GlobalService {
             LOGGER.info("token: " + token);
             String className = getClassName();
             String url = BASE_URL + className;
-        /*    LOGGER.info("url: "+url);
-          //  ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(url, Object[].class);
-            ResponseEntity<Object[]> res =restTemplate.exchange(url, HttpMethod.GET, request, Object[].class);
-            // res = (T) res;
-          //  LOGGER.info("res: "+restTemplate.exchange(url, HttpMethod.GET, request, Employee[].class));
-            LOGGER.info(res.getBody().toString());*/
             LOGGER.info(ArrayList.class);
             ResponseEntity<ArrayList> response = restTemplate.exchange(url, HttpMethod.GET, request, ArrayList.class);
             LOGGER.info("result: " + response.getBody().get(0));
 
 
-
-            List<T> newList = new ArrayList<>();
+            List<D> newList = new ArrayList<>();
             for (Object obj : response.getBody()) {
                 obj = obj;
-                newList.add((T) obj);
+                newList.add((D) obj);
             }
 
             return newList;
-          /*  LOGGER.info(restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass()));
-            ResponseEntity<Object[]> res = restTemplate.exchange(url, HttpMethod.GET, request, Object[].class);
-            LOGGER.info("deded: " + res.getBody());
-            //T[] objects = res.getBody();*/
-            // LOGGER.info("obj: "+objects);
-            //return Arrays.asList(objects);
-            //return null;
         } catch (Exception e) {
             LOGGER.info("error occured");
             throw new
