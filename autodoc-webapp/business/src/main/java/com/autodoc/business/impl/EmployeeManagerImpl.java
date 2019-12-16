@@ -2,6 +2,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.contract.EmployeeService;
+import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
@@ -18,17 +19,24 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
 
     // @Inject
     EmployeeService service;
+    EnumService enumService;
 
 
-    public EmployeeManagerImpl(EmployeeService service) {
+    public EmployeeManagerImpl(EmployeeService service, EnumService enumService) {
         super(service);
         this.service = service;
+        this.enumService = enumService;
     }
 
     @Override
     public Employee getByLogin(String token, String login) {
         System.out.println("serviceee: " + service);
         return dtoToEntity(token, service.getByName(token, login));
+    }
+
+    @Override
+    public List<String> getRoles(String token) {
+        return enumService.getAll(token, "roles");
     }
 
     public Employee dtoToEntity(String token, Object obj) {

@@ -38,6 +38,18 @@
                 <td th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password Error</td>
             </tr>
             <tr>
+                <td>Select Role:</td>
+                <td>
+                    <select th:field="*{roles}">
+                        <option value=""> --</option>
+                        <option th:each="role : ${roles}"
+                                th:utext="${role}"
+                                th:value="${role}"/>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
                 <td>FirstName:</td>
                 <td><input th:field="*{firstName}" type="text"/></td>
                 <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>

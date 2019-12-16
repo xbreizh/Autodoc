@@ -6,10 +6,12 @@ import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Named
 public class EnumServiceImpl implements EnumService {
 
 

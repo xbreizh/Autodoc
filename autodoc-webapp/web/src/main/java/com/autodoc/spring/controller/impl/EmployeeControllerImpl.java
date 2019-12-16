@@ -66,6 +66,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         mv.addObject("employeeForm", employee);
         mv.addObject("showForm", 1);
         mv.addObject("employee", employee);
+        mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
         return mv;
     }
 
@@ -104,6 +105,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         ModelAndView mv = checkAndAddEmployeeDetails("employees_new");
         mv.addObject("employeeForm", new EmployeeForm());
         mv.addObject("showForm", 1);
+        mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
         return mv;
     }
 
