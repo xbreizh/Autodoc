@@ -27,7 +27,7 @@ public class ProviderForm {
     @Size(min = 3, max = 12, message = "{email.size}")
     private String email1;
 
-    @Size(min = 3, max = 12, message = "{firstName.size}")
+    @Size(min = 3, max = 12, message = "{email.size}")
     private String email2;
 
 

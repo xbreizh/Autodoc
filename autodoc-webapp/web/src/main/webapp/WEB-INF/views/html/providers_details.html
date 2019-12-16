@@ -10,8 +10,8 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h2>Employee details</h2>
-    <p th:text="${provider.login}">Login</p>
+    <h2>Provider details</h2>
+    <p th:text="${provider.company}">Login</p>
 
     <h1>Form</h1>
     <label style="display: block" th:id="'switch' + ${provider.id}">
@@ -30,7 +30,7 @@
         <table>
             <tr>
                 <td>Id:</td>
-                <td th:text="${provider.id}">Login</td>
+                <td th:text="${provider.id}">Id</td>
             </tr>
             <tr>
                 <td>FirstName:</td>
@@ -43,6 +43,14 @@
             <tr>
                 <td>Company:</td>
                 <td th:text="${provider.company}">Roles</td>
+            </tr>
+            <tr>
+                <td>Email1:</td>
+                <td th:text="${provider.email1}">Email1</td>
+            </tr>
+            <tr>
+                <td>Email2:</td>
+                <td th:text="${provider.email1}">Email2</td>
             </tr>
             <tr>
                 <td>PhoneNumber1:</td>

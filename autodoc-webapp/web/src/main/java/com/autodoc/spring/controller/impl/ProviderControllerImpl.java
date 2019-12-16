@@ -61,6 +61,7 @@ public class ProviderControllerImpl extends GlobalController implements Provider
         System.out.println("provider is null");
         Provider provider = (Provider) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + provider.getPhoneNumber1());
+        LOGGER.info("provider: " + provider);
         mv.addObject("providerForm", provider);
         mv.addObject("showForm", 1);
         mv.addObject("provider", provider);
