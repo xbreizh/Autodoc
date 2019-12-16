@@ -50,7 +50,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         employee.setLogin(dto.getLogin());
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
-        employee.setRoles(dto.getRoles());
+        employee.setRoles(dto.getRoles().toString());
         employee.setPhoneNumber1(dto.getPhoneNumber1());
         employee.setPhoneNumber2(dto.getPhoneNumber2());
         employee.setStartDate(dto.getStartDate());
@@ -90,7 +90,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
             employee.setLogin(dto.getLogin());
             employee.setFirstName(dto.getFirstName());
             employee.setLastName(dto.getLastName());
-            employee.setRoles(dto.getRoles());
+            employee.setRoles(dto.getRoles().toString());
             employee.setPhoneNumber1(dto.getPhoneNumber1());
             employee.setPhoneNumber2(dto.getPhoneNumber2());
             employee.setStartDate(dto.getStartDate());

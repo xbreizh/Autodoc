@@ -42,6 +42,9 @@
                 <td>
                     <select th:field="*{roles}">
                         <option value=""> --</option>
+                        <!--<option th:each="role : ${roles}"
+                                th:utext="${role}"
+                                th:value="${role}"/>-->
                         <option th:each="role : ${roles}"
                                 th:utext="${role}"
                                 th:value="${role}"/>

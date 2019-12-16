@@ -41,9 +41,6 @@ public class EmployeeServiceImpl extends GlobalServiceImpl<Employee> implements 
     @Override
     public int create(String token, Object object) {
         EmployeeDTO dto = (EmployeeDTO) object;
-        List<String> roles = new ArrayList<>();
-        roles.add("MECANIC");
-        dto.setRoles(roles);
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);

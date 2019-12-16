@@ -36,6 +36,21 @@
                 <td th:errors="*{phoneNumber1}" th:if="${#fields.hasErrors('phoneNumber1')}">PhoneNumber1 Error</td>
             </tr>
             <tr>
+                <td>Select Role:</td>
+                <td>
+                    <select th:field="*{roles}">
+                        <option value=""> --</option>
+                        <!--<option th:each="role : ${roles}"
+                                th:utext="${role}"
+                                th:value="${role}"/>-->
+                        <option th:each="role : ${roles}"
+                                th:utext="${role}"
+                                th:value="${role}"/>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
                 <td>PhoneNumber2:</td>
                 <td><input th:field="*{phoneNumber2}" type="text"/></td>
                 <td th:errors="*{phoneNumber2}" th:if="${#fields.hasErrors('phoneNumber2')}">PhoneNumber2 Error</td>

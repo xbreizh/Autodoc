@@ -122,6 +122,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
             LOGGER.error("binding has errors");
             mv.addObject("employeeForm", employeeForm);
             mv.addObject("showForm", 1);
+            mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
             return mv;
         }
         LOGGER.info("employee retrieved: " + employeeForm);
