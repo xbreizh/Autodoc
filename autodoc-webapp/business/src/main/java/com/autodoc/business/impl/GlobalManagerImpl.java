@@ -2,7 +2,6 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.contract.GlobalService;
-import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -73,7 +72,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         return 0;
     }
 
-    List<Employee> convertList(List<Object> list) {
+    List<T> convertList(List<Object> list) {
         return null;
     }
 

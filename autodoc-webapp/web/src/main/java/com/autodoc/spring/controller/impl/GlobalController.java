@@ -67,7 +67,7 @@ public class GlobalController<D, T> {
     @RequestMapping("/")
     public ModelAndView home(String error) {
         LOGGER.info("getting home");
-        ModelAndView mv = checkAndAddEmployeeDetails(HOME);
+        ModelAndView mv = checkAndAddConnectedDetails(HOME);
         return mv;
     }
 
@@ -87,7 +87,7 @@ public class GlobalController<D, T> {
 
     @GetMapping("/stocks")
     public ModelAndView stocks() {
-        ModelAndView mv = checkAndAddEmployeeDetails("stocks");
+        ModelAndView mv = checkAndAddConnectedDetails("stocks");
 
         return mv;
     }
@@ -96,7 +96,7 @@ public class GlobalController<D, T> {
     public ModelAndView operations(RegistrationForm registrationForm) {
         System.out.println("show form");
         //return "operations";
-        ModelAndView mv = checkAndAddEmployeeDetails("operations");
+        ModelAndView mv = checkAndAddConnectedDetails("operations");
         return mv;
     }
 
@@ -119,12 +119,12 @@ public class GlobalController<D, T> {
 
     @GetMapping("/repairs")
     public ModelAndView repairs() {
-        ModelAndView mv = checkAndAddEmployeeDetails("repairs");
+        ModelAndView mv = checkAndAddConnectedDetails("repairs");
 
         return mv;
     }
 
-    ModelAndView checkAndAddEmployeeDetails(String viewName) {
+    public ModelAndView checkAndAddConnectedDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
         Employee connected = employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
         System.out.println("connected found: " + connected);
@@ -137,7 +137,7 @@ public class GlobalController<D, T> {
     @GetMapping("/myProfile")
     public ModelAndView myProfile() {
         LOGGER.info("retrieving myProfile");
-        ModelAndView mv = checkAndAddEmployeeDetails("myProfile");
+        ModelAndView mv = checkAndAddConnectedDetails("myProfile");
         return mv;
     }
 

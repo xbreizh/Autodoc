@@ -1,26 +1,19 @@
-/*
 package com.autodoc.model.dtos.person.provider;
 
 import com.autodoc.model.dtos.person.PersonDTO;
-import com.autodoc.model.enums.Rate;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode(callSuper = true)
 public class ProviderDTO extends PersonDTO {
 
     private String website;
-
 
 
     @Email(message = "invalid email")
@@ -32,15 +25,22 @@ public class ProviderDTO extends PersonDTO {
     @NotNull(message = "company cannot be null")
     private String company;
 
-    @NotNull(message = "rate cannot be null")
-    @Enumerated(EnumType.STRING)
-    private Rate rate;
-
-    public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1) {
-        super(lastName, firstName, phoneNumber1);
+    public ProviderDTO(int id, String firstName, String lastName, String phoneNumber1, String website) {
+        super(id, firstName, lastName, phoneNumber1);
+        this.website = website;
     }
 
     public ProviderDTO() {
     }
+
+
+    @Override
+    public String toString() {
+        return "ProviderDTO{" +
+                "website='" + website + '\'' +
+                ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", company='" + company + '\'' +
+                "} " + super.toString();
+    }
 }
-*/

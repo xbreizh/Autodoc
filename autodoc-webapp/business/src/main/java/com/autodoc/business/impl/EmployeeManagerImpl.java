@@ -17,7 +17,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
 
     private static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
 
-    // @Inject
+
     EmployeeService service;
     EnumService enumService;
 

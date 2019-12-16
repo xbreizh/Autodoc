@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
@@ -57,7 +59,7 @@ class FillerTest {
     private BillDao billDao;
 
     @BeforeEach()
-    void init() throws InterruptedException {
+    void init() throws InterruptedException, ParseException {
         filler.fillEmployee();
         filler.fillManufacturer();
         Thread.sleep(2);

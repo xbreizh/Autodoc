@@ -1,38 +1,30 @@
 package com.autodoc.impl;
 
-import com.autodoc.contract.EmployeeService;
-import com.autodoc.model.dtos.person.employee.EmployeeDTO;
+import com.autodoc.contract.ProviderService;
+import com.autodoc.model.dtos.person.provider.ProviderDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @Transactional
-class EmployeeServiceImplTest {
+class ProviderServiceImplTest {
 
-    private EmployeeService service;
+    String name = "dedede";
+    private ProviderService service;
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUyNjU1OSwiaWF0IjoxNTc2NTA4NTU5fQ.1jvALQZqzsY23A8jOSbjI9qkkHnTTlog4srFzOH1p0P3SEa2kI2tZ7NpubgmZlCNN_TSdjSG-g0nuhTj5izjOQ";
-    private EmployeeDTO dto;
-
+    private ProviderDTO dto;
 
     @BeforeEach
     void init() {
-
-        service = new EmployeeServiceImpl();
-        dto = new EmployeeDTO();
-        dto.setFirstName("John");
-        dto.setLastName("Bonham");
-        dto.setLogin("jbonhem");
-        dto.setPassword("abc123");
-        List<String> roles = new ArrayList<>();
-        roles.add("MECANIC");
-        dto.setRoles(roles);
+        service = new ProviderServiceImpl();
+        dto = new ProviderDTO();
+        dto.setFirstName("ssssss");
+        dto.setLastName(name);
+        dto.setCompany("ssss");
+        dto.setEmail1("deded@dede.de");
         dto.setPhoneNumber1("029282726256");
     }
 
@@ -40,7 +32,6 @@ class EmployeeServiceImplTest {
     @Test
     void getObjectClass() {
     }
-
 
     @Test
     void getByid() {
@@ -56,15 +47,13 @@ class EmployeeServiceImplTest {
 
     @Test
     void update() {
-        int id = 2;
-        EmployeeDTO employee = (EmployeeDTO) service.getById(token, id);
-        String login = "MOLOK";
-        employee.setLogin(login);
-        employee.setStartDate(null);
-        System.out.println(employee);
-        service.update(token, employee);
-        assertEquals(login, ((EmployeeDTO) service.getById(token, id)).getLogin());
-
+        int id = 1;
+        ProviderDTO provider = (ProviderDTO) service.getById(token, id);
+        String company = "MOLOK";
+        provider.setCompany(company);
+        System.out.println(provider);
+        service.update(token, provider);
+        assertEquals(company, ((ProviderDTO) service.getById(token, id)).getCompany());
     }
 
 
@@ -76,9 +65,10 @@ class EmployeeServiceImplTest {
     @Test
     @DisplayName("should return 201 when insertion ok")
     void create() {
+        System.out.println(dto);
+        service.filler();
+        service.delete(token, 6);
         assertEquals(201, service.create(token, dto));
-
-
     }
 
     @Test

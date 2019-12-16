@@ -33,7 +33,7 @@ public class CarControllerImpl extends GlobalController implements CarController
         System.out.println("getting herer: " + registrationForm);
         LOGGER.info("retrieving searchCar");
         String registration = registrationForm.getRegistration().toUpperCase();
-        ModelAndView mv = checkAndAddEmployeeDetails("operations");
+        ModelAndView mv = checkAndAddConnectedDetails("operations");
 
         if (bindingResult.hasErrors()) {
             return mv;

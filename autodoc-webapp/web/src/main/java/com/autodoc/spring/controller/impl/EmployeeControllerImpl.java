@@ -34,7 +34,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @GetMapping("")
     public ModelAndView employees() {
         LOGGER.info("retrieving employees");
-        ModelAndView mv = checkAndAddEmployeeDetails("employees");
+        ModelAndView mv = checkAndAddConnectedDetails("employees");
 
         List<EmployeeDTO> employees = getEmployees();
 
@@ -57,7 +57,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @ResponseBody
     public ModelAndView employeeById(@PathVariable Integer id) {
         LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddEmployeeDetails("employees_details");
+        ModelAndView mv = checkAndAddConnectedDetails("employees_details");
         System.out.println("employee is null");
         Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + employee.getPhoneNumber1());
@@ -75,7 +75,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @ResponseBody
     public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
         LOGGER.info("trying to update member with id " + employeeForm.getId());
-        ModelAndView mv = checkAndAddEmployeeDetails("employees_details");
+        ModelAndView mv = checkAndAddConnectedDetails("employees_details");
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -102,7 +102,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddEmployeeDetails("employees_new");
+        ModelAndView mv = checkAndAddConnectedDetails("employees_new");
         mv.addObject("employeeForm", new EmployeeForm());
         mv.addObject("showForm", 1);
         mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
@@ -115,7 +115,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @ResponseBody
     public ModelAndView create(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
         LOGGER.info("trying to create member ");
-        ModelAndView mv = checkAndAddEmployeeDetails("employees_new");
+        ModelAndView mv = checkAndAddConnectedDetails("employees_new");
         LOGGER.info("empl: " + employeeForm);
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {

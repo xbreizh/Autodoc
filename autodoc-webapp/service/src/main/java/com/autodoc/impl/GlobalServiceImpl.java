@@ -200,4 +200,28 @@ public class GlobalServiceImpl<D> implements GlobalService {
     public List getByCriteria(String token, Map criteria) {
         return null;
     }
+
+
+    @Override
+    public void filler() {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        this.restTemplate = new RestTemplate();
+
+        this.request = new HttpEntity<>(headers);
+        try {
+            LOGGER.info("restTemplate ready");
+            String url = BASE_URL + "filler";
+            LOGGER.info(ArrayList.class);
+            ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.GET, request, Void.class);
+
+
+        } catch (Exception e) {
+            LOGGER.info("error occured");
+            throw new
+                    BadCredentialsException("External system authentication failed");
+        }
+
+    }
 }

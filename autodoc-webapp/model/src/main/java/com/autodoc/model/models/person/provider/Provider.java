@@ -5,14 +5,12 @@ import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
 
 @Setter
 @Getter
-@ToString
 public class Provider extends Person {
 
 
@@ -43,4 +41,16 @@ public class Provider extends Person {
     }
 
 
+    @Override
+    public String toString() {
+        return "Provider{" +
+                "addresses=" + addresses +
+                ", pieces=" + pieces +
+                ", website='" + website + '\'' +
+                ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", company='" + company + '\'' +
+                ", rate='" + rate + '\'' +
+                "} " + super.toString();
+    }
 }

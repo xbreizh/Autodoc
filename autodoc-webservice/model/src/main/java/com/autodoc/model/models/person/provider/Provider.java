@@ -1,6 +1,5 @@
 package com.autodoc.model.models.person.provider;
 
-import com.autodoc.model.enums.Rate;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.person.Person;
 import com.autodoc.model.models.pieces.Piece;
@@ -8,7 +7,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,8 +49,8 @@ public class Provider extends Person {
     @NotNull
     private String company;
     // @NonNull
-    @Enumerated(EnumType.STRING)
-    private Rate rate;
+/*    @Enumerated(EnumType.STRING)
+    private Rate rate;*/
 
     public Provider(String firstName, String lastName, String phoneNumber1, String email1, @NonNull String company) {
         super(firstName, lastName, phoneNumber1);
@@ -68,7 +70,7 @@ public class Provider extends Person {
                 ", email1='" + email1 + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", company='" + company + '\'' +
-                ", rate=" + rate +
+              /*  ", rate=" + rate +*/
                 ", id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http:/www.w3.org/1999/xhtml">
+<title>myProfile</title>
+
+<div th:replace="fragments/header :: head1"></div>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <h2>Employee details</h2>
+    <p th:text="${provider.login}">Login</p>
+
+    <h1>Form</h1>
+    <label style="display: block" th:id="'switch' + ${provider.id}">
+        <input onclick="toggle_displays();"
+               type="checkbox">
+        <span class="slider round"></span>
+    </label>
+    <h3>Edit</h3>
+
+
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${provider.id}">
+
+        <div th:replace="fragments/providers_form :: form"></div>
+    </div>
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${provider.id}">
+        <table>
+            <tr>
+                <td>Id:</td>
+                <td th:text="${provider.id}">Login</td>
+            </tr>
+            <tr>
+                <td>FirstName:</td>
+                <td th:text="${provider.firstName}">FirstName</td>
+            </tr>
+            <tr>
+                <td>LastName:</td>
+                <td th:text="${provider.lastName}">LastName</td>
+            </tr>
+            <tr>
+                <td>Company:</td>
+                <td th:text="${provider.company}">Roles</td>
+            </tr>
+            <tr>
+                <td>PhoneNumber1:</td>
+                <td th:text="${provider.phoneNumber1}">PhoneNumber1</td>
+            </tr>
+            <tr>
+                <td>PhoneNumber2:</td>
+                <td th:text="${provider.phoneNumber2}">PhoneNumber2</td>
+            </tr>
+        </table>
+
+        showForm
+        <td th:text="${showForm}">showForm</td>
+
+    </div>
+</div>
+
+<script>
+
+    window.onload = checkToggle;
+    let start = 0;
+
+    function checkToggle() {
+
+        let showFormVar = parseInt("[[${showForm}]]");
+        let showForm = start + showFormVar;
+        if (showForm === 0) {
+            toggle_displays();
+
+        }
+        start++;
+    }
+
+
+    function toggle_displays() {
+        var divs = document.getElementsByTagName("div");
+
+        for (var i = divs.length; i;) {
+            var div = divs[--i];
+
+            if (div.id.indexOf("fo") > -1) {
+
+                if (div.style.display === 'block') {
+                    div.style.display = 'none';
+                } else {
+                    div.style.display = 'block';
+                }
+            }
+            if (div.id.indexOf("mic") > -1) {
+
+                if (div.style.display === 'block') {
+                    div.style.display = 'none';
+                } else {
+                    div.style.display = 'block';
+                }
+            }
+
+        }
+
+
+    }
+</script>
+
+</body>
+</html>
+
+
+
+

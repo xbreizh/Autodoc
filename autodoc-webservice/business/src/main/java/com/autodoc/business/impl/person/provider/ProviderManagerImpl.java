@@ -62,9 +62,9 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         if (dto.getCompany() != null) {
             provider.setCompany(dto.getCompany());
         }
-        if (dto.getRate() != null) {
+       /* if (dto.getRate() != null) {
             provider.setRate(dto.getRate());
-        }
+        }*/
         if (dto.getWebsite() != null) {
             provider.setWebsite(dto.getWebsite());
         }
@@ -102,9 +102,7 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         if (dto.getCompany() != null) {
             provider.setCompany(dto.getCompany());
         }
-        if (dto.getRate() != null) {
-            provider.setRate(dto.getRate());
-        }
+
         if (dto.getWebsite() != null) {
             provider.setWebsite(dto.getWebsite());
         }
