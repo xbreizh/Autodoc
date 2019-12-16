@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarServiceImplTest {
 
     private CarService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDk2ODA1MCwiaWF0IjoxNTc0OTUwMDUwfQ.BfKxkfEVLatJRdOfVph7XqJHnCBWPGFKyaq2exJNUYFMr9lU0-EgQIQ_vecx8oqQIV1GEJ3vP8mSjUhu1vfrdA";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUxMjU5NSwiaWF0IjoxNTc2NDk0NTk1fQ.vBhwMkX1UII2cxkq4oaqTJOiBb4tCip0tq35NR8Eb-ECPwHG_Oz75YJq9iybf3U3J6MccTP07gLKu9x67MEacg";
 
     @BeforeEach
     void init(){
