@@ -32,16 +32,16 @@ public class CarControllerImpl extends GlobalController implements CarController
     public ModelAndView searchCar(@Valid RegistrationForm registrationForm, BindingResult bindingResult) {
         System.out.println("getting herer: " + registrationForm);
         LOGGER.info("retrieving searchCar");
-        String registration = registrationForm.getRegistration();
+        String registration = registrationForm.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddEmployeeDetails("operations");
 
         if (bindingResult.hasErrors()) {
             return mv;
         }
 
-        LOGGER.info("car found: " + registration);
 
         Car car = carManager.getByRegistration(helper.getConnectedToken(), registration);
+        LOGGER.info("car found: " + car);
         if (car == null) {
             //mv = checkAndAddEmployeeDetails("operations");
             mv.addObject("message", "no car found");

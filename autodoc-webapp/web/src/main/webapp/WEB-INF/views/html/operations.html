@@ -11,16 +11,25 @@
 
     <div th:replace="fragments/searchCar_form :: searchCar_form"></div>
     <!--<br><br>-->
-    <!-- <div class="row">
+    <div class="row">
 
-         <div class="col-12">
+        <div class="col-12">
              <span th:if="${car != null}">
              <div th:replace="fragments/searchCar_result :: searchCar_result"></div>
              </span>
-             <span th:if="${car == null}">blop</span>
-         </div>
-     </div>-->
+        </div>
 
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-6">
+            <td th:if="${message != null}">
+            <td th:text="${message}">message</td>
+            </td>
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
 </div>
 
 </body>
