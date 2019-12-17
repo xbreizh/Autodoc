@@ -36,6 +36,9 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
         provider.setLastName(dto.getLastName());
         provider.setPhoneNumber1(dto.getPhoneNumber1());
         provider.setPhoneNumber2(dto.getPhoneNumber2());
+        provider.setEmail1(dto.getEmail1());
+        provider.setWebsite(dto.getWebsite());
+        provider.setCompany(dto.getCompany());
         LOGGER.info("entity transferred: " + provider);
 
         return provider;
@@ -51,9 +54,7 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
         provider.setFirstName(dto.getFirstName());
         provider.setLastName(dto.getLastName());
         provider.setEmail1(dto.getEmail1());
-        provider.setEmail2(dto.getEmail2());
         provider.setPhoneNumber1(dto.getPhoneNumber1());
-        provider.setPhoneNumber2(dto.getPhoneNumber2());
         LOGGER.info("entity transferred: " + provider);
         return provider;
     }
@@ -71,7 +72,7 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
             provider.setFirstName(dto.getFirstName());
             provider.setLastName(dto.getLastName());
             provider.setEmail1(dto.getEmail1());
-            provider.setEmail2(dto.getEmail2());
+            provider.setWebsite(dto.getWebsite());
             provider.setPhoneNumber1(dto.getPhoneNumber1());
             provider.setPhoneNumber2(dto.getPhoneNumber2());
 

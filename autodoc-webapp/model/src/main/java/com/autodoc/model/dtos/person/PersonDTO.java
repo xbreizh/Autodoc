@@ -8,8 +8,8 @@ import javax.validation.constraints.Size;
 
 
 @Getter
-@Setter
 @ToString
+@Setter
 public abstract class PersonDTO implements Comparable {
     private int id;
 
@@ -37,6 +37,15 @@ public abstract class PersonDTO implements Comparable {
     public int compareTo(Object o) {
         PersonDTO dto = (PersonDTO) o;
         return Integer.compare(this.getId(), dto.getId());
+    }
+
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName.toUpperCase();
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName.toUpperCase();
     }
 
 

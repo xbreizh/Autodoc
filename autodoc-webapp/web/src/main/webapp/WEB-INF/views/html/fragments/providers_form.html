@@ -36,16 +36,6 @@
                  <td th:errors="*{email1}" th:if="${#fields.hasErrors('email1')}">Email1 Error</td>
              </tr>
              <tr>
-                 <td>Email2:</td>
-                 <td><input th:field="*{email2}" type="text"/></td>
-                 <td th:errors="*{email2}" th:if="${#fields.hasErrors('email2')}">Email2 Error</td>
-             </tr>
-             <tr>
-                 <td>PhoneNumber2:</td>
-                 <td><input th:field="*{phoneNumber2}" type="text"/></td>
-                 <td th:errors="*{phoneNumber2}" th:if="${#fields.hasErrors('phoneNumber2')}">PhoneNumber2 Error</td>
-             </tr>
-             <tr>
                  <td>
                      <button type="submit">Submit</button>
                  </td>

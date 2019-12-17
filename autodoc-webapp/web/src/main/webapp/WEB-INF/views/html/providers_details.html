@@ -33,6 +33,10 @@
                 <td th:text="${provider.id}">Id</td>
             </tr>
             <tr>
+                <td>Company:</td>
+                <td th:text="${provider.company}">Roles</td>
+            </tr>
+            <tr>
                 <td>FirstName:</td>
                 <td th:text="${provider.firstName}">FirstName</td>
             </tr>
@@ -41,29 +45,15 @@
                 <td th:text="${provider.lastName}">LastName</td>
             </tr>
             <tr>
-                <td>Company:</td>
-                <td th:text="${provider.company}">Roles</td>
-            </tr>
-            <tr>
                 <td>Email1:</td>
                 <td th:text="${provider.email1}">Email1</td>
-            </tr>
-            <tr>
-                <td>Email2:</td>
-                <td th:text="${provider.email1}">Email2</td>
             </tr>
             <tr>
                 <td>PhoneNumber1:</td>
                 <td th:text="${provider.phoneNumber1}">PhoneNumber1</td>
             </tr>
-            <tr>
-                <td>PhoneNumber2:</td>
-                <td th:text="${provider.phoneNumber2}">PhoneNumber2</td>
-            </tr>
         </table>
 
-        showForm
-        <td th:text="${showForm}">showForm</td>
 
     </div>
 </div>

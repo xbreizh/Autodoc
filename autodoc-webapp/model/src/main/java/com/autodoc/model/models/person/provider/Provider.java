@@ -20,21 +20,18 @@ public class Provider extends Person {
     private List<Piece> pieces;
     private String website;
     private String email1;
-    private String email2;
     @NonNull
     private String company;
     @NonNull
 
-    private String rate;
 
-    public Provider(int id, String firstName, String lastName, String phoneNumber1, List<Address> addresses, List<Piece> pieces, String website, String email1, @NonNull String company, String rate) {
+    public Provider(int id, String firstName, String lastName, String phoneNumber1, List<Address> addresses, List<Piece> pieces, String website, String email1, @NonNull String company) {
         super(id, firstName, lastName, phoneNumber1);
         this.addresses = addresses;
         this.pieces = pieces;
         this.website = website;
         this.email1 = email1;
         this.company = company;
-        this.rate = rate;
     }
 
     public Provider() {
@@ -48,9 +45,7 @@ public class Provider extends Person {
                 ", pieces=" + pieces +
                 ", website='" + website + '\'' +
                 ", email1='" + email1 + '\'' +
-                ", email2='" + email2 + '\'' +
                 ", company='" + company + '\'' +
-                ", rate='" + rate + '\'' +
                 "} " + super.toString();
     }
 }
