@@ -1,14 +1,14 @@
 package com.autodoc.model.dtos.person.provider;
 
 import com.autodoc.model.dtos.person.PersonDTO;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@Setter
 public class ProviderDTO extends PersonDTO {
 
     private String website;
@@ -17,38 +17,54 @@ public class ProviderDTO extends PersonDTO {
     @Email(message = "invalid email")
     @NotNull(message = "email cannot be null")
     private String email1;
+    @Email(message = "invalid email")
+    private String email2;
 
     @NotNull(message = "company cannot be null")
     private String company;
 
-    public ProviderDTO(int id, String firstName, String lastName, String phoneNumber1, String website) {
-        super(id, firstName, lastName, phoneNumber1);
-        this.website = website;
+    private String rate;
+
+    public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1) {
+        super(lastName, firstName, phoneNumber1);
     }
 
     public ProviderDTO() {
     }
-
 
     @Override
     public String toString() {
         return "ProviderDTO{" +
                 "website='" + website + '\'' +
                 ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
                 ", company='" + company + '\'' +
+                ", rate='" + rate + '\'' +
                 "} " + super.toString();
     }
 
-
     public void setWebsite(String website) {
-        this.website = website.toUpperCase();
+        if (website != null)
+            this.website = website.toUpperCase();
     }
 
     public void setEmail1(String email1) {
-        this.email1 = email1.toUpperCase();
+        if (email1 != null)
+            this.email1 = email1.toUpperCase();
+    }
+
+    public void setEmail2(String email2) {
+        if (email2 != null)
+            this.email2 = email2.toUpperCase();
     }
 
     public void setCompany(String company) {
-        this.company = company.toUpperCase();
+        if (company != null)
+            this.company = company.toUpperCase();
+    }
+
+    public void setRate(String rate) {
+        if (rate != null)
+            this.rate = rate.toUpperCase();
     }
 }

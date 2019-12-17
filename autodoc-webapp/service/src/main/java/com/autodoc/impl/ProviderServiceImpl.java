@@ -21,6 +21,11 @@ public class ProviderServiceImpl extends GlobalServiceImpl<Employee> implements 
     }
 
 
+    public String getClassName() {
+        return "providers";
+    }
+
+
     @Override
     public int update(String token, Object object) {
         ProviderDTO dto = (ProviderDTO) object;
@@ -52,6 +57,7 @@ public class ProviderServiceImpl extends GlobalServiceImpl<Employee> implements 
         try {
             return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
         } catch (RuntimeException error) {
+            System.out.println("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
             return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));

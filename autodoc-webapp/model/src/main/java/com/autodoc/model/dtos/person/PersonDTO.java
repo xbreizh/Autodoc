@@ -19,11 +19,8 @@ public abstract class PersonDTO implements Comparable {
     private String firstName;
     @Size(min = 8, max = 12, message = "{phoneNumber.size}")
     private String phoneNumber1;
-    @Size(min = 8, max = 12, message = "{phoneNumber.size}")
-    private String phoneNumber2;
 
-    public PersonDTO(int id, String firstName, String lastName, String phoneNumber1) {
-        this.id = id;
+    public PersonDTO(String firstName, String lastName, String phoneNumber1) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber1 = phoneNumber1;
@@ -41,11 +38,13 @@ public abstract class PersonDTO implements Comparable {
 
 
     public void setLastName(String lastName) {
-        this.lastName = lastName.toUpperCase();
+        if (lastName != null)
+            this.lastName = lastName.toUpperCase();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName.toUpperCase();
+        if (firstName != null)
+            this.firstName = firstName.toUpperCase();
     }
 
 

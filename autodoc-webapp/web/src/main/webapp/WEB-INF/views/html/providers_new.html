@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http:/www.w3.org/1999/xhtml">
+<title>myProfile</title>
+
+<div th:replace="fragments/header :: head1"></div>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <h3>New provider</h3>
+
+
+    <form action="#" method="post" th:action="@{'/providers/new/'}" th:object="${providerForm}">
+        <table>
+            <tr>
+                <td>Company:</td>
+                <td><input th:field="*{company}" type="text"/></td>
+                <td th:errors="*{company}" th:if="${#fields.hasErrors('company')}">Company Error</td>
+            </tr>
+            <tr>
+                <td>FirstName:</td>
+                <td><input th:field="*{firstName}" type="text"/></td>
+                <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
+            </tr>
+            <tr>
+                <td>LastName:</td>
+                <td><input th:field="*{lastName}" type="text"/></td>
+                <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
+            </tr>
+            <tr>
+                <td>PhoneNumber:</td>
+                <td><input th:field="*{phoneNumber}" type="text"/></td>
+                <td th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input th:field="*{email}" type="text"/></td>
+                <td th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Email Error</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
+</body>
+</html>
+
+
+
+

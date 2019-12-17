@@ -72,7 +72,8 @@ public class ControllerExceptionHandler extends RuntimeException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity handleValidationExceptions(MethodArgumentNotValidException ex) {
-
+        System.out.println(ex.getMessage());
+        System.out.println(ex.getBindingResult());
         LOGGER.debug("bad request ?");
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)

@@ -11,7 +11,7 @@ public class ClientDTO extends PersonDTO {
 
 
     public ClientDTO(int id, String lastName, String firstName, String phoneNumber1, String phoneNumber2) {
-        super(id, lastName, firstName, phoneNumber1);
+        super(lastName, firstName, phoneNumber1);
     }
 
     @Override

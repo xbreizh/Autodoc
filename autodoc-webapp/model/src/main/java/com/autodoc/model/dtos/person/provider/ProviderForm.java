@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -24,15 +25,15 @@ public class ProviderForm {
     @Size(min = 3, max = 12, message = "{firstName.size}")
     private String firstName;
 
-    @Size(min = 3, max = 12, message = "{email.size}")
-    private String email1;
+    @Email(message = "{email.size}")
+    private String email;
 
 
     @Size(min = 3, max = 12, message = "{lastName.size}")
     private String lastName;
 
     @Size(min = 8, max = 12, message = "{phoneNumber.size}")
-    private String phoneNumber1;
+    private String phoneNumber;
 
 
 }

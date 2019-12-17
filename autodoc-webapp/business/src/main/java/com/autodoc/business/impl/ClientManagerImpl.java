@@ -32,7 +32,6 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
         client.setPhoneNumber1(dto.getPhoneNumber1());
-        client.setPhoneNumber2(dto.getPhoneNumber2());
         return client;
     }
 
