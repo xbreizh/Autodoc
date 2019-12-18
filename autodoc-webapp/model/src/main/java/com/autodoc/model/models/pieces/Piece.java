@@ -22,7 +22,6 @@ public class Piece {
     private String name;
     @NonNull
     private String brand;
-    @NonNull
     private long buyingPrice;
     private long sellPrice;
 

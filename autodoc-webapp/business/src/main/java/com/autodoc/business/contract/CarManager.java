@@ -10,7 +10,7 @@ public interface CarManager extends GlobalManager{
 
    // Car getById(String token, int id);
 
-    Car getByRegistration(String connectedToken, String registration);
+    Car getByRegistration(String connectedToken, String registration) throws Exception;
 
 
 

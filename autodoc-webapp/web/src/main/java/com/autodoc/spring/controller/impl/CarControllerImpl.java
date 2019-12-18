@@ -29,7 +29,7 @@ public class CarControllerImpl extends GlobalController implements CarController
     }
 
     @PostMapping("/searchCar")
-    public ModelAndView searchCar(@Valid RegistrationForm registrationForm, BindingResult bindingResult) {
+    public ModelAndView searchCar(@Valid RegistrationForm registrationForm, BindingResult bindingResult) throws Exception {
         System.out.println("getting herer: " + registrationForm);
         LOGGER.info("retrieving searchCar");
         String registration = registrationForm.getRegistration().toUpperCase();

@@ -55,7 +55,7 @@ public class ProviderControllerImpl extends GlobalController implements Provider
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ModelAndView providerById(@PathVariable Integer id) {
+    public ModelAndView providerById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("providers_details");
         System.out.println("provider is null");
@@ -71,7 +71,7 @@ public class ProviderControllerImpl extends GlobalController implements Provider
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid ProviderForm providerForm, BindingResult bindingResult) {
+    public ModelAndView update(@Valid ProviderForm providerForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + providerForm.getId());
         ModelAndView mv = checkAndAddConnectedDetails("providers_details");
         mv.addObject("providerForm", new ProviderForm());

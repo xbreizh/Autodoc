@@ -14,7 +14,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         this.service = service;
     }
 
-    public T getById(String token, int id){
+    public T getById(String token, int id) throws Exception {
         System.out.println("getting by id");
         System.out.println(service);
         D obj = (D)  service.getById(token, id);
@@ -25,13 +25,13 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         return dtoToEntity(token, obj);
     }
 
-    public T getByName(String token, String name){
+    public T getByName(String token, String name) throws Exception {
 
         D obj = (D) service.getByName(token, name);
         return dtoToEntity(token, obj);
     }
 
-    public T dtoToEntity(String token, Object obj) {
+    public T dtoToEntity(String token, Object obj) throws Exception {
         LOGGER.info("converting into entito");
         return null;
     }

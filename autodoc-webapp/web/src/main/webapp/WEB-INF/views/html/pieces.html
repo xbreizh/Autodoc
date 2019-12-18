@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http:/www.w3.org/1999/xhtml">
+<title>pieces</title>
+
+<div th:replace="fragments/header :: head1"></div>
+<body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <td th:if="${error != null}">
+    <td th:text="${error}"></td>
+
+    <h2>Piece</h2>
+
+
+    <a th:href="@{'/pieces/new'}">
+        <button class="btn btn-info" type="button">New</button>
+    </a>
+
+    <div th:if="${not #lists.isEmpty(pieces)}">
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th th:text="Name">Name</th>
+                <th th:text="Brand">Brand</th>
+                <th th:text="BuyingPrice">Buying Price</th>
+                <th th:text="SellPrice">Sell Price</th>
+                <th th:text="CarModelId">CarModel Id</th>
+                <th th:text="ProviderId">Provider Id</th>
+                <th th:text="PieceTypeId">PieceType Id</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:fragment="pieceDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
+            <tr th:each="piece : ${pieces}">
+                <td th:text="${piece.name}">name</td>
+                <td th:text="${piece.brand}">brand</td>
+                <td th:text="${piece.buyingPrice}">buyingPrice</td>
+                <td th:text="${piece.sellPrice}">sellPrice</td>
+                <td>
+                    <a th:href="@{'/pieces/' + ${piece.id}}">
+                        <button class="btn btn-warning" type="button">Edit</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{'/pieces/delete/' + ${piece.id}}">
+                        <button class="btn btn-danger" type="button">Delete</button>
+                    </a>
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+

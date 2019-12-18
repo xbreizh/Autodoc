@@ -35,7 +35,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     }
 
     @Override
-    public Car getByRegistration(String token, String registration) {
+    public Car getByRegistration(String token, String registration) throws Exception {
         LOGGER.info("trying to get car by registration");
         System.out.println(service);
         CarDTO dto = service.getByRegistration(token, registration);
@@ -49,7 +49,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         return car;
     }
 
-    public Car dtoToEntity(String token, Object obj) {
+    public Car dtoToEntity(String token, Object obj) throws Exception {
         LOGGER.info("convert into car");
         CarDTO dto = (CarDTO) obj;
         Car car = new Car();
@@ -61,7 +61,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         return car;
     }
 
-    private CarModel setModel(String token, int modelId) {
+    private CarModel setModel(String token, int modelId) throws Exception {
         LOGGER.info("modelId: " + modelId);
         if (modelId <= 0) return null;
         CarModel model = (CarModel) carModelManager.getById(token, modelId);
@@ -69,7 +69,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         return model;
     }
 
-    private Client setClient(String token, int clientId) {
+    private Client setClient(String token, int clientId) throws Exception {
         if (clientId <= 0) return null;
         LOGGER.info("clientId: " + clientId);
         LOGGER.info("clientManager " + clientManager);

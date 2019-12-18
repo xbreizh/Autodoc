@@ -30,7 +30,7 @@ public class CarModelManagerImpl extends GlobalManagerImpl<CarModel, CarModelDTO
         System.out.println("manuf: " + manufacturerManager);
     }
 
-    public CarModel dtoToEntity(String token, Object obj) {
+    public CarModel dtoToEntity(String token, Object obj) throws Exception {
         LOGGER.info("converting into entity");
         CarModelDTO dto = (CarModelDTO) obj;
         CarModel carModel = new CarModel();
@@ -44,7 +44,7 @@ public class CarModelManagerImpl extends GlobalManagerImpl<CarModel, CarModelDTO
         return carModel;
     }
 
-    private Manufacturer setManufacturer(String token, int manufacturerId) {
+    private Manufacturer setManufacturer(String token, int manufacturerId) throws Exception {
         LOGGER.info("manufacturer id: " + manufacturerId);
         Manufacturer manufacturer = (Manufacturer) manufacturerManager.getById(token, manufacturerId);
         LOGGER.info("manufacturer: " + manufacturer);

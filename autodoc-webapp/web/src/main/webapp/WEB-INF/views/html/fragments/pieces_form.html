@@ -1,0 +1,54 @@
+<div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
+
+
+    <h2>Piece form</h2>
+
+     <form action="#" method="post" th:action="@{'/pieces/update/' + ${piece.id}}" th:object="${pieceForm}">
+         <table>
+             <tr>
+                 <td>Id:</td>
+                 <td th:text="${piece.id}">Login</td>
+             </tr>
+             <tr>
+                 <td>Name:</td>
+                 <td><input th:field="*{name}" type="text"/></td>
+                 <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
+             </tr>
+             <tr>
+                 <td>Brand:</td>
+                 <td><input th:field="*{brand}" type="text"/></td>
+                 <td th:errors="*{brand}" th:if="${#fields.hasErrors('brand')}">Brand Error</td>
+             </tr>
+             <tr>
+                 <td>Buying Price:</td>
+                 <td><input th:field="*{buyingPrice}" type="text"/></td>
+                 <td th:errors="*{buyingPrice}" th:if="${#fields.hasErrors('buyingPrice')}">Buying Price</td>
+             </tr>
+             <tr>
+                 <td>Sell Price:</td>
+                 <td><input th:field="*{sellPrice}" type="text"/></td>
+                 <td th:errors="*{sellPrice}" th:if="${#fields.hasErrors('sellPrice')}">Sell Price</td>
+             </tr>
+             <tr>
+                 <td>ProviderId:</td>
+                 <td><input th:field="*{providerId}" type="text"/></td>
+                 <td th:errors="*{providerId}" th:if="${#fields.hasErrors('providerId')}">ProviderId Error</td>
+             </tr>
+             <tr>
+                 <td>CarModelOd:</td>
+                 <td><input th:field="*{carModelId}" type="text"/></td>
+                 <td th:errors="*{carModelId}" th:if="${#fields.hasErrors('carModelId')}">CarModelOd Error</td>
+             </tr>
+             <tr>
+                 <td>PieceTypeId:</td>
+                 <td><input th:field="*{pieceTypeId}" type="text"/></td>
+                 <td th:errors="*{pieceTypeId}" th:if="${#fields.hasErrors('pieceTypeId')}">PieceTypeId Error</td>
+             </tr>
+             <tr>
+                 <td>
+                     <button type="submit">Submit</button>
+                 </td>
+             </tr>
+         </table>
+     </form>
+</div>

@@ -55,7 +55,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ModelAndView employeeById(@PathVariable Integer id) {
+    public ModelAndView employeeById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("employees_details");
         System.out.println("employee is null");
@@ -73,7 +73,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
+    public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + employeeForm.getId());
         ModelAndView mv = checkAndAddConnectedDetails("employees_details");
         mv.addObject("employeeForm", new EmployeeForm());
