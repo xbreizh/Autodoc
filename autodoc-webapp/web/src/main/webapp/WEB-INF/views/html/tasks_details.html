@@ -10,11 +10,11 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h2>Piece details</h2>
+    <h2>Task details</h2>
 
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${piece.id}">
+    <label style="display: block" th:id="'switch' + ${task.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -22,35 +22,35 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${piece.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${task.id}">
 
-        <div th:replace="fragments/pieces_form :: form"></div>
+        <div th:replace="fragments/tasks_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${piece.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${task.id}">
         <table>
             <tr>
                 <td>Id:</td>
-                <td th:text="${piece.id}">Id</td>
+                <td th:text="${task.id}">Id</td>
             </tr>
             <tr>
                 <td>Name:</td>
-                <td th:text="${piece.name}">Name</td>
+                <td th:text="${task.name}">Name</td>
             </tr>
             <tr>
-                <td>Buying Price:</td>
-                <td th:text="${piece.buyingPrice}">Buying Price</td>
+                <td>Description:</td>
+                <td th:text="${task.description}">Description</td>
             </tr>
             <tr>
-                <td>Sell Price:</td>
-                <td th:text="${piece.sellPrice}">Sell Price</td>
+                <td> Price:</td>
+                <td th:text="${task.price}">Price</td>
             </tr>
             <tr>
-                <td>CarModel:</td>
-                <td th:text="${piece.carModel.name}">CarModelId</td>
+                <td>Estimated Time:</td>
+                <td th:text="${task.estimatedTime}">Estimated Time</td>
             </tr>
             <tr>
-                <td>PieceType:</td>
-                <td th:text="${piece.pieceType.name}">PieceTypeId</td>
+                <td>Template:</td>
+                <td th:text="${task.template}">Template</td>
             </tr>
         </table>
 

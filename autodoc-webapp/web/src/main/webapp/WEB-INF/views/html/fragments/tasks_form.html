@@ -1,0 +1,45 @@
+<div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
+
+
+    <h2>Task form</h2>
+
+     <form action="#" method="post" th:action="@{'/tasks/update/' + ${task.id}}" th:object="${taskForm}">
+         <table>
+             <tr>
+                 <td>Id:</td>
+                 <td th:text="${task.id}">Login</td>
+             </tr>
+             <tr>
+                 <td>Name:</td>
+                 <td><input th:field="*{name}" type="text"/></td>
+                 <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
+             </tr>
+             <tr>
+                 <td>Description:</td>
+                 <td><input th:field="*{description}" type="text"/></td>
+                 <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</td>
+             </tr>
+             <tr>
+                 <td>Estimated Time:</td>
+                 <td><input th:field="*{estimatedTime}" type="text"/></td>
+                 <td th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</td>
+             </tr>
+             <tr>
+                 <td>Price:</td>
+                 <td><input th:field="*{price}" type="text"/></td>
+                 <td th:errors="*{price}" th:if="${#fields.hasErrors('price')}">Price Error</td>
+             </tr>
+
+             <tr>
+                 <td>Template:</td>
+                 <td><input th:field="*{template}" type="text"/></td>
+                 <td th:errors="*{template}" th:if="${#fields.hasErrors('template')}">Template Error</td>
+             </tr>
+             <tr>
+                 <td>
+                     <button type="submit">Submit</button>
+                 </td>
+             </tr>
+         </table>
+     </form>
+</div>
