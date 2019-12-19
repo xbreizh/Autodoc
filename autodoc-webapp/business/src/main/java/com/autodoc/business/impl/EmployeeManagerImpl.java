@@ -77,7 +77,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
     }
 
     public List<Employee> convertList(List<Object> list) {
-        LOGGER.info("converting list");
+        LOGGER.info("converting list: "+list);
         List<Employee> newList = new ArrayList<>();
         for (Object obj : list) {
             EmployeeDTO dto = (EmployeeDTO) obj;

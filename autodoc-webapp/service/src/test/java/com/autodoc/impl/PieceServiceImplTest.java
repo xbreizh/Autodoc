@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,7 +72,7 @@ class PieceServiceImplTest {
         dto.setSellPrice(24);
         dto.setPieceTypeId(2);
         dto.setProviderId(1);
-        dto.setCarModelId(2);
+        dto.setCarModelIds(Arrays.asList(2, 1));
        // service.filler();
         assertEquals(201, service.create(token, dto));
     }

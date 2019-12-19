@@ -1,6 +1,9 @@
 package com.autodoc.spring.controller.impl;
 
+import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.PieceManager;
+import com.autodoc.business.contract.PieceTypeManager;
+import com.autodoc.business.contract.ProviderManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
@@ -23,10 +26,16 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     private static Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
     // @Inject
     PieceManager manager;
+    PieceTypeManager pieceTypeManager;
+    CarModelManager carModelManager;
+    ProviderManager providerManager;
 
-    public PieceControllerImpl(LibraryHelper helper, PieceManager manager) {
+    public PieceControllerImpl(LibraryHelper helper, PieceManager manager, PieceTypeManager pieceTypeManager, CarModelManager carModelManager, ProviderManager providerManager) {
         super(helper);
         this.manager = manager;
+        this.providerManager = providerManager;
+        this.carModelManager = carModelManager;
+        this.pieceTypeManager = pieceTypeManager;
     }
 
 
@@ -35,7 +44,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
         LOGGER.info("retrieving pieces");
         ModelAndView mv = checkAndAddConnectedDetails("pieces");
 
-        List<PieceDTO> pieces = getPieces();
+        List<Piece> pieces = getPieces();
         LOGGER.info("pieces found: " + pieces.size());
 
         if (pieces.isEmpty()) {
@@ -47,8 +56,8 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
 
     }
 
-    private List<PieceDTO> getPieces() {
-        List<PieceDTO> list = (List<PieceDTO>) manager.getAll(helper.getConnectedToken());
+    private List<Piece> getPieces() {
+        List<Piece> list = (List<Piece>) manager.getAll(helper.getConnectedToken());
         return list;
     }
 

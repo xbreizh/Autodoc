@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceImplTest {
 
     private EmployeeService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUyNjU1OSwiaWF0IjoxNTc2NTA4NTU5fQ.1jvALQZqzsY23A8jOSbjI9qkkHnTTlog4srFzOH1p0P3SEa2kI2tZ7NpubgmZlCNN_TSdjSG-g0nuhTj5izjOQ";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc2MTg5MCwiaWF0IjoxNTc2NzQzODkwfQ.-7anXTdLUePoEIXn_dQhZDtaO7X1-gwZSiQakTehnfHJbsJZ106n1_vKSHhJjWjdE-7Onz8wLTi6TGyX55RyaQ";
     private EmployeeDTO dto;
 
 
@@ -39,6 +39,12 @@ class EmployeeServiceImplTest {
 
     @Test
     void getObjectClass() {
+    }
+
+    @Test
+    void getAll() {
+        assertNotNull(service.getAll(token));
+        assertEquals(EmployeeDTO.class, service.getAll(token).get(0).getClass());
     }
 
 
@@ -67,11 +73,6 @@ class EmployeeServiceImplTest {
 
     }
 
-
-    @Test
-    void getAll() {
-        assertNotNull(service.getAll(token));
-    }
 
     @Test
     @DisplayName("should return 201 when insertion ok")

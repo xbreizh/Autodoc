@@ -7,6 +7,8 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -15,7 +17,7 @@ public class Piece {
 
 
     private int id;
-    private CarModel carModel;
+    private List<CarModel> carModels;
     private Provider provider;
     private PieceType pieceType;
     @NonNull

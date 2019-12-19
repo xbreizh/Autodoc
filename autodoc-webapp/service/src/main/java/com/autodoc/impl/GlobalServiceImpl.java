@@ -1,16 +1,15 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.GlobalService;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
+import com.google.gson.internal.LinkedTreeMap;
 import org.apache.log4j.Logger;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GlobalServiceImpl<D> implements GlobalService {
 
@@ -31,6 +30,9 @@ public class GlobalServiceImpl<D> implements GlobalService {
     }
 
     Class getObjectClass() {
+        return null;
+    }
+    Class getListClass() {
         return null;
     }
 
@@ -99,7 +101,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
         }
     }
 
-    @Override
+ /*   @Override
     public List<D> getAll(String token) {
         LOGGER.info("trying to get employee by login");
         setupHeader(token);
@@ -115,9 +117,10 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
             List<D> newList = new ArrayList<>();
             for (Object obj : response.getBody()) {
-                obj = obj;
+                LinkedTreeMap<Object,Object> t = (LinkedTreeMap) obj;
                 newList.add((D) obj);
             }
+            System.out.println(newList.get(0).getClass());
 
             return newList;
         } catch (Exception e) {
@@ -125,7 +128,31 @@ public class GlobalServiceImpl<D> implements GlobalService {
             throw new
                     BadCredentialsException("External system authentication failed");
         }
+    }*/
+
+
+    @Override
+    public List<D> getAll(String token) {
+        LOGGER.info("trying to get employee by login");
+        setupHeader(token);
+        try {
+            LOGGER.info("restTemplate ready");
+            LOGGER.info("token: " + token);
+            String className = getClassName();
+            String url = BASE_URL + className;
+            LOGGER.info("list class: "+getListClass().toString());
+            ResponseEntity<D[]> response = restTemplate.exchange(url, HttpMethod.GET, request,getListClass());
+            System.out.println("resp: "+response.getBody());
+            System.out.println(response.getBody()[0]);
+
+            return Arrays.asList(response.getBody());
+        } catch (Exception e) {
+            LOGGER.info("error occured");
+            throw new
+                    BadCredentialsException("External system authentication failed");
+        }
     }
+
 
     @Override
     public int create(String token, Object object) {
@@ -146,53 +173,12 @@ public class GlobalServiceImpl<D> implements GlobalService {
         String className = getClassName();
         String url = BASE_URL + className + "/" + id;
 
-      /*  LOGGER.info("restTemplate ready");
-        LOGGER.info("token: " + token);
-        LOGGER.info("id: " + id);
-        LOGGER.info("url: " + url);
-        LOGGER.info("mokoro: " + restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()));
-        //restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()).getStatusCodeValue();
-        restTemplate.exchange(url, HttpMethod.DELETE, request, Void.class);
-
-        String entityUrl = fooResourceUrl + "/" + existingResource.getId();*/
-        //restTemplate.exchange(url, HttpMethod.DELETE, request, Void.class);
         HttpHeaders header = new HttpHeaders();
         header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         header.setContentType(MediaType.APPLICATION_JSON);
         header.setBearerAuth(token);
         restTemplate.exchange(url, HttpMethod.DELETE,
                 new HttpEntity<>(header), String.class);
-       /* Map<String, String> params = new HashMap<>();
-        params.put("id", Integer.toString(id));
-        restTemplate.delete(url, params);*/
-
-
-      /*  try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
-            LOGGER.info("id: " + id);
-            String className = getClassName();
-            String url = BASE_URL + className + "/" + id;
-            LOGGER.info("url: " + url);
-            LOGGER.info("mokoro: " + restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()));
-            //restTemplate.exchange(url, HttpMethod.DELETE, request, getObjectClass()).getStatusCodeValue();
-            restTemplate.exchange(url, HttpMethod.DELETE, request, Void.class).getStatusCodeValue();
-            *//*LOGGER.info("resp: " + response.getStatusCodeValue());
-            if (response.getStatusCodeValue() == 404) return 0;
-            LOGGER.info("stop");
-            LOGGER.info("req: " + request);
-            return response.getStatusCodeValue();*//*
-            //LOGGER.info("response code: "+statusCodevalue);
-            //return 2;
-        } catch (HttpClientErrorException.NotFound exception) {
-            LOGGER.info(exception.getMessage());
-            LOGGER.info(exception.getClass().getCanonicalName());
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            LOGGER.error(e.);
-            throw new
-                    BadCredentialsException("External system authentication failed");
-        }*/
         return 0;
     }
 

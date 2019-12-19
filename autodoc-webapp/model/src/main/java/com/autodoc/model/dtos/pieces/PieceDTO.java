@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Getter
@@ -16,8 +17,7 @@ public class PieceDTO {
     public PieceDTO() {
     }
 
-    public PieceDTO(@Min(value = 1, message = "carModelId cannot be null") int carModelId, @Min(value = 1, message = "providerId cannot be null") int providerId, @Min(value = 1, message = "pieceTypeId cannot be null") int pieceTypeId, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") long buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") long sellPrice) {
-        this.carModelId = carModelId;
+    public PieceDTO( @Min(value = 1, message = "providerId cannot be null") int providerId, @Min(value = 1, message = "pieceTypeId cannot be null") int pieceTypeId, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") long buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") long sellPrice) {
         this.providerId = providerId;
         this.pieceTypeId = pieceTypeId;
         this.name = name;
@@ -29,9 +29,7 @@ public class PieceDTO {
     private int id;
 
 
-
-    @Min(value = 1, message = "carModelId cannot be null")
-    private int carModelId;
+    private List<Integer> carModelIds;
 
     @Min(value = 1, message = "providerId cannot be null")
     private int providerId;

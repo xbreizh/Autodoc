@@ -17,5 +17,7 @@ public class EmployeeList {
         employees = new ArrayList<>();
     }
 
-
+    public EmployeeList(List<EmployeeDTO> employees) {
+        this.employees = employees;
+    }
 }

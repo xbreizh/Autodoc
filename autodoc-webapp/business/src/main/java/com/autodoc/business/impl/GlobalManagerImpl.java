@@ -39,8 +39,8 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     public List<T> getAll(String token) {
         //List<D> list = (List<D>)service.getAll(token);
-        //return  convertList(service.getAll(token));
-        return service.getAll(token);
+        return  convertList(service.getAll(token));
+        //return service.getAll(token);
     }
 
     public void add(String token, Object obj) {

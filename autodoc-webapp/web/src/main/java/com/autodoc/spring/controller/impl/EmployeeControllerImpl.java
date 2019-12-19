@@ -36,7 +36,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         LOGGER.info("retrieving employees");
         ModelAndView mv = checkAndAddConnectedDetails("employees");
 
-        List<EmployeeDTO> employees = getEmployees();
+        List<Employee> employees = getEmployees();
 
         if (employees.isEmpty()) {
             return sendError(mv, "no employee found");
@@ -47,8 +47,8 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     }
 
-    private List<EmployeeDTO> getEmployees() {
-        List<EmployeeDTO> list = (List<EmployeeDTO>) employeeManager.getAll(helper.getConnectedToken());
+    private List<Employee> getEmployees() {
+        List<Employee> list = (List<Employee>) employeeManager.getAll(helper.getConnectedToken());
         return list;
     }
 

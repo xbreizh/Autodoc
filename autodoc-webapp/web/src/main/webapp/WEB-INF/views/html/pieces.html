@@ -30,9 +30,7 @@
                 <th th:text="Brand">Brand</th>
                 <th th:text="BuyingPrice">Buying Price</th>
                 <th th:text="SellPrice">Sell Price</th>
-                <th th:text="CarModelId">CarModel Id</th>
-                <th th:text="ProviderId">Provider Id</th>
-                <th th:text="PieceTypeId">PieceType Id</th>
+                <th th:text="PieceType">PieceType</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +40,7 @@
                 <td th:text="${piece.brand}">brand</td>
                 <td th:text="${piece.buyingPrice}">buyingPrice</td>
                 <td th:text="${piece.sellPrice}">sellPrice</td>
+                <td th:text="${piece.pieceType.name}">PieceType</td>
                 <td>
                     <a th:href="@{'/pieces/' + ${piece.id}}">
                         <button class="btn btn-warning" type="button">Edit</button>
