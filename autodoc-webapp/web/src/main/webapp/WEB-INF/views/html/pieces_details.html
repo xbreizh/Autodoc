@@ -45,16 +45,12 @@
                 <td th:text="${piece.sellPrice}">Sell Price</td>
             </tr>
             <tr>
-                <td>CarModelId:</td>
-                <td th:text="${piece.carModelId}">CarModelId</td>
+                <td>CarModel:</td>
+                <td th:text="${piece.carModel.name}">CarModelId</td>
             </tr>
             <tr>
-                <td>ProviderId:</td>
-                <td th:text="${piece.providerId}">ProviderId</td>
-            </tr>
-            <tr>
-                <td>PieceTypeId:</td>
-                <td th:text="${piece.pieceTypeId}">PieceTypeId</td>
+                <td>PieceType:</td>
+                <td th:text="${piece.pieceType.name}">PieceTypeId</td>
             </tr>
         </table>
 

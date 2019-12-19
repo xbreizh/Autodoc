@@ -52,7 +52,7 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
         System.out.println("class: " + getClassName());
         setupHeader(token);
         String url = BASE_URL + getClassName();
-        LOGGER.info("obj: " + object);
+        LOGGER.info("piece: " + dto);
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);

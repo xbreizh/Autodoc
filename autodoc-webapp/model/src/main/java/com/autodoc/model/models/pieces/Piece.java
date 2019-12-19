@@ -17,7 +17,7 @@ public class Piece {
 
 
     private int id;
-    private List<CarModel> carModels;
+    private CarModel carModel;
     private Provider provider;
     private PieceType pieceType;
     @NonNull

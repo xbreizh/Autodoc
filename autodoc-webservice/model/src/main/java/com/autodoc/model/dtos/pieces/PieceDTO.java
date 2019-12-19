@@ -23,8 +23,6 @@ public class PieceDTO {
     @Min(value = 1, message = "carModelId cannot be null")
     private int carModelId;
 
-    @Min(value = 1, message = "providerId cannot be null")
-    private int providerId;
 
     @Min(value = 1, message = "pieceTypeId cannot be null")
     private int pieceTypeId;
@@ -45,7 +43,6 @@ public class PieceDTO {
                 "buyingPrice=" + buyingPrice +
                 ", id=" + id +
                 ", carModelId=" + carModelId +
-                ", providerId=" + providerId +
                 ", pieceTypeId=" + pieceTypeId +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +

@@ -8,6 +8,7 @@ import com.autodoc.business.contract.ProviderManager;
 import com.autodoc.contract.PieceService;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
+import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
@@ -44,15 +45,12 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         LOGGER.info("id: " + id);
         piece.setId(id);
         piece.setName(dto.getName());
-        Provider provider = (Provider) providerManager.getById(token, dto.getProviderId());
-        if (provider == null) throw new Exception("invalid provider");
-        piece.setProvider(provider);
         PieceType pieceType = (PieceType) pieceTypeManager.getById(token, dto.getPieceTypeId());
         if (pieceType == null) throw new Exception("invalid pieceType");
         piece.setPieceType(pieceType);
-       // CarModel carModel = (CarModel) carModelService.getById(token, dto.getCarModelIds());
-       /* if (carModels == null) throw new Exception("invalid carModel");
-        piece.setCarModels(carModel);*/
+        CarModel carModel = (CarModel) carModelManager.getById(token, dto.getCarModelId());
+        if (carModel == null) throw new Exception("invalid carModel");
+        piece.setCarModel(carModel);
         piece.setBrand(dto.getBrand());
         piece.setBuyingPrice(dto.getBuyingPrice());
         piece.setSellPrice(dto.getSellPrice());
@@ -71,9 +69,9 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         if (form.getSellPrice() != 0) dto.setSellPrice(form.getSellPrice());
         if (form.getBrand() != null) dto.setBrand(form.getBrand());
         if (form.getName() != null) dto.setName(form.getName());
-      //  if (form.getCarModelId() != 0) dto.setCarModelId(form.getCarModelId());
-        if (form.getProviderId() != 0) dto.setProviderId(form.getProviderId());
-        if (form.getPieceTypeId() != 0) dto.setPieceTypeId(form.getPieceTypeId());
+        if (form.getCarModelId() != 0) dto.setCarModelId(form.getCarModelId());
+      //  if (form.getProviderId() != 0) dto.setProviderId(form.getProviderId());
+        if (form.getPieceType() != null) dto.setPieceTypeId(form.getPieceType().getId());
         return dto;
     }
 

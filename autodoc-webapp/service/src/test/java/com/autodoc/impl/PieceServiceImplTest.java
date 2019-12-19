@@ -17,7 +17,7 @@ class PieceServiceImplTest {
 
     String name = "sdsdsd";
     private PieceService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjY5OTM1NSwiaWF0IjoxNTc2NjgxMzU1fQ.xxKBPNKwLwJvqpXM920A3sd8i9hf6dRxzlSTQrUDVNDiL2DFxilI5CvrI_x5EK1AZ-Y83VS75BQ2Jw-DGAQEiQ";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc4MjczMywiaWF0IjoxNTc2NzY0NzMzfQ.hqdGifYIikzrFlW9pv8fgUt9nJUjq5jxYtYWQ2QxcMwVMc83BQ-OeBc9X4CyHPTa5sut60MrvvSCpBCD2Rh-9w";
     private PieceDTO dto;
 
     @BeforeEach
@@ -71,8 +71,7 @@ class PieceServiceImplTest {
         dto.setBuyingPrice(12);
         dto.setSellPrice(24);
         dto.setPieceTypeId(2);
-        dto.setProviderId(1);
-        dto.setCarModelIds(Arrays.asList(2, 1));
+        dto.setCarModelId(1);
        // service.filler();
         assertEquals(201, service.create(token, dto));
     }

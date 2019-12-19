@@ -13,6 +13,7 @@
     <h3>New piece</h3>
 
 
+
     <form action="#" method="post" th:action="@{'/pieces/new/'}" th:object="${pieceForm}">
         <table>
             <tr>
@@ -36,20 +37,31 @@
                 <td th:errors="*{sellPrice}" th:if="${#fields.hasErrors('sellPrice')}">Sell Price Error</td>
             </tr>
             <tr>
-                <td>Provider:</td>
-                <td><input th:field="*{providerId}" type="text"/></td>
-                <td th:errors="*{providerId}" th:if="${#fields.hasErrors('providerId')}">Provider Error</td>
+                <td>Select PieceType:</td>
+                <td>
+                <select th:field="*{pieceTypeId}">
+                    <option value="0"> --</option>
+                    <option th:each="pieceType : ${pieceTypes}"
+                            th:utext="${pieceType.name}"
+                            th:value="${pieceType.id}"/>
+                </select>
+
+                </td>
             </tr>
             <tr>
-                <td>CarModel:</td>
-                <td><input th:field="*{carModelId}" type="text"/></td>
-                <td th:errors="*{carModelId}" th:if="${#fields.hasErrors('carModelId')}">CarModel Error</td>
+                <td>Select CarModel:</td>
+                <td>
+                    <select th:field="*{carModelId}">
+                        <option value="0"> --</option>
+                        <option th:each="carModel : ${carModels}"
+                                th:utext="${carModel.name}"
+                                th:value="${carModel.id}"/>
+                    </select>
+
+                </td>
             </tr>
-            <tr>
-                <td>PieceType:</td>
-                <td><input th:field="*{pieceTypeId}" type="text"/></td>
-                <td th:errors="*{pieceTypeId}" th:if="${#fields.hasErrors('pieceTypeId')}">PieceType Error</td>
-            </tr>
+
+
                        <tr>
                 <td>
                     <button type="submit">Submit</button>

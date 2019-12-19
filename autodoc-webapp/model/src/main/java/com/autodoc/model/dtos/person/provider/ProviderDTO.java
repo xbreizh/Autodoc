@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-/*public class ProviderDTO extends PersonDTO {
+public class ProviderDTO extends PersonDTO {
 
     private String website;
 
@@ -75,27 +75,5 @@ import java.util.Map;
         if (rate != null)
             this.rate = rate.toUpperCase();
     }
-}*/
-public class ProviderDTO extends PersonDTO {
-
-    private String website;
-
-
-
-    @Email(message = "invalid email")
-    @NotNull(message = "email cannot be null")
-    private String email1;
-    @Email(message = "invalid email")
-    private String email2;
-
-    @NotNull(message = "company cannot be null")
-    private String company;
-
-
-    public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1) {
-        super(lastName, firstName, phoneNumber1);
-    }
-
-    public ProviderDTO() {
-    }
 }
+

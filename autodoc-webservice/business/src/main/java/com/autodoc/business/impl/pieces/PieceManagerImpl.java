@@ -64,19 +64,19 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         piece.setQuantity(dto.getQuantity());
         transferCarModel(dto, piece);
         transferPieceType(dto, piece);
-        transferProvider(dto, piece);
+        //transferProvider(dto, piece);
         System.out.println("piece to transfer: "+piece);
         return piece;
 
     }
 
-    private void transferProvider(PieceDTO dto, Piece piece) throws Exception {
+/*    private void transferProvider(PieceDTO dto, Piece piece) throws Exception {
         if (dto.getProviderId() != 0) {
             Provider provider = (Provider) providerDao.getById(dto.getProviderId());
             if (provider == null) throw new Exception("invalid provider id: " + dto.getProviderId());
             piece.setProvider(provider);
         }
-    }
+    }*/
 
     private void transferPieceType(PieceDTO dto, Piece piece) throws Exception {
         if (dto.getPieceTypeId() != 0) {
@@ -113,7 +113,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
 
         transferCarModel(dto, piece);
         transferPieceType(dto, piece);
-        transferProvider(dto, piece);
+      //  transferProvider(dto, piece);
         System.out.println("piece to update: "+piece);
         return piece;
     }

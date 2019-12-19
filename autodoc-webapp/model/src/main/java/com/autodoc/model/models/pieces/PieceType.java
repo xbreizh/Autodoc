@@ -14,7 +14,7 @@ public class PieceType {
 
 
     private int id;
-    private List<Piece> pieces;
+
     @NonNull
     private String name;
 

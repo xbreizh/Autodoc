@@ -7,7 +7,10 @@ import com.autodoc.business.contract.ProviderManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
+import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
+import com.autodoc.model.models.pieces.PieceType;
 import com.autodoc.spring.controller.contract.PieceController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -65,12 +68,18 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView pieceById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
+        LOGGER.info("trying to get piece with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("pieces_details");
         System.out.println("piece is null");
         Piece piece = (Piece) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + piece.getName());
+        LOGGER.info("name: " + piece.getName());
         LOGGER.info("piece: " + piece);
+        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
+        LOGGER.info("carModels: "+carModels);
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        LOGGER.info("pieceTypes: "+pieceTypes);
+        mv.addObject("carModels", carModels);
+        mv.addObject("pieceTypes", pieceTypes);
         mv.addObject("pieceForm", piece);
         mv.addObject("showForm", 1);
         mv.addObject("piece", piece);
@@ -84,8 +93,14 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
         LOGGER.info("trying to update member with id " + pieceForm.getId());
         ModelAndView mv = checkAndAddConnectedDetails("pieces_details");
         mv.addObject("pieceForm", new PieceForm());
+        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        mv.addObject("carModels", carModels);
+        mv.addObject("pieceTypes", pieceTypes);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
+            LOGGER.error(bindingResult.getFieldError().getDefaultMessage());
+            LOGGER.info("pieceForm: "+pieceForm);
             Piece piece = (Piece) manager.getById(helper.getConnectedToken(), pieceForm.getId());
             mv.addObject("piece", piece);
             mv.addObject("pieceForm", pieceForm);
@@ -107,9 +122,13 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     }
 
     @GetMapping(value = "/new")
-    public ModelAndView getCreate() {
+    public ModelAndView getCreate() throws Exception {
         LOGGER.info("getting create form");
         ModelAndView mv = checkAndAddConnectedDetails("pieces_new");
+        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        mv.addObject("carModels", carModels);
+        mv.addObject("pieceTypes", pieceTypes);
         mv.addObject("pieceForm", new PieceForm());
         mv.addObject("showForm", 1);
         return mv;
@@ -121,8 +140,12 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     public ModelAndView create(@Valid PieceForm pieceForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("pieces_new");
-        LOGGER.info("empl: " + pieceForm);
+        LOGGER.info("pieceForm: " + pieceForm);
         mv.addObject("pieceForm", new PieceForm());
+        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        mv.addObject("carModels", carModels);
+        mv.addObject("pieceTypes", pieceTypes);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             mv.addObject("pieceForm", pieceForm);

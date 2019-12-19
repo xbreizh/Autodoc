@@ -3,6 +3,10 @@
 
     <h2>Piece form</h2>
 
+    <option th:each="pieceType : ${pieceTypes}"
+            th:utext="${pieceType.name}"
+            th:value="${pieceType.id}"/>
+
      <form action="#" method="post" th:action="@{'/pieces/update/' + ${piece.id}}" th:object="${pieceForm}">
          <table>
              <tr>
@@ -30,20 +34,27 @@
                  <td th:errors="*{sellPrice}" th:if="${#fields.hasErrors('sellPrice')}">Sell Price</td>
              </tr>
              <tr>
-                 <td>ProviderId:</td>
-                 <td><input th:field="*{providerId}" type="text"/></td>
-                 <td th:errors="*{providerId}" th:if="${#fields.hasErrors('providerId')}">ProviderId Error</td>
+                 <td>Select PieceType:</td>
+                 <td>
+                     <select th:field="*{pieceType.id}">
+                         <option th:each="pieceType : ${pieceTypes}"
+                                 th:utext="${pieceType.name}"
+                                 th:value="${pieceType.id}"/>
+                     </select>
+                 </td>
              </tr>
              <tr>
-                 <td>CarModelOd:</td>
-                 <td><input th:field="*{carModelId}" type="text"/></td>
-                 <td th:errors="*{carModelId}" th:if="${#fields.hasErrors('carModelId')}">CarModelOd Error</td>
+                 <td>Select CarModel:</td>
+                 <td>
+                     <select th:field="*{carModel.id}">
+                         <option th:each="carModel : ${carModels}"
+                                 th:utext="${carModel.name}"
+                                 th:value="${carModel.id}"/>
+                     </select>
+
+                 </td>
              </tr>
-             <tr>
-                 <td>PieceTypeId:</td>
-                 <td><input th:field="*{pieceTypeId}" type="text"/></td>
-                 <td th:errors="*{pieceTypeId}" th:if="${#fields.hasErrors('pieceTypeId')}">PieceTypeId Error</td>
-             </tr>
+
              <tr>
                  <td>
                      <button type="submit">Submit</button>

@@ -1,5 +1,6 @@
 package com.autodoc.model.dtos.pieces;
 
+import com.autodoc.model.models.pieces.PieceType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,14 +16,7 @@ public class PieceForm {
 
 
 
-    @Min(value = 1, message = "carModelId cannot be null")
-    private int carModelId;
 
-    @Min(value = 1, message = "providerId cannot be null")
-    private int providerId;
-
-    @Min(value = 1, message = "pieceTypeId cannot be null")
-    private int pieceTypeId;
 
     @NotNull(message = "name cannot be null")
     private String name;
@@ -36,15 +30,21 @@ public class PieceForm {
     @Min(value = 1, message = "sellPrice cannot be null")
     private long sellPrice;
 
+    @NotNull (message = "pieceTypeId cannot be null")
+    private PieceType pieceType;
 
-    public PieceForm(@Min(value = 1, message = "carModelId cannot be null") int carModelId, @Min(value = 1, message = "providerId cannot be null") int providerId, @Min(value = 1, message = "pieceTypeId cannot be null") int pieceTypeId, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") long buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") long sellPrice) {
-        this.carModelId = carModelId;
-        this.providerId = providerId;
-        this.pieceTypeId = pieceTypeId;
+    @NotNull(message = "carModelId cannot be null")
+    private int carModelId;
+
+
+    public PieceForm(int id, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") long buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") long sellPrice, @NotNull(message = "pieceTypeId cannot be null") PieceType pieceType, @NotNull(message = "carModelId cannot be null") int carModelId) {
+        this.id = id;
         this.name = name;
         this.brand = brand;
         this.buyingPrice = buyingPrice;
         this.sellPrice = sellPrice;
+        this.pieceType = pieceType;
+        this.carModelId = carModelId;
     }
 
     public PieceForm() {
@@ -55,13 +55,12 @@ public class PieceForm {
     public String toString() {
         return "PieceForm{" +
                 "id=" + id +
-                ", carModelId=" + carModelId +
-                ", providerId=" + providerId +
-                ", pieceTypeId=" + pieceTypeId +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", buyingPrice=" + buyingPrice +
                 ", sellPrice=" + sellPrice +
+                ", pieceType=" + pieceType +
+                ", carModelId=" + carModelId +
                 '}';
     }
 }
