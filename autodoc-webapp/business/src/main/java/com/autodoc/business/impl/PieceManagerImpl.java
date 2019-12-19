@@ -9,7 +9,6 @@ import com.autodoc.contract.PieceService;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
 import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
@@ -70,7 +69,7 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         if (form.getBrand() != null) dto.setBrand(form.getBrand());
         if (form.getName() != null) dto.setName(form.getName());
         if (form.getCarModelId() != 0) dto.setCarModelId(form.getCarModelId());
-      //  if (form.getProviderId() != 0) dto.setProviderId(form.getProviderId());
+        //  if (form.getProviderId() != 0) dto.setProviderId(form.getProviderId());
         if (form.getPieceType() != null) dto.setPieceTypeId(form.getPieceType().getId());
         return dto;
     }

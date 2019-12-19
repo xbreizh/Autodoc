@@ -48,8 +48,10 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             String feedback = Integer.toString(dao.create(objectToSave));
             System.out.println("feedback: " + feedback);
             if (!feedback.equals("0")) {
+                System.out.println("feedback: "+feedback);
                 return feedback;
             }
+            System.out.println("issue while saving");
             return "issue while saving";
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

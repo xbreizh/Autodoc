@@ -118,9 +118,11 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         if (estimatedTime == 0) throw new Exception("there should be an estimated time");
         task.setName(dto.getName().toUpperCase());
         transferTemplateToEntity(dto, task);
-
+        task.setDescription(dto.getDescription());
+        task.setEstimatedTime(dto.getEstimatedTime());
         task.setPrice(dto.getPrice());
         updatePieces(dto, task);
+        System.out.println("task so far: "+task);
         return task;
     }
 

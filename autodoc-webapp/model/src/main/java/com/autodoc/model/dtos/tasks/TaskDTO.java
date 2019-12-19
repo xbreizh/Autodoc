@@ -1,37 +1,50 @@
 package com.autodoc.model.dtos.tasks;
 
-import lombok.Data;
-import lombok.NonNull;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 
-@Data
+@Getter
+@Setter
 public class TaskDTO {
 
 
-
-
     private int id;
-    @NotNull(message = "name cannot be null")
-    String name;
-
-    @NonNull
-    private List<Integer> subTasks;
 
 
-    // to be used for global offers
-    @Min(value = 1, message = "globalPrice cannot be null")
-    private long globalPrice;
+    private String name;
 
-    public TaskDTO(@NotNull(message = "name cannot be null") String name, @NonNull List<Integer> subTasks, @Min(value = 1, message = "globalPrice cannot be null") long globalPrice) {
+
+    private String description;
+
+    private int estimatedTime;
+
+
+    private String template;
+
+    private double price;
+
+    public TaskDTO(String name, String description, int estimatedTime, double price, String template) {
         this.name = name;
-        this.subTasks = subTasks;
-        this.globalPrice = globalPrice;
+        this.description = description;
+        this.estimatedTime = estimatedTime;
+        this.price = price;
+        this.template = template;
     }
 
     public TaskDTO() {
+    }
+
+
+    @Override
+    public String toString() {
+        return "TaskDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", estimatedTime=" + estimatedTime +
+                ", template='" + template + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
