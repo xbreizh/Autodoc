@@ -31,7 +31,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
 
 
     @GetMapping("")
-    public ModelAndView pieceTypes() {
+    public ModelAndView pieceTypes() throws Exception {
         LOGGER.info("retrieving pieceTypes");
         ModelAndView mv = checkAndAddConnectedDetails("pieceTypes");
 
@@ -47,7 +47,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
 
     }
 
-    private List<PieceTypeDTO> getPieceTypes() {
+    private List<PieceTypeDTO> getPieceTypes() throws Exception {
         List<PieceTypeDTO> list = (List<PieceTypeDTO>) manager.getAll(helper.getConnectedToken());
         return list;
     }
@@ -91,7 +91,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
 
     @GetMapping(value = "/delete/{id}")
     @ResponseBody
-    public ModelAndView delete(@PathVariable Integer id) {
+    public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
         manager.delete(helper.getConnectedToken(), id);
         return pieceTypes();
@@ -109,7 +109,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid PieceTypeForm pieceTypeForm, BindingResult bindingResult) {
+    public ModelAndView create(@Valid PieceTypeForm pieceTypeForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("pieceTypes_new");
         LOGGER.info("empl: " + pieceTypeForm);

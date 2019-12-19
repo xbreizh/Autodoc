@@ -14,8 +14,9 @@ class ProviderServiceImplTest {
 
     String name = "sdsdsd";
     private ProviderService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjU5Mjk3MiwiaWF0IjoxNTc2NTc0OTcyfQ._oXAbi9ENtifscZyNDJdA79Tmas_-Hl1QG6ruq-pasuwwsz5byPVZGxN6bXLU2gapQXtRgZUmWYIhPlxQNyeaw";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc2MTg5MCwiaWF0IjoxNTc2NzQzODkwfQ.-7anXTdLUePoEIXn_dQhZDtaO7X1-gwZSiQakTehnfHJbsJZ106n1_vKSHhJjWjdE-7Onz8wLTi6TGyX55RyaQ";
     private ProviderDTO dto;
+    private Class clazz = ProviderDTO.class;
 
     @BeforeEach
     void init() {
@@ -60,6 +61,7 @@ class ProviderServiceImplTest {
     @Test
     void getAll() {
         assertNotNull(service.getAll(token));
+        assertEquals(clazz, service.getAll(token).get(0).getClass());
     }
 
     @Test

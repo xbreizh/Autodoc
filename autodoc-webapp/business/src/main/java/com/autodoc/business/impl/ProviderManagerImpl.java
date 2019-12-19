@@ -38,7 +38,7 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
         provider.setEmail(dto.getEmail1());
         provider.setWebsite(dto.getWebsite());
         provider.setCompany(dto.getCompany());
-        LOGGER.info("entity transferred: " + provider);
+        LOGGER.info("provider transferred: " + provider);
 
         return provider;
     }
@@ -54,51 +54,18 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
         provider.setLastName(dto.getLastName());
         provider.setEmail1(dto.getEmail());
         provider.setPhoneNumber1(dto.getPhoneNumber());
-        LOGGER.info("entity transferred: " + provider);
+        LOGGER.info("provider transferred: " + provider);
         return provider;
     }
 
-    public List<Provider> convertList(List<Object> list) {
-        LOGGER.info("converting list");
+/*    List<Provider> convertList(String token, List<ProviderDTO> list) {
+        LOGGER.info("converting list: "+list);
         List<Provider> newList = new ArrayList<>();
-        for (Object obj : list) {
-            ProviderDTO dto = (ProviderDTO) obj;
-            Provider provider = new Provider();
-            int id = dto.getId();
-            LOGGER.info("id: " + id);
-            provider.setId(id);
-            provider.setCompany(dto.getCompany());
-            provider.setFirstName(dto.getFirstName());
-            provider.setLastName(dto.getLastName());
-            provider.setEmail(dto.getEmail1());
-            provider.setWebsite(dto.getWebsite());
-            provider.setPhoneNumber1(dto.getPhoneNumber1());
-
-            newList.add(provider);
+        for (ProviderDTO obj : list) {
+            newList.add(dtoToEntity(token, obj));
         }
+        LOGGER.info("new list: "+newList);
         return newList;
-    }
-  /* public List<Employee> convertList(List<Object> list) {
-       LOGGER.info("converting list");
-       List<Employee> newList = new ArrayList<>();
-       for (Object obj : list) {
-           EmployeeDTO dto = (EmployeeDTO) obj;
-           Employee employee = new Employee();
-           int id = dto.getId();
-           LOGGER.info("id: " + id);
-           employee.setId(id);
-           employee.setLogin(dto.getLogin());
-           employee.setFirstName(dto.getFirstName());
-           employee.setLastName(dto.getLastName());
-           employee.setRoles(dto.getRoles().toString());
-           employee.setPhoneNumber1(dto.getPhoneNumber1());
-           employee.setPhoneNumber2(dto.getPhoneNumber2());
-           employee.setStartDate(dto.getStartDate());
-           employee.setLastConnection(dto.getLastConnection());
-
-           newList.add(employee);
-       }
-       return newList;
-   }*/
+    }*/
 
 }

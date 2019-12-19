@@ -32,7 +32,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
 
     @GetMapping("")
-    public ModelAndView employees() {
+    public ModelAndView employees() throws Exception {
         LOGGER.info("retrieving employees");
         ModelAndView mv = checkAndAddConnectedDetails("employees");
 
@@ -47,7 +47,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     }
 
-    private List<Employee> getEmployees() {
+    private List<Employee> getEmployees() throws Exception {
         List<Employee> list = (List<Employee>) employeeManager.getAll(helper.getConnectedToken());
         return list;
     }
@@ -93,7 +93,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     @GetMapping(value = "/delete/{id}")
     @ResponseBody
-    public ModelAndView delete(@PathVariable Integer id) {
+    public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
         employeeManager.delete(helper.getConnectedToken(), id);
         return employees();
@@ -113,7 +113,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid EmployeeForm employeeForm, BindingResult bindingResult) {
+    public ModelAndView create(@Valid EmployeeForm employeeForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("employees_new");
         LOGGER.info("empl: " + employeeForm);

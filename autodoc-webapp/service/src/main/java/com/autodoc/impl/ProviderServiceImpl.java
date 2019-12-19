@@ -1,6 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.ProviderService;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
@@ -13,13 +14,15 @@ import javax.inject.Named;
 import java.util.Collections;
 
 @Named
-public class ProviderServiceImpl extends GlobalServiceImpl<Employee> implements ProviderService {
+public class ProviderServiceImpl extends GlobalServiceImpl<ProviderDTO> implements ProviderService {
     private static Logger LOGGER = Logger.getLogger(ProviderServiceImpl.class);
 
     Class getObjectClass() {
         return ProviderDTO.class;
     }
-
+    Class getListClass() {
+        return ProviderDTO[].class;
+    }
 
     public String getClassName() {
         return "providers";

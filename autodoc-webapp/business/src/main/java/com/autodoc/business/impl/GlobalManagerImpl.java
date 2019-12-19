@@ -2,8 +2,11 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.contract.GlobalService;
+import com.autodoc.model.dtos.car.ManufacturerDTO;
+import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
@@ -37,10 +40,8 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
 
-    public List<T> getAll(String token) {
-        //List<D> list = (List<D>)service.getAll(token);
-        return  convertList(service.getAll(token));
-        //return service.getAll(token);
+    public List<T> getAll(String token) throws Exception {
+        return  convertList(token, service.getAll(token));
     }
 
     public void add(String token, Object obj) {
@@ -72,8 +73,14 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         return 0;
     }
 
-    List<T> convertList(List<Object> list) {
-        return null;
+    List<T> convertList(String token, List<D> list) throws Exception {
+        LOGGER.info("converting list: "+list);
+        List<T> newList = new ArrayList<>();
+        for (D obj : list) {
+            newList.add(dtoToEntity(token, obj));
+        }
+        LOGGER.info("new list: "+newList);
+        return newList;
     }
 
 }

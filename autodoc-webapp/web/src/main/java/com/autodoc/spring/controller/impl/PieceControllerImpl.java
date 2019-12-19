@@ -40,7 +40,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
 
 
     @GetMapping("")
-    public ModelAndView pieces() {
+    public ModelAndView pieces() throws Exception {
         LOGGER.info("retrieving pieces");
         ModelAndView mv = checkAndAddConnectedDetails("pieces");
 
@@ -56,7 +56,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
 
     }
 
-    private List<Piece> getPieces() {
+    private List<Piece> getPieces() throws Exception {
         List<Piece> list = (List<Piece>) manager.getAll(helper.getConnectedToken());
         return list;
     }
@@ -100,7 +100,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
 
     @GetMapping(value = "/delete/{id}")
     @ResponseBody
-    public ModelAndView delete(@PathVariable Integer id) {
+    public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
         manager.delete(helper.getConnectedToken(), id);
         return pieces();
@@ -118,7 +118,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid PieceForm pieceForm, BindingResult bindingResult) {
+    public ModelAndView create(@Valid PieceForm pieceForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("pieces_new");
         LOGGER.info("empl: " + pieceForm);

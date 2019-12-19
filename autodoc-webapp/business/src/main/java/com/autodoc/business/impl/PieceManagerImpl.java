@@ -1,14 +1,13 @@
 package com.autodoc.business.impl;
 
 
+import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.PieceManager;
-import com.autodoc.contract.CarModelService;
+import com.autodoc.business.contract.PieceTypeManager;
+import com.autodoc.business.contract.ProviderManager;
 import com.autodoc.contract.PieceService;
-import com.autodoc.contract.PieceTypeService;
-import com.autodoc.contract.ProviderService;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
-import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
@@ -24,16 +23,16 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
     private static final Logger LOGGER = Logger.getLogger(PieceManagerImpl.class);
     public Piece piece;
     private PieceService service;
-    private CarModelService carModelService;
-    private PieceTypeService pieceTypeService;
-    private ProviderService providerService;
+    private CarModelManager carModelManager;
+    private PieceTypeManager pieceTypeManager;
+    private ProviderManager providerManager;
 
-    public PieceManagerImpl(PieceService service, ProviderService providerService, CarModelService carModelService, PieceTypeService pieceTypeService) {
+    public PieceManagerImpl(PieceService service, ProviderManager providerManager, CarModelManager carModelManager, PieceTypeManager pieceTypeManager) {
         super(service);
         this.service = service;
-        this.pieceTypeService = pieceTypeService;
-        this.providerService = providerService;
-        this.carModelService = carModelService;
+        this.pieceTypeManager = pieceTypeManager;
+        this.providerManager = providerManager;
+        this.carModelManager = carModelManager;
     }
 
     public Piece dtoToEntity(String token, Object obj) throws Exception {
@@ -45,10 +44,10 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         LOGGER.info("id: " + id);
         piece.setId(id);
         piece.setName(dto.getName());
-        Provider provider = (Provider) providerService.getById(token, dto.getProviderId());
+        Provider provider = (Provider) providerManager.getById(token, dto.getProviderId());
         if (provider == null) throw new Exception("invalid provider");
         piece.setProvider(provider);
-        PieceType pieceType = (PieceType) pieceTypeService.getById(token, dto.getPieceTypeId());
+        PieceType pieceType = (PieceType) pieceTypeManager.getById(token, dto.getPieceTypeId());
         if (pieceType == null) throw new Exception("invalid pieceType");
         piece.setPieceType(pieceType);
        // CarModel carModel = (CarModel) carModelService.getById(token, dto.getCarModelIds());

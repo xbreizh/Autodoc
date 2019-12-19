@@ -1,6 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.PieceService;
+import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
@@ -13,11 +14,14 @@ import javax.inject.Named;
 import java.util.Collections;
 
 @Named
-public class PieceServiceImpl extends GlobalServiceImpl<Employee> implements PieceService {
+public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements PieceService {
     private static Logger LOGGER = Logger.getLogger(PieceServiceImpl.class);
 
     Class getObjectClass() {
         return PieceDTO.class;
+    }
+    Class getListClass() {
+        return PieceDTO[].class;
     }
 
 

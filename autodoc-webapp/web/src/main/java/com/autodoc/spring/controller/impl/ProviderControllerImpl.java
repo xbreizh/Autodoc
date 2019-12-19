@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/providers")
-public class ProviderControllerImpl extends GlobalController implements ProviderController {
+public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provider> implements ProviderController {
 
     private static Logger LOGGER = Logger.getLogger(ProviderControllerImpl.class);
     // @Inject
@@ -31,26 +31,28 @@ public class ProviderControllerImpl extends GlobalController implements Provider
 
 
     @GetMapping("")
-    public ModelAndView providers() {
+    public ModelAndView providers() throws Exception {
         LOGGER.info("retrieving providers");
         ModelAndView mv = checkAndAddConnectedDetails("providers");
-
-        List<ProviderDTO> providers = getProviders();
-        LOGGER.info("providers found: " + providers.size());
-
-        if (providers.isEmpty()) {
-            return sendError(mv, "no provider found");
+        List<Provider> providers;
+        try {
+           providers = manager.getAll(helper.getConnectedToken());
+            LOGGER.info("providers found: " + providers.size());
+            if (providers.isEmpty()) {
+                return sendError(mv, "no provider found");
+            }
+            mv.addObject("providers", providers);
+        }catch (Exception e){
+            LOGGER.error(e.getMessage());
         }
 
-        mv.addObject("providers", providers);
+
+
+
         return mv;
 
     }
 
-    private List<ProviderDTO> getProviders() {
-        List<ProviderDTO> list = (List<ProviderDTO>) manager.getAll(helper.getConnectedToken());
-        return list;
-    }
 
 
     @GetMapping(value = "/{id}")
@@ -91,7 +93,7 @@ public class ProviderControllerImpl extends GlobalController implements Provider
 
     @GetMapping(value = "/delete/{id}")
     @ResponseBody
-    public ModelAndView delete(@PathVariable Integer id) {
+    public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
         manager.delete(helper.getConnectedToken(), id);
         return providers();
@@ -109,7 +111,7 @@ public class ProviderControllerImpl extends GlobalController implements Provider
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid ProviderForm providerForm, BindingResult bindingResult) {
+    public ModelAndView create(@Valid ProviderForm providerForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("providers_new");
         LOGGER.info("empl: " + providerForm);

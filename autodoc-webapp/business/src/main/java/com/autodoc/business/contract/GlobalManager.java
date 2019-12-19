@@ -8,7 +8,7 @@ public interface GlobalManager<T, D> {
 
     D getByName(String token, String name) throws Exception;
 
-    List<D> getAll(String token);
+    List<D> getAll(String token) throws Exception;
 
     void add(String token, T obj);
 

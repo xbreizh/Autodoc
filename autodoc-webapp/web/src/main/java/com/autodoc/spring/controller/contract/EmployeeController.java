@@ -5,7 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface EmployeeController {
 
-    ModelAndView employees();
+    ModelAndView employees() throws Exception;
 
     void setEmployeeManager(EmployeeManager employeeManager);
 }

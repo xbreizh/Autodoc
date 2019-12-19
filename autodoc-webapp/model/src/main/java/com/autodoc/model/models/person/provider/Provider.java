@@ -14,7 +14,7 @@ import java.util.List;
 public class Provider extends Person {
 
 
-    private List<Address> addresses;
+  /*  private List<Address> addresses;*/
 
 
     private List<Piece> pieces;
@@ -26,9 +26,9 @@ public class Provider extends Person {
     @NonNull
 
 
-    public Provider(int id, String firstName, String lastName, String phoneNumber1, List<Address> addresses, List<Piece> pieces, String website, String email, @NonNull String company) {
+    public Provider(int id, String firstName, String lastName, String phoneNumber1, /*List<Address> addresses,*/ List<Piece> pieces, String website, String email, @NonNull String company) {
         super(id, firstName, lastName, phoneNumber1);
-        this.addresses = addresses;
+       /* this.addresses = addresses;*/
         this.pieces = pieces;
         this.website = website;
         this.email = email;
@@ -42,7 +42,7 @@ public class Provider extends Person {
     @Override
     public String toString() {
         return "Provider{" +
-                "addresses=" + addresses +
+              //  "addresses=" + addresses +
                 ", pieces=" + pieces +
                 ", website='" + website + '\'' +
                 ", email1='" + email + '\'' +

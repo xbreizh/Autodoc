@@ -76,25 +76,4 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         return employee;
     }
 
-    public List<Employee> convertList(List<Object> list) {
-        LOGGER.info("converting list: "+list);
-        List<Employee> newList = new ArrayList<>();
-        for (Object obj : list) {
-            EmployeeDTO dto = (EmployeeDTO) obj;
-            Employee employee = new Employee();
-            int id = dto.getId();
-            LOGGER.info("id: " + id);
-            employee.setId(id);
-            employee.setLogin(dto.getLogin());
-            employee.setFirstName(dto.getFirstName());
-            employee.setLastName(dto.getLastName());
-            employee.setRoles(dto.getRoles().toString());
-            employee.setPhoneNumber1(dto.getPhoneNumber1());
-            employee.setStartDate(dto.getStartDate());
-            employee.setLastConnection(dto.getLastConnection());
-
-            newList.add(employee);
-        }
-        return newList;
-    }
 }

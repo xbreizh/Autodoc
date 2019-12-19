@@ -19,6 +19,7 @@ class EmployeeServiceImplTest {
     private EmployeeService service;
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc2MTg5MCwiaWF0IjoxNTc2NzQzODkwfQ.-7anXTdLUePoEIXn_dQhZDtaO7X1-gwZSiQakTehnfHJbsJZ106n1_vKSHhJjWjdE-7Onz8wLTi6TGyX55RyaQ";
     private EmployeeDTO dto;
+    private Class  clazz= EmployeeDTO.class;
 
 
     @BeforeEach
@@ -44,7 +45,7 @@ class EmployeeServiceImplTest {
     @Test
     void getAll() {
         assertNotNull(service.getAll(token));
-        assertEquals(EmployeeDTO.class, service.getAll(token).get(0).getClass());
+        assertEquals(clazz, service.getAll(token).get(0).getClass());
     }
 
 
