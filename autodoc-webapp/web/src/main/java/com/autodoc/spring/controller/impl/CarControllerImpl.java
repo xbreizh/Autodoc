@@ -41,10 +41,10 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
     }
 
     @PostMapping("/searchCar")
-    public ModelAndView searchCar(@Valid RegistrationForm registrationForm, BindingResult bindingResult) throws Exception {
-        System.out.println("getting herer: " + registrationForm);
+    public ModelAndView searchCar(@Valid CarForm  carForm, BindingResult bindingResult) throws Exception {
+        System.out.println("getting herer: " + carForm);
         LOGGER.info("retrieving searchCar");
-        String registration = registrationForm.getRegistration().toUpperCase();
+        String registration = carForm.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations");
 
         if (bindingResult.hasErrors()) {
