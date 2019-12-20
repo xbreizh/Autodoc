@@ -14,7 +14,6 @@ public abstract class Person {
     private String lastName;
 
     private String phoneNumber1;
-    private String phoneNumber2;
 
     public Person(int id, String firstName, String lastName, String phoneNumber1) {
         this.id = id;
@@ -35,7 +34,6 @@ public abstract class Person {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber1='" + phoneNumber1 + '\'' +
-                ", phoneNumber2='" + phoneNumber2 + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,34 @@
+<div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
+
+
+    <h2>Car form</h2>
+
+     <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${carForm}">
+         <table>
+             <tr>
+                 <td>Id:</td>
+                 <td th:text="${car.id}">Login</td>
+             </tr>
+             <tr>
+                 <td>Registration:</td>
+                 <td><input th:field="*{registration}" type="text"/></td>
+                 <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</td>
+             </tr>
+             <tr>
+                 <td>Select Client:</td>
+                 <td>
+                     <select th:field="*{client}">
+                         <option th:each="client : ${clients}"
+                                 th:utext="${client.firstName+' '+client.lastName}"
+                                 th:value="${client}"/>
+                     </select>
+                 </td>
+             </tr>
+             <tr>
+                 <td>
+                     <button type="submit">Submit</button>
+                 </td>
+             </tr>
+         </table>
+     </form>
+</div>

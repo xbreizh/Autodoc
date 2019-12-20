@@ -70,7 +70,6 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         if (dto.getFirstName() != null) employee.setFirstName(dto.getFirstName().toUpperCase());
         if (dto.getLastName() != null) employee.setLastName(dto.getLastName().toUpperCase());
         if (dto.getPhoneNumber1() != null) employee.setPhoneNumber1(dto.getPhoneNumber1().toUpperCase());
-        if (dto.getPhoneNumber2() != null) employee.setPhoneNumber2(dto.getPhoneNumber2().toUpperCase());
         if (dto.getRoles() != null) employee.setRoles(dto.getRoles());
 
         return employee;
@@ -95,7 +94,6 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         employee.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
         employee.setStartDate(new Date());
         employee.setPhoneNumber1(dto.getPhoneNumber1());
-        if (dto.getPhoneNumber2() != null) employee.setPhoneNumber2(dto.getPhoneNumber2());
         employee.setLogin(dto.getLogin());
         return employee;
 

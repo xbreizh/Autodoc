@@ -10,11 +10,11 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h2>Employee details</h2>
-    <p th:text="${employee.login}">Login</p>
+    <h2>Car details</h2>
+
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${employee.id}">
+    <label style="display: block" th:id="'switch' + ${car.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -22,43 +22,31 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${employee.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${car.id}">
 
-        <div th:replace="fragments/employees_form :: form"></div>
+        <div th:replace="fragments/cars_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${employee.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${car.id}">
         <table>
             <tr>
                 <td>Id:</td>
-                <td th:text="${employee.id}">Login</td>
+                <td th:text="${car.id}">Id</td>
             </tr>
             <tr>
-                <td>Start Date:</td>
-                <td th:text="${employee.startDate}">Start Date</td>
+                <td>Registration:</td>
+                <td th:text="${car.registration}">Registration</td>
             </tr>
             <tr>
-                <td>Last Connection:</td>
-                <td th:text="${employee.lastConnection}">Last Connection</td>
+                <td>Brand:</td>
+                <td th:text="${car.model.manufacturer.name}">Brand</td>
             </tr>
             <tr>
-                <td>Login:</td>
-                <td th:text="${employee.login}">Login</td>
+                <td>Model:</td>
+                <td th:text="${car.model.name}">Model</td>
             </tr>
             <tr>
-                <td>FirstName:</td>
-                <td th:text="${employee.firstName}">FirstName</td>
-            </tr>
-            <tr>
-                <td>LastName:</td>
-                <td th:text="${employee.lastName}">LastName</td>
-            </tr>
-            <tr>
-                <td>Roles:</td>
-                <td th:text="${employee.roles}">Roles</td>
-            </tr>
-            <tr>
-                <td>PhoneNumber1:</td>
-                <td th:text="${employee.phoneNumber1}">PhoneNumber1</td>
+                <td>Client:</td>
+                <td th:text="${car.client.firstName+' '+car.client.lastName}">Client</td>
             </tr>
         </table>
 

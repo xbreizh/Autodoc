@@ -27,7 +27,6 @@
                 <th th:text="FirstName">FirstName</th>
                 <th th:text="LastName">LastName</th>
                 <th th:text="PhoneNumber1">PhoneNumber1</th>
-                <th th:text="PhoneNumber2">PhoneNumber2</th>
                 <th></th>
             </tr>
             </thead>
@@ -37,7 +36,6 @@
                 <td th:text="${client.firstName}">firstName</td>
                 <td th:text="${client.lastName}">lastName</td>
                 <td th:text="${client.phoneNumber1}">phoneNumber1</td>
-                <td th:text="${client.phoneNumber2}">phoneNumber2</td>
             <td>
                 <a th:href="@{'/clients/' + ${client.id}}">
                     <button class="btn btn-warning" type="button">Edit</button>

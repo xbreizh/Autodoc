@@ -52,8 +52,7 @@ class ClientControllerImplTest {
             fieldWithPath("id").description("Id of the car"),
             fieldWithPath("firstName").description("FirstName of the carModel"),
             fieldWithPath("lastName").description("LastName of the carModel"),
-            fieldWithPath("phoneNumber1").description("PhoneNumber1 of the carModel"),
-            fieldWithPath("phoneNumber2").description("PhoneNumber2 of the carModel").optional()
+            fieldWithPath("phoneNumber1").description("PhoneNumber1 of the carModel")
     };
     private List<ClientDTO> clients = new ArrayList<>();
     //private static final Logger LOGGER = Logger.getLogger(ClientControllerImplTest.class);
@@ -71,7 +70,6 @@ class ClientControllerImplTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*/
-        clientDTO.setPhoneNumber2("12345");
         clients.add(clientDTO);
         converter = new GsonConverter();
         // using standalone

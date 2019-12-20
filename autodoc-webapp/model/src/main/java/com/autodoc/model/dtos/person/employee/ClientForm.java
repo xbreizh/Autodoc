@@ -24,8 +24,7 @@ public class ClientForm {
     @Size(min = 8, max = 12, message = "{phoneNumber.size}")
     private String phoneNumber1;
 
-    // @Size(min = 8, max = 12, message = "{phoneNumber.size}")
-    private String phoneNumber2;
+
 }
 
 

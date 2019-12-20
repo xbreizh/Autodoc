@@ -50,9 +50,6 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         provider.setFirstName(dto.getFirstName().toUpperCase());
         provider.setLastName(dto.getLastName().toUpperCase());
         provider.setPhoneNumber1(dto.getPhoneNumber1().toUpperCase());
-        if (dto.getPhoneNumber2() != null) {
-            provider.setPhoneNumber2(dto.getPhoneNumber2().toUpperCase());
-        }
         if (dto.getEmail1() != null) {
             provider.setEmail1(dto.getEmail1());
         }
@@ -89,9 +86,6 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         }
         if (dto.getPhoneNumber1() != null) {
             provider.setPhoneNumber1(dto.getPhoneNumber1().toUpperCase());
-        }
-        if (dto.getPhoneNumber2() != null) {
-            provider.setPhoneNumber2(dto.getPhoneNumber2().toUpperCase());
         }
         if (dto.getEmail1() != null) {
             provider.setEmail1(dto.getEmail1());

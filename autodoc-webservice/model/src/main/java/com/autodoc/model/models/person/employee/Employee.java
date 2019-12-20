@@ -80,7 +80,6 @@ public class Employee extends Person {
                 ", lastConnection=" + lastConnection +
                 ", tokenExpiration=" + tokenExpiration +
                 ", phoneNumber1='" + phoneNumber1 + '\'' +
-                ", phoneNumber2='" + phoneNumber2 + '\'' +
                 '}';
     }
 }

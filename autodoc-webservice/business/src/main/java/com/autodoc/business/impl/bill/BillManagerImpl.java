@@ -1,44 +1,110 @@
 package com.autodoc.business.impl.bill;
 
 import com.autodoc.business.contract.bill.BillManager;
+import com.autodoc.business.contract.car.CarManager;
+import com.autodoc.business.contract.person.client.ClientManager;
+import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.bill.BillDao;
+import com.autodoc.dao.contract.car.CarDao;
+import com.autodoc.dao.contract.person.client.ClientDao;
+import com.autodoc.dao.contract.person.employee.EmployeeDao;
+import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.bill.BillDTO;
+import com.autodoc.model.dtos.person.client.ClientDTO;
+import com.autodoc.model.enums.Status;
 import com.autodoc.model.models.bill.Bill;
+import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Transactional
 @Component
 public class BillManagerImpl extends AbstractGenericManager implements BillManager {
-    private BillDao billDao;
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
+    private BillDao billDao;
     private ModelMapper mapper;
+    private  CarDao carDao;
+    private  ClientDao clientDao;
+    private EmployeeDao employeeDao;
+    private  TaskDao taskDao;
 
-    public BillManagerImpl(BillDao billDao) {
+    public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao,  EmployeeDao employeeDao, TaskDao taskDao) {
         super(billDao);
         this.mapper = new ModelMapper();
         this.billDao = billDao;
-
+        this.carDao = carDao;
+        this.clientDao = clientDao;
+        this.employeeDao = employeeDao;
+        this.taskDao = taskDao;
     }
 
 
     @Override
     public BillDTO entityToDto(Object entity) {
         System.out.println("convert to dto");
-        BillDTO dto = mapper.map(entity, BillDTO.class);
+        //BillDTO dto = mapper.map(entity, BillDTO.class);
+        BillDTO dto = new BillDTO();
         Bill bill = (Bill) entity;
+        dto.setId(((Bill) entity).getId());
         dto.setRegistration(((Bill) entity).getCar().getRegistration());
+        dto.setClientId(((Bill) entity).getClient().getId());
+        dto.setEmployeeId(((Bill) entity).getEmployee().getId());
+        dto.setVat(((Bill) entity).getVat());
+        dto.setDiscount(((Bill) entity).getDiscount());
+        dto.setTotal(((Bill) entity).getTotal());
+        dto.setStatus(((Bill) entity).getStatus().toString());
+        dto.setDate(((Bill) entity).getDate());
+        List<Integer> taskList = new ArrayList<>();
+        List<Task> tasks = ((Bill) entity).getTasks();
+        for (Task task : tasks) {
+            taskList.add(task.getId());
+        }
+        dto.setTasks(taskList);
         return dto;
     }
 
     @Override
     public Bill dtoToEntity(Object entity) throws Exception {
-        System.out.println("converts to entity");
         BillDTO dto = (BillDTO) entity;
-        Bill bill = mapper.map(dto, Bill.class);
+        LOGGER.info("dto found: " + dto);
+        Bill bill = new Bill();
+        int id = dto.getId();
+        LOGGER.info("id: " + id);
+        bill.setId(id);
+        bill.setDate(dto.getDate());
+        Car car = carDao.getCarByRegistration(dto.getRegistration());
+        if (car == null) throw new Exception("car cannot be null");
+        LOGGER.info("car found: " + car);
+        bill.setCar(car);
+        bill.setDiscount(dto.getDiscount());
+        bill.setStatus(Status.valueOf(dto.getStatus()));
+        List<Task> taskList = new ArrayList<>();
+        for (Integer i: dto.getTasks()){
+            Task task = (Task) taskDao.getById(i);
+            if(task==null)throw  new Exception("invalid task");
+            taskList.add(task);
+        }
+        bill.setTasks(taskList);
+        Client client = (Client) clientDao.getById( dto.getClientId());
+        if (client == null) throw new Exception("invalid client reference: " + dto.getClientId());
+        LOGGER.info("client found: " + client);
+        bill.setClient(client);
+        bill.setTotal(dto.getTotal());
+        bill.setVat(dto.getVat());
+        Employee employee = (Employee) employeeDao.getById( dto.getEmployeeId());
+        if (employee == null) throw new Exception("invalid employee reference: " + dto.getEmployeeId());
+        LOGGER.info("employee found: " + employee);
+        bill.setEmployee(employee);
+        LOGGER.info("bill transferred: " + bill);
         checkDataInsert(dto);
         return bill;
     }

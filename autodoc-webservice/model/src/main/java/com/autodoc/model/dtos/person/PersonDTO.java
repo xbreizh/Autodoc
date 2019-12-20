@@ -25,7 +25,6 @@ public abstract class PersonDTO {
     @Size(min = 8, max = 12, message = "the size for phoneNumber1 should be between {min} and {max}")
     @NotNull(message = "phoneNumber1 cannot be null")
     private String phoneNumber1;
-    private String phoneNumber2;
 
     public PersonDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1) {
         this.lastName = lastName;

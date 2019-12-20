@@ -68,7 +68,6 @@ class ManufacturerControllerImplTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*/
-        //manufacturerDTO.setPhoneNumber2("12345");
         manufacturers.add(manufacturerDTO);
         converter = new GsonConverter();
         // using standalone

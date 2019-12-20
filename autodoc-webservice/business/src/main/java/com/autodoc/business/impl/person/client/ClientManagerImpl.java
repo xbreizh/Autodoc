@@ -50,9 +50,6 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         client.setFirstName(dto.getFirstName().toUpperCase());
         client.setLastName(dto.getLastName().toUpperCase());
         client.setPhoneNumber1(dto.getPhoneNumber1().toUpperCase());
-        if (dto.getPhoneNumber2() != null) {
-            client.setPhoneNumber2(dto.getPhoneNumber2().toUpperCase());
-        }
 
         return client;
     }
@@ -65,13 +62,11 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         String firstName = dto.getFirstName();
         String lastName = dto.getLastName();
         String phoneNumber1 = dto.getPhoneNumber1();
-        String phoneNumber2 = dto.getPhoneNumber2();
         Client client = (Client) clientDao.getById(id);
         if (client == null) throw new Exception("invalid id");
         if (firstName != null) client.setFirstName(firstName.toUpperCase());
         if (lastName != null) client.setLastName(lastName.toUpperCase());
         if (phoneNumber1 != null) client.setPhoneNumber1(phoneNumber1.toUpperCase());
-        if (phoneNumber2 != null) client.setPhoneNumber2(phoneNumber2.toUpperCase());
         return client;
 
 

@@ -42,7 +42,6 @@ public abstract class Person {
     @NonNull
     protected String phoneNumber1;
 
-    protected String phoneNumber2;
 
 
     @Override
@@ -52,7 +51,6 @@ public abstract class Person {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber1='" + phoneNumber1 + '\'' +
-                ", phoneNumber2='" + phoneNumber2 + '\'' +
                 '}';
     }
 }

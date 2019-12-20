@@ -76,8 +76,6 @@ class CarControllerImplTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();
-        //car.setRegistration(registration);
-        //client.setPhoneNumber2("123456");
         dto = new CarDTO("ABC123", 1, 2);
         carDTOS.add(dto);
         converter = new GsonConverter();
@@ -88,64 +86,6 @@ class CarControllerImplTest {
     }
 
 
- /*   @Test
-    void getById() throws Exception {
-        when(carManager.getById(anyInt())).thenReturn(car);
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/car/getById/{carId}", id)
-                        .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(id))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(encoding))
-                .andDo(document("{ClassName}/{methodName}",
-                        responseFields(descriptor)
-                ));
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
-        assertEquals(response, carControllerImpl.getById(id));
-
-    }
-
-    @Test
-    public void getAll() throws Exception {
-        when(carManager.getAll()).thenReturn(cars);
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/car/getAll")
-                        .header("Authorization", "Bearer test"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(encoding))
-                .andDo(document("{ClassName}/{methodName}",
-                        responseFields(
-                                fieldWithPath("[]").description("An array of manufacturers"))
-                                .andWithPrefix(".[]", descriptor)
-                ));
-
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(cars));
-        assertEquals(response, carControllerImpl.getAll());
-    }
-
-
-    @Test
-    @DisplayName("should return 200 and carDto if registration is valid")
-    void getByRegistration() throws Exception {
-        when(carManager.getByRegistration(anyString())).thenReturn(car);
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/car/getByRegistration")
-                        .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(registration))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(encoding))
-                .andDo(document("{ClassName}/{methodName}"));
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
-        assertEquals(response, carControllerImpl.getCarByRegistration(registration));
-
-    }*/
 
     @Test
     @DisplayName("should return object if registration is valid")

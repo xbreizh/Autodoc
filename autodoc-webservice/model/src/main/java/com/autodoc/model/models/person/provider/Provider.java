@@ -75,7 +75,6 @@ public class Provider extends Person {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber1='" + phoneNumber1 + '\'' +
-                ", phoneNumber2='" + phoneNumber2 + '\'' +
                 "} " + super.toString();
     }
 }

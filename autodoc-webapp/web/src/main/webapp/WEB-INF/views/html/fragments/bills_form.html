@@ -1,0 +1,70 @@
+<div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
+
+
+    <h2>Bill form</h2>
+
+     <form action="#" method="post" th:action="@{'/bills/update/' + ${bill.id}}" th:object="${billForm}">
+         <table>
+             <tr>
+                 <td>Id:</td>
+                 <td th:text="${bill.id}">Login</td>
+             </tr>
+             <tr>
+                 <td>Select Car:</td>
+                 <td>
+                     <select th:field="*{car.id}">
+                         <option th:each="car : ${cars}"
+                                 th:utext="${car.registration}"
+                                 th:value="${car.id}"/>
+                     </select>
+                 </td>
+             </tr>
+             <tr>
+                 <td>Select Client:</td>
+                 <td>
+                     <select th:field="*{client}">
+                         <option th:each="client : ${clients}"
+                                 th:utext="${client.id}"
+                                 th:value="${client}"/>
+                     </select>
+                 </td>
+             </tr>
+             <tr>
+                 <td>Select Employee:</td>
+                 <td>
+                     <select th:field="*{employee}">
+                         <option th:each="employee : ${employees}"
+                                 th:utext="${employee.id}"
+                                 th:value="${employee}"/>
+                     </select>
+                 </td>
+             </tr>
+             <tr>
+                 <td>Discount:</td>
+                 <td><input th:field="*{discount}" type="text"/></td>
+                 <td th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</td>
+             </tr>
+
+             <tr>
+                 <td>VAT:</td>
+                 <td><input th:field="*{vat}" type="text"/></td>
+                 <td th:errors="*{vat}" th:if="${#fields.hasErrors('vat')}">VAT Error</td>
+             </tr>
+             <tr>
+                 <td>Total:</td>
+                 <td><input th:field="*{total}" type="text"/></td>
+                 <td th:errors="*{total}" th:if="${#fields.hasErrors('total')}">Total Error</td>
+             </tr>
+             <tr>
+                 <td>Tasks:</td>
+                 <td><input th:field="*{tasks}" type="text"/></td>
+                 <td th:errors="*{tasks}" th:if="${#fields.hasErrors('tasks')}">Tasks Error</td>
+             </tr>
+             <tr>
+                 <td>
+                     <button type="submit">Submit</button>
+                 </td>
+             </tr>
+         </table>
+     </form>
+</div>

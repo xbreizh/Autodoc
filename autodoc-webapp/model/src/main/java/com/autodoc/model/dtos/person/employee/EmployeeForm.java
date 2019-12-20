@@ -37,8 +37,6 @@ public class EmployeeForm {
    // @Size(min = 3, max = 8, message = "{password.size}")
     private String password;
 
-    // @Size(min = 8, max = 12, message = "{phoneNumber.size}")
-    private String phoneNumber2;
 }
 
 
