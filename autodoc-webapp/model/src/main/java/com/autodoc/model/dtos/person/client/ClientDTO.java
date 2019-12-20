@@ -14,6 +14,10 @@ public class ClientDTO extends PersonDTO {
         super(lastName, firstName, phoneNumber1);
     }
 
+
+    public ClientDTO() {
+    }
+
     @Override
     public String toString() {
         return "ClientDTO{} " + super.toString();
