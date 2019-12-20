@@ -44,28 +44,20 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
 
     public TaskDTO formToDto(Object obj) {
         LOGGER.info("stuff to update: " + obj);
-        TaskForm dto = (TaskForm) obj;
-        LOGGER.info("dto: " + dto);
-        TaskDTO task = new TaskDTO();
-        task.setName(dto.getName());
-        task.setDescription(dto.getDescription());
-        task.setEstimatedTime(dto.getEstimatedTime());
-        task.setPrice(dto.getPrice());
-        String templateValue = dto.getTemplate();
+        TaskForm form = (TaskForm) obj;
+        LOGGER.info("dto: " + form);
+        TaskDTO dto = new TaskDTO();
+        dto.setId(form.getId());
+        dto.setName(form.getName());
+        dto.setDescription(form.getDescription());
+        dto.setEstimatedTime(form.getEstimatedTime());
+        dto.setPrice(form.getPrice());
+        String templateValue = form.getTemplate();
         if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
-            task.setTemplate(templateValue);
-        LOGGER.info("task transferred: " + task);
-        return task;
+            dto.setTemplate(templateValue);
+        LOGGER.info("task transferred: " + dto);
+        return dto;
     }
 
-/*    List<Task> convertList(String token, List<TaskDTO> list) {
-        LOGGER.info("converting list: "+list);
-        List<Task> newList = new ArrayList<>();
-        for (TaskDTO obj : list) {
-            newList.add(dtoToEntity(token, obj));
-        }
-        LOGGER.info("new list: "+newList);
-        return newList;
-    }*/
 
 }

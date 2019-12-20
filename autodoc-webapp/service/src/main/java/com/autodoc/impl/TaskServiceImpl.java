@@ -39,6 +39,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
         HttpEntity<TaskDTO> requestUpdate = new HttpEntity<>(dto, headers);
+        System.out.println("body: "+restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getBody());
         return restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getStatusCodeValue();
 
     }

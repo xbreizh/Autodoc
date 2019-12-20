@@ -47,7 +47,7 @@ class EmployeeManagerImplTest {
     @Test
     @DisplayName("should return a valid employee")
     public void getEmployeeById()
-            throws IOException {
+            throws Exception {
 
         int id = 1;
 
@@ -58,7 +58,7 @@ class EmployeeManagerImplTest {
     @Test
     @DisplayName("should return a valid employee")
     public void getEmployeeById1()
-            throws IOException {
+            throws Exception {
 
         int id = 3333331;
         System.out.println("dede: " + employeeManager.getById(token, id));
@@ -77,13 +77,13 @@ class EmployeeManagerImplTest {
     }
 
     @Test
-    void getEmployees() {
+    void getEmployees() throws Exception {
 
         assertNotNull(employeeManager.getAll(token));
     }
 
     @Test
-    void getEmployeeList() {
+    void getEmployeeList() throws Exception {
         assertNotNull(employeeManager.getAll(token));
     }
 }

@@ -4,7 +4,6 @@ import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.dtos.RegistrationForm;
-import com.autodoc.model.models.Greeting;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -146,6 +145,7 @@ public class GlobalController<D, T> {
         return mv;
     }
 
+/*
 
     @GetMapping("/greeting")
     public ModelAndView greetingForm(Greeting greeting) {
@@ -167,6 +167,7 @@ public class GlobalController<D, T> {
         model.addObject("error", error);
     }
 
+*/
 
 /*
 

@@ -16,7 +16,7 @@ class TaskServiceImplTest {
 
     String name = "BATTERY CHANGE1";
     private TaskService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjgwMDE0MSwiaWF0IjoxNTc2NzgyMTQxfQ.BqY4a5CPxto5lI5DWB7QyFy-FtW9-yRzMszBUpeWQnNdhP8AkiPTboFJ1_TLHSKOZo2WkZcq6LBSTIm8m3Gltg";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njg1MzEzMywiaWF0IjoxNTc2ODM1MTMzfQ.FTrgIwjlfOHF4ysTXGrsOIHzVWeU9UMVbmNad6KdxrOpgLY0T2XztpCxSBvEyqk6Sy65eFLBlyol13vVXsPRpQ";
     private TaskDTO dto;
     private Class clazz = TaskDTO.class;
 
@@ -57,7 +57,23 @@ class TaskServiceImplTest {
         dto.setName(name);
         System.out.println(dto);
         service.update(token, dto);
-        // assertEquals(name, ((TaskDTO) service.getById(token, id)).getName());
+        assertEquals(name.toUpperCase(), ((TaskDTO) service.getById(token, id)).getName());
+    }
+
+    @Test
+    void update1() {
+        int id = 2;
+        TaskDTO dto = (TaskDTO) service.getById(token, id);
+        System.out.println(dto);
+        String name = "MOLsssOK";
+        dto.setName(name);
+        dto.setEstimatedTime(123);
+        dto.setDescription("plouf");
+        dto.setPrice(2);
+        dto.setTemplate("false");
+        System.out.println(dto);
+        service.update(token, dto);
+        assertEquals(name.toUpperCase(), ((TaskDTO) service.getById(token, id)).getName());
     }
 
 
