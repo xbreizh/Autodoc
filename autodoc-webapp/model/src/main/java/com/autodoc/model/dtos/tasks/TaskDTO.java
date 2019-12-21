@@ -3,6 +3,8 @@ package com.autodoc.model.dtos.tasks;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -24,6 +26,8 @@ public class TaskDTO {
 
     private double price;
 
+    private List<Integer> pieces;
+
     public TaskDTO(String name, String description, int estimatedTime, double price, String template) {
         this.name = name;
         this.description = description;
@@ -35,6 +39,13 @@ public class TaskDTO {
     public TaskDTO() {
     }
 
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
+    public void setDescription(String description) {
+        this.description = description.toUpperCase();
+    }
 
     @Override
     public String toString() {
@@ -45,6 +56,7 @@ public class TaskDTO {
                 ", estimatedTime=" + estimatedTime +
                 ", template='" + template + '\'' +
                 ", price=" + price +
+                ", pieces=" + pieces +
                 '}';
     }
 }

@@ -36,4 +36,8 @@ public class CarDTO {
                 ", clientId=" + clientId +
                 '}';
     }
+
+    public void setRegistration(String registration) {
+        this.registration = registration.toUpperCase();
+    }
 }

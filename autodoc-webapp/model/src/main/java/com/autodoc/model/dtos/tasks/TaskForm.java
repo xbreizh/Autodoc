@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,9 +30,19 @@ public class TaskForm {
     @Min(value = 1, message = "price cannot be null")
     private double price;
 
+    private List<Integer> pieces;
+
     public TaskForm() {
     }
 
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description.toUpperCase();
+    }
 
     @Override
     public String toString() {

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http:/www.w3.org/1999/xhtml">
+
+<div th:replace="fragments/header :: head-box"></div>
+
+<body>
+
+
+<div class="container">
+    <div class="row ">
+        <h2>Error 400</h2>
+    </div>
+    <div class="row ">
+        <div class="col-4 " style="background-color: antiquewhite"></div>
+        <div class="col-4 ">
+            <h3 class="text-center">"Ups, sorry!"</h3>
+            <h3 class="text-center">______________</h3>
+            <img class="img-fluid" th:src="@{/img/robot/robot-error.PNG}" alt="robot-error"/>
+            <h4 class="text-center">Not Found</h4>
+            <a href="javascript:history.back()"><h5>Back</h5></a>
+            <h3 class="text-center">______________</h3>
+            <h6 class="text-center">helpteam@troparo.org</h6>
+        </div>
+        <div class="col-4 " style="background-color: antiquewhite"></div>
+    </div>
+
+</div>
+
+</body>
+
+
+</html>

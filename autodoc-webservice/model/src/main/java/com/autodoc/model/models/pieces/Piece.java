@@ -40,7 +40,14 @@ public class Piece {
     private double sellPrice;
     private int quantity;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "piece_task",
+            joinColumns = @JoinColumn(name = "pieces_id"),
+            inverseJoinColumns = @JoinColumn(name = "tasks_id")
+    )
     private List<Task> tasks;
 
 

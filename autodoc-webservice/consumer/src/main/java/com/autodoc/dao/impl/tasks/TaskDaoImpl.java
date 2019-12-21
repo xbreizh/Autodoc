@@ -48,4 +48,11 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
         return true;
     }
 
+    @Override
+    public boolean update(Object entity) {
+        System.out.println("updating from dao: " + entity);
+        T obj = (T) getCurrentSession().merge(entity);
+        return obj != null;
+    }
+
 }

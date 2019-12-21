@@ -3,6 +3,7 @@ package com.autodoc.business.impl.tasks;
 import com.autodoc.business.contract.pieces.PieceManager;
 import com.autodoc.business.contract.tasks.TaskManager;
 import com.autodoc.business.impl.AbstractGenericManager;
+import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.models.pieces.Piece;
@@ -21,13 +22,13 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     private static final Logger LOGGER = Logger.getLogger(TaskManagerImpl.class);
     private TaskDao taskDao;
     private ModelMapper mapper;
-    private PieceManager pieceManager;
+    private PieceDao pieceDao;
 
-    public TaskManagerImpl(TaskDao taskDao, PieceManager pieceManager) {
+    public TaskManagerImpl(TaskDao taskDao, PieceDao pieceDao) {
         super(taskDao);
         this.mapper = new ModelMapper();
         this.taskDao = taskDao;
-        this.pieceManager = pieceManager;
+        this.pieceDao = pieceDao;
     }
 
 
@@ -36,6 +37,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         Task task = (Task) entity;
         TaskDTO dto = new TaskDTO();
         LOGGER.info("converted into dto: " + dto);
+        System.out.println("entity to transfer: "+task);
         dto.setId(task.getId());
         dto.setName(task.getName());
         dto.setDescription(task.getDescription());
@@ -43,12 +45,13 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         dto.setEstimatedTime(task.getEstimatedTime());
         dto.setTemplate(Boolean.toString(task.isTemplate()));
         List<Integer> pieceIds = new ArrayList<>();
-       /* if (task.getPieces()!=null){
+        System.out.println("converting pieces");
+        if (task.getPieces()!=null){
             for (Piece piece: task.getPieces()){
                 pieceIds.add(piece.getId());
             }
             dto.setPieces(pieceIds);
-        }*/
+        }
         System.out.println("converted into dto: " + dto);
         return dto;
     }
@@ -141,15 +144,28 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
 
 
     private void updatePieces(TaskDTO dto, Task task) throws Exception {
+        System.out.println("updating pieces: "+dto);
+        System.out.println("updating pieces: "+task);
         if (dto.getPieces() != null) {
             List<Piece> pieceList = new ArrayList<>();
+            System.out.println("there are pieces");
+
             for (Integer pieceId : dto.getPieces()) {
-                Piece piece = (Piece) pieceManager.getById(pieceId);
-                if (piece == null) throw new Exception("invalid piece: " + pieceId);
+                Piece piece = (Piece) pieceDao.getById(pieceId.intValue());
+                if (piece == null) {
+                    System.out.println("invalid piece: " + pieceId);
+
+                throw new Exception("invalid piece: " + pieceId);
+            }
+                Piece piece1 = (Piece) pieceDao.getById(pieceId);
+                piece1.getTasks().add(task);
+                pieceDao.update(piece1);
                 pieceList.add(piece);
             }
-            // task.setPieces(pieceList);
+
+            task.setPieces(pieceList);
         }
+        System.out.println("updating pieces: "+task);
     }
 
 
@@ -172,6 +188,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         if (price != 0) task.setPrice(price);
         if (estimatedTime != 0) task.setEstimatedTime(estimatedTime);
         if (description != null) task.setDescription(description);
+        System.out.println("here: "+task);
         updatePieces(dto, task);
 
         return task;

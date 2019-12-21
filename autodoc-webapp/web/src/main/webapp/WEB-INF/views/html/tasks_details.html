@@ -54,6 +54,31 @@
             </tr>
         </table>
 
+        <h3>Pieces</h3><br><br><br>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th th:text="Name">Name</th>
+                <th th:text="Brand">Brand</th>
+                <th th:text="BuyingPrice">Buying Price</th>
+                <th th:text="SellPrice">Sell Price</th>
+                <th th:text="PieceType">PieceType</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="piece : ${pieces}">
+                <td th:text="${piece.pieceType.name}">PieceType</td>
+                <td th:text="${piece.name}">name</td>
+                <td th:text="${piece.brand}">brand</td>
+                <td th:text="${piece.buyingPrice}">buyingPrice</td>
+                <td th:text="${piece.sellPrice}">sellPrice</td>
+            </tr>
+
+
+            </tbody>
+        </table>
 
     </div>
 </div>

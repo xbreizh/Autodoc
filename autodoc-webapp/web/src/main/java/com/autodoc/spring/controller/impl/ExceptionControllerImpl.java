@@ -37,6 +37,12 @@ public class ExceptionControllerImpl implements ExceptionController {
         return new ModelAndView(NOT_FOUND);
     }
 
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ModelAndView handle400(HttpServletRequest request, Exception e){
+        logError(request, e);
+        return new ModelAndView(BAD_REQUEST);
+    }
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ModelAndView handleError405(HttpServletRequest request, Exception e) {
         logError(request, e);

@@ -1,14 +1,18 @@
 package com.autodoc.business.impl;
 
 
+import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.TaskManager;
 import com.autodoc.contract.TaskService;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.dtos.tasks.TaskForm;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements TaskManager {
@@ -16,13 +20,15 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
     private static final Logger LOGGER = Logger.getLogger(TaskManagerImpl.class);
     public Task task;
     private TaskService service;
+    private  PieceManager pieceManager;
 
-    public TaskManagerImpl(TaskService service) {
+    public TaskManagerImpl(TaskService service, PieceManager pieceManager) {
         super(service);
         this.service = service;
+        this.pieceManager = pieceManager;
     }
 
-    public Task dtoToEntity(String token, Object obj) {
+    public Task dtoToEntity(String token, Object obj) throws Exception {
 
         TaskDTO dto = (TaskDTO) obj;
         LOGGER.info("dto: " + dto);
@@ -35,6 +41,12 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         task.setEstimatedTime(dto.getEstimatedTime());
         task.setPrice(dto.getPrice());
         String templateValue = dto.getTemplate();
+        List<Piece> pieces = new ArrayList<>();
+        for (Integer pieceId: dto.getPieces()){
+            Piece piece = (Piece) pieceManager.getById(token, pieceId);
+            pieces.add(piece);
+        }
+        task.setPieces(pieces);
         if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
             task.setTemplate(Boolean.valueOf(templateValue));
         LOGGER.info("task transferred: " + task);
@@ -55,6 +67,7 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         String templateValue = form.getTemplate();
         if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
             dto.setTemplate(templateValue);
+       dto.setPieces(form.getPieces());
         LOGGER.info("task transferred: " + dto);
         return dto;
     }

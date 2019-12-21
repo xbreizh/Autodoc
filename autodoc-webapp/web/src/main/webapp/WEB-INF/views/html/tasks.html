@@ -35,7 +35,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:fragment="taskDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
+           <!-- <tr th:fragment="taskDetails" xmlns:th="http:/www.w3.org/1999/xhtml">-->
             <tr th:each="task : ${tasks}">
                 <td th:text="${task.name}">name</td>
                 <td th:text="${task.description}">description</td>

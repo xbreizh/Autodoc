@@ -1,14 +1,17 @@
 package com.autodoc.spring.controller.impl;
 
+import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.TaskManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.dtos.tasks.TaskForm;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.TaskController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,10 +26,12 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     private static Logger LOGGER = Logger.getLogger(TaskControllerImpl.class);
     // @Inject
     TaskManager manager;
+    PieceManager pieceManager;
 
-    public TaskControllerImpl(LibraryHelper helper, TaskManager manager) {
+    public TaskControllerImpl(LibraryHelper helper, TaskManager manager, PieceManager pieceManager) {
         super(helper);
         this.manager = manager;
+        this.pieceManager = pieceManager;
     }
 
 
@@ -56,11 +61,14 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     @ResponseBody
     public ModelAndView taskById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
+        String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("tasks_details");
         System.out.println("task is null");
-        Task task = (Task) manager.getById(helper.getConnectedToken(), id);
+        Task task = (Task) manager.getById(token, id);
         LOGGER.info("phoneMumber: " + task.getName());
-        LOGGER.info("task: " + task);
+        LOGGER.info("task pieces: " + task.getPieces());
+        mv.addObject("pieceList", pieceManager.getAll(token));
+        mv.addObject("pieces", task.getPieces());
         mv.addObject("taskForm", task);
         mv.addObject("showForm", 1);
         mv.addObject("task", task);
@@ -72,11 +80,17 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     @ResponseBody
     public ModelAndView update(@Valid TaskForm taskForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + taskForm.getId());
+        String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("tasks_details");
         mv.addObject("taskForm", new TaskForm());
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            Task task = (Task) manager.getById(helper.getConnectedToken(), taskForm.getId());
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            for (FieldError error : errors ) {
+                System.out.println (error.getObjectName() + " - " + error.getDefaultMessage());
+            }
+            LOGGER.error("binding has errors: ");
+            Task task = (Task) manager.getById(token, taskForm.getId());
+            mv.addObject("pieceList", pieceManager.getAll(token));
             mv.addObject("task", task);
             mv.addObject("taskForm", taskForm);
             mv.addObject("showForm", 0);
@@ -84,6 +98,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         }
         LOGGER.info("carrying on");
         LOGGER.info("task retrieved: " + taskForm);
+        LOGGER.info("getting the pieces list: "+taskForm.getPieces());
         manager.update(helper.getConnectedToken(), taskForm);
         return new ModelAndView("redirect:" + "/tasks/" + taskForm.getId());
     }

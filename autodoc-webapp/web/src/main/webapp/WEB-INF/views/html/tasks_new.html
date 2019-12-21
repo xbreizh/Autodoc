@@ -40,6 +40,11 @@
                 <td><input th:field="*{template}" type="text"/></td>
                 <td th:errors="*{template}" th:if="${#fields.hasErrors('template')}">Template Error</td>
             </tr>
+            <tr>
+                <td>Pieces:</td>
+                <td><input th:field="*{pieces}" type="text"/></td>
+                <td th:errors="*{pieces}" th:if="${#fields.hasErrors('pieces')}">Pieces Error</td>
+            </tr>
 
             <tr>
                 <td>

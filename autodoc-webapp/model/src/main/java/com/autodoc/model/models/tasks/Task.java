@@ -4,12 +4,8 @@ import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -35,6 +31,8 @@ public class Task {
     @NotNull
     private double price;
 
+    private List<Piece> pieces;
+
     public Task(String name, String description, int estimatedTime, double price, boolean template) {
         this.name = name;
         this.description = description;
@@ -47,6 +45,14 @@ public class Task {
     }
 
 
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
+    public void setDescription(String description) {
+        this.description = description.toUpperCase();
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -56,6 +62,7 @@ public class Task {
                 ", estimatedTime=" + estimatedTime +
                 ", template=" + template +
                 ", price=" + price +
+                ", pieces=" + pieces +
                 '}';
     }
 }
