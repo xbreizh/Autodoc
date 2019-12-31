@@ -39,7 +39,7 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     public ResponseEntity getByRegistration(@RequestParam(value = "registration") String registration) {
         CarDTO car = carManager.getByRegistration(registration);
         if (car == null) return notFoundResponse;
-        System.out.println("reaching herer");
+        LOGGER.info("reaching herer");
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);

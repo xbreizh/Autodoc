@@ -49,9 +49,9 @@ public class AddressManagerImpl<T, D> extends AbstractGenericManager implements 
     }
 
     public Address transferInsert(Object obj) throws Exception {
-        System.out.println("transferring data for insertion");
+        LOGGER.info("transferring data for insertion");
         AddressDTO dto = (AddressDTO) obj;
-        System.out.println("dto received: " + dto);
+        LOGGER.info("dto received: " + dto);
         Address address = new Address();
         String countryName = dto.getCountryName();
         if (countryName == null) throw new Exception("country name shouldn t be empty");
@@ -67,9 +67,9 @@ public class AddressManagerImpl<T, D> extends AbstractGenericManager implements 
     }
 
     public Address transferUpdate(Object obj) throws Exception {
-        System.out.println("transferring data for update");
+        LOGGER.info("transferring data for update");
         AddressDTO dto = (AddressDTO) obj;
-        System.out.println("dto received: " + dto);
+        LOGGER.info("dto received: " + dto);
         String countryName = dto.getCountryName();
         int id = dto.getId();
         Address address = (Address) addressDao.getById(id);
@@ -82,7 +82,7 @@ public class AddressManagerImpl<T, D> extends AbstractGenericManager implements 
         if (dto.getCity() != null) address.setCity(dto.getCity().toUpperCase());
         if (dto.getStreetName() != null) address.setStreetName(dto.getStreetName().toUpperCase());
         if (dto.getPostcode() != null) address.setPostcode(dto.getPostcode().toUpperCase());
-        System.out.println("address to update: " + address);
+        LOGGER.info("address to update: " + address);
         return address;
 
     }

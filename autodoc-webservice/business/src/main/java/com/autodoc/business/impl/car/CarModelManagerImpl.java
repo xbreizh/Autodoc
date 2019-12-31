@@ -41,7 +41,7 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
 
     @Override
     public CarModelDTO getByName(String name) {
-        System.out.println("trying to get by name: " + name);
+        LOGGER.info("trying to get by name: " + name);
         CarModel carModel = (CarModel) carModelDao.getByName(name);
         if (carModel == null) return null;
         return entityToDto(carModel);

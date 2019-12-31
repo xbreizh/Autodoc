@@ -31,7 +31,7 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
 
     @Override
     public Task getByName(String name) {
-        System.out.println("get task by name: " + name);
+        LOGGER.info("get task by name: " + name);
         Query query = getCurrentSession().createQuery("From Task where name= :name");
         query.setParameter("name", name.toUpperCase());
         if (query.getResultList().isEmpty()) return null;
@@ -40,8 +40,8 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
 
 
     public boolean deleteById(int id) {
-        System.out.println("deleting tasks");
-        System.out.println("get task by id: " + id);
+        LOGGER.info("deleting tasks");
+        LOGGER.info("get task by id: " + id);
         Query query = getCurrentSession().createQuery("delete From Task where id= :id");
         query.setParameter("id", id);
         query.executeUpdate();
@@ -50,7 +50,7 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
 
     @Override
     public boolean update(Object entity) {
-        System.out.println("updating from dao: " + entity);
+        LOGGER.info("updating from dao: " + entity);
         T obj = (T) getCurrentSession().merge(entity);
         return obj != null;
     }

@@ -15,7 +15,7 @@ public class GsonConverter {
 
     public String convertObjectIntoGsonObject(Object list) {
         LOGGER.debug("list to convert: " + list);
-        System.out.println("to convert: "+list);
+        LOGGER.info("to convert: " + list);
        /* Gson gsonBuilder = new GsonBuilder()
                 .setDateFormat("MM-dd-yyyy").create();
         String convertedObject = gsonBuilder.toJson(list);*/

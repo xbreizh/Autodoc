@@ -52,7 +52,7 @@ public class ControllerExceptionHandler extends RuntimeException {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler({NoResultException.class, EntityNotFoundException.class})
     public ResponseEntity handle400(EntityNotFoundException e) {
-        System.out.println("handling 400: " + e.getMessage());
+        LOGGER.info("handling 400: " + e.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(e.getMessage());
@@ -62,7 +62,7 @@ public class ControllerExceptionHandler extends RuntimeException {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity handle401Unauthorized(AuthenticationException e) {
-        System.out.println("handling 401: " + e.getMessage());
+        LOGGER.info("handling 401: " + e.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(e.getMessage());
@@ -72,8 +72,8 @@ public class ControllerExceptionHandler extends RuntimeException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity handleValidationExceptions(MethodArgumentNotValidException ex) {
-        System.out.println(ex.getMessage());
-        System.out.println(ex.getBindingResult());
+        LOGGER.info(ex.getMessage());
+        LOGGER.info(ex.getBindingResult());
         LOGGER.debug("bad request ?");
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)

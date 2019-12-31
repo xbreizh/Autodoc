@@ -34,7 +34,7 @@ public class ClientDaoImpl<T> extends AbstractHibernateDao implements ClientDao 
         query.setParameter("lastName", lastName.toUpperCase());
         List<Client> clients = query.getResultList();
         LOGGER.debug("found: " + clients.size());
-        System.out.println("size in dao: " + clients.size());
+        LOGGER.info("size in dao: " + clients.size());
         if (!clients.isEmpty()) return clients.get(0);
         return null;
     }

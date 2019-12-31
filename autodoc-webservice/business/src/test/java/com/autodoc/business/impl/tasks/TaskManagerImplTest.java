@@ -1,7 +1,7 @@
 package com.autodoc.business.impl.tasks;
 
-import com.autodoc.business.contract.pieces.PieceManager;
 import com.autodoc.business.contract.tasks.TaskManager;
+import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.models.pieces.Piece;
@@ -30,14 +30,14 @@ class TaskManagerImplTest {
     private TaskManager manager;
     private TaskDao dao;
     private Task task;
-    private PieceManager pieceManager;
+    private PieceDao pieceDao;
 
 
     @BeforeEach
     void setUp() {
         dao = mock(TaskDao.class);
-        pieceManager = mock(PieceManager.class);
-        manager = new TaskManagerImpl(dao, pieceManager);
+        pieceDao = mock(PieceDao.class);
+        manager = new TaskManagerImpl(dao, pieceDao);
         task = new Task();
     }
 
@@ -91,7 +91,7 @@ class TaskManagerImplTest {
         List<Integer> subTaskList = new ArrayList<>();
         subTaskList.add(id);
         when(dao.getById(anyInt())).thenReturn(task);
-        when(pieceManager.getById(anyInt())).thenReturn(null);
+        when(pieceDao.getById(anyInt())).thenReturn(null);
         assertEquals(true, manager.updateTemplate(dto));
     }
 

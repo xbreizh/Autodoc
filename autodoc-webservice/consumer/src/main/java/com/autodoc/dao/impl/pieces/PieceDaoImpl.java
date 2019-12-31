@@ -30,7 +30,7 @@ public class PieceDaoImpl<T> extends AbstractHibernateDao implements PieceDao {
 
     @Override
     public Piece getByName(String name) {
-        System.out.println("get piece by name: " + name);
+        LOGGER.info("get piece by name: " + name);
         Query query = getCurrentSession().createQuery("From Piece where name= :name");
         query.setParameter("name", name.toUpperCase());
         if (query.getResultList().isEmpty()) return null;

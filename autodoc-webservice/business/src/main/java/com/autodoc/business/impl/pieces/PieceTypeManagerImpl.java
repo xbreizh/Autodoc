@@ -50,7 +50,7 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
 
     @Override
     public void checkDataInsert(Object obj) throws Exception {
-        System.out.println("just passing");
+        LOGGER.info("just passing");
 
     }
 

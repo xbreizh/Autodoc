@@ -43,7 +43,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
     @Override
     public Client dtoToEntity(Object entity) throws Exception {
         LOGGER.info("converting into entity");
-        System.out.println("converting into entity: " + entity);
+        LOGGER.info("converting into entity: " + entity);
         ClientDTO dto = (ClientDTO) entity;
         checkDataInsert(dto);
         Client client = new Client();

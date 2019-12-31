@@ -13,8 +13,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,14 +46,14 @@ class TaskDaoImplTest {
     @Test
     void getByName() {
         String name = task.getName();
-        System.out.println(dao.getAll());
+        LOGGER.info(dao.getAll());
         assertNotNull(dao.getByName(name));
     }
 
     @Test
     void getById() {
-       // System.out.println(dao.getAll());
-        System.out.println("getting task: "+dao.getById(id));
+        // LOGGER.info(dao.getAll());
+        LOGGER.info("getting task: " + dao.getById(id));
         assertNotNull(dao.getById(id));
     }
 
@@ -80,9 +78,9 @@ class TaskDaoImplTest {
         List<Piece> pieces = pieceDao.getAll();
         task.setPieces(pieces.subList(1, 3));
         dao.update(task);
-        System.out.println(task);
+        LOGGER.info(task);
         assertEquals(name, ((Task) dao.getById(id)).getName());
-        System.out.println("getting task: "+dao.getById(id));
+        LOGGER.info("getting task: " + dao.getById(id));
         assertNotNull(((Task) dao.getById(id)).getPieces());
     }
 

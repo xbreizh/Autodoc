@@ -35,12 +35,12 @@ public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, Emplo
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity getByName(@RequestParam(value = "name") String name) {
-        System.out.println("getting employee by name: " + name);
+        LOGGER.info("getting employee by name: " + name);
         Object received = manager.getEmployeeByLogin(name);
         if (received == null) return notFoundResponse;
         EmployeeDTO employee = manager.getEmployeeByLogin(name);
         String response = converter.convertObjectIntoGsonObject(employee);
-        System.out.println("response: " + response);
+        LOGGER.info("response: " + response);
         return ResponseEntity.ok(response);
     }
 
@@ -48,7 +48,7 @@ public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, Emplo
     @PostMapping(value = "/roles",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getByRoles(@RequestBody List<RoleListDTO> roles) throws Exception {
-        System.out.println("trying to get by role: "+roles.get(0));
+        LOGGER.info("trying to get by role: " + roles.get(0));
         List<EmployeeDTO> employees = manager.getByRoles(roles);
         String response = converter.convertObjectIntoGsonObject(employees);
 

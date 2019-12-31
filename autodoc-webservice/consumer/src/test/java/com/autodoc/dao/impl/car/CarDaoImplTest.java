@@ -60,7 +60,7 @@ class CarDaoImplTest {
         );*/
 
         String test = "test";
-        System.out.println(test);
+        LOGGER.info(test);
 
     }
 
@@ -99,7 +99,7 @@ class CarDaoImplTest {
         car.setClient(client);
         car.setCarModel(carModel);
         car.setRegistration("abc123");
-        System.out.println(dao.create(car));
+        LOGGER.info(dao.create(car));
         assertEquals(3, dao.getAll().size());
     }
 

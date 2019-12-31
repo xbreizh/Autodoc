@@ -55,7 +55,7 @@ class CountryDaoImplTest {
 
     @Test
     void getSearchFields() throws Exception {
-        System.out.println(dao.getSearchField());
+        LOGGER.info(dao.getSearchField());
         assertNotNull(dao.getSearchField());
     }
 }

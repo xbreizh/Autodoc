@@ -57,7 +57,7 @@ class PieceTypeDaoImplTest {
     void create() {
         PieceType pieceType = new PieceType();
         pieceType.setName("TYRE");
-        System.out.println(dao.create(pieceType));
+        LOGGER.info(dao.create(pieceType));
         assertNotEquals(0, dao.create(pieceType));
     }
 

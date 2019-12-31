@@ -36,7 +36,7 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
         query.setParameter("login", login.toUpperCase());
         List<Employee> employees = query.getResultList();
         LOGGER.debug("found: " + employees.size());
-        System.out.println("size in dao: " + employees.size());
+        LOGGER.info("size in dao: " + employees.size());
         if (!employees.isEmpty()) return employees.get(0);
         return null;
 
@@ -56,7 +56,7 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
 
     @Override
     public List<Employee> getByRole(List<Role> roles) {
-        System.out.println("roles received: " + roles);
+        LOGGER.info("roles received: " + roles);
         if (roles == null) return null;
         String init = "select * from employee where  ";
         StringBuilder sb = new StringBuilder(init);
@@ -67,12 +67,12 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
             }
             sb.append(condition);
         }
-        System.out.println("query so far: " + sb);
+        LOGGER.info("query so far: " + sb);
         Query query = getCurrentSession().createNativeQuery(sb.toString(), Employee.class);
 
 
         List<Employee> employees = (List<Employee>) query.getResultList();
-        System.out.println("size: " + employees.size());
+        LOGGER.info("size: " + employees.size());
         LOGGER.debug("found: " + employees.size());
         if (!employees.isEmpty()) return employees;
         return new ArrayList<>();
@@ -80,7 +80,7 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
 
 
     public boolean deleteById(int entityId) {
-        System.out.println("trying to delete element with id: " + entityId);
+        LOGGER.info("trying to delete element with id: " + entityId);
         Employee entity = getCurrentSession().get(Employee.class, entityId);
         entity.setRoles(null);
         getCurrentSession().update(entity);

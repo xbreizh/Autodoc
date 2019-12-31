@@ -5,8 +5,6 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.filler.Filler;
-import com.autodoc.model.dtos.person.provider.ProviderDTO;
-import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
@@ -45,7 +43,7 @@ class PieceDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         filler.fill();
-        System.out.println("here");
+        LOGGER.info("here");
         CarModel carModel = (CarModel) carModelDao.getAll().get(0);
         Provider provider = (Provider) providerDao.getAll().get(0);
         PieceType pieceType = (PieceType) pieceTypeDao.getAll().get(0);
@@ -62,7 +60,7 @@ class PieceDaoImplTest {
 
     @Test
     void getAll() {
-        System.out.println("emp[l" + dao);
+        LOGGER.info("emp[l" + dao);
         assertEquals(4, dao.getAll().size());
     }
 

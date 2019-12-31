@@ -117,7 +117,7 @@ public class Filler {
         LOGGER.debug("filling addresses");
         Country country1 = (Country) countryDao.getAll().get(0);
         Country country2 = (Country) countryDao.getAll().get(1);
-        System.out.println("country1: " + country1);
+        LOGGER.info("country1: " + country1);
         Address address1 = new Address(country1, "21, Corry street", "Biarritz");
         Address address2 = new Address(country2, "23, Madison Boulevard", "Portmarnock");
         addressDao.create(address1);

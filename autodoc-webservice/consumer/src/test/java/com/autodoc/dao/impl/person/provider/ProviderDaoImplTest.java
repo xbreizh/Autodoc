@@ -39,7 +39,7 @@ class ProviderDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         filler.fill();
-        System.out.println("here");
+        LOGGER.info("here");
     }
 
 

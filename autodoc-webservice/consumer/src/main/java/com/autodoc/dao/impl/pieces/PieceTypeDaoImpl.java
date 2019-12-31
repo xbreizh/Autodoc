@@ -31,7 +31,7 @@ public class PieceTypeDaoImpl<T> extends AbstractHibernateDao implements PieceTy
 
     @Override
     public PieceType getByName(String name) {
-        System.out.println("get pieceType by name: " + name);
+        LOGGER.info("get pieceType by name: " + name);
         Query query = getCurrentSession().createQuery("From PieceType where name= :name");
         query.setParameter("name", name.toUpperCase());
         if (query.getResultList().isEmpty()) return null;

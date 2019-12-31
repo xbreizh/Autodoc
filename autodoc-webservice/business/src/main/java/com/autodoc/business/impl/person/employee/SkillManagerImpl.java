@@ -30,7 +30,7 @@ public class SkillManagerImpl<T, D> extends AbstractGenericManager implements Sk
 
     @Override
     public SkillDTO entityToDto(Object entity) {
-        System.out.println("de");
+        LOGGER.info("de");
         SkillDTO dto = mapper.map(entity, SkillDTO.class);
         LOGGER.info("converted into dto");
         return dto;
@@ -38,7 +38,7 @@ public class SkillManagerImpl<T, D> extends AbstractGenericManager implements Sk
 
     @Override
     public Skill dtoToEntity(Object entity) throws Exception {
-        System.out.println("dde");
+        LOGGER.info("dde");
         LOGGER.info("converted into entity");
         SkillDTO dto = (SkillDTO) entity;
         Skill skill = mapper.map(dto, Skill.class);

@@ -44,7 +44,7 @@ class CountryManagerImplTest {
         SearchDTO dto1 = new SearchDTO("name", "equals", "belgium");
         searchList.add(dto1);
         when(countryDao.getSearchField()).thenReturn(Country.getSearchField());
-        System.out.println("auth: "+Country.SEARCH_FIELD);
+        LOGGER.info("auth: " + Country.SEARCH_FIELD);
         List<Country> countryList = new ArrayList<>();
         Country country1 = new Country("Suisse");
         countryList.add(country1);

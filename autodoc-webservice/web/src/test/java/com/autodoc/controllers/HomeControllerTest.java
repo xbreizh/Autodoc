@@ -1,5 +1,6 @@
 package com.autodoc.controllers;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,6 +31,14 @@ class HomeControllerTest {
     @Inject
     private HomeController homeController;
     private MockMvc mockMvc;
+    private static Logger LOGGER = Logger.getLogger(HomeControllerTest.class);
+
+    @Test
+    void checkLog() {
+        assertNotNull(LOGGER);
+        LOGGER.info("logger: " + LOGGER);
+        LOGGER.info("log ok");
+    }
 
 
     @BeforeEach

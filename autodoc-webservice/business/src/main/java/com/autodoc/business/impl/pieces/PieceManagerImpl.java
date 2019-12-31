@@ -8,7 +8,6 @@ import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.impl.pieces.PieceDaoImpl;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
@@ -65,7 +64,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         transferCarModel(dto, piece);
         transferPieceType(dto, piece);
         //transferProvider(dto, piece);
-        System.out.println("piece to transfer: "+piece);
+        LOGGER.info("piece to transfer: " + piece);
         return piece;
 
     }
@@ -114,7 +113,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         transferCarModel(dto, piece);
         transferPieceType(dto, piece);
       //  transferProvider(dto, piece);
-        System.out.println("piece to update: "+piece);
+        LOGGER.info("piece to update: " + piece);
         return piece;
     }
 }

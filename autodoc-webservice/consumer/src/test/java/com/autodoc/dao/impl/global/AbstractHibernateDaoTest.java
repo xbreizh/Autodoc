@@ -60,8 +60,8 @@ class AbstractHibernateDaoTest {
             if (type.name().equals(typo)) {
                 for (String[] str : type.getValues()) {
                     if (str[0].equalsIgnoreCase(compare)) {
-                        System.out.println("found it");
-                        System.out.println(type + " " + str[0] + " / " + str[1]);
+                        LOGGER.info("found it");
+                        LOGGER.info(type + " " + str[0] + " / " + str[1]);
                     }
                 }
             }

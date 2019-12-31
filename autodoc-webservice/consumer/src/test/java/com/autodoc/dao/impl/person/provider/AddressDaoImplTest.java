@@ -39,7 +39,7 @@ class AddressDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         filler.fill();
-        System.out.println("here");
+        LOGGER.info("here");
     }
 
 
@@ -53,8 +53,8 @@ class AddressDaoImplTest {
         address.setPostcode("12334");
         // address.setProvider((Provider)providerDao.getById(2) );
         address.setStreetName("Harashov street");
-        System.out.println(addressDao.create(address));
-        System.out.println(address);
+        LOGGER.info(addressDao.create(address));
+        LOGGER.info(address);
         assertEquals(2, addressDao.getAll().size());
     }
 

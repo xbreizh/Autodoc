@@ -1,6 +1,5 @@
 package com.autodoc.business.impl.tasks;
 
-import com.autodoc.business.contract.pieces.PieceManager;
 import com.autodoc.business.contract.tasks.TaskManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.pieces.PieceDao;
@@ -24,6 +23,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     private ModelMapper mapper;
     private PieceDao pieceDao;
 
+
     public TaskManagerImpl(TaskDao taskDao, PieceDao pieceDao) {
         super(taskDao);
         this.mapper = new ModelMapper();
@@ -37,7 +37,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         Task task = (Task) entity;
         TaskDTO dto = new TaskDTO();
         LOGGER.info("converted into dto: " + dto);
-        System.out.println("entity to transfer: "+task);
+        LOGGER.info("entity to transfer: " + task);
         dto.setId(task.getId());
         dto.setName(task.getName());
         dto.setDescription(task.getDescription());
@@ -45,20 +45,20 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         dto.setEstimatedTime(task.getEstimatedTime());
         dto.setTemplate(Boolean.toString(task.isTemplate()));
         List<Integer> pieceIds = new ArrayList<>();
-        System.out.println("converting pieces");
+        LOGGER.info("converting pieces");
         if (task.getPieces()!=null){
             for (Piece piece: task.getPieces()){
                 pieceIds.add(piece.getId());
             }
             dto.setPieces(pieceIds);
         }
-        System.out.println("converted into dto: " + dto);
+        LOGGER.info("converted into dto: " + dto);
         return dto;
     }
 
     @Override
     public Task dtoToEntity(Object entity) throws Exception {
-        System.out.println("trying to convert into entity");
+        LOGGER.info("trying to convert into entity");
         TaskDTO dto = (TaskDTO) entity;
         Task task = new Task();
 
@@ -68,7 +68,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
 
     @Override
     public boolean deleteById(int id) throws Exception {
-        System.out.println("trying to delete by id");
+        LOGGER.info("trying to delete by id");
         Task task = (Task) taskDao.getById(id);
         if (task == null) throw new Exception("id is invalid: " + id);
         if (task.isTemplate())
@@ -109,7 +109,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
 
 
     public Task transferInsert(Object obj) throws Exception {
-        System.out.println("trying to convert into entity");
+        LOGGER.info("trying to convert into entity");
         TaskDTO dto = (TaskDTO) obj;
         String name = dto.getName();
         double price = dto.getPrice();
@@ -125,7 +125,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         task.setEstimatedTime(dto.getEstimatedTime());
         task.setPrice(dto.getPrice());
         updatePieces(dto, task);
-        System.out.println("task so far: "+task);
+        LOGGER.info("task so far: " + task);
         return task;
     }
 
@@ -133,29 +133,28 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         String template = dto.getTemplate();
 
         if (template != null) {
-            System.out.println();
             if (!template.equalsIgnoreCase("true") && !template.equalsIgnoreCase("false")) {
                 throw new Exception("template must be a boolean");
             }
             task.setTemplate(Boolean.parseBoolean(template));
-            System.out.println("passing template value: " + task);
+            LOGGER.info("passing template value: " + task);
         }
     }
 
 
     private void updatePieces(TaskDTO dto, Task task) throws Exception {
-        System.out.println("updating pieces: "+dto);
-        System.out.println("updating pieces: "+task);
+        LOGGER.info("updating pieces: " + dto);
+        LOGGER.info("updating pieces: " + task);
         if (dto.getPieces() != null) {
             List<Piece> pieceList = new ArrayList<>();
-            System.out.println("there are pieces");
+            LOGGER.info("there are pieces");
 
             for (Integer pieceId : dto.getPieces()) {
                 Piece piece = (Piece) pieceDao.getById(pieceId.intValue());
                 if (piece == null) {
-                    System.out.println("invalid piece: " + pieceId);
+                    LOGGER.info("invalid piece: " + pieceId);
 
-                throw new Exception("invalid piece: " + pieceId);
+                    throw new Exception("invalid piece: " + pieceId);
             }
                 Piece piece1 = (Piece) pieceDao.getById(pieceId);
                 piece1.getTasks().add(task);
@@ -165,13 +164,13 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
 
             task.setPieces(pieceList);
         }
-        System.out.println("updating pieces: "+task);
+        LOGGER.info("updating pieces: " + task);
     }
 
 
     public Task transferUpdate(Object obj) throws Exception {
         TaskDTO dto = (TaskDTO) obj;
-        System.out.println("trying to convert into entity: " + dto);
+        LOGGER.info("trying to convert into entity: " + dto);
         String name = dto.getName();
         double price = dto.getPrice();
         int estimatedTime = dto.getEstimatedTime();
@@ -188,7 +187,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         if (price != 0) task.setPrice(price);
         if (estimatedTime != 0) task.setEstimatedTime(estimatedTime);
         if (description != null) task.setDescription(description);
-        System.out.println("here: "+task);
+        LOGGER.info("here: " + task);
         updatePieces(dto, task);
 
         return task;
@@ -208,7 +207,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
 
     @Override
     public boolean updateTemplate(TaskDTO dto) throws Exception {
-        System.out.println("trying to convert into entity");
+        LOGGER.info("trying to convert into entity");
         String name = dto.getName();
         double price = dto.getPrice();
         int estimatedTime = dto.getEstimatedTime();

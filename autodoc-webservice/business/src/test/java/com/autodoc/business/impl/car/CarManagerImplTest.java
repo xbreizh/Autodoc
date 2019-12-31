@@ -59,7 +59,7 @@ class CarManagerImplTest {
     @Test
     @DisplayName("should return car if registration found")
     void getByRegistration1() {
-        System.out.println("dao: " + dao);
+        LOGGER.info("dao: " + dao);
         String reg = "DEDE";
         when(dao.getCarByRegistration(reg)).thenReturn(new Car());
         assertNotNull(carManager.getByRegistration("dede"));

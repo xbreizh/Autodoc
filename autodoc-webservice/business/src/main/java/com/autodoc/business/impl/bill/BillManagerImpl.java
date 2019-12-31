@@ -1,9 +1,6 @@
 package com.autodoc.business.impl.bill;
 
 import com.autodoc.business.contract.bill.BillManager;
-import com.autodoc.business.contract.car.CarManager;
-import com.autodoc.business.contract.person.client.ClientManager;
-import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
@@ -11,7 +8,6 @@ import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.bill.BillDTO;
-import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.enums.Status;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
@@ -50,7 +46,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public BillDTO entityToDto(Object entity) {
-        System.out.println("convert to dto");
+        LOGGER.info("convert to dto");
         //BillDTO dto = mapper.map(entity, BillDTO.class);
         BillDTO dto = new BillDTO();
         Bill bill = (Bill) entity;

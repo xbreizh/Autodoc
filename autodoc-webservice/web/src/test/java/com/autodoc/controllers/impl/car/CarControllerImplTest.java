@@ -170,10 +170,10 @@ class CarControllerImplTest {
         carController = new CarControllerImpl(carManager);
         when(carManager.getById(id)).thenReturn(null);
         assertEquals(404, carController.getById(id).getStatusCodeValue());
-        System.out.println(carController.getById(id));
+        LOGGER.info(carController.getById(id));
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get("/cars/"+id)
+                        .get("/cars/" + id)
                         .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(registration))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -194,7 +194,7 @@ class CarControllerImplTest {
         carController = new CarControllerImpl(carManager);
         when(carManager.deleteById(anyInt())).thenReturn(true);
         assertEquals(204, carController.deleteById(id).getStatusCodeValue());
-        System.out.println(carController.getById(id));
+        LOGGER.info(carController.getById(id));
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .delete("/cars/" + id)
@@ -215,7 +215,7 @@ class CarControllerImplTest {
         carController = new CarControllerImpl(carManager);
         when(carManager.deleteById(anyInt())).thenReturn(false);
         assertEquals(404, carController.deleteById(id).getStatusCodeValue());
-        System.out.println(carController.getById(id));
+        LOGGER.info(carController.getById(id));
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .delete("/cars/" + id)

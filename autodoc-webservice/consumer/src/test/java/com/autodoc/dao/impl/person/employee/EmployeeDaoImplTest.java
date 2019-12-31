@@ -32,12 +32,12 @@ class EmployeeDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         filler.fill();
-        System.out.println("here");
+        LOGGER.info("here");
     }
 
     @Test
     void getAll() {
-        System.out.println("emp[l" + dao);
+        LOGGER.info("emp[l" + dao);
         assertEquals(2, dao.getAll().size());
     }
 

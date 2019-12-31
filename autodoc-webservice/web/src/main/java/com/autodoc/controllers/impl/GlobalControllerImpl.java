@@ -41,7 +41,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity getAll() {
         LOGGER.info("trying to get list of ");
         String response = converter.convertObjectIntoGsonObject(manager.getAll());
-        System.out.println("response " + response);
+        LOGGER.info("response " + response);
 
         ResponseEntity entity = ResponseEntity.ok()
                 .headers(responseHeaders)
@@ -56,7 +56,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity add(@RequestBody @Valid D obj) throws Exception {
         getClassName(obj);
         LOGGER.info("trying to add a " + type);
-        System.out.println("object received: " + obj);
+        LOGGER.info("object received: " + obj);
         String response = manager.save(obj);
         try {
             int id = Integer.parseInt(response);
@@ -76,7 +76,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity searchByCriteria(@RequestBody @Valid List<SearchDTO> searchDTO)throws Exception{
 
-        System.out.println("getting by criteria: "+searchDTO.get(0));
+        LOGGER.info("getting by criteria: " + searchDTO.get(0));
        /* for (SearchDTO s: searchDTOs) {
             LOGGER.info("searching by criteria: " + s.getFieldName() + " " + s.getCompare() + " " + s.getValue());
         }
@@ -95,7 +95,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity update(@RequestBody D obj) throws Exception {
         getClassName(obj);
         LOGGER.debug("trying to update a " + obj);
-        System.out.println("trying to update: " + obj);
+        LOGGER.info("trying to update: " + obj);
         boolean response = manager.update(obj);
         if (response) {
             return ResponseEntity.ok().build();
@@ -113,11 +113,11 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity getById(@PathVariable Integer id) throws Exception {
         Object received = manager.getById(id);
         if (received == null) return notFoundResponse;
-        System.out.println("reaced ");
+        LOGGER.info("reaced ");
         String response = converter.convertObjectIntoGsonObject(received);
-        System.out.println("returned: "+manager.getById(id));
+        LOGGER.info("returned: " + manager.getById(id));
         ResponseEntity entity = ResponseEntity.ok(response);
-        System.out.println("entity: "+entity);
+        LOGGER.info("entity: " + entity);
         return entity;
     }
 
@@ -129,7 +129,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         LOGGER.debug("trying to get: " + name);
         Object received = manager.getByName(name);
         if (received == null) return notFoundResponse;
-        System.out.println("trying to get by name: " + name);
+        LOGGER.info("trying to get by name: " + name);
         String response = converter.convertObjectIntoGsonObject(received);
         if (response == null) return notFoundResponse;
         return ResponseEntity.ok(response);
@@ -140,7 +140,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @DeleteMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteById(@PathVariable Integer id) throws Exception {
-        System.out.println("trying to delete");
+        LOGGER.info("trying to delete");
         LOGGER.info("trying to delete: " + id);
         boolean response = manager.deleteById(id);
         if (!response) return ResponseEntity

@@ -1,6 +1,8 @@
 package com.autodoc.helper;
 
 
+import com.autodoc.impl.BillServiceImpl;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONObject;
@@ -24,7 +26,14 @@ class AppTest {
     private static JSONObject personJsonObject;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final String baseUrl="http://localhost:8087/autodoc/";
+    private static Logger LOGGER = Logger.getLogger(AppTest.class);
 
+
+    @Test
+    void checkLog(){
+        assertNotNull(LOGGER);
+        LOGGER.info("log ok");
+    }
 
     @Test
     @DisplayName("should return a valid token")

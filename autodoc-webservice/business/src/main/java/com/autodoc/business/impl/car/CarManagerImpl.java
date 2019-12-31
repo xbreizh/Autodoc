@@ -52,9 +52,9 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     @Override
     public CarDTO getByRegistration(String registration) {
         LOGGER.info("reg: " + registration);
-        System.out.println(carDao);
+        LOGGER.info(carDao);
         Car car = carDao.getCarByRegistration(registration.toUpperCase());
-        System.out.println(car);
+        LOGGER.info(car);
         if (car == null) {
             LOGGER.info("car is null");
             return null;
@@ -77,9 +77,9 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     public CarDTO entityToDto(Object entity) {
         LOGGER.info("converting into dto");
         if (entity == null) return null;
-        System.out.println(entity);
+        LOGGER.info(entity);
         CarDTO dto = new CarDTO();
-        System.out.println("mapper: " + mapper);
+        LOGGER.info("mapper: " + mapper);
         dto = mapper.map(entity, CarDTO.class);
         return dto;
     }
@@ -102,14 +102,14 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
     @Override
     public Car transferUpdate(Object obj) throws Exception {
-        System.out.println("transfer update");
+        LOGGER.info("transfer update");
         CarDTO dto = (CarDTO) obj;
-        System.out.println("dto: " + dto);
+        LOGGER.info("dto: " + dto);
         int id = dto.getId();
         int clientId = dto.getClientId();
         int carModelId = dto.getCarModelId();
         String registration = dto.getRegistration();
-        System.out.println("registration: " + registration);
+        LOGGER.info("registration: " + registration);
         if (clientId == 0 && carModelId == 0)
             throw new Exception("no update parameters provided");
         Car car = null;
@@ -121,21 +121,21 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             if (car == null) throw new Exception("invalid registration: " + registration);
         }
 
-        System.out.println("car found: " + car);
+        LOGGER.info("car found: " + car);
         if (car == null) throw new Exception("invalid car id: " + id);
 
         Client client = (Client) clientDao.getById(clientId);
         if (clientId != 0) {
             if (client == null) throw new Exception("invalid client id: " + clientId);
             car.setClient(client);
-            System.out.println("client set");
+            LOGGER.info("client set");
         }
         CarModel carModel = (CarModel) carModelDao.getById(carModelId);
         if (carModelId != 0) {
             if (carModel == null) throw new Exception("invalid carModel id: " + carModelId);
-            System.out.println("getting carModel");
+            LOGGER.info("getting carModel");
             car.setCarModel(carModel);
-            System.out.println("carModel set");
+            LOGGER.info("carModel set");
         }
 
         if (registration != null && !registration.isEmpty() && id != 0) {
@@ -145,7 +145,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
             car.setRegistration(registration);
         }
-        System.out.println("car: " + car);
+        LOGGER.info("car: " + car);
         return car;
     }
 
@@ -157,7 +157,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
     boolean checkIfExistingCar(String registration) {
-        System.out.println("checking if car already in the db");
+        LOGGER.info("checking if car already in the db");
         return carDao.getCarByRegistration(registration.toUpperCase()) != null;
     }
 

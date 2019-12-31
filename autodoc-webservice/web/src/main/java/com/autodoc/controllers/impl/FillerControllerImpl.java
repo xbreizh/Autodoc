@@ -31,7 +31,6 @@ public class FillerControllerImpl {
         LOGGER.debug("trying to fill");
         filler.fill();
 
-        System.out.println();
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

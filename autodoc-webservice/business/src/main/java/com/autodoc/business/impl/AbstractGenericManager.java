@@ -40,18 +40,18 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     public String save(D object) {
         LOGGER.info("trying to save a " + object.getClass());
-        System.out.println("trying to save: " + object.getClass());
+        LOGGER.info("trying to save: " + object.getClass());
         try {
             T objectToSave = transferInsert(object);
-            System.out.println("object to save: " + objectToSave);
+            LOGGER.info("object to save: " + objectToSave);
             if (!exception.isEmpty()) return exception;
             String feedback = Integer.toString(dao.create(objectToSave));
-            System.out.println("feedback: " + feedback);
+            LOGGER.info("feedback: " + feedback);
             if (!feedback.equals("0")) {
-                System.out.println("feedback: "+feedback);
+                LOGGER.info("feedback: " + feedback);
                 return feedback;
             }
-            System.out.println("issue while saving");
+            LOGGER.info("issue while saving");
             return "issue while saving";
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -61,7 +61,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     public T transferInsert(D obj) throws Exception {
-        System.out.println("here now");
+        LOGGER.info("here now");
         return dtoToEntity(obj);
     }
 
@@ -74,7 +74,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     public T transferUpdate(D obj) throws Exception {
-        System.out.println("transfer update generic");
+        LOGGER.info("transfer update generic");
         return dtoToEntity(obj);
     }
 
@@ -105,7 +105,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             exception = "no record found";
             return null;
         }
-        System.out.println("record found!! ");
+        LOGGER.info("record found!! ");
         return entityToDto(dao.getByName(name));
     }
 
@@ -120,7 +120,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     protected List<D> convertList(List<T> list) {
         List<D> newList = new ArrayList<>();
         for (T obj : list) {
-            System.out.println("here");
+            LOGGER.info("here");
             Object newObj = entityToDto(obj);
             newList.add((D) newObj);
         }
@@ -142,7 +142,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public boolean deleteById(int entityId) throws Exception {
         T entity = dao.getById(entityId);
         if (entity == null) throw new Exception("id is invalid: " + entityId);
-        System.out.println("deleting by iud manager");
+        LOGGER.info("deleting by iud manager");
 
         return dao.deleteById(entityId);
     }
@@ -200,7 +200,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     private String replaceCompareValueWithSqlCompare(String type, String compare) throws Exception {
-        System.out.println("compare: "+compare);
+        LOGGER.info("compare: " + compare);
         for (SearchType searchType: SearchType.values()){
             if (searchType.name().equals(type)){
                 for (String[] str:searchType.getValues()) {
@@ -214,12 +214,12 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     boolean isCompareCriteria(String type, SearchDTO dto) {
-        System.out.println("type: "+type);
-        System.out.println("dto: "+dto);
-        int found=0;
-        for (SearchType searchType: SearchType.values()){
-            if (searchType.name().equals(type)){
-                for (String[] str:searchType.getValues()) {
+        LOGGER.info("type: " + type);
+        LOGGER.info("dto: " + dto);
+        int found = 0;
+        for (SearchType searchType : SearchType.values()) {
+            if (searchType.name().equals(type)) {
+                for (String[] str : searchType.getValues()) {
                     if (str[0].equalsIgnoreCase(dto.getCompare())) {
                         dto.setCompare(str[1]);
                         return true;
@@ -243,11 +243,11 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     private boolean IsValidNumber(String value) {
-        System.out.println("test");
+        LOGGER.info("test");
         try {
             Double.parseDouble(value);
         } catch (NumberFormatException | NullPointerException nfe) {
-            System.out.println("oh");
+            LOGGER.info("oh");
             return false;
         }
         return true;

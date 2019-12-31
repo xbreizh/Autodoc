@@ -72,7 +72,7 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
     }
 
     public Provider transferUpdate(Object obj) throws Exception {
-        System.out.println("transferring update data");
+        LOGGER.info("transferring update data");
         ProviderDTO dto = (ProviderDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new Exception("id cannot be null");

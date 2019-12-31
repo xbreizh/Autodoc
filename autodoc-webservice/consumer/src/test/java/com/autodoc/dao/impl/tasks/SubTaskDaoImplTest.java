@@ -25,8 +25,8 @@ class SubTaskDaoImplTest {
         SubTask subTask = new SubTask();
         subTask.setId(222);
         subTask.setName("derf");
-        System.out.println(subTask);
+        LOGGER.info(subTask);
         subTaskDao.create(subTask);
-        System.out.println(subTaskDao.getAll());
+        LOGGER.info(subTaskDao.getAll());
     }
 }*/

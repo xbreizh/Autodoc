@@ -34,7 +34,7 @@ public class TaskControllerImpl extends GlobalControllerImpl<Task, TaskDTO> impl
     public ResponseEntity getTemplates() {
         LOGGER.info("trying to get list of template");
         String response = converter.convertObjectIntoGsonObject(manager.getTemplates());
-        System.out.println("response " + response);
+        LOGGER.info("response " + response);
 
         ResponseEntity entity = ResponseEntity.ok()
                 .headers(responseHeaders)
@@ -47,7 +47,7 @@ public class TaskControllerImpl extends GlobalControllerImpl<Task, TaskDTO> impl
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateTemplate(TaskDTO obj) throws Exception {
         LOGGER.debug("trying to update a " + obj);
-        System.out.println("trying to update: " + obj);
+        LOGGER.info("trying to update: " + obj);
         boolean response = manager.updateTemplate(obj);
         if (response) {
             return ResponseEntity.ok().build();
@@ -61,7 +61,7 @@ public class TaskControllerImpl extends GlobalControllerImpl<Task, TaskDTO> impl
     @DeleteMapping(value = "templates/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteTemplateById(@PathVariable Integer id) throws Exception {
-        System.out.println("trying to delete");
+        LOGGER.info("trying to delete");
         LOGGER.info("trying to delete: " + id);
         boolean response = manager.deleteTemplateById(id);
         if (!response) return ResponseEntity

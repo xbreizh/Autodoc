@@ -58,41 +58,41 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public List<T> getAll() {
-        System.out.println("in the dao: " + clazz.getName());
+        LOGGER.info("in the dao: " + clazz.getName());
         LOGGER.debug("class: " + clazz.getName());
         LOGGER.debug("getting all");
         return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
     }
 
     public int create(T entity) {
-        System.out.println("trying to create: "+entity);
+        LOGGER.info("trying to create: " + entity);
         try {
             return (Integer) getCurrentSession().save(entity);
         } catch (Exception e) {
-            System.out.println("error while creating");
+            LOGGER.info("error while creating");
             return 0;
         }
     }
 
     public boolean delete(T entity) {
-        System.out.println("I want to delete: " + entity);
+        LOGGER.info("I want to delete: " + entity);
         getCurrentSession().delete(entity);
         return true;
 
     }
 
     public boolean update(T entity) {
-        System.out.println("updating from dao: " + entity);
+        LOGGER.info("updating from dao: " + entity);
         T obj = (T) getCurrentSession().merge(entity);
         return obj != null;
     }
 
     public boolean deleteById(int entityId) {
-        System.out.println("trying to delete element with id: " + entityId);
+        LOGGER.info("trying to delete element with id: " + entityId);
         T entity = getCurrentSession().get(clazz, entityId);
-        System.out.println(entity);
+        LOGGER.info(entity);
         if (entity == null) {
-            System.out.println("entity not found");
+            LOGGER.info("entity not found");
             return false;
         }
         delete(entity);
@@ -108,7 +108,7 @@ public abstract class AbstractHibernateDao<T> {
         if (search == null) throw new Exception("no search criteria provided");
         if (getSearchField() == null) throw new Exception("no search criteria available for that entity");
         String request = buildCriteriaRequest(search);
-        System.out.println("req: " + request);
+        LOGGER.info("req: " + request);
         Query query = sessionFactory.getCurrentSession().createQuery(request);
         return query.getResultList();
     }
@@ -147,9 +147,9 @@ public abstract class AbstractHibernateDao<T> {
             s.setValue(s.getValue().toUpperCase());
             checkIfInvalidField(authorizedSearchFieldList, s);
             checkIfInvalidValue(s.getCompare(), s.getValue());
-            System.out.println("old val: "+s.getValue());
+            LOGGER.info("old val: "+s.getValue());
             if(s.getCompare() ==Compare.STRINGCONTAINS || s.getCompare()==Compare.STRINGDOESNOTCONTAIN)s.setValue("\'%"+s.getValue()+"%\'");
-            System.out.println("new val: "+s.getValue());
+            LOGGER.info("new val: "+s.getValue());
             if (builder.toString().equals(init)){
                 builder.append(" where ");
             }else {
@@ -157,7 +157,7 @@ public abstract class AbstractHibernateDao<T> {
             }
             builder.append(s.getFieldName()+s.getCompare().getQueryValue()+" "+s.getValue()+" ");
         }
-        System.out.println("query: "+builder.toString());
+        LOGGER.info("query: "+builder.toString());
         LOGGER.info("query build: "+builder.toString());
 
         return builder.toString();*/

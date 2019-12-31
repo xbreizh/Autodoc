@@ -52,8 +52,7 @@ class EmployeeControllerImplTest {
         controller.setEmployeeManager(employeeManager);
         globalController.setHelper(helper);
         controller.setEmployeeManager(employeeManager);
-        List<String> roles = new ArrayList<>();
-        roles.add("ADMIN");
+        String roles = "ADMIN";
         employee = new Employee(2, "dalton", "3232323", "0862767399", roles, new Date(), "marko", new Date());
         employees.add(employee);
     }

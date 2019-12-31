@@ -42,7 +42,7 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
     @Override
     public List<Car> getCarByClient(String lastName) {
         lastName = lastName.toUpperCase();
-        System.out.println("Last:" + lastName);
+        LOGGER.info("Last:" + lastName);
         Query query = getCurrentSession().createQuery("From Car where client.lastName= :lastName");
         query.setParameter("lastName", lastName);
         if (query.getResultList() == null) return new ArrayList<>();

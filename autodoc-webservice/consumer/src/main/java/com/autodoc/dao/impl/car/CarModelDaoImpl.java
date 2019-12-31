@@ -30,7 +30,7 @@ public class CarModelDaoImpl<T> extends AbstractHibernateDao implements CarModel
 
     @Override
     public CarModel getByName(String name) {
-        System.out.println("MEMEMEME");
+        LOGGER.info("MEMEMEME");
         Query query = getCurrentSession().createQuery("From CarModel where name= :name", cl);
         query.setParameter("name", name);
         LOGGER.debug("in dao");
