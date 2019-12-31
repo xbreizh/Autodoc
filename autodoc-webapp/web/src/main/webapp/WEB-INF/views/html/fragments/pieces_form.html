@@ -25,12 +25,12 @@
              </tr>
              <tr>
                  <td>Buying Price:</td>
-                 <td><input th:field="*{buyingPrice}" type="text"/></td>
+                 <td><input th:field="*{buyingPrice}" th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}"/></td>
                  <td th:errors="*{buyingPrice}" th:if="${#fields.hasErrors('buyingPrice')}">Buying Price</td>
              </tr>
              <tr>
                  <td>Sell Price:</td>
-                 <td><input th:field="*{sellPrice}" type="text"/></td>
+                 <td><input th:field="*{sellPrice}" th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}"/></td>
                  <td th:errors="*{sellPrice}" th:if="${#fields.hasErrors('sellPrice')}">Sell Price</td>
              </tr>
              <tr>

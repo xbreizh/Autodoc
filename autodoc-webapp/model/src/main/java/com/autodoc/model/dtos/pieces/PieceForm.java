@@ -25,10 +25,10 @@ public class PieceForm {
     private String brand;
 
     @Min(value = 1, message = "buyingPrice cannot be null")
-    private long buyingPrice;
+    private double buyingPrice;
 
     @Min(value = 1, message = "sellPrice cannot be null")
-    private long sellPrice;
+    private double sellPrice;
 
     @NotNull (message = "pieceTypeId cannot be null")
     private PieceType pieceType;

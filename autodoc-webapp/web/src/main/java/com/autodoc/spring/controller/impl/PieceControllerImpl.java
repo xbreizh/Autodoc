@@ -90,7 +90,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid PieceForm pieceForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + pieceForm.getId());
+        LOGGER.info("trying to update piece with id " + pieceForm.getId());
         ModelAndView mv = checkAndAddConnectedDetails("pieces_details");
         mv.addObject("pieceForm", new PieceForm());
         List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());

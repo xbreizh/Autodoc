@@ -24,14 +24,14 @@ public class Piece {
     private String name;
     @NonNull
     private String brand;
-    private long buyingPrice;
-    private long sellPrice;
+    private double buyingPrice;
+    private double sellPrice;
 
     public Piece() {
     }
 
 
-    public Piece(Provider provider, PieceType pieceType, String name, String brand, long buyingPrice, long sellPrice) {
+    public Piece(Provider provider, PieceType pieceType, String name, String brand, double buyingPrice, double sellPrice) {
         this.provider = provider;
         this.pieceType = pieceType;
         this.name = name;
