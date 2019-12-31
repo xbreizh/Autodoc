@@ -6,6 +6,7 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.person.provider.Address;
 import com.autodoc.model.models.person.provider.Country;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class AddressDaoImplTest {
-
+    private static final Logger LOGGER = Logger.getLogger(AddressDaoImplTest.class);
 
     @Inject
     private AddressDao addressDao;

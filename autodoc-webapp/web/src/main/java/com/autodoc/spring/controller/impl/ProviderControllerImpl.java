@@ -60,7 +60,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     public ModelAndView providerById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("providers_details");
-        System.out.println("provider is null");
+        LOGGER.info("provider is null");
         Provider provider = (Provider) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + provider.getPhoneNumber1());
         LOGGER.info("provider: " + provider);

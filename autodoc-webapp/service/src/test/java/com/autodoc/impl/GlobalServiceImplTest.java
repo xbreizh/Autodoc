@@ -26,7 +26,7 @@ class GlobalServiceImplTest {
     @DisplayName("should return cars")
     void getClassName() {
         service = new CarServiceImpl();
-        System.out.println(service.getClassName());
+        LOGGER.info(service.getClassName());
         assertEquals("cars", service.getClassName());
 
 
@@ -36,7 +36,7 @@ class GlobalServiceImplTest {
     @DisplayName("should return carModels")
     void getClassName1() {
         service = new CarModelServiceImpl();
-        System.out.println(service.getClassName());
+        LOGGER.info(service.getClassName());
         assertEquals("carModels", service.getClassName());
 
 
@@ -52,9 +52,9 @@ class GlobalServiceImplTest {
     void getCarById() {
         service = new CarServiceImpl();
         int id = 1;
-        System.out.println(service);
+        LOGGER.info(service);
         CarDTO carDTO = (CarDTO) service.getById(token, id);
-        System.out.println("cars: " + carDTO);
+        LOGGER.info("cars: " + carDTO);
         assertNotNull(service.getById(token, id));
     }
 
@@ -72,9 +72,9 @@ class GlobalServiceImplTest {
     void getManufacturerById() {
         service = new ManufacturerServiceImpl();
         int id = 1;
-        System.out.println(service);
+        LOGGER.info(service);
         ManufacturerDTO dto = (ManufacturerDTO) service.getById(token, id);
-        System.out.println("manufacturers: " + dto);
+        LOGGER.info("manufacturers: " + dto);
         assertNotNull(service.getById(token, id));
     }
 
@@ -84,7 +84,7 @@ class GlobalServiceImplTest {
         service = new ClientServiceImpl();
         int id=1;
         ClientDTO client = (ClientDTO) service.getById(token, id);
-        System.out.println(client);
+        LOGGER.info(client);
         assertNotNull(service.getById(token, id));
     }
 
@@ -94,7 +94,7 @@ class GlobalServiceImplTest {
         service = new EmployeeServiceImpl();
         String login = "LMOLO";
         EmployeeDTO employee = (EmployeeDTO) service.getByName(token, login);
-        System.out.println(employee);
+        LOGGER.info(employee);
         assertNotNull(employee);
     }
 

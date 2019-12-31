@@ -34,7 +34,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @GetMapping("")
     public ModelAndView employees() throws Exception {
         LOGGER.info("retrieving employees");
-        ModelAndView mv = checkAndAddConnectedDetails("employees");
+        ModelAndView mv = checkAndAddConnectedDetails("employees/employees");
 
         List<Employee> employees = getEmployees();
 
@@ -57,8 +57,8 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @ResponseBody
     public ModelAndView employeeById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("employees_details");
-        System.out.println("employee is null");
+        ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
+        LOGGER.info("employee is null");
         Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + employee.getPhoneNumber1());
         LOGGER.info("lastC: " + employee.getLastConnection());
@@ -75,7 +75,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @ResponseBody
     public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + employeeForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("employees_details");
+        ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -88,7 +88,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         LOGGER.info("carrying on");
         LOGGER.info("employee retrieved: " + employeeForm);
         employeeManager.update(helper.getConnectedToken(), employeeForm);
-        return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());
+        return new ModelAndView("redirect:" + "employees/employees/" + employeeForm.getId());
     }
 
     @GetMapping(value = "/delete/{id}")
@@ -102,7 +102,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("employees_new");
+        ModelAndView mv = checkAndAddConnectedDetails("employees/employees_new");
         mv.addObject("employeeForm", new EmployeeForm());
         mv.addObject("showForm", 1);
         mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
@@ -115,7 +115,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @ResponseBody
     public ModelAndView create(@Valid EmployeeForm employeeForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
-        ModelAndView mv = checkAndAddConnectedDetails("employees_new");
+        ModelAndView mv = checkAndAddConnectedDetails("employees/employees_new");
         LOGGER.info("empl: " + employeeForm);
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
@@ -128,7 +128,6 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         LOGGER.info("employee retrieved: " + employeeForm);
         employeeManager.add(helper.getConnectedToken(), employeeForm);
         return employees();
-        //return new ModelAndView("redirect:" + "/employees/" );
     }
 
     private EmployeeDTO convertFormIntoDto(EmployeeForm employeeForm) {

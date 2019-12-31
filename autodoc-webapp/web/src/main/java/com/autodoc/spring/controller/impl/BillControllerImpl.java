@@ -70,7 +70,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         LOGGER.info("trying to get member with id " + id);
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills_details");
-        System.out.println("bill is null");
+        LOGGER.info("bill is null");
         Bill bill = (Bill) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("bill: " + bill);
         List<Employee> employees = employeeManager.getAll(token);

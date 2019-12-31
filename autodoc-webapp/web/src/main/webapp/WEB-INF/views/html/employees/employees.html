@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http:/www.w3.org/1999/xhtml">
+<title>myProfile</title>
+
+<div th:replace="fragments/header :: head1"></div>
 <body>
+<div class="container">
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div th:replace="fragments/menu :: menu"></div>
+
+    <td th:if="${error != null}">
+    <td th:text="${error}"></td>
+
+
+    <a th:href="@{'/employees/new'}">
+        <button class="btn btn-info" type="button">New</button>
+    </a>
+
+    <div th:if="${not #lists.isEmpty(employees)}">
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th th:text="Login">Login</th>
+                <th th:text="FirstName">FirstName</th>
+                <th th:text="LastName">LastName</th>
+                <th th:text="PhoneNumber1">PhoneNumber1</th>
+                <th th:text="Roles">Role(s)</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:fragment="employees/employeeDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.login}">Login</td>
+                <td th:text="${employee.firstName}">firstName</td>
+                <td th:text="${employee.lastName}">lastName</td>
+                <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
+                <td th:text="${employee.roles}">roles</td>
+            <td>
+                <a th:href="@{'employees/' + ${employee.id}}">
+                    <button class="btn btn-warning" type="button">Edit</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{'/employees/delete/' + ${employee.id}}">
+                    <button class="btn btn-danger" type="button">Delete</button>
+                </a>
+            </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
 
 </body>
 </html>
+
+
+
+

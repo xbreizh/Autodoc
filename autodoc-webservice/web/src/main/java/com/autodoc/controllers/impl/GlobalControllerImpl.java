@@ -58,9 +58,9 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         LOGGER.info("trying to add a " + type);
         LOGGER.info("object received: " + obj);
         String response = manager.save(obj);
+        LOGGER.info("response: " + response);
         try {
-            int id = Integer.parseInt(response);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            return ResponseEntity.status(HttpStatus.CREATED).body(Integer.parseInt(response));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

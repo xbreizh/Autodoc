@@ -63,7 +63,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         LOGGER.info("trying to get member with id " + id);
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("tasks_details");
-        System.out.println("task is null");
+        LOGGER.info("task is null");
         Task task = (Task) manager.getById(token, id);
         LOGGER.info("phoneMumber: " + task.getName());
         LOGGER.info("task pieces: " + task.getPieces());
@@ -86,7 +86,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors ) {
-                System.out.println (error.getObjectName() + " - " + error.getDefaultMessage());
+                LOGGER.info (error.getObjectName() + " - " + error.getDefaultMessage());
             }
             LOGGER.error("binding has errors: ");
             Task task = (Task) manager.getById(token, taskForm.getId());

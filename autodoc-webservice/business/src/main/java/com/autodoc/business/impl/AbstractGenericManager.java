@@ -44,7 +44,10 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         try {
             T objectToSave = transferInsert(object);
             LOGGER.info("object to save: " + objectToSave);
-            if (!exception.isEmpty()) return exception;
+            if (!exception.isEmpty()) {
+                LOGGER.error(exception);
+                return exception;
+            }
             String feedback = Integer.toString(dao.create(objectToSave));
             LOGGER.info("feedback: " + feedback);
             if (!feedback.equals("0")) {

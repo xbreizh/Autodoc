@@ -51,13 +51,13 @@ class EmployeeServiceImplTest {
 
     @Test
     void getByid() {
-        System.out.println("employee: " + service.getById(token, 1));
+        LOGGER.info("employee: " + service.getById(token, 1));
         assertNotNull(service.getById(token, 1));
     }
 
     @Test
     void getByid1() {
-        System.out.println("employee: " + service.getById(token, 12222));
+        LOGGER.info("employee: " + service.getById(token, 12222));
         assertNull(service.getById(token, 1222));
     }
 
@@ -68,7 +68,7 @@ class EmployeeServiceImplTest {
         String login = "MOLOK";
         employee.setLogin(login);
         employee.setStartDate(null);
-        System.out.println(employee);
+        LOGGER.info(employee);
         service.update(token, employee);
         assertEquals(login, ((EmployeeDTO) service.getById(token, id)).getLogin());
 

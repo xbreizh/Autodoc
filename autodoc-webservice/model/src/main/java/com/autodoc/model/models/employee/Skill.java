@@ -1,5 +1,5 @@
 /*
-package com.autodoc.model.models.person.employee;
+package com.autodoc.model.models.employee;
 
 import com.autodoc.model.enums.SearchType;
 import lombok.Getter;

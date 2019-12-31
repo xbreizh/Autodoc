@@ -4,7 +4,7 @@ import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.employee.Employee;
 
 import java.util.List;
 

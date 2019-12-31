@@ -2,6 +2,7 @@ package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.filler.Filler;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class CountryDaoImplTest {
+
+    private static final Logger LOGGER = Logger.getLogger(CountryDaoImplTest.class);
 
     @Inject
     private CountryDao dao;

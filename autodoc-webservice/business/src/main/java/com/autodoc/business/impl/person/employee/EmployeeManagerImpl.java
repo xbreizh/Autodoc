@@ -6,7 +6,7 @@ import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.employee.Employee;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,12 +42,24 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         LOGGER.info("converting: " + entity);
         EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
         dto.setFirstName(((Employee) entity).getFirstName());
-        dto.setRoles(((Employee) entity).getRoles());
+        dto.setRoles(convertRoleFromEntityToDto(((Employee) entity).getRoles()));
         dto.setLastName(((Employee) entity).getLastName());
         dto.setPhoneNumber1(((Employee) entity).getPhoneNumber1());
         LOGGER.info("dto: " + dto);
         LOGGER.info("converted into dto");
         return dto;
+    }
+
+    private List<String> convertRoleFromEntityToDto(List<Role> roles) {
+        List<String> roleString = new ArrayList<>();
+        if (!roles.isEmpty()) {
+
+        }
+        for (Role role : roles) {
+            roleString.add(role.toString());
+        }
+        return roleString;
+
     }
 
     @Override
@@ -70,10 +82,25 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         if (dto.getFirstName() != null) employee.setFirstName(dto.getFirstName().toUpperCase());
         if (dto.getLastName() != null) employee.setLastName(dto.getLastName().toUpperCase());
         if (dto.getPhoneNumber1() != null) employee.setPhoneNumber1(dto.getPhoneNumber1().toUpperCase());
-        if (dto.getRoles() != null) employee.setRoles(dto.getRoles());
+        if (dto.getRoles() != null) employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
 
         return employee;
     }
+
+    private List<Role> convertRoleFromDtoToEntity(List<String> roles) throws Exception {
+        List<Role> roleList = new ArrayList<>();
+        for (String role : roles) {
+            try {
+
+                roleList.add(Role.valueOf(role.toUpperCase()));
+
+            } catch (Exception e) {
+                throw new Exception("invalid role: " + role);
+            }
+        }
+        return roleList;
+    }
+
 
     public Employee transferInsert(Object obj) throws Exception {
         EmployeeDTO dto = (EmployeeDTO) obj;
@@ -90,7 +117,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         employee.setLogin(dto.getLogin().toUpperCase());
         employee.setFirstName(dto.getFirstName().toUpperCase());
         employee.setLastName(dto.getLastName().toUpperCase());
-        employee.setRoles(dto.getRoles());
+        employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
         employee.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
         employee.setStartDate(new Date());
         employee.setPhoneNumber1(dto.getPhoneNumber1());

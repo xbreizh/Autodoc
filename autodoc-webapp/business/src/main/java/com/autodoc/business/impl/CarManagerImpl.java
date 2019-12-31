@@ -37,11 +37,11 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     @Override
     public Car getByRegistration(String token, String registration) throws Exception {
         LOGGER.info("trying to get car by registration");
-        System.out.println(service);
+        LOGGER.info(service);
         CarDTO dto = service.getByRegistration(token, registration);
         if (dto == null) return null;
         Car car = dtoToEntity(token, dto);
-        System.out.println("yoyho");
+        LOGGER.info("yoyho");
         if (car == null) {
             LOGGER.info("car is null");
             return null;

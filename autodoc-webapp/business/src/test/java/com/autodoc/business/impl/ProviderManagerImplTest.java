@@ -46,7 +46,7 @@ class ProviderManagerImplTest {
             throws IOException {
 
         int id = 3333331;
-        System.out.println("dede: " + manager.getById(token, id));
+        LOGGER.info("dede: " + manager.getById(token, id));
         assertNull(manager.getById(token, id));
 
     }

@@ -30,8 +30,8 @@ class CarServiceImplTest {
     void getByRegistration() {
         String registration = "05D154875";
         CarDTO obj = service.getByRegistration(token, registration);
-        System.out.println("model: " + obj.getCarModelId());
-        System.out.println("client: " + obj.getClientId());
+        LOGGER.info("model: " + obj.getCarModelId());
+        LOGGER.info("client: " + obj.getClientId());
         assertAll(
                () -> assertNotNull(obj),
                 () -> assertNotEquals(0, obj.getCarModelId()),

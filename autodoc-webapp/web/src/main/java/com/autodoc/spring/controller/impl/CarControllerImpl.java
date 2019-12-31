@@ -42,7 +42,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
 
     @PostMapping("/searchCar")
     public ModelAndView searchCar(@Valid CarForm  carForm, BindingResult bindingResult) throws Exception {
-        System.out.println("getting herer: " + carForm);
+        LOGGER.info("getting herer: " + carForm);
         LOGGER.info("retrieving searchCar");
         String registration = carForm.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations");
@@ -59,8 +59,8 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
             mv.addObject("message", "no car found");
             return mv;
         }
-        System.out.println("car found: " + registration);
-        System.out.println("owner: " + car.getClient().getLastName());
+        LOGGER.info("car found: " + registration);
+        LOGGER.info("owner: " + car.getClient().getLastName());
         mv.addObject("car", car);
         mv.addObject("client", car.getClient());
         mv.addObject("model", car.getModel());
@@ -98,7 +98,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         LOGGER.info("trying to get member with id " + id);
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("cars_details");
-        System.out.println("car is null");
+        LOGGER.info("car is null");
         Car car = (Car) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("car: " + car);
         List<Employee> employees = employeeManager.getAll(token);

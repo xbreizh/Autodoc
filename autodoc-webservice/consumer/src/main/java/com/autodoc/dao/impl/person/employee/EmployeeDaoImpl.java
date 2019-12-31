@@ -4,7 +4,7 @@ import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.enums.SearchType;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.employee.Employee;
 import org.apache.log4j.Logger;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.config.BeanDefinition;

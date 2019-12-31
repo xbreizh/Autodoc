@@ -34,13 +34,13 @@ class PieceServiceImplTest {
 
     @Test
     void getByid() {
-        System.out.println("piece: " + service.getById(token, 1));
+        LOGGER.info("piece: " + service.getById(token, 1));
         assertNotNull(service.getById(token, 3));
     }
 
     @Test
     void getByid1() {
-        System.out.println("piece: " + service.getById(token, 12222));
+        LOGGER.info("piece: " + service.getById(token, 12222));
         assertNull(service.getById(token, 1222));
     }
 
@@ -50,7 +50,7 @@ class PieceServiceImplTest {
         PieceDTO piece = (PieceDTO) service.getById(token, id);
         String name = "MOLOK";
         piece.setName(name);
-        System.out.println(piece);
+        LOGGER.info(piece);
         service.update(token, piece);
         assertEquals(name, ((PieceDTO) service.getById(token, id)).getName());
     }
@@ -64,7 +64,7 @@ class PieceServiceImplTest {
     @Test
     @DisplayName("should return 201 when insertion ok")
     void create() {
-        System.out.println(dto);
+        LOGGER.info(dto);
         Random random = new Random();
         dto.setName("paltoquet");
         dto.setBrand(name);

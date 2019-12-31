@@ -27,7 +27,7 @@ public class CarModelManagerImpl extends GlobalManagerImpl<CarModel, CarModelDTO
         super(service);
         this.service = service;
         this.manufacturerManager = manufacturerManager;
-        System.out.println("manuf: " + manufacturerManager);
+        LOGGER.info("manuf: " + manufacturerManager);
     }
 
     public CarModel dtoToEntity(String token, Object obj) throws Exception {

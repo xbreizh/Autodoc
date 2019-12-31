@@ -40,7 +40,7 @@
             <list>
                 <value>com.autodoc.model.models.car.Car</value>
                 <value>com.autodoc.model.models.person.client.Client</value>
-                <value>com.autodoc.model.models.person.employee.Employee</value>
+                <value>com.autodoc.model.models.employee.Employee</value>
                 <value>com.autodoc.model.models.bill.Bill</value>
                 <value>com.autodoc.model.models.car.CarModel</value>
                 <value>com.autodoc.model.models.car.Manufacturer</value>
@@ -53,8 +53,8 @@
                 <!--   <value>com.autodoc.model.models.pieces.PieceCategory</value>-->
                 <value>com.autodoc.model.models.person.provider.Country</value>
                 <!-- <value>com.autodoc.model.models.tasks.TemplateTask</value>
-                 <value>com.autodoc.model.models.person.employee.Skill</value>
-                 <value>com.autodoc.model.models.person.employee.SkillCategory</value>-->
+                 <value>com.autodoc.model.models.employee.Skill</value>
+                 <value>com.autodoc.model.models.employee.SkillCategory</value>-->
                 <!-- <value>com.autodoc.model.models.ExampleObject</value>-->
 
 

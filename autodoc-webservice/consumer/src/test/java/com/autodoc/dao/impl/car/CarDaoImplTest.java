@@ -5,6 +5,7 @@ import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @Transactional
 class CarDaoImplTest {
+
+    private static final Logger LOGGER = Logger.getLogger(CarDaoImplTest.class);
 
     String clientName;
     String registration;

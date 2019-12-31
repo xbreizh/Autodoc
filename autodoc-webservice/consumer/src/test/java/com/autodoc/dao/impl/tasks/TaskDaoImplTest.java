@@ -5,6 +5,7 @@ import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @Transactional
 class TaskDaoImplTest {
+
+    private static final Logger LOGGER = Logger.getLogger(TaskDaoImplTest.class);
 
     int id = 2;
     Task task;

@@ -36,13 +36,13 @@ class ProviderServiceImplTest {
 
     @Test
     void getByid() {
-        System.out.println("employee: " + service.getById(token, 1));
+        LOGGER.info("employee: " + service.getById(token, 1));
         assertNotNull(service.getById(token, 1));
     }
 
     @Test
     void getByid1() {
-        System.out.println("employee: " + service.getById(token, 12222));
+        LOGGER.info("employee: " + service.getById(token, 12222));
         assertNull(service.getById(token, 1222));
     }
 
@@ -52,7 +52,7 @@ class ProviderServiceImplTest {
         ProviderDTO provider = (ProviderDTO) service.getById(token, id);
         String company = "MOLOK";
         provider.setCompany(company);
-        System.out.println(provider);
+        LOGGER.info(provider);
         service.update(token, provider);
         assertEquals(company, ((ProviderDTO) service.getById(token, id)).getCompany());
     }
@@ -67,7 +67,7 @@ class ProviderServiceImplTest {
     @Test
     @DisplayName("should return 201 when insertion ok")
     void create() {
-        System.out.println(dto);
+        LOGGER.info(dto);
         service.filler();
         //service.delete(token, 6);
         assertEquals(201, service.create(token, dto));

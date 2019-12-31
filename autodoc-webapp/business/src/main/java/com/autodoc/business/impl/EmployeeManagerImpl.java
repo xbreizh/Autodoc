@@ -30,7 +30,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
 
     @Override
     public Employee getByLogin(String token, String login) {
-        System.out.println("serviceee: " + service);
+        LOGGER.info("serviceee: " + service);
         return dtoToEntity(token, service.getByName(token, login));
     }
 

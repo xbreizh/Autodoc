@@ -4,7 +4,7 @@ import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

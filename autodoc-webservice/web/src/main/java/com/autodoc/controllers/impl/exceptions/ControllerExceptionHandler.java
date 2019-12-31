@@ -31,13 +31,18 @@ public class ControllerExceptionHandler extends RuntimeException {
     public ResponseEntity notFoundHandler(Exception e, HttpServletRequest req) {
         LOGGER.info("Item not found. HTTP 500 returned.");
         LOGGER.debug("req: " + req.getRequestURI());
-        LOGGER.info("capturing 500 " + e.getMessage());
+        LOGGER.error("capturing 500 " + e.getMessage());
+        LOGGER.error("capturing 500 " + e.getLocalizedMessage());
+        LOGGER.error("capturing 500 " + e.getCause());
+        LOGGER.error("capturing 500 " + e.getStackTrace());
+        LOGGER.error("class: " + e.getClass());
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(e.getMessage());
 
     }
+
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)

@@ -39,7 +39,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
         HttpEntity<TaskDTO> requestUpdate = new HttpEntity<>(dto, headers);
-        System.out.println("body: "+restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getBody());
+        LOGGER.info("body: "+restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getBody());
         return restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getStatusCodeValue();
 
     }
@@ -48,7 +48,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
     @Override
     public int create(String token, Object object) {
         TaskDTO dto = (TaskDTO) object;
-        System.out.println("class: " + getClassName());
+        LOGGER.info("class: " + getClassName());
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
@@ -60,7 +60,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
         try {
             return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
         } catch (RuntimeException error) {
-            System.out.println("er: " + error.getLocalizedMessage());
+            LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
             return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));

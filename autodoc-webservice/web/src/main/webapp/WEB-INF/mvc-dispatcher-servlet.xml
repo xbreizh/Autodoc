@@ -38,7 +38,7 @@
             <list>
                 <value>com.autodoc.model.models.car.Car</value>
                 <value>com.autodoc.model.models.person.client.Client</value>
-                <value>com.autodoc.model.models.person.employee.Employee</value>
+                <value>com.autodoc.model.models.employee.Employee</value>
                 <value>com.autodoc.model.models.bill.Bill</value>
                 <value>com.autodoc.model.models.car.CarModel</value>
                 <value>com.autodoc.model.models.car.Manufacturer</value>

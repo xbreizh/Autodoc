@@ -20,7 +20,7 @@ public class CountryManagerImpl extends GlobalManagerImpl<Country, CountryDTO> i
     public CountryManagerImpl(CountryService service) {
         super(service);
         this.service = service;
-        System.out.println("created stuff " + service);
+        LOGGER.info("created stuff " + service);
     }
 
     public Country dtoToEntity(String token, Object obj) {

@@ -23,11 +23,11 @@ public class ConnectManagerImpl implements AuthenticationProvider {
     private static final String ROLE = "USER";
     private static final String BASE_URL = "http://localhost:8087/autodoc/";
     private static JSONObject personJsonObject;
-    private Logger logger = Logger.getLogger(ConnectManagerImpl.class);
+    private static Logger LOGGER = Logger.getLogger(ConnectManagerImpl.class);
 
     @Override
     public UsernamePasswordAuthenticationToken authenticate(Authentication authentication) {
-        System.out.println("trying to authenticate");
+        LOGGER.info("trying to authenticate");
         String token = "";
         String exception = "";
         String login = authentication.getName().toUpperCase();
@@ -47,26 +47,26 @@ public class ConnectManagerImpl implements AuthenticationProvider {
 
         try {
             token = restTemplate.postForObject(BASE_URL + "/authenticate", request, String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new
                     BadCredentialsException("External system authentication failed");
         }
         //JsonNode root = objectMapper.readTree(token);
 
 
-        logger.info(authentication.getPrincipal().toString());
+        LOGGER.info(authentication.getPrincipal().toString());
 
 
-         logger.info("token found: " + token);
+        LOGGER.info("token found: " + token);
 
         if (!token.equals("wrong credentials") && exception.isEmpty()) {
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(login, token, buildUserAuthority());
 
-            logger.info("trucko: " + auth.getAuthorities());
-            logger.info("cred: " + auth.getCredentials());
-            logger.info("login: " + auth.getName());
-            logger.info("principal: "+auth.getPrincipal());
+            LOGGER.info("trucko: " + auth.getAuthorities());
+            LOGGER.info("cred: " + auth.getCredentials());
+            LOGGER.info("login: " + auth.getName());
+            LOGGER.info("principal: " + auth.getPrincipal());
 
             auth.setDetails(token);
             return auth;

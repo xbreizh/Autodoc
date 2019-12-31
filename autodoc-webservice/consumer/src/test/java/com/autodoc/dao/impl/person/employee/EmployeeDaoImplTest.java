@@ -3,7 +3,8 @@ package com.autodoc.dao.impl.person.employee;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.Role;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.employee.Employee;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @Transactional
 class EmployeeDaoImplTest {
-
+    private static final Logger LOGGER = Logger.getLogger(EmployeeDaoImplTest.class);
 
     @Inject
     private EmployeeDao dao;

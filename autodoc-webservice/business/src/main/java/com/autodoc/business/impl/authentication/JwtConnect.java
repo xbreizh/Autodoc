@@ -1,7 +1,7 @@
 package com.autodoc.business.impl.authentication;
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

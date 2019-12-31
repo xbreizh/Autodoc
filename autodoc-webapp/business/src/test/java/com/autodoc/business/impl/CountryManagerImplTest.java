@@ -35,7 +35,7 @@ class CountryManagerImplTest {
     @DisplayName("should return null when id is invalid")
     void getById1() {
         int id = 22;
-        System.out.println(manager.getById(token, id));
+        LOGGER.info(manager.getById(token, id));
         assertNull("feedback: " + manager.getById(token, id));
     }
 

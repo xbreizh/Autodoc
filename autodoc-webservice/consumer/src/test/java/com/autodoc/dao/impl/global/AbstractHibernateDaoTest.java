@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.global;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.car.Car;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class AbstractHibernateDaoTest {
-
+    private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDaoTest.class);
     @Inject
     GenericHibernateDao genericHibernateDao;
 
@@ -39,13 +40,6 @@ class AbstractHibernateDaoTest {
         assertEquals(Car.class, genericHibernateDao.getClazz());
     }
 
-   /* @Test
-    void findOne() {
-        Car car = new Car();
-        genericHibernateDao.setClazz(Car.class);
-        genericHibernateDao.create(car);
-        assertNotNull();
-    }*/
 
     @Test
     void findAll() {

@@ -70,7 +70,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     public ModelAndView pieceById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get piece with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("pieces_details");
-        System.out.println("piece is null");
+        LOGGER.info("piece is null");
         Piece piece = (Piece) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("name: " + piece.getName());
         LOGGER.info("piece: " + piece);

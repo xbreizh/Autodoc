@@ -2,7 +2,7 @@
 package com.autodoc.model.models.tasks;
 
 import com.autodoc.model.enums.SearchType;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.Setter;

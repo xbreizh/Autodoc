@@ -59,13 +59,13 @@ class EmployeeControllerImplTest {
 
  /*   @Test
     void employees() {
-        System.out.println(employeeManager);
+        LOGGER.info(employeeManager);
         when(helper.getConnectedToken()).thenReturn("token123");
         when(helper.getConnectedLogin()).thenReturn("popeye");
         when(employeeManager.getAll(anyString())).thenReturn(employees);
         when(employeeManager.getByLogin("token123", "popeye")).thenReturn(employee);
-        System.out.println(employeeManager.getAll("dede").get(0));
-       // System.out.println("empl: " + controller.employees());
+        LOGGER.info(employeeManager.getAll("dede").get(0));
+       // LOGGER.info("empl: " + controller.employees());
         assertAll(
                 () -> assertNotNull(controller.employees())
         );

@@ -25,9 +25,9 @@ class CountryServiceImplTest {
     void getCountryById() {
         service = new CountryServiceImpl();
         int id = 1;
-        System.out.println(service);
+        LOGGER.info(service);
         CountryDTO country = (CountryDTO) service.getById(token, id);
-        System.out.println("country: " + country);
+        LOGGER.info("country: " + country);
         assertNotNull(service.getById(token, id));
     }
 
@@ -36,9 +36,9 @@ class CountryServiceImplTest {
     void getCountryById1() {
         service = new CountryServiceImpl();
         int id = 441;
-        System.out.println(service);
+        LOGGER.info(service);
         CountryDTO country = (CountryDTO) service.getById(token, id);
-        System.out.println("country: " + country);
+        LOGGER.info("country: " + country);
         assertNull(service.getById(token, id));
     }
 

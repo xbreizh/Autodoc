@@ -55,9 +55,9 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
         try {
             return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
         } catch (RuntimeException error) {
-            System.out.println(error.getLocalizedMessage().substring(0, 2));
+            LOGGER.info(error.getLocalizedMessage().substring(0, 2));
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
-                System.out.println("bam");
+                LOGGER.info("bam");
             }
             return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
         }

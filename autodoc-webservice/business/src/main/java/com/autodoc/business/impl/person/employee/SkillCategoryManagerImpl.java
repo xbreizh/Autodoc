@@ -5,7 +5,7 @@ import com.autodoc.business.contract.person.employee.SkillCategoryManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.employee.SkillCategoryDaoImpl;
 import com.autodoc.model.dtos.person.employee.SkillCategoryDTO;
-import com.autodoc.model.models.person.employee.SkillCategory;
+import com.autodoc.model.models.employee.SkillCategory;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

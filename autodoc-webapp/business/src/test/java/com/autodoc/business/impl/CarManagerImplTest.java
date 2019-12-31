@@ -47,7 +47,7 @@ class CarManagerImplTest {
         //when(service.getByRegistration(anyString(), anyString())).thenReturn(car);
 
         String registration = "05D154875";
-        System.out.println("mgr: "+carManager);
+        LOGGER.info("mgr: "+carManager);
         assertNotNull(carManager.getByRegistration(token, registration));
     }
 

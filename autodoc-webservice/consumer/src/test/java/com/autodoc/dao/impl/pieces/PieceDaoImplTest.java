@@ -9,6 +9,7 @@ import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class PieceDaoImplTest {
 
+    private static final Logger LOGGER = Logger.getLogger(PieceDaoImplTest.class);
+    String name = "bozo";
     @Inject
     private PieceDao dao;
     @Inject
@@ -35,10 +38,7 @@ class PieceDaoImplTest {
     private ProviderDao providerDao;
     @Inject
     private CarModelDao carModelDao;
-
     private Piece piece;
-    String name = "bozo";
-
 
     @BeforeEach
     void init() throws Exception {

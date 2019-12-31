@@ -172,7 +172,7 @@ class BookTest {
         List<Loan> loanList = new ArrayList<>();
         book.setLoanList(loanList);
         book.setKeywords("top, montagne, hiver");
-        System.out.println(book);
+        LOGGER.info(book);
 
         assertEquals("Book{id=123, isbn='AbG231', title='Le grand cirque', author='Marxo', insertDate=Thu Dec 31 00:00:00 UTC 2009, publicationYear=1984, edition='maroko', nbPages=125, keywords='top, montagne, hiver', nbAvailable='0', loanList=0}", book.toString());
     }

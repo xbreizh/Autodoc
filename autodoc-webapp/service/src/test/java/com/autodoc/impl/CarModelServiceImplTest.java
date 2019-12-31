@@ -21,7 +21,7 @@ class CarModelServiceImplTest {
     @Test
     void getById() {
         CarModelDTO model = (CarModelDTO) service.getById(token, 2);
-        System.out.println("model: " + model);
+        LOGGER.info("model: " + model);
         assertNotNull(service.getById(token, 2));
     }
 

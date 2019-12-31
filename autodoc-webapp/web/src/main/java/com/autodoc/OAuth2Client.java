@@ -41,7 +41,7 @@ public class OAuth2Client {
     private void getCars() {
         Car[] cars = oauth2RestTemplate.getForObject(CRM_OAUTH2_URI, Car[].class);
         for (Car car : cars) {
-            System.out.println(car);
+            LOGGER.info(car);
         }
     }
 
@@ -53,7 +53,7 @@ public class OAuth2Client {
      *//*
 
     private OAuth2RestTemplate restTemplate() {
-        System.out.println("getting OAuth2RestTemplate ...");
+        LOGGER.info("getting OAuth2RestTemplate ...");
 
         ResourceOwnerPasswordResourceDetails resourceDetails = new ResourceOwnerPasswordResourceDetails();
         resourceDetails.setGrantType("password");

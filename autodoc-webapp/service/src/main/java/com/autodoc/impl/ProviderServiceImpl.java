@@ -48,7 +48,7 @@ public class ProviderServiceImpl extends GlobalServiceImpl<ProviderDTO> implemen
     @Override
     public int create(String token, Object object) {
         ProviderDTO dto = (ProviderDTO) object;
-        System.out.println("class: " + getClassName());
+        LOGGER.info("class: " + getClassName());
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
@@ -60,7 +60,7 @@ public class ProviderServiceImpl extends GlobalServiceImpl<ProviderDTO> implemen
         try {
             return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
         } catch (RuntimeException error) {
-            System.out.println("er: " + error.getLocalizedMessage());
+            LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
             return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));

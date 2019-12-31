@@ -38,7 +38,7 @@ class EmployeeManagerImplTest {
             throws IOException {
 
         String login = "LMOLO";
-        System.out.println(employeeManager.getByLogin(token, login));
+        LOGGER.info(employeeManager.getByLogin(token, login));
 
         assertNotNull(employeeManager.getByLogin(token, login));
 
@@ -61,7 +61,7 @@ class EmployeeManagerImplTest {
             throws Exception {
 
         int id = 3333331;
-        System.out.println("dede: " + employeeManager.getById(token, id));
+        LOGGER.info("dede: " + employeeManager.getById(token, id));
         assertNull(employeeManager.getById(token, id));
 
     }

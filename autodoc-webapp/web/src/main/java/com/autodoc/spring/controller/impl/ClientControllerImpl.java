@@ -57,7 +57,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
     public ModelAndView clientById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("clients_details");
-        System.out.println("client is null");
+        LOGGER.info("client is null");
         Client client = (Client) clientManager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + client.getPhoneNumber1());
         mv.addObject("clientForm", client);

@@ -1,4 +1,4 @@
-package com.autodoc.model.models.person.employee;
+package com.autodoc.model.models.employee;
 
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.enums.SearchType;
@@ -17,6 +17,7 @@ import java.util.*;
 @Getter
 public class Employee extends Person {
 
+
     public static final Map<String, SearchType> SEARCH_FIELD = createMap();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
@@ -32,13 +33,12 @@ public class Employee extends Person {
     private String login;
     @NotNull
     private String password;
+    private String token;
 
 
     /*  @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
       private List<Skill> skills;
   */
-
-    private String token;
     private Date lastConnection;
     private Date tokenExpiration;
 
@@ -82,4 +82,6 @@ public class Employee extends Person {
                 ", phoneNumber1='" + phoneNumber1 + '\'' +
                 '}';
     }
+
+
 }

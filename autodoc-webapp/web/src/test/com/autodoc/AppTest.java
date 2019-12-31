@@ -21,8 +21,8 @@ class AppTest {
                 = "http://localhost:8087/autodoc/filler";
         ResponseEntity<String> response
                 = restTemplate.getForEntity(fooResourceUrl, String.class);
-        System.out.println(restTemplate.getInterceptors().get(0).toString());
-        System.out.println("response code: " + response.getStatusCode());
+        LOGGER.info(restTemplate.getInterceptors().get(0).toString());
+        LOGGER.info("response code: " + response.getStatusCode());
         assertEquals(201, response.getStatusCodeValue());
     }
 

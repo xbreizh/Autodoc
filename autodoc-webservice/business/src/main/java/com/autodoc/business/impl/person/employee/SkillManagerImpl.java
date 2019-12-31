@@ -7,7 +7,7 @@ import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.dao.impl.person.employee.SkillDaoImpl;
 import com.autodoc.model.dtos.person.employee.SkillDTO;
-import com.autodoc.model.models.person.employee.Skill;
+import com.autodoc.model.models.employee.Skill;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

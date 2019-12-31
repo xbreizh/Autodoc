@@ -18,11 +18,11 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     public T getById(String token, int id) throws Exception {
-        System.out.println("getting by id");
-        System.out.println(service);
+        LOGGER.info("getting by id");
+        LOGGER.info(service);
         D obj = (D)  service.getById(token, id);
         if (obj == null) return null;
-        System.out.println("className: "+obj.getClass().getName());
+        LOGGER.info("className: "+obj.getClass().getName());
         T cc = dtoToEntity(token, obj);
         LOGGER.info("object: " + cc);
         return dtoToEntity(token, obj);

@@ -120,7 +120,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
                 LinkedTreeMap<Object,Object> t = (LinkedTreeMap) obj;
                 newList.add((D) obj);
             }
-            System.out.println(newList.get(0).getClass());
+            LOGGER.info(newList.get(0).getClass());
 
             return newList;
         } catch (Exception e) {
@@ -142,8 +142,8 @@ public class GlobalServiceImpl<D> implements GlobalService {
             String url = BASE_URL + className;
             LOGGER.info("list class: "+getListClass().toString());
             ResponseEntity<D[]> response = restTemplate.exchange(url, HttpMethod.GET, request,getListClass());
-            System.out.println("resp: "+response.getBody());
-            System.out.println(response.getBody()[0]);
+            LOGGER.info("resp: "+response.getBody());
+            LOGGER.info(response.getBody()[0]);
 
             return Arrays.asList(response.getBody());
         } catch (Exception e) {

@@ -55,7 +55,7 @@ class AppTest {
         String token =
                 restTemplate.postForObject(baseUrl+"/authenticate", request, String.class);
         JsonNode root = objectMapper.readTree(token);
-        System.out.println("tokent: "+token);
+        LOGGER.info("tokent: "+token);
         assertNotNull(token);
         assertNotNull(root);
         //assertNotNull(root.path("name").asText());

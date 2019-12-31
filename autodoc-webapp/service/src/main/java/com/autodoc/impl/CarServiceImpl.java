@@ -31,16 +31,16 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
             LOGGER.info("registration: " + registration);
             String url = BASE_URL + getClassName() + "/registration?registration=" + registration;
             LOGGER.info("url: " + url);
-            //System.out.println("retour: "+restTemplate.exchange(url, HttpMethod.GET, request, CarDTO.class));
+            //LOGGER.info("retour: "+restTemplate.exchange(url, HttpMethod.GET, request, CarDTO.class));
             ResponseEntity<CarDTO> response = restTemplate.exchange(url, HttpMethod.GET, request, CarDTO.class);
             LOGGER.info("object found: " + response);
             if (response.getStatusCodeValue() == 404) return null;
             //checkObjectFields()
             return response.getBody();
         } catch (Exception e) {
-            System.out.println("before");
+            LOGGER.info("before");
             if (e.getMessage().equals("404 null")) return null;
-            System.out.println("after");
+            LOGGER.info("after");
             throw new
                     BadCredentialsException("External system authentication failed");
         }

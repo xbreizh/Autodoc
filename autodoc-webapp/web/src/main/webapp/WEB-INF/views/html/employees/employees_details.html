@@ -24,7 +24,7 @@
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${employee.id}">
 
-        <div th:replace="fragments/employees_form :: form"></div>
+        <div th:replace="employees/employees_form :: form"></div>
     </div>
     <div style="display: block; background-color: orangered" th:id="'mic' + ${employee.id}">
         <table>

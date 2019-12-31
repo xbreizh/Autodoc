@@ -15,8 +15,15 @@ import javax.persistence.MappedSuperclass;
 public abstract class Person {
 
 
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
+    @NonNull
+    protected String firstName;
+    @NonNull
+    protected String lastName;
+    @NonNull
+    protected String phoneNumber1;
 
     public Person() {
     }
@@ -26,23 +33,6 @@ public abstract class Person {
         this.lastName = lastName;
         this.phoneNumber1 = phoneNumber1;
     }
-
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
-
-    @NonNull
-    protected String firstName;
-
-    @NonNull
-    protected String lastName;
-
-    @NonNull
-    protected String phoneNumber1;
-
-
 
     @Override
     public String toString() {

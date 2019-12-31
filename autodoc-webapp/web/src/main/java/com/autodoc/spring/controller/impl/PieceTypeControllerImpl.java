@@ -58,7 +58,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
     public ModelAndView pieceTypeById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("pieceTypes_details");
-        System.out.println("pieceType is null");
+        LOGGER.info("pieceType is null");
         PieceType pieceType = (PieceType) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + pieceType.getName());
         LOGGER.info("pieceType: " + pieceType);

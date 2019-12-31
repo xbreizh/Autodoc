@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.pieces;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.pieces.PieceType;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @Transactional
 class PieceTypeDaoImplTest {
+
+    private static final Logger LOGGER = Logger.getLogger(PieceTypeDaoImplTest.class);
 
     String clientName;
     String registration;

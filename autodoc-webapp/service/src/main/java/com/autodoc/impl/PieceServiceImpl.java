@@ -49,7 +49,7 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
     @Override
     public int create(String token, Object object) {
         PieceDTO dto = (PieceDTO) object;
-        System.out.println("class: " + getClassName());
+        LOGGER.info("class: " + getClassName());
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("piece: " + dto);
@@ -61,7 +61,7 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
         try {
             return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
         } catch (RuntimeException error) {
-            System.out.println("er: " + error.getLocalizedMessage());
+            LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
             return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));

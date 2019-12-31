@@ -38,13 +38,13 @@ class TaskServiceImplTest {
 
     @Test
     void getByid() {
-        System.out.println("employee: " + service.getById(token, 1));
+        LOGGER.info("employee: " + service.getById(token, 1));
         assertNotNull(service.getById(token, 1));
     }
 
     @Test
     void getByid1() {
-        System.out.println("employee: " + service.getById(token, 12222));
+        LOGGER.info("employee: " + service.getById(token, 12222));
         assertNull(service.getById(token, 1222));
     }
 
@@ -52,10 +52,10 @@ class TaskServiceImplTest {
     void update() {
         int id = 2;
         TaskDTO dto = (TaskDTO) service.getById(token, id);
-        System.out.println(dto);
+        LOGGER.info(dto);
         String name = "MOLsssOK";
         dto.setName(name);
-        System.out.println(dto);
+        LOGGER.info(dto);
         service.update(token, dto);
         assertEquals(name.toUpperCase(), ((TaskDTO) service.getById(token, id)).getName());
     }
@@ -64,14 +64,14 @@ class TaskServiceImplTest {
     void update1() {
         int id = 2;
         TaskDTO dto = (TaskDTO) service.getById(token, id);
-        System.out.println(dto);
+        LOGGER.info(dto);
         String name = "MOLsssOK";
         dto.setName(name);
         dto.setEstimatedTime(123);
         dto.setDescription("plouf");
         dto.setPrice(2);
         dto.setTemplate("false");
-        System.out.println(dto);
+        LOGGER.info(dto);
         service.update(token, dto);
         assertEquals(name.toUpperCase(), ((TaskDTO) service.getById(token, id)).getName());
     }
@@ -86,7 +86,7 @@ class TaskServiceImplTest {
     @Test
     @DisplayName("should return 201 when insertion ok")
     void create() {
-        System.out.println(dto);
+        LOGGER.info(dto);
         service.filler();
         Random random = new Random();
         dto.setName("ssssss" + random.nextInt(33));

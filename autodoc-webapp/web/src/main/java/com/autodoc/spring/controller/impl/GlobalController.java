@@ -4,6 +4,7 @@ import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.dtos.RegistrationForm;
+import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -92,16 +93,15 @@ public class GlobalController<D, T> {
     }
 
     @GetMapping("/operations")
-    public ModelAndView operations(RegistrationForm registrationForm) {
-        System.out.println("show form");
-        //return "operations";
+    public ModelAndView operations(CarForm registrationForm) {
+        LOGGER.info("show form");
         ModelAndView mv = checkAndAddConnectedDetails("operations");
         return mv;
     }
 
     @GetMapping("/person")
     public String showForm(RegistrationForm personForm) {
-        System.out.println("show form");
+        LOGGER.info("show form");
         return "operations";
     }
 
@@ -126,7 +126,7 @@ public class GlobalController<D, T> {
     public ModelAndView checkAndAddConnectedDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
         Employee connected = employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
-        System.out.println("connected found: " + connected);
+        LOGGER.info("connected found: " + connected);
         if (connected == null) mv = new ModelAndView(LOGIN);
         mv.addObject("connected", connected);
         return mv;

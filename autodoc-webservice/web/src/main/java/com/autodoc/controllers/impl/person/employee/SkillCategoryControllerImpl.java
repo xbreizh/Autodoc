@@ -7,7 +7,7 @@ import com.autodoc.controllers.contract.person.employee.SkillCategoryController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.person.employee.SkillCategoryDTO;
-import com.autodoc.model.models.person.employee.SkillCategory;
+import com.autodoc.model.models.employee.SkillCategory;
 import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
