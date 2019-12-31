@@ -88,7 +88,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         LOGGER.info("carrying on");
         LOGGER.info("employee retrieved: " + employeeForm);
         employeeManager.update(helper.getConnectedToken(), employeeForm);
-        return new ModelAndView("redirect:" + "employees/employees/" + employeeForm.getId());
+        return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());
     }
 
     @GetMapping(value = "/delete/{id}")
