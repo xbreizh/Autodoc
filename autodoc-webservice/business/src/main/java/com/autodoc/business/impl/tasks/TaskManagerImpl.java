@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.tasks;
 
 import com.autodoc.business.contract.tasks.TaskManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
@@ -57,7 +58,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     }
 
     @Override
-    public Task dtoToEntity(Object entity) throws Exception {
+    public Task dtoToEntity(Object entity) throws InvalidDtoException {
         LOGGER.info("trying to convert into entity");
         TaskDTO dto = (TaskDTO) entity;
         Task task = new Task();
@@ -108,17 +109,17 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     }
 
 
-    public Task transferInsert(Object obj) throws Exception {
+    public Task transferInsert(Object obj) throws InvalidDtoException {
         LOGGER.info("trying to convert into entity");
         TaskDTO dto = (TaskDTO) obj;
         String name = dto.getName();
         double price = dto.getPrice();
         int estimatedTime = dto.getEstimatedTime();
         Task task = (Task) taskDao.getByName(name);
-        if (task != null) throw new Exception("there is already a task with that name");
+        if (task != null) throw new InvalidDtoException("there is already a task with that name");
         task = new Task();
-        if (price == 0) throw new Exception("there should be a price");
-        if (estimatedTime == 0) throw new Exception("there should be an estimated time");
+        if (price == 0) throw new InvalidDtoException("there should be a price");
+        if (estimatedTime == 0) throw new InvalidDtoException("there should be an estimated time");
         task.setName(dto.getName().toUpperCase());
         transferTemplateToEntity(dto, task);
         task.setDescription(dto.getDescription());
@@ -129,12 +130,12 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         return task;
     }
 
-    private void transferTemplateToEntity(TaskDTO dto, Task task) throws Exception {
+    private void transferTemplateToEntity(TaskDTO dto, Task task) throws InvalidDtoException {
         String template = dto.getTemplate();
 
         if (template != null) {
             if (!template.equalsIgnoreCase("true") && !template.equalsIgnoreCase("false")) {
-                throw new Exception("template must be a boolean");
+                throw new InvalidDtoException("template must be a boolean");
             }
             task.setTemplate(Boolean.parseBoolean(template));
             LOGGER.info("passing template value: " + task);
@@ -142,7 +143,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     }
 
 
-    private void updatePieces(TaskDTO dto, Task task) throws Exception {
+    private void updatePieces(TaskDTO dto, Task task) throws InvalidDtoException {
         LOGGER.info("updating pieces: " + dto);
         LOGGER.info("updating pieces: " + task);
         if (dto.getPieces() != null) {
@@ -154,7 +155,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
                 if (piece == null) {
                     LOGGER.info("invalid piece: " + pieceId);
 
-                    throw new Exception("invalid piece: " + pieceId);
+                    throw new InvalidDtoException("invalid piece: " + pieceId);
             }
                 Piece piece1 = (Piece) pieceDao.getById(pieceId);
                 piece1.getTasks().add(task);
@@ -168,7 +169,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     }
 
 
-    public Task transferUpdate(Object obj) throws Exception {
+    public Task transferUpdate(Object obj) throws InvalidDtoException {
         TaskDTO dto = (TaskDTO) obj;
         LOGGER.info("trying to convert into entity: " + dto);
         String name = dto.getName();
@@ -178,10 +179,11 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         String template = dto.getTemplate();
 
         int id = dto.getId();
-        if (id == 0) throw new Exception("no id provided");
+        if (id == 0) throw new InvalidDtoException("no id provided");
         Task task = (Task) taskDao.getById(id);
-        if (task == null) throw new Exception("invalid id " + id);
-        if (task.isTemplate()) throw new Exception("you must use the updateTemplate method for updating templates");
+        if (task == null) throw new InvalidDtoException("invalid id " + id);
+        if (task.isTemplate())
+            throw new InvalidDtoException("you must use the updateTemplate method for updating templates");
         transferTemplateToEntity(dto, task);
         if (name != null) task.setName(name.toUpperCase());
         if (price != 0) task.setPrice(price);

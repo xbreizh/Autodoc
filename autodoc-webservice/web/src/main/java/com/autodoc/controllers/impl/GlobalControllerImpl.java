@@ -1,6 +1,7 @@
 package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.IGenericManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.controllers.contract.GlobalController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.models.search.SearchDTO;
@@ -61,7 +62,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         LOGGER.info("response: " + response);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(Integer.parseInt(response));
-        } catch (Exception e) {
+        } catch (InvalidDtoException e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(response);

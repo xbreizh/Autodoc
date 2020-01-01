@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
@@ -39,7 +40,7 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     }
 
     @Override
-    public Manufacturer dtoToEntity(Object entity) throws Exception {
+    public Manufacturer dtoToEntity(Object entity) throws InvalidDtoException {
         LOGGER.info("converted into ");
         ManufacturerDTO dto = (ManufacturerDTO) entity;
         Manufacturer manufacturer = mapper.map(entity, Manufacturer.class);
@@ -59,13 +60,13 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
 
 
     @Override
-    public void checkDataInsert(Object dtoToCheck) throws Exception {
+    public void checkDataInsert(Object dtoToCheck) throws InvalidDtoException {
         ManufacturerDTO dto = (ManufacturerDTO) dtoToCheck;
         if (dto.getName() == null || dto.getName().isEmpty()) {
-            throw new Exception("there should be a name");
+            throw new InvalidDtoException("there should be a name");
         }
         if (manufacturerDao.getByName(dto.getName()) != null) {
-            throw new Exception("Manufacturer already exist with that name");
+            throw new InvalidDtoException("Manufacturer already exist with that name");
         }
         LOGGER.info("all good");
     }

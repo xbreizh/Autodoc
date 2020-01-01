@@ -1,6 +1,7 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.IGenericManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
@@ -38,7 +39,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
 
-    public String save(D object) {
+    public String save(D object) throws InvalidDtoException {
         LOGGER.info("trying to save a " + object.getClass());
         LOGGER.info("trying to save: " + object.getClass());
         try {
@@ -56,6 +57,9 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             }
             LOGGER.info("issue while saving");
             return "issue while saving";
+        } catch (InvalidDtoException e) {
+            LOGGER.error(e.getMessage());
+            return e.getMessage();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return e.getMessage();
@@ -88,7 +92,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     @Override
-    public void checkDataUpdate(Object dto) throws Exception {
+    public void checkDataUpdate(Object dto) throws InvalidDtoException {
         LOGGER.info("checking update data");
     }
 

@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.pieces;
 
 import com.autodoc.business.contract.pieces.PieceManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
@@ -51,10 +52,10 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
     }
 
     @Override
-    public Piece transferInsert(Object obj) throws Exception {
+    public Piece transferInsert(Object obj) throws InvalidDtoException {
         PieceDTO dto = (PieceDTO) obj;
         String name = dto.getName().toUpperCase();
-        if (pieceDao.getByName(name) != null) throw new Exception("that piece already exist");
+        if (pieceDao.getByName(name) != null) throw new InvalidDtoException("that piece already exist");
         Piece piece = new Piece();
         piece.setName(name.toUpperCase());
         piece.setBrand(dto.getBrand());
@@ -77,28 +78,28 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         }
     }*/
 
-    private void transferPieceType(PieceDTO dto, Piece piece) throws Exception {
+    private void transferPieceType(PieceDTO dto, Piece piece) throws InvalidDtoException {
         if (dto.getPieceTypeId() != 0) {
             PieceType pieceType = (PieceType) pieceTypeDao.getById(dto.getPieceTypeId());
-            if (pieceType == null) throw new Exception("invalid pieceType id: " + dto.getPieceTypeId());
+            if (pieceType == null) throw new InvalidDtoException("invalid pieceType id: " + dto.getPieceTypeId());
             piece.setPieceType(pieceType);
         }
     }
 
-    private void transferCarModel(PieceDTO dto, Piece piece) throws Exception {
+    private void transferCarModel(PieceDTO dto, Piece piece) throws InvalidDtoException {
         if (dto.getCarModelId() != 0) {
             CarModel carModel = (CarModel) carModelDao.getById(dto.getCarModelId());
-            if (carModel == null) throw new Exception("invalid carModel id: " + dto.getCarModelId());
+            if (carModel == null) throw new InvalidDtoException("invalid carModel id: " + dto.getCarModelId());
             piece.setCarModel(carModel);
         }
     }
 
-    public Piece transferUpdate(Object obj) throws Exception {
+    public Piece transferUpdate(Object obj) throws InvalidDtoException {
         PieceDTO dto = (PieceDTO) obj;
         int id = dto.getId();
-        if (id == 0) throw new Exception("no id passed");
+        if (id == 0) throw new InvalidDtoException("no id passed");
         Piece piece = (Piece) pieceDao.getById(id);
-        if (piece == null) throw new Exception("invalid id: " + id);
+        if (piece == null) throw new InvalidDtoException("invalid id: " + id);
         String name = dto.getName();
         String brand = dto.getBrand();
         double buyingPrice = dto.getBuyingPrice();

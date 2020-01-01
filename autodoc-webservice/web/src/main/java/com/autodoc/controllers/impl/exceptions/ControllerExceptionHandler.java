@@ -1,5 +1,6 @@
 package com.autodoc.controllers.impl.exceptions;
 
+import com.autodoc.business.exceptions.InvalidDtoException;
 import org.apache.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,15 @@ public class ControllerExceptionHandler extends RuntimeException {
 
     }
 
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(InvalidDtoException.class)
+    public ResponseEntity invalidDto(InvalidDtoException e) {
+        LOGGER.info("handling dto exception: " + e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(e.getMessage());
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)

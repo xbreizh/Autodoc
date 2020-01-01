@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.bill;
 
 import com.autodoc.business.contract.bill.BillManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
@@ -78,7 +79,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setId(id);
         bill.setDate(dto.getDate());
         Car car = carDao.getCarByRegistration(dto.getRegistration());
-        if (car == null) throw new Exception("car cannot be null");
+        if (car == null) throw new InvalidDtoException("car cannot be null");
         LOGGER.info("car found: " + car);
         bill.setCar(car);
         bill.setDiscount(dto.getDiscount());
@@ -86,18 +87,18 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         List<Task> taskList = new ArrayList<>();
         for (Integer i: dto.getTasks()){
             Task task = (Task) taskDao.getById(i);
-            if(task==null)throw  new Exception("invalid task");
+            if (task == null) throw new InvalidDtoException("invalid task");
             taskList.add(task);
         }
         bill.setTasks(taskList);
         Client client = (Client) clientDao.getById( dto.getClientId());
-        if (client == null) throw new Exception("invalid client reference: " + dto.getClientId());
+        if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
         LOGGER.info("client found: " + client);
         bill.setClient(client);
         bill.setTotal(dto.getTotal());
         bill.setVat(dto.getVat());
         Employee employee = (Employee) employeeDao.getById( dto.getEmployeeId());
-        if (employee == null) throw new Exception("invalid employee reference: " + dto.getEmployeeId());
+        if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
         LOGGER.info("employee found: " + employee);
         bill.setEmployee(employee);
         LOGGER.info("bill transferred: " + bill);

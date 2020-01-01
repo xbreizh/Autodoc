@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.ProviderManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.provider.ProviderDaoImpl;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
@@ -71,13 +72,13 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
 
     }
 
-    public Provider transferUpdate(Object obj) throws Exception {
+    public Provider transferUpdate(Object obj) throws InvalidDtoException {
         LOGGER.info("transferring update data");
         ProviderDTO dto = (ProviderDTO) obj;
         int id = dto.getId();
-        if (id == 0) throw new Exception("id cannot be null");
+        if (id == 0) throw new InvalidDtoException("id cannot be null");
         Provider provider = (Provider) providerDao.getById(id);
-        if (provider == null) throw new Exception("invalid id");
+        if (provider == null) throw new InvalidDtoException("invalid id");
         if (dto.getFirstName() != null) {
             provider.setFirstName(dto.getFirstName().toUpperCase());
         }
@@ -114,7 +115,7 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         searchList.add(search2);
         List<Provider> providers = providerDao.getByCriteria(searchList);
         if (!providers.isEmpty())
-            throw new Exception("that client already exist: " + dto.getFirstName() + " " + dto.getLastName());
+            throw new InvalidDtoException("that client already exist: " + dto.getFirstName() + " " + dto.getLastName());
 
     }
 }

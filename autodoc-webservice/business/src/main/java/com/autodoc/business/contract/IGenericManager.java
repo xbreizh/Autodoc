@@ -1,5 +1,6 @@
 package com.autodoc.business.contract;
 
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.model.models.search.SearchDTO;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface IGenericManager<T, D> {
 
     List<D> getAll();
 
-    String save(final D entity) throws Exception;
+    String save(final D entity) throws InvalidDtoException;
 
     boolean update(final D entity) throws Exception;
 
@@ -25,7 +26,7 @@ public interface IGenericManager<T, D> {
 
     void checkDataInsert(Object dto) throws Exception;
 
-    void checkDataUpdate(Object dto) throws Exception;
+    void checkDataUpdate(Object dto) throws InvalidDtoException;
 
     D getByName(String name) throws Exception;
 

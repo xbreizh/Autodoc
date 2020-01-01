@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.person.employee;
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.dtos.RoleListDTO;
@@ -72,10 +73,10 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
 
     @Override
-    public Employee transferUpdate(Object obj) throws Exception {
+    public Employee transferUpdate(Object obj) throws InvalidDtoException {
         LOGGER.info("transfer update: " + obj);
         EmployeeDTO dto = (EmployeeDTO) obj;
-        if (dto.getId() == 0) throw new Exception("invalid id: " + 0);
+        if (dto.getId() == 0) throw new InvalidDtoException("invalid id: " + 0);
         Employee employee = (Employee) employeeDao.getById(dto.getId());
         if (employee == null) return null;
         if (dto.getLogin() != null) employee.setLogin(dto.getLogin().toUpperCase());
@@ -87,7 +88,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         return employee;
     }
 
-    private List<Role> convertRoleFromDtoToEntity(List<String> roles) throws Exception {
+    private List<Role> convertRoleFromDtoToEntity(List<String> roles) throws InvalidDtoException {
+        LOGGER.info("converting role to entity");
         List<Role> roleList = new ArrayList<>();
         for (String role : roles) {
             try {
@@ -95,7 +97,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
                 roleList.add(Role.valueOf(role.toUpperCase()));
 
             } catch (Exception e) {
-                throw new Exception("invalid role: " + role);
+                throw new InvalidDtoException("invalid role: " + role);
             }
         }
         return roleList;
@@ -107,12 +109,12 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         Employee employee1 = employeeDao.getByLogin(dto.getLogin().toUpperCase());
         LOGGER.info("employee1: " + employee1);
         if (employeeDao.getByLogin(dto.getLogin()) != null) {
-            throw new Exception("That login is already used: " + dto.getLogin());
+            throw new InvalidDtoException("That login is already used: " + dto.getLogin());
         }
         LOGGER.info("transferring data: " + dto);
       /*  dto.setId(0);
         LOGGER.info("transferring data: " + dto);*/
-        checkDataInsert(dto);
+        //  checkDataInsert(dto);
         Employee employee = new Employee();
         employee.setLogin(dto.getLogin().toUpperCase());
         employee.setFirstName(dto.getFirstName().toUpperCase());
@@ -153,7 +155,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     }
 
     @Override
-    public List<EmployeeDTO> getByRoles(List<RoleListDTO> roles) throws Exception {
+    public List<EmployeeDTO> getByRoles(List<RoleListDTO> roles) throws InvalidDtoException {
         LOGGER.info("trying to get by role manager");
         checkRoleValuesValid(roles);
         List<Role> roleList = checkRoleValuesValid(roles);
@@ -174,21 +176,21 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         return employeeDTOList;
     }
 
-    public List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws Exception {
+    public List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws InvalidDtoException {
         LOGGER.info("trying to validate roles: " + roles.size());
-        if (roles.isEmpty()) throw new Exception("no role provided");
+        if (roles.isEmpty()) throw new InvalidDtoException("no role provided");
         List<Role> roleList = new ArrayList<>();
         for (RoleListDTO role : roles) {
             boolean found = false;
             for (Role role1 : Role.values()) {
-                if (role.getRole() == null) throw new Exception("there shouldn't be any empty role");
+                if (role.getRole() == null) throw new InvalidDtoException("there shouldn't be any empty role");
                 if (role.getRole().equalsIgnoreCase(role1.name())) {
                     found = true;
                     LOGGER.info("found: " + role);
                     roleList.add(role1);
                 }
             }
-            if (!found) throw new Exception("wrong value for role: " + role);
+            if (!found) throw new InvalidDtoException("wrong value for role: " + role);
         }
         LOGGER.info("all roles are valid: " + roles);
         return roleList;
