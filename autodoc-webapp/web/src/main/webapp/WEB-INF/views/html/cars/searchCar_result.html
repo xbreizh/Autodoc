@@ -1,0 +1,99 @@
+<div th:fragment="searchCar_result" xmlns:th="http:/www.w3.org/1999/xhtml">
+
+
+
+    <table class="table table-striped">
+        <caption style="display: none">Car details</caption>
+        <thead>
+        <tr>
+            <th id="Id">Id</th>
+            <th id="Registration">registration</th>
+            <th id="manufacturer">manufacturer</th>
+            <th id="model">model</th>
+            <th id="Description">description</th>
+            <th id="Gearbox">gearbox</th>
+            <th id="Engine">engine</th>
+            <th id="FuelType">fuelType</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:fragment="carDetails">
+            <td th:text="${car.id}">lastName</td>
+            <td th:text="${car.registration}">registration</td>
+            <td th:text="${model.manufacturer.name}">manufacturer</td>
+            <td th:text="${model.name}">model</td>
+            <td th:text="${model.description}">description</td>
+            <td th:text="${model.gearbox}">gearbox</td>
+            <td th:text="${model.engine}">engine</td>
+            <td th:text="${model.fuelType}">fuelType</td>
+
+        </tr>
+
+
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <br>
+    <table class="table table-striped">
+        <caption style="display: none">Client details</caption>
+        <thead>
+        <tr>
+            <th id="name">Id</th>
+            <th id="FirstName">firstName</th>
+            <th id="LastName">lastName</th>
+            <th id="PhoneNumber1">phoneNumber1</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:fragment="clientDetails">
+            <td th:text="${client.id}">Id</td>
+            <td th:text="${client.firstName}">firstName</td>
+            <td th:text="${client.lastName}">lastName</td>
+            <td th:text="${client.phoneNumber1}">phoneNumber1</td>
+        </tr>
+
+
+        </tbody>
+    </table>
+    <br><br>
+
+    <a th:href="@{'/bills/new'}">
+        <button class="btn btn-info" type="button">New</button>
+    </a>
+    <br><br>
+
+    <br>
+    <div th:if="${not #lists.isEmpty(bills)}">
+
+
+        <table class="table table-striped">
+            <caption style="display: none">History</caption>
+            <thead>
+            <tr>
+                <th id="Date">Date</th>
+                <th id="Total">Total</th>
+                <th id="Status">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:fragment="billDetails">
+            <tr th:each="bill : ${bills}">
+                <td th:text="${bill.date}">date</td>
+                <td th:text="${bill.total}">total</td>
+                <td th:text="${bill.status}">status</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div th:if="${ #lists.isEmpty(bills)}">No previous history
+    </div>
+</div>
+
+
+
+

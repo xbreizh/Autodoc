@@ -24,7 +24,7 @@
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${car.id}">
 
-        <div th:replace="fragments/cars_form :: form"></div>
+        <div th:replace="cars/cars_form :: form"></div>
     </div>
     <div style="display: block; background-color: orangered" th:id="'mic' + ${car.id}">
         <table>

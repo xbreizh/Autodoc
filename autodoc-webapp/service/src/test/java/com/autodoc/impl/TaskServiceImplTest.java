@@ -2,6 +2,7 @@ package com.autodoc.impl;
 
 import com.autodoc.contract.TaskService;
 import com.autodoc.model.dtos.tasks.TaskDTO;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ class TaskServiceImplTest {
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njg1MzEzMywiaWF0IjoxNTc2ODM1MTMzfQ.FTrgIwjlfOHF4ysTXGrsOIHzVWeU9UMVbmNad6KdxrOpgLY0T2XztpCxSBvEyqk6Sy65eFLBlyol13vVXsPRpQ";
     private TaskDTO dto;
     private Class clazz = TaskDTO.class;
+    private static final Logger LOGGER = Logger.getLogger(TaskServiceImplTest.class);
 
     @BeforeEach
     void init() {

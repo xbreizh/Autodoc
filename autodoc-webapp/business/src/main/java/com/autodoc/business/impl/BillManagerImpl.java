@@ -3,6 +3,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.*;
 import com.autodoc.contract.BillService;
+import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
 import com.autodoc.model.models.bill.Bill;
@@ -98,4 +99,8 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     }
 
 
+    @Override
+    public List<Bill> getByRegistration(String token, SearchDto searchDto) {
+        return service.getByCriteria(token, searchDto);
+    }
 }

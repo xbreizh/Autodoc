@@ -1,15 +1,17 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.GlobalService;
-import com.autodoc.model.dtos.person.employee.EmployeeDTO;
-import com.google.gson.internal.LinkedTreeMap;
+import com.autodoc.model.dtos.SearchDto;
 import org.apache.log4j.Logger;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class GlobalServiceImpl<D> implements GlobalService {
 
@@ -32,6 +34,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
     Class getObjectClass() {
         return null;
     }
+
     Class getListClass() {
         return null;
     }
@@ -101,35 +104,6 @@ public class GlobalServiceImpl<D> implements GlobalService {
         }
     }
 
- /*   @Override
-    public List<D> getAll(String token) {
-        LOGGER.info("trying to get employee by login");
-        setupHeader(token);
-        try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
-            String className = getClassName();
-            String url = BASE_URL + className;
-            LOGGER.info(ArrayList.class);
-            ResponseEntity<ArrayList> response = restTemplate.exchange(url, HttpMethod.GET, request, ArrayList.class);
-            LOGGER.info("result: " + response.getBody().get(0));
-
-
-            List<D> newList = new ArrayList<>();
-            for (Object obj : response.getBody()) {
-                LinkedTreeMap<Object,Object> t = (LinkedTreeMap) obj;
-                newList.add((D) obj);
-            }
-            LOGGER.info(newList.get(0).getClass());
-
-            return newList;
-        } catch (Exception e) {
-            LOGGER.info("error occured");
-            throw new
-                    BadCredentialsException("External system authentication failed");
-        }
-    }*/
-
 
     @Override
     public List<D> getAll(String token) {
@@ -140,9 +114,9 @@ public class GlobalServiceImpl<D> implements GlobalService {
             LOGGER.info("token: " + token);
             String className = getClassName();
             String url = BASE_URL + className;
-            LOGGER.info("list class: "+getListClass().toString());
-            ResponseEntity<D[]> response = restTemplate.exchange(url, HttpMethod.GET, request,getListClass());
-            LOGGER.info("resp: "+response.getBody());
+            LOGGER.info("list class: " + getListClass().toString());
+            ResponseEntity<D[]> response = restTemplate.exchange(url, HttpMethod.GET, request, getListClass());
+            LOGGER.info("resp: " + response.getBody());
             LOGGER.info(response.getBody()[0]);
 
             return Arrays.asList(response.getBody());
@@ -153,6 +127,36 @@ public class GlobalServiceImpl<D> implements GlobalService {
         }
     }
 
+
+    @Override
+    public List<D> getByCriteria(String token, SearchDto searchDto) {
+        LOGGER.info("trying to get employee by login");
+        setupHeader(token);
+        try {
+            LOGGER.info("restTemplate ready");
+            LOGGER.info("token: " + token);
+            String className = getClassName();
+            String url = BASE_URL + className + "/criteria";
+            LOGGER.info("list class: " + getListClass().toString());
+            System.out.println(request.toString());
+            final HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(token);
+
+            String crit = searchDto.toString();
+            HttpEntity<String> request = new HttpEntity<>(crit, headers);
+            System.out.println(request);
+            ResponseEntity<D[]> response = restTemplate.exchange(url, HttpMethod.POST, request, getListClass());
+            System.out.println("response: " + response.getBody());
+            return Arrays.asList(response.getBody());
+        } catch (Exception e) {
+            LOGGER.info("error occured");
+            throw new
+                    BadCredentialsException("External system authentication failed");
+        }
+
+    }
 
     @Override
     public int create(String token, Object object) {
@@ -180,11 +184,6 @@ public class GlobalServiceImpl<D> implements GlobalService {
         restTemplate.exchange(url, HttpMethod.DELETE,
                 new HttpEntity<>(header), String.class);
         return 0;
-    }
-
-    @Override
-    public List getByCriteria(String token, Map criteria) {
-        return null;
     }
 
 

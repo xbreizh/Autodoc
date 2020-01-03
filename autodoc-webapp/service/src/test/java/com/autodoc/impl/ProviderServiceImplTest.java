@@ -2,6 +2,7 @@ package com.autodoc.impl;
 
 import com.autodoc.contract.ProviderService;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ class ProviderServiceImplTest {
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc2MTg5MCwiaWF0IjoxNTc2NzQzODkwfQ.-7anXTdLUePoEIXn_dQhZDtaO7X1-gwZSiQakTehnfHJbsJZ106n1_vKSHhJjWjdE-7Onz8wLTi6TGyX55RyaQ";
     private ProviderDTO dto;
     private Class clazz = ProviderDTO.class;
+    private static final Logger LOGGER = Logger.getLogger(ProviderServiceImplTest.class);
 
     @BeforeEach
     void init() {

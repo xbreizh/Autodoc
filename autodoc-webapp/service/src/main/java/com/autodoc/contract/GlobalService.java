@@ -1,7 +1,8 @@
 package com.autodoc.contract;
 
+import com.autodoc.model.dtos.SearchDto;
+
 import java.util.List;
-import java.util.Map;
 
 public interface GlobalService<T> {
 
@@ -12,7 +13,7 @@ public interface GlobalService<T> {
 
     List<T> getAll(String token);
 
-    List<T> getByCriteria(String token, Map<String, String> criteria);
+    List<T> getByCriteria(String token, SearchDto searchDto);
 
     int create(String token, T object);
 

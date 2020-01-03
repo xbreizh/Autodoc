@@ -4,14 +4,18 @@ package com.autodoc.business.impl;
 import com.autodoc.business.contract.CarManager;
 import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.ClientManager;
+import com.autodoc.contract.BillService;
 import com.autodoc.contract.CarService;
+import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.car.CarDTO;
+import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
+import java.util.List;
 
 @Named
 public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements CarManager {
@@ -25,10 +29,12 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     private CarModelManager carModelManager;
     // @Inject
     private ClientManager clientManager;
+    private BillService billService;
 
-    public CarManagerImpl(CarService service, CarModelManager carModelManager, ClientManager clientManager) {
+    public CarManagerImpl(CarService service, CarModelManager carModelManager, ClientManager clientManager, BillService billService) {
         super(service);
         this.service = service;
+        this.billService = billService;
         this.carModelManager = carModelManager;
         this.clientManager = clientManager;
         LOGGER.info("created stuff" + clientManager);
@@ -57,6 +63,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         car.setRegistration(dto.getRegistration());
         car.setClient(setClient(token, dto.getClientId()));
         car.setModel(setModel(token, dto.getCarModelId()));
+        car.setBills(setBills(token, dto.getRegistration()));
         LOGGER.info("car: " + car);
         return car;
     }
@@ -76,6 +83,18 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         Client client = (Client) clientManager.getById(token, clientId);
         LOGGER.info("client found: " + client);
         return client;
+    }
+
+    private List<Bill> setBills(String token, String registration) throws Exception {
+        LOGGER.info("trying to gather the bills");
+        if (registration.isEmpty()) return null;
+        SearchDto searchDto = new SearchDto();
+        searchDto.setFieldName("car.registration");
+        searchDto.setCompare("equals");
+        searchDto.setValue(registration);
+        List<Bill> bills = (List<Bill>) billService.getByCriteria(token, searchDto);
+        LOGGER.info("bills found: " + bills.size());
+        return bills;
     }
 
 

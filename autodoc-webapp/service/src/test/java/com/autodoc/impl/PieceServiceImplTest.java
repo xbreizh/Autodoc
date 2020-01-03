@@ -2,12 +2,12 @@ package com.autodoc.impl;
 
 import com.autodoc.contract.PieceService;
 import com.autodoc.model.dtos.pieces.PieceDTO;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +19,7 @@ class PieceServiceImplTest {
     private PieceService service;
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc4MjczMywiaWF0IjoxNTc2NzY0NzMzfQ.hqdGifYIikzrFlW9pv8fgUt9nJUjq5jxYtYWQ2QxcMwVMc83BQ-OeBc9X4CyHPTa5sut60MrvvSCpBCD2Rh-9w";
     private PieceDTO dto;
+    private static final Logger LOGGER = Logger.getLogger(PieceServiceImplTest.class);
 
     @BeforeEach
     void init() {

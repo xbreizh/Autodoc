@@ -2,6 +2,7 @@ package com.autodoc.impl;
 
 import com.autodoc.contract.CarService;
 import com.autodoc.model.dtos.car.CarDTO;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,9 +15,11 @@ class CarServiceImplTest {
 
     private CarService service;
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUxMjU5NSwiaWF0IjoxNTc2NDk0NTk1fQ.vBhwMkX1UII2cxkq4oaqTJOiBb4tCip0tq35NR8Eb-ECPwHG_Oz75YJq9iybf3U3J6MccTP07gLKu9x67MEacg";
+    private static final Logger LOGGER = Logger.getLogger(CarServiceImplTest.class);
+
 
     @BeforeEach
-    void init(){
+    void init() {
         service = new CarServiceImpl();
     }
 
