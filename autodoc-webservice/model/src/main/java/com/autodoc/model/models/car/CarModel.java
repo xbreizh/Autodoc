@@ -18,6 +18,7 @@ import java.util.Map;
 @Table(name = "carModel")
 @Getter
 @Setter
+@Cacheable
 public class CarModel {
 
     public static Map<String, SearchType> getSearchField() {

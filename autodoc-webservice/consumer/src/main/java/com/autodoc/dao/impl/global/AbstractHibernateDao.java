@@ -1,17 +1,15 @@
 package com.autodoc.dao.impl.global;
 
-import com.autodoc.model.enums.Compare;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
 import org.apache.log4j.Logger;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.expression.ParseException;
 
 import javax.inject.Inject;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -19,18 +17,18 @@ public abstract class AbstractHibernateDao<T> {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
     @Inject
     SessionFactory sessionFactory;
-    int maxCharacters = 22;
+    //  int maxCharacters = 22;
     private Class<T> clazz;
-    private String dateFormat;
+    //private String dateFormat;
 
-    public static boolean isValidNumber(String strNum) {
+   /* public static boolean isValidNumber(String strNum) {
         try {
             double d = Double.parseDouble(strNum);
         } catch (NumberFormatException | NullPointerException nfe) {
             return false;
         }
         return true;
-    }
+    }*/
 
     public Class<T> getClazz() {
         return clazz;
@@ -41,15 +39,25 @@ public abstract class AbstractHibernateDao<T> {
 
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
+/*    public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }*/
+
+    public T getById(int id) throws ObjectNotFoundException {
+        final Serializable entityId = id;
+        LOGGER.info("trying to get object by id: " + id);
+        Object obj;
+        try {
+            obj = getCurrentSession().load(clazz, entityId);
+            // sysout setup to provoke the ObjectNotFoundException if required
+            System.out.println(obj);
+        } catch (ObjectNotFoundException nf) {
+            return null;
+        }
+        return (T) obj;
     }
 
-    public T getById(int id) {
-        return getCurrentSession().get(clazz, id);
-    }
 
-    //@Override
     public T getByName(String name) {
         Query query = getCurrentSession().createQuery("from " + clazz.getName() + "where name = :name");
         query.setParameter(name, name);
@@ -118,7 +126,6 @@ public abstract class AbstractHibernateDao<T> {
         StringBuilder sb = new StringBuilder();
         String init = "from " + clazz.getSimpleName();
         sb.append(init);
-        // Search search = searchList.get(0);
         for (Search search : searchList) {
             if (sb.toString().equals(init)) {
                 sb.append(" where ");
@@ -128,43 +135,12 @@ public abstract class AbstractHibernateDao<T> {
             sb.append(search.getFieldName() + " " + search.getCompare() + " '" + search.getValue() + "'");
 
         }
-        //sb.append(" where "+search.getFieldName()+" "+search.getCompare()+" '"+search.getValue()+"'");
         return sb.toString();
 
 
-
-       /* StringBuilder builder = new StringBuilder();
-        String init="from "+clazz.getSimpleName();
-        Map<String, SearchType> authorizedSearchFieldList = getSearchField();
-
-        if (authorizedSearchFieldList == null) return null;
-
-        builder.append(init);
-
-        for (Search s : searchList) {
-            if (s.getValue()==null||s.getValue().isEmpty())throw new Exception(s.getFieldName()+"cannot be null");
-            if(s.getValue().length() > maxCharacters)throw new Exception(s.getValue()+"cannot is more than the authorized "+maxCharacters);
-            s.setValue(s.getValue().toUpperCase());
-            checkIfInvalidField(authorizedSearchFieldList, s);
-            checkIfInvalidValue(s.getCompare(), s.getValue());
-            LOGGER.info("old val: "+s.getValue());
-            if(s.getCompare() ==Compare.STRINGCONTAINS || s.getCompare()==Compare.STRINGDOESNOTCONTAIN)s.setValue("\'%"+s.getValue()+"%\'");
-            LOGGER.info("new val: "+s.getValue());
-            if (builder.toString().equals(init)){
-                builder.append(" where ");
-            }else {
-                builder.append(" and ");
-            }
-            builder.append(s.getFieldName()+s.getCompare().getQueryValue()+" "+s.getValue()+" ");
-        }
-        LOGGER.info("query: "+builder.toString());
-        LOGGER.info("query build: "+builder.toString());
-
-        return builder.toString();*/
-        //return null;
     }
 
-    private void checkIfInvalidValue(Compare compare, String value) throws Exception {
+/*    private void checkIfInvalidValue(Compare compare, String value) throws Exception {
         String type = compare.getType();
         if (type.equals("Integer")) {
             if (!isValidNumber(value)) throw new Exception(value + " is not a number");
@@ -177,9 +153,9 @@ public abstract class AbstractHibernateDao<T> {
         if (!authorizedSearchFieldList.containsKey(s.getFieldName())) {
             throw new Exception("invalid criteria: " + s.getFieldName());
         }
-    }
+    }*/
 
-    public boolean isValidDate(String dateStr) {
+ /*   public boolean isValidDate(String dateStr) {
         DateFormat sdf = new SimpleDateFormat(this.dateFormat);
         sdf.setLenient(false);
         try {
@@ -190,7 +166,7 @@ public abstract class AbstractHibernateDao<T> {
             return false;
         }
         return true;
-    }
+    }*/
 
 
     public Map<String, SearchType> getSearchField() {

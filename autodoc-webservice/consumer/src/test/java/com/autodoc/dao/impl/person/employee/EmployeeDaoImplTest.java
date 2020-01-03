@@ -5,7 +5,9 @@ import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
 import org.apache.log4j.Logger;
+import org.hibernate.ObjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -49,6 +51,18 @@ class EmployeeDaoImplTest {
 
     }
 
+
+    @Test
+    @DisplayName("should return null if nothing found")
+    void getById() {
+       assertNull(dao.getById(23232));
+    }
+
+    @Test
+    @DisplayName("should return object if nothing found")
+    void getById1() {
+        assertNotNull(dao.getById(1));
+    }
 
     @Test
     void getByRole() {

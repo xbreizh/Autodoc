@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Entity
 @Table(name = "manufacturer")
+@Cacheable
 public class Manufacturer {
 
     public static Map<String, SearchType> getSearchField() {

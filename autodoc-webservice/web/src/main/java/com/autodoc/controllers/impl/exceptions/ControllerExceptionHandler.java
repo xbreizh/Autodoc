@@ -2,6 +2,7 @@ package com.autodoc.controllers.impl.exceptions;
 
 import com.autodoc.business.exceptions.InvalidDtoException;
 import org.apache.log4j.Logger;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,10 @@ public class ControllerExceptionHandler extends RuntimeException {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler({Exception.class, SQLException.class, ConstraintViolationException.class, NestedServletException.class})
     public ResponseEntity notFoundHandler(Exception e, HttpServletRequest req) {
+
+        if(e.getClass() == ObjectNotFoundException.class) return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("No object found");
         LOGGER.info("Item not found. HTTP 500 returned.");
         LOGGER.debug("req: " + req.getRequestURI());
         LOGGER.error("capturing 500 " + e.getMessage());
