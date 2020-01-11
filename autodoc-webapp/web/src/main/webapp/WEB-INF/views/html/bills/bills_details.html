@@ -10,11 +10,11 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h2>PieceType details</h2>
+    <h2>Bill details</h2>
 
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${pieceType.id}">
+    <label style="display: block" th:id="'switch' + ${bill.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -22,19 +22,43 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${pieceType.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${bill.id}">
 
-        <div th:replace="fragments/pieceTypes_form :: form"></div>
+        <div th:replace="bills/bills_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${pieceType.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${bill.id}">
         <table>
             <tr>
                 <td>Id:</td>
-                <td th:text="${pieceType.id}">Login</td>
+                <td th:text="${bill.id}">Id</td>
             </tr>
             <tr>
                 <td>Name:</td>
-                <td th:text="${pieceType.name}">Name</td>
+                <td th:text="${bill.car.registration}">Registration</td>
+            </tr>
+            <tr>
+                <td>Client:</td>
+                <td th:text="${bill.client.lastName}">Client</td>
+            </tr>
+            <tr>
+                <td> Employee:</td>
+                <td th:text="${bill.employee.login}">Employee</td>
+            </tr>
+            <tr>
+                <td>VAT:</td>
+                <td th:text="${bill.vat}">VAT</td>
+            </tr>
+            <tr>
+                <td>Discount:</td>
+                <td th:text="${bill.discount}">Discount</td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td th:text="${bill.total}">Total</td>
+            </tr>
+            <tr>
+                <td>Tasks:</td>
+                <td th:text="${bill.tasks}">Tasks</td>
             </tr>
         </table>
 

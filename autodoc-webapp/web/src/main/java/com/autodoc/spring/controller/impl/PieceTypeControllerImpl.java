@@ -33,7 +33,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
     @GetMapping("")
     public ModelAndView pieceTypes() throws Exception {
         LOGGER.info("retrieving pieceTypes");
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes");
+        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes");
 
         List<PieceTypeDTO> pieceTypes = getPieceTypes();
         LOGGER.info("pieceTypes found: " + pieceTypes.size());
@@ -57,7 +57,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
     @ResponseBody
     public ModelAndView pieceTypeById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes_details");
+        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes_details");
         LOGGER.info("pieceType is null");
         PieceType pieceType = (PieceType) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + pieceType.getName());
@@ -73,7 +73,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
     @ResponseBody
     public ModelAndView update(@Valid PieceTypeForm pieceTypeForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + pieceTypeForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes_details");
+        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes_details");
         mv.addObject("pieceTypeForm", new PieceTypeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -92,15 +92,16 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
     @GetMapping(value = "/delete/{id}")
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to delete member with id " + id);
+        LOGGER.info("trying to delete pieceType with id " + id);
         manager.delete(helper.getConnectedToken(), id);
+        LOGGER.info("pieceType must have been deleted");
         return pieceTypes();
     }
 
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes_new");
+        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes_new");
         mv.addObject("pieceTypeForm", new PieceTypeForm());
         mv.addObject("showForm", 1);
         return mv;
@@ -111,7 +112,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
     @ResponseBody
     public ModelAndView create(@Valid PieceTypeForm pieceTypeForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes_new");
+        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes_new");
         LOGGER.info("empl: " + pieceTypeForm);
         mv.addObject("pieceTypeForm", new PieceTypeForm());
         if (bindingResult.hasErrors()) {
@@ -125,10 +126,6 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
         return pieceTypes();
     }
 
-    private PieceTypeDTO convertFormIntoDto(PieceTypeForm pieceTypeForm) {
-        LOGGER.info("TODO");
-        return null;
-    }
 
 
 }

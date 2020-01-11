@@ -10,11 +10,11 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h2>Piece details</h2>
+    <h2>PieceType details</h2>
 
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${piece.id}">
+    <label style="display: block" th:id="'switch' + ${pieceType.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -22,35 +22,19 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${piece.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${pieceType.id}">
 
-        <div th:replace="fragments/pieces_form :: form"></div>
+        <div th:replace="pieceTypes/pieceTypes_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${piece.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${pieceType.id}">
         <table>
             <tr>
                 <td>Id:</td>
-                <td th:text="${piece.id}">Id</td>
+                <td th:text="${pieceType.id}">Login</td>
             </tr>
             <tr>
                 <td>Name:</td>
-                <td th:text="${piece.name}">Name</td>
-            </tr>
-            <tr>
-                <td>Buying Price:</td>
-                <td th:text="${piece.buyingPrice}">Buying Price</td>
-            </tr>
-            <tr>
-                <td>Sell Price:</td>
-                <td th:text="${piece.sellPrice}">Sell Price</td>
-            </tr>
-            <tr>
-                <td>CarModel:</td>
-                <td th:text="${piece.carModel.name}">CarModelId</td>
-            </tr>
-            <tr>
-                <td>PieceType:</td>
-                <td th:text="${piece.pieceType.name}">PieceTypeId</td>
+                <td th:text="${pieceType.name}">Name</td>
             </tr>
         </table>
 

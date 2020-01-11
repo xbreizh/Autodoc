@@ -46,7 +46,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     @GetMapping("")
     public ModelAndView bills() throws Exception {
         LOGGER.info("retrieving bills");
-        ModelAndView mv = checkAndAddConnectedDetails("bills");
+        ModelAndView mv = checkAndAddConnectedDetails("bills/bills");
         List<Bill> bills;
         try {
             bills = manager.getAll(helper.getConnectedToken());
@@ -70,13 +70,14 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("bills_details");
+        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
         LOGGER.info("bill is null");
         Bill bill = (Bill) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("bill: " + bill);
         List<Employee> employees = employeeManager.getAll(token);
         List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = employeeManager.getAll(token);
+        List<Car> cars = carManager.getAll(token);
+        for (Car car : cars) System.out.println("reg: " + car.getRegistration());
         LOGGER.info("cars: " + cars.size());
         LOGGER.info("clients: " + clients.size());
         LOGGER.info("employees: " + employees.size());
@@ -95,7 +96,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     public ModelAndView update(@Valid BillForm billForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + billForm.getId());
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("bills_details");
+        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
         mv.addObject("billForm", new BillForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -128,7 +129,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     @PostMapping(value = "/balako")
     public ModelAndView getCreate(@Valid NewBillForm newBillForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("bills_new");
+        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         Client client = (Client) clientManager.getById(helper.getConnectedToken(), newBillForm.getClientId());
         Car car = carManager.getByRegistration(helper.getConnectedToken(), newBillForm.getRegistration());
         mv.addObject("car", car);
@@ -144,7 +145,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("bills_new");
+        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         LOGGER.info("empl: " + billForm);
         mv.addObject("billForm", new BillForm());
         List<Employee> employees = employeeManager.getAll(token);
@@ -162,11 +163,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         LOGGER.info("bill retrieved: " + billForm);
         manager.add(helper.getConnectedToken(), billForm);
         return bills();
-    }
-
-    private BillDTO convertFormIntoDto(BillForm billForm) {
-        LOGGER.info("TODO");
-        return null;
     }
 
 

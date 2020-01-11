@@ -35,17 +35,13 @@
             </thead>
             <tbody>
             <tr th:fragment="pieceDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
-            <tr th:each="piece : ${pieces}">
+            <tr class="data-link" th:each="piece : ${pieces}"
+                th:onclick="'javascript:rowClicked(\'' +@{'pieces/' + ${piece.id}}+ '\');'">
                 <td th:text="${piece.name}">name</td>
                 <td th:text="${piece.brand}">brand</td>
                 <td th:text="${piece.buyingPrice}">buyingPrice</td>
                 <td th:text="${piece.sellPrice}">sellPrice</td>
                 <td th:text="${piece.pieceType.name}">PieceType</td>
-                <td>
-                    <a th:href="@{'/pieces/' + ${piece.id}}">
-                        <button class="btn btn-warning" type="button">Edit</button>
-                    </a>
-                </td>
                 <td>
                     <a th:href="@{'/pieces/delete/' + ${piece.id}}">
                         <button class="btn btn-danger" type="button">Delete</button>

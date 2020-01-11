@@ -8,7 +8,6 @@ import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
 import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import com.autodoc.spring.controller.contract.PieceController;
@@ -45,7 +44,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @GetMapping("")
     public ModelAndView pieces() throws Exception {
         LOGGER.info("retrieving pieces");
-        ModelAndView mv = checkAndAddConnectedDetails("pieces");
+        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces");
 
         List<Piece> pieces = getPieces();
         LOGGER.info("pieces found: " + pieces.size());
@@ -69,7 +68,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @ResponseBody
     public ModelAndView pieceById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get piece with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("pieces_details");
+        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_details");
         LOGGER.info("piece is null");
         Piece piece = (Piece) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("name: " + piece.getName());
@@ -91,7 +90,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @ResponseBody
     public ModelAndView update(@Valid PieceForm pieceForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update piece with id " + pieceForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("pieces_details");
+        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_details");
         mv.addObject("pieceForm", new PieceForm());
         List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
         List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
@@ -124,7 +123,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @GetMapping(value = "/new")
     public ModelAndView getCreate() throws Exception {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("pieces_new");
+        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_new");
         List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
         List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
         mv.addObject("carModels", carModels);
@@ -139,7 +138,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @ResponseBody
     public ModelAndView create(@Valid PieceForm pieceForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
-        ModelAndView mv = checkAndAddConnectedDetails("pieces_new");
+        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_new");
         LOGGER.info("pieceForm: " + pieceForm);
         mv.addObject("pieceForm", new PieceForm());
         List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
