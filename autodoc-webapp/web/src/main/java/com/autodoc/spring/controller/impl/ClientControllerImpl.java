@@ -2,7 +2,6 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.employee.ClientForm;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.spring.controller.contract.ClientController;
@@ -33,7 +32,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
     @GetMapping("")
     public ModelAndView clients() throws Exception {
         LOGGER.info("retrieving clients");
-        ModelAndView mv = checkAndAddConnectedDetails("clients");
+        ModelAndView mv = checkAndAddConnectedDetails("clients/clients");
 
         List<Client> clients = getClients();
 
@@ -56,7 +55,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
     @ResponseBody
     public ModelAndView clientById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("clients_details");
+        ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
         LOGGER.info("client is null");
         Client client = (Client) clientManager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + client.getPhoneNumber1());
@@ -71,7 +70,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
     @ResponseBody
     public ModelAndView update(@Valid ClientForm clientForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + clientForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("clients_details");
+        ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
         mv.addObject("clientForm", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -98,7 +97,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("clients_new");
+        ModelAndView mv = checkAndAddConnectedDetails("clients/clients_new");
         mv.addObject("clientForm", new ClientForm());
         mv.addObject("showForm", 1);
         return mv;
@@ -109,7 +108,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
     @ResponseBody
     public ModelAndView create(@Valid ClientForm clientForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
-        ModelAndView mv = checkAndAddConnectedDetails("clients_new");
+        ModelAndView mv = checkAndAddConnectedDetails("clients/clients_new");
         LOGGER.info("empl: " + clientForm);
         mv.addObject("clientForm", new ClientForm());
         if (bindingResult.hasErrors()) {
@@ -121,12 +120,6 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
         LOGGER.info("client retrieved: " + clientForm);
         clientManager.add(helper.getConnectedToken(), clientForm);
         return clients();
-        //return new ModelAndView("redirect:" + "/clients/" );
-    }
-
-    private ClientDTO convertFormIntoDto(ClientForm clientForm) {
-        LOGGER.info("TODO");
-        return null;
     }
 
 

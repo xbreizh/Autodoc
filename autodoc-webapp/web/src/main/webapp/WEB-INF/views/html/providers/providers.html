@@ -35,16 +35,12 @@
             </thead>
             <tbody>
             <tr th:fragment="providerDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
-            <tr th:each="provider : ${providers}">
+            <tr class="data-link" th:each="provider : ${providers}"
+                th:onclick="'javascript:rowClicked(\'' +@{'providers/' + ${provider.id}}+ '\');'">
                 <td th:text="${provider.company}">company</td>
                 <td th:text="${provider.firstName}">firstName</td>
                 <td th:text="${provider.lastName}">lastName</td>
                 <td th:text="${provider.phoneNumber1}">phoneNumber1</td>
-                <td>
-                    <a th:href="@{'/providers/' + ${provider.id}}">
-                        <button class="btn btn-warning" type="button">Edit</button>
-                    </a>
-                </td>
                 <td>
                     <a th:href="@{'/providers/delete/' + ${provider.id}}">
                         <button class="btn btn-danger" type="button">Delete</button>

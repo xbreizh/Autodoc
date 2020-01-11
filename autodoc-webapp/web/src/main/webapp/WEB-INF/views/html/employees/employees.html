@@ -41,15 +41,11 @@
                 <td th:text="${employee.lastName}">lastName</td>
                 <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
                 <td th:text="${employee.roles}">roles</td>
-                <!-- <td>
-
-                         <button class="btn btn-warning" type="button">Edit</button>
-                 </td>-->
-                <!-- <td>
-                     <a th:href="@{'/employees/delete/' + ${employee.id}}">
-                         <button class="btn btn-danger" type="button">Delete</button>
-                     </a>
-                 </td>-->
+                <td>
+                    <a th:href="@{'/employees/delete/' + ${employee.id}}">
+                        <button class="btn btn-danger" type="button">Delete</button>
+                    </a>
+                </td>
 
             </tr>
 
@@ -60,11 +56,6 @@
     </div>
 </div>
 
-<script>
-    function rowClicked(url) {
-        location.href = url;
-    }
-</script>
 </body>
 </html>
 

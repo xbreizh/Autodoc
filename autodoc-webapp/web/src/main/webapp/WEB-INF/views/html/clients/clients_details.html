@@ -10,11 +10,10 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h2>Provider details</h2>
-    <p th:text="${provider.company}">Login</p>
+    <h2>Client details</h2>
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${provider.id}">
+    <label style="display: block" th:id="'switch' + ${client.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -22,35 +21,27 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${provider.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${client.id}">
 
-        <div th:replace="fragments/providers_form :: form"></div>
+        <div th:replace="clients/clients_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${provider.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${client.id}">
         <table>
             <tr>
                 <td>Id:</td>
-                <td th:text="${provider.id}">Id</td>
-            </tr>
-            <tr>
-                <td>Company:</td>
-                <td th:text="${provider.company}">Roles</td>
+                <td th:text="${client.id}">Login</td>
             </tr>
             <tr>
                 <td>FirstName:</td>
-                <td th:text="${provider.firstName}">FirstName</td>
+                <td th:text="${client.firstName}">FirstName</td>
             </tr>
             <tr>
                 <td>LastName:</td>
-                <td th:text="${provider.lastName}">LastName</td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td th:text="${provider.email}">Email1</td>
+                <td th:text="${client.lastName}">LastName</td>
             </tr>
             <tr>
                 <td>PhoneNumber1:</td>
-                <td th:text="${provider.phoneNumber1}">PhoneNumber1</td>
+                <td th:text="${client.phoneNumber1}">PhoneNumber1</td>
             </tr>
         </table>
 

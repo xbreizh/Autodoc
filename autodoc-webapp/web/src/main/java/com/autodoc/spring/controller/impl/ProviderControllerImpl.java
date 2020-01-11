@@ -33,7 +33,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     @GetMapping("")
     public ModelAndView providers() throws Exception {
         LOGGER.info("retrieving providers");
-        ModelAndView mv = checkAndAddConnectedDetails("providers");
+        ModelAndView mv = checkAndAddConnectedDetails("providers/providers");
         List<Provider> providers;
         try {
            providers = manager.getAll(helper.getConnectedToken());
@@ -59,7 +59,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     @ResponseBody
     public ModelAndView providerById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("providers_details");
+        ModelAndView mv = checkAndAddConnectedDetails("providers/providers_details");
         LOGGER.info("provider is null");
         Provider provider = (Provider) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + provider.getPhoneNumber1());
@@ -75,7 +75,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     @ResponseBody
     public ModelAndView update(@Valid ProviderForm providerForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + providerForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("providers_details");
+        ModelAndView mv = checkAndAddConnectedDetails("providers/providers_details");
         mv.addObject("providerForm", new ProviderForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -102,7 +102,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("providers_new");
+        ModelAndView mv = checkAndAddConnectedDetails("providers/providers_new");
         mv.addObject("providerForm", new ProviderForm());
         mv.addObject("showForm", 1);
         return mv;
@@ -113,7 +113,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     @ResponseBody
     public ModelAndView create(@Valid ProviderForm providerForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
-        ModelAndView mv = checkAndAddConnectedDetails("providers_new");
+        ModelAndView mv = checkAndAddConnectedDetails("providers/providers_new");
         LOGGER.info("empl: " + providerForm);
         mv.addObject("providerForm", new ProviderForm());
         if (bindingResult.hasErrors()) {
@@ -125,13 +125,8 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
         LOGGER.info("provider retrieved: " + providerForm);
         manager.add(helper.getConnectedToken(), providerForm);
         return providers();
-        //return new ModelAndView("redirect:" + "/providers/" );
     }
 
-    private ProviderDTO convertFormIntoDto(ProviderForm providerForm) {
-        LOGGER.info("TODO");
-        return null;
-    }
 
 
 }

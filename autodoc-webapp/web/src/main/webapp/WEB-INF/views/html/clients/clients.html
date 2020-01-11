@@ -31,21 +31,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:fragment="clientDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
-            <tr th:each="client : ${clients}">
+            <tr th:fragment="clients/clientDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
+            <tr class="data-link" th:each="client : ${clients}"
+                th:onclick="'javascript:rowClicked(\'' +@{'clients/' + ${client.id}}+ '\');'">
                 <td th:text="${client.firstName}">firstName</td>
                 <td th:text="${client.lastName}">lastName</td>
                 <td th:text="${client.phoneNumber1}">phoneNumber1</td>
-            <td>
-                <a th:href="@{'/clients/' + ${client.id}}">
-                    <button class="btn btn-warning" type="button">Edit</button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{'/clients/delete/' + ${client.id}}">
-                    <button class="btn btn-danger" type="button">Delete</button>
-                </a>
-            </td>
+                <td>
+                    <a th:href="@{'/clients/delete/' + ${client.id}}">
+                        <button class="btn btn-danger" type="button">Delete</button>
+                    </a>
+                </td>
 
             </tr>
 

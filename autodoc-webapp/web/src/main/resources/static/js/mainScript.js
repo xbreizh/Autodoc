@@ -24,6 +24,9 @@ function toggle_displays(t, d) {
         text.style.display = "none";
     }
 }*/
+function rowClicked(url) {
+    location.href = url;
+}
 
 function showLoans() {
     var x = document.getElementById('myLoans');
