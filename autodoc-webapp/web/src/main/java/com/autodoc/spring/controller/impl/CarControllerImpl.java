@@ -8,6 +8,7 @@ import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.person.client.ClientList;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.spring.controller.contract.CarController;
 import org.apache.log4j.Logger;
@@ -62,6 +63,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         mv.addObject("client", car.getClient());
         mv.addObject("model", car.getModel());
         mv.addObject("bills", car.getBills());
+        mv.addObject("clients", clientManager.getAll(helper.getConnectedToken()));
         return mv;
 
 
@@ -99,12 +101,15 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         LOGGER.info("car is null");
         Car car = (Car) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("car: " + car);
-        List<Employee> employees = employeeManager.getAll(token);
-        List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = employeeManager.getAll(token);
+        List employees = employeeManager.getAll(token);
+        List clients = clientManager.getAll(token);
+        List cars = employeeManager.getAll(token);
         LOGGER.info("cars: " + cars.size());
         LOGGER.info("clients: " + clients.size());
         LOGGER.info("employees: " + employees.size());
+        LOGGER.info("car details: " + car);
+        ClientList clientList = new ClientList(clientManager.getAll(helper.getConnectedToken()));
+        mv.addObject("clientList", clientList);
         mv.addObject("employees", employees);
         mv.addObject("clients", clients);
         mv.addObject("cars", cars);
@@ -121,9 +126,14 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         LOGGER.info("trying to update member with id " + carForm.getId());
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("cars/cars_details");
-        mv.addObject("carForm", new CarForm());
+
+        if (carForm == null) carForm = new CarForm();
+        mv.addObject("carForm", carForm);
+        LOGGER.info("carform: " + carForm);
+
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
+            LOGGER.error("error: " + bindingResult.getFieldError());
             Car car = (Car) manager.getById(token, carForm.getId());
             List<Employee> employees = employeeManager.getAll(token);
             List<Client> clients = clientManager.getAll(token);

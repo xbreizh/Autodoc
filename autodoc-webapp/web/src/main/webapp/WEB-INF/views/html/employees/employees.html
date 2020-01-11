@@ -34,22 +34,22 @@
             </thead>
             <tbody>
             <tr th:fragment="employees/employeeDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
-            <tr th:each="employee : ${employees}">
+            <tr th:each="employee : ${employees}"
+                th:onclick="'javascript:rowClicked(\'' +@{'employees/' + ${employee.id}}+ '\');'">
                 <td th:text="${employee.login}">Login</td>
                 <td th:text="${employee.firstName}">firstName</td>
                 <td th:text="${employee.lastName}">lastName</td>
                 <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
                 <td th:text="${employee.roles}">roles</td>
-            <td>
-                <a th:href="@{'employees/' + ${employee.id}}">
-                    <button class="btn btn-warning" type="button">Edit</button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{'/employees/delete/' + ${employee.id}}">
-                    <button class="btn btn-danger" type="button">Delete</button>
-                </a>
-            </td>
+                <!-- <td>
+
+                         <button class="btn btn-warning" type="button">Edit</button>
+                 </td>-->
+                <!-- <td>
+                     <a th:href="@{'/employees/delete/' + ${employee.id}}">
+                         <button class="btn btn-danger" type="button">Delete</button>
+                     </a>
+                 </td>-->
 
             </tr>
 
@@ -60,6 +60,11 @@
     </div>
 </div>
 
+<script>
+    function rowClicked(url) {
+        location.href = url;
+    }
+</script>
 </body>
 </html>
 

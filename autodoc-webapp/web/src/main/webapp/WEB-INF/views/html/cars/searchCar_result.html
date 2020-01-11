@@ -1,7 +1,6 @@
 <div th:fragment="searchCar_result" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
-
     <table class="table table-striped">
         <caption style="display: none">Car details</caption>
         <thead>
@@ -45,6 +44,7 @@
             <th id="FirstName">firstName</th>
             <th id="LastName">lastName</th>
             <th id="PhoneNumber1">phoneNumber1</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -54,6 +54,19 @@
             <td th:text="${client.firstName}">firstName</td>
             <td th:text="${client.lastName}">lastName</td>
             <td th:text="${client.phoneNumber1}">phoneNumber1</td>
+            <td>
+        <tr>
+            <td>Change:</td>
+            <td>
+                <select th:field="*{client}">
+                    <option th:each="client : ${clients}"
+                            th:utext="${client.firstName}"
+                            th:value="${client}"/>
+                </select>
+
+            </td>
+        </tr>
+        </td>
         </tr>
 
 
@@ -61,10 +74,25 @@
     </table>
     <br><br>
 
-    <a th:href="@{'/bills/new'}">
-        <button class="btn btn-info" type="button">New</button>
-    </a>
-    <br><br>
+    <!--    <form action="#" method="post" th:action="@{'/bills/balako/'" th:object="${NewBillForm}">
+            <table>
+                <tr>
+                    <td>Registration:</td>
+                    <td th:text="${car.registration}">registration</td>
+                </tr>
+                <tr>
+                    <td>Client:</td>
+                    <td><input th:field="*{clientId}" type="text"/></td>
+                    <td th:errors="*{clientId}" th:if="${#fields.hasErrors('clientId')}">clientId Error</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">New</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <br><br>-->
 
     <br>
     <div th:if="${not #lists.isEmpty(bills)}">
@@ -74,6 +102,7 @@
             <caption style="display: none">History</caption>
             <thead>
             <tr>
+                <th id="billId">Id</th>
                 <th id="Date">Date</th>
                 <th id="Total">Total</th>
                 <th id="Status">Status</th>
@@ -82,6 +111,7 @@
             <tbody>
             <tr th:fragment="billDetails">
             <tr th:each="bill : ${bills}">
+                <td th:text="${bill.id}">id</td>
                 <td th:text="${bill.date}">date</td>
                 <td th:text="${bill.total}">total</td>
                 <td th:text="${bill.status}">status</td>

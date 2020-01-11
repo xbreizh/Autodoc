@@ -5,6 +5,7 @@ import com.autodoc.dao.impl.person.provider.CountryDaoImpl;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.search.SearchDTO;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 class CountryManagerImplTest {
 
-
+    private static final Logger LOGGER = Logger.getLogger(CountryManagerImplTest.class);
     private CountryManager countryManager;
     private CountryDaoImpl countryDao;
 
@@ -60,9 +61,9 @@ class CountryManagerImplTest {
         SearchDTO dto1 = new SearchDTO(fieldName, "equals", "belgium");
         searchList.add(dto1);
         when(countryDao.getSearchField()).thenReturn(Country.getSearchField());
-        Exception thrown =assertThrows(Exception.class,()->countryManager.searchByCriteria(searchList));
+        Exception thrown = assertThrows(Exception.class, () -> countryManager.searchByCriteria(searchList));
 
-        assertEquals(fieldName.toUpperCase()+" is an invalid search criteria", thrown.getMessage());
+        assertEquals(fieldName.toUpperCase() + " is an invalid search criteria", thrown.getMessage());
     }
 
     @Test
@@ -73,9 +74,9 @@ class CountryManagerImplTest {
         SearchDTO dto = new SearchDTO(fieldName, "equales", "belgium");
         searchList.add(dto);
         when(countryDao.getSearchField()).thenReturn(Country.getSearchField());
-        Exception thrown =assertThrows(Exception.class,()->countryManager.searchByCriteria(searchList));
+        Exception thrown = assertThrows(Exception.class, () -> countryManager.searchByCriteria(searchList));
 
-        assertEquals(dto.getCompare().toUpperCase()+" is invalid or can't be used with "+ dto.getFieldName(), thrown.getMessage());
+        assertEquals(dto.getCompare().toUpperCase() + " is invalid or can't be used with " + dto.getFieldName(), thrown.getMessage());
     }
 
     @Test
@@ -86,9 +87,9 @@ class CountryManagerImplTest {
         SearchDTO dto = new SearchDTO(fieldName, "equals", "belgium");
         searchList.add(dto);
         when(countryDao.getSearchField()).thenReturn(Country.getSearchField());
-        Exception thrown =assertThrows(Exception.class,()->countryManager.searchByCriteria(searchList));
+        Exception thrown = assertThrows(Exception.class, () -> countryManager.searchByCriteria(searchList));
 
-        assertEquals(dto.getValue().toUpperCase()+" is not a valid number", thrown.getMessage());
+        assertEquals(dto.getValue().toUpperCase() + " is not a valid number", thrown.getMessage());
     }
 
 
@@ -128,7 +129,6 @@ class CountryManagerImplTest {
     @Test
     void deleteById() {
     }
-
 
 
     @Test

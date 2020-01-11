@@ -1,35 +1,9 @@
 <div th:fragment="employees_edit" xmlns:th="http:/www.w3.org/1999/xhtml">
 
-    <!--<form action="#" method="post" th:action="@{/employees}" th:object="${employeeForm}">
-        <table>
-            <tr>
-                <td>Login:</td>
-                <td><input th:field="*{login}" type="text"/></td>
-                <td th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</td>
-            </tr>
-            <tr>
-                <td>FirstName:</td>
-                <td><input th:field="*{firstName}" type="text"/></td>
-                <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
-            </tr>
-            <tr>
-                <td>LastName:</td>
-                <td><input th:field="*{lastName}" type="text"/></td>
-                <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>
-        </table>
-    </form>-->
 
-
-    <form action="#" method="post" th:action="@{/employees}"
+<form action="#" method="post" th:action="@{/employees}"
           th:object="${employeeForm}">
 
-        <!-- <input type="reset" id="resetButton" name="reset" th:value="Reset"/>-->
         <table>
             <thead>
             <tr>
@@ -50,9 +24,6 @@
             </tr>
             </tbody>
         </table>
-        <!--  <td>Registration:</td>
-          <td><input th:field="*{registration}" type="text"/></td>
-          <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</td>-->
     </form>
 
 </div>

@@ -6,6 +6,7 @@ import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.models.car.Manufacturer;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 class CarModelControllerImplTest {
 
-
+    private static final Logger LOGGER = Logger.getLogger(CarModelControllerImplTest.class);
     private CarModelControllerImpl carModelControllerImpl;
     private CarModelManager carModelManager;
     private MockMvc mockMvc;

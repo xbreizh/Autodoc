@@ -4,6 +4,7 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.contract.car.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.dtos.car.CarDTO;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Sql(scripts = "classpath:resetDb.sql")
 @Transactional
 class CarControllerImplTest {
-
+    private static final Logger LOGGER = Logger.getLogger(CarControllerImplTest.class);
     private CarDTO carDTO = new CarDTO();
     String encoding = "application/json;charset=ISO-8859-1";
     int id = 3;

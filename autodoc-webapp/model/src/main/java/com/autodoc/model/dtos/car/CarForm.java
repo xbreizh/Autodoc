@@ -1,5 +1,6 @@
 package com.autodoc.model.dtos.car;
 
+import com.autodoc.model.models.person.client.Client;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,23 +13,40 @@ public class CarForm {
 
     int id;
 
+    private Client client;
+
     @NotNull
     @Size(min = 5, max = 12, message = "{registration.size}")
     private String registration;
 
-
-    public String getRegistration() {
-        return registration;
+    public CarForm() {
     }
 
-    public void setRegistration(String registration) {
-        this.registration = registration;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
     public String toString() {
-        return "RegistrationForm{" +
-                "registration='" + registration + '\'' +
+        String clientDetails = "no client details";
+        if (client != null) clientDetails = client.getFirstName();
+        return "CarForm{" +
+                "id=" + id +
+                ", registration='" + registration + '\'' +
+                ", client=" + clientDetails +
                 '}';
     }
 }

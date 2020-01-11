@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
+import com.autodoc.business.impl.bill.BillManagerImpl;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
@@ -10,6 +11,7 @@ import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @Transactional
 class CarManagerImplTest {
+
+    private static final Logger LOGGER = Logger.getLogger(CarManagerImplTest.class);
 
     private CarManager carManager;
     private CarDao dao;
