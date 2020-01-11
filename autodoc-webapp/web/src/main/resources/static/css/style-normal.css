@@ -8,6 +8,10 @@ body{
     background-color: #e6e1e1;
 }
 
+.data-link {
+    cursor: pointer;
+}
+
 .navbar {
     background-color: #f75757;
     height: 25%;

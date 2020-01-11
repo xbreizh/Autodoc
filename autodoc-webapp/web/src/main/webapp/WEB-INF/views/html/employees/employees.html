@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             <tr th:fragment="employees/employeeDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
-            <tr th:each="employee : ${employees}"
+            <tr class="data-link" th:each="employee : ${employees}"
                 th:onclick="'javascript:rowClicked(\'' +@{'employees/' + ${employee.id}}+ '\');'">
                 <td th:text="${employee.login}">Login</td>
                 <td th:text="${employee.firstName}">firstName</td>
