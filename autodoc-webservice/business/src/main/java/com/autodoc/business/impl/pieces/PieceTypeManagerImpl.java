@@ -59,7 +59,7 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
         PieceTypeDTO dto = (PieceTypeDTO) obj;
         int id = dto.getId();
         PieceType pieceType = (PieceType) pieceTypeDao.getById(dto.getId());
-        if (pieceType == null) throw new InvalidDtoException("invalid id: " + id);
+        if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + id);
         pieceType.setName(dto.getName().toUpperCase());
         return pieceType;
     }

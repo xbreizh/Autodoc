@@ -149,7 +149,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public boolean deleteById(int entityId) throws Exception {
         T entity = dao.getById(entityId);
         if (entity == null) throw new Exception("id is invalid: " + entityId);
-        LOGGER.info("deleting by iud manager");
+        LOGGER.info("deleting by uid manager");
 
         return dao.deleteById(entityId);
     }
