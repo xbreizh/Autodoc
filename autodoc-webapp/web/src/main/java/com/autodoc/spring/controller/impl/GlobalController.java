@@ -1,5 +1,6 @@
 package com.autodoc.spring.controller.impl;
 
+import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
@@ -27,18 +28,21 @@ public class GlobalController<D, T> {
     private static final String HOME = "home";
     private static final String RESET = "passwordReset/passwordReset";
     private static final String REDIRECT_HOME = "redirect:/";
+    @Inject
+    private ClientManager clientManager;
 
     private static final String RESET_OK = "passwordReset/passwordResetOk";
     private static final String SEND_EMAIL_OK = "passwordReset/passwordResetLinkOk";
     private static final String RESET_KO = "passwordReset/passwordResetLinkKo";
     private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
     private static Logger LOGGER = Logger.getLogger(GlobalController.class);
-
-    public GlobalController(LibraryHelper helper, PasswordCheckerImpl passwordChecker) {
+/*
+    public GlobalController(LibraryHelper helper, PasswordCheckerImpl passwordChecker,  ClientManager clientManager) {
         this.helper = helper;
+        this.clientManager = clientManager;
         this.passwordChecker = passwordChecker;
         // this.employeeManager = employeeManager;
-    }
+    }*/
 
     LibraryHelper helper;
 
@@ -93,16 +97,18 @@ public class GlobalController<D, T> {
     }
 
     @GetMapping("/operations")
-    public ModelAndView operations(CarForm registrationForm) {
+    public ModelAndView operations(CarForm registrationForm) throws Exception {
         LOGGER.info("show form");
-        ModelAndView mv = checkAndAddConnectedDetails("operations");
+        ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
+        LOGGER.info("clientManager: " + clientManager);
+        mv.addObject("clients", clientManager.getAll(helper.getConnectedToken()));
         return mv;
     }
 
     @GetMapping("/person")
     public String showForm(RegistrationForm personForm) {
         LOGGER.info("show form");
-        return "operations";
+        return "operations/operations";
     }
 
     @PostMapping("/person")
@@ -129,6 +135,12 @@ public class GlobalController<D, T> {
         LOGGER.info("connected found: " + connected);
         if (connected == null) mv = new ModelAndView(LOGIN);
         mv.addObject("connected", connected);
+        String title = viewName;
+        if (viewName.contains("/")) {
+            String[] titles = viewName.split("/");
+            title = titles[1];
+        }
+        mv.addObject("pageTitle", title.toUpperCase());
         return mv;
     }
 

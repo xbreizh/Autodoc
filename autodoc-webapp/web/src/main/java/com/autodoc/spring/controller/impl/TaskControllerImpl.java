@@ -5,7 +5,6 @@ import com.autodoc.business.contract.TaskManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.dtos.tasks.TaskForm;
-import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.TaskController;
 import org.apache.log4j.Logger;
@@ -38,7 +37,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     @GetMapping("")
     public ModelAndView tasks() throws Exception {
         LOGGER.info("retrieving tasks");
-        ModelAndView mv = checkAndAddConnectedDetails("tasks");
+        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks");
         List<Task> tasks;
         try {
             tasks = manager.getAll(helper.getConnectedToken());
@@ -62,7 +61,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     public ModelAndView taskById(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to get member with id " + id);
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("tasks_details");
+        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_details");
         LOGGER.info("task is null");
         Task task = (Task) manager.getById(token, id);
         LOGGER.info("phoneMumber: " + task.getName());
@@ -81,7 +80,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     public ModelAndView update(@Valid TaskForm taskForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + taskForm.getId());
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("tasks_details");
+        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_details");
         mv.addObject("taskForm", new TaskForm());
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -114,7 +113,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("tasks_new");
+        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_new");
         mv.addObject("taskForm", new TaskForm());
         mv.addObject("showForm", 1);
         return mv;
@@ -125,7 +124,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     @ResponseBody
     public ModelAndView create(@Valid TaskForm taskForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
-        ModelAndView mv = checkAndAddConnectedDetails("tasks_new");
+        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_new");
         LOGGER.info("empl: " + taskForm);
         mv.addObject("taskForm", new TaskForm());
         if (bindingResult.hasErrors()) {

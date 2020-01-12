@@ -52,6 +52,33 @@
 
 
     </div>
+    <div th:if="${not #lists.isEmpty(bills)}">
+
+
+        <table class="table table-striped">
+            <caption style="display: none">History</caption>
+            <thead>
+            <tr>
+                <th id="billId">Id</th>
+                <th id="Date">Date</th>
+                <th id="Total">Total</th>
+                <th id="Status">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:fragment="billDetails">
+            <tr th:each="bill : ${bills}">
+                <td th:text="${bill.id}">id</td>
+                <td th:text="${bill.date}">date</td>
+                <td th:text="${bill.total}">total</td>
+                <td th:text="${bill.status}">status</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div th:if="${ #lists.isEmpty(bills)}">No previous history
+    </div>
 </div>
 
 <script>

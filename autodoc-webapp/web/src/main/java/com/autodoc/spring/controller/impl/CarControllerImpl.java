@@ -44,8 +44,8 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
     public ModelAndView searchCar(@Valid CarForm  carForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("getting here: " + carForm);
         String registration = carForm.getRegistration().toUpperCase();
-        ModelAndView mv = checkAndAddConnectedDetails("operations");
-
+        ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
+        String token = helper.getConnectedToken();
         if (bindingResult.hasErrors()) {
             return mv;
         }
@@ -57,13 +57,36 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
             mv.addObject("message", "registration not found in the system");
             return mv;
         }
+        mv = checkAndAddConnectedDetails("cars/cars_details");
+        /*List<Client> clients = clientManager.getAll(helper.getConnectedToken());
         LOGGER.info("car found: " + registration);
         LOGGER.info("owner: " + car.getClient().getLastName());
         mv.addObject("car", car);
         mv.addObject("client", car.getClient());
         mv.addObject("model", car.getModel());
         mv.addObject("bills", car.getBills());
-        mv.addObject("clients", clientManager.getAll(helper.getConnectedToken()));
+        mv.addObject("clients", clients);
+        LOGGER.info("clients found: "+clients.size());
+        return mv;*/
+        //Car car = (Car) manager.getById(helper.getConnectedToken(), id);
+        LOGGER.info("car: " + car);
+        List employees = employeeManager.getAll(token);
+        List clients = clientManager.getAll(token);
+        List cars = employeeManager.getAll(token);
+        LOGGER.info("cars: " + cars.size());
+        LOGGER.info("clients: " + clients.size());
+        LOGGER.info("employees: " + employees.size());
+        LOGGER.info("car details: " + car);
+        ClientList clientList = new ClientList(clientManager.getAll(helper.getConnectedToken()));
+        mv.addObject("clientList", clientList);
+        mv.addObject("employees", employees);
+        mv.addObject("clients", clients);
+        mv.addObject("cars", cars);
+        mv.addObject("carForm", car);
+        mv.addObject("showForm", 1);
+        mv.addObject("bills", car.getBills());
+        LOGGER.info("bills for car: " + car.getBills().size());
+        mv.addObject("car", car);
         return mv;
 
 
@@ -116,6 +139,8 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         mv.addObject("carForm", car);
         mv.addObject("showForm", 1);
         mv.addObject("car", car);
+        mv.addObject("bills", car.getBills());
+        LOGGER.info("bills for car: " + car.getBills().size());
         return mv;
     }
 

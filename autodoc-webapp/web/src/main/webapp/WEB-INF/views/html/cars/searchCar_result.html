@@ -54,24 +54,22 @@
             <td th:text="${client.firstName}">firstName</td>
             <td th:text="${client.lastName}">lastName</td>
             <td th:text="${client.phoneNumber1}">phoneNumber1</td>
-            <td>
-        <tr>
-            <td>Change:</td>
-            <td>
-                <select th:field="*{client}">
-                    <option th:each="client : ${clients}"
-                            th:utext="${client.firstName}"
-                            th:value="${client}"/>
-                </select>
-
-            </td>
         </tr>
-        </td>
-        </tr>
+        <!-- <tr>
+             <td>Select Client:</td>
+             <td>
+                 <select th:field="*{client}">
+                     <option th:each="client : ${clients}"
+                             th:utext="${client.firstName+' '+client.lastName}"
+                             th:value="${client}"/>
+                 </select>
+             </td>
+         </tr>-->
 
 
         </tbody>
     </table>
+    <!-- <div th:replace="cars/cars_form :: form"></div>-->
     <br><br>
 
     <!--    <form action="#" method="post" th:action="@{'/bills/balako/'" th:object="${NewBillForm}">

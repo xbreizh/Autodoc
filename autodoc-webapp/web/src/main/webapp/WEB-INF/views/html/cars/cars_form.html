@@ -17,9 +17,9 @@
              <tr>
                  <td>Select Client:</td>
                  <td>
-                     <select th:field="*{clientId}">
+                     <select th:field="*{client}">
                          <option th:each="client : ${clients}"
-                                 th:utext="${client}"
+                                 th:utext="${client.firstName+' '+client.lastName}"
                                  th:value="${client}"/>
                      </select>
                  </td>
