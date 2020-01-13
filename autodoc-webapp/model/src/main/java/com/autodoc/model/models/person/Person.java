@@ -13,13 +13,13 @@ public abstract class Person {
 
     private String lastName;
 
-    private String phoneNumber1;
+    private String phoneNumber;
 
-    public Person(int id, String firstName, String lastName, String phoneNumber1) {
+    public Person(int id, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber = phoneNumber;
     }
 
 
@@ -33,7 +33,7 @@ public abstract class Person {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

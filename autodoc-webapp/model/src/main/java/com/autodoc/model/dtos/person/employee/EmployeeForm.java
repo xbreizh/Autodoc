@@ -28,7 +28,7 @@ public class EmployeeForm {
     private String lastName;
 
     @Size(min = 8, max = 12, message = "{phoneNumber.size}")
-    private String phoneNumber1;
+    private String phoneNumber;
 
     @Size(min = 1, max = 3, message = "{roles.size}")
     @NotNull( message = "{roles.size}")

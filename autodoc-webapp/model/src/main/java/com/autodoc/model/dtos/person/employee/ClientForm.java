@@ -22,7 +22,7 @@ public class ClientForm {
     private String lastName;
 
     @Size(min = 8, max = 12, message = "{phoneNumber.size}")
-    private String phoneNumber1;
+    private String phoneNumber;
 
 
 }

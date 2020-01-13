@@ -62,7 +62,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
         ModelAndView mv = checkAndAddConnectedDetails("providers/providers_details");
         LOGGER.info("provider is null");
         Provider provider = (Provider) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + provider.getPhoneNumber1());
+        LOGGER.info("phoneMumber: " + provider.getPhoneNumber());
         LOGGER.info("provider: " + provider);
         mv.addObject("providerForm", provider);
         mv.addObject("showForm", 1);
@@ -75,6 +75,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     @ResponseBody
     public ModelAndView update(@Valid ProviderForm providerForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update member with id " + providerForm.getId());
+        LOGGER.info("phone: " + providerForm.getPhoneNumber());
         ModelAndView mv = checkAndAddConnectedDetails("providers/providers_details");
         mv.addObject("providerForm", new ProviderForm());
         if (bindingResult.hasErrors()) {

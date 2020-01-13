@@ -34,8 +34,8 @@ public class Client extends Person {
         return Collections.unmodifiableMap(result);
     }
 
-    public Client(String firstName, String lastName, String phoneNumber1) {
-        super(firstName, lastName, phoneNumber1);
+    public Client(String firstName, String lastName, String phoneNumber) {
+        super(firstName, lastName, phoneNumber);
     }
 
     public Client() {
@@ -54,7 +54,7 @@ public class Client extends Person {
                 ", id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

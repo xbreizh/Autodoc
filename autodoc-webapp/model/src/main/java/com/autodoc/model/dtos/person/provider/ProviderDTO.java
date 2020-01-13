@@ -1,19 +1,11 @@
 package com.autodoc.model.dtos.person.provider;
 
 import com.autodoc.model.dtos.person.PersonDTO;
-import com.autodoc.model.models.person.Person;
-import com.autodoc.model.models.person.provider.Address;
-import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -33,8 +25,8 @@ public class ProviderDTO extends PersonDTO {
 
     private String rate;
 
-    public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1) {
-        super(lastName, firstName, phoneNumber1);
+    public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber) {
+        super(lastName, firstName, phoneNumber);
     }
 
     public ProviderDTO() {

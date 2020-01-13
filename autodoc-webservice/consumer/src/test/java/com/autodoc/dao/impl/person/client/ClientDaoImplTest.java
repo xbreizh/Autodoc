@@ -72,7 +72,7 @@ class ClientDaoImplTest {
         Client client2 = new Client();
         client2.setFirstName("Bob");
         client2.setLastName("Moran");
-        client2.setPhoneNumber1("2133232");
+        client2.setPhoneNumber("2133232");
         int id = clientDao.create(client2);
         assertNotEquals(0, id);
     }

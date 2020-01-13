@@ -37,7 +37,7 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
         client.setId(id);
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
-        client.setPhoneNumber1(dto.getPhoneNumber1());
+        client.setPhoneNumber(dto.getPhoneNumber());
         LOGGER.info("entity transferred: " + client);
 
         return client;
@@ -52,7 +52,7 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
         if (dto.getId() != 0) client.setId(dto.getId());
         client.setFirstName(dto.getFirstName());
         client.setLastName(dto.getLastName());
-        client.setPhoneNumber1(dto.getPhoneNumber1());
+        client.setPhoneNumber(dto.getPhoneNumber());
         LOGGER.info("entity transferred: " + client);
         return client;
     }

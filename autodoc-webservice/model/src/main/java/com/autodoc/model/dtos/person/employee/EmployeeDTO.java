@@ -35,8 +35,8 @@ public class EmployeeDTO extends PersonDTO {
     @PastOrPresent
     private Date lastConnection;
 
-    public EmployeeDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1, @NotNull(message = "role should not be null") List<String> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login) {
-        super(lastName, firstName, phoneNumber1);
+    public EmployeeDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber, @NotNull(message = "role should not be null") List<String> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login) {
+        super(lastName, firstName, phoneNumber);
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;

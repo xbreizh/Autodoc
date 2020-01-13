@@ -45,7 +45,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         dto.setFirstName(((Employee) entity).getFirstName());
         dto.setRoles(convertRoleFromEntityToDto(((Employee) entity).getRoles()));
         dto.setLastName(((Employee) entity).getLastName());
-        dto.setPhoneNumber1(((Employee) entity).getPhoneNumber1());
+        dto.setPhoneNumber(((Employee) entity).getPhoneNumber());
         LOGGER.info("dto: " + dto);
         LOGGER.info("converted into dto");
         return dto;
@@ -82,7 +82,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         if (dto.getLogin() != null) employee.setLogin(dto.getLogin().toUpperCase());
         if (dto.getFirstName() != null) employee.setFirstName(dto.getFirstName().toUpperCase());
         if (dto.getLastName() != null) employee.setLastName(dto.getLastName().toUpperCase());
-        if (dto.getPhoneNumber1() != null) employee.setPhoneNumber1(dto.getPhoneNumber1().toUpperCase());
+        if (dto.getPhoneNumber() != null) employee.setPhoneNumber(dto.getPhoneNumber().toUpperCase());
         if (dto.getRoles() != null) employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
 
         return employee;
@@ -122,7 +122,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
         employee.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
         employee.setStartDate(new Date());
-        employee.setPhoneNumber1(dto.getPhoneNumber1());
+        employee.setPhoneNumber(dto.getPhoneNumber());
         employee.setLogin(dto.getLogin());
         return employee;
 

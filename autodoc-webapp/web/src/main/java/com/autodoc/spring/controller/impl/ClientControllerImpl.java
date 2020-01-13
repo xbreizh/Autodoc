@@ -58,7 +58,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
         ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
         LOGGER.info("client is null");
         Client client = (Client) clientManager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + client.getPhoneNumber1());
+        LOGGER.info("phoneMumber: " + client.getPhoneNumber());
         mv.addObject("clientForm", client);
         mv.addObject("showForm", 1);
         mv.addObject("client", client);

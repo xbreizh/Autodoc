@@ -22,14 +22,14 @@ public abstract class PersonDTO {
     @Size(min = 3, max = 20, message = "the size for firstName should be between {min} and {max}")
     @NotNull(message = "firstName cannot be null")
     private String firstName;
-    @Size(min = 8, max = 12, message = "the size for phoneNumber1 should be between {min} and {max}")
-    @NotNull(message = "phoneNumber1 cannot be null")
-    private String phoneNumber1;
+    @Size(min = 8, max = 12, message = "the size for phoneNumber should be between {min} and {max}")
+    @NotNull(message = "phoneNumber cannot be null")
+    private String phoneNumber;
 
-    public PersonDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1) {
+    public PersonDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber = phoneNumber;
     }
 
     public PersonDTO() {

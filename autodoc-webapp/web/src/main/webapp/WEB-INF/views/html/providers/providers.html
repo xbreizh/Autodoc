@@ -27,7 +27,7 @@
                 <th th:text="Company">Company</th>
                 <th th:text="FirstName">FirstName</th>
                 <th th:text="LastName">LastName</th>
-                <th th:text="PhoneNumber1">PhoneNumber1</th>
+                <th th:text="PhoneNumber">PhoneNumber</th>
                 <th></th>
             </tr>
             </thead>
@@ -38,7 +38,7 @@
                 <td th:text="${provider.company}">company</td>
                 <td th:text="${provider.firstName}">firstName</td>
                 <td th:text="${provider.lastName}">lastName</td>
-                <td th:text="${provider.phoneNumber1}">phoneNumber1</td>
+                <td th:text="${provider.phoneNumber}">phoneNumber</td>
                 <td>
                     <a th:href="@{'/providers/delete/' + ${provider.id}}">
                         <button class="btn btn-danger" type="button">Delete</button>

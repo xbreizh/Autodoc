@@ -45,8 +45,8 @@ public class Employee extends Person {
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String phoneNumber1, @NotNull List<Role> roles, @NotNull Date startDate, @NotNull String login, @NotNull String password) {
-        super(firstName, lastName, phoneNumber1);
+    public Employee(String firstName, String lastName, String phoneNumber, @NotNull List<Role> roles, @NotNull Date startDate, @NotNull String login, @NotNull String password) {
+        super(firstName, lastName, phoneNumber);
         this.roles = roles;
         this.startDate = startDate;
         this.login = login;
@@ -79,7 +79,7 @@ public class Employee extends Person {
                 ", startDate=" + startDate +
                 ", lastConnection=" + lastConnection +
                 ", tokenExpiration=" + tokenExpiration +
-                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 

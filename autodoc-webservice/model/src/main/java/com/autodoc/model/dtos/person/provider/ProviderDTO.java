@@ -35,8 +35,8 @@ public class ProviderDTO extends PersonDTO {
     @Enumerated(EnumType.STRING)
     private Rate rate;
 
-    public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber1 cannot be null") String phoneNumber1) {
-        super(lastName, firstName, phoneNumber1);
+    public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber) {
+        super(lastName, firstName, phoneNumber);
     }
 
     public ProviderDTO() {

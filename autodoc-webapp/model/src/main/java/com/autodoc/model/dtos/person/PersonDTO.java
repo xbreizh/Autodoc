@@ -18,12 +18,12 @@ public abstract class PersonDTO implements Comparable {
     @Size(min = 3, max = 12, message = "{firstName.size}")
     private String firstName;
     @Size(min = 8, max = 12, message = "{phoneNumber.size}")
-    private String phoneNumber1;
+    private String phoneNumber;
 
-    public PersonDTO(String firstName, String lastName, String phoneNumber1) {
+    public PersonDTO(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber = phoneNumber;
     }
 
     public PersonDTO() {

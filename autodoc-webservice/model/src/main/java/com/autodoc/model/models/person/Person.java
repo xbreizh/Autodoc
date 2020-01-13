@@ -23,15 +23,15 @@ public abstract class Person {
     @NonNull
     protected String lastName;
     @NonNull
-    protected String phoneNumber1;
+    protected String phoneNumber;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String phoneNumber1) {
+    public Person(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -40,7 +40,7 @@ public abstract class Person {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

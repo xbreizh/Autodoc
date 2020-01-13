@@ -52,7 +52,7 @@ class ClientManagerImplTest {
         int id = 9;
         dto.setFirstName("mo");
         dto.setLastName("ma");
-        dto.setPhoneNumber1("yok");
+        dto.setPhoneNumber("yok");
         when(clientDao.create(any(Client.class))).thenReturn(id);
         assertEquals(Integer.toString(id), clientManager.save(dto));
     }

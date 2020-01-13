@@ -25,7 +25,7 @@
                 <th th:text="Login">Login</th>
                 <th th:text="FirstName">FirstName</th>
                 <th th:text="LastName">LastName</th>
-                <th th:text="PhoneNumber1">PhoneNumber1</th>
+                <th th:text="PhoneNumber">PhoneNumber</th>
                 <th th:text="Roles">Role(s)</th>
                 <th></th>
             </tr>
@@ -37,7 +37,7 @@
                 <td th:text="${employee.login}">Login</td>
                 <td th:text="${employee.firstName}">firstName</td>
                 <td th:text="${employee.lastName}">lastName</td>
-                <td th:text="${employee.phoneNumber1}">phoneNumber1</td>
+                <td th:text="${employee.phoneNumber}">phoneNumber</td>
                 <td th:text="${employee.roles}">roles</td>
                 <td>
                     <a th:href="@{'/employees/delete/' + ${employee.id}}">

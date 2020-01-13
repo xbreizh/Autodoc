@@ -24,7 +24,7 @@
             <tr>
                 <th th:text="FirstName">FirstName</th>
                 <th th:text="LastName">LastName</th>
-                <th th:text="PhoneNumber1">PhoneNumber1</th>
+                <th th:text="PhoneNumber">PhoneNumber</th>
                 <th></th>
             </tr>
             </thead>
@@ -34,7 +34,7 @@
                 th:onclick="'javascript:rowClicked(\'' +@{'clients/' + ${client.id}}+ '\');'">
                 <td th:text="${client.firstName}">firstName</td>
                 <td th:text="${client.lastName}">lastName</td>
-                <td th:text="${client.phoneNumber1}">phoneNumber1</td>
+                <td th:text="${client.phoneNumber}">phoneNumber</td>
                 <td>
                     <a th:href="@{'/clients/delete/' + ${client.id}}">
                         <button class="btn btn-danger" type="button">Delete</button>

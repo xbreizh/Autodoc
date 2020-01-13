@@ -60,7 +60,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
         LOGGER.info("employee is null");
         Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + employee.getPhoneNumber1());
+        LOGGER.info("phoneMumber: " + employee.getPhoneNumber());
         LOGGER.info("lastC: " + employee.getLastConnection());
         LOGGER.info("startDate: " + employee.getStartDate());
         mv.addObject("employeeForm", employee);

@@ -9,8 +9,6 @@ import com.autodoc.model.models.person.provider.Provider;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO> implements ProviderManager {
@@ -34,7 +32,7 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
         provider.setId(id);
         provider.setFirstName(dto.getFirstName());
         provider.setLastName(dto.getLastName());
-        provider.setPhoneNumber1(dto.getPhoneNumber1());
+        provider.setPhoneNumber(dto.getPhoneNumber());
         provider.setEmail(dto.getEmail1());
         provider.setWebsite(dto.getWebsite());
         provider.setCompany(dto.getCompany());
@@ -53,7 +51,7 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
         provider.setFirstName(dto.getFirstName());
         provider.setLastName(dto.getLastName());
         provider.setEmail1(dto.getEmail());
-        provider.setPhoneNumber1(dto.getPhoneNumber());
+        provider.setPhoneNumber(dto.getPhoneNumber());
         LOGGER.info("provider transferred: " + provider);
         return provider;
     }

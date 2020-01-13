@@ -31,9 +31,9 @@
                 <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
             </tr>
             <tr>
-                <td>PhoneNumber1:</td>
-                <td><input th:field="*{phoneNumber1}" type="text"/></td>
-                <td th:errors="*{phoneNumber1}" th:if="${#fields.hasErrors('phoneNumber1')}">PhoneNumber1 Error</td>
+                <td>PhoneNumber:</td>
+                <td><input th:field="*{phoneNumber}" type="text"/></td>
+                <td th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</td>
             </tr>
             <tr>
                 <td>Select Role:</td>

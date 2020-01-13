@@ -26,9 +26,9 @@ public class Provider extends Person {
     @NonNull
 
 
-    public Provider(int id, String firstName, String lastName, String phoneNumber1, /*List<Address> addresses,*/ List<Piece> pieces, String website, String email, @NonNull String company) {
-        super(id, firstName, lastName, phoneNumber1);
-       /* this.addresses = addresses;*/
+    public Provider(int id, String firstName, String lastName, String phoneNumber, /*List<Address> addresses,*/ List<Piece> pieces, String website, String email, @NonNull String company) {
+        super(id, firstName, lastName, phoneNumber);
+        /* this.addresses = addresses;*/
         this.pieces = pieces;
         this.website = website;
         this.email = email;
