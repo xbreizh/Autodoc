@@ -61,7 +61,9 @@
                 <td th:text="${bill.tasks}">Tasks</td>
             </tr>
         </table>
-
+        <a th:href="@{'/bills/delete/' + ${bill.id}}">
+            <button class="btn btn-danger" type="button">Delete</button>
+        </a>
 
     </div>
 </div>

@@ -53,6 +53,9 @@
                 <td th:text="${provider.phoneNumber1}">PhoneNumber1</td>
             </tr>
         </table>
+        <a th:href="@{'/providers/delete/' + ${provider.id}}">
+            <button class="btn btn-danger" type="button">Delete</button>
+        </a>
 
 
     </div>
