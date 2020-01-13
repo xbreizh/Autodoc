@@ -39,7 +39,9 @@
                 <td>Select Role:</td>
                 <td>
                     <select th:field="*{roles}">
-                        <option value=""> --</option>
+                        <option value="${employee.roles}">
+                            <div th:text="${employee.roles}"/>
+                        </option>
                         <option th:each="role : ${roles}"
                                 th:utext="${role}"
                                 th:value="${role}"/>

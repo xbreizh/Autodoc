@@ -15,7 +15,7 @@
 
     <form action="#" method="post" th:action="@{'/employees/new/'}" th:object="${employeeForm}">
         <table>
-            <tr>
+           <!-- <tr>
                 <td>Id:</td>
                 <td th:text="${id}">Login</td>
             </tr>
@@ -26,7 +26,7 @@
             <tr>
                 <td>Last Connection:</td>
                 <td th:text="${lastConnection}">Last Connection</td>
-            </tr>
+            </tr>-->
             <tr>
                 <td>Login:</td>
                 <td><input th:field="*{login}" type="text"/></td>
@@ -46,8 +46,8 @@
                                 th:utext="${role}"
                                 th:value="${role}"/>
                     </select>
-
                 </td>
+                <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>
             </tr>
             <tr>
                 <td>FirstName:</td>
