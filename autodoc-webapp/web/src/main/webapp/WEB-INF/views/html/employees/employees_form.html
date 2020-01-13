@@ -38,16 +38,13 @@
             <tr>
                 <td>Select Role:</td>
                 <td>
-                    <select th:field="*{roles}">
-                        <option value="${employee.roles}">
-                            <div th:text="${employee.roles}"/>
-                        </option>
-                        <option th:each="role : ${roles}"
-                                th:utext="${role}"
-                                th:value="${role}"/>
-                    </select>
-
+                    <th:block th:each="role : ${roleList}">
+                        <input name="roles" th:checked="${#lists.contains(employee.roles,role)}" th:value="${role}"
+                               type="radio"/>
+                        <label th:text="${role}"></label>
+                    </th:block>
                 </td>
+                <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>
             </tr>
             <tr>
                 <td>

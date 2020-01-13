@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class Employee extends Person {
 
-    private String roles;
+    private List<String> roles;
 
     private Date startDate;
 
@@ -20,7 +20,7 @@ public class Employee extends Person {
     private Date lastConnection;
 
 
-    public Employee(int id, String firstName, String lastName, String phoneNumber1, String roles, Date startDate, String login, Date lastConnection) {
+    public Employee(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {
         super(id, firstName, lastName, phoneNumber1);
         this.roles = roles;
         this.startDate = startDate;
