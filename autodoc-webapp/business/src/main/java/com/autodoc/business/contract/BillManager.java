@@ -10,5 +10,7 @@ public interface BillManager extends GlobalManager {
 
     List<Bill> getByRegistration(String token, SearchDto searchDto);
 
+    List<String> getStatus(String token);
+
 
 }

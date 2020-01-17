@@ -1,15 +1,13 @@
 package com.autodoc.model.dtos.bill;
 
-import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -28,17 +26,17 @@ public class BillForm {
     @NotEmpty
     private String status;
 
-    @NotNull
-    private List<Integer> tasks;
+    private List<Task> tasks;
+
 
     @NotEmpty(message = "car  cannot be null")
-    private Car car;
+    private String CarRegistration;
 
     @Min(value = 1, message = "client cannot be null")
-    private Client client;
+    private int clientId;
 
-    @Min(value = 1, message = "employee cannot be null")
-    private Employee employee;
+    @NotEmpty(message = "employee cannot be null")
+    private String employeeLogin;
 
     @Min(value = 1, message = "VAT cannot be null")
     private double vat;
@@ -46,7 +44,12 @@ public class BillForm {
     @Min(value = 1, message = "total cannot be null")
     private double total;
 
+    @Max(100)
     private double discount;
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
 
 
     @Override
@@ -56,9 +59,9 @@ public class BillForm {
                 ", date=" + date +
                 ", status='" + status + '\'' +
                 ", tasks=" + tasks +
-                ", car=" + car +
-                ", client=" + client +
-                ", employee=" + employee +
+                ", car registration=" + CarRegistration +
+                ", client=" + clientId +
+                ", employee=" + employeeLogin +
                 ", vat=" + vat +
                 ", total=" + total +
                 ", discount=" + discount +

@@ -47,14 +47,12 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         dto.setLastName(((Employee) entity).getLastName());
         dto.setPhoneNumber(((Employee) entity).getPhoneNumber());
         LOGGER.info("dto: " + dto);
-        LOGGER.info("converted into dto");
         return dto;
     }
 
     private List<String> convertRoleFromEntityToDto(List<Role> roles) {
         List<String> roleString = new ArrayList<>();
         if (!roles.isEmpty()) {
-
         }
         for (Role role : roles) {
             roleString.add(role.toString());

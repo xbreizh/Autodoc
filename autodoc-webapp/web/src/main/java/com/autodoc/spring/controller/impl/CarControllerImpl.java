@@ -188,7 +188,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("cars/cars_new");
+        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         mv.addObject("carForm", new CarForm());
         mv.addObject("showForm", 1);
         return mv;

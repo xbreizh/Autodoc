@@ -3,6 +3,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.*;
 import com.autodoc.contract.BillService;
+import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
@@ -27,14 +28,16 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private TaskManager taskManager;
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
+    private EnumService enumService;
 
-    public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager) {
+    public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, EnumService enumService) {
         super(service);
         this.service = service;
         this.carManager = carManager;
         this.taskManager = taskManager;
         this.clientManager = clientManager;
         this.employeeManager = employeeManager;
+        this.enumService = enumService;
     }
 
     public Bill dtoToEntity(String token, Object obj) throws Exception {
@@ -79,19 +82,25 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         return taskList;
     }
 
-    public BillDTO formToDto(Object obj) {
+    public BillDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         BillForm form = (BillForm) obj;
         LOGGER.info("dto: " + form);
         BillDTO dto = new BillDTO();
         dto.setId(form.getId());
-        dto.setClientId(form.getClient().getId());
+        dto.setClientId(form.getClientId());
         dto.setDate(form.getDate());
         dto.setDiscount(form.getDiscount());
-        dto.setEmployeeId(form.getEmployee().getId());
-        dto.setRegistration(form.getCar().getRegistration());
+        Employee employee = employeeManager.getByLogin(token, form.getEmployeeLogin());
+        dto.setEmployeeId(employee.getId());
+        dto.setRegistration(form.getCarRegistration());
         dto.setStatus(form.getStatus());
-        dto.setTasks(form.getTasks());
+        List<Integer> taskIdList = new ArrayList<>();
+        for (Task task : form.getTasks()) {
+            if (!taskIdList.contains(task.getId()))
+                taskIdList.add(task.getId());
+        }
+        dto.setTasks(taskIdList);
         dto.setTotal(form.getTotal());
         dto.setVat(form.getVat());
         LOGGER.info("bill transferred: " + dto);
@@ -102,5 +111,10 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     @Override
     public List<Bill> getByRegistration(String token, SearchDto searchDto) {
         return service.getByCriteria(token, searchDto);
+    }
+
+    @Override
+    public List<String> getStatus(String token) {
+        return enumService.getAll(token, "status");
     }
 }

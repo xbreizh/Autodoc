@@ -1,9 +1,6 @@
 package com.autodoc.spring.controller.impl;
 
-import com.autodoc.business.contract.BillManager;
-import com.autodoc.business.contract.CarManager;
-import com.autodoc.business.contract.ClientManager;
-import com.autodoc.business.contract.EmployeeManager;
+import com.autodoc.business.contract.*;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
@@ -12,6 +9,7 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,13 +32,17 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     ClientManager clientManager;
     CarManager carManager;
     EmployeeManager employeeManager;
+    BillManager billManager;
+    TaskManager taskManager;
 
-    public BillControllerImpl(LibraryHelper helper, BillManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager) {
+    public BillControllerImpl(LibraryHelper helper, BillManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, BillManager billManager, TaskManager taskManager) {
         super(helper);
         this.manager = manager;
+        this.billManager = billManager;
         this.clientManager = clientManager;
         this.carManager = carManager;
         this.employeeManager = employeeManager;
+        this.taskManager = taskManager;
     }
 
 
@@ -127,7 +130,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     }
 
     @PostMapping(value = "/balako")
-    public ModelAndView getCreate(@Valid NewBillForm newBillForm, BindingResult bindingResult) throws Exception {
+    public ModelAndView getCreateForm(@Valid NewBillForm newBillForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("getting create form");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         Client client = (Client) clientManager.getById(helper.getConnectedToken(), newBillForm.getClientId());
@@ -139,23 +142,72 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         return mv;
     }
 
+    @GetMapping(value = "/new")
+    public ModelAndView getCreateForm() throws Exception {
+        String token = helper.getConnectedToken();
+        LOGGER.info("getting create form");
+        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
+        BillForm billForm = new BillForm();
+        List<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            tasks.add(new Task());
+        }
+        billForm.setTasks(tasks);
+
+        mv.addObject("billForm", billForm);
+        mv.addObject("tasks", taskManager.getAll(token));
+        //TODO remove client and car patches
+        List<Car> cars = carManager.getAll(token);
+        String employeeLogin = helper.getConnectedLogin();
+        LOGGER.info("getting login: " + employeeLogin);
+        billForm.setEmployeeLogin(employeeLogin);
+        billForm.setCarRegistration(cars.get(0).getRegistration());
+        billForm.setStatus("PENDING_PAYMENT");
+        billForm.setVat(19.6);
+        List<Client> clients = clientManager.getAll(token);
+        billForm.setClientId(clients.get(0).getId());
+      /*  mv.addObject("clientId", cars.get(0).getClient().getId());
+        mv.addObject("carId", cars.get(0).getId());*/
+        mv.addObject("showForm", 1);
+        return mv;
+    }
+
 
     @PostMapping(value = "/new")
     @ResponseBody
     public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to create member ");
+        LOGGER.info("trying to create bill " + billForm);
+        LOGGER.info("tasks: " + billForm.getTasks());
+        LOGGER.info("tasks before: " + billForm.getTasks().size());
+        List<Task> newTaskList = new ArrayList<>();
+        for (Task task : billForm.getTasks()) {
+            if (!task.getName().isEmpty()) {
+                newTaskList.add(task);
+            }
+        }
+        billForm.setTasks(newTaskList);
+        LOGGER.info("tasks after: " + billForm.getTasks().size());
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
-        LOGGER.info("empl: " + billForm);
         mv.addObject("billForm", new BillForm());
         List<Employee> employees = employeeManager.getAll(token);
         List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = employeeManager.getAll(token);
+        List<Car> cars = carManager.getAll(token);
+        billForm.setStatus("PENDING_PAYMENT");
         mv.addObject("employees", employees);
         mv.addObject("clients", clients);
         mv.addObject("cars", cars);
+        mv.addObject("tasks", taskManager.getAll(helper.getConnectedToken()));
+        String employeeLogin = helper.getConnectedLogin();
+        LOGGER.info("getting login: " + employeeLogin);
+        billForm.setEmployeeLogin(employeeLogin);
+        billForm.setCarRegistration(cars.get(0).getRegistration());
+
+        billForm.setClientId(clients.get(0).getId());
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
+            LOGGER.error("binding has errors: " + bindingResult.toString());
+            LOGGER.error("binding has errors: " + bindingResult.getGlobalError());
+            LOGGER.error("binding has errors: " + bindingResult.getObjectName());
             mv.addObject("billForm", billForm);
             mv.addObject("showForm", 1);
             return mv;

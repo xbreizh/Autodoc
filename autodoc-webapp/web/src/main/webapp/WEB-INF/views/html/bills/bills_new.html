@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html"
       xmlns:th="http:/www.w3.org/1999/xhtml">
-<title>myProfile</title>
+
 
 <div th:replace="fragments/header :: head1"></div>
 <body>
@@ -16,19 +16,39 @@
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
         <table>
             <tr>
+                <!-- <td><input th:field="*{employee.id}" type="text"/></td>
+                 <td><input th:field="*{employee.login}" type="text"/></td>
+                 <td><input th:field="*{employee.firstName}" type="text"/></td>
+                 <td><input th:field="*{employee.lastName}" type="text"/></td>
+                 <td><input th:field="*{employee.phoneNumber}" type="text"/></td>
+                 <td>
+                     <th:block th:each="role : ${roleList}">
+                         <input name="roles" th:checked="${#lists.contains(employee.roles,role)}" th:value="${role}"
+                                type="radio"/>
+                         <label th:text="${employee.role}"></label>
+                     </th:block>
+                 </td>-->
+                <td>Employee:</td>
+                <td><input th:field="*{employeeLogin}" type="text"/></td>
+                <td th:errors="*{employeeLogin}" th:if="${#fields.hasErrors('employeeLogin')}">Login
+                    Error
+                </td>
+
+                <!-- <td>Employee:</td>
+                 <td><input th:field="*{employee}" type="text" th:text="employee" th:value="${employee}"/> Employee</td>
+                 <td th:errors="*{employee}" th:if="${#fields.hasErrors('employee')}">Employee Error</td>-->
+            </tr>
+            <tr>
                 <td>Registration:</td>
-                <td><input th:field="*{car.registration}" type="text"/></td>
-                <td th:errors="*{car.registration}" th:if="${#fields.hasErrors('car.registration')}">Registration Error</td>
+                <td><input th:field="*{CarRegistration}" type="text"/></td>
+                <td th:errors="*{CarRegistration}" th:if="${#fields.hasErrors('CarRegistration')}">Registration
+                    Error
+                </td>
             </tr>
             <tr>
                 <td>Client:</td>
-                <td><input th:field="*{client.id}" type="text"/></td>
-                <td th:errors="*{client.id}" th:if="${#fields.hasErrors('client.id')}">Client Error</td>
-            </tr>
-            <tr>
-                <td>Employee:</td>
-                <td><input th:field="*{employee.id}" type="text"/></td>
-                <td th:errors="*{employee.id}" th:if="${#fields.hasErrors('employee.id')}">Employee Error</td>
+                <td><input th:field="*{clientId}" type="text"/></td>
+                <td th:errors="*{clientId}" th:if="${#fields.hasErrors('clientId')}">Client Error</td>
             </tr>
             <tr>
                 <td>Total:</td>
@@ -41,15 +61,42 @@
                 <td th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</td>
             </tr>
             <tr>
-                <td>Status:</td>
-                <td><input th:field="*{status}" type="text"/></td>
-                <td th:errors="*{status}" th:if="${#fields.hasErrors('status')}">Status Error</td>
+                <td>Vat:</td>
+                <td><input th:field="*{vat}" type="text"/></td>
+                <td th:errors="*{vat}" th:if="${#fields.hasErrors('vat')}">Vat Error</td>
             </tr>
             <tr>
-                <td>Tasks:</td>
-                <td><input th:field="*{tasks}" type="text"/></td>
-                <td th:errors="*{tasks}" th:if="${#fields.hasErrors('tasks')}">Tasks Error</td>
+                <!--  <td>Status:</td>-->
+                <td><input th:field="*{status}" type="hidden"/></td>
+                <!--<td th:errors="*{status}" th:if="${#fields.hasErrors('status')}">Status Error</td>-->
             </tr>
+            <tr>
+                <table>
+                    <tr>
+                        <th>Tasks</th>
+                    </tr>
+
+                    <tr th:each="task, stat : *{tasks}">
+                        <!--  <td>
+                              <input th:name="|list[${stat.index}].name|" th:value="${task.getName()}"/>
+                          </td>
+                          <td>
+                              <input th:name="|list[${stat.index}].estimatedTime|" th:value="${task.getEstimatedTime()}"/>
+                          </td>-->
+                        <td>
+                            <select th:name="|tasks[${stat.index}].name|" th:value="${task.getName()}">
+                                <option value="">new Task</option>
+                                <option th:each="task : ${tasks}"
+                                        th:utext="${task.getName()}"
+                                        th:value="${task}"/>
+                            </select>
+                        </td>
+                        <!-- <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>-->
+
+                    </tr>
+                </table>
+            </tr>
+
 
             <tr>
                 <td>

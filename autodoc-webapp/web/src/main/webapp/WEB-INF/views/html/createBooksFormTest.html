@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/header :: head1"></div>
+<body>
+<div class="container">
+
+    <h2>Ils sont toujours en form</h2>
+
+    <form action="#" method="post" th:action="@{/tasktest/save}"
+          th:object="${form}">
+        <fieldset>
+            <input id="submitButton" th:value="Save" type="submit">
+            <input id="resetButton" name="reset" th:value="Reset" type="reset"/>
+            <table>
+                <thead>
+                <tr>
+                    <th> Title</th>
+                    <th> Author</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--  <tr th:each="book, stat : *{books}">
+                      <td><input th:field="*{books[__${stat.index}__].title}" /></td>
+                      <td><input th:field="*{books[__${stat.index}__].author}" /></td>
+                  </tr>-->
+                <tr th:each="task, stat : ${form.list}">
+                    <!-- <td>
+                         <input hidden th:name="|books[${stat.index}].id|" th:value="${book.getId()}"/>
+                     </td>-->
+                    <td>
+                        <input th:name="|list[${stat.index}].name|" th:value="${task.getName()}"/>
+                    </td>
+                    <td>
+                        <input th:name="|list[${stat.index}].estimatedTime|" th:value="${task.getEstimatedTime()}"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

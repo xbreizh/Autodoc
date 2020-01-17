@@ -1,5 +1,5 @@
 package com.autodoc.model.enums;
 
 public enum Status {
-    PENDING, COMPLETED, CANCELLED
+    PENDING_PAYMENT, PENDING_PIECES, COMPLETED, CANCELLED
 }

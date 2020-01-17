@@ -4,21 +4,25 @@ import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
+import com.autodoc.model.BooksCreationDto;
 import com.autodoc.model.dtos.RegistrationForm;
+import com.autodoc.model.dtos.TaskList;
 import com.autodoc.model.dtos.car.CarForm;
+import com.autodoc.model.models.Book;
 import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -28,41 +32,37 @@ public class GlobalController<D, T> {
     private static final String HOME = "home";
     private static final String RESET = "passwordReset/passwordReset";
     private static final String REDIRECT_HOME = "redirect:/";
-    @Inject
-    private ClientManager clientManager;
-
     private static final String RESET_OK = "passwordReset/passwordResetOk";
     private static final String SEND_EMAIL_OK = "passwordReset/passwordResetLinkOk";
     private static final String RESET_KO = "passwordReset/passwordResetLinkKo";
     private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
     private static Logger LOGGER = Logger.getLogger(GlobalController.class);
-/*
-    public GlobalController(LibraryHelper helper, PasswordCheckerImpl passwordChecker,  ClientManager clientManager) {
-        this.helper = helper;
-        this.clientManager = clientManager;
-        this.passwordChecker = passwordChecker;
-        // this.employeeManager = employeeManager;
-    }*/
-
     LibraryHelper helper;
-
-    public void setHelper(LibraryHelper helper) {
-        this.helper = helper;
-    }
-
+    /*
+        public GlobalController(LibraryHelper helper, PasswordCheckerImpl passwordChecker,  ClientManager clientManager) {
+            this.helper = helper;
+            this.clientManager = clientManager;
+            this.passwordChecker = passwordChecker;
+            // this.employeeManager = employeeManager;
+        }*/
+    @Inject
+    private ClientManager clientManager;
     @Inject
     private EmployeeManager employeeManager;
     private PasswordCheckerImpl passwordChecker;
-
-    public void setEmployeeManager(EmployeeManager employeeManager) {
-        this.employeeManager = employeeManager;
-    }
 
     @Inject
     public GlobalController(LibraryHelper helper) {
         this.helper = helper;
     }
 
+    public void setHelper(LibraryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setEmployeeManager(EmployeeManager employeeManager) {
+        this.employeeManager = employeeManager;
+    }
 
     private void logError(HttpServletRequest request, Exception e) {
         LOGGER.error("error: " + e + " / request: " + request.getMethod());
@@ -86,6 +86,75 @@ public class GlobalController<D, T> {
         }
 
         return mv;
+    }
+
+    @GetMapping("/books")
+    public ModelAndView showAll() {
+        LOGGER.info("trying to get books");
+        List<Book> books = new ArrayList<>();
+        Book book1 = new Book(1, "title1", "author12");
+        Book book2 = new Book(32, "moscovo", "author133");
+        books.add(book1);
+        books.add(book2);
+        ModelAndView mv = checkAndAddConnectedDetails("books");
+        mv.addObject("books", books);
+        return mv;
+    }
+
+    @GetMapping("/edit")
+    public String showEditForm(Model model) {
+        List<Book> books = new ArrayList<>();
+        Book book1 = new Book(1, "title1", "author12");
+        Book book2 = new Book(32, "moscovo", "author133");
+        books.add(book1);
+        books.add(book2);
+
+        model.addAttribute("form", new BooksCreationDto(books));
+        return "books/editBooksForm";
+    }
+
+    @GetMapping(value = "/createTest")
+    public ModelAndView showCreateFormTest(Model model) {
+        TaskList booksForm = new TaskList();
+
+        for (int i = 1; i <= 10; i++) {
+            booksForm.addTask(new Task());
+        }
+        ModelAndView mv = checkAndAddConnectedDetails("createBooksFormTest");
+        mv.addObject("form", booksForm);
+
+        return mv;
+    }
+
+    @GetMapping(value = "/create")
+    public ModelAndView showCreateForm(Model model) {
+        BooksCreationDto booksForm = new BooksCreationDto();
+
+        for (int i = 1; i <= 10; i++) {
+            booksForm.addBook(new Book());
+        }
+        ModelAndView mv = checkAndAddConnectedDetails("createBooksForm");
+        mv.addObject("form", booksForm);
+
+        return mv;
+    }
+
+    @PostMapping("/tasktest/save")
+    public String saveBooks(@ModelAttribute TaskList form, Model model) {
+        /*bookService.saveAll(form.getBooks());*/
+        LOGGER.info("getting books to save: " + form.getList());
+
+        model.addAttribute("books", form.getList());
+        return "redirect:/books";
+    }
+
+    @PostMapping("/books/save")
+    public String saveBooks(@ModelAttribute BooksCreationDto form, Model model) {
+        /*bookService.saveAll(form.getBooks());*/
+        LOGGER.info("getting books to save: " + form.getBooks());
+
+        model.addAttribute("books", form.getBooks());
+        return "redirect:/books";
     }
 
 
