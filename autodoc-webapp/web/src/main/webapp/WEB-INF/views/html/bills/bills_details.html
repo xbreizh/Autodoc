@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html"
       xmlns:th="http:/www.w3.org/1999/xhtml">
-<title>myProfile</title>
+
 
 <div th:replace="fragments/header :: head1"></div>
 <body>
@@ -13,7 +13,7 @@
     <h2>Bill details</h2>
 
 
-    <h1>Form</h1>
+    <h1>Bill Form</h1>
     <label style="display: block" th:id="'switch' + ${bill.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
@@ -27,58 +27,61 @@
         <div th:replace="bills/bills_form :: form"></div>
     </div>
     <div style="display: block; background-color: orangered" th:id="'mic' + ${bill.id}">
-        <table>
-            <tr>
-                <td>Id:</td>
-                <td th:text="${bill.id}">Id</td>
-            </tr>
-            <tr>
-                <td>Name:</td>
-                <td th:text="${bill.car.registration}">Registration</td>
-            </tr>
-            <tr>
-                <td>Client:</td>
-                <td th:text="${bill.client.lastName}">Client</td>
-            </tr>
-            <tr>
-                <td> Employee:</td>
-                <td th:text="${bill.employee.login}">Employee</td>
-            </tr>
-            <tr>
-                <td>VAT:</td>
-                <td th:text="${bill.vat}">VAT</td>
-            </tr>
-            <tr>
-                <td>Discount:</td>
-                <td th:text="${bill.discount}">Discount</td>
-            </tr>
-            <tr>
-                <td>Total:</td>
-                <td th:text="${bill.total}">Total</td>
-            </tr>
-            <tr>
-                <td>Tasks:</td>
-                <td th:text="${bill.tasks}">Tasks</td>
-            </tr>
-        </table>
-        <a th:href="@{'/bills/delete/' + ${bill.id}}">
-            <button class="btn btn-danger" type="button">Delete</button>
-        </a>
+        <div th:fragment="bill_table" xmlns:th="http:/www.w3.org/1999/xhtml">
+            <table>
+                <tr>
+                    <td>Id:</td>
+                    <td th:text="${bill.id}">Id</td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td th:text="${bill.car.registration}">Registration</td>
+                </tr>
+                <tr>
+                    <td>Client:</td>
+                    <td th:text="${bill.client.lastName}">Client</td>
+                </tr>
+                <tr>
+                    <td> Employee:</td>
+                    <td th:text="${bill.employee.login}">Employee</td>
+                </tr>
+                <tr>
+                    <td>VAT:</td>
+                    <td th:text="${bill.vat}">VAT</td>
+                </tr>
+                <tr>
+                    <td>Discount:</td>
+                    <td th:text="${bill.discount}">Discount</td>
+                </tr>
+                <tr>
+                    <td>Total:</td>
+                    <td th:text="${bill.total}">Total</td>
+                </tr>
+                <tr>
+                    <td>Tasks:</td>
+                    <td th:text="${bill.tasks}">Tasks</td>
+                </tr>
+            </table>
 
+
+            <a th:href="@{'/bills/delete/' + ${bill.id}}">
+                <button class="btn btn-danger" type="button">Delete</button>
+            </a>
+
+        </div>
     </div>
-</div>
 
-<script>
+    <script>
 
-    window.onload = checkToggle;
-    let start = 0;
+        window.onload = checkToggle;
+        let start = 0;
 
-    function checkToggle() {
+        function checkToggle() {
 
-        let showFormVar = parseInt("[[${showForm}]]");
-        let showForm = start + showFormVar;
-        if (showForm === 0) {
-            toggle_displays();
+            let showFormVar = parseInt("[[${showForm}]]");
+            let showForm = start + showFormVar;
+            if (showForm === 0) {
+                toggle_displays();
 
         }
         start++;
@@ -113,6 +116,7 @@
 
     }
 </script>
+
 
 </body>
 </html>

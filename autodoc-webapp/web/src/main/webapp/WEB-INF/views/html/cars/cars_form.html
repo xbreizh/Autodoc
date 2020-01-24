@@ -1,34 +1,26 @@
 <div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
-    <h2>Car form</h2>
-
-     <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${carForm}">
-         <table>
-             <tr>
-                 <td>Id:</td>
-                 <td th:text="${car.id}">Login</td>
-             </tr>
-             <tr>
-                 <td>Registration:</td>
-                 <td><input th:field="*{registration}" type="text"/></td>
-                 <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</td>
-             </tr>
-             <tr>
-                 <td>Select Client:</td>
-                 <td>
-                     <select th:field="*{client}">
-                         <option th:each="client : ${clients}"
-                                 th:utext="${client.firstName+' '+client.lastName}"
-                                 th:value="${client}"/>
-                     </select>
-                 </td>
-             </tr>
-             <tr>
-                 <td>
-                     <button type="submit">Submit</button>
-                 </td>
-             </tr>
-         </table>
-     </form>
+    <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${carForm}">
+        <table>
+            <tr>
+                <td><input th:field="*{registration}" type="hidden"/></td>
+                <td><input name="carModelId" th:id="carModelId" th:value="${car.model.id}" type="hidden"/></td>
+            </tr>
+            <tr>
+                <td>Client:</td>
+                <td>
+                    <select name="clientId" onchange="this.form.submit()" th:id="clientId">
+                        <option th:each="client : ${clients}"
+                                th:selected="${client.id == currentClient}"
+                                th:text="${client.firstName+' '+client.lastName}"
+                                th:value="${client.id}"></option>
+                    </select>
+                    <a th:href="@{'/clients/new'}">
+                        <button class="btn btn-info" type="button">New Client</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

@@ -77,6 +77,9 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         LOGGER.info("clients: " + clients.size());
         LOGGER.info("employees: " + employees.size());
         LOGGER.info("car details: " + car);
+        Client test = (Client) clients.get(1);
+        mv.addObject("test", test);
+        LOGGER.info("test: " + test);
         ClientList clientList = new ClientList(clientManager.getAll(helper.getConnectedToken()));
         mv.addObject("clientList", clientList);
         mv.addObject("employees", employees);
@@ -86,6 +89,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         mv.addObject("showForm", 1);
         mv.addObject("bills", car.getBills());
         LOGGER.info("bills for car: " + car.getBills().size());
+        mv.addObject("currentClient", car.getClient().getId());
         mv.addObject("car", car);
         return mv;
 
@@ -140,6 +144,10 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         mv.addObject("showForm", 1);
         mv.addObject("car", car);
         mv.addObject("bills", car.getBills());
+        mv.addObject("currentClient", car.getClient().getId());
+        Client test = clientList.getList().get(1);
+        mv.addObject("test", test);
+        LOGGER.info("test: " + test);
         LOGGER.info("bills for car: " + car.getBills().size());
         return mv;
     }
@@ -152,9 +160,9 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("cars/cars_details");
 
+        LOGGER.info("carform: " + carForm);
         if (carForm == null) carForm = new CarForm();
         mv.addObject("carForm", carForm);
-        LOGGER.info("carform: " + carForm);
 
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -165,10 +173,14 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
             List<Car> cars = employeeManager.getAll(token);
             mv.addObject("employees", employees);
             mv.addObject("clients", clients);
+            Client test = clients.get(1);
+            mv.addObject("test", test);
+            LOGGER.info("test: " + test);
             mv.addObject("cars", cars);
             mv.addObject("car", car);
             mv.addObject("carForm", carForm);
             mv.addObject("showForm", 0);
+            mv.addObject("currentClient", car.getClient().getId());
             return mv;
         }
         LOGGER.info("carrying on");
@@ -176,6 +188,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         manager.update(helper.getConnectedToken(), carForm);
         return new ModelAndView("redirect:" + "/cars/" + carForm.getId());
     }
+
 
     @GetMapping(value = "/delete/{id}")
     @ResponseBody

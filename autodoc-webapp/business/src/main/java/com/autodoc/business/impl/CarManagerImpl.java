@@ -8,6 +8,7 @@ import com.autodoc.contract.BillService;
 import com.autodoc.contract.CarService;
 import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.car.CarDTO;
+import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
@@ -53,6 +54,20 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
             return null;
         }
         return car;
+    }
+
+    public CarDTO formToDto(Object obj) {
+        LOGGER.info("stuff to update: " + obj);
+        CarForm dto = (CarForm) obj;
+        LOGGER.info("dto: " + dto);
+        LOGGER.info(dto.getRegistration());
+        CarDTO carDTO = new CarDTO();
+        if (dto.getId() != 0) carDTO.setId(dto.getId());
+        carDTO.setClientId(dto.getClientId());
+        carDTO.setCarModelId(dto.getCarModelId());
+        carDTO.setRegistration(dto.getRegistration());
+        LOGGER.info("entity transferred: " + carDTO);
+        return carDTO;
     }
 
     public Car dtoToEntity(String token, Object obj) throws Exception {

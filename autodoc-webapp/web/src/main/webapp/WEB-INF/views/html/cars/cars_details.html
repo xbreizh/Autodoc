@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html"
       xmlns:th="http:/www.w3.org/1999/xhtml">
-<title>myProfile</title>
+
 
 <div th:replace="fragments/header :: head1"></div>
 <body>
@@ -12,53 +12,53 @@
 
     <h2>Car details</h2>
 
+    <table>
+        <tr>
+            <td>Id:</td>
+            <td th:text="${car.id}">Id</td>
+        </tr>
+        <tr>
+            <td>Registration:</td>
+            <td th:text="${car.registration}">Registration</td>
+        </tr>
+        <tr>
+            <td>Brand:</td>
+            <td th:text="${car.model.manufacturer.name}">Brand</td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td th:text="${car.model.name}">Model</td>
+        </tr>
+    </table>
 
-    <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${car.id}">
-        <input onclick="toggle_displays();"
-               type="checkbox">
-        <span class="slider round"></span>
-    </label>
-    <h3>Edit</h3>
-
-
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${car.id}">
-
-        <div th:replace="cars/cars_form :: form"></div>
-    </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${car.id}">
+    <div style="display: block; " th:id="'mic' + ${car.id}">
         <table>
             <tr>
-                <td>Id:</td>
-                <td th:text="${car.id}">Id</td>
-            </tr>
-            <tr>
-                <td>Registration:</td>
-                <td th:text="${car.registration}">Registration</td>
-            </tr>
-            <tr>
-                <td>Brand:</td>
-                <td th:text="${car.model.manufacturer.name}">Brand</td>
-            </tr>
-            <tr>
-                <td>Model:</td>
-                <td th:text="${car.model.name}">Model</td>
-            </tr>
-            <tr>
                 <td>Client:</td>
-                <td th:text="${car.client.firstName+' '+car.client.lastName}">Client</td>
+                <td th:text="${car.client.firstName+' '+car.client.lastName}">Client
+
+                </td>
             </tr>
+
         </table>
-        <a th:href="@{'/cars/delete/' + ${car.id}}">
-            <button class="btn btn-danger" type="button">Delete</button>
-        </a>
+    </div>
+    <div style="display: none;" th:id="'micForm' + ${car.id}">
+        <div th:replace="cars/cars_form :: form"></div>
 
     </div>
+
+    <a th:href="@{'/cars/delete/' + ${car.id}}">
+        <button class="btn btn-danger" type="button">Delete</button>
+    </a>
+    <button class="btn-outline-warning" onclick="toggle_displays();" type="button">Update Client</button>
+    <br><br>
+
+
     <div th:if="${not #lists.isEmpty(bills)}">
 
 
         <table class="table table-striped">
-            <caption style="display: none">History</caption>
+            <!--<caption style="display: none">History</caption>-->
             <thead>
             <tr>
                 <th id="billId">Id</th>
@@ -82,7 +82,6 @@
     <div th:if="${ #lists.isEmpty(bills)}">No previous history
     </div>
 </div>
-
 <script>
 
     window.onload = checkToggle;
