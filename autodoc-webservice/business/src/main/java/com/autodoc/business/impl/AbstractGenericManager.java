@@ -40,7 +40,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     public String save(D object) throws InvalidDtoException {
-        LOGGER.info("trying to save a " + object.getClass());
         LOGGER.info("trying to save: " + object.getClass());
         try {
             T objectToSave = transferInsert(object);

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -77,7 +78,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         int id = dto.getId();
         LOGGER.info("id: " + id);
         bill.setId(id);
-        bill.setDate(dto.getDate());
+        bill.setDate(new Date());
         Car car = carDao.getCarByRegistration(dto.getRegistration());
         if (car == null) throw new InvalidDtoException("car cannot be null");
         LOGGER.info("car found: " + car);

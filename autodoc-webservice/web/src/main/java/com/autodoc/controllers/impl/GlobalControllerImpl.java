@@ -57,6 +57,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     public ResponseEntity add(@RequestBody @Valid D obj) throws Exception {
         getClassName(obj);
         LOGGER.info("trying to add a " + type);
+        System.out.println("trying to add: " + obj);
         LOGGER.info("object received: " + obj);
         String response = manager.save(obj);
         LOGGER.info("response: " + response);

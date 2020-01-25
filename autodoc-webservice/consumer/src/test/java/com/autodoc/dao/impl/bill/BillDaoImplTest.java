@@ -30,8 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(SpringExtension.class)
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
-class
-BillDaoImplTest {
+class BillDaoImplTest {
 
 
     String clientName;

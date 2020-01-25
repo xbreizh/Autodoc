@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/bills")
+@RequestMapping("/bilou")
 public class BillControllerImpl extends GlobalControllerImpl<Bill, BillDTO> implements BillController {
     private static final Logger LOGGER = Logger.getLogger(BillControllerImpl.class);
     private BillManager billManager;
@@ -23,6 +23,7 @@ public class BillControllerImpl extends GlobalControllerImpl<Bill, BillDTO> impl
         super(billManager);
         if (converter == null) converter = new GsonConverter();
         this.billManager = billManager;
+        LOGGER.info("creating controller");
     }
 
 
