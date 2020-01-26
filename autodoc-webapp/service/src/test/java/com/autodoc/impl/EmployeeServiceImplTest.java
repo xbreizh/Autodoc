@@ -35,7 +35,7 @@ class EmployeeServiceImplTest {
         List<String> roles = new ArrayList<>();
         roles.add("MECANIC");
         dto.setRoles(roles);
-        dto.setPhoneNumber1("029282726256");
+        dto.setPhoneNumber("029282726256");
     }
 
 

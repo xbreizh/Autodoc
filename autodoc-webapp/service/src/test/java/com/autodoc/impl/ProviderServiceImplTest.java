@@ -28,7 +28,7 @@ class ProviderServiceImplTest {
         dto.setLastName(name);
         dto.setCompany("ssss");
         dto.setEmail1("deded@dede.de");
-        dto.setPhoneNumber1("029282726256");
+        dto.setPhoneNumber("029282726256");
     }
 
 
