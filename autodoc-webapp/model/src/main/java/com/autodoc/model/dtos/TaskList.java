@@ -1,6 +1,5 @@
 package com.autodoc.model.dtos;
 
-import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,17 +9,17 @@ import java.util.List;
 @Setter
 @Getter
 public class TaskList {
-    private List<Task> list = new ArrayList<>();
+    private List<Integer> list = new ArrayList<>();
 
-    public TaskList(List<Task> list) {
+    public TaskList(List<Integer> list) {
         this.list = list;
     }
 
     public TaskList() {
     }
 
-    public void addTask(Task task) {
-        list.add(task);
+    public void addTask(Integer taskId) {
+        list.add(taskId);
     }
 
 

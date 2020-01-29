@@ -10,7 +10,6 @@ import com.autodoc.model.dtos.TaskList;
 import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.models.Book;
 import com.autodoc.model.models.person.employee.Employee;
-import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -113,7 +112,7 @@ public class GlobalController<D, T> {
         return "books/editBooksForm";
     }
 
-    @GetMapping(value = "/createTest")
+  /*  @GetMapping(value = "/createTest")
     public ModelAndView showCreateFormTest(Model model) {
         TaskList booksForm = new TaskList();
 
@@ -124,7 +123,7 @@ public class GlobalController<D, T> {
         mv.addObject("form", booksForm);
 
         return mv;
-    }
+    }*/
 
     @GetMapping(value = "/create")
     public ModelAndView showCreateForm(Model model) {

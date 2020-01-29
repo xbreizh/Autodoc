@@ -2,8 +2,6 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.contract.GlobalService;
-import com.autodoc.model.dtos.car.ManufacturerDTO;
-import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -46,19 +44,19 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     public void add(String token, Object obj) {
         LOGGER.info("stuff to insert: " + obj);
-        D objToInsert = formToDto(obj);
+        D objToInsert = formToDto(obj, token);
         service.create(token, objToInsert);
 
     }
 
     public void update(String token, Object obj) {
         LOGGER.info("stuff to update: " + obj);
-        D objToUpdate = formToDto(obj);
+        D objToUpdate = formToDto(obj, token);
         service.update(token, objToUpdate);
 
     }
 
-    public D formToDto(Object obj) {
+    public D formToDto(Object obj, String token) {
         LOGGER.error("not configured");
         return null;
     }

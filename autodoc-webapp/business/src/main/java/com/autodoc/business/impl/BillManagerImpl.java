@@ -96,9 +96,9 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         dto.setRegistration(form.getCarRegistration());
         dto.setStatus(form.getStatus());
         List<Integer> taskIdList = new ArrayList<>();
-        for (Task task : form.getTasks()) {
-            if (!taskIdList.contains(task.getId()))
-                taskIdList.add(task.getId());
+        for (Integer taskId : form.getTasks().getList()) {
+            if (taskId != null)
+                taskIdList.add(taskId);
         }
         dto.setTasks(taskIdList);
         dto.setTotal(form.getTotal());

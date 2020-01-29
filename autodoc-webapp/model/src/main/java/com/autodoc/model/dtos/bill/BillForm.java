@@ -1,6 +1,6 @@
 package com.autodoc.model.dtos.bill;
 
-import com.autodoc.model.models.tasks.Task;
+import com.autodoc.model.dtos.TaskList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,7 +25,7 @@ public class BillForm {
     @NotEmpty
     private String status;
 
-    private List<Task> tasks;
+    private TaskList tasks;
 
 
     @NotEmpty(message = "car  cannot be null")
@@ -47,9 +46,7 @@ public class BillForm {
     @Max(100)
     private double discount;
 
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
+
 
 
     @Override

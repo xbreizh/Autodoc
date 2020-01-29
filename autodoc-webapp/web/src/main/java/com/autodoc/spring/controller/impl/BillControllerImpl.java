@@ -13,12 +13,12 @@ import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -148,14 +148,21 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         LOGGER.info("getting create form");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         BillForm billForm = new BillForm();
-        List<Task> tasks = new ArrayList<>();
+        /*List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             tasks.add(new Task());
         }
-        billForm.setTasks(tasks);
+        billForm.setTasks(tasks);*/
 
         mv.addObject("billForm", billForm);
-        mv.addObject("tasks", taskManager.getAll(token));
+      /*  TaskList taskList = new TaskList();
+        for (Object task1: taskManager.getAll(helper.getConnectedToken())){
+            Task t = (Task)task1;
+            taskList.addTask(t);
+        }*/
+        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        LOGGER.info("tasks: " + taskList);
+        mv.addObject("taskList", taskList);
         //TODO remove client and car patches
         List<Car> cars = carManager.getAll(token);
         String employeeLogin = helper.getConnectedLogin();
@@ -175,18 +182,16 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult) throws Exception {
+    public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult, Model model) throws Exception {
+        LOGGER.info("tasks: " + billForm.getTasks().getList());
         LOGGER.info("trying to create bill " + billForm);
         LOGGER.info("tasks: " + billForm.getTasks());
-        LOGGER.info("tasks before: " + billForm.getTasks().size());
-        List<Task> newTaskList = new ArrayList<>();
-        for (Task task : billForm.getTasks()) {
-            if (!task.getName().isEmpty()) {
-                newTaskList.add(task);
-            }
-        }
-        billForm.setTasks(newTaskList);
-        LOGGER.info("tasks after: " + billForm.getTasks().size());
+        LOGGER.info("tasks before: " + billForm.getTasks().getList().size());
+
+        LOGGER.info("tasks after: " + billForm.getTasks().getList().size());
+        LOGGER.info("tasks: " + billForm.getTasks());
+        // Task task = billForm.getTasks().getList().get(0);
+        // LOGGER.info(task.getName());
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         mv.addObject("billForm", new BillForm());
@@ -197,7 +202,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("employees", employees);
         mv.addObject("clients", clients);
         mv.addObject("cars", cars);
-        mv.addObject("tasks", taskManager.getAll(helper.getConnectedToken()));
+        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        LOGGER.info("tasks: " + taskList);
+        mv.addObject("tasks", taskList);
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);
         billForm.setEmployeeLogin(employeeLogin);

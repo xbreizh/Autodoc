@@ -76,7 +76,7 @@
                         <th>Tasks</th>
                     </tr>
 
-                    <tr th:each="task, stat : *{tasks}">
+                    <tr th:each="task, stat : ${taskList}">
                         <!--  <td>
                               <input th:name="|list[${stat.index}].name|" th:value="${task.getName()}"/>
                           </td>
@@ -84,11 +84,11 @@
                               <input th:name="|list[${stat.index}].estimatedTime|" th:value="${task.getEstimatedTime()}"/>
                           </td>-->
                         <td>
-                            <select th:name="|tasks[${stat.index}].name|" th:value="${task.getName()}">
+                            <select th:name="|tasks.list[${stat.index}]|" th:value="${task}">
                                 <option value="">new Task</option>
-                                <option th:each="task : ${tasks}"
+                                <option th:each="task : ${taskList}"
                                         th:utext="${task.getName()}"
-                                        th:value="${task}"/>
+                                        th:value="${task.getId()}"/>
                             </select>
                         </td>
                         <!-- <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>-->
