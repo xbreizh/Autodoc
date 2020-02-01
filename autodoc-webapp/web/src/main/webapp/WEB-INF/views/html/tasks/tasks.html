@@ -36,7 +36,7 @@
             <tbody>
            <!-- <tr th:fragment="taskDetails" xmlns:th="http:/www.w3.org/1999/xhtml">-->
             <tr class="data-link" th:each="task : ${tasks}"
-                th:onclick="'javascript:rowClicked(\'' +@{'tasks/' + ${task.id}}+ '\');'">
+                th:onclick="'javascript:rowClicked(\'' +@{~tasks/{task.id}}+ '\');'">
                 <td th:text="${task.name}">name</td>
                 <td th:text="${task.description}">description</td>
                 <td th:text="${task.estimatedTime}">estimatedTime</td>

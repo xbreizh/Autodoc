@@ -57,11 +57,47 @@
                     <td>Total:</td>
                     <td th:text="${bill.total}">Total</td>
                 </tr>
-                <tr>
-                    <td>Tasks:</td>
-                    <td th:text="${bill.tasks}">Tasks</td>
-                </tr>
+                <!--   <tr>
+                       <td>Tasks:</td>
+                       <td th:text="${bill.tasks}">Tasks</td>
+                   </tr>-->
             </table>
+            <div th:if="${not #lists.isEmpty(bill.tasks)}">
+
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th th:text="Name">Name</th>
+                        <th th:text="Description">Description</th>
+                        <th th:text="EstimatedTime">Estimated time</th>
+                        <th th:text="Price">Price</th>
+                        <th th:text="Template">Template</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- <tr th:fragment="taskDetails" xmlns:th="http:/www.w3.org/1999/xhtml">-->
+                    <tr class="data-link" th:each="task : ${bill.tasks}"
+                        th:onclick="'javascript:rowClicked(\'' +@{'/tasks/' + ${task.id}}+ '\');'">
+                        <td th:text="${task.name}">name</td>
+                        <td th:text="${task.description}">description</td>
+                        <td th:text="${task.estimatedTime}">estimatedTime</td>
+                        <td th:text="${task.price}">price</td>
+                        <td th:text="${task.template}">template</td>
+                        <td>
+                            <a th:href="@{'/tasks/delete/' + ${task.id}}">
+                                <button class="btn btn-danger" type="button">Delete</button>
+                            </a>
+                        </td>
+
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+            </div>
 
 
             <a th:href="@{'/bills/delete/' + ${bill.id}}">

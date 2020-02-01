@@ -25,7 +25,8 @@ function toggle_displays(t, d) {
     }
 }*/
 function rowClicked(url) {
-    location.href = url;
+    alert(url);
+    location.replace(url);
 }
 
 function showLoans() {
