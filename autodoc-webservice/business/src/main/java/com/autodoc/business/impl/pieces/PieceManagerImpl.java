@@ -58,25 +58,17 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         if (pieceDao.getByName(name) != null) throw new InvalidDtoException("that piece already exist");
         Piece piece = new Piece();
         piece.setName(name.toUpperCase());
-        piece.setBrand(dto.getBrand());
+        piece.setBrand(dto.getBrand().toUpperCase());
         piece.setBuyingPrice(dto.getBuyingPrice());
         piece.setSellPrice(dto.getSellPrice());
         piece.setQuantity(dto.getQuantity());
-        transferCarModel(dto, piece);
+     //   transferCarModel(dto, piece);
         transferPieceType(dto, piece);
-        //transferProvider(dto, piece);
         LOGGER.info("piece to transfer: " + piece);
         return piece;
 
     }
 
-/*    private void transferProvider(PieceDTO dto, Piece piece) throws Exception {
-        if (dto.getProviderId() != 0) {
-            Provider provider = (Provider) providerDao.getById(dto.getProviderId());
-            if (provider == null) throw new Exception("invalid provider id: " + dto.getProviderId());
-            piece.setProvider(provider);
-        }
-    }*/
 
     private void transferPieceType(PieceDTO dto, Piece piece) throws InvalidDtoException {
         if (dto.getPieceTypeId() != 0) {
@@ -86,13 +78,13 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         }
     }
 
-    private void transferCarModel(PieceDTO dto, Piece piece) throws InvalidDtoException {
+/*    private void transferCarModel(PieceDTO dto, Piece piece) throws InvalidDtoException {
         if (dto.getCarModelId() != 0) {
             CarModel carModel = (CarModel) carModelDao.getById(dto.getCarModelId());
             if (carModel == null) throw new InvalidDtoException("invalid carModel id: " + dto.getCarModelId());
             piece.setCarModel(carModel);
         }
-    }
+    }*/
 
     public Piece transferUpdate(Object obj) throws InvalidDtoException {
         PieceDTO dto = (PieceDTO) obj;
@@ -105,15 +97,14 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         double buyingPrice = dto.getBuyingPrice();
         double sellPrice = dto.getSellPrice();
         int quantity = dto.getQuantity();
-        if(name!=null)piece.setName(name.toUpperCase());
+        if (name != null) piece.setName(name.toUpperCase());
         if (brand != null) piece.setBrand(brand);
         if (buyingPrice != 0) piece.setBuyingPrice(buyingPrice);
         if (sellPrice != 0) piece.setSellPrice(sellPrice);
         if (quantity != 0) piece.setQuantity(quantity);
 
-        transferCarModel(dto, piece);
+       // transferCarModel(dto, piece);
         transferPieceType(dto, piece);
-      //  transferProvider(dto, piece);
         LOGGER.info("piece to update: " + piece);
         return piece;
     }

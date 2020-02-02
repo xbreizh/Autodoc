@@ -38,7 +38,7 @@ public class PieceTypeManagerImpl extends GlobalManagerImpl<PieceType, PieceType
         return pieceType;
     }
 
-    public PieceTypeDTO formToDto(Object obj) {
+    public PieceTypeDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         PieceTypeForm dto = (PieceTypeForm) obj;
         LOGGER.info("dto: " + dto);

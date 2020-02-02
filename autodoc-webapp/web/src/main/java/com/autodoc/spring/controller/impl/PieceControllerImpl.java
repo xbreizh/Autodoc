@@ -89,6 +89,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid PieceForm pieceForm, BindingResult bindingResult) throws Exception {
+
         LOGGER.info("trying to update piece with id " + pieceForm.getId());
         ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_details");
         mv.addObject("pieceForm", new PieceForm());
@@ -145,6 +146,9 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
         List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
         mv.addObject("carModels", carModels);
         mv.addObject("pieceTypes", pieceTypes);
+        List<PieceType> pieceTypeList = pieceTypeManager.getAll(helper.getConnectedToken());
+        LOGGER.info("tasks: " + pieceTypeList);
+        mv.addObject("pieceTypeList", pieceTypeList);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             mv.addObject("pieceForm", pieceForm);

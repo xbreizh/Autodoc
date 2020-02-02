@@ -4,7 +4,6 @@ import com.autodoc.business.contract.*;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
-import com.autodoc.model.dtos.car.NewBillForm;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
@@ -129,7 +128,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         return bills();
     }
 
-    @PostMapping(value = "/balako")
+  /*  @PostMapping(value = "/balako")
     public ModelAndView getCreateForm(@Valid NewBillForm newBillForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("getting create form");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
@@ -140,7 +139,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("billForm", new BillForm());
         mv.addObject("showForm", 1);
         return mv;
-    }
+    }*/
 
     @GetMapping(value = "/new")
     public ModelAndView getCreateForm() throws Exception {

@@ -1,13 +1,10 @@
 package com.autodoc.model.models.pieces;
 
-import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.provider.Provider;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
 
 
 @Getter
@@ -17,7 +14,6 @@ public class Piece {
 
 
     private int id;
-    private CarModel carModel;
     private Provider provider;
     private PieceType pieceType;
     @NonNull

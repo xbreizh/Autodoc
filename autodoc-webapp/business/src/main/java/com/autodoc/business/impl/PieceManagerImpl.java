@@ -1,14 +1,12 @@
 package com.autodoc.business.impl;
 
 
-import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.PieceTypeManager;
 import com.autodoc.business.contract.ProviderManager;
 import com.autodoc.contract.PieceService;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
-import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
@@ -23,16 +21,16 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
     private static final Logger LOGGER = Logger.getLogger(PieceManagerImpl.class);
     public Piece piece;
     private PieceService service;
-    private CarModelManager carModelManager;
+ //   private CarModelManager carModelManager;
     private PieceTypeManager pieceTypeManager;
     private ProviderManager providerManager;
 
-    public PieceManagerImpl(PieceService service, ProviderManager providerManager, CarModelManager carModelManager, PieceTypeManager pieceTypeManager) {
+    public PieceManagerImpl(PieceService service, ProviderManager providerManager/*, CarModelManager carModelManager*/, PieceTypeManager pieceTypeManager) {
         super(service);
         this.service = service;
         this.pieceTypeManager = pieceTypeManager;
-        this.providerManager = providerManager;
-        this.carModelManager = carModelManager;
+        this.providerManager = providerManager;/*
+        this.carModelManager = carModelManager;*/
     }
 
     public Piece dtoToEntity(String token, Object obj) throws Exception {
@@ -47,9 +45,9 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         PieceType pieceType = (PieceType) pieceTypeManager.getById(token, dto.getPieceTypeId());
         if (pieceType == null) throw new Exception("invalid pieceType");
         piece.setPieceType(pieceType);
-        CarModel carModel = (CarModel) carModelManager.getById(token, dto.getCarModelId());
-        if (carModel == null) throw new Exception("invalid carModel");
-        piece.setCarModel(carModel);
+      /*  CarModel carModel = (CarModel) carModelManager.getById(token, dto.getCarModelId());
+        if (carModel == null) throw new Exception("invalid carModel");*/
+        //  piece.setCarModel(carModel);
         piece.setBrand(dto.getBrand());
         piece.setBuyingPrice(dto.getBuyingPrice());
         piece.setSellPrice(dto.getSellPrice());
@@ -58,7 +56,7 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         return piece;
     }
 
-    public PieceDTO formToDto(Object obj) {
+    public PieceDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         PieceForm form = (PieceForm) obj;
         LOGGER.info("dto: " + form);
@@ -68,9 +66,8 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         if (form.getSellPrice() != 0) dto.setSellPrice(form.getSellPrice());
         if (form.getBrand() != null) dto.setBrand(form.getBrand());
         if (form.getName() != null) dto.setName(form.getName());
-        if (form.getCarModelId() != 0) dto.setCarModelId(form.getCarModelId());
-        //  if (form.getProviderId() != 0) dto.setProviderId(form.getProviderId());
-        if (form.getPieceType() != null) dto.setPieceTypeId(form.getPieceType().getId());
+        //   if (form.getCarModelId() != 0) dto.setCarModelId(form.getCarModelId());
+        if (form.getPieceTypeId() != 0) dto.setPieceTypeId(form.getPieceTypeId());
         return dto;
     }
 

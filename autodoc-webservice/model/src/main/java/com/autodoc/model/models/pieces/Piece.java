@@ -25,9 +25,9 @@ public class Piece {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
-
+/*
     @ManyToOne
-    private CarModel carModel;
+    private CarModel carModel;*/
     @ManyToOne
     private Provider provider;
     @ManyToOne
@@ -80,12 +80,11 @@ public class Piece {
         int carModelId =0;
         int providerId=0;
         int pieceTypeId=0;
-        if(carModel!=null)carModelId=carModel.getId();
+        //if(carModel!=null)carModelId=carModel.getId();
         if(pieceType!=null)pieceTypeId=pieceType.getId();
         if(provider!=null)providerId=provider.getId();
         return "Piece{" +
                 "id=" + id +
-                ", carModel=" + carModelId +
                 ", provider=" + providerId +
                 ", pieceType=" + pieceTypeId +
                 ", name='" + name + '\'' +

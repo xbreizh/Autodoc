@@ -66,8 +66,7 @@ public class CarModel {
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Car> cars;
 
-    @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Piece> pieces;
+
 
     @NotNull
     @Column(unique = true)

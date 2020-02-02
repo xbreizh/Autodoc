@@ -25,7 +25,6 @@ function toggle_displays(t, d) {
     }
 }*/
 function rowClicked(url) {
-    alert(url);
     location.replace(url);
 }
 

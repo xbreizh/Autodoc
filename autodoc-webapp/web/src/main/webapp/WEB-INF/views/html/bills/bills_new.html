@@ -66,9 +66,7 @@
                 <td th:errors="*{vat}" th:if="${#fields.hasErrors('vat')}">Vat Error</td>
             </tr>
             <tr>
-                <!--  <td>Status:</td>-->
                 <td><input th:field="*{status}" type="hidden"/></td>
-                <!--<td th:errors="*{status}" th:if="${#fields.hasErrors('status')}">Status Error</td>-->
             </tr>
             <tr>
                 <table>
@@ -77,12 +75,6 @@
                     </tr>
 
                     <tr th:each="task, stat : ${taskList}">
-                        <!--  <td>
-                              <input th:name="|list[${stat.index}].name|" th:value="${task.getName()}"/>
-                          </td>
-                          <td>
-                              <input th:name="|list[${stat.index}].estimatedTime|" th:value="${task.getEstimatedTime()}"/>
-                          </td>-->
                         <td>
                             <select th:name="|tasks.list[${stat.index}]|" th:value="${task}">
                                 <option value="">new Task</option>
@@ -91,8 +83,6 @@
                                         th:value="${task.getId()}"/>
                             </select>
                         </td>
-                        <!-- <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>-->
-
                     </tr>
                 </table>
             </tr>

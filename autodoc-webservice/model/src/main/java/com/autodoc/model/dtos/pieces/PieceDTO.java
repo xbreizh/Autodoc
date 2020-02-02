@@ -11,38 +11,32 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class PieceDTO {
 
-    public PieceDTO() {
-    }
-
     @Min(value = 1, message = "buyingPrice cannot be null")
     private double buyingPrice;
-
     private int id;
-
-
-    @Min(value = 1, message = "carModelId cannot be null")
-    private int carModelId;
-
-
     @Min(value = 1, message = "pieceTypeId cannot be null")
     private int pieceTypeId;
 
+
+   /* @Min(value = 1, message = "carModelId cannot be null")
+    private int carModelId;*/
     @NotNull(message = "name cannot be null")
     private String name;
-
     @NotNull(message = "brand cannot be null")
     private String brand;
     @Min(value = 1, message = "sellPrice cannot be null")
     private double sellPrice;
-
     private int quantity;
+
+    public PieceDTO() {
+    }
 
     @Override
     public String toString() {
         return "PieceDTO{" +
                 "buyingPrice=" + buyingPrice +
                 ", id=" + id +
-                ", carModelId=" + carModelId +
+                //   ", carModelId=" + carModelId +
                 ", pieceTypeId=" + pieceTypeId +
                 ", name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
