@@ -17,7 +17,7 @@
         <table>
             <tr>
                 <td>Name:</td>
-                <td><input th:field="*{name}" type="text"/></td>
+                <td><input required="required" th:field="*{name}" type="text"/></td>
                 <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
             </tr>
                        <tr>

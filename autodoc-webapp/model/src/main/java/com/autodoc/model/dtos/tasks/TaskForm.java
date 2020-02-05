@@ -25,7 +25,7 @@ public class TaskForm {
     private int estimatedTime;
 
     @NotEmpty(message = "template must be true or false")
-    private String template;
+    private boolean template;
 
     @Min(value = 1, message = "price cannot be null")
     private double price;

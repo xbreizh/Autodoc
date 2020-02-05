@@ -64,7 +64,7 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         dto.setDescription(form.getDescription());
         dto.setEstimatedTime(form.getEstimatedTime());
         dto.setPrice(form.getPrice());
-        String templateValue = form.getTemplate();
+        String templateValue = String.valueOf(form.isTemplate());
         if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
             dto.setTemplate(templateValue);
        dto.setPieces(form.getPieces());

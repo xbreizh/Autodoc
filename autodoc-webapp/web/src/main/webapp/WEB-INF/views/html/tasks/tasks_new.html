@@ -17,28 +17,29 @@
         <table>
             <tr>
                 <td>Name:</td>
-                <td><input th:field="*{name}" type="text"/></td>
+                <td><input required="required" th:field="*{name}" type="text"/></td>
                 <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><input th:field="*{description}" type="text"/></td>
+                <td><input required="required" th:field="*{description}" type="text"/></td>
                 <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</td>
             </tr>
             <tr>
-                <td>Estimated Time:</td>
-                <td><input th:field="*{estimatedTime}" type="text"/></td>
+                <td>Estimated Time: (hours)</td>
+                <td><input min="0.00" required="required" step=".5" th:field="*{estimatedTime}" type="number"
+                           value="0.00"/></td>
                 <td th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</td>
             </tr>
             <tr>
                 <td>Price:</td>
-                <td><input th:field="*{price}" type="text"/></td>
+                <td><input min="0.00" required="required" step=".1" th:field="*{price}" type="number" value="0.00"/>
+                </td>
                 <td th:errors="*{price}" th:if="${#fields.hasErrors('price')}">Price Error</td>
             </tr>
             <tr>
                 <td>Template:</td>
-                <td><input th:field="*{template}" type="text"/></td>
-                <td th:errors="*{template}" th:if="${#fields.hasErrors('template')}">Template Error</td>
+                <td><input required="required" th:field="*{template}" type="checkbox"/></td>
             </tr>
             <tr>
                 <td>Pieces:</td>

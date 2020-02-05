@@ -17,17 +17,17 @@
         <table>
            <tr>
                 <td>FirstName:</td>
-                <td><input th:field="*{firstName}" type="text"/></td>
+                <td><input required="required" th:field="*{firstName}" type="text"/></td>
                 <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
             </tr>
             <tr>
                 <td>LastName:</td>
-                <td><input th:field="*{lastName}" type="text"/></td>
+                <td><input required="required" th:field="*{lastName}" type="text"/></td>
                 <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
             </tr>
             <tr>
                 <td>PhoneNumber:</td>
-                <td><input th:field="*{phoneNumber}" type="text"/></td>
+                <td><input required="required" th:field="*{phoneNumber}" type="text"/></td>
                 <td th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</td>
             </tr>
             <tr>

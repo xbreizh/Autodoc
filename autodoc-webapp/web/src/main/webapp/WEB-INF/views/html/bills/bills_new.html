@@ -16,53 +16,39 @@
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
         <table>
             <tr>
-                <!-- <td><input th:field="*{employee.id}" type="text"/></td>
-                 <td><input th:field="*{employee.login}" type="text"/></td>
-                 <td><input th:field="*{employee.firstName}" type="text"/></td>
-                 <td><input th:field="*{employee.lastName}" type="text"/></td>
-                 <td><input th:field="*{employee.phoneNumber}" type="text"/></td>
-                 <td>
-                     <th:block th:each="role : ${roleList}">
-                         <input name="roles" th:checked="${#lists.contains(employee.roles,role)}" th:value="${role}"
-                                type="radio"/>
-                         <label th:text="${employee.role}"></label>
-                     </th:block>
-                 </td>-->
                 <td>Employee:</td>
-                <td><input th:field="*{employeeLogin}" type="text"/></td>
+                <td><input required="required" th:field="*{employeeLogin}" type="text"/></td>
                 <td th:errors="*{employeeLogin}" th:if="${#fields.hasErrors('employeeLogin')}">Login
                     Error
                 </td>
-
-                <!-- <td>Employee:</td>
-                 <td><input th:field="*{employee}" type="text" th:text="employee" th:value="${employee}"/> Employee</td>
-                 <td th:errors="*{employee}" th:if="${#fields.hasErrors('employee')}">Employee Error</td>-->
             </tr>
             <tr>
                 <td>Registration:</td>
-                <td><input th:field="*{CarRegistration}" type="text"/></td>
+                <td><input required="required" th:field="*{CarRegistration}" type="text"/></td>
                 <td th:errors="*{CarRegistration}" th:if="${#fields.hasErrors('CarRegistration')}">Registration
                     Error
                 </td>
             </tr>
             <tr>
                 <td>Client:</td>
-                <td><input th:field="*{clientId}" type="text"/></td>
+                <td><input required="required" th:field="*{clientId}" type="text"/></td>
                 <td th:errors="*{clientId}" th:if="${#fields.hasErrors('clientId')}">Client Error</td>
             </tr>
             <tr>
                 <td>Total:</td>
-                <td><input th:field="*{total}" type="text"/></td>
+                <td><input min="0.00" required="required" step=".01" th:field="*{total}" type="number" value="0.00"/>
+                </td>
                 <td th:errors="*{total}" th:if="${#fields.hasErrors('total')}">Total Error</td>
             </tr>
             <tr>
                 <td>Discount:</td>
-                <td><input th:field="*{discount}" type="text"/></td>
+                <td><input min="0.00" required="required" step=".1" th:field="*{discount}" type="number" value="0.00"/>
+                </td>
                 <td th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</td>
             </tr>
             <tr>
                 <td>Vat:</td>
-                <td><input th:field="*{vat}" type="text"/></td>
+                <td><input min="0.00" required="required" step=".5" th:field="*{vat}" type="number" value="0.00"/></td>
                 <td th:errors="*{vat}" th:if="${#fields.hasErrors('vat')}">Vat Error</td>
             </tr>
             <tr>
