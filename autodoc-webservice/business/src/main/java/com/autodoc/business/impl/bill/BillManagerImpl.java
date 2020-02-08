@@ -74,6 +74,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public Bill dtoToEntity(Object entity) throws Exception {
+        resetException();
         BillDTO dto = (BillDTO) entity;
         LOGGER.info("dto found: " + dto);
         Bill bill = new Bill();

@@ -17,22 +17,19 @@
         <table>
             <tr>
                 <td>Employee:</td>
-                <td><input required="required" th:field="*{employeeLogin}" type="text"/></td>
-                <td th:errors="*{employeeLogin}" th:if="${#fields.hasErrors('employeeLogin')}">Login
-                    Error
-                </td>
+                <td><input required="required" th:field="*{employeeLogin}" th:text="${billForm.employeeLogin}"
+                           type="hidden"/></td>
             </tr>
             <tr>
                 <td>Registration:</td>
-                <td><input required="required" th:field="*{carRegistration}" type="text"/></td>
-                <td th:errors="*{carRegistration}" th:if="${#fields.hasErrors('carRegistration')}">Registration
-                    Error
-                </td>
+                <td><input required="required" th:field="*{carRegistration}" th:text="${billForm.carRegistration}"
+                           type="hidden"/></td>
             </tr>
             <tr>
                 <td>Client:</td>
-                <td><input required="required" th:field="*{clientId}" type="text"/></td>
-                <td th:errors="*{clientId}" th:if="${#fields.hasErrors('clientId')}">Client Error</td>
+                <td><input required="required" th:field="*{clientId}"
+                           th:text="${client.firstName}+' '+${client.lastName}" type="hidden"/>
+                </td>
             </tr>
             <tr>
                 <td>Total:</td>
@@ -48,8 +45,8 @@
             </tr>
             <tr>
                 <td>Vat:</td>
-                <td><input min="0.00" required="required" step=".1" th:field="*{vat}" type="number" value="0.00"/></td>
-                <td th:errors="*{vat}" th:if="${#fields.hasErrors('vat')}">Vat Error</td>
+                <td><input th:field="*{vat}" th:text="${billForm.vat}" type="hidden"/>
+                </td>
             </tr>
             <tr>
                 <td><input th:field="*{status}" type="hidden"/></td>

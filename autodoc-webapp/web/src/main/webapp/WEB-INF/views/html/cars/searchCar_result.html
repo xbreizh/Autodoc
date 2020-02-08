@@ -1,3 +1,4 @@
+<!--
 <div th:fragment="searchCar_result" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
@@ -43,19 +44,19 @@
             <th id="name">Id</th>
             <th id="FirstName">firstName</th>
             <th id="LastName">lastName</th>
-            <th id="PhoneNumber1">phoneNumber1</th>
+            <th id="PhoneNumber">phoneNumber</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
 
         <tr th:fragment="clientDetails">
-            <td th:text="${client.id}">Id</td>
-            <td th:text="${client.firstName}">firstName</td>
-            <td th:text="${client.lastName}">lastName</td>
-            <td th:text="${client.phoneNumber1}">phoneNumber1</td>
+            <td th:text="${car.client.id}">Id</td>
+            <td th:text="${car.client.firstName}">firstName</td>
+            <td th:text="${car.client.lastName}">lastName</td>
+            <td th:text="${car.client.phoneNumber}">phoneNumber</td>
         </tr>
-        <!-- <tr>
+        &lt;!&ndash; <tr>
              <td>Select Client:</td>
              <td>
                  <select th:field="*{client}">
@@ -64,15 +65,15 @@
                              th:value="${client}"/>
                  </select>
              </td>
-         </tr>-->
+         </tr>&ndash;&gt;
 
 
         </tbody>
     </table>
-    <!-- <div th:replace="cars/cars_form :: form"></div>-->
+    &lt;!&ndash; <div th:replace="cars/cars_form :: form"></div>&ndash;&gt;
     <br><br>
 
-    <!--    <form action="#" method="post" th:action="@{'/bills/balako/'" th:object="${NewBillForm}">
+    &lt;!&ndash;    <form action="#" method="post" th:action="@{'/bills/balako/'" th:object="${NewBillForm}">
             <table>
                 <tr>
                     <td>Registration:</td>
@@ -90,9 +91,12 @@
                 </tr>
             </table>
         </form>
-        <br><br>-->
+        <br><br>&ndash;&gt;
+    <a th:href="@{'/bills/new(id={car.id})'}">
+        <button class="btn btn-info" type="button">New Bill</button>
+    </a>
 
-    <br>
+    <br><h2>Bills</h2><br>
     <div th:if="${not #lists.isEmpty(bills)}">
 
 
@@ -125,3 +129,4 @@
 
 
 
+-->

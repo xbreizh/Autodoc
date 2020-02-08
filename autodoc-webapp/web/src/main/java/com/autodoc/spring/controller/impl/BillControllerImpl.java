@@ -148,18 +148,21 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     }*/
 
     @GetMapping(value = "/new")
-    public ModelAndView getCreateForm() throws Exception {
+    public ModelAndView getCreateForm(@RequestParam(required = false) int id) throws Exception {
         String token = helper.getConnectedToken();
         LOGGER.info("getting create form");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         BillForm billForm = new BillForm();
+        LOGGER.info("id received: " + id);
         /*List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             tasks.add(new Task());
         }
         billForm.setTasks(tasks);*/
-
-        mv.addObject("billForm", billForm);
+        Car car = (Car) carManager.getById(token, id);
+        if (car == null) throw new Exception("invalid carId: " + id);
+        billForm.setCarRegistration(car.getRegistration());
+        billForm.setClientId(car.getClient().getId());
       /*  TaskList taskList = new TaskList();
         for (Object task1: taskManager.getAll(helper.getConnectedToken())){
             Task t = (Task)task1;
@@ -168,16 +171,19 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("taskList", taskList);
-        //TODO remove client and car patches
-        List<Car> cars = carManager.getAll(token);
+
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);
+        Client client = (Client) clientManager.getById(token, car.getClient().getId());
+        mv.addObject("client", client);
         billForm.setEmployeeLogin(employeeLogin);
-        billForm.setCarRegistration(cars.get(0).getRegistration());
+        billForm.setVat(19.6);
+        // billForm.setCarRegistration(cars.get(0).getRegistration());
         billForm.setStatus("PENDING_PAYMENT");
         billForm.setVat(19.6);
-        List<Client> clients = clientManager.getAll(token);
-        billForm.setClientId(clients.get(0).getId());
+        mv.addObject("billForm", billForm);
+        // List<Client> clients = clientManager.getAll(token);
+        // billForm.setClientId(clients.get(0).getId());
       /*  mv.addObject("clientId", cars.get(0).getClient().getId());
         mv.addObject("carId", cars.get(0).getId());*/
         mv.addObject("showForm", 1);

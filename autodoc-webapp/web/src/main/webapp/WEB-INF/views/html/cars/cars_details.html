@@ -53,6 +53,9 @@
     </a>
     <button class="btn-outline-warning" onclick="toggle_displays();" type="button">Update Client</button>
     <br><br>
+    <a th:href="@{'/bills/new?id='+${car.id}}">
+        <button class="btn btn-info" type="button">New Bill</button>
+    </a>
 
 
     <div th:if="${not #lists.isEmpty(bills)}">
