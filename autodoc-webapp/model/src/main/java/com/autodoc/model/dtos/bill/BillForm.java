@@ -29,7 +29,7 @@ public class BillForm {
 
 
     @NotEmpty(message = "car  cannot be null")
-    private String CarRegistration;
+    private String carRegistration;
 
     @Min(value = 1, message = "client cannot be null")
     private int clientId;
@@ -46,7 +46,8 @@ public class BillForm {
     @Max(100)
     private double discount;
 
-
+    //@Max(1000)
+    private String comments;
 
 
     @Override
@@ -56,12 +57,13 @@ public class BillForm {
                 ", date=" + date +
                 ", status='" + status + '\'' +
                 ", tasks=" + tasks +
-                ", car registration=" + CarRegistration +
-                ", client=" + clientId +
-                ", employee=" + employeeLogin +
+                ", CarRegistration='" + carRegistration + '\'' +
+                ", clientId=" + clientId +
+                ", employeeLogin='" + employeeLogin + '\'' +
                 ", vat=" + vat +
                 ", total=" + total +
                 ", discount=" + discount +
+                ", comments='" + comments + '\'' +
                 '}';
     }
 }

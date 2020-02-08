@@ -99,7 +99,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     @Override
     public D getById(int id) throws Exception {
         if (dao.getById(id) == null) {
-            exception = "no record found";
+            exception = "no record found by id: " + id;
             return null;
         }
         return entityToDto(dao.getById(id));
@@ -108,7 +108,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     @Override
     public D getByName(String name) throws Exception {
         if (dao.getByName(name) == null) {
-            exception = "no record found";
+            exception = "no record found by name: " + name;
             return null;
         }
         LOGGER.info("record found!! ");

@@ -8,7 +8,6 @@ import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +38,8 @@ public class Bill {
     @NotNull
     private double discount;
 
+    private String comments;
+
     public Bill() {
     }
 
@@ -60,13 +61,14 @@ public class Bill {
                 "id=" + id +
                 ", date=" + date +
                 ", status='" + status + '\'' +
-                ", car=" + car.getRegistration() +
-                ", client="  + client.getFirstName() +" "+client.getLastName()+
-                ", employee=" + employee.getLogin() +
-                ", tasks=" + tasks.size() +
+                ", car=" + car +
+                ", client=" + client +
+                ", employee=" + employee +
+                ", tasks=" + tasks +
                 ", total=" + total +
                 ", vat=" + vat +
                 ", discount=" + discount +
+                ", comment='" + comments + '\'' +
                 '}';
     }
 }

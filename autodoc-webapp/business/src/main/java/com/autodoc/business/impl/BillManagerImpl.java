@@ -67,7 +67,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         LOGGER.info("employee found: "+employee);
         bill.setEmployee(employee);
         LOGGER.info("bill transferred: " + bill);
-
+       bill.setComments(dto.getComments());
         return bill;
     }
 
@@ -100,6 +100,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
             if (taskId != null)
                 taskIdList.add(taskId);
         }
+        dto.setComments(form.getComments());
         dto.setTasks(taskIdList);
         dto.setTotal(form.getTotal());
         dto.setVat(form.getVat());

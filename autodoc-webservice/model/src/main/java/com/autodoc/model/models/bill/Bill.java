@@ -95,15 +95,22 @@ public class Bill {
     @NotNull
     private double discount;
 
+    private String comments;
+
     @Override
     public String toString() {
         return "Bill{" +
                 "id=" + id +
                 ", date=" + date +
                 ", status=" + status +
+                ", car=" + car +
+                ", client=" + client +
+                ", employee=" + employee +
+                ", tasks=" + tasks +
                 ", total=" + total +
                 ", vat=" + vat +
                 ", discount=" + discount +
+                ", comments='" + comments + '\'' +
                 '}';
     }
 }

@@ -24,8 +24,8 @@
             </tr>
             <tr>
                 <td>Registration:</td>
-                <td><input required="required" th:field="*{CarRegistration}" type="text"/></td>
-                <td th:errors="*{CarRegistration}" th:if="${#fields.hasErrors('CarRegistration')}">Registration
+                <td><input required="required" th:field="*{carRegistration}" type="text"/></td>
+                <td th:errors="*{carRegistration}" th:if="${#fields.hasErrors('carRegistration')}">Registration
                     Error
                 </td>
             </tr>
@@ -48,11 +48,18 @@
             </tr>
             <tr>
                 <td>Vat:</td>
-                <td><input min="0.00" required="required" step=".5" th:field="*{vat}" type="number" value="0.00"/></td>
+                <td><input min="0.00" required="required" step=".1" th:field="*{vat}" type="number" value="0.00"/></td>
                 <td th:errors="*{vat}" th:if="${#fields.hasErrors('vat')}">Vat Error</td>
             </tr>
             <tr>
                 <td><input th:field="*{status}" type="hidden"/></td>
+            </tr>
+            <tr>
+                <td>Comments:</td>
+                <td><textarea  th:field="*{Comments}" type="text"/></td>
+                <td th:errors="*{Comments}" th:if="${#fields.hasErrors('Comments')}">Comments
+                    Error
+                </td>
             </tr>
             <tr>
                 <table>

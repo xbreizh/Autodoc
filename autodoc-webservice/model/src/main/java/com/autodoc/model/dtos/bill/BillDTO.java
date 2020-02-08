@@ -41,17 +41,25 @@ public class BillDTO {
     private double total;
     private double discount;
 
+    private String comments;
+
     public BillDTO() {
     }
 
-    public BillDTO(int id, @FutureOrPresent(message = "date should nto be in the past") Date date, @NotNull String status,  @NotNull(message = "car Registration cannot be null") String registration, @Min(value = 1, message = "clientId cannot be null") int clientId, @Min(value = 1, message = "employeeId cannot be null") int employeeId, @Min(value = 1, message = "total cannot be null") double total, double discount) {
-        this.id = id;
-        this.date = date;
-        this.status = status;
-        this.registration = registration;
-        this.clientId = clientId;
-        this.employeeId = employeeId;
-        this.total = total;
-        this.discount = discount;
+    @Override
+    public String toString() {
+        return "BillDTO{" +
+                "id=" + id +
+                ", date=" + date +
+                ", status='" + status + '\'' +
+                ", tasks=" + tasks +
+                ", registration='" + registration + '\'' +
+                ", clientId=" + clientId +
+                ", employeeId=" + employeeId +
+                ", vat=" + vat +
+                ", total=" + total +
+                ", discount=" + discount +
+                ", comments='" + comments + '\'' +
+                '}';
     }
 }

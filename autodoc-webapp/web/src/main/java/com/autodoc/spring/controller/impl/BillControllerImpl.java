@@ -89,6 +89,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("billForm", bill);
         mv.addObject("showForm", 1);
         mv.addObject("bill", bill);
+        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        LOGGER.info("tasks: " + taskList);
+        mv.addObject("taskList", taskList);
         return mv;
     }
 
@@ -96,10 +99,13 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid BillForm billForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + billForm.getId());
+        LOGGER.info("trying to update bill " + billForm);
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
         mv.addObject("billForm", new BillForm());
+        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        LOGGER.info("tasks: " + taskList);
+        mv.addObject("taskList", taskList);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             Bill bill = (Bill) manager.getById(token, billForm.getId());
@@ -209,6 +215,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         billForm.setEmployeeLogin(employeeLogin);
         billForm.setCarRegistration(cars.get(0).getRegistration());
 
+
         billForm.setClientId(clients.get(0).getId());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors: " + bindingResult.toString());
@@ -216,6 +223,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
             LOGGER.error("binding has errors: " + bindingResult.getObjectName());
             mv.addObject("billForm", billForm);
             mv.addObject("showForm", 1);
+
             return mv;
         }
         LOGGER.info("bill retrieved: " + billForm);

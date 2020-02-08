@@ -12,30 +12,30 @@
             <tr>
                 <td>Select Car:</td>
                 <td>
-                    <select th:field="*{car}">
+                    <select name="carRegistration" id="carRegistration">
                         <option th:each="car : ${cars}"
                                 th:utext="${car.registration}"
-                                th:value="${car}"/>
+                                th:value="${car.registration}"/>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Select Client:</td>
                 <td>
-                    <select th:field="*{client}">
+                    <select name="clientId" id="clientId">
                         <option th:each="client : ${clients}"
                                 th:utext="${client.firstName}"
-                                th:value="${client}"/>
+                                th:value="${client.id}"/>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Select Employee:</td>
                 <td>
-                    <select th:field="*{employee}">
+                    <select name="employeeLogin" id="employeeLogin">
                         <option th:each="employee : ${employees}"
                                 th:utext="${employee.firstName}"
-                                th:value="${employee}"/>
+                                th:value="${employee.login}"/>
                     </select>
                 </td>
             </tr>
@@ -69,8 +69,36 @@
             </tr>
             <tr>
                 <td>Vat:</td>
-                <td><input min="0.00" required="required" step=".5" th:field="*{vat}" type="number" value="0.00"/></td>
+                <td><input min="0.00" required="required" step=".1" th:field="*{vat}" type="number" value="0.00"/></td>
                 <td th:errors="*{vat}" th:if="${#fields.hasErrors('vat')}">Vat Error</td>
+            </tr>
+            <tr>
+                <td><input th:field="*{status}" type="hidden"/></td>
+            </tr>
+            <tr>
+                <td>Comments:</td>
+                <td><textarea  th:field="*{Comments}" type="text"/></td>
+                <td th:errors="*{Comments}" th:if="${#fields.hasErrors('Comments')}">Comments
+                    Error
+                </td>
+            </tr>
+            <tr>
+                <table>
+                    <tr>
+                        <th>Tasks</th>
+                    </tr>
+
+                    <tr th:each="task, stat : ${taskList}">
+                        <td>
+                            <select th:name="|tasks.list[${stat.index}]|" th:value="${task}">
+                                <option value="">new Task</option>
+                                <option th:each="task : ${taskList}"
+                                        th:utext="${task.getName()}"
+                                        th:value="${task.getId()}"/>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
             </tr>
             <!-- <tr>
                  <td>Tasks:</td>

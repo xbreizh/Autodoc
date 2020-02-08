@@ -40,6 +40,7 @@ public class BillDTO {
     @Min(value = 1, message = "total cannot be null")
     private double total;
     private double discount;
+    private String comments;
 
     public BillDTO() {
     }

@@ -49,6 +49,17 @@
                 </td>
             </tr>
             <tr>
+                <td>Select Provider:</td>
+                <td>
+                    <select th:field="*{pieceTypeId}">
+                        <option value="0"> --</option>
+                        <option th:each="pieceType : ${pieceTypes}"
+                                th:utext="${pieceType.name}"
+                                th:value="${pieceType.id}"/>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td>Quantity:</td>
                 <td><input min="0.00" required="required" step="1" th:field="*{quantity}" type="number" value="0.00"/>
                 </td>

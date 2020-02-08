@@ -61,8 +61,10 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setTotal(((Bill) entity).getTotal());
         dto.setStatus(((Bill) entity).getStatus().toString());
         dto.setDate(((Bill) entity).getDate());
+        dto.setComments(((Bill) entity).getComments());
         List<Integer> taskList = new ArrayList<>();
         List<Task> tasks = ((Bill) entity).getTasks();
+
         for (Task task : tasks) {
             taskList.add(task.getId());
         }
@@ -100,6 +102,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setVat(dto.getVat());
         Employee employee = (Employee) employeeDao.getById( dto.getEmployeeId());
         if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
+        bill.setComments(dto.getComments());
         LOGGER.info("employee found: " + employee);
         bill.setEmployee(employee);
         LOGGER.info("bill transferred: " + bill);
