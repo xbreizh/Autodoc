@@ -54,7 +54,7 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         return task;
     }
 
-    public TaskDTO formToDto(Object obj) {
+    public TaskDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         TaskForm form = (TaskForm) obj;
         LOGGER.info("dto: " + form);

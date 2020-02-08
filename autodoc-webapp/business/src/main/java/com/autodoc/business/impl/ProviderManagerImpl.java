@@ -41,7 +41,7 @@ public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO
         return provider;
     }
 
-    public ProviderDTO formToDto(Object obj) {
+    public ProviderDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         ProviderForm dto = (ProviderForm) obj;
         LOGGER.info("dto: " + dto);

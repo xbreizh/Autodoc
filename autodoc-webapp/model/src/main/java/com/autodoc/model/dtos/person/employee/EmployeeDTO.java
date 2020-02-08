@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,7 +17,7 @@ import java.util.Date;
 public class EmployeeDTO extends PersonDTO {
 
 
-    private String role;
+    private List<String> roles;
 
     @NotNull
     @PastOrPresent
@@ -31,9 +32,9 @@ public class EmployeeDTO extends PersonDTO {
     @NotNull
     private String password;
 
-    public EmployeeDTO(int id, String firstName, String lastName, String phoneNumber1, String role, Date startDate, String login, Date lastConnection) {
+    public EmployeeDTO(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {
         super(firstName, lastName, phoneNumber1);
-        this.role = role;
+        this.roles = roles;
         this.startDate = startDate;
         this.login = login;
         this.lastConnection = lastConnection;
@@ -46,7 +47,7 @@ public class EmployeeDTO extends PersonDTO {
     @Override
     public String toString() {
         return "EmployeeDTO{" +
-                "role=" + role +
+                "roles=" + roles +
                 ", startDate=" + startDate +
                 ", login='" + login + '\'' +
                 ", lastConnection=" + lastConnection +

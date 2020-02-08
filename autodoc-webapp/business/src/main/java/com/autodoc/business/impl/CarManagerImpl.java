@@ -56,7 +56,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         return car;
     }
 
-    public CarDTO formToDto(Object obj) {
+    public CarDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         CarForm dto = (CarForm) obj;
         LOGGER.info("dto: " + dto);

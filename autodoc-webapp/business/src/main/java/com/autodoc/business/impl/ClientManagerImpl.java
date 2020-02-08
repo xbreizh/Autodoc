@@ -43,7 +43,7 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
         return client;
     }
 
-    public ClientDTO formToDto(Object obj) {
+    public ClientDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         ClientForm dto = (ClientForm) obj;
         LOGGER.info("dto: " + dto);
