@@ -40,7 +40,7 @@
                 <td>
                     <th:block th:each="role : ${roleList}">
                         <input name="roles" th:checked="${#lists.contains(employee.roles,role)}" th:value="${role}"
-                               type="radio"/>
+                               type="checkbox"/>
                         <label th:text="${role}"></label>
                     </th:block>
                 </td>
