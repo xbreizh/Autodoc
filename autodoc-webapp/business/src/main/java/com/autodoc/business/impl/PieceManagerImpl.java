@@ -50,6 +50,7 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         //  piece.setCarModel(carModel);
         piece.setBrand(dto.getBrand());
         piece.setBuyingPrice(dto.getBuyingPrice());
+        piece.setQuantity(dto.getQuantity());
         piece.setSellPrice(dto.getSellPrice());
         LOGGER.info("entity transferred: " + piece);
 
@@ -66,7 +67,7 @@ public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> impleme
         if (form.getSellPrice() != 0) dto.setSellPrice(form.getSellPrice());
         if (form.getBrand() != null) dto.setBrand(form.getBrand());
         if (form.getName() != null) dto.setName(form.getName());
-        //   if (form.getCarModelId() != 0) dto.setCarModelId(form.getCarModelId());
+        dto.setQuantity(form.getQuantity());
         if (form.getPieceTypeId() != 0) dto.setPieceTypeId(form.getPieceTypeId());
         return dto;
     }

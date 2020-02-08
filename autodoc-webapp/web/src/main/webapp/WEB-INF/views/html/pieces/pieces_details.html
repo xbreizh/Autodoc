@@ -11,6 +11,7 @@
     <div th:replace="fragments/menu :: menu"></div>
 
     <h2>Piece details</h2>
+    <a th:href="@{/pieces}"><h4>(Back to list)</h4></a>
 
 
     <h1>Form</h1>
@@ -44,10 +45,14 @@
                 <td>Sell Price:</td>
                 <td th:text="${piece.sellPrice}">Sell Price</td>
             </tr>
-           <!-- <tr>
-                <td>CarModel:</td>
-                <td th:text="${piece.carModel.name}">CarModelId</td>
-            </tr>-->
+            <tr>
+                <td>Quantity:</td>
+                <td th:text="${piece.quantity}">Sell Price</td>
+            </tr>
+            <!-- <tr>
+                 <td>CarModel:</td>
+                 <td th:text="${piece.carModel.name}">CarModelId</td>
+             </tr>-->
             <tr>
                 <td>PieceType:</td>
                 <td th:text="${piece.pieceType.name}">PieceTypeId</td>

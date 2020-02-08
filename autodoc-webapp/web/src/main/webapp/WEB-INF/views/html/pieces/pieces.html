@@ -30,6 +30,7 @@
                 <th th:text="BuyingPrice">Buying Price</th>
                 <th th:text="SellPrice">Sell Price</th>
                 <th th:text="PieceType">PieceType</th>
+                <th th:text="Quantity">Quantity</th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                 <td th:text="${piece.buyingPrice}">buyingPrice</td>
                 <td th:text="${piece.sellPrice}">sellPrice</td>
                 <td th:text="${piece.pieceType.name}">PieceType</td>
+                <td th:text="${piece.quantity}">Quantity</td>
                 <td>
                     <a th:href="@{'/pieces/delete/' + ${piece.id}}">
                         <button class="btn btn-danger" type="button">Delete</button>

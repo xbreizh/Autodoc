@@ -11,6 +11,7 @@
     <div th:replace="fragments/menu :: menu"></div>
 
     <h2>Client details</h2>
+    <a th:href="@{/clients}"><h4>(Back to list)</h4></a>
 
     <h1>Form</h1>
     <label style="display: block" th:id="'switch' + ${client.id}">

@@ -27,15 +27,18 @@ public class PieceForm {
 
     @NotNull(message = "pieceTypeId cannot be null")
     private int pieceTypeId;
+    private int quantity;
 
-
-    public PieceForm(int id, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") long buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") long sellPrice, @NotNull(message = "pieceTypeId cannot be null") int pieceTypeId) {
+    public PieceForm(int id, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand,
+                     @Min(value = 1, message = "buyingPrice cannot be null") long buyingPrice,
+                     @Min(value = 1, message = "sellPrice cannot be null") long sellPrice, @NotNull(message = "pieceTypeId cannot be null") int pieceTypeId, int quantity) {
         this.id = id;
         this.name = name;
         this.brand = brand;
         this.buyingPrice = buyingPrice;
         this.sellPrice = sellPrice;
         this.pieceTypeId = pieceTypeId;
+        this.quantity = quantity;
     }
 
     public PieceForm() {
@@ -50,7 +53,8 @@ public class PieceForm {
                 ", brand='" + brand + '\'' +
                 ", buyingPrice=" + buyingPrice +
                 ", sellPrice=" + sellPrice +
-                ", pieceType=" + pieceTypeId +
+                ", pieceTypeId=" + pieceTypeId +
+                ", quantity=" + quantity +
                 '}';
     }
 }

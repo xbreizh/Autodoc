@@ -41,18 +41,12 @@
                      </select>
                  </td>
              </tr>
-             <!-- <tr>
-                  <td>Select CarModel:</td>
-                  <td>
-                      <select th:field="*{carModel.id}">
-                          <option th:each="carModel : ${carModels}"
-                                  th:utext="${carModel.name}"
-                                  th:value="${carModel.id}"/>
-                      </select>
-
-                  </td>
-              </tr>-->
-
+             <tr>
+                 <td>Quantity:</td>
+                 <td><input min="0.00" required="required" step="1" th:field="*{quantity}" type="number" value="0.00"/>
+                 </td>
+                 <td th:errors="*{quantity}" th:if="${#fields.hasErrors('quantity')}">Quantity Error</td>
+             </tr>
              <tr>
                  <td>
                      <button type="submit">Submit</button>

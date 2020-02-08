@@ -25,17 +25,19 @@ public class PieceDTO {
     private double buyingPrice;
     @Min(value = 1, message = "sellPrice cannot be null")
     private double sellPrice;
+    private int quantity;
 
     public PieceDTO() {
     }
 
-    public PieceDTO(@Min(value = 1, message = "pieceTypeId cannot be null") int pieceTypeId, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") double buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") double sellPrice) {
+    public PieceDTO(@Min(value = 1, message = "pieceTypeId cannot be null") int pieceTypeId, @NotNull(message = "name cannot be null") String name, @NotNull(message = "brand cannot be null") String brand, @Min(value = 1, message = "buyingPrice cannot be null") double buyingPrice, @Min(value = 1, message = "sellPrice cannot be null") double sellPrice, int quantity) {
 
         this.pieceTypeId = pieceTypeId;
         this.name = name;
         this.brand = brand;
         this.buyingPrice = buyingPrice;
         this.sellPrice = sellPrice;
+        this.quantity = quantity;
     }
 
 
