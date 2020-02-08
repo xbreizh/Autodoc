@@ -49,7 +49,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         employee.setLogin(dto.getLogin());
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
-        employee.setRoles(dto.getRoles());
+        employee.setRole(dto.getRole());
         employee.setPhoneNumber(dto.getPhoneNumber());
         employee.setStartDate(dto.getStartDate());
         employee.setLastConnection(dto.getLastConnection());
@@ -68,7 +68,7 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         employee.setLogin(dto.getLogin());
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
-        employee.setRoles(dto.getRoles());
+        employee.setRole(dto.getRole());
         employee.setPhoneNumber(dto.getPhoneNumber());
         if (dto.getPassword() != null) employee.setPassword(dto.getPassword());
         LOGGER.info("entity transferred: " + employee);

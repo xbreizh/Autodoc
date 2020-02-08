@@ -52,7 +52,7 @@ class PieceDaoImplTest {
         piece.setBrand(name);
         piece.setBuyingPrice(12);
         piece.setSellPrice(24);
-        piece.setCarModel(carModel);
+        //piece.setCarModel(carModel);
         piece.setProvider(provider);
         piece.setPieceType(pieceType);
         filler.fill();

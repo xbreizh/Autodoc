@@ -9,11 +9,11 @@
             </tr>
             <tr>
                 <td>Start Date:</td>
-                <td th:text="${employee.startDate}">Start Date</td>
+                <td th:text="${#dates.format(employee.startDate, 'dd-MMM-yyyy')}">Start Date</td>
             </tr>
             <tr>
                 <td>Last Connection:</td>
-                <td th:text="${employee.lastConnection}">Last Connection</td>
+                <td th:text="${#dates.format(employee.lastConnection, 'dd-MMM-yyyy')}">Last Connection</td>
             </tr>
             <tr>
                 <td>Login:</td>
@@ -53,4 +53,8 @@
             </tr>
         </table>
     </form>
+    <br>
+    <a th:href="@{'/employees/delete/' + ${employee.id}}">
+        <button class="btn btn-danger" type="button">Delete</button>
+    </a>
 </div>

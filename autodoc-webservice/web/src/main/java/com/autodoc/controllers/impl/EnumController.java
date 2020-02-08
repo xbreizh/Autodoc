@@ -23,12 +23,12 @@ public class EnumController {
 
     private final static Logger LOGGER = Logger.getLogger(EnumController.class);
     protected HttpHeaders responseHeaders;
-    private CountryManager manager;
+   // private CountryManager manager;
     private GsonConverter converter;
 
-    public EnumController(CountryManager manager) {
+    public EnumController(/*CountryManager manager*/) {
         converter = new GsonConverter();
-        this.manager = manager;
+       // this.manager = manager;
     }
 
 

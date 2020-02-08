@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 public class Employee extends Person {
 
-    private List<String> roles;
+    private String role;
 
     private Date startDate;
 
@@ -20,9 +19,9 @@ public class Employee extends Person {
     private Date lastConnection;
 
 
-    public Employee(int id, String firstName, String lastName, String phoneNumber, List<String> roles, Date startDate, String login, Date lastConnection) {
+    public Employee(int id, String firstName, String lastName, String phoneNumber, String role, Date startDate, String login, Date lastConnection) {
         super(id, firstName, lastName, phoneNumber);
-        this.roles = roles;
+        this.role = role;
         this.startDate = startDate;
         this.login = login;
         this.lastConnection = lastConnection;
@@ -34,7 +33,7 @@ public class Employee extends Person {
     @Override
     public String toString() {
         return "Employee{" +
-                "roles=" + roles +
+                "role=" + role +
                 ", startDate=" + startDate +
                 ", login='" + login + '\'' +
                 ", lastConnection=" + lastConnection +

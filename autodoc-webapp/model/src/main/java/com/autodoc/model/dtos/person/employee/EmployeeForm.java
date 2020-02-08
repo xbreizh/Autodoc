@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Getter
 @Setter
@@ -31,8 +30,8 @@ public class EmployeeForm {
     private String phoneNumber;
 
     @Size(min = 1, max = 3, message = "{roles.size}")
-    @NotNull( message = "{roles.size}")
-    private List<String> roles;
+    @NotNull(message = "{roles.size}")
+    private String role;
 
    // @Size(min = 3, max = 8, message = "{password.size}")
     private String password;

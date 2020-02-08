@@ -66,9 +66,14 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         mv.addObject("employeeForm", employee);
         mv.addObject("showForm", 1);
         mv.addObject("employee", employee);
-        mv.addObject("roleList", employeeManager.getRoles(helper.getConnectedToken()));
-        mv.addObject("rol", employee.getRoles().get(0));
+        addingRoleList(mv);
+        //mv.addObject("rol", employee.getRoles().get(0));
         return mv;
+    }
+
+    private void addingRoleList(ModelAndView mv) {
+        LOGGER.info("adding roleList");
+        mv.addObject("roleList", employeeManager.getRoles(helper.getConnectedToken()));
     }
 
 
@@ -84,6 +89,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
             mv.addObject("employee", employee);
             mv.addObject("employeeForm", employeeForm);
             mv.addObject("showForm", 0);
+            addingRoleList(mv);
             return mv;
         }
         LOGGER.info("carrying on");
@@ -106,7 +112,9 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         ModelAndView mv = checkAndAddConnectedDetails("employees/employees_new");
         mv.addObject("employeeForm", new EmployeeForm());
         mv.addObject("showForm", 1);
-        mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
+
+        //mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
+        addingRoleList(mv);
         return mv;
     }
 
@@ -121,6 +129,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
+            addingRoleList(mv);
             mv.addObject("employeeForm", employeeForm);
             mv.addObject("showForm", 1);
             mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
@@ -128,6 +137,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         }
         LOGGER.info("employee retrieved: " + employeeForm);
         employeeManager.add(helper.getConnectedToken(), employeeForm);
+        addingRoleList(mv);
         return employees();
     }
 

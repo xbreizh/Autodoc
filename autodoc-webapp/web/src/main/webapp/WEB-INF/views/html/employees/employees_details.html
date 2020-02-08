@@ -10,10 +10,9 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h2>Employee details</h2>
-    <p th:text="${employee.login}">Login</p>
+    <h2>Employee details </h2>
+    <a th:href="@{/employees}"><h4>(Back to list)</h4></a>
 
-    <h1>Form</h1>
     <label style="display: block" th:id="'switch' + ${employee.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
@@ -34,11 +33,11 @@
             </tr>
             <tr>
                 <td>Start Date:</td>
-                <td th:text="${employee.startDate}">Start Date</td>
+                <td th:text="${#dates.format(employee.startDate, 'dd-MMM-yyyy')}">Start Date</td>
             </tr>
             <tr>
                 <td>Last Connection:</td>
-                <td th:text="${employee.lastConnection}">Last Connection</td>
+                <td th:text="${#dates.format(employee.lastConnection, 'dd-MMM-yyyy')}">Last Connection</td>
             </tr>
             <tr>
                 <td>Login:</td>
@@ -62,12 +61,9 @@
             </tr>
         </table>
 
-        <a th:href="@{'/employees/delete/' + ${employee.id}}">
-            <button class="btn btn-danger" type="button">Delete</button>
-        </a>
-
 
     </div>
+
 </div>
 
 <script>

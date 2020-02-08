@@ -28,12 +28,11 @@
             <tr>
                 <td>Select Role:</td>
                 <td>
-                    <select required="required" th:field="*{roles}">
-                        <option value=""> --</option>
-                        <option th:each="role : ${roles}"
-                                th:utext="${role}"
-                                th:value="${role}"/>
-                    </select>
+                    <th:block th:each="role : ${roleList}">
+                        <input name="roles" th:value="${role}"
+                               type="radio"/>
+                        <label th:text="${role}"></label>
+                    </th:block>
                 </td>
                 <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>
             </tr>
