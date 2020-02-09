@@ -65,9 +65,9 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         LOGGER.info("task is null");
         Task task = (Task) manager.getById(token, id);
         LOGGER.info("phoneMumber: " + task.getName());
-        LOGGER.info("task pieces: " + task.getPieces());
+       /* LOGGER.info("task pieces: " + task.getPieces());
         mv.addObject("pieceList", pieceManager.getAll(token));
-        mv.addObject("pieces", task.getPieces());
+        mv.addObject("pieces", task.getPieces());*/
         mv.addObject("taskForm", task);
         mv.addObject("showForm", 1);
         mv.addObject("task", task);
@@ -97,7 +97,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         }
         LOGGER.info("carrying on");
         LOGGER.info("task retrieved: " + taskForm);
-        LOGGER.info("getting the pieces list: "+taskForm.getPieces());
+        // LOGGER.info("getting the pieces list: "+taskForm.getPieces());
         manager.update(helper.getConnectedToken(), taskForm);
         return new ModelAndView("redirect:" + "/tasks/" + taskForm.getId());
     }

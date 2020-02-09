@@ -1,11 +1,9 @@
 package com.autodoc.model.models.tasks;
 
-import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,22 +20,22 @@ public class Task {
     private String description;
 
     @NotNull
-    private int estimatedTime;
+    private double estimatedTime;
 
 
     @NotNull
     private boolean template;
 
-    @NotNull
-    private double price;
+ /*   @NotNull
+    private double price;*/
 
-    private List<Piece> pieces;
+    // private List<Piece> pieces;
 
-    public Task(String name, String description, int estimatedTime, double price, boolean template) {
+    public Task(String name, String description, double estimatedTime, /*double price,*/ boolean template) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        this.price = price;
+        //this.price = price;
         this.template = template;
     }
 
@@ -61,8 +59,8 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template=" + template +
-                ", price=" + price +
-                ", pieces=" + pieces +
+               /* ", price=" + price +
+                ", pieces=" + pieces +*/
                 '}';
     }
 }

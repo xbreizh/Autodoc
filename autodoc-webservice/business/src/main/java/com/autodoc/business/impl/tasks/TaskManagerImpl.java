@@ -42,17 +42,17 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         dto.setId(task.getId());
         dto.setName(task.getName());
         dto.setDescription(task.getDescription());
-        dto.setPrice(task.getPrice());
+     //   dto.setPrice(task.getPrice());
         dto.setEstimatedTime(task.getEstimatedTime());
         dto.setTemplate(Boolean.toString(task.isTemplate()));
         List<Integer> pieceIds = new ArrayList<>();
         LOGGER.info("converting pieces");
-        if (task.getPieces()!=null){
+      /*  if (task.getPieces()!=null){
             for (Piece piece: task.getPieces()){
                 pieceIds.add(piece.getId());
             }
             dto.setPieces(pieceIds);
-        }
+        }*/
         LOGGER.info("converted into dto: " + dto);
         return dto;
     }
@@ -96,13 +96,13 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         task.setName(templateTask.getName());
         task.setDescription(templateTask.getDescription());
         task.setEstimatedTime(templateTask.getEstimatedTime());
-        task.setPrice(templateTask.getPrice());
+       /* task.setPrice(templateTask.getPrice());
         task.setPieces(templateTask.getPieces());
         List<Piece> pieces = new ArrayList<>();
         for (Piece piece : templateTask.getPieces()) {
             pieces.add(piece);
         }
-        task.setPieces(pieces);
+        task.setPieces(pieces);*/
         task.setTemplate(false);
         return Integer.toString(taskDao.create(task));
 
@@ -113,19 +113,19 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         LOGGER.info("trying to convert into entity");
         TaskDTO dto = (TaskDTO) obj;
         String name = dto.getName();
-        double price = dto.getPrice();
-        int estimatedTime = dto.getEstimatedTime();
+        //double price = dto.getPrice();
+        double estimatedTime = dto.getEstimatedTime();
         Task task = (Task) taskDao.getByName(name);
         if (task != null) throw new InvalidDtoException("there is already a task with that name");
         task = new Task();
-        if (price == 0) throw new InvalidDtoException("there should be a price");
+        //if (price == 0) throw new InvalidDtoException("there should be a price");
         if (estimatedTime == 0) throw new InvalidDtoException("there should be an estimated time");
         task.setName(dto.getName().toUpperCase());
         transferTemplateToEntity(dto, task);
         task.setDescription(dto.getDescription());
         task.setEstimatedTime(dto.getEstimatedTime());
-        task.setPrice(dto.getPrice());
-        updatePieces(dto, task);
+      //  task.setPrice(dto.getPrice());
+       // updatePieces(dto, task);
         LOGGER.info("task so far: " + task);
         return task;
     }
@@ -143,7 +143,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     }
 
 
-    private void updatePieces(TaskDTO dto, Task task) throws InvalidDtoException {
+   /* private void updatePieces(TaskDTO dto, Task task) throws InvalidDtoException {
         LOGGER.info("updating pieces: " + dto);
         LOGGER.info("updating pieces: " + task);
         if (dto.getPieces() != null) {
@@ -166,15 +166,15 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
             task.setPieces(pieceList);
         }
         LOGGER.info("updating pieces: " + task);
-    }
+    }*/
 
 
     public Task transferUpdate(Object obj) throws InvalidDtoException {
         TaskDTO dto = (TaskDTO) obj;
         LOGGER.info("trying to convert into entity: " + dto);
         String name = dto.getName();
-        double price = dto.getPrice();
-        int estimatedTime = dto.getEstimatedTime();
+     //   double price = dto.getPrice();
+        double estimatedTime = dto.getEstimatedTime();
         String description = dto.getDescription();
         String template = dto.getTemplate();
 
@@ -186,11 +186,11 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
             throw new InvalidDtoException("you must use the updateTemplate method for updating templates");
         transferTemplateToEntity(dto, task);
         if (name != null) task.setName(name.toUpperCase());
-        if (price != 0) task.setPrice(price);
+      //  if (price != 0) task.setPrice(price);
         if (estimatedTime != 0) task.setEstimatedTime(estimatedTime);
         if (description != null) task.setDescription(description);
         LOGGER.info("here: " + task);
-        updatePieces(dto, task);
+    //    updatePieces(dto, task);
 
         return task;
     }
@@ -211,8 +211,8 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     public boolean updateTemplate(TaskDTO dto) throws Exception {
         LOGGER.info("trying to convert into entity");
         String name = dto.getName();
-        double price = dto.getPrice();
-        int estimatedTime = dto.getEstimatedTime();
+       // double price = dto.getPrice();
+        double estimatedTime = dto.getEstimatedTime();
         String description = dto.getDescription();
         int id = dto.getId();
         if (id == 0) throw new Exception("no id provided");
@@ -223,9 +223,9 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         if (name != null) task.setName(name.toUpperCase());
         if (description != null) task.setDescription(description);
         if (estimatedTime != 0) task.setEstimatedTime(estimatedTime);
-        if (price != 0) task.setPrice(price);
+      //  if (price != 0) task.setPrice(price);
         transferTemplateToEntity(dto, task);
-        updatePieces(dto, task);
+       // updatePieces(dto, task);
 
         return taskDao.update(task);
     }

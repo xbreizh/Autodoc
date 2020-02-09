@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,15 +21,15 @@ public class TaskForm {
     private String description;
 
     @Min(value = 1, message = "estimatedTime cannot be null")
-    private int estimatedTime;
+    private double estimatedTime;
 
     @NotEmpty(message = "template must be true or false")
     private boolean template;
 
-    @Min(value = 1, message = "price cannot be null")
-    private double price;
+   /* @Min(value = 1, message = "price cannot be null")
+    private double price;*/
 
-    private List<Integer> pieces;
+    // private List<Integer> pieces;
 
     public TaskForm() {
     }
@@ -52,7 +51,7 @@ public class TaskForm {
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template='" + template + '\'' +
-                ", price=" + price +
+                // ", price=" + price +
                 '}';
     }
 }

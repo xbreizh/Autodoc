@@ -27,8 +27,8 @@ public class Task {
     private int id;
 
 
-    @ManyToMany(mappedBy = "tasks")
-    private List<Piece> pieces;
+  /*  @ManyToMany(mappedBy = "tasks")
+    private List<Piece> pieces;*/
 
     @ManyToMany(mappedBy = "tasks")
     private List<Bill> bills;
@@ -40,20 +40,20 @@ public class Task {
     private String description;
 
     @NotNull
-    private int estimatedTime;
+    private double estimatedTime;
 
 
     @NotNull
     private boolean template;
 
-    @NotNull
-    private double price;
+  /*  @NotNull
+    private double price;*/
 
-    public Task(String name, String description, int estimatedTime, double price, boolean template) {
+    public Task(String name, String description, double estimatedTime,/* double price,*/ boolean template) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        this.price = price;
+       // this.price = price;
         this.template = template;
     }
 
@@ -77,12 +77,12 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "id=" + id +
-                ", pieces=" + pieces +
+              //  ", pieces=" + pieces +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template=" + template +
-                ", price=" + price +
+               // ", price=" + price +
                 '}';
     }
 }

@@ -18,8 +18,8 @@ public class TaskDTO {
     private int id;
 
 
-    @ManyToMany
-    private List<Integer> pieces;
+   /* @ManyToMany
+    private List<Integer> pieces;*/
 
 
     private String name;
@@ -27,18 +27,18 @@ public class TaskDTO {
 
     private String description;
 
-    private int estimatedTime;
+    private double estimatedTime;
 
 
     private String template;
 
-    private double price;
+   // private double price;
 
-    public TaskDTO(String name, String description, int estimatedTime, double price, String template) {
+    public TaskDTO(String name, String description, double estimatedTime,/* double price, */String template) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        this.price = price;
+       // this.price = price;
         this.template = template;
     }
 
@@ -50,12 +50,12 @@ public class TaskDTO {
     public String toString() {
         return "TaskDTO{" +
                 "id=" + id +
-                ", pieces=" + pieces +
+              //  ", pieces=" + pieces +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template='" + template + '\'' +
-                ", price=" + price +
+              //  ", price=" + price +
                 '}';
     }
 }

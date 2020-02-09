@@ -3,8 +3,6 @@ package com.autodoc.model.dtos.tasks;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 
 @Getter
 @Setter
@@ -19,20 +17,20 @@ public class TaskDTO {
 
     private String description;
 
-    private int estimatedTime;
+    private double estimatedTime;
 
 
     private String template;
 
-    private double price;
+    // private double price;
 
-    private List<Integer> pieces;
+    // private List<Integer> pieces;
 
-    public TaskDTO(String name, String description, int estimatedTime, double price, String template) {
+    public TaskDTO(String name, String description, double estimatedTime, String template) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        this.price = price;
+        //    this.price = price;
         this.template = template;
     }
 
@@ -55,8 +53,8 @@ public class TaskDTO {
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template='" + template + '\'' +
-                ", price=" + price +
-                ", pieces=" + pieces +
+                // ", price=" + price +
+                // ", pieces=" + pieces +
                 '}';
     }
 }

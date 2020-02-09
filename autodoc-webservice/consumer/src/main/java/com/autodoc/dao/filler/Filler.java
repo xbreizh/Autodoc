@@ -127,9 +127,9 @@ public class Filler {
 
     void fillTasks() {
         LOGGER.debug("filling Tasks");
-        Task task1 = new Task("BATTERY CHANGE", "BATTERY CHANGE", 123, 60.00, true);
-        Task task2 = new Task("BULB CHANGE", "INSPECTION, CHANGE IF REQUIRED", 123, 30, false);
-        Task task3 = new Task("OIL CHANGE", "CHECK AND CHANGE OIL, CHECK FILTER", 123, 120, false);
+        Task task1 = new Task("BATTERY CHANGE", "BATTERY CHANGE", 60, true);
+        Task task2 = new Task("BULB CHANGE", "INSPECTION, CHANGE IF REQUIRED", 30, false);
+        Task task3 = new Task("OIL CHANGE", "CHECK AND CHANGE OIL, CHECK FILTER", 120, false);
         taskDao.create(task1);
         taskDao.create(task2);
         taskDao.create(task3);

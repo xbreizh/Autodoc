@@ -6,13 +6,10 @@ import com.autodoc.business.contract.TaskManager;
 import com.autodoc.contract.TaskService;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.dtos.tasks.TaskForm;
-import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements TaskManager {
@@ -39,14 +36,14 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         task.setName(dto.getName());
         task.setDescription(dto.getDescription());
         task.setEstimatedTime(dto.getEstimatedTime());
-        task.setPrice(dto.getPrice());
+       // task.setPrice(dto.getPrice());
         String templateValue = dto.getTemplate();
-        List<Piece> pieces = new ArrayList<>();
+       /* List<Piece> pieces = new ArrayList<>();
         for (Integer pieceId: dto.getPieces()){
             Piece piece = (Piece) pieceManager.getById(token, pieceId);
             pieces.add(piece);
         }
-        task.setPieces(pieces);
+        task.setPieces(pieces);*/
         if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
             task.setTemplate(Boolean.valueOf(templateValue));
         LOGGER.info("task transferred: " + task);
@@ -63,11 +60,11 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         dto.setName(form.getName());
         dto.setDescription(form.getDescription());
         dto.setEstimatedTime(form.getEstimatedTime());
-        dto.setPrice(form.getPrice());
+        // dto.setPrice(form.getPrice());
         String templateValue = String.valueOf(form.isTemplate());
         if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
             dto.setTemplate(templateValue);
-       dto.setPieces(form.getPieces());
+        //  dto.setPieces(form.getPieces());
         LOGGER.info("task transferred: " + dto);
         return dto;
     }
