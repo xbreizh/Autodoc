@@ -36,7 +36,8 @@
         <table>
             <tr>
                 <td>Client:</td>
-                <td th:text="${car.client.firstName+' '+car.client.lastName}">Client
+                <td th:onclick="'javascript:rowClicked(\'' +@{'/clients/' + ${car.client.id}}+ '\');'"
+                    th:text="${car.client.firstName+' '+car.client.lastName}">Client
 
                 </td>
             </tr>
@@ -62,7 +63,6 @@
 
 
         <table class="table table-striped">
-            <!--<caption style="display: none">History</caption>-->
             <thead>
             <tr>
                 <th id="billId">Id</th>
@@ -73,9 +73,10 @@
             </thead>
             <tbody>
             <tr th:fragment="billDetails">
-            <tr th:each="bill : ${bills}">
+            <tr class="data-link" th:each="bill : ${bills}"
+                th:onclick="'javascript:rowClicked(\'' +@{'/bills/' + ${bill.id}}+ '\');'">
                 <td th:text="${bill.id}">id</td>
-                <td th:text="${bill.date}">date</td>
+                <td th:text="${#dates.format(bill.date, 'dd-MMM-yyyy')}"></td>
                 <td th:text="${bill.total}">total</td>
                 <td th:text="${bill.status}">status</td>
             </tr>

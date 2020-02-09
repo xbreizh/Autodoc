@@ -35,16 +35,26 @@
                     <td th:text="${bill.id}">Id</td>
                 </tr>
                 <tr>
-                    <td>Name:</td>
-                    <td th:text="${bill.car.registration}">Registration</td>
+                    <td>Date:</td>
+                    <td th:text="${#dates.format(bill.date, 'dd-MMM-yyyy')}">Date></td>
+                </tr>
+                <tr>
+                    <td>Registration:</td>
+                    <td th:onclick="'javascript:rowClicked(\'' +@{'/cars/' + ${bill.car.id}}+ '\');'"
+                        th:text="${bill.car.registration}">Registration
+                    </td>
                 </tr>
                 <tr>
                     <td>Client:</td>
-                    <td th:text="${bill.client.lastName}">Client</td>
+                    <td th:onclick="'javascript:rowClicked(\'' +@{'/clients/' + ${bill.client.id}}+ '\');'"
+                        th:text="${bill.client.lastName}">Client
+                    </td>
                 </tr>
                 <tr>
                     <td> Employee:</td>
-                    <td th:text="${bill.employee.login}">Employee</td>
+                    <td th:onclick="'javascript:rowClicked(\'' +@{'/employees/' + ${bill.employee.id}}+ '\');'"
+                        th:text="${bill.employee.login}">Employee
+                    </td>
                 </tr>
                 <tr>
                     <td>VAT:</td>
@@ -77,19 +87,16 @@
                         <th th:text="Description">Description</th>
                         <th th:text="EstimatedTime">Estimated time</th>
                         <th th:text="Price">Price</th>
-                        <th th:text="Template">Template</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- <tr th:fragment="taskDetails" xmlns:th="http:/www.w3.org/1999/xhtml">-->
                     <tr class="data-link" th:each="task : ${bill.tasks}"
                         th:onclick="'javascript:rowClicked(\'' +@{'/tasks/' + ${task.id}}+ '\');'">
                         <td th:text="${task.name}">name</td>
                         <td th:text="${task.description}">description</td>
                         <td th:text="${task.estimatedTime}">estimatedTime</td>
                         <td >to Calculate</td>
-                        <td th:text="${task.template}">template</td>
                         <td>
                             <a th:href="@{'/tasks/delete/' + ${task.id}}">
                                 <button class="btn btn-danger" type="button">Delete</button>
