@@ -41,6 +41,11 @@
                 <tr th:fragment="billDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
                 <tr class="data-link" th:each="bill : ${bills}"
                     th:onclick="'javascript:rowClicked(\'' +@{'bills/' + ${bill.id}}+ '\');'">
+
+
+                    th:onclick="'javascript:rowClicked(\'' +@{'employees/' + ${employee.id}}+ '\');'">
+
+
                     <td th:text="${bill.car.registration}">registration</td>
                     <td th:text="${bill.status}">status</td>
                     <td><span th:text="${bill.client.firstName}">firstName</span><span

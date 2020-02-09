@@ -5,8 +5,10 @@ import com.autodoc.business.contract.*;
 import com.autodoc.contract.BillService;
 import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.SearchDto;
+import com.autodoc.model.dtos.TaskList;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
+import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
@@ -29,6 +31,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
     private EnumService enumService;
+    private static final double pricePerHour = 15;
 
     public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, EnumService enumService) {
         super(service);
@@ -82,7 +85,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         return taskList;
     }
 
-    public BillDTO formToDto(Object obj, String token) {
+    public BillDTO formToDto(Object obj, String token) throws Exception {
         LOGGER.info("stuff to update: " + obj);
         BillForm form = (BillForm) obj;
         LOGGER.info("dto: " + form);
@@ -102,10 +105,20 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         }
         dto.setComments(form.getComments());
         dto.setTasks(taskIdList);
-        dto.setTotal(form.getTotal());
+        dto.setTotal(calculateTotal(token, taskIdList));
         dto.setVat(form.getVat());
         LOGGER.info("bill transferred: " + dto);
+
         return dto;
+    }
+
+    private double calculateTotal(String token, List<Integer> taskIds) throws Exception {
+        double total=0;
+        for (int taskId:taskIds){
+            Task task = (Task) taskManager.getById(token, taskId);
+            if(task!=null)total+=(task.getEstimatedTime() * pricePerHour);
+        }
+        return total;
     }
 
 

@@ -10,6 +10,8 @@ import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements TaskManager {
@@ -70,4 +72,13 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
     }
 
 
+    @Override
+    public List<Task> getTemplates(String token) throws Exception {
+        List<Task> templates = new ArrayList<>();
+        for (Object obj: service.getAll(token)){
+            Task task = dtoToEntity(token,obj);
+            if(task.isTemplate())templates.add(task);
+        }
+        return templates;
+    }
 }

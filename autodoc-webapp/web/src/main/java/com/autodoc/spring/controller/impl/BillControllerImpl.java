@@ -89,7 +89,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("billForm", bill);
         mv.addObject("showForm", 1);
         mv.addObject("bill", bill);
-        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("taskList", taskList);
         return mv;
@@ -103,7 +103,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
         mv.addObject("billForm", new BillForm());
-        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("taskList", taskList);
         if (bindingResult.hasErrors()) {
@@ -134,18 +134,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         return bills();
     }
 
-  /*  @PostMapping(value = "/balako")
-    public ModelAndView getCreateForm(@Valid NewBillForm newBillForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
-        Client client = (Client) clientManager.getById(helper.getConnectedToken(), newBillForm.getClientId());
-        Car car = carManager.getByRegistration(helper.getConnectedToken(), newBillForm.getRegistration());
-        mv.addObject("car", car);
-        mv.addObject("client", client);
-        mv.addObject("billForm", new BillForm());
-        mv.addObject("showForm", 1);
-        return mv;
-    }*/
 
     @GetMapping(value = "/new")
     public ModelAndView getCreateForm(@RequestParam(required = false) int id) throws Exception {
@@ -154,21 +142,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         BillForm billForm = new BillForm();
         LOGGER.info("id received: " + id);
-        /*List<Task> tasks = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            tasks.add(new Task());
-        }
-        billForm.setTasks(tasks);*/
         Car car = (Car) carManager.getById(token, id);
         if (car == null) throw new Exception("invalid carId: " + id);
         billForm.setCarRegistration(car.getRegistration());
         billForm.setClientId(car.getClient().getId());
-      /*  TaskList taskList = new TaskList();
-        for (Object task1: taskManager.getAll(helper.getConnectedToken())){
-            Task t = (Task)task1;
-            taskList.addTask(t);
-        }*/
-        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("taskList", taskList);
 
@@ -178,14 +156,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("client", client);
         billForm.setEmployeeLogin(employeeLogin);
         billForm.setVat(19.6);
-        // billForm.setCarRegistration(cars.get(0).getRegistration());
         billForm.setStatus("PENDING_PAYMENT");
         billForm.setVat(19.6);
         mv.addObject("billForm", billForm);
-        // List<Client> clients = clientManager.getAll(token);
-        // billForm.setClientId(clients.get(0).getId());
-      /*  mv.addObject("clientId", cars.get(0).getClient().getId());
-        mv.addObject("carId", cars.get(0).getId());*/
         mv.addObject("showForm", 1);
         return mv;
     }
@@ -197,12 +170,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         LOGGER.info("tasks: " + billForm.getTasks().getList());
         LOGGER.info("trying to create bill " + billForm);
         LOGGER.info("tasks: " + billForm.getTasks());
-        LOGGER.info("tasks before: " + billForm.getTasks().getList().size());
-
-        LOGGER.info("tasks after: " + billForm.getTasks().getList().size());
         LOGGER.info("tasks: " + billForm.getTasks());
-        // Task task = billForm.getTasks().getList().get(0);
-        // LOGGER.info(task.getName());
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         mv.addObject("billForm", new BillForm());
@@ -213,7 +181,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("employees", employees);
         mv.addObject("clients", clients);
         mv.addObject("cars", cars);
-        List<Task> taskList = taskManager.getAll(helper.getConnectedToken());
+        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("tasks", taskList);
         String employeeLogin = helper.getConnectedLogin();

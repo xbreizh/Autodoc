@@ -42,21 +42,21 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         return  convertList(token, service.getAll(token));
     }
 
-    public void add(String token, Object obj) {
+    public void add(String token, Object obj) throws Exception {
         LOGGER.info("stuff to insert: " + obj);
         D objToInsert = formToDto(obj, token);
         service.create(token, objToInsert);
 
     }
 
-    public void update(String token, Object obj) {
+    public void update(String token, Object obj) throws Exception {
         LOGGER.info("stuff to update: " + obj);
         D objToUpdate = formToDto(obj, token);
         service.update(token, objToUpdate);
 
     }
 
-    public D formToDto(Object obj, String token) {
+    public D formToDto(Object obj, String token) throws Exception {
         LOGGER.error("not configured");
         return null;
     }

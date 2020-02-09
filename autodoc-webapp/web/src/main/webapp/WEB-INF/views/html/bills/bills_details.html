@@ -88,7 +88,7 @@
                         <td th:text="${task.name}">name</td>
                         <td th:text="${task.description}">description</td>
                         <td th:text="${task.estimatedTime}">estimatedTime</td>
-                        <td th:text="${task.price}">price</td>
+                        <td >to Calculate</td>
                         <td th:text="${task.template}">template</td>
                         <td>
                             <a th:href="@{'/tasks/delete/' + ${task.id}}">
@@ -158,7 +158,7 @@
     }
 </script>
 
-
+</div>
 </body>
 </html>
 
