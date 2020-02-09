@@ -79,7 +79,7 @@ public class TaskControllerImpl extends GlobalControllerImpl<Task, TaskDTO> impl
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createFromTemplate(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to create from template");
-        String response = manager.createFromTemplate(id);
+        String response = manager.createFromTemplate(id).toString();
         try {
             int responseId = Integer.parseInt(response);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);

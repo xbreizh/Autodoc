@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.bill;
 
 import com.autodoc.business.contract.bill.BillManager;
+import com.autodoc.business.contract.tasks.TaskManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.bill.BillDao;
@@ -34,10 +35,12 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private  ClientDao clientDao;
     private EmployeeDao employeeDao;
     private  TaskDao taskDao;
+    private TaskManager taskManager;
 
-    public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao,  EmployeeDao employeeDao, TaskDao taskDao) {
+    public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, TaskManager taskManager) {
         super(billDao);
         this.mapper = new ModelMapper();
+        this.taskManager = taskManager;
         this.billDao = billDao;
         this.carDao = carDao;
         this.clientDao = clientDao;
@@ -49,7 +52,6 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     @Override
     public BillDTO entityToDto(Object entity) {
         LOGGER.info("convert to dto");
-        //BillDTO dto = mapper.map(entity, BillDTO.class);
         BillDTO dto = new BillDTO();
         Bill bill = (Bill) entity;
         dto.setId(((Bill) entity).getId());
@@ -92,7 +94,13 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         for (Integer i: dto.getTasks()){
             Task task = (Task) taskDao.getById(i);
             if (task == null) throw new InvalidDtoException("invalid task");
-            taskList.add(task);
+            if (task.isTemplate()){
+                Task duplicateFromTemplate = taskManager.createFromTemplate(task.getId());
+                taskList.add(duplicateFromTemplate);
+                LOGGER.info("created duplicate from template");
+            }else {
+                taskList.add(task);
+            }
         }
         bill.setTasks(taskList);
         Client client = (Client) clientDao.getById( dto.getClientId());

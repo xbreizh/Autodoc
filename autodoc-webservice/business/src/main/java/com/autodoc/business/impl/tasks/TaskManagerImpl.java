@@ -88,7 +88,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     }
 
     @Override
-    public String createFromTemplate(int id) throws Exception {
+    public Task createFromTemplate(int id) throws Exception {
         Task templateTask = (Task) taskDao.getById(id);
         if (templateTask == null) throw new Exception("id is invalid: " + id);
         if (!templateTask.isTemplate()) throw new Exception("not a template id: " + id);
@@ -96,15 +96,10 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         task.setName(templateTask.getName());
         task.setDescription(templateTask.getDescription());
         task.setEstimatedTime(templateTask.getEstimatedTime());
-       /* task.setPrice(templateTask.getPrice());
-        task.setPieces(templateTask.getPieces());
-        List<Piece> pieces = new ArrayList<>();
-        for (Piece piece : templateTask.getPieces()) {
-            pieces.add(piece);
-        }
-        task.setPieces(pieces);*/
         task.setTemplate(false);
-        return Integer.toString(taskDao.create(task));
+        int taskId = taskDao.create(task);
+        Task newTask = (Task) taskDao.getById(taskId);
+        return newTask;
 
     }
 
