@@ -38,14 +38,7 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         task.setName(dto.getName());
         task.setDescription(dto.getDescription());
         task.setEstimatedTime(dto.getEstimatedTime());
-       // task.setPrice(dto.getPrice());
         String templateValue = dto.getTemplate();
-       /* List<Piece> pieces = new ArrayList<>();
-        for (Integer pieceId: dto.getPieces()){
-            Piece piece = (Piece) pieceManager.getById(token, pieceId);
-            pieces.add(piece);
-        }
-        task.setPieces(pieces);*/
         if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
             task.setTemplate(Boolean.valueOf(templateValue));
         LOGGER.info("task transferred: " + task);

@@ -16,5 +16,7 @@ public interface GlobalManager<T, D> {
 
     void delete(String token, int id);
 
+    double getPricePerHour();
+
 
 }

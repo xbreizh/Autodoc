@@ -56,6 +56,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
             if (bills.isEmpty()) {
                 return sendError(mv, "no bill found");
             }
+            getPricePerHour(mv);
             mv.addObject("bills", bills);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -91,6 +92,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("bill", bill);
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
+        getPricePerHour(mv);
         mv.addObject("taskList", taskList);
         return mv;
     }
@@ -106,6 +108,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("taskList", taskList);
+        getPricePerHour(mv);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             Bill bill = (Bill) manager.getById(token, billForm.getId());
@@ -137,6 +140,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
 
     @GetMapping(value = "/new")
     public ModelAndView getCreateForm(@RequestParam(required = false) int id) throws Exception {
+
         String token = helper.getConnectedToken();
         LOGGER.info("getting create form");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
@@ -160,6 +164,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         billForm.setVat(19.6);
         mv.addObject("billForm", billForm);
         mv.addObject("showForm", 1);
+        getPricePerHour(mv);
         return mv;
     }
 
@@ -189,7 +194,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         billForm.setEmployeeLogin(employeeLogin);
         billForm.setCarRegistration(cars.get(0).getRegistration());
 
-
+        getPricePerHour(mv);
         billForm.setClientId(clients.get(0).getId());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors: " + bindingResult.toString());

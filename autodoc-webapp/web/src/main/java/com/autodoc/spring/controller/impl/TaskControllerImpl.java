@@ -39,6 +39,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         LOGGER.info("retrieving tasks");
         ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks");
         List<Task> tasks;
+        getPricePerHour(mv);
         try {
             tasks = manager.getAll(helper.getConnectedToken());
             LOGGER.info("tasks found: " + tasks.size());
@@ -65,6 +66,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         LOGGER.info("task is null");
         Task task = (Task) manager.getById(token, id);
         LOGGER.info("phoneMumber: " + task.getName());
+        getPricePerHour(mv);
        /* LOGGER.info("task pieces: " + task.getPieces());
         mv.addObject("pieceList", pieceManager.getAll(token));
         mv.addObject("pieces", task.getPieces());*/

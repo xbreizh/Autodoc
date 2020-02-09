@@ -5,10 +5,8 @@ import com.autodoc.business.contract.*;
 import com.autodoc.contract.BillService;
 import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.SearchDto;
-import com.autodoc.model.dtos.TaskList;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
-import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
@@ -31,7 +29,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
     private EnumService enumService;
-    private static final double pricePerHour = 15;
+
 
     public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, EnumService enumService) {
         super(service);

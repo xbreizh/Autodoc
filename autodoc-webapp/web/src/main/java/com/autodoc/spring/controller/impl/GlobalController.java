@@ -1,5 +1,6 @@
 package com.autodoc.spring.controller.impl;
 
+import com.autodoc.business.contract.BillManager;
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
@@ -37,13 +38,8 @@ public class GlobalController<D, T> {
     private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
     private static Logger LOGGER = Logger.getLogger(GlobalController.class);
     LibraryHelper helper;
-    /*
-        public GlobalController(LibraryHelper helper, PasswordCheckerImpl passwordChecker,  ClientManager clientManager) {
-            this.helper = helper;
-            this.clientManager = clientManager;
-            this.passwordChecker = passwordChecker;
-            // this.employeeManager = employeeManager;
-        }*/
+    @Inject
+    BillManager billManager;
     @Inject
     private ClientManager clientManager;
     @Inject
@@ -53,6 +49,10 @@ public class GlobalController<D, T> {
     @Inject
     public GlobalController(LibraryHelper helper) {
         this.helper = helper;
+    }
+
+    protected void getPricePerHour(ModelAndView mv) {
+        mv.addObject("pricePerHour", billManager.getPricePerHour());
     }
 
     public void setHelper(LibraryHelper helper) {

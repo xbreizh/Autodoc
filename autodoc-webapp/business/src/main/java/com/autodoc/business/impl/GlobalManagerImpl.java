@@ -10,17 +10,22 @@ import java.util.List;
 public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     private static Logger LOGGER = Logger.getLogger(GlobalManagerImpl.class);
     GlobalService service;
+    protected static final double pricePerHour = 15;
 
     public GlobalManagerImpl(GlobalService service) {
         this.service = service;
     }
 
+    public double getPricePerHour() {
+        return pricePerHour;
+    }
+
     public T getById(String token, int id) throws Exception {
         LOGGER.info("getting by id");
         LOGGER.info(service);
-        D obj = (D)  service.getById(token, id);
+        D obj = (D) service.getById(token, id);
         if (obj == null) return null;
-        LOGGER.info("className: "+obj.getClass().getName());
+        LOGGER.info("className: " + obj.getClass().getName());
         T cc = dtoToEntity(token, obj);
         LOGGER.info("object: " + cc);
         return dtoToEntity(token, obj);
