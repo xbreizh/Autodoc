@@ -61,5 +61,29 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
 
     }
 
+    @Override
+    public int create(String token, Object object) {
+        CarDTO dto = (CarDTO) object;
+        LOGGER.info("class: " + getClassName());
+        setupHeader(token);
+        String url = BASE_URL + getClassName();
+        LOGGER.info("obj: " + object);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+        HttpEntity<CarDTO> requestInsert = new HttpEntity<>(dto, headers);
+        try {
+            Integer response = restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody();
+            return response;
+        } catch (RuntimeException error) {
+            LOGGER.info("er: " + error.getLocalizedMessage());
+
+            if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
+            }
+            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+        }
+    }
+
 
 }

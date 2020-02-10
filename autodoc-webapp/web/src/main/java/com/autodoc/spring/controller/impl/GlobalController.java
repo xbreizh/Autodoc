@@ -8,7 +8,7 @@ import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.BooksCreationDto;
 import com.autodoc.model.dtos.RegistrationForm;
 import com.autodoc.model.dtos.TaskList;
-import com.autodoc.model.dtos.car.CarForm;
+import com.autodoc.model.dtos.car.SearchCarForm;
 import com.autodoc.model.models.Book;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
@@ -165,7 +165,7 @@ public class GlobalController<D, T> {
     }
 
     @GetMapping("/operations")
-    public ModelAndView operations(CarForm registrationForm) throws Exception {
+    public ModelAndView operations(SearchCarForm registrationForm) throws Exception {
         LOGGER.info("show form");
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         LOGGER.info("clientManager: " + clientManager);

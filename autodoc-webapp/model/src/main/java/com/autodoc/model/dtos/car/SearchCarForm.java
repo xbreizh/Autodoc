@@ -1,6 +1,5 @@
 package com.autodoc.model.dtos.car;
 
-import com.autodoc.model.dtos.person.client.ClientForm;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,27 +8,28 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class CarForm {
+public class SearchCarForm {
 
+    private int id;
+
+    private int clientId;
+
+    private int carModelId;
 
     @NotNull
     @Size(min = 5, max = 12, message = "{registration.size}")
     private String registration;
 
-    private int modelId;
-
-    private ClientForm client;
-
-    public CarForm() {
+    public SearchCarForm() {
     }
-
 
     @Override
     public String toString() {
         return "CarForm{" +
-                "registration='" + registration + '\'' +
-                ", modelId=" + modelId +
-                ", client=" + client +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", carModelId=" + carModelId +
+                ", registration='" + registration + '\'' +
                 '}';
     }
 }

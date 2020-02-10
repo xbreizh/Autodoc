@@ -47,10 +47,10 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         return  convertList(token, service.getAll(token));
     }
 
-    public void add(String token, Object obj) throws Exception {
+    public int add(String token, Object obj) throws Exception {
         LOGGER.info("stuff to insert: " + obj);
         D objToInsert = formToDto(obj, token);
-        service.create(token, objToInsert);
+        return service.create(token, objToInsert);
 
     }
 

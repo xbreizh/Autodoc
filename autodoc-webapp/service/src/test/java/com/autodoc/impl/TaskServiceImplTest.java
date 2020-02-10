@@ -27,7 +27,7 @@ class TaskServiceImplTest {
         service = new TaskServiceImpl();
         dto = new TaskDTO();
         dto.setName(name);
-        dto.setPrice(60);
+       // dto.setPrice(60);
         dto.setEstimatedTime(123);
         dto.setDescription("BATTERY CHANGE");
         dto.setTemplate("false");
@@ -71,7 +71,7 @@ class TaskServiceImplTest {
         dto.setName(name);
         dto.setEstimatedTime(123);
         dto.setDescription("plouf");
-        dto.setPrice(2);
+        //dto.setPrice(2);
         dto.setTemplate("false");
         LOGGER.info(dto);
         service.update(token, dto);

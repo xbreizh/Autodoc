@@ -1,4 +1,4 @@
-package com.autodoc.model.dtos.person.employee;
+package com.autodoc.model.dtos.person.client;
 
 import lombok.Getter;
 import lombok.Setter;

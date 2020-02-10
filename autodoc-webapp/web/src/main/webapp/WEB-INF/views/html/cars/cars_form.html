@@ -1,7 +1,7 @@
 <div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
-    <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${carForm}">
+    <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${searchCarForm}">
         <table>
             <tr>
                 <td><input th:field="*{registration}" type="hidden"/></td>

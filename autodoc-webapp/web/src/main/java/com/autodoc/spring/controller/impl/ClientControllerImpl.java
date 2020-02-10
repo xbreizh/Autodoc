@@ -2,7 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.model.dtos.person.employee.ClientForm;
+import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.spring.controller.contract.ClientController;
 import org.apache.log4j.Logger;

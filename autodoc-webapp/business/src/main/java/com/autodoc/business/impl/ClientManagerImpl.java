@@ -4,7 +4,7 @@ import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.ClientService;
 import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.person.client.ClientDTO;
-import com.autodoc.model.dtos.person.employee.ClientForm;
+import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
 

@@ -53,7 +53,9 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
         HttpEntity<ClientDTO> requestInsert = new HttpEntity<>(dto, headers);
 
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
+            /* return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();*/
+            Integer response = restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody();
+            return response;
         } catch (RuntimeException error) {
             LOGGER.info(error.getLocalizedMessage().substring(0, 2));
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
