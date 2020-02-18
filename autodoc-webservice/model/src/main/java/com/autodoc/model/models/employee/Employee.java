@@ -4,6 +4,7 @@ import com.autodoc.model.enums.Role;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +28,8 @@ public class Employee extends Person {
     private List<Role> roles;
     /* @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
      private List<SubTask> subTasks;*/
-    @NotNull
+    //@NotNull
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date startDate;
     @NotNull
     private String login;
@@ -39,7 +41,9 @@ public class Employee extends Person {
     /*  @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
       private List<Skill> skills;
   */
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date lastConnection;
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date tokenExpiration;
 
     public Employee() {

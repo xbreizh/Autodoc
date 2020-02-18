@@ -7,6 +7,7 @@ import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.tasks.Task;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
@@ -59,7 +60,7 @@ public class Bill {
     @Column(name = "ID")
     private int id;
 
-    @NotNull
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date date;
 
     @NotNull

@@ -119,7 +119,11 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         employee.setLastName(dto.getLastName().toUpperCase());
         employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
         employee.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
-        employee.setStartDate(new Date());
+        if(dto.getStartDate()==null){
+            employee.setStartDate(new Date());
+        }else {
+            employee.setStartDate(dto.getStartDate());
+        }
         employee.setPhoneNumber(dto.getPhoneNumber());
         employee.setLogin(dto.getLogin());
         return employee;

@@ -1,6 +1,7 @@
 package com.autodoc.model.dtos.person.employee;
 
 import com.autodoc.model.dtos.person.PersonDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,8 @@ public class EmployeeDTO extends PersonDTO {
     @Enumerated(EnumType.STRING)
     private List<String> roles;
 
-    @PastOrPresent
+    //@PastOrPresent
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date startDate;
 
     @NotNull(message = "login cannot be null")
@@ -32,7 +34,8 @@ public class EmployeeDTO extends PersonDTO {
     @NotNull(message = "password cannot be null")
     private String password;
 
-    @PastOrPresent
+    //@PastOrPresent
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date lastConnection;
 
     public EmployeeDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber, @NotNull(message = "role should not be null") List<String> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login) {

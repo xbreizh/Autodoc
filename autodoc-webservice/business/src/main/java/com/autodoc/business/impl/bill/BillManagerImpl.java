@@ -83,7 +83,9 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         int id = dto.getId();
         LOGGER.info("id: " + id);
         bill.setId(id);
-        bill.setDate(new Date());
+        LOGGER.info("dto date: "+dto.getDate());
+        bill.setDate(dto.getDate());
+        LOGGER.info("entity date: "+bill.getDate());
         Car car = carDao.getCarByRegistration(dto.getRegistration());
         if (car == null) throw new InvalidDtoException("car cannot be null");
         LOGGER.info("car found: " + car);
