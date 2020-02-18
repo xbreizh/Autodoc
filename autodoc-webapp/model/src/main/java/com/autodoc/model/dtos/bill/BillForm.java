@@ -1,10 +1,10 @@
 package com.autodoc.model.dtos.bill;
 
 import com.autodoc.model.dtos.TaskList;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +19,8 @@ public class BillForm {
     private int id;
 
 
-    @FutureOrPresent(message = "date should nto be in the past")
+    //@FutureOrPresent(message = "date should nto be in the past")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date date;
 
     @NotEmpty

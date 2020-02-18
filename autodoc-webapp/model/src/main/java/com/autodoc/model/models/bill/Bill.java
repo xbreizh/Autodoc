@@ -5,6 +5,7 @@ import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.tasks.Task;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ public class Bill {
 
 
     private int id;
-    @NotNull
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date date;
     @NotNull
     private String status;

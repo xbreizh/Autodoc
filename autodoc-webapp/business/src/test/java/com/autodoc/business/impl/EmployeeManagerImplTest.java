@@ -5,6 +5,7 @@ import com.autodoc.contract.EmployeeService;
 import com.autodoc.contract.EnumService;
 import com.autodoc.impl.EmployeeServiceImpl;
 import com.autodoc.impl.EnumServiceImpl;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeManagerImplTest {
     // private static final String baseUrl = "http://localhost:8087/autodoc/";
+    private static final Logger LOGGER = Logger.getLogger(EmployeeManagerImplTest.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUzNDM5MCwiaWF0IjoxNTc2NTE2MzkwfQ.r64Ed4Df6I8ZbL8LK9p4ZLDye_kH5UcwhhbZaS4HQQXbDLzE1Z6dTo7Bn51qHyzpZJE1MpDl-wJSTEPq_ytBUA";
     // String url = "http://localhost:8087/autodoc/employees";

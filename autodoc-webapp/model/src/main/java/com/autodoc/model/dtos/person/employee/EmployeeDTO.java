@@ -1,12 +1,12 @@
 package com.autodoc.model.dtos.person.employee;
 
 import com.autodoc.model.dtos.person.PersonDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -19,14 +19,15 @@ public class EmployeeDTO extends PersonDTO {
 
     private List<String> roles;
 
-    @NotNull
-    @PastOrPresent
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    //@PastOrPresent
     private Date startDate;
 
     @Size(min = 3, max = 12, message = "{login.size}")
     private String login;
 
-    @PastOrPresent
+    //@PastOrPresent
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date lastConnection;
 
     @NotNull

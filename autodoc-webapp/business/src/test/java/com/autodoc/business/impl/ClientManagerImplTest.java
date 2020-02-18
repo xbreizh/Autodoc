@@ -2,13 +2,12 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.ClientService;
+import com.autodoc.contract.EnumService;
 import com.autodoc.impl.ClientServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ClientManagerImplTest {
 
@@ -16,15 +15,16 @@ class ClientManagerImplTest {
     private ClientManager clientManager;
     //@Inject
     private ClientService service;
+    private EnumService enumService;
 
     @BeforeEach
     void init() {
         service = new ClientServiceImpl();
-        clientManager = new ClientManagerImpl(service);
+        clientManager = new ClientManagerImpl(service, enumService);
     }
 
     @Test
-    void getById() {
+    void getById() throws Exception {
 
         int id = 1;
         assertNotNull(clientManager.getById(token, id));

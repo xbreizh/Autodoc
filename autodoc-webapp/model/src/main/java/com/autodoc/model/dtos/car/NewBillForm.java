@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.dtos.car;
 
 import lombok.Getter;
@@ -29,4 +30,4 @@ public class NewBillForm {
                 "registration='" + registration + '\'' +
                 '}';
     }
-}
+}*/

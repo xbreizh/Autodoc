@@ -23,7 +23,7 @@ class ManufacturerManagerImplTest {
 
 
     @Test
-    void getById() {
+    void getById() throws Exception {
         int id = 2;
 
         assertNotNull(manager.getById(token, id));
