@@ -14,7 +14,7 @@ import java.util.List;
 public class Provider extends Person {
 
 
-  /*  private List<Address> addresses;*/
+    /*  private List<Address> addresses;*/
 
 
     private List<Piece> pieces;
@@ -42,7 +42,7 @@ public class Provider extends Person {
     @Override
     public String toString() {
         return "Provider{" +
-              //  "addresses=" + addresses +
+                //  "addresses=" + addresses +
                 ", pieces=" + pieces +
                 ", website='" + website + '\'' +
                 ", email1='" + email + '\'' +

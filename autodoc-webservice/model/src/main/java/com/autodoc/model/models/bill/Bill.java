@@ -43,8 +43,8 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(@NotNull Date date, @NotNull Status status, @NotNull Car car, @NotNull Employee employee,@NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
-        this.date = date;
+    public Bill(@NotNull Date dateReparation, @NotNull Status status, @NotNull Car car, @NotNull Employee employee, @NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
+        this.dateReparation = dateReparation;
         this.status = status;
         this.car = car;
         this.employee = employee;
@@ -61,7 +61,7 @@ public class Bill {
     private int id;
 
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
-    private Date date;
+    private Date dateReparation;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -102,7 +102,7 @@ public class Bill {
     public String toString() {
         return "Bill{" +
                 "id=" + id +
-                ", date=" + date +
+                ", dateReparation=" + dateReparation +
                 ", status=" + status +
                 ", car=" + car +
                 ", client=" + client +

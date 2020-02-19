@@ -31,12 +31,12 @@
                            th:text="${client.firstName}+' '+${client.lastName}" type="hidden"/>
                 </td>
             </tr>
-          <!--  <tr>
-                <td>Total:</td>
-                <td><input min="0.00" required="required" step=".01" th:field="*{total}" type="number" value="0.00"/>
+            <tr>
+                <td>Date:</td>
+                <td>
+                    <input id="datepicker" name="dateReparation" width="312"/>
                 </td>
-                <td th:errors="*{total}" th:if="${#fields.hasErrors('total')}">Total Error</td>
-            </tr>-->
+            </tr>
             <tr>
                 <td>Discount:</td>
                 <td><input min="0.00" required="required" step=".1" th:field="*{discount}" type="number" value="0.00"/>
@@ -88,6 +88,19 @@
 
 
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    var disabled = [[${disabled}]];
+
+    $('#datepicker').datepicker({
+        format: "yyyy/mm/dd hh:mm",
+        minDate: today,
+        disableDates: disabled
+    });
+    /*]]>*/
+</script>
 </body>
 </html>
 

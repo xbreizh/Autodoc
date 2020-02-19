@@ -174,6 +174,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult, Model model) throws Exception {
         LOGGER.info("tasks: " + billForm.getTasks().getList());
         LOGGER.info("trying to create bill " + billForm);
+        LOGGER.info("dateRepa: " + billForm.getDateReparation());
         LOGGER.info("tasks: " + billForm.getTasks());
         LOGGER.info("tasks: " + billForm.getTasks());
         String token = helper.getConnectedToken();

@@ -21,6 +21,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private EmployeeDao employeeDao;
     private  TaskDao taskDao;
     private TaskManager taskManager;
+    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, TaskManager taskManager) {
         super(billDao);
@@ -62,7 +64,8 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setDiscount(((Bill) entity).getDiscount());
         dto.setTotal(((Bill) entity).getTotal());
         dto.setStatus(((Bill) entity).getStatus().toString());
-        dto.setDate(((Bill) entity).getDate());
+        Date dateRepa = ((Bill) entity).getDateReparation();
+        dto.setDateReparation(mdyFormat.format(dateRepa));
         dto.setComments(((Bill) entity).getComments());
         List<Integer> taskList = new ArrayList<>();
         List<Task> tasks = ((Bill) entity).getTasks();
@@ -83,9 +86,9 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         int id = dto.getId();
         LOGGER.info("id: " + id);
         bill.setId(id);
-        LOGGER.info("dto date: "+dto.getDate());
-        bill.setDate(dto.getDate());
-        LOGGER.info("entity date: "+bill.getDate());
+        LOGGER.info("dto date: "+dto.getDateReparation());
+        bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
+        LOGGER.info("entity date: "+bill.getDateReparation());
         Car car = carDao.getCarByRegistration(dto.getRegistration());
         if (car == null) throw new InvalidDtoException("car cannot be null");
         LOGGER.info("car found: " + car);

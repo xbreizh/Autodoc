@@ -76,7 +76,7 @@
             <tr class="data-link" th:each="bill : ${bills}"
                 th:onclick="'javascript:rowClicked(\'' +@{'/bills/' + ${bill.id}}+ '\');'">
                 <td th:text="${bill.id}">id</td>
-                <td th:text="${#dates.format(bill.date, 'dd-MMM-yyyy')}"></td>
+                <td th:text="${bill.dateReparation}"></td>
                 <td th:text="${bill.total}">total</td>
                 <td th:text="${bill.status}">status</td>
             </tr>

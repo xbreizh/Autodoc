@@ -7,7 +7,10 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +20,7 @@ class BillServiceImplTest {
 
     private static final Logger LOGGER = Logger.getLogger(BillServiceImplTest.class);
     private BillService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4MDAyMzc4MiwiaWF0IjoxNTgwMDA1NzgyfQ.9ynPKFH6LHm-b3HpfllTRSzM-ud4P-8J1SUcPnzq0E33NX9ktPjhgGWlUeYqasCC_uuJpLRFOXj2aIUFjwk5lw";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4MjA3MTcxMCwiaWF0IjoxNTgyMDUzNzEwfQ.P5MperueqLLR81axHY2g2aRYBNnF3PzCA3rAPAf5DbgoZbpO1HZk89ZZvKd2h-KglTUKZ5skSd8W99Yr1QwvEw";
     private Class clazz = BillDTO.class;
 
     @BeforeEach
@@ -44,6 +47,7 @@ class BillServiceImplTest {
         dto.setClientId(2);
         dto.setEmployeeId(1);
         dto.setTotal(123);
+        dto.setDateReparation(new Date().toString());
         dto.setStatus("COMPLETED");
         List<Integer> tasks = new ArrayList<>();
         tasks.add(2);
@@ -55,8 +59,38 @@ class BillServiceImplTest {
 
     @Test
     void getByid() {
-        LOGGER.info("employee: " + service.getById(token, 1));
+        BillDTO dto = (BillDTO) service.getById(token, 1);
+        LOGGER.info("bill: " + dto);
         assertNotNull(service.getById(token, 1));
+    }
+
+    @Test
+    void changeDate() throws ParseException {
+        try {
+            Date myDate = new Date();
+            System.out.println(myDate);
+
+            SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            String mdy = mdyFormat.format(myDate);
+
+            // Results...
+            System.out.println(mdy);
+            // Parse the Strings back to dates
+            // Note, the formats don't "stick" with the Date value
+            System.out.println(mdyFormat.parse(mdy));
+        } catch (ParseException exp) {
+            exp.printStackTrace();
+        }
+
+    }
+
+
+    @Test
+    void testDate() throws ParseException {
+        Date date = new Date();
+        System.out.println(date);
+
     }
 
 

@@ -1,7 +1,6 @@
 package com.autodoc.model.dtos.bill;
 
 import com.autodoc.model.dtos.TaskList;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +19,8 @@ public class BillForm {
 
 
     //@FutureOrPresent(message = "date should nto be in the past")
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private Date date;
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateReparation;
 
     @NotEmpty
     private String status;
@@ -55,7 +54,7 @@ public class BillForm {
     public String toString() {
         return "BillForm{" +
                 "id=" + id +
-                ", date=" + date +
+                ", date=" + dateReparation +
                 ", status='" + status + '\'' +
                 ", tasks=" + tasks +
                 ", CarRegistration='" + carRegistration + '\'' +

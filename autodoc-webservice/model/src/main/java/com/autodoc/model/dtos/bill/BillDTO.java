@@ -4,7 +4,6 @@ package com.autodoc.model.dtos.bill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -18,8 +17,8 @@ public class BillDTO {
 
 
     //@FutureOrPresent(message = "date should not be in the past")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
-    private Date date;
+    //@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    private String dateReparation;
 
     @NotNull
     private String status;
@@ -52,7 +51,7 @@ public class BillDTO {
     public String toString() {
         return "BillDTO{" +
                 "id=" + id +
-                ", date=" + date +
+                ", dateReparation=" + dateReparation +
                 ", status='" + status + '\'' +
                 ", tasks=" + tasks +
                 ", registration='" + registration + '\'' +

@@ -15,6 +15,7 @@ import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,10 @@ import java.util.List;
 public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements BillManager {
 
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
+    private static final SimpleDateFormat formatForm =
+            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final SimpleDateFormat formatBeans =
+            new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     public Bill bill;
     private BillService service;
     private CarManager carManager;
@@ -29,7 +34,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
     private EnumService enumService;
-
+    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, EnumService enumService) {
         super(service);
@@ -49,35 +54,37 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         int id = dto.getId();
         LOGGER.info("id: " + id);
         bill.setId(id);
-        bill.setDate(dto.getDate());
+        LOGGER.info("old date: " + bill.getDateReparation());
+        bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
+        LOGGER.info("new date: " + bill.getDateReparation());
         Car car = carManager.getByRegistration(token, dto.getRegistration());
         if (car == null) throw new Exception("car cannot be null");
-        LOGGER.info("car found: "+car);
+        LOGGER.info("car found: " + car);
         bill.setCar(car);
         bill.setDiscount(dto.getDiscount());
         bill.setStatus(dto.getStatus());
         bill.setTasks(getTasks(token, dto.getTasks()));
         Client client = (Client) clientManager.getById(token, dto.getClientId());
-        if(client ==null)throw new Exception("invalid client reference: "+dto.getClientId());
-        LOGGER.info("client found: "+client);
+        if (client == null) throw new Exception("invalid client reference: " + dto.getClientId());
+        LOGGER.info("client found: " + client);
         bill.setClient(client);
         bill.setTotal(dto.getTotal());
         bill.setVat(dto.getVat());
         Employee employee = (Employee) employeeManager.getById(token, dto.getEmployeeId());
-        if(employee ==null)throw new Exception("invalid employee reference: "+dto.getEmployeeId());
-        LOGGER.info("employee found: "+employee);
+        if (employee == null) throw new Exception("invalid employee reference: " + dto.getEmployeeId());
+        LOGGER.info("employee found: " + employee);
         bill.setEmployee(employee);
         LOGGER.info("bill transferred: " + bill);
-       bill.setComments(dto.getComments());
+        bill.setComments(dto.getComments());
         return bill;
     }
 
 
     private List<Task> getTasks(String token, List<Integer> tasks) throws Exception {
         List<Task> taskList = new ArrayList<>();
-        for (Integer i: tasks){
+        for (Integer i : tasks) {
             Task task = (Task) taskManager.getById(token, i);
-            if(task == null)throw new Exception("invalid task reference: "+i);
+            if (task == null) throw new Exception("invalid task reference: " + i);
             taskList.add(task);
         }
         return taskList;
@@ -90,7 +97,11 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         BillDTO dto = new BillDTO();
         dto.setId(form.getId());
         dto.setClientId(form.getClientId());
-        dto.setDate(form.getDate());
+
+
+        String mdy = mdyFormat.format(form.getDateReparation());
+        dto.setDateReparation(mdy);
+        LOGGER.info("date passed: " + dto.getDateReparation());
         dto.setDiscount(form.getDiscount());
         Employee employee = employeeManager.getByLogin(token, form.getEmployeeLogin());
         dto.setEmployeeId(employee.getId());
@@ -111,10 +122,10 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     }
 
     private double calculateTotal(String token, List<Integer> taskIds) throws Exception {
-        double total=0;
-        for (int taskId:taskIds){
+        double total = 0;
+        for (int taskId : taskIds) {
             Task task = (Task) taskManager.getById(token, taskId);
-            if(task!=null)total+=(task.getEstimatedTime() * pricePerHour);
+            if (task != null) total += (task.getEstimatedTime() * pricePerHour);
         }
         return total;
     }

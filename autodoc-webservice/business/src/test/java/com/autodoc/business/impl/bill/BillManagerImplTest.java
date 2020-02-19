@@ -93,6 +93,6 @@ class BillManagerImplTest {
     @Disabled
     void dtoToEntity() {
         dto = new BillDTO();
-        dto.setDate(new Date());
+        dto.setDateReparation(new Date());
     }
 }

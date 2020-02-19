@@ -1,13 +1,10 @@
 package com.autodoc.model.dtos.bill;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -18,8 +15,9 @@ public class BillDTO {
 
 
     //@FutureOrPresent(message = "date should nto be in the past")
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private Date date;
+    //@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    //@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    private String dateReparation;
 
     @NotNull
     private String status;
@@ -47,9 +45,9 @@ public class BillDTO {
     public BillDTO() {
     }
 
-    public BillDTO(int id, @FutureOrPresent(message = "date should nto be in the past") Date date, @NotNull String status, @NotNull(message = "car Registration cannot be null") String registration, @Min(value = 1, message = "clientId cannot be null") int clientId, @Min(value = 1, message = "employeeId cannot be null") int employeeId, @Min(value = 1, message = "total cannot be null") double total, double discount) {
+    public BillDTO(int id, String dateReparation, @NotNull String status, @NotNull(message = "car Registration cannot be null") String registration, @Min(value = 1, message = "clientId cannot be null") int clientId, @Min(value = 1, message = "employeeId cannot be null") int employeeId, @Min(value = 1, message = "total cannot be null") double total, double discount) {
         this.id = id;
-        this.date = date;
+        this.dateReparation = dateReparation;
         this.status = status;
         this.registration = registration;
         this.clientId = clientId;
