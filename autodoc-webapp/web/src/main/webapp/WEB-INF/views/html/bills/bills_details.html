@@ -36,7 +36,8 @@
                 </tr>
                 <tr>
                     <td>Date:</td>
-                    <td th:text="${#dates.format(bill.dateReparation, 'dd-MMM-yyyy')}">Date></td>
+                    <td th:text="${#dates.format(bill.dateReparation, 'dd-MMM-yyyy hh:ss')}">Date></td>
+
                 </tr>
                 <tr>
                     <td>Registration:</td>
@@ -173,7 +174,7 @@
         var disabled = [[${disabled}]];
 
         $('#datepicker').datepicker({
-            format: "yyyy/mm/dd hh:mm",
+            format: "dd/mm/yyyy hh:mm",
             minDate: today,
             disableDates: disabled
         });

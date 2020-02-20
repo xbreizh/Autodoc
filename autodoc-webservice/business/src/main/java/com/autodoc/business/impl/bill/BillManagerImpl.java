@@ -37,7 +37,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private EmployeeDao employeeDao;
     private  TaskDao taskDao;
     private TaskManager taskManager;
-    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
     public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, TaskManager taskManager) {
         super(billDao);

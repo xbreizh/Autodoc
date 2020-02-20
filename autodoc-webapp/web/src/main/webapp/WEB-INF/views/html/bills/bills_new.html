@@ -32,9 +32,11 @@
                 </td>
             </tr>
             <tr>
-                <td>Date:</td>
+                <td>Date: (yyyy/MM/dd HH:mm)</td>
                 <td>
-                    <input id="datepicker" name="dateReparation" width="312"/>
+                    <input id="datepicker" th:field="*{dateReparation}" width="312"/>
+                    <!-- <input type="text" id="dateReparation" name="dateReparation" th:value="*{dateReparation}" />-->
+
                 </td>
             </tr>
             <tr>

@@ -19,7 +19,7 @@ public class BillForm {
 
 
     //@FutureOrPresent(message = "date should nto be in the past")
-    // @DateTimeFormat(pattern = "yyyy-MM-dd")
+    // @DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
     private Date dateReparation;
 
     @NotEmpty
@@ -54,7 +54,7 @@ public class BillForm {
     public String toString() {
         return "BillForm{" +
                 "id=" + id +
-                ", date=" + dateReparation +
+                ", dateReparation=" + dateReparation +
                 ", status='" + status + '\'' +
                 ", tasks=" + tasks +
                 ", CarRegistration='" + carRegistration + '\'' +

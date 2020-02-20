@@ -71,7 +71,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
+        LOGGER.info("trying to get bill with id " + id);
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
         LOGGER.info("bill is null");
@@ -172,6 +172,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     @PostMapping(value = "/new")
     @ResponseBody
     public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult, Model model) throws Exception {
+        if (billForm.getDateReparation() == null) LOGGER.error("date shouldn't be null");
         LOGGER.info("tasks: " + billForm.getTasks().getList());
         LOGGER.info("trying to create bill " + billForm);
         LOGGER.info("dateRepa: " + billForm.getDateReparation());

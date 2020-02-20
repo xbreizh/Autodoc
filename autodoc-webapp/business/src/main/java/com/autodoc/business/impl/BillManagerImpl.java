@@ -23,10 +23,10 @@ import java.util.List;
 public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements BillManager {
 
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
-    private static final SimpleDateFormat formatForm =
+   /* private static final SimpleDateFormat formatForm =
             new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static final SimpleDateFormat formatBeans =
-            new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");*/
     public Bill bill;
     private BillService service;
     private CarManager carManager;
@@ -34,7 +34,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
     private EnumService enumService;
-    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
     public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, EnumService enumService) {
         super(service);
