@@ -17,9 +17,6 @@ public class BillForm {
     private static final double VAT = 00.195;
     private int id;
 
-
-    //@FutureOrPresent(message = "date should nto be in the past")
-    // @DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
     private Date dateReparation;
 
     @NotEmpty

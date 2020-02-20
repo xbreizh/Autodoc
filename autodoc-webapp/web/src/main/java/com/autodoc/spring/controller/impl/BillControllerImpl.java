@@ -76,6 +76,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
         LOGGER.info("bill is null");
         Bill bill = (Bill) manager.getById(helper.getConnectedToken(), id);
+        LOGGER.info("dateRepaUpdate: " + bill.getDateReparation());
         LOGGER.info("bill: " + bill);
         List<Employee> employees = employeeManager.getAll(token);
         List<Client> clients = clientManager.getAll(token);
@@ -107,6 +108,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("billForm", new BillForm());
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
+
         mv.addObject("taskList", taskList);
         getPricePerHour(mv);
         if (bindingResult.hasErrors()) {

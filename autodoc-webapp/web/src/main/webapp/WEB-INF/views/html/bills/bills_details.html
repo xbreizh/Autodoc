@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <td>Date:</td>
-                    <td th:text="${#dates.format(bill.dateReparation, 'dd-MMM-yyyy hh:ss')}">Date></td>
+                    <td th:text="${#dates.format(bill.dateReparation, 'dd-MMM-yyyy hh:mm')}">Date></td>
 
                 </tr>
                 <tr>
@@ -73,10 +73,6 @@
                     <td>Comments:</td>
                     <td th:text="${bill.comments}">Comments</td>
                 </tr>
-                <!--   <tr>
-                       <td>Tasks:</td>
-                       <td th:text="${bill.tasks}">Tasks</td>
-                   </tr>-->
             </table>
             <div th:if="${not #lists.isEmpty(bill.tasks)}">
 
@@ -174,7 +170,7 @@
         var disabled = [[${disabled}]];
 
         $('#datepicker').datepicker({
-            format: "dd/mm/yyyy hh:mm",
+            format: "yyyy/mm/dd hh:mm",
             minDate: today,
             disableDates: disabled
         });

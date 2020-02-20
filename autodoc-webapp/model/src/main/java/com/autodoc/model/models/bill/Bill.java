@@ -19,8 +19,6 @@ public class Bill {
 
 
     private int id;
-    //@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    //@DateTimeFormat(pattern = "dd-mm-yyyy hh:ss")
     private Date dateReparation;
     @NotNull
     private String status;

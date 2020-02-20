@@ -23,10 +23,6 @@ import java.util.List;
 public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements BillManager {
 
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
-   /* private static final SimpleDateFormat formatForm =
-            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private static final SimpleDateFormat formatBeans =
-            new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");*/
     public Bill bill;
     private BillService service;
     private CarManager carManager;
@@ -49,12 +45,12 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     public Bill dtoToEntity(String token, Object obj) throws Exception {
 
         BillDTO dto = (BillDTO) obj;
-        LOGGER.info("dto found: " + dto);
+        LOGGER.info("dto to entity: " + dto);
         Bill bill = new Bill();
         int id = dto.getId();
         LOGGER.info("id: " + id);
         bill.setId(id);
-        LOGGER.info("old date: " + bill.getDateReparation());
+        LOGGER.info("old date: " + dto.getDateReparation());
         bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
         LOGGER.info("new date: " + bill.getDateReparation());
         Car car = carManager.getByRegistration(token, dto.getRegistration());
@@ -91,7 +87,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     }
 
     public BillDTO formToDto(Object obj, String token) throws Exception {
-        LOGGER.info("stuff to update: " + obj);
+        LOGGER.info("form to dto: " + obj);
         BillForm form = (BillForm) obj;
         LOGGER.info("dto: " + form);
         BillDTO dto = new BillDTO();

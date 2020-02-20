@@ -14,9 +14,6 @@ public class BillDTO {
     private int id;
 
 
-    //@FutureOrPresent(message = "date should nto be in the past")
-    //@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    //@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private String dateReparation;
 
     @NotNull
