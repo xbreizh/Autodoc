@@ -10,49 +10,57 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h3>New task</h3>
+    <h3>New Task Template</h3>
 
 
+    <!-- <form action="#" method="post" th:action="@{'/tasks/new/'}" th:object="${taskForm}">
+         <table>
+             <tr>
+                 <td>Name:</td>
+                 <td><input required="required" th:field="*{name}" type="text"/></td>
+                 <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
+             </tr>
+             <tr>
+                 <td>Description:</td>
+                 <td><input required="required" th:field="*{description}" type="text"/></td>
+                 <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</td>
+             </tr>
+             <tr>
+                 <td>Estimated Time: (hours)</td>
+                 <td><input min="0.00" required="required" step=".5" th:field="*{estimatedTime}" type="number"
+                            value="0.00"/></td>
+                 <td th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</td>
+             </tr>
+             <input value="true" id="template" name="template" type="hidden"/>
+                 <td>
+                     <button type="submit">Submit</button>
+                 </td>
+             </tr>
+         </table>
+     </form>-->
     <form action="#" method="post" th:action="@{'/tasks/new/'}" th:object="${taskForm}">
-        <table>
-            <tr>
-                <td>Name:</td>
-                <td><input required="required" th:field="*{name}" type="text"/></td>
-                <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td><input required="required" th:field="*{description}" type="text"/></td>
-                <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</td>
-            </tr>
-            <tr>
-                <td>Estimated Time: (hours)</td>
-                <td><input min="0.00" required="required" step=".5" th:field="*{estimatedTime}" type="number"
-                           value="0.00"/></td>
-                <td th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</td>
-            </tr>
-           <!-- <tr>
-                <td>Price:</td>
-                <td><input min="0.00" required="required" step=".1" th:field="*{price}" type="number" value="0.00"/>
-                </td>
-                <td th:errors="*{price}" th:if="${#fields.hasErrors('price')}">Price Error</td>
-            </tr>-->
-            <tr>
-                <td>Template:</td>
-                <td><input required="required" th:field="*{template}" type="checkbox"/></td>
-            </tr>
-            <!-- <tr>
-                 <td>Pieces:</td>
-                 <td><input th:field="*{pieces}" type="text"/></td>
-                 <td th:errors="*{pieces}" th:if="${#fields.hasErrors('pieces')}">Pieces Error</td>
-             </tr>-->
-
-            <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input class="form-control" id="name" name="name" placeholder="Enter name" required="required" type="text"/>
+            <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input class="form-control" id="description" name="description" placeholder="Enter description"
+                   required="required" type="text"/>
+            <span th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</span>
+        </div>
+        <div class="form-group">
+            <label for="estimatedTime">Estimated time:</label>
+            <input class="form-control" id="estimatedTime" min="0.00" name="estimatedTime" required="required" step=".5"
+                   type="number"
+                   value="0.00"/>
+            <span th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</span>
+        </div>
+        <div class="form-group" th:errors="*{template}" th:if="${#fields.hasErrors('template')}">
+            <input id="template" name="template" type="hidden" value="true"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 
 

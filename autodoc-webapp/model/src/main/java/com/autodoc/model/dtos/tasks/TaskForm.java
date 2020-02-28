@@ -15,6 +15,7 @@ public class TaskForm {
 
 
     @NotEmpty(message = "name cannot be empty")
+    @Min(value = 3, message = "should be more than 2")
     private String name;
 
     @NotEmpty(message = "description cannot be empty")

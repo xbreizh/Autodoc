@@ -58,7 +58,7 @@ public class BillServiceImpl extends GlobalServiceImpl<BillDTO> implements BillS
         headers.setBearerAuth(token);
         HttpEntity<BillDTO> requestInsert = new HttpEntity<>(dto, headers);
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
+            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody();
         } catch (RuntimeException error) {
             LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
