@@ -12,32 +12,6 @@
 
     <h3>New Task Template</h3>
 
-
-    <!-- <form action="#" method="post" th:action="@{'/tasks/new/'}" th:object="${taskForm}">
-         <table>
-             <tr>
-                 <td>Name:</td>
-                 <td><input required="required" th:field="*{name}" type="text"/></td>
-                 <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
-             </tr>
-             <tr>
-                 <td>Description:</td>
-                 <td><input required="required" th:field="*{description}" type="text"/></td>
-                 <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</td>
-             </tr>
-             <tr>
-                 <td>Estimated Time: (hours)</td>
-                 <td><input min="0.00" required="required" step=".5" th:field="*{estimatedTime}" type="number"
-                            value="0.00"/></td>
-                 <td th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</td>
-             </tr>
-             <input value="true" id="template" name="template" type="hidden"/>
-                 <td>
-                     <button type="submit">Submit</button>
-                 </td>
-             </tr>
-         </table>
-     </form>-->
     <form action="#" method="post" th:action="@{'/tasks/new/'}" th:object="${taskForm}">
         <div class="form-group">
             <label for="name">Name:</label>

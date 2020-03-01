@@ -12,97 +12,63 @@
 
     <h3>New bill</h3>
 
-
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
-        <table>
-            <tr>
-                <td>Employee:</td>
-                <td><input required="required" th:field="*{employeeLogin}" th:text="${billForm.employeeLogin}"
-                           type="hidden"/></td>
-            </tr>
-            <tr>
-                <td>Registration:</td>
-                <td><input required="required" th:field="*{carRegistration}" th:text="${billForm.carRegistration}"
-                           type="hidden"/></td>
-            </tr>
-            <tr>
-                <td>Client:</td>
-                <td><input required="required" th:field="*{clientId}"
-                           th:text="${client.firstName}+' '+${client.lastName}" type="hidden"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Date: (yyyy/MM/dd HH:mm)</td>
-                <td>
-                    <input id="datepicker" th:field="*{dateReparation}" width="312"/>
-                    <!-- <input type="text" id="dateReparation" name="dateReparation" th:value="*{dateReparation}" />-->
+        <div class="form-group">
+            <label for="employeeLogin">Employee:</label>
+            <input class="form-control" id="employeeLogin" name="employeeLogin" placeholder="Enter Employee Login"
+                   required="required" th:value="${billForm.employeeLogin}" type="text"/>
+            <div th:errors="*{employeeLogin}" th:if="${#fields.hasErrors('employeeLogin')}">Employee Error</div>
+        </div>
 
-                </td>
-            </tr>
-            <tr>
-                <td>Discount:</td>
-                <td><input min="0.00" required="required" step=".1" th:field="*{discount}" type="number" value="0.00"/>
-                </td>
-                <td th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</td>
-            </tr>
-            <tr>
-                <td>Vat:</td>
-                <td><input th:field="*{vat}" th:text="${billForm.vat}" type="hidden"/>
-                </td>
-            </tr>
-            <tr>
-                <td><input th:field="*{status}" type="hidden"/></td>
-            </tr>
-            <tr>
-                <td>Comments:</td>
-                <td><textarea  th:field="*{Comments}" type="text"/></td>
-                <td th:errors="*{Comments}" th:if="${#fields.hasErrors('Comments')}">Comments
-                    Error
-                </td>
-            </tr>
-            <tr>
-                <table>
-                    <tr>
-                        <th>Tasks</th>
-                    </tr>
+        <div class="form-group">
+            <label for="carRegistration">Registration:</label>
+            <input class="form-control" id="carRegistration" name="carRegistration" placeholder="Enter Registration"
+                   required="required" th:value="${billForm.carRegistration}" type="text"/>
+            <div th:errors="*{carRegistration}" th:if="${#fields.hasErrors('carRegistration')}">Registration Error</div>
+        </div>
 
-                    <tr th:each="task, stat : ${taskList}">
-                        <td>
-                            <select th:name="|tasks.list[${stat.index}]|" th:value="${task}">
-                                <option value="">new Task</option>
-                                <option th:each="task : ${taskList}"
-                                        th:utext="${task.getName()}"
-                                        th:value="${task.getId()}"/>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-            </tr>
+        <div class="form-group">
+            <div class='input-group date' id='datetime'>
+                <input class="form-control" id="dateReparation" name="dateReparation" type="text"/>
+
+            </div>
+        </div>
 
 
-            <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="discount">Discount:</label>
+            <input class="form-control" id="discount" name="discount" placeholder="Enter Discount" required="required"
+                   type="text"/>
+            <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
+        </div>
+
+        <input required="required" th:field="*{vat}" type="hidden"/>
+        <input required="required" th:field="*{status}" type="hidden"/>
+        <input required="required" th:field="*{clientId}" type="hidden"/>
+
+        <div th:each="task, stat : ${taskList}">
+            <select th:name="|tasks.list[${stat.index}]|" th:value="${task}">
+                <option value="">new Task</option>
+                <option th:each="task : ${taskList}"
+                        th:utext="${task.getName()}"
+                        th:value="${task.getId()}"/>
+            </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+
     </form>
-
+    <script>
+        var today = new Date();
+        $("#dateReparation").datetimepicker({
+            format: 'dd/mm/yyyy hh:MM',
+            autoclose: true,
+            todayBtn: true,
+            startDate: today
+        });
+    </script>
 
 </div>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var date = new Date();
-    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    var disabled = [[${disabled}]];
-
-    $('#datepicker').datepicker({
-        format: "yyyy/mm/dd hh:mm",
-        minDate: today,
-        disableDates: disabled
-    });
-    /*]]>*/
-</script>
 </body>
 </html>
 

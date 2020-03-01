@@ -3,6 +3,7 @@ package com.autodoc.model.dtos.bill;
 import com.autodoc.model.dtos.TaskList;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -17,6 +18,7 @@ public class BillForm {
     private static final double VAT = 00.195;
     private int id;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
     private Date dateReparation;
 
     @NotEmpty
