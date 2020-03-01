@@ -27,10 +27,23 @@
             <div th:errors="*{carRegistration}" th:if="${#fields.hasErrors('carRegistration')}">Registration Error</div>
         </div>
 
-        <div class="form-group">
-            <div class='input-group date' id='datetime'>
-                <input class="form-control" id="dateReparation" name="dateReparation" type="text"/>
+        <!--  <div class="form-group">
+              <div class='input-group date' id='datetime'>
+                  <input class="form-control" id="dateReparation" name="dateReparation" type="text"/>
+                  <span class="add-on"><i class="icon-remove"></i></span>
+                  <span class="add-on"><i class="icon-calendar"></i></span>
+              </div>
+          </div>-->
 
+
+        <div class="form-group">
+            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
+                       type="text"/>
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                     id="dateReparation" name="dateReparation">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
             </div>
         </div>
 
@@ -60,11 +73,13 @@
     </form>
     <script>
         var today = new Date();
-        $("#dateReparation").datetimepicker({
-            format: 'dd/mm/yyyy hh:MM',
+        $("#datetimepicker1").datetimepicker({
+            format: 'DD/MM/YYYY hh:mm',
             autoclose: true,
             todayBtn: true,
-            startDate: today
+            minuteStep: 10
+
+
         });
     </script>
 
