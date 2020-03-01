@@ -59,6 +59,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         LOGGER.info("car found: " + car);
         if (car == null) {
             mv.addObject("message", "registration not found in the system");
+            mv.addObject("registration", registration);
             mv.addObject("carForm", new CarForm());
             mv.addObject("models", carModelManager.getAll(token));
             return mv;

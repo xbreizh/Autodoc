@@ -19,7 +19,8 @@
         <table>
             <tr>
                 <td>Registration:</td>
-                <td><input required="required" th:field="*{registration}" type="text"/></td>
+                <td><input id="registration" name="registration" required="required" th:value="${registration}"
+                           type="text"/></td>
                 <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</td>
             </tr>
             <tr>
