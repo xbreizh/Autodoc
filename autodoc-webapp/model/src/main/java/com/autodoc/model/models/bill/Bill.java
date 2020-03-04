@@ -4,6 +4,7 @@ package com.autodoc.model.models.bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +31,7 @@ public class Bill {
     private Employee employee;
     @NotNull
     private  List<Task> tasks;
+    private  List<Piece> pieces;
     @NotNull
     private double total;
     @NotNull
@@ -64,10 +66,11 @@ public class Bill {
                 ", client=" + client +
                 ", employee=" + employee +
                 ", tasks=" + tasks +
+                ", pieces=" + pieces +
                 ", total=" + total +
                 ", vat=" + vat +
                 ", discount=" + discount +
-                ", comment='" + comments + '\'' +
+                ", comments='" + comments + '\'' +
                 '}';
     }
 }

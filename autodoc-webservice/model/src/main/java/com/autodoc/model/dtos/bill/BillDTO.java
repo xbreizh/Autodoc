@@ -1,12 +1,10 @@
 package com.autodoc.model.dtos.bill;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -25,6 +23,9 @@ public class BillDTO {
 
     @NotNull
     private List<Integer> tasks;
+
+    @NotNull
+    private List<Integer> pieces;
 
     @NotNull(message = "car Registration cannot be null")
     private String registration;
@@ -51,9 +52,10 @@ public class BillDTO {
     public String toString() {
         return "BillDTO{" +
                 "id=" + id +
-                ", dateReparation=" + dateReparation +
+                ", dateReparation='" + dateReparation + '\'' +
                 ", status='" + status + '\'' +
                 ", tasks=" + tasks +
+                ", pieces=" + pieces +
                 ", registration='" + registration + '\'' +
                 ", clientId=" + clientId +
                 ", employeeId=" + employeeId +

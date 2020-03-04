@@ -22,6 +22,8 @@ public class BillDTO {
     @NotNull
     private List<Integer> tasks;
 
+    private List<Integer> pieces;
+
     @NotNull(message = "car Registration cannot be null")
     private String registration;
 
@@ -42,14 +44,21 @@ public class BillDTO {
     public BillDTO() {
     }
 
-    public BillDTO(int id, String dateReparation, @NotNull String status, @NotNull(message = "car Registration cannot be null") String registration, @Min(value = 1, message = "clientId cannot be null") int clientId, @Min(value = 1, message = "employeeId cannot be null") int employeeId, @Min(value = 1, message = "total cannot be null") double total, double discount) {
-        this.id = id;
-        this.dateReparation = dateReparation;
-        this.status = status;
-        this.registration = registration;
-        this.clientId = clientId;
-        this.employeeId = employeeId;
-        this.total = total;
-        this.discount = discount;
+    @Override
+    public String toString() {
+        return "BillDTO{" +
+                "id=" + id +
+                ", dateReparation='" + dateReparation + '\'' +
+                ", status='" + status + '\'' +
+                ", tasks=" + tasks +
+                ", pieces=" + pieces +
+                ", registration='" + registration + '\'' +
+                ", clientId=" + clientId +
+                ", employeeId=" + employeeId +
+                ", vat=" + vat +
+                ", total=" + total +
+                ", discount=" + discount +
+                ", comments='" + comments + '\'' +
+                '}';
     }
 }

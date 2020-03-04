@@ -1,13 +1,12 @@
 package com.autodoc.model.dtos.bill;
 
+import com.autodoc.model.dtos.PieceList;
 import com.autodoc.model.dtos.TaskList;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Getter
@@ -19,12 +18,16 @@ public class BillForm {
     private int id;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+    @NotNull
     private Date dateReparation;
 
     @NotEmpty
     private String status;
 
+
     private TaskList tasks;
+
+    private PieceList pieces;
 
 
     @NotEmpty(message = "car  cannot be null")
@@ -56,7 +59,8 @@ public class BillForm {
                 ", dateReparation=" + dateReparation +
                 ", status='" + status + '\'' +
                 ", tasks=" + tasks +
-                ", CarRegistration='" + carRegistration + '\'' +
+                ", pieceList=" + pieces +
+                ", carRegistration='" + carRegistration + '\'' +
                 ", clientId=" + clientId +
                 ", employeeLogin='" + employeeLogin + '\'' +
                 ", vat=" + vat +

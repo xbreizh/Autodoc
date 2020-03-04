@@ -11,6 +11,7 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 
@@ -29,14 +30,16 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private TaskManager taskManager;
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
+    private PieceManager pieceManager;
     private EnumService enumService;
     private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-    public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, EnumService enumService) {
+    public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, PieceManager pieceManager, EnumService enumService) {
         super(service);
         this.service = service;
         this.carManager = carManager;
         this.taskManager = taskManager;
+        this.pieceManager = pieceManager;
         this.clientManager = clientManager;
         this.employeeManager = employeeManager;
         this.enumService = enumService;
@@ -60,6 +63,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         bill.setDiscount(dto.getDiscount());
         bill.setStatus(dto.getStatus());
         bill.setTasks(getTasks(token, dto.getTasks()));
+        bill.setPieces(gerPieces(token, dto.getPieces()));
         Client client = (Client) clientManager.getById(token, dto.getClientId());
         if (client == null) throw new Exception("invalid client reference: " + dto.getClientId());
         LOGGER.info("client found: " + client);
@@ -86,6 +90,17 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         return taskList;
     }
 
+
+    private List<Piece> gerPieces(String token, List<Integer> pieces) throws Exception {
+        List<Piece> pieceList = new ArrayList<>();
+        for (Integer i : pieces) {
+            Piece piece = (Piece) pieceManager.getById(token, i);
+            if (piece == null) throw new Exception("invalid task reference: " + i);
+            pieceList.add(piece);
+        }
+        return pieceList;
+    }
+
     public BillDTO formToDto(Object obj, String token) throws Exception {
         LOGGER.info("form to dto: " + obj);
         BillForm form = (BillForm) obj;
@@ -108,12 +123,18 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
             if (taskId != null)
                 taskIdList.add(taskId);
         }
+        List<Integer> pieceIdList = new ArrayList<>();
+        if(form.getPieces()!=null) {
+            for (Integer pieceId : form.getPieces().getList()) {
+                if (pieceId != null)
+                    pieceIdList.add(pieceId);
+            }
+        }
         dto.setComments(form.getComments());
         dto.setTasks(taskIdList);
         dto.setTotal(calculateTotal(token, taskIdList));
         dto.setVat(form.getVat());
         LOGGER.info("bill transferred: " + dto);
-
         return dto;
     }
 

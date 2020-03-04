@@ -10,7 +10,7 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h3>New bill</h3>
+    <h3>New billou</h3>
 
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
         <div class="form-group">
@@ -53,12 +53,21 @@
         <input required="required" th:field="*{clientId}" type="hidden"/>
 
         <div class="form-group" th:each="task, stat : ${taskList}">
-            <label for="tasks">Tasks:</label>
-            <select class="form-control" id="tasks" th:name="|tasks.list[${stat.index}]|" th:value="${task}">
+            <label for="taskList">Tasks:</label>
+            <select class="form-control" id="taskList" th:name="|tasks.list[${stat.index}]|" th:value="${task}">
                 <option value="">add Task</option>
                 <option th:each="task : ${taskList}"
                         th:utext="${task.getName()}"
                         th:value="${task.getId()}"/>
+            </select>
+        </div>
+        <div class="form-group" th:each="piece, stat : ${pieceList}">
+            <label for="pieceList">Pieces:</label>
+            <select class="form-control" id="pieceList" th:name="|pieces.list[${stat.index}]|" th:value="${piece}">
+                <option value="">add Piece</option>
+                <option th:each="piece : ${pieceList}"
+                        th:utext="${piece.getName()}"
+                        th:value="${piece.getId()}"/>
             </select>
         </div>
 

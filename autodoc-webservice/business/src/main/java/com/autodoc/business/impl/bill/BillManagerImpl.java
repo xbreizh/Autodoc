@@ -8,6 +8,7 @@ import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
+import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.enums.Status;
@@ -15,6 +16,7 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -35,11 +37,12 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private  CarDao carDao;
     private  ClientDao clientDao;
     private EmployeeDao employeeDao;
-    private  TaskDao taskDao;
+    private PieceDao pieceDao;
+    private TaskDao taskDao;
     private TaskManager taskManager;
     private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-    public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, TaskManager taskManager) {
+    public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, PieceDao pieceDao, TaskManager taskManager) {
         super(billDao);
         this.mapper = new ModelMapper();
         this.taskManager = taskManager;
@@ -48,6 +51,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         this.clientDao = clientDao;
         this.employeeDao = employeeDao;
         this.taskDao = taskDao;
+        this.pieceDao = pieceDao;
     }
 
 
@@ -70,10 +74,19 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         List<Integer> taskList = new ArrayList<>();
         List<Task> tasks = ((Bill) entity).getTasks();
 
+
         for (Task task : tasks) {
             taskList.add(task.getId());
         }
         dto.setTasks(taskList);
+
+        List<Integer> pieceList = new ArrayList<>();
+        List<Piece> pieces = ((Bill) entity).getPieces();
+        for (Piece piece : pieces) {
+            pieceList.add(piece.getId());
+        }
+        dto.setPieces(pieceList);
+        LOGGER.info("bill dto: " + dto);
         return dto;
     }
 
@@ -99,22 +112,31 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         for (Integer i: dto.getTasks()){
             Task task = (Task) taskDao.getById(i);
             if (task == null) throw new InvalidDtoException("invalid task");
-            if (task.isTemplate()){
+            if (task.isTemplate()) {
                 Task duplicateFromTemplate = taskManager.createFromTemplate(task.getId());
                 taskList.add(duplicateFromTemplate);
                 LOGGER.info("created duplicate from template");
-            }else {
+            } else {
                 taskList.add(task);
             }
         }
         bill.setTasks(taskList);
-        Client client = (Client) clientDao.getById( dto.getClientId());
+
+        List<Piece> pieceList = new ArrayList<>();
+        for (Integer i : dto.getPieces()) {
+            Piece piece = (Piece) pieceDao.getById(i);
+            if (piece == null) throw new InvalidDtoException("invalid piece");
+            pieceList.add(piece);
+        }
+        bill.setPieces(pieceList);
+
+        Client client = (Client) clientDao.getById(dto.getClientId());
         if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
         LOGGER.info("client found: " + client);
         bill.setClient(client);
         bill.setTotal(dto.getTotal());
         bill.setVat(dto.getVat());
-        Employee employee = (Employee) employeeDao.getById( dto.getEmployeeId());
+        Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
         if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
         bill.setComments(dto.getComments());
         LOGGER.info("employee found: " + employee);

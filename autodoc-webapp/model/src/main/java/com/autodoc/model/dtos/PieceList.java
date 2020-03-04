@@ -8,25 +8,25 @@ import java.util.List;
 
 @Setter
 @Getter
-public class TaskList {
+public class PieceList {
 
     private List<Integer> list = new ArrayList<>();
 
-    public TaskList(List<Integer> list) {
+    public PieceList(List<Integer> list) {
         this.list = list;
     }
 
-    public TaskList() {
+    public PieceList() {
     }
 
-    public void addTask(Integer taskId) {
-        list.add(taskId);
+    public void addPiece(Integer pieceId) {
+        list.add(pieceId);
     }
 
 
     @Override
     public String toString() {
-        return "TaskList{" +
+        return "PieceList{" +
                 "list=" + list +
                 '}';
     }

@@ -6,6 +6,7 @@ import com.autodoc.model.enums.Status;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -86,6 +87,10 @@ public class Bill {
     @NotNull
     @ManyToMany
     private List<Task> tasks;
+
+
+    @ManyToMany
+    private List<Piece> pieces;
 
     @NotNull
     private double total;

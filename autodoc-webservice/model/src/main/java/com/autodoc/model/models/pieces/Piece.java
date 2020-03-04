@@ -1,7 +1,7 @@
 package com.autodoc.model.models.pieces;
 
 import com.autodoc.model.enums.SearchType;
-import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Getter;
@@ -28,6 +28,10 @@ public class Piece {
 /*
     @ManyToOne
     private CarModel carModel;*/
+
+    @ManyToMany(mappedBy = "pieces")
+    private List<Bill> bills;
+
     @ManyToOne
     private Provider provider;
     @ManyToOne

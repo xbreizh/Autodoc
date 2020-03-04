@@ -8,6 +8,7 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
 import org.apache.log4j.Logger;
@@ -33,10 +34,12 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     EmployeeManager employeeManager;
     BillManager billManager;
     TaskManager taskManager;
+    PieceManager pieceManager;
 
-    public BillControllerImpl(LibraryHelper helper, BillManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, BillManager billManager, TaskManager taskManager) {
+    public BillControllerImpl(LibraryHelper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, BillManager billManager, TaskManager taskManager) {
         super(helper);
         this.manager = manager;
+        this.pieceManager = pieceManager;
         this.billManager = billManager;
         this.clientManager = clientManager;
         this.carManager = carManager;
@@ -92,7 +95,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("showForm", 1);
         mv.addObject("bill", bill);
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
+        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
+        mv.addObject("pieceList", pieceList);
         LOGGER.info("tasks: " + taskList);
+        LOGGER.info("pieces: " + pieceList);
         getPricePerHour(mv);
         mv.addObject("taskList", taskList);
         return mv;
@@ -108,8 +114,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("billForm", new BillForm());
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
-
         mv.addObject("taskList", taskList);
+        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
+        mv.addObject("pieceList", pieceList);
         getPricePerHour(mv);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -153,9 +160,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         billForm.setCarRegistration(car.getRegistration());
         billForm.setClientId(car.getClient().getId());
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
-        LOGGER.info("tasks: " + taskList);
         mv.addObject("taskList", taskList);
-
+        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
+        mv.addObject("pieceList", pieceList);
+        LOGGER.info("pieces: " + pieceList);
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);
         Client client = (Client) clientManager.getById(token, car.getClient().getId());
@@ -175,17 +183,19 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     @ResponseBody
     public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult, Model model) throws Exception {
         if (billForm.getDateReparation() == null) LOGGER.error("date shouldn't be null");
-        LOGGER.info("tasks: " + billForm.getTasks().getList());
+       // LOGGER.info("tasks: " + billForm.getTasks().getList());
         LOGGER.info("trying to create bill " + billForm);
         LOGGER.info("dateRepa: " + billForm.getDateReparation());
-        LOGGER.info("tasks: " + billForm.getTasks());
-        LOGGER.info("tasks: " + billForm.getTasks());
+      /*  LOGGER.info("tasks: " + billForm.getTasks());
+        LOGGER.info("tasks: " + billForm.getTasks());*/
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         mv.addObject("billForm", new BillForm());
         List<Employee> employees = employeeManager.getAll(token);
         List<Client> clients = clientManager.getAll(token);
         List<Car> cars = carManager.getAll(token);
+        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
+        mv.addObject("pieceList", pieceList);
         billForm.setStatus("PENDING_PAYMENT");
         mv.addObject("employees", employees);
         mv.addObject("clients", clients);
