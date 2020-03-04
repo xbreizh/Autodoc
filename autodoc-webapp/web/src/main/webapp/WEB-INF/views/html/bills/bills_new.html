@@ -27,14 +27,6 @@
             <div th:errors="*{carRegistration}" th:if="${#fields.hasErrors('carRegistration')}">Registration Error</div>
         </div>
 
-        <!--  <div class="form-group">
-              <div class='input-group date' id='datetime'>
-                  <input class="form-control" id="dateReparation" name="dateReparation" type="text"/>
-                  <span class="add-on"><i class="icon-remove"></i></span>
-                  <span class="add-on"><i class="icon-calendar"></i></span>
-              </div>
-          </div>-->
-
 
         <div class="form-group">
             <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
@@ -51,6 +43,7 @@
         <div class="form-group">
             <label for="discount">Discount:</label>
             <input class="form-control" id="discount" name="discount" placeholder="Enter Discount" required="required"
+                   value="0"
                    type="text"/>
             <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
         </div>
@@ -59,9 +52,10 @@
         <input required="required" th:field="*{status}" type="hidden"/>
         <input required="required" th:field="*{clientId}" type="hidden"/>
 
-        <div th:each="task, stat : ${taskList}">
-            <select th:name="|tasks.list[${stat.index}]|" th:value="${task}">
-                <option value="">new Task</option>
+        <div class="form-group" th:each="task, stat : ${taskList}">
+            <label for="tasks">Tasks:</label>
+            <select class="form-control" id="tasks" th:name="|tasks.list[${stat.index}]|" th:value="${task}">
+                <option value="">add Task</option>
                 <option th:each="task : ${taskList}"
                         th:utext="${task.getName()}"
                         th:value="${task.getId()}"/>
@@ -72,10 +66,10 @@
 
     </form>
     <script>
-        var today = new Date();
+        //var today = new Date();
         $("#datetimepicker1").datetimepicker({
             format: 'DD/MM/YYYY hh:mm',
-            autoclose: true,
+            autoClose: true,
             todayBtn: true,
             minuteStep: 10
 
