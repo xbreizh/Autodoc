@@ -10,7 +10,7 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h3>New billou</h3>
+    <h3>New bill</h3>
 
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
         <div class="form-group">
@@ -46,6 +46,13 @@
                    value="0"
                    type="text"/>
             <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="comments">Comments:</label>
+            <input class="form-control" id="comments" name="comments" placeholder="Enter Comments" required="required"
+                   type="text"/>
+            <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
         </div>
 
         <input required="required" th:field="*{vat}" type="hidden"/>
