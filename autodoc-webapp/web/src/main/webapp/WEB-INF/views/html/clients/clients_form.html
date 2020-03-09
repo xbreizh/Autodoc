@@ -2,31 +2,35 @@
 
 
     <form action="#" method="post" th:action="@{'/clients/update/' + ${client.id}}" th:object="${clientForm}">
-        <table>
-            <tr>
-                <td>Id:</td>
-                <td th:text="${client.id}">Login</td>
-            </tr>
-            <tr>
-                <td>FirstName:</td>
-                <td><input th:field="*{firstName}" type="text"/></td>
-                <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
-            </tr>
-            <tr>
-                <td>LastName:</td>
-                <td><input th:field="*{lastName}" type="text"/></td>
-                <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
-            </tr>
-            <tr>
-                <td>PhoneNumber:</td>
-                <td><input th:field="*{phoneNumber}" type="text"/></td>
-                <td th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="id">Id:</label>
+            <input class="form-control" id="id" name="id" required="required"
+                   th:value="${client.id}"
+                   type="text"/>
+            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="firstName">FirstName:</label>
+            <input class="form-control" id="firstName" name="firstName" required="required"
+                   th:value="${client.firstName}"
+                   type="text"/>
+            <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">LastName:</label>
+            <input class="form-control" id="lastName" name="lastName" required="required"
+                   th:value="${client.lastName}"
+                   type="text"/>
+            <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">PhoneNumber:</label>
+            <input class="form-control" id="phoneNumber" name="phoneNumber" required="required"
+                   th:value="${client.phoneNumber}"
+                   type="text"/>
+            <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>
