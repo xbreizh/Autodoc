@@ -14,18 +14,14 @@
 
 
     <form action="#" method="post" th:action="@{'/pieceTypes/new/'}" th:object="${pieceTypeForm}">
-        <table>
-            <tr>
-                <td>Name:</td>
-                <td><input required="required" th:field="*{name}" type="text"/></td>
-                <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</td>
-            </tr>
-                       <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input class="form-control" id="name" name="name" required="required"
+                   th:value="${name}"
+                   type="text"/>
+            <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 
 
