@@ -35,24 +35,26 @@
                     <th th:text="VAT">VAT</th>
                     <th th:text="Discount">Discount</th>
                     <th th:text="Tasks">Tasks</th>
+                    <th th:text="Pieces">Pieces</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-               <!-- <tr th:fragment="billDetails" xmlns:th="http:/www.w3.org/1999/xhtml">-->
-               <tr class="data-link" th:each="bill : ${bills}"
-                   th:onclick="'javascript:rowClicked(\'' +@{'/bills/' + ${bill.id}}+ '\');'">
-                   <td th:text="${bill.id}">id</td>
-                   <td th:text="${bill.car.registration}">registration</td>
-                   <td th:text="${bill.status}">status</td>
-                   <td><span th:text="${bill.client.firstName}">firstName</span><span
-                           th:text="${bill.client.lastName}">lastName</span>
-                   </td>
-                   <td th:text="${bill.total}">total</td>
-                   <td th:text="${bill.employee.login}">employee</td>
-                   <td th:text="${bill.vat}">vat</td>
-                   <td th:text="${bill.discount}">discount</td>
+                <!-- <tr th:fragment="billDetails" xmlns:th="http:/www.w3.org/1999/xhtml">-->
+                <tr class="data-link" th:each="bill : ${bills}"
+                    th:onclick="'javascript:rowClicked(\'' +@{'/bills/' + ${bill.id}}+ '\');'">
+                    <td th:text="${bill.id}">id</td>
+                    <td th:text="${bill.car.registration}">registration</td>
+                    <td th:text="${bill.status}">status</td>
+                    <td><span th:text="${bill.client.firstName}">firstName</span><span
+                            th:text="${bill.client.lastName}">lastName</span>
+                    </td>
+                    <td th:text="${bill.total}">total</td>
+                    <td th:text="${bill.employee.login}">employee</td>
+                    <td th:text="${bill.vat}">vat</td>
+                    <td th:text="${bill.discount}">discount</td>
                     <td th:text="${bill.tasks.size()}">tasks</td>
+                    <td th:text="${bill.pieces.size()}">pieces</td>
                     <td>
                         <a th:href="@{'/bills/delete/' + ${bill.id}}">
                             <button class="btn btn-danger" type="button">Delete</button>

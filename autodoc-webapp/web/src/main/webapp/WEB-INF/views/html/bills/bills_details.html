@@ -101,83 +101,112 @@
                         </td>
 
                     </tr>
-
-
                     </tbody>
                 </table>
+                <div th:if="${not #lists.isEmpty(bill.pieces)}">
+
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th th:text="Name">PieceType</th>
+                            <th th:text="Description">Name</th>
+                            <th th:text="EstimatedTime">Quantity</th>
+                            <th th:text="Price">Price</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="data-link" th:each="piece : ${bill.pieces}"
+                            th:onclick="'javascript:rowClicked(\'' +@{'/pieces/' + ${piece.id}}+ '\');'">
+                            <td th:text="${piece.pieceType.name}">category</td>
+                            <td th:text="${piece.name}">name</td>
+                            <td th:text="${piece.quantity}">quantity</td>
+                            <td th:text="${piece.sellPrice * piece.quantity}">Price</td>
+                            <td>
+                                <a th:href="@{'/piece/delete/' + ${piece.id}}">
+                                    <button class="btn btn-danger" type="button">Delete</button>
+                                </a>
+                            </td>
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <a th:href="@{'/bills/delete/' + ${bill.id}}">
+                    <button class="btn btn-danger" type="button">Delete</button>
+                </a>
 
             </div>
-
-
-            <a th:href="@{'/bills/delete/' + ${bill.id}}">
-                <button class="btn btn-danger" type="button">Delete</button>
-            </a>
-
         </div>
+
+        <script>
+
+            window.onload = checkToggle;
+            let start = 0;
+
+            function checkToggle() {
+
+                let showFormVar = parseInt("[[${showForm}]]");
+                let showForm = start + showFormVar;
+                if (showForm === 0) {
+                    toggle_displays();
+
+                }
+                start++;
+            }
+
+
+            function toggle_displays() {
+                var divs = document.getElementsByTagName("div");
+
+                for (var i = divs.length; i;) {
+                    var div = divs[--i];
+
+                    if (div.id.indexOf("fo") > -1) {
+
+                        if (div.style.display === 'block') {
+                            div.style.display = 'none';
+                        } else {
+                            div.style.display = 'block';
+                        }
+                    }
+                    if (div.id.indexOf("mic") > -1) {
+
+                        if (div.style.display === 'block') {
+                            div.style.display = 'none';
+                        } else {
+                            div.style.display = 'block';
+                        }
+                    }
+
+                }
+
+
+            }
+
+
+        </script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            var disabled = [[${disabled}]];
+
+            $('#datepicker').datepicker({
+                format: "yyyy/mm/dd hh:mm",
+                minDate: today,
+                disableDates: disabled
+            });
+            /*]]>*/
+        </script>
+
     </div>
-
-    <script>
-
-        window.onload = checkToggle;
-        let start = 0;
-
-        function checkToggle() {
-
-            let showFormVar = parseInt("[[${showForm}]]");
-            let showForm = start + showFormVar;
-            if (showForm === 0) {
-                toggle_displays();
-
-        }
-        start++;
-    }
-
-
-    function toggle_displays() {
-        var divs = document.getElementsByTagName("div");
-
-        for (var i = divs.length; i;) {
-            var div = divs[--i];
-
-            if (div.id.indexOf("fo") > -1) {
-
-                if (div.style.display === 'block') {
-                    div.style.display = 'none';
-                } else {
-                    div.style.display = 'block';
-                }
-            }
-            if (div.id.indexOf("mic") > -1) {
-
-                if (div.style.display === 'block') {
-                    div.style.display = 'none';
-                } else {
-                    div.style.display = 'block';
-                }
-            }
-
-        }
-
-
-    }
-
-
-    </script>
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        var date = new Date();
-        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        var disabled = [[${disabled}]];
-
-        $('#datepicker').datepicker({
-            format: "yyyy/mm/dd hh:mm",
-            minDate: today,
-            disableDates: disabled
-        });
-        /*]]>*/
-    </script>
-
-</div>
 </body>
 </html>
 

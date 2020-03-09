@@ -130,6 +130,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
                     pieceIdList.add(pieceId);
             }
         }
+        dto.setPieces(pieceIdList);
         dto.setComments(form.getComments());
         dto.setTasks(taskIdList);
         dto.setTotal(calculateTotal(token, taskIdList));
