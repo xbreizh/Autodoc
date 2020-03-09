@@ -10,54 +10,55 @@
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h3>New new</h3>
+    <h3>New Employee</h3>
 
 
     <form action="#" method="post" th:action="@{'/employees/new/'}" th:object="${employeeForm}">
-        <table>
-            <tr>
-                <td>Login:</td>
-                <td><input required="required" th:field="*{login}" type="text"/></td>
-                <td th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input required="required" th:field="*{password}" type="text"/></td>
-                <td th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password Error</td>
-            </tr>
-            <tr>
-                <td>Select Role:</td>
-                <td>
-                    <th:block th:each="role : ${roleList}">
-                        <input name="roles" th:value="${role}"
-                               type="checkbox"/>
-                        <label th:text="${role}"></label>
-                    </th:block>
-                </td>
-                <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>
-            </tr>
-            <tr>
-                <td>FirstName:</td>
-                <td><input required="required" th:field="*{firstName}" type="text"/></td>
-                <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
-            </tr>
-            <tr>
-                <td>LastName:</td>
-                <td><input required="required" th:field="*{lastName}" type="text"/></td>
-                <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
-            </tr>
-            <tr>
-                <td>PhoneNumber:</td>
-                <td><input required="required" th:field="*{phoneNumber}" type="text"/></td>
-                <td th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                    <button id="resetButton" name="reset" th:value="Reset" type="reset"/>
-                </td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="login">Login:</label>
+            <input class="form-control" id="login" name="login" required="required"
+                   th:value="${login}"
+                   type="text"/>
+            <div th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
+        </div>
+        <div class="form-group">
+            <label for="firstName">Password:</label>
+            <input class="form-control" id="password" name="password" required="required"
+                   th:value="${password}"
+                   type="password"/>
+            <div th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password Error</div>
+        </div>
+        <div class="form-group">
+            <label for="roles">Roles:</label>
+            <th:block th:each="role : ${roleList}">
+                <input id="roles" name="roles"
+                       th:value="${role}"
+                       type="checkbox"/>
+                <label th:text="${role}"></label>
+            </th:block>
+        </div>
+        <div class="form-group">
+            <label for="firstName">FirstName:</label>
+            <input class="form-control" id="firstName" name="firstName" required="required"
+                   th:value="${firstName}"
+                   type="text"/>
+            <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">LastName:</label>
+            <input class="form-control" id="lastName" name="lastName" required="required"
+                   th:value="${lastName}"
+                   type="text"/>
+            <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">PhoneNumber:</label>
+            <input class="form-control" id="phoneNumber" name="phoneNumber" required="required"
+                   th:value="${phoneNumber}"
+                   type="text"/>
+            <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 
 

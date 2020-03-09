@@ -72,6 +72,14 @@ public class Piece {
         return SEARCH_FIELD;
     }
 
+    public void setBrand(String brand) {
+        this.brand = brand.toUpperCase();
+    }
+
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
         result.put("NAME", SearchType.STRING);

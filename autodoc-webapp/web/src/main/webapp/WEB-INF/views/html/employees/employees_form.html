@@ -2,115 +2,64 @@
 
 
     <form action="#" method="post" th:action="@{'/employees/update/' + ${employee.id}}" th:object="${employeeForm}">
-        <table>
-            <!--  <tr>
-                  <td>Id:</td>
-                  <td th:text="${employee.id}">Login</td>
-              </tr>-->
-            <div class="form-group">
-                <label for="id">Id:</label>
-                <input class="form-control" id="id" name="id" required="required"
-                       th:value="${employee.id}"
+        <div class="form-group">
+            <label for="id">Id:</label>
+            <input class="form-control" id="id" name="id" required="required"
+                   th:value="${employee.id}"
+                   type="text"/>
+            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+        </div>
+        <div class="form-group">
+            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
+                       th:value="${employee.startDate}"
                        type="text"/>
-                <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
-            </div>
-            <div class="form-group">
-                <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
-                    <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
-                           th:value="${employee.startDate}"
-                           type="text"/>
-                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                         id="startDate" name="startDate" th:value="${employee.startDate}">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                     id="startDate" name="startDate" th:value="${employee.startDate}">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
             </div>
-            <!-- <tr>
-                 <td>Start Date:</td>
-                 <td th:text="${#dates.format(employee.startDate, 'dd-MMM-yyyy')}">Start Date</td>
-             </tr>-->
-            <!--<input th:field="*{lastConnection}" type="hidden"/>-->
-            <!-- <tr>
-                 <td>Last Connection:</td>
-                 <td th:text="${#dates.format(employee.lastConnection, 'dd-MMM-yyyy')}">Last Connection</td>
-             </tr>-->
-            <!-- <tr>
-                 <td>Login:</td>
-                 <td><input th:field="*{login}" type="text"/></td>
-                 <td th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</td>
-             </tr>-->
-            <div class="form-group">
-                <label for="login">Login:</label>
-                <input class="form-control" id="login" name="login" required="required"
-                       th:value="${employee.login}"
-                       type="text"/>
-                <div th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
-            </div>
-            <!--<tr>
-                <td>FirstName:</td>
-                <td><input th:field="*{firstName}" type="text"/></td>
-                <td th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</td>
-            </tr>
-            <tr>
-                <td>LastName:</td>
-                <td><input th:field="*{lastName}" type="text"/></td>
-                <td th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</td>
-            </tr>
-            <tr>
-                <td>PhoneNumber:</td>
-                <td><input th:field="*{phoneNumber}" type="text"/></td>
-                <td th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</td>
-            </tr>-->
-            <div class="form-group">
-                <label for="firstName">FirstName:</label>
-                <input class="form-control" id="firstName" name="firstName" required="required"
-                       th:value="${employee.firstName}"
-                       type="text"/>
-                <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
-            </div>
-            <div class="form-group">
-                <label for="lastName">LastName:</label>
-                <input class="form-control" id="lastName" name="lastName" required="required"
-                       th:value="${employee.lastName}"
-                       type="text"/>
-                <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
-            </div>
-            <div class="form-group">
-                <label for="phoneNumber">PhoneNumber:</label>
-                <input class="form-control" id="phoneNumber" name="phoneNumber" required="required"
-                       th:value="${employee.phoneNumber}"
-                       type="text"/>
-                <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
-            </div>
+        </div>
+        <div class="form-group">
+            <label for="login">Login:</label>
+            <input class="form-control" id="login" name="login" required="required"
+                   th:value="${employee.login}"
+                   type="text"/>
+            <div th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
+        </div>
+        <div class="form-group">
+            <label for="firstName">FirstName:</label>
+            <input class="form-control" id="firstName" name="firstName" required="required"
+                   th:value="${employee.firstName}"
+                   type="text"/>
+            <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">LastName:</label>
+            <input class="form-control" id="lastName" name="lastName" required="required"
+                   th:value="${employee.lastName}"
+                   type="text"/>
+            <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">PhoneNumber:</label>
+            <input class="form-control" id="phoneNumber" name="phoneNumber" required="required"
+                   th:value="${employee.phoneNumber}"
+                   type="text"/>
+            <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
+        </div>
 
-            <div class="form-group">
-                <label for="roles">Roles:</label>
-                <th:block th:each="role : ${roleList}">
-                    <input id="roles" name="roles" th:checked="${#lists.contains(employee.roles,role)}"
-                           th:value="${role}"
-                           type="checkbox"/>
-                    <label th:text="${role}"></label>
-                </th:block>
-            </div>
+        <div class="form-group">
+            <label for="roles">Roles:</label>
+            <th:block th:each="role : ${roleList}">
+                <input id="roles" name="roles" th:checked="${#lists.contains(employee.roles,role)}"
+                       th:value="${role}"
+                       type="checkbox"/>
+                <label th:text="${role}"></label>
+            </th:block>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
 
-            <!-- <tr>
-                 <td>Select Role:</td>
-                 <td>
-                     <th:block th:each="role : ${roleList}">
-                         <input name="roles" th:checked="${#lists.contains(employee.roles,role)}" th:value="${role}"
-                                type="checkbox"/>
-                         <label th:text="${role}"></label>
-                     </th:block>
-                 </td>
-                 <td th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Roles Error</td>
-             </tr>-->
-            <!--<tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>-->
-            <button class="btn btn-primary" type="submit">Submit</button>
-        </table>
     </form>
     <br>
     <a th:href="@{'/employees/delete/' + ${employee.id}}">

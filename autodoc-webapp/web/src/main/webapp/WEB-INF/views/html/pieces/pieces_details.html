@@ -34,6 +34,14 @@
                 <td th:text="${piece.id}">Id</td>
             </tr>
             <tr>
+                <td>PieceType:</td>
+                <td th:text="${piece.pieceType.name}">PieceTypeId</td>
+            </tr>
+            <tr>
+                <td>Brand:</td>
+                <td th:text="${piece.brand}">Brand</td>
+            </tr>
+            <tr>
                 <td>Name:</td>
                 <td th:text="${piece.name}">Name</td>
             </tr>
@@ -49,14 +57,7 @@
                 <td>Quantity:</td>
                 <td th:text="${piece.quantity}">Sell Price</td>
             </tr>
-            <!-- <tr>
-                 <td>CarModel:</td>
-                 <td th:text="${piece.carModel.name}">CarModelId</td>
-             </tr>-->
-            <tr>
-                <td>PieceType:</td>
-                <td th:text="${piece.pieceType.name}">PieceTypeId</td>
-            </tr>
+
         </table>
         <a th:href="@{'/pieces/delete/' + ${piece.id}}">
             <button class="btn btn-danger" type="button">Delete</button>
