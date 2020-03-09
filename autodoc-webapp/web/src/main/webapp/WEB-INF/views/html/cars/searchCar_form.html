@@ -4,20 +4,15 @@
 
         <div class="col-12">
             <form action="#" method="post" th:action="@{/cars/searchCar}" th:object="${searchCarForm}">
-                <table>
-                    <tr>
-                        <td>Registration:</td>
-                        <td><input autofocus="autofocus" th:field="*{registration}" type="text"/></td>
-                        <td th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration
-                            Error
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="submit">Submit</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="form-group">
+                    <label for="registration">Registration:</label>
+                    <input class="form-control" id="registration" name="registration" placeholder="Enter Registration"
+                           required="required" th:value="${registration}" type="text"/>
+                    <div th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit</button>
             </form>
         </div>
     </div>

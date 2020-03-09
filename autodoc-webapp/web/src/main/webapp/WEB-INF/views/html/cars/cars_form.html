@@ -1,26 +1,18 @@
 <div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
-    <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${searchCarForm}">
-        <table>
-            <tr>
-                <td><input th:field="*{registration}" type="hidden"/></td>
-                <td><input name="carModelId" th:id="carModelId" th:value="${car.model.id}" type="hidden"/></td>
-            </tr>
-            <tr>
-                <td>Client:</td>
-                <td>
-                    <select name="clientId" onchange="this.form.submit()" th:id="clientId">
-                        <option th:each="client : ${clients}"
-                                th:selected="${client.id == currentClient}"
-                                th:text="${client.firstName+' '+client.lastName}"
-                                th:value="${client.id}"></option>
-                    </select>
-                    <a th:href="@{'/clients/new'}">
-                        <button class="btn btn-info" type="button">New Client</button>
-                    </a>
-                </td>
-            </tr>
-        </table>
+    <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${carForm}">
+
+        <input name="registration" required="required" th:id="registration" th:value="${searchCarForm.registration}"
+               type="hidden"/>
+        <input name="carModelId" required="required" th:id="carModelId" th:value="${car.model.id}" type="hidden"/>
+        <div class="form-group">
+            <select name="clientId" onchange="this.form.submit()" th:id="clientId">
+                <option th:each="client : ${clients}"
+                        th:selected="${client.id == currentClient}"
+                        th:text="${client.firstName+' '+client.lastName}"
+                        th:value="${client.id}"></option>
+            </select>
+        </div>
     </form>
 </div>

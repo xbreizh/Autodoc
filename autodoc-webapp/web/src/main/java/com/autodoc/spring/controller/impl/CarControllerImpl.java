@@ -153,7 +153,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid SearchCarForm searchCarForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + searchCarForm.getId());
+        LOGGER.info("trying to update car with id " + searchCarForm.getId());
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("cars/cars_details");
 

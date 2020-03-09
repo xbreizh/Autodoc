@@ -4,94 +4,84 @@
     <h2>Bill form</h2>
 
     <form action="#" method="post" th:action="@{'/bills/update/' + ${bill.id}}" th:object="${billForm}">
-        <table>
-            <tr>
-                <td>Id:</td>
-                <td th:text="${bill.id}">Login</td>
-            </tr>
-            <tr>
-                <td>Select Car:</td>
-                <td>
-                    <select name="carRegistration" id="carRegistration">
-                        <option th:each="car : ${cars}"
-                                th:utext="${car.registration}"
-                                th:value="${car.registration}"/>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Select Client:</td>
-                <td>
-                    <select name="clientId" id="clientId">
-                        <option th:each="client : ${clients}"
-                                th:utext="${client.firstName}"
-                                th:value="${client.id}"/>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Select Employee:</td>
-                <td>
-                    <select name="employeeLogin" id="employeeLogin">
-                        <option th:each="employee : ${employees}"
-                                th:utext="${employee.firstName}"
-                                th:value="${employee.login}"/>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Date: (yyyy/MM/dd HH:mm)</td>
-                <td>
-                    <input id="datepicker" th:field="*{dateReparation}" width="312"/>
-                    <!-- <input type="text" id="dateReparation" name="dateReparation" th:value="*{dateReparation}" />-->
 
-                </td>
-            </tr>
-            <tr>
-                <td>Discount:</td>
-                <td><input min="0.00" required="required" step=".1" th:field="*{discount}" type="number" value="0.00"/>
-                </td>
-                <td th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</td>
-            </tr>
-            <tr>
-                <td>Vat:</td>
-                <td><input th:field="*{vat}" th:text="${billForm.vat}" type="hidden"/>
-                </td>
-            </tr>
-            <tr>
-                <td><input th:field="*{status}" type="hidden"/></td>
-            </tr>
-            <tr>
-                <td>Comments:</td>
-                <td><textarea  th:field="*{Comments}" type="text"/></td>
-                <td th:errors="*{Comments}" th:if="${#fields.hasErrors('Comments')}">Comments
-                    Error
-                </td>
-            </tr>
-            <tr>
-                <table>
-                    <tr>
-                        <th>Tasks</th>
-                    </tr>
-
-                    <tr th:each="task, stat : ${taskList}">
-                        <td>
-                            <select th:name="|tasks.list[${stat.index}]|" th:value="${task}">
-                                <option value="">new Task</option>
-                                <option th:each="task : ${taskList}"
-                                        th:utext="${task.getName()}"
-                                        th:value="${task.getId()}"/>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="discount">Id:</label>
+            <input class="form-control" id="id" name="id" placeholder="Enter Id" required="required"
+                   th:value="${bill.id}"
+                   type="text"
+                   value="0"/>
+            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+        </div>
+        <div class="form-group">
+            <label for="carRegistration">Registration:</label>
+            <select id="carRegistration" name="carRegistration">
+                <option th:each="car : ${cars}"
+                        th:utext="${car.registration}"
+                        th:value="${car.registration}"/>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="clientId">Client:</label>
+            <select id="clientId" name="clientId">
+                <option th:each="client : ${clients}"
+                        th:utext="${client.firstName}"
+                        th:value="${client.id}"/>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="employeeLogin">Employee:</label>
+            <select id="employeeLogin" name="employeeLogin">
+                <option th:each="employee : ${employees}"
+                        th:utext="${employee.firstName}"
+                        th:value="${employee.login}"/>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
+                       th:value="${billForm.dateReparation}"
+                       type="text"/>
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                     id="dateReparation" name="dateReparation" th:value="${billForm.dateReparation}">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="discount">Discount:</label>
+            <input class="form-control" id="discount" name="discount" placeholder="Enter Discount" required="required"
+                   type="text"
+                   value="0"/>
+            <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
+        </div>
+        <input required="required" th:field="*{status}" type="hidden"/>
+        <div class="form-group">
+            <label for="comments">Comments:</label>
+            <input class="form-control" id="comments" name="comments" required="required"
+                   th:value="${billForm.comments}"
+                   type="text"/>
+            <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
+        </div>
+        <div class="form-group" th:each="task, stat : ${taskList}">
+            <label for="taskList">Tasks:</label>
+            <select class="form-control" id="taskList" th:name="|tasks.list[${stat.index}]|" th:value="${task}">
+                <option value="">add Task</option>
+                <option th:each="task : ${taskList}"
+                        th:utext="${task.getName()}"
+                        th:value="${task.getId()}"/>
+            </select>
+        </div>
+        <div class="form-group" th:each="piece, stat : ${pieceList}">
+            <label for="pieceList">Pieces:</label>
+            <select class="form-control" id="pieceList" th:name="|pieces.list[${stat.index}]|" th:value="${piece}">
+                <option value="">add Piece</option>
+                <option th:each="piece : ${pieceList}"
+                        th:utext="${piece.getName()}"
+                        th:value="${piece.getId()}"/>
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>
 
