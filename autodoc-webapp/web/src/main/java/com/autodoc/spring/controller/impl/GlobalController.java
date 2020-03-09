@@ -5,24 +5,21 @@ import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
-import com.autodoc.model.BooksCreationDto;
 import com.autodoc.model.dtos.RegistrationForm;
-import com.autodoc.model.dtos.TaskList;
 import com.autodoc.model.dtos.car.SearchCarForm;
-import com.autodoc.model.models.Book;
 import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -87,7 +84,7 @@ public class GlobalController<D, T> {
         return mv;
     }
 
-    @GetMapping("/books")
+   /* @GetMapping("/books")
     public ModelAndView showAll() {
         LOGGER.info("trying to get books");
         List<Book> books = new ArrayList<>();
@@ -112,7 +109,7 @@ public class GlobalController<D, T> {
         return "books/editBooksForm";
     }
 
-  /*  @GetMapping(value = "/createTest")
+  *//*  @GetMapping(value = "/createTest")
     public ModelAndView showCreateFormTest(Model model) {
         TaskList booksForm = new TaskList();
 
@@ -123,7 +120,7 @@ public class GlobalController<D, T> {
         mv.addObject("form", booksForm);
 
         return mv;
-    }*/
+    }*//*
 
     @GetMapping(value = "/create")
     public ModelAndView showCreateForm(Model model) {
@@ -140,7 +137,7 @@ public class GlobalController<D, T> {
 
     @PostMapping("/tasktest/save")
     public String saveBooks(@ModelAttribute TaskList form, Model model) {
-        /*bookService.saveAll(form.getBooks());*/
+        *//*bookService.saveAll(form.getBooks());*//*
         LOGGER.info("getting books to save: " + form.getList());
 
         model.addAttribute("books", form.getList());
@@ -149,7 +146,7 @@ public class GlobalController<D, T> {
 
     @PostMapping("/books/save")
     public String saveBooks(@ModelAttribute BooksCreationDto form, Model model) {
-        /*bookService.saveAll(form.getBooks());*/
+        *//*bookService.saveAll(form.getBooks());*//*
         LOGGER.info("getting books to save: " + form.getBooks());
 
         model.addAttribute("books", form.getBooks());
@@ -162,7 +159,7 @@ public class GlobalController<D, T> {
         ModelAndView mv = checkAndAddConnectedDetails("stocks");
 
         return mv;
-    }
+    }*/
 
     @GetMapping("/operations")
     public ModelAndView operations(SearchCarForm registrationForm) throws Exception {

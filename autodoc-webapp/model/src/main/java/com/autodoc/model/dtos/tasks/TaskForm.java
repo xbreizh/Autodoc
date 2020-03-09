@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ public class TaskForm {
 
 
     @NotEmpty(message = "name cannot be empty")
-    @Min(value = 3, message = "should be more than 2")
+    @Size(min = 2, max = 50, message = "{task.name.size}")
     private String name;
 
     @NotEmpty(message = "description cannot be empty")
