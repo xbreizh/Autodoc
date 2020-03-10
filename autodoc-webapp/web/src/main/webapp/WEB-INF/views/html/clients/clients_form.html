@@ -4,7 +4,7 @@
     <form action="#" method="post" th:action="@{'/clients/update/' + ${client.id}}" th:object="${clientForm}">
         <div class="form-group">
             <label for="id">Id:</label>
-            <input class="form-control" id="id" name="id" required="required"
+            <input class="form-control" id="id" name="id" readonly required="required"
                    th:value="${client.id}"
                    type="text"/>
             <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>

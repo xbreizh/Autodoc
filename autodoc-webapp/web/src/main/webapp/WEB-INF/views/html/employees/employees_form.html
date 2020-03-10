@@ -1,15 +1,22 @@
 <div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
+    <!--  <div class="form-group">
+         &lt;!&ndash; <label for="id">Id:</label>
+          <input class="form-control" id="id" name="id" required="required"
+                 th:value="${employee.id}"
+                 type="text"/>
+          <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>&ndash;&gt;
+          <td th:text="${employee.id}">Id</td>
+      </div>-->
 
     <form action="#" method="post" th:action="@{'/employees/update/' + ${employee.id}}" th:object="${employeeForm}">
+        <label for="id">Id:</label>
+        <input class="form-control" id="id" name="id" readonly required="required"
+               th:value="${employee.id}"
+               type="text"/>
+        <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         <div class="form-group">
-            <label for="id">Id:</label>
-            <input class="form-control" id="id" name="id" required="required"
-                   th:value="${employee.id}"
-                   type="text"/>
-            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
-        </div>
-        <div class="form-group">
+            <label for="startDate">startDate:</label>
             <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
                 <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
                        th:value="${employee.startDate}"
@@ -50,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            <label for="roles">Roles:</label>
+            <label for="roles">Roles:</label><br>
             <th:block th:each="role : ${roleList}">
                 <input id="roles" name="roles" th:checked="${#lists.contains(employee.roles,role)}"
                        th:value="${role}"

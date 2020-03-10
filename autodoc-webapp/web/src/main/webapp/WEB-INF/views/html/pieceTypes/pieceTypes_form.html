@@ -6,7 +6,7 @@
      <form action="#" method="post" th:action="@{'/pieceTypes/update/' + ${pieceType.id}}" th:object="${pieceTypeForm}">
          <div class="form-group">
              <label for="id">Id:</label>
-             <input class="form-control" id="id" name="id" required="required"
+             <input class="form-control" id="id" name="id" readonly required="required"
                     th:value="${pieceType.id}"
                     type="text"/>
              <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
