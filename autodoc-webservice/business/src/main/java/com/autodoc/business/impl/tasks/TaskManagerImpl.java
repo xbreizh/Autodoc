@@ -177,6 +177,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         if (id == 0) throw new InvalidDtoException("no id provided");
         Task task = (Task) taskDao.getById(id);
         if (task == null) throw new InvalidDtoException("invalid id " + id);
+        LOGGER.info("task to update: "+task);
         if (task.isTemplate())
             throw new InvalidDtoException("you must use the updateTemplate method for updating templates");
         transferTemplateToEntity(dto, task);
@@ -213,6 +214,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         if (id == 0) throw new Exception("no id provided");
         Task task = (Task) taskDao.getById(id);
         if (task == null) throw new Exception("invalid id: " + id);
+        LOGGER.info("task from db: "+task);
         if (!task.isTemplate()) throw new Exception("this is not a template. Please use the regular update method");
 
         if (name != null) task.setName(name.toUpperCase());

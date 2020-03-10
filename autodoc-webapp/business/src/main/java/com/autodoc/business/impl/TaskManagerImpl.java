@@ -19,7 +19,7 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
     private static final Logger LOGGER = Logger.getLogger(TaskManagerImpl.class);
     public Task task;
     private TaskService service;
-    private  PieceManager pieceManager;
+    private PieceManager pieceManager;
 
     public TaskManagerImpl(TaskService service, PieceManager pieceManager) {
         super(service);
@@ -46,6 +46,20 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         return task;
     }
 
+    public void update(String token, Object obj) throws Exception {
+        LOGGER.info("updating task: " + obj);
+        TaskDTO taskDto = formToDto(obj, token);
+        TaskDTO taskToUpdate = (TaskDTO) service.getById(token, taskDto.getId());
+        if (taskToUpdate.getTemplate().equalsIgnoreCase("true")) {
+            LOGGER.info("updating a template: " + taskDto);
+            service.updateTemplate(token, taskDto);
+        } else {
+            LOGGER.info("regular update: " + taskDto);
+            service.update(token, taskDto);
+        }
+    }
+
+
     public TaskDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
         TaskForm form = (TaskForm) obj;
@@ -68,9 +82,9 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
     @Override
     public List<Task> getTemplates(String token) throws Exception {
         List<Task> templates = new ArrayList<>();
-        for (Object obj: service.getAll(token)){
-            Task task = dtoToEntity(token,obj);
-            if(task.isTemplate())templates.add(task);
+        for (Object obj : service.getAll(token)) {
+            Task task = dtoToEntity(token, obj);
+            if (task.isTemplate()) templates.add(task);
         }
         return templates;
     }

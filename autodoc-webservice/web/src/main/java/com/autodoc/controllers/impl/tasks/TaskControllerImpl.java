@@ -46,7 +46,6 @@ public class TaskControllerImpl extends GlobalControllerImpl<Task, TaskDTO> impl
     @PutMapping(value = "/templates",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateTemplate(TaskDTO obj) throws Exception {
-        LOGGER.debug("trying to update a " + obj);
         LOGGER.info("trying to update: " + obj);
         boolean response = manager.updateTemplate(obj);
         if (response) {

@@ -102,6 +102,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         // LOGGER.info("getting the pieces list: "+taskForm.getPieces());
         manager.update(helper.getConnectedToken(), taskForm);
         return new ModelAndView("redirect:" + "/tasks/" + taskForm.getId());
+
     }
 
     @GetMapping(value = "/delete/{id}")
