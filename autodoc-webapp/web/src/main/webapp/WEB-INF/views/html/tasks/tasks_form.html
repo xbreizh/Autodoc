@@ -26,7 +26,7 @@
             <div th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</div>
         </div>
         <div class="form-group">
-            <label for="name">Estimated Time:</label>
+            <label for="name">Estimated Time( heure ):</label>
             <input min="0.00" required="required" step=".5" th:field="*{estimatedTime}" type="number"
                    value="0.00"/>
             <div th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</div>

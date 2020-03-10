@@ -22,6 +22,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th th:text="Id">Id</th>
                 <th th:text="FirstName">FirstName</th>
                 <th th:text="LastName">LastName</th>
                 <th th:text="PhoneNumber">PhoneNumber</th>
@@ -32,6 +33,7 @@
             <tr th:fragment="clients/clientDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
             <tr class="data-link" th:each="client : ${clients}"
                 th:onclick="'javascript:rowClicked(\'' +@{'clients/' + ${client.id}}+ '\');'">
+                <td th:text="${client.id}">id</td>
                 <td th:text="${client.firstName}">firstName</td>
                 <td th:text="${client.lastName}">lastName</td>
                 <td th:text="${client.phoneNumber}">phoneNumber</td>

@@ -25,6 +25,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th th:text="Id">Id</th>
                 <th th:text="Name">Name</th>
                 <th th:text="Brand">Brand</th>
                 <th th:text="BuyingPrice">Buying Price</th>
@@ -37,6 +38,7 @@
             <tr th:fragment="pieceDetails" xmlns:th="http:/www.w3.org/1999/xhtml">
             <tr class="data-link" th:each="piece : ${pieces}"
                 th:onclick="'javascript:rowClicked(\'' +@{'pieces/' + ${piece.id}}+ '\');'">
+                <td th:text="${piece.id}">id</td>
                 <td th:text="${piece.name}">name</td>
                 <td th:text="${piece.brand}">brand</td>
                 <td th:text="${piece.buyingPrice}">buyingPrice</td>

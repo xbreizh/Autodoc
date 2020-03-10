@@ -25,9 +25,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th th:text="Id">Id</th>
                 <th th:text="Name">Name</th>
                 <th th:text="Description">Description</th>
-                <th th:text="EstimatedTime">Estimated time</th>
+                <th th:text="EstimatedTime">Estimated time( heure )</th>
                 <th th:text="Price">Price</th>
                 <th th:text="Template">Template</th>
                 <th></th>
@@ -36,6 +37,7 @@
             <tbody>
             <tr class="data-link" th:each="task : ${tasks}"
                 th:onclick="'javascript:rowClicked(\'' +@{'tasks/'+${task.id}}+ '\');'">
+                <td th:text="${task.id}">id</td>
                 <td th:text="${task.name}">name</td>
                 <td th:text="${task.description}">description</td>
                 <td th:text="${task.estimatedTime}">estimatedTime</td>
