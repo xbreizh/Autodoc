@@ -12,7 +12,9 @@
 
     <h3>New bill</h3>
 
+
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
+        <span id="myForm"></span>
         <div class="form-group">
             <label for="employeeLogin">Employee:</label>
             <input class="form-control" id="employeeLogin" name="employeeLogin" placeholder="Enter Employee Login"
@@ -68,20 +70,106 @@
                         th:value="${task.getId()}"/>
             </select>
         </div>
-        <div class="form-group" th:each="piece, stat : ${pieceList}">
-            <label for="pieceList">Pieces:</label>
-            <select class="form-control" id="pieceList" th:name="|pieces.list[${stat.index}]|" th:value="${piece}">
-                <option value="">add Piece</option>
-                <option th:each="piece : ${pieceList}"
-                        th:utext="${piece.getName()}"
-                        th:value="${piece.getId()}"/>
-            </select>
-        </div>
+        <button onclick="pieceFunction()">Add Piece</button>
+        <br><br>
+        <span id="myPieces"></span>
+
+
+        <!--  <div class="form-group" th:each="piece, stat : ${pieceList}">
+              <label for="pieceList">Pieces:</label>
+              <select class="form-control" id="pieceList" th:name="|pieces.list[${stat.index}]|" th:value="${piece}">
+                  <option value="">add Piece</option>
+                  <option th:each="piece : ${pieceList}"
+                          th:utext="${piece.getName()}"
+                          th:value="${piece.getId()}"/>
+              </select>
+          </div>-->
 
         <button class="btn btn-primary" type="submit">Submit</button>
 
     </form>
     <script>
+        var i = 0; /* Set Global Variable i */
+        function increment() {
+            i += 1; /* Function for automatic increment of field's "Name" attribute. */
+        }
+
+        /*
+        ---------------------------------------------
+
+        Function to Remove Form Elements Dynamically
+        ---------------------------------------------
+
+        */
+        function removeElement(parentDiv, childDiv) {
+            if (childDiv == parentDiv) {
+                alert("The parent div cannot be removed.");
+            } else if (document.getElementById(childDiv)) {
+                var child = document.getElementById(childDiv);
+                var parent = document.getElementById(parentDiv);
+                parent.removeChild(child);
+            } else {
+                alert("Child div has already been removed or does not exist.");
+                return false;
+            }
+        }
+
+
+        /*
+        ----------------------------------------------------------------------------
+
+        Functions that will be called upon, when user click on the Piece text field.
+
+        ----------------------------------------------------------------------------
+        */
+        function pieceFunction() {
+            var value = "[[${message}]]";
+            alert(value);
+
+
+            var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+            var r = document.createElement('div');
+            var y = document.createElement("SELECT");
+            r.className += "form-group";
+            y.setAttribute("type", "text");
+            y.setAttribute("placeholder", "Piece");
+            r.setAttribute("id", "piece_" + i);
+
+            for (k = 0; k < cars.length; k++) {
+                var z = document.createElement("option");
+                z.setAttribute("value", cars[k]);
+                var t = document.createTextNode(cars[k]);
+                z.appendChild(t);
+                y.appendChild(z);
+            }
+
+
+            var g = document.createElement("button");
+            g.innerHTML = "X";
+            increment();
+            y.setAttribute("Piece", "textelement_" + i);
+            r.appendChild(y);
+            g.setAttribute("onclick", "removeElement('myPieces','id_" + i + "')");
+            r.appendChild(g);
+//r.appendChild(s);
+//r.appendChild(s2);
+            r.setAttribute("id", "id_" + i);
+            document.getElementById("myPieces").appendChild(r);
+        }
+
+
+        /*
+        -----------------------------------------------------------------------------
+
+        Functions that will be called upon, when user click on the Reset Button.
+
+        ------------------------------------------------------------------------------
+        */
+        function resetElements() {
+            document.getElementById('myForm').innerHTML = '';
+        }
+
+
         //var today = new Date();
         $("#datetimepicker1").datetimepicker({
             format: 'DD/MM/YYYY hh:mm',

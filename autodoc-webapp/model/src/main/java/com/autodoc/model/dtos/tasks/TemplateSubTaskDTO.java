@@ -13,18 +13,14 @@ import javax.validation.constraints.NotNull;
 public class TemplateSubTaskDTO {
 
 
-
-
     private int id;
-
-    public TemplateSubTaskDTO() {
-    }
-
-
     @NotNull(message = "name should not be null")
     private String name;
     @NotNull(message = "estimatedTime should not be null")
     private double estimatedTime;
+
+    public TemplateSubTaskDTO() {
+    }
 
     public TemplateSubTaskDTO(@NotNull String name, @NotNull double estimatedTime) {
         this.name = name;

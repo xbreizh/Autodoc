@@ -22,15 +22,10 @@ public class TaskDTO {
 
     private String template;
 
-    // private double price;
-
-    // private List<Integer> pieces;
-
     public TaskDTO(String name, String description, double estimatedTime, String template) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        //    this.price = price;
         this.template = template;
     }
 
@@ -53,8 +48,6 @@ public class TaskDTO {
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template='" + template + '\'' +
-                // ", price=" + price +
-                // ", pieces=" + pieces +
                 '}';
     }
 }

@@ -28,10 +28,6 @@ public class TaskForm {
     @NotEmpty(message = "template must be true or false")
     private boolean template;
 
-   /* @Min(value = 1, message = "price cannot be null")
-    private double price;*/
-
-    // private List<Integer> pieces;
 
     public TaskForm() {
     }
@@ -53,7 +49,6 @@ public class TaskForm {
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template='" + template + '\'' +
-                // ", price=" + price +
                 '}';
     }
 }

@@ -71,6 +71,7 @@
                         th:value="${task.getId()}"/>
             </select>
         </div>
+
         <div class="form-group" th:each="piece, stat : ${pieceList}">
             <label for="pieceList">Pieces:</label>
             <select class="form-control" id="pieceList" th:name="|pieces.list[${stat.index}]|" th:value="${piece}">

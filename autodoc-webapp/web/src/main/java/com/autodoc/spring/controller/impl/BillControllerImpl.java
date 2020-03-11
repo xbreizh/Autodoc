@@ -11,6 +11,7 @@ import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -162,7 +163,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         mv.addObject("taskList", taskList);
         List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-        mv.addObject("pieceList", pieceList);
+        Gson gson = new Gson();
+        mv.addObject("message", "plaf");
         LOGGER.info("pieces: " + pieceList);
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);
@@ -174,6 +176,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         billForm.setVat(19.6);
         mv.addObject("billForm", billForm);
         mv.addObject("showForm", 1);
+        //test//
+        mv.addObject("myVar", "plouf");
         getPricePerHour(mv);
         return mv;
     }
@@ -200,6 +204,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("employees", employees);
         mv.addObject("clients", clients);
         mv.addObject("cars", cars);
+
+        //test//
+        mv.addObject("myVar", "plouf");
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("tasks", taskList);

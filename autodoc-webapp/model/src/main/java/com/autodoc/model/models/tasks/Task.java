@@ -26,16 +26,11 @@ public class Task {
     @NotNull
     private boolean template;
 
- /*   @NotNull
-    private double price;*/
 
-    // private List<Piece> pieces;
-
-    public Task(String name, String description, double estimatedTime, /*double price,*/ boolean template) {
+    public Task(String name, String description, double estimatedTime, boolean template) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        //this.price = price;
         this.template = template;
     }
 
@@ -59,8 +54,6 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", template=" + template +
-               /* ", price=" + price +
-                ", pieces=" + pieces +*/
                 '}';
     }
 }

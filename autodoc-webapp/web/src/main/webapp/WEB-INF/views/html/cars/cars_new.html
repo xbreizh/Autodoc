@@ -7,7 +7,7 @@
         <div class="form-group">
             <label for="registration">Registration:</label>
             <input class="form-control" id="registration" name="registration" placeholder="Enter Registration"
-                   required="required" th:value="${carForm.registration}" type="text"/>
+                   readonly required="required" th:value="${searchCarForm.registration}" type="text"/>
             <div th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</div>
         </div>
 
