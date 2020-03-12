@@ -4,7 +4,6 @@ import com.autodoc.business.contract.*;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
-import com.autodoc.model.models.Book;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
@@ -12,12 +11,11 @@ import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -165,7 +163,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         mv.addObject("taskList", taskList);
         List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+       /* Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Book book = new Book();
         book.setAuthor("moi");
@@ -174,9 +172,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
 
         String[] cars = {"BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"};
         String json = gson.toJson(book);
-        System.out.println("json: " + json);
+        System.out.println("json: " + json);*/
 
-        mv.addObject("cars", cars);
+        mv.addObject("pieces", pieceList);
         LOGGER.info("pieces: " + pieceList);
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);
@@ -199,36 +197,19 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     @ResponseBody
     public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult, Model model) throws Exception {
         if (billForm.getDateReparation() == null) LOGGER.error("date shouldn't be null");
-       // LOGGER.info("tasks: " + billForm.getTasks().getList());
+        if (billForm.getPieces() == null) bindingResult.addError(new ObjectError("pieces", " should not be null"));
+        // LOGGER.info("tasks: " + billForm.getTasks().getList());
         LOGGER.info("trying to create bill " + billForm);
         LOGGER.info("dateRepa: " + billForm.getDateReparation());
       /*  LOGGER.info("tasks: " + billForm.getTasks());
         LOGGER.info("tasks: " + billForm.getTasks());*/
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
-        mv.addObject("billForm", new BillForm());
-        List<Employee> employees = employeeManager.getAll(token);
-        List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = carManager.getAll(token);
-        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-        mv.addObject("pieceList", pieceList);
-        billForm.setStatus("PENDING_PAYMENT");
-        mv.addObject("employees", employees);
-        mv.addObject("clients", clients);
-        mv.addObject("cars", cars);
-
-        //test//
-        mv.addObject("myVar", "plouf");
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
-        mv.addObject("tasks", taskList);
-        String employeeLogin = helper.getConnectedLogin();
-        LOGGER.info("getting login: " + employeeLogin);
-        billForm.setEmployeeLogin(employeeLogin);
-        billForm.setCarRegistration(cars.get(0).getRegistration());
-
-        getPricePerHour(mv);
-        billForm.setClientId(clients.get(0).getId());
+        mv.addObject("taskList", taskList);
+        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
+        mv.addObject("pieceList", pieceList);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors: " + bindingResult.toString());
             LOGGER.error("binding has errors: " + bindingResult.getGlobalError());
@@ -238,6 +219,27 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
 
             return mv;
         }
+        mv.addObject("billForm", new BillForm());
+        List<Employee> employees = employeeManager.getAll(token);
+        List<Client> clients = clientManager.getAll(token);
+        List<Car> cars = carManager.getAll(token);
+
+
+        billForm.setStatus("PENDING_PAYMENT");
+        mv.addObject("employees", employees);
+        mv.addObject("clients", clients);
+        mv.addObject("cars", cars);
+
+        //test//
+        mv.addObject("myVar", "plouf");
+
+        String employeeLogin = helper.getConnectedLogin();
+        LOGGER.info("getting login: " + employeeLogin);
+        billForm.setEmployeeLogin(employeeLogin);
+        billForm.setCarRegistration(cars.get(0).getRegistration());
+
+        getPricePerHour(mv);
+        billForm.setClientId(clients.get(0).getId());
         LOGGER.info("bill retrieved: " + billForm);
         manager.add(helper.getConnectedToken(), billForm);
         return bills();

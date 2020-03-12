@@ -90,15 +90,15 @@
     </form>
 
     <script th:inline="javascript">
-        function getCars() {
+        function getPieces() {
 
 
             /*<![CDATA[*/
 
-            var cars1 = /*[[${cars}]]*/ null;
+            var pieces = /*[[${pieces}]]*/ null;
 
             /*]]>*/
-            return cars1;
+            return pieces;
         }
     </script>
 
@@ -138,32 +138,32 @@
         ----------------------------------------------------------------------------
         */
         function pieceFunction() {
-            var cars = getCars();
-            var r = document.createElement('div');
-            var y = document.createElement("SELECT");
-            r.className += "form-group";
-            y.setAttribute("type", "text");
-            y.setAttribute("placeholder", "Piece");
-            r.setAttribute("id", "piece_" + i);
+            let pieces = getPieces();
 
-            for (k = 0; k < cars.length; k++) {
-                var z = document.createElement("option");
-                z.setAttribute("value", cars[k]);
-                var t = document.createTextNode(cars[k]);
+            let r = document.createElement('div');
+            let y = document.createElement("SELECT");
+            r.className += "form-group";
+            y.className += "form-control";
+            r.setAttribute("id", "pieceList");
+
+
+            for (k = 0; k < pieces.length; k++) {
+                let z = document.createElement("option");
+                z.setAttribute("value", pieces[k].id);
+                let t = document.createTextNode(pieces[k].name);
                 z.appendChild(t);
                 y.appendChild(z);
             }
 
 
-            var g = document.createElement("button");
+            let g = document.createElement("button");
             g.innerHTML = "X";
             increment();
-            y.setAttribute("Piece", "textelement_" + i);
+            y.setAttribute("id", "pieceList");
+            y.setAttribute("name", "pieces.list[" + i + "]");
             r.appendChild(y);
             g.setAttribute("onclick", "removeElement('myPieces','id_" + i + "')");
             r.appendChild(g);
-//r.appendChild(s);
-//r.appendChild(s2);
             r.setAttribute("id", "id_" + i);
             document.getElementById("myPieces").appendChild(r);
         }
@@ -175,10 +175,10 @@
         Functions that will be called upon, when user click on the Reset Button.
 
         ------------------------------------------------------------------------------
-        */
+        *//*
         function resetElements() {
             document.getElementById('myForm').innerHTML = '';
-        }
+        }*/
 
 
         //var today = new Date();
