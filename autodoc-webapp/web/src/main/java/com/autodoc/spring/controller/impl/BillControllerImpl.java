@@ -4,6 +4,7 @@ import com.autodoc.business.contract.*;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
+import com.autodoc.model.models.Book;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
@@ -12,6 +13,7 @@ import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -163,8 +165,18 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         mv.addObject("taskList", taskList);
         List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-        Gson gson = new Gson();
-        mv.addObject("message", "plaf");
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+        Book book = new Book();
+        book.setAuthor("moi");
+        book.setTitle("Lui");
+
+
+        String[] cars = {"BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"};
+        String json = gson.toJson(book);
+        System.out.println("json: " + json);
+
+        mv.addObject("cars", cars);
         LOGGER.info("pieces: " + pieceList);
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);

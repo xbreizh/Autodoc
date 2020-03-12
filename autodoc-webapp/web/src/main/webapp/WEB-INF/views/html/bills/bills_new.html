@@ -88,6 +88,21 @@
         <button class="btn btn-primary" type="submit">Submit</button>
 
     </form>
+
+    <script th:inline="javascript">
+        function getCars() {
+
+
+            /*<![CDATA[*/
+
+            var cars1 = /*[[${cars}]]*/ null;
+
+            /*]]>*/
+            return cars1;
+        }
+    </script>
+
+
     <script>
         var i = 0; /* Set Global Variable i */
         function increment() {
@@ -123,11 +138,7 @@
         ----------------------------------------------------------------------------
         */
         function pieceFunction() {
-            var value = "[[${message}]]";
-            alert(value);
-
-
-            var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+            var cars = getCars();
             var r = document.createElement('div');
             var y = document.createElement("SELECT");
             r.className += "form-group";
