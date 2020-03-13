@@ -13,6 +13,9 @@
 
     <h3>New bill</h3>
 
+    <button class="btn btn btn-info" onclick="pieceFunction()">Add Piece</button>
+    <button class="btn btn btn-info" onclick="taskFunction()">Add Task</button>
+
 
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
         <span id="myForm"></span>
@@ -45,7 +48,7 @@
 
         <div class="form-group">
             <label for="discount">Discount:</label>
-            <input class="form-control" id="discount" name="discount" placeholder="Enter Discount" required="required"
+            <input class="form-control" id="discount" name="discount" placeholder="Enter Discount"
                    value="0"
                    type="text"/>
             <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
@@ -53,7 +56,7 @@
 
         <div class="form-group">
             <label for="comments">Comments:</label>
-            <input class="form-control" id="comments" name="comments" placeholder="Enter Comments" required="required"
+            <input class="form-control" id="comments" name="comments" placeholder="Enter Comments"
                    type="text"/>
             <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
         </div>
@@ -62,19 +65,21 @@
         <input required="required" th:field="*{status}" type="hidden"/>
         <input required="required" th:field="*{clientId}" type="hidden"/>
 
-        <br><br>
-        <button onclick="taskFunction()">Add Task</button>
-        <br><br>
-        <span id="myTasks"></span> <br><br>
 
-        <button onclick="pieceFunction()">Add Piece</button>
-        <br><br>
-        <span id="myPieces"></span>
+        <div class="form-group" id="tasks">
+            <label>Tasks:</label>
+            <span id="myTasks"></span> <br><br>
+        </div>
+        <div class="form-group">
+            <label>Pieces:</label>
+            <span id="myPieces"></span>
+        </div>
 
 
         <button class="btn btn-primary" type="submit">Submit</button>
 
     </form>
+
 
     <script th:inline="javascript">
         function getPieces() {
@@ -221,6 +226,7 @@
             format: 'DD/MM/YYYY hh:mm',
             autoClose: true,
             todayBtn: true,
+            defaultDate: moment(),
             minuteStep: 10
 
 
