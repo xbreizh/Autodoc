@@ -174,7 +174,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         String json = gson.toJson(book);
         System.out.println("json: " + json);*/
 
-        mv.addObject("pieces", pieceList);
+        mv.addObject("pieceList", pieceList);
+        //  mv.addObject("tasks", taskList);
         LOGGER.info("pieces: " + pieceList);
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);

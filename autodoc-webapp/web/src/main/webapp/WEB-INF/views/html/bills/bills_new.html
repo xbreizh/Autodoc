@@ -3,6 +3,7 @@
       xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
+
 <div th:replace="fragments/header :: head1"></div>
 <body>
 <div class="container">
@@ -36,7 +37,7 @@
                        type="text"/>
                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
                      id="dateReparation" name="dateReparation">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class="input-group-text"><em class="fa fa-calendar"></em></div>
                 </div>
             </div>
         </div>
@@ -61,29 +62,15 @@
         <input required="required" th:field="*{status}" type="hidden"/>
         <input required="required" th:field="*{clientId}" type="hidden"/>
 
-        <div class="form-group" th:each="task, stat : ${taskList}">
-            <label for="taskList">Tasks:</label>
-            <select class="form-control" id="taskList" th:name="|tasks.list[${stat.index}]|" th:value="${task}">
-                <option value="">add Task</option>
-                <option th:each="task : ${taskList}"
-                        th:utext="${task.getName()}"
-                        th:value="${task.getId()}"/>
-            </select>
-        </div>
+        <br><br>
+        <button onclick="taskFunction()">Add Task</button>
+        <br><br>
+        <span id="myTasks"></span> <br><br>
+
         <button onclick="pieceFunction()">Add Piece</button>
         <br><br>
         <span id="myPieces"></span>
 
-
-        <!--  <div class="form-group" th:each="piece, stat : ${pieceList}">
-              <label for="pieceList">Pieces:</label>
-              <select class="form-control" id="pieceList" th:name="|pieces.list[${stat.index}]|" th:value="${piece}">
-                  <option value="">add Piece</option>
-                  <option th:each="piece : ${pieceList}"
-                          th:utext="${piece.getName()}"
-                          th:value="${piece.getId()}"/>
-              </select>
-          </div>-->
 
         <button class="btn btn-primary" type="submit">Submit</button>
 
@@ -95,16 +82,28 @@
 
             /*<![CDATA[*/
 
-            var pieces = /*[[${pieces}]]*/ null;
+            let pieces = /*[[${pieceList}]]*/ null;
 
             /*]]>*/
             return pieces;
+        }</script>
+
+    <script th:inline="javascript">
+        function getTasks() {
+
+
+            /*<![CDATA[*/
+
+            let tasks = /*[[${taskList}]]*/ null;
+
+            /*]]>*/
+            return tasks;
         }
     </script>
 
 
     <script>
-        var i = 0; /* Set Global Variable i */
+        let i = 0; /* Set Global Variable i */
         function increment() {
             i += 1; /* Function for automatic increment of field's "Name" attribute. */
         }
@@ -140,6 +139,7 @@
         function pieceFunction() {
             let pieces = getPieces();
 
+
             let r = document.createElement('div');
             let y = document.createElement("SELECT");
             r.className += "form-group";
@@ -166,6 +166,41 @@
             r.appendChild(g);
             r.setAttribute("id", "id_" + i);
             document.getElementById("myPieces").appendChild(r);
+        }
+
+        /*
+                Functions that will be called upon, when user click on the Piece text field.
+
+                ----------------------------------------------------------------------------
+                */
+        function taskFunction() {
+            let tasks = getTasks();
+            let r = document.createElement('div');
+            let y = document.createElement("SELECT");
+            r.className += "form-group";
+            y.className += "form-control";
+            r.setAttribute("id", "taskList");
+
+
+            for (k = 0; k < tasks.length; k++) {
+                let z = document.createElement("option");
+                z.setAttribute("value", tasks[k].id);
+                let t = document.createTextNode(tasks[k].name);
+                z.appendChild(t);
+                y.appendChild(z);
+            }
+
+
+            let g = document.createElement("button");
+            g.innerHTML = "X";
+            increment();
+            y.setAttribute("id", "taskList");
+            y.setAttribute("name", "tasks.list[" + i + "]");
+            r.appendChild(y);
+            g.setAttribute("onclick", "removeElement('myTasks','id_" + i + "')");
+            r.appendChild(g);
+            r.setAttribute("id", "id_" + i);
+            document.getElementById("myTasks").appendChild(r);
         }
 
 
