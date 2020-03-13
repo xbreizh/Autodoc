@@ -2,8 +2,8 @@
 
 
     <h2>Bill form</h2>
-    <button class="btn btn btn-info" onclick="pieceFunction()">Add Piece</button>
-    <button class="btn btn btn-info" onclick="taskFunction()">Add Task</button>
+    <button class="btn btn btn-info" onclick="pieceFunction(getPieces())">Add Piece</button>
+    <button class="btn btn btn-info" onclick="taskFunction(getTasks())">Add Task</button>
     <br>
     <form action="#" method="post" th:action="@{'/bills/update/' + ${bill.id}}" th:object="${billForm}">
 

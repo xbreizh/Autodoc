@@ -160,6 +160,7 @@
 
                 }
                 start++;
+                loadLists();
             }
 
 
@@ -214,15 +215,36 @@
 
                 /*]]>*/
                 return pieces;
-            }</script>
+            }
 
-        <script th:inline="javascript">
+            function getBillPieces() {
+
+
+                /*<![CDATA[*/
+
+                let pieces = /*[[${bill.pieces}]]*/ null;
+
+                /*]]>*/
+                return pieces;
+            }
+
             function getTasks() {
 
 
                 /*<![CDATA[*/
 
                 let tasks = /*[[${taskList}]]*/ null;
+
+                /*]]>*/
+                return tasks;
+            }
+
+            function getBillTasks() {
+
+
+                /*<![CDATA[*/
+
+                let tasks = /*[[${bill.tasks}]]*/ null;
 
                 /*]]>*/
                 return tasks;
@@ -234,6 +256,20 @@
             let i = 0; /* Set Global Variable i */
             function increment() {
                 i += 1; /* Function for automatic increment of field's "Name" attribute. */
+            }
+
+
+            function loadLists() {
+                let p = getBillPieces();
+                let t = getBillTasks();
+
+                for (let i = 0; i < p.length; i++) {
+                    pieceFunction(p);
+                }
+                for (let j = 0; j < t.length; j++) {
+                    taskFunction(t);
+                }
+
             }
 
             /*
@@ -264,8 +300,8 @@
 
             ----------------------------------------------------------------------------
             */
-            function pieceFunction() {
-                let pieces = getPieces();
+            function pieceFunction(pieces) {
+                //let pieces = getPieces();
 
 
                 let r = document.createElement('div');
@@ -275,7 +311,7 @@
                 r.setAttribute("id", "pieceList");
 
 
-                for (k = 0; k < pieces.length; k++) {
+                for (let k = 0; k < pieces.length; k++) {
                     let z = document.createElement("option");
                     z.setAttribute("value", pieces[k].id);
                     let t = document.createTextNode(pieces[k].name);
@@ -301,8 +337,8 @@
 
                     ----------------------------------------------------------------------------
                     */
-            function taskFunction() {
-                let tasks = getTasks();
+            function taskFunction(tasks) {
+                //let tasks = getTasks();
                 let r = document.createElement('div');
                 let y = document.createElement("SELECT");
                 r.className += "form-group";
@@ -310,7 +346,7 @@
                 r.setAttribute("id", "taskList");
 
 
-                for (k = 0; k < tasks.length; k++) {
+                for (let k = 0; k < tasks.length; k++) {
                     let z = document.createElement("option");
                     z.setAttribute("value", tasks[k].id);
                     let t = document.createTextNode(tasks[k].name);
