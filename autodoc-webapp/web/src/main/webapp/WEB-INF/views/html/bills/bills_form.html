@@ -2,7 +2,9 @@
 
 
     <h2>Bill form</h2>
-
+    <button class="btn btn btn-info" onclick="pieceFunction()">Add Piece</button>
+    <button class="btn btn btn-info" onclick="taskFunction()">Add Task</button>
+    <br>
     <form action="#" method="post" th:action="@{'/bills/update/' + ${bill.id}}" th:object="${billForm}">
 
         <div class="form-group">
@@ -49,20 +51,32 @@
         </div>
         <div class="form-group">
             <label for="discount">Discount:</label>
-            <input class="form-control" id="discount" name="discount" placeholder="Enter Discount" required="required"
-                   type="text"
+            <input class="form-control" id="discount" name="discount" placeholder="Enter Discount"
+                   type="number"
                    value="0"/>
             <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
         </div>
         <input required="required" th:field="*{status}" type="hidden"/>
         <div class="form-group">
             <label for="comments">Comments:</label>
-            <input class="form-control" id="comments" name="comments" required="required"
+            <input class="form-control" id="comments" name="comments"
                    th:value="${billForm.comments}"
                    type="text"/>
             <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
         </div>
-        <div class="form-group" th:each="task, stat : ${taskList}">
+
+        <input required="required" th:field="*{vat}" type="hidden"/>
+
+        <div class="form-group" id="tasks">
+            <label>Tasks:</label>
+            <span id="myTasks"></span> <br><br>
+        </div>
+        <div class="form-group">
+            <label>Pieces:</label>
+            <span id="myPieces"></span>
+        </div>
+
+        <!--<div class="form-group" th:each="task, stat : ${taskList}">
             <label for="taskList">Tasks:</label>
             <select class="form-control" id="taskList" th:name="|tasks.list[${stat.index}]|" th:value="${task}">
                 <option value="">add Task</option>
@@ -80,7 +94,7 @@
                         th:utext="${piece.getName()}"
                         th:value="${piece.getId()}"/>
             </select>
-        </div>
+        </div>-->
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>

@@ -74,6 +74,7 @@
                     <td th:text="${bill.comments}">Comments</td>
                 </tr>
             </table>
+            <h2>Tasks:</h2>
             <div th:if="${not #lists.isEmpty(bill.tasks)}">
 
 
@@ -84,7 +85,7 @@
                         <th th:text="Description">Description</th>
                         <th th:text="EstimatedTime">Estimated time</th>
                         <th th:text="Price">Price</th>
-                        <th></th>
+                        <!--  <th></th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -94,15 +95,16 @@
                         <td th:text="${task.description}">description</td>
                         <td th:text="${task.estimatedTime}">estimatedTime</td>
                         <td th:text="${task.estimatedTime * pricePerHour}">Price</td>
-                        <td>
-                            <a th:href="@{'/tasks/delete/' + ${task.id}}">
-                                <button class="btn btn-danger" type="button">Delete</button>
-                            </a>
-                        </td>
+                        <!-- <td>
+                             <a th:href="@{'/tasks/delete/' + ${task.id}}">
+                                 <button class="btn btn-danger" type="button">Delete</button>
+                             </a>
+                         </td>-->
 
                     </tr>
                     </tbody>
                 </table>
+                <h2>Pieces:</h2>
                 <div th:if="${not #lists.isEmpty(bill.pieces)}">
 
 
@@ -113,7 +115,6 @@
                             <th th:text="Description">Name</th>
                             <th th:text="EstimatedTime">Quantity</th>
                             <th th:text="Price">Price</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -123,11 +124,11 @@
                             <td th:text="${piece.name}">name</td>
                             <td th:text="${piece.quantity}">quantity</td>
                             <td th:text="${piece.sellPrice * piece.quantity}">Price</td>
-                            <td>
-                                <a th:href="@{'/piece/delete/' + ${piece.id}}">
-                                    <button class="btn btn-danger" type="button">Delete</button>
-                                </a>
-                            </td>
+                            <!-- <td>
+                                 <a th:href="@{'/piece/delete/' + ${piece.id}}">
+                                     <button class="btn btn-danger" type="button">Delete</button>
+                                 </a>
+                             </td>-->
 
                         </tr>
 
@@ -138,9 +139,9 @@
                 </div>
 
 
-                <a th:href="@{'/bills/delete/' + ${bill.id}}">
-                    <button class="btn btn-danger" type="button">Delete</button>
-                </a>
+                <!--  <a th:href="@{'/bills/delete/' + ${bill.id}}">
+                      <button class="btn btn-danger" type="button">Delete</button>
+                  </a>-->
 
             </div>
         </div>
@@ -202,6 +203,135 @@
 
 
             });
+        </script>
+        <script th:inline="javascript">
+            function getPieces() {
+
+
+                /*<![CDATA[*/
+
+                let pieces = /*[[${pieceList}]]*/ null;
+
+                /*]]>*/
+                return pieces;
+            }</script>
+
+        <script th:inline="javascript">
+            function getTasks() {
+
+
+                /*<![CDATA[*/
+
+                let tasks = /*[[${taskList}]]*/ null;
+
+                /*]]>*/
+                return tasks;
+            }
+        </script>
+
+
+        <script>
+            let i = 0; /* Set Global Variable i */
+            function increment() {
+                i += 1; /* Function for automatic increment of field's "Name" attribute. */
+            }
+
+            /*
+            ---------------------------------------------
+
+            Function to Remove Form Elements Dynamically
+            ---------------------------------------------
+
+            */
+            function removeElement(parentDiv, childDiv) {
+                if (childDiv == parentDiv) {
+                    alert("The parent div cannot be removed.");
+                } else if (document.getElementById(childDiv)) {
+                    let child = document.getElementById(childDiv);
+                    let parent = document.getElementById(parentDiv);
+                    parent.removeChild(child);
+                } else {
+                    alert("Child div has already been removed or does not exist.");
+                    return false;
+                }
+            }
+
+
+            /*
+            ----------------------------------------------------------------------------
+
+            Functions that will be called upon, when user click on the Piece text field.
+
+            ----------------------------------------------------------------------------
+            */
+            function pieceFunction() {
+                let pieces = getPieces();
+
+
+                let r = document.createElement('div');
+                let y = document.createElement("SELECT");
+                r.className += "form-group";
+                y.className += "form-control";
+                r.setAttribute("id", "pieceList");
+
+
+                for (k = 0; k < pieces.length; k++) {
+                    let z = document.createElement("option");
+                    z.setAttribute("value", pieces[k].id);
+                    let t = document.createTextNode(pieces[k].name);
+                    z.appendChild(t);
+                    y.appendChild(z);
+                }
+
+
+                let g = document.createElement("button");
+                g.innerHTML = "X";
+                increment();
+                y.setAttribute("id", "pieceList");
+                y.setAttribute("name", "pieces.list[" + i + "]");
+                r.appendChild(y);
+                g.setAttribute("onclick", "removeElement('myPieces','id_" + i + "')");
+                r.appendChild(g);
+                r.setAttribute("id", "id_" + i);
+                document.getElementById("myPieces").appendChild(r);
+            }
+
+            /*
+                    Functions that will be called upon, when user click on the Piece text field.
+
+                    ----------------------------------------------------------------------------
+                    */
+            function taskFunction() {
+                let tasks = getTasks();
+                let r = document.createElement('div');
+                let y = document.createElement("SELECT");
+                r.className += "form-group";
+                y.className += "form-control";
+                r.setAttribute("id", "taskList");
+
+
+                for (k = 0; k < tasks.length; k++) {
+                    let z = document.createElement("option");
+                    z.setAttribute("value", tasks[k].id);
+                    let t = document.createTextNode(tasks[k].name);
+                    z.appendChild(t);
+                    y.appendChild(z);
+                }
+
+
+                let g = document.createElement("button");
+                g.innerHTML = "X";
+                increment();
+                y.setAttribute("id", "taskList");
+                y.setAttribute("name", "tasks.list[" + i + "]");
+                r.appendChild(y);
+                g.setAttribute("onclick", "removeElement('myTasks','id_" + i + "')");
+                r.appendChild(g);
+                r.setAttribute("id", "id_" + i);
+                document.getElementById("myTasks").appendChild(r);
+            }
+
+
         </script>
 
     </div>

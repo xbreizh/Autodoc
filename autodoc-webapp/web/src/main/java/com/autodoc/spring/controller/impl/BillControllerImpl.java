@@ -98,6 +98,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
         mv.addObject("pieceList", pieceList);
+
+
         LOGGER.info("tasks: " + taskList);
         LOGGER.info("pieces: " + pieceList);
         getPricePerHour(mv);
@@ -120,7 +122,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         mv.addObject("pieceList", pieceList);
         getPricePerHour(mv);
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
+            LOGGER.error("binding has errors: " + bindingResult.getFieldError() + " / " + bindingResult.getGlobalError());
             Bill bill = (Bill) manager.getById(token, billForm.getId());
             List<Employee> employees = employeeManager.getAll(token);
             List<Client> clients = clientManager.getAll(token);
@@ -160,22 +162,12 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         if (car == null) throw new Exception("invalid carId: " + id);
         billForm.setCarRegistration(car.getRegistration());
         billForm.setClientId(car.getClient().getId());
+
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         mv.addObject("taskList", taskList);
         List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-       /* Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-
-        Book book = new Book();
-        book.setAuthor("moi");
-        book.setTitle("Lui");
-
-
-        String[] cars = {"BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"};
-        String json = gson.toJson(book);
-        System.out.println("json: " + json);*/
-
         mv.addObject("pieceList", pieceList);
-        //  mv.addObject("tasks", taskList);
+
         LOGGER.info("pieces: " + pieceList);
         String employeeLogin = helper.getConnectedLogin();
         LOGGER.info("getting login: " + employeeLogin);
