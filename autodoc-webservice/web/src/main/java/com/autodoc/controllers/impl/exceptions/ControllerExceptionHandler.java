@@ -42,7 +42,6 @@ public class ControllerExceptionHandler extends RuntimeException {
         LOGGER.error("capturing 500 " + e.getCause());
         LOGGER.error("capturing 500 " + e.getStackTrace());
         LOGGER.error("class: " + e.getClass());
-
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(e.getMessage());

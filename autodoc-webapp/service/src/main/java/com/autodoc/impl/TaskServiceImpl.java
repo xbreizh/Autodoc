@@ -64,7 +64,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
 
 
     @Override
-    public int create(String token, Object object) {
+    public String create(String token, Object object) {
         TaskDTO dto = (TaskDTO) object;
         LOGGER.info("class: " + getClassName());
         setupHeader(token);
@@ -76,12 +76,12 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
         headers.setBearerAuth(token);
         HttpEntity<TaskDTO> requestInsert = new HttpEntity<>(dto, headers);
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
+            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getBody().toString();
         } catch (RuntimeException error) {
             LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
-            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+            return error.getLocalizedMessage().substring(0, 3);
         }
     }
 

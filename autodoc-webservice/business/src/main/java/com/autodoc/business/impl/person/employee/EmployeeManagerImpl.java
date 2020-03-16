@@ -77,7 +77,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         if (dto.getId() == 0) throw new InvalidDtoException("invalid id: " + 0);
         Employee employee = (Employee) employeeDao.getById(dto.getId());
         if (employee == null) return null;
-        if (dto.getLogin() != null) employee.setLogin(dto.getLogin().toUpperCase());
+        if (dto.getLogin() != null) checkAndPassLogin(employee, dto.getLogin().toUpperCase());
         if (dto.getFirstName() != null) employee.setFirstName(dto.getFirstName().toUpperCase());
         if (dto.getLastName() != null) employee.setLastName(dto.getLastName().toUpperCase());
         if (dto.getPhoneNumber() != null) employee.setPhoneNumber(dto.getPhoneNumber().toUpperCase());
@@ -110,11 +110,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
             throw new InvalidDtoException("That login is already used: " + dto.getLogin());
         }
         LOGGER.info("transferring data: " + dto);
-      /*  dto.setId(0);
-        LOGGER.info("transferring data: " + dto);*/
-        //  checkDataInsert(dto);
         Employee employee = new Employee();
-        employee.setLogin(dto.getLogin().toUpperCase());
+        checkAndPassLogin(employee, dto.getLogin().toUpperCase());
         employee.setFirstName(dto.getFirstName().toUpperCase());
         employee.setLastName(dto.getLastName().toUpperCase());
         employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
@@ -125,9 +122,17 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
             employee.setStartDate(dto.getStartDate());
         }
         employee.setPhoneNumber(dto.getPhoneNumber());
-        employee.setLogin(dto.getLogin());
         return employee;
 
+    }
+
+    private void checkAndPassLogin(Employee employee, String login) throws InvalidDtoException {
+        if(employeeDao.getByLogin(login.toUpperCase())!=null){
+            String error = "Login "+login.toUpperCase()+"already exists";
+            LOGGER.error(error);
+            throw new InvalidDtoException(error);
+        }
+        employee.setLogin(login);
     }
 
     @Override

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceImplTest {
 
     private EmployeeService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc2MTg5MCwiaWF0IjoxNTc2NzQzODkwfQ.-7anXTdLUePoEIXn_dQhZDtaO7X1-gwZSiQakTehnfHJbsJZ106n1_vKSHhJjWjdE-7Onz8wLTi6TGyX55RyaQ";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4NDM3NTIwOCwiaWF0IjoxNTg0MzU3MjA4fQ.-RB-mqCQHNeEHHRLilm3kDKytJlLuPTe_TUvMCkiaS6Mrm5qecK9uliyyhyjOev_K62dXtmgzHEJkzy0Ev7OKQ";
     private EmployeeDTO dto;
     private Class clazz = EmployeeDTO.class;
     private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImplTest.class);
@@ -30,7 +30,7 @@ class EmployeeServiceImplTest {
         dto = new EmployeeDTO();
         dto.setFirstName("John");
         dto.setLastName("Bonham");
-        dto.setLogin("jbonhem");
+        dto.setLogin("sssssss");
         dto.setPassword("abc123");
         List<String> roles = new ArrayList<>();
         roles.add("MECANIC");
@@ -79,6 +79,7 @@ class EmployeeServiceImplTest {
     @Test
     @DisplayName("should return 201 when insertion ok")
     void create() {
+        System.out.println("feedback: " + service.create(token, dto));
         assertEquals(201, service.create(token, dto));
 
 
@@ -87,8 +88,7 @@ class EmployeeServiceImplTest {
     @Test
     @DisplayName("should return 401 when insertion ko")
     void create1() {
-        dto.setFirstName(null);
-        assertEquals(400, service.create(token, dto));
+        assertEquals("For input string: \"That login is already used: SSSSSSS\"", service.create(token, dto));
 
     }
 

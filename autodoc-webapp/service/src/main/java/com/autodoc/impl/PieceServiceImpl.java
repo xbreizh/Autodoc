@@ -1,9 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.PieceService;
-import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.dtos.pieces.PieceDTO;
-import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -47,7 +45,7 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
 
 
     @Override
-    public int create(String token, Object object) {
+    public String create(String token, Object object) {
         PieceDTO dto = (PieceDTO) object;
         LOGGER.info("class: " + getClassName());
         setupHeader(token);
@@ -59,12 +57,12 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
         headers.setBearerAuth(token);
         HttpEntity<PieceDTO> requestInsert = new HttpEntity<>(dto, headers);
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
+            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getBody().toString();
         } catch (RuntimeException error) {
             LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
-            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+            return error.getLocalizedMessage().substring(0, 3);
         }
     }
 

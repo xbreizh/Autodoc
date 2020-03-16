@@ -62,7 +62,7 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
     }
 
     @Override
-    public int create(String token, Object object) {
+    public String create(String token, Object object) {
         CarDTO dto = (CarDTO) object;
         LOGGER.info("class: " + getClassName());
         setupHeader(token);
@@ -74,14 +74,14 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
         headers.setBearerAuth(token);
         HttpEntity<CarDTO> requestInsert = new HttpEntity<>(dto, headers);
         try {
-            Integer response = restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody();
+            String response = restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody().toString();
             return response;
         } catch (RuntimeException error) {
             LOGGER.info("er: " + error.getLocalizedMessage());
 
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
-            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+            return error.getLocalizedMessage().substring(0, 3);
         }
     }
 

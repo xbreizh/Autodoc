@@ -1,9 +1,7 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.ProviderService;
-import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
-import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -46,7 +44,7 @@ public class ProviderServiceImpl extends GlobalServiceImpl<ProviderDTO> implemen
 
 
     @Override
-    public int create(String token, Object object) {
+    public String create(String token, Object object) {
         ProviderDTO dto = (ProviderDTO) object;
         LOGGER.info("class: " + getClassName());
         setupHeader(token);
@@ -58,12 +56,12 @@ public class ProviderServiceImpl extends GlobalServiceImpl<ProviderDTO> implemen
         headers.setBearerAuth(token);
         HttpEntity<ProviderDTO> requestInsert = new HttpEntity<>(dto, headers);
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
+            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getBody().toString();
         } catch (RuntimeException error) {
             LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
-            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+            return error.getLocalizedMessage().substring(0, 3);
         }
     }
 

@@ -46,7 +46,7 @@ public class BillServiceImpl extends GlobalServiceImpl<BillDTO> implements BillS
 
 
     @Override
-    public int create(String token, Object object) {
+    public String create(String token, Object object) {
         BillDTO dto = (BillDTO) object;
         LOGGER.info("class: " + getClassName());
         setupHeader(token);
@@ -58,12 +58,12 @@ public class BillServiceImpl extends GlobalServiceImpl<BillDTO> implements BillS
         headers.setBearerAuth(token);
         HttpEntity<BillDTO> requestInsert = new HttpEntity<>(dto, headers);
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody();
+            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody().toString();
         } catch (RuntimeException error) {
             LOGGER.info("er: " + error.getLocalizedMessage());
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
-            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+            return error.getLocalizedMessage().substring(0, 3);
         }
     }
 

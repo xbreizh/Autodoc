@@ -40,7 +40,7 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
     }
 
     @Override
-    public int create(String token, Object object) {
+    public String create(String token, Object object) {
         ClientDTO dto = (ClientDTO) object;
         setupHeader(token);
         String url = BASE_URL + getClassName();
@@ -54,14 +54,14 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
 
         try {
             /* return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();*/
-            Integer response = restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody();
-            return response;
+            // Integer response =
+            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody().toString();
         } catch (RuntimeException error) {
             LOGGER.info(error.getLocalizedMessage().substring(0, 2));
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
                 LOGGER.info("bam");
             }
-            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+            return error.getLocalizedMessage().substring(0, 3);
         }
     }
 

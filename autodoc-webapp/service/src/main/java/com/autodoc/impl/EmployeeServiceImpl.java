@@ -2,18 +2,15 @@ package com.autodoc.impl;
 
 import com.autodoc.contract.EmployeeService;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
-import com.autodoc.model.models.EmployeeList;
-import com.autodoc.model.models.person.employee.Employee;
-import com.google.gson.internal.LinkedTreeMap;
 import org.apache.log4j.Logger;
-import org.springframework.http.*;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 @Named
 public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implements EmployeeService {
@@ -43,7 +40,7 @@ public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implemen
     }
 
     @Override
-    public int create(String token, Object object) {
+    public String create(String token, Object object) {
         EmployeeDTO dto = (EmployeeDTO) object;
         setupHeader(token);
         String url = BASE_URL + getClassName();
@@ -56,13 +53,14 @@ public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implemen
         HttpEntity<EmployeeDTO> requestInsert = new HttpEntity<>(dto, headers);
 
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();
-        } catch (RuntimeException error) {
-            LOGGER.info(error.getLocalizedMessage().substring(0, 2));
+            return restTemplate.exchange(url, HttpMethod.POST, requestInsert, String.class).getBody();
+        } catch (HttpClientErrorException error) {
+            String errorDetails = error.getResponseBodyAsString();
+            LOGGER.info(errorDetails);
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
                 LOGGER.info("bam");
             }
-            return Integer.parseInt(error.getLocalizedMessage().substring(0, 3));
+            return errorDetails;
         }
     }
 

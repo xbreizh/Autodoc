@@ -159,8 +159,8 @@ public class GlobalServiceImpl<D> implements GlobalService {
     }
 
     @Override
-    public int create(String token, Object object) {
-        return 0;
+    public String create(String token, Object object) {
+        return "";
     }
 
     @Override

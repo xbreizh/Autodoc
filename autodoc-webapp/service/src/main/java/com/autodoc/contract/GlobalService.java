@@ -15,7 +15,7 @@ public interface GlobalService<T> {
 
     List<T> getByCriteria(String token, SearchDto searchDto);
 
-    int create(String token, T object);
+    String create(String token, T object);
 
     int update(String token, T object);
 
