@@ -76,25 +76,6 @@
             <span id="myPieces"></span>
         </div>
 
-        <!--<div class="form-group" th:each="task, stat : ${taskList}">
-            <label for="taskList">Tasks:</label>
-            <select class="form-control" id="taskList" th:name="|tasks.list[${stat.index}]|" th:value="${task}">
-                <option value="">add Task</option>
-                <option th:each="task : ${taskList}"
-                        th:utext="${task.getName()}"
-                        th:value="${task.getId()}"/>
-            </select>
-        </div>
-
-        <div class="form-group" th:each="piece, stat : ${pieceList}">
-            <label for="pieceList">Pieces:</label>
-            <select class="form-control" id="pieceList" th:name="|pieces.list[${stat.index}]|" th:value="${piece}">
-                <option value="">add Piece</option>
-                <option th:each="piece : ${pieceList}"
-                        th:utext="${piece.getName()}"
-                        th:value="${piece.getId()}"/>
-            </select>
-        </div>-->
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>

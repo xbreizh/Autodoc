@@ -156,15 +156,10 @@ public class Filler {
         Provider provider = (Provider) providerDao.getById(1);
         PieceType pieceType1 = (PieceType) pieceTypeDao.getById(1);
         PieceType pieceType2 = (PieceType) pieceTypeDao.getById(2);
-        CarModel carModel = (CarModel) carModelDao.getAll().get(0);
         Piece piece1 = new Piece(provider, pieceType1, "BRAKE PAD DE4", "DEVO", 10, 14, 2);
         Piece piece2 = new Piece(provider, pieceType1, "GAZOL FILTER 1/454", "MAKO", 20, 84, 0);
         Piece piece3 = new Piece(provider, pieceType2, "WINTER TYRE 15/4587", "PLOUGHLY", 300, 314, 33);
         Piece piece4 = new Piece(provider, pieceType2, "CLUTCH PEDAL CARBON", "MANIET", 40, 88, 3);
-       /* piece1.setCarModel(carModel);
-        piece2.setCarModel(carModel);
-        piece3.setCarModel(carModel);
-        piece4.setCarModel(carModel);*/
         pieceDao.create(piece1);
         pieceDao.create(piece2);
         pieceDao.create(piece3);
@@ -210,7 +205,7 @@ public class Filler {
 
     void fillClient() {
         LOGGER.debug("filling client");
-        Client client = new Client("LOKII", "MOLO", "03938937837");
+        Client client = new Client("angela", "bauer", "03938937837");
         Client client1 = new Client("ROGER", "MOORE", "0584759852");
         clientDao.create(client);
         clientDao.create(client1);
@@ -234,7 +229,7 @@ public class Filler {
         String pattern = "MM-dd-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date date = simpleDateFormat.parse("12-01-2018");
-        Employee employee = new Employee("LOKII", "MOLO", "03938937837", roleList, date, login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        Employee employee = new Employee("paul", "MOLO", "03938937837", roleList, date, login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MECANIC);
         employee.setRoles(roles);

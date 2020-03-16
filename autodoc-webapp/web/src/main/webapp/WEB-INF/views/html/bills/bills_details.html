@@ -62,7 +62,7 @@
                     <td th:text="${bill.vat}">VAT</td>
                 </tr>
                 <tr>
-                    <td>Discount:</td>
+                    <td>Discount ( % ):</td>
                     <td th:text="${bill.discount}">Discount</td>
                 </tr>
                 <tr>
@@ -72,6 +72,10 @@
                 <tr>
                     <td>Comments:</td>
                     <td th:text="${bill.comments}">Comments</td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td th:text="${bill.status}">Comments</td>
                 </tr>
             </table>
             <h2>Tasks:</h2>
@@ -95,12 +99,6 @@
                         <td th:text="${task.description}">description</td>
                         <td th:text="${task.estimatedTime}">estimatedTime</td>
                         <td th:text="${task.estimatedTime * pricePerHour}">Price</td>
-                        <!-- <td>
-                             <a th:href="@{'/tasks/delete/' + ${task.id}}">
-                                 <button class="btn btn-danger" type="button">Delete</button>
-                             </a>
-                         </td>-->
-
                     </tr>
                     </tbody>
                 </table>
@@ -113,7 +111,7 @@
                         <tr>
                             <th th:text="Name">PieceType</th>
                             <th th:text="Description">Name</th>
-                            <th th:text="EstimatedTime">Quantity</th>
+                            <th th:text="Quantity">Quantity</th>
                             <th th:text="Price">Price</th>
                         </tr>
                         </thead>
@@ -124,24 +122,12 @@
                             <td th:text="${piece.name}">name</td>
                             <td th:text="${piece.quantity}">quantity</td>
                             <td th:text="${piece.sellPrice * piece.quantity}">Price</td>
-                            <!-- <td>
-                                 <a th:href="@{'/piece/delete/' + ${piece.id}}">
-                                     <button class="btn btn-danger" type="button">Delete</button>
-                                 </a>
-                             </td>-->
-
                         </tr>
-
 
                         </tbody>
                     </table>
 
                 </div>
-
-
-                <!--  <a th:href="@{'/bills/delete/' + ${bill.id}}">
-                      <button class="btn btn-danger" type="button">Delete</button>
-                  </a>-->
 
             </div>
         </div>

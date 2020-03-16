@@ -191,11 +191,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
     public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult, Model model) throws Exception {
         if (billForm.getDateReparation() == null) LOGGER.error("date shouldn't be null");
         if (billForm.getPieces() == null) bindingResult.addError(new ObjectError("pieces", " should not be null"));
-        // LOGGER.info("tasks: " + billForm.getTasks().getList());
         LOGGER.info("trying to create bill " + billForm);
         LOGGER.info("dateRepa: " + billForm.getDateReparation());
-      /*  LOGGER.info("tasks: " + billForm.getTasks());
-        LOGGER.info("tasks: " + billForm.getTasks());*/
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
