@@ -3,13 +3,8 @@ package com.autodoc.impl;
 import com.autodoc.contract.PieceService;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 
 import javax.inject.Named;
-import java.util.Collections;
 
 @Named
 public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements PieceService {
@@ -28,7 +23,7 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
     }
 
 
-    @Override
+/*    @Override
     public int update(String token, Object object) {
         PieceDTO dto = (PieceDTO) object;
         setupHeader(token);
@@ -41,10 +36,10 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
         HttpEntity<PieceDTO> requestUpdate = new HttpEntity<>(dto, headers);
         return restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getStatusCodeValue();
 
-    }
+    }*/
 
 
-    @Override
+  /*  @Override
     public String create(String token, Object object) {
         PieceDTO dto = (PieceDTO) object;
         LOGGER.info("class: " + getClassName());
@@ -64,7 +59,7 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
             }
             return error.getLocalizedMessage().substring(0, 3);
         }
-    }
+    }*/
 
 
 }

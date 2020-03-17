@@ -10,7 +10,7 @@ public interface GlobalManager<T, D> {
 
     List<D> getAll(String token) throws Exception;
 
-    int add(String token, T obj) throws Exception;
+    String add(String token, T obj) throws Exception;
 
     void update(String token, T obj) throws Exception;
 

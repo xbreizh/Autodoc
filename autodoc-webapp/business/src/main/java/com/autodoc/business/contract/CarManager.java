@@ -13,7 +13,7 @@ public interface CarManager extends GlobalManager{
 
     Car getByRegistration(String connectedToken, String registration) throws Exception;
 
-    int addNewCar(String token, CarForm carForm) throws Exception;
+    String addNewCar(String token, CarForm carForm) throws Exception;
 
 
 }

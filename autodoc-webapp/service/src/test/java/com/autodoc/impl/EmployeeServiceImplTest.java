@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceImplTest {
 
     private EmployeeService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4NDM3NTIwOCwiaWF0IjoxNTg0MzU3MjA4fQ.-RB-mqCQHNeEHHRLilm3kDKytJlLuPTe_TUvMCkiaS6Mrm5qecK9uliyyhyjOev_K62dXtmgzHEJkzy0Ev7OKQ";
+    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4NDQ2NDQ5NCwiaWF0IjoxNTg0NDQ2NDk0fQ.20zK2p1Id6LpO65krPbjh2wrVjSVHyBhxjmlT_1fD-cGv6zl2iQbHYGhDZlxZ4xVzLA9fKyRhyd7eqlAyNsO-g";
     private EmployeeDTO dto;
     private Class clazz = EmployeeDTO.class;
     private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImplTest.class);
@@ -30,7 +30,7 @@ class EmployeeServiceImplTest {
         dto = new EmployeeDTO();
         dto.setFirstName("John");
         dto.setLastName("Bonham");
-        dto.setLogin("sssssss");
+        dto.setLogin("sasdsds");
         dto.setPassword("abc123");
         List<String> roles = new ArrayList<>();
         roles.add("MECANIC");
@@ -79,7 +79,7 @@ class EmployeeServiceImplTest {
     @Test
     @DisplayName("should return 201 when insertion ok")
     void create() {
-        System.out.println("feedback: " + service.create(token, dto));
+        //System.out.println("feedback: " + service.create(token, dto));
         assertEquals(201, service.create(token, dto));
 
 

@@ -158,14 +158,40 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
     }
 
+
     @Override
     public String create(String token, Object object) {
-        return "";
+        setupHeader(token);
+        String url = BASE_URL + getClassName();
+        LOGGER.info("obj: " + object);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+
+        try {
+            return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>((D) object, headers), String.class).getBody();
+        } catch (HttpClientErrorException error) {
+            String errorDetails = error.getResponseBodyAsString();
+            LOGGER.info(errorDetails);
+            if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
+                LOGGER.info("bam");
+            }
+            return errorDetails;
+        }
     }
 
     @Override
     public int update(String token, Object object) {
-        return 0;
+        setupHeader(token);
+        String url = BASE_URL + getClassName();
+        LOGGER.info("obj: " + object);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+        return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>((D) object, headers), Void.class).getStatusCodeValue();
+
     }
 
     @Override

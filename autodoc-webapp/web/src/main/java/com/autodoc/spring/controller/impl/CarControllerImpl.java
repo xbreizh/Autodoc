@@ -221,7 +221,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
 
         LOGGER.info("carForm received: " + carForm);
 
-        int id = carManager.addNewCar(token, carForm);
+        int id = Integer.parseInt(carManager.addNewCar(token, carForm));
         if (id != 0) carById(id);
 
 

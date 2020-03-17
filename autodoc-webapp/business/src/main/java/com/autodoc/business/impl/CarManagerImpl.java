@@ -58,11 +58,11 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     }
 
     @Override
-    public int addNewCar(String token, CarForm carForm) throws Exception {
+    public String addNewCar(String token, CarForm carForm) throws Exception {
         CarDTO dto = new CarDTO();
         dto.setRegistration(carForm.getRegistration());
         dto.setCarModelId(carForm.getModelId());
-        int clientId = clientManager.add(token, carForm.getClient());
+        int clientId = Integer.parseInt(clientManager.add(token, carForm.getClient()));
         dto.setClientId(clientId);
 
         return service.create(token, dto);

@@ -127,10 +127,13 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     }
 
     private void checkAndPassLogin(Employee employee, String login) throws InvalidDtoException {
-        if(employeeDao.getByLogin(login.toUpperCase())!=null){
-            String error = "Login "+login.toUpperCase()+"already exists";
-            LOGGER.error(error);
-            throw new InvalidDtoException(error);
+        Employee employee1 = employeeDao.getByLogin(login.toUpperCase());
+        if(employee1!=null){
+            if (employee1.getId()!=employee.getId()) {
+                String error = "Login " + login.toUpperCase() + "already exists";
+                LOGGER.error(error);
+                throw new InvalidDtoException(error);
+            }
         }
         employee.setLogin(login);
     }

@@ -28,7 +28,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
     }
 
 
-    @Override
+/*    @Override
     public int update(String token, Object object) {
         TaskDTO dto = (TaskDTO) object;
         setupHeader(token);
@@ -43,7 +43,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
         LOGGER.info("codeValue: " + codeValue);
         return codeValue;
 
-    }
+    }*/
 
     @Override
     public int updateTemplate(String token, Object object) {
@@ -63,7 +63,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
     }
 
 
-    @Override
+  /*  @Override
     public String create(String token, Object object) {
         TaskDTO dto = (TaskDTO) object;
         LOGGER.info("class: " + getClassName());
@@ -83,7 +83,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
             }
             return error.getLocalizedMessage().substring(0, 3);
         }
-    }
+    }*/
 
 
 }

@@ -3,11 +3,11 @@ package com.autodoc.impl;
 import com.autodoc.contract.CarService;
 import com.autodoc.model.dtos.car.CarDTO;
 import org.apache.log4j.Logger;
-import org.springframework.http.*;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 
 import javax.inject.Named;
-import java.util.Collections;
 
 @Named
 public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarService {
@@ -45,10 +45,10 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
         }
     }
 
-    @Override
+    /*@Override
     public int update(String token, Object object) {
         LOGGER.info("updating service");
-        CarDTO dto = (CarDTO) object;
+     //   CarDTO dto = getDtoObject((CarDTO) object);
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
@@ -56,15 +56,35 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
-        HttpEntity<CarDTO> requestUpdate = new HttpEntity<>(dto, headers);
+        HttpEntity<CarDTO> requestUpdate = new HttpEntity<>((CarDTO)object, headers);
         return restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getStatusCodeValue();
 
-    }
+    }*/
 
-    @Override
+   /* @Override
     public String create(String token, Object object) {
-        CarDTO dto = (CarDTO) object;
-        LOGGER.info("class: " + getClassName());
+      //  CarDTO dto = getDtoObject((CarDTO) object);
+        setupHeader(token);
+        String url = BASE_URL + getClassName();
+        LOGGER.info("obj: " + object);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+        //HttpEntity<EmployeeDTO> requestInsert = new HttpEntity<>(dto, headers);
+
+        try {
+            return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(getDtoObject(object), headers), String.class).getBody();
+        } catch (HttpClientErrorException error) {
+            String errorDetails = error.getResponseBodyAsString();
+            LOGGER.info(errorDetails);
+            if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
+                LOGGER.info("bam");
+            }
+            return errorDetails;
+        }*/
+       /* LOGGER.info("class: " + getClassName());
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
@@ -82,8 +102,16 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
             }
             return error.getLocalizedMessage().substring(0, 3);
-        }
+        }*/
+/*
     }
+*/
+
+/*
+    private CarDTO getDtoObject(Object object) {
+        return (CarDTO) object;
+    }
+*/
 
 
 }

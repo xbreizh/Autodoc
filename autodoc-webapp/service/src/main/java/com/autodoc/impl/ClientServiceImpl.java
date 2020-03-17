@@ -3,13 +3,8 @@ package com.autodoc.impl;
 import com.autodoc.contract.ClientService;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 
 import javax.inject.Named;
-import java.util.Collections;
 
 @Named
 public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements ClientService {
@@ -24,9 +19,9 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
     }
 
 
-    @Override
+/*    @Override
     public int update(String token, Object object) {
-        ClientDTO dto = (ClientDTO) object;
+       // ClientDTO dto = (ClientDTO) object;
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
@@ -34,12 +29,12 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
-        HttpEntity<ClientDTO> requestUpdate = new HttpEntity<>(dto, headers);
+        HttpEntity<ClientDTO> requestUpdate = new HttpEntity<>((ClientDTO)object, headers);
         return restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getStatusCodeValue();
 
-    }
+    }*/
 
-    @Override
+    /*@Override
     public String create(String token, Object object) {
         ClientDTO dto = (ClientDTO) object;
         setupHeader(token);
@@ -53,7 +48,7 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
         HttpEntity<ClientDTO> requestInsert = new HttpEntity<>(dto, headers);
 
         try {
-            /* return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();*/
+            *//* return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Void.class).getStatusCodeValue();*//*
             // Integer response =
             return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody().toString();
         } catch (RuntimeException error) {
@@ -63,7 +58,7 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
             }
             return error.getLocalizedMessage().substring(0, 3);
         }
-    }
+    }*/
 
 
 }
