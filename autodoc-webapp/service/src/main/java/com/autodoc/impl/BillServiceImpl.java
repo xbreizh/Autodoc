@@ -23,45 +23,5 @@ public class BillServiceImpl extends GlobalServiceImpl<BillDTO> implements BillS
     }
 
 
-/*    @Override
-    public int update(String token, Object object) {
-        BillDTO dto = (BillDTO) object;
-        setupHeader(token);
-        String url = BASE_URL + getClassName();
-        LOGGER.info("obj: " + object);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
-        HttpEntity<BillDTO> requestUpdate = new HttpEntity<>(dto, headers);
-        LOGGER.info("body: " + restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getBody());
-        return restTemplate.exchange(url, HttpMethod.PUT, requestUpdate, Void.class).getStatusCodeValue();
-
-    }*/
-
-
-       /* @Override
-        public String create(String token, Object object) {
-            BillDTO dto = (BillDTO) object;
-            LOGGER.info("class: " + getClassName());
-            setupHeader(token);
-            String url = BASE_URL + getClassName();
-            LOGGER.info("obj: " + object);
-            final HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth(token);
-            HttpEntity<BillDTO> requestInsert = new HttpEntity<>(dto, headers);
-            try {
-                return restTemplate.exchange(url, HttpMethod.POST, requestInsert, Integer.class).getBody().toString();
-            } catch (RuntimeException error) {
-                LOGGER.info("er: " + error.getLocalizedMessage());
-                if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
-                }
-                return error.getLocalizedMessage().substring(0, 3);
-            }
-        }*/
-
-
 }
 

@@ -19,6 +19,8 @@ public class GlobalServiceImpl<D> implements GlobalService {
     private static final Logger LOGGER = Logger.getLogger(GlobalServiceImpl.class);
     RestTemplate restTemplate;
     HttpEntity<?> request;
+    final HttpHeaders headers = new HttpHeaders();
+
 
     public GlobalServiceImpl() {
 
@@ -39,37 +41,18 @@ public class GlobalServiceImpl<D> implements GlobalService {
         return null;
     }
 
-    void setupHeader(String token) {
-        LOGGER.info("setting up");
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
-        this.restTemplate = new RestTemplate();
 
-        this.request = new HttpEntity<>(headers);
-    }
 
 
     @Override
     public D getById(String token, int id) {
         LOGGER.info("trying to get object by id");
         setupHeader(token);
-
-
         try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
-            LOGGER.info("id: " + id);
             String className = getClassName();
             String url = BASE_URL + className + "/" + id;
-            LOGGER.info("url: " + url);
-            LOGGER.info("mokoro: " + restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass()));
             ResponseEntity<D> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
-            LOGGER.info("resp: " + response.getStatusCodeValue());
             if (response.getStatusCodeValue() == 404) return null;
-            LOGGER.info("stop");
-            LOGGER.info("req: " + request);
             return response.getBody();
         } catch (HttpClientErrorException.NotFound exception) {
             LOGGER.info(exception.getMessage());
@@ -84,18 +67,12 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
     @Override
     public D getByName(String token, String name) {
-        LOGGER.info("trying to get employee by login");
         setupHeader(token);
         try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
-            LOGGER.info("login: " + name);
             String className = getClassName();
             String url = BASE_URL + className + "/name?name=" + name;
-            LOGGER.info("url: " + url);
             ResponseEntity<D> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
             if (response.getStatusCodeValue() == 404) return null;
-            LOGGER.info("deded: " + response.getBody());
             return response.getBody();
         } catch (Exception e) {
             LOGGER.info("error occured");
@@ -107,21 +84,15 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
     @Override
     public List<D> getAll(String token) {
-        LOGGER.info("trying to get employee by login");
         setupHeader(token);
         try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
             String className = getClassName();
             String url = BASE_URL + className;
-            LOGGER.info("list class: " + getListClass().toString());
             ResponseEntity<D[]> response = restTemplate.exchange(url, HttpMethod.GET, request, getListClass());
-            LOGGER.info("resp: " + response.getBody());
-            LOGGER.info(response.getBody()[0]);
 
             return Arrays.asList(response.getBody());
         } catch (Exception e) {
-            LOGGER.info("error occured");
+            LOGGER.info("error occurred: " + e.getCause());
             throw new
                     BadCredentialsException("External system authentication failed");
         }
@@ -130,28 +101,18 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
     @Override
     public List<D> getByCriteria(String token, SearchDto searchDto) {
-        LOGGER.info("trying to get employee by login");
         setupHeader(token);
         try {
-            LOGGER.info("restTemplate ready");
-            LOGGER.info("token: " + token);
             String className = getClassName();
             String url = BASE_URL + className + "/criteria";
-            LOGGER.info("list class: " + getListClass().toString());
-            System.out.println(request.toString());
-            final HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth(token);
+            //final HttpHeaders headers = setupHeader(token);
 
-            String crit = searchDto.toString();
-            HttpEntity<String> request = new HttpEntity<>(crit, headers);
-            System.out.println(request);
+            String criteria = searchDto.toString();
+            HttpEntity<String> request = new HttpEntity<>(criteria, headers);
             ResponseEntity<D[]> response = restTemplate.exchange(url, HttpMethod.POST, request, getListClass());
-            System.out.println("response: " + response.getBody());
             return Arrays.asList(response.getBody());
         } catch (Exception e) {
-            LOGGER.info("error occured");
+            LOGGER.info("error occurred: " + e.getCause());
             throw new
                     BadCredentialsException("External system authentication failed");
         }
@@ -161,16 +122,27 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
     @Override
     public String create(String token, Object object) {
-        setupHeader(token);
+        HttpMethod method = HttpMethod.POST;
+        return globalCall(token, object, method);
+    }
+
+
+ /*   void setupHeader(String token) {
+        final HttpHeaders headers = setHeaders(token);
+        this.restTemplate = new RestTemplate();
+
+        this.request = new HttpEntity<>(headers);
+    }*/
+
+
+    private String globalCall(String token, Object object, HttpMethod method) {
+        //setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
+        // final HttpHeaders headers = setupHeader(token);
 
         try {
-            return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>((D) object, headers), String.class).getBody();
+            return restTemplate.exchange(url, method, new HttpEntity<>((D) object, headers), String.class).getBody();
         } catch (HttpClientErrorException error) {
             String errorDetails = error.getResponseBodyAsString();
             LOGGER.info(errorDetails);
@@ -181,34 +153,32 @@ public class GlobalServiceImpl<D> implements GlobalService {
         }
     }
 
-    @Override
-    public int update(String token, Object object) {
-        setupHeader(token);
-        String url = BASE_URL + getClassName();
-        LOGGER.info("obj: " + object);
-        final HttpHeaders headers = new HttpHeaders();
+    protected void setupHeader(String token) {
+
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
-        return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>((D) object, headers), Void.class).getStatusCodeValue();
+        this.restTemplate = new RestTemplate();
 
+        this.request = new HttpEntity<>(headers);
+        // return headers;
+    }
+
+    @Override
+    public String update(String token, Object object) {
+        return globalCall(token, object, HttpMethod.PUT);
     }
 
     @Override
     public int delete(String token, int id) {
         LOGGER.info("trying to delete object by id");
-        setupHeader(token);
-
 
         String className = getClassName();
         String url = BASE_URL + className + "/" + id;
 
-        HttpHeaders header = new HttpHeaders();
-        header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        header.setContentType(MediaType.APPLICATION_JSON);
-        header.setBearerAuth(token);
+        //HttpHeaders header = setupHeader(token);
         restTemplate.exchange(url, HttpMethod.DELETE,
-                new HttpEntity<>(header), String.class);
+                new HttpEntity<>(headers), String.class);
         return 0;
     }
 
@@ -225,9 +195,9 @@ public class GlobalServiceImpl<D> implements GlobalService {
             LOGGER.info("restTemplate ready");
             String url = BASE_URL + "filler";
             LOGGER.info(ArrayList.class);
-            ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.GET, request, Void.class);
+            // ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.GET, request, Void.class);
 
-
+            restTemplate.exchange(url, HttpMethod.GET, request, Void.class);
         } catch (Exception e) {
             LOGGER.info("error occured");
             throw new

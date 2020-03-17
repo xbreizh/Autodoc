@@ -18,54 +18,5 @@ public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implemen
     }
 
 
-   /* @Override
-    public int update(String token, Object object) {
-       // Object dto = getDto(object);
-        setupHeader(token);
-        String url = BASE_URL + getClassName();
-        LOGGER.info("obj: " + object);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
-        //HttpEntity<EmployeeDTO> requestUpdate = new HttpEntity<>(dto, headers);
-        return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>((EmployeeDTO)object, headers), Void.class).getStatusCodeValue();
-
-    }*/
-
-
-
-
-
-/*
-    private EmployeeDTO getDto(Object object) {
-        return getDto((EmployeeDTO) object);
-    }
-*/
-
-   /* @Override
-    public String create(String token, Object object) {
-       // EmployeeDTO dto = (EmployeeDTO) object;
-        setupHeader(token);
-        String url = BASE_URL + getClassName();
-        LOGGER.info("obj: " + object);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(token);
-
-        try {
-            return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>((EmployeeDTO)object, headers), String.class).getBody();
-        } catch (HttpClientErrorException error) {
-            String errorDetails = error.getResponseBodyAsString();
-            LOGGER.info(errorDetails);
-            if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
-                LOGGER.info("bam");
-            }
-            return errorDetails;
-        }
-    }
-*/
-
 }
 

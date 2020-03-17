@@ -17,7 +17,7 @@ public interface GlobalService<T> {
 
     String create(String token, T object);
 
-    int update(String token, T object);
+    String update(String token, T object);
 
     int delete(String token, int id);
 
