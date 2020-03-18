@@ -13,6 +13,8 @@
     <h3>New Client</h3>
 
 
+    <div th:text="${error}">1</div>
+
     <form action="#" method="post" th:action="@{'/clients/new/'}" th:object="${clientForm}">
         <div class="form-group">
             <label for="firstName">FirstName:</label>

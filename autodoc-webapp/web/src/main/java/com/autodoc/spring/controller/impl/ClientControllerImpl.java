@@ -20,7 +20,7 @@ import java.util.List;
 public class ClientControllerImpl extends GlobalController implements ClientController {
 
     private static Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
-    // @Inject
+
     ClientManager clientManager;
 
     public ClientControllerImpl(LibraryHelper helper, ClientManager clientManager) {
@@ -106,7 +106,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid ClientForm clientForm, BindingResult bindingResult) {
+    public ModelAndView create(@Valid ClientForm clientForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("clients/clients_new");
         mv.addObject("clientForm", new ClientForm());
@@ -116,7 +116,16 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
             mv.addObject("showForm", 1);
             return mv;
         }
-        return new ModelAndView("redirect:/clients");
+        String feedback = clientManager.add(helper.getConnectedToken(), clientForm);
+        try {
+            int id = Integer.parseInt(feedback);
+            return new ModelAndView("redirect:" + "/clients/" + id);
+        } catch (NumberFormatException e) {
+            LOGGER.error(e.getMessage());
+            mv.addObject("error", feedback);
+        }
+        return mv;
+        //   return new ModelAndView("redirect:/clients");
     }
 
 
