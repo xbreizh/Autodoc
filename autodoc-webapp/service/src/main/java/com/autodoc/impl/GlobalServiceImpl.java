@@ -138,7 +138,6 @@ public class GlobalServiceImpl<D> implements GlobalService {
         setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
-        // final HttpHeaders headers = setupHeader(token);
 
         try {
             return restTemplate.exchange(url, method, new HttpEntity<>((D) object, headers), String.class).getBody();

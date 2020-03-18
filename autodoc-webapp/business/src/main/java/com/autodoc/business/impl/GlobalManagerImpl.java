@@ -51,7 +51,12 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         LOGGER.info("stuff to insert: " + obj);
         D objToInsert = formToDto(obj, token);
         String feedback = service.create(token, objToInsert);
-        LOGGER.info("feedback: " + feedback);
+        try {
+            Integer.parseInt(feedback);
+        } catch (NumberFormatException e) {
+            LOGGER.error(feedback);
+        }
+        LOGGER.info("id: " + feedback);
         return feedback;
 
     }

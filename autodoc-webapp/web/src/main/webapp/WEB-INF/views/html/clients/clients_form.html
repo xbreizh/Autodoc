@@ -1,7 +1,7 @@
 <div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
-    <form action="#" method="post" th:action="@{'/clients/update/' + ${client.id}}" th:object="${clientForm}">
+    <form action="#" method="post" th:action="@{'/clients/update/' + ${client.id}}" th:object="${form}">
         <div class="form-group">
             <label for="id">Id:</label>
             <input class="form-control" id="id" name="id" readonly required="required"

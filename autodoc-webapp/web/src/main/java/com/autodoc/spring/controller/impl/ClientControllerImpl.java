@@ -2,6 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.helper.LibraryHelper;
+import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.spring.controller.contract.ClientController;
@@ -17,49 +18,47 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/clients")
-public class ClientControllerImpl extends GlobalController implements ClientController {
+public class ClientControllerImpl extends GlobalController<Client, ClientDTO> implements ClientController {
 
     private static Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
+    String keyWord = "clients";
+    ClientManager manager;
 
-    ClientManager clientManager;
-
-    public ClientControllerImpl(LibraryHelper helper, ClientManager clientManager) {
+    public ClientControllerImpl(LibraryHelper helper, ClientManager manager) {
         super(helper);
-        this.clientManager = clientManager;
+        this.manager = manager;
     }
 
 
     @GetMapping("")
     public ModelAndView clients() throws Exception {
-        LOGGER.info("retrieving clients");
-        ModelAndView mv = checkAndAddConnectedDetails("clients/clients");
+        LOGGER.info("retrieving " + keyWord);
+        ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord);
 
-        List<Client> clients = getClients();
+        List<Client> clients = getAll();
 
         if (clients.isEmpty()) {
             return sendError(mv, "no client found");
         }
 
-        mv.addObject("clients", clients);
+        mv.addObject(keyWord, clients);
         return mv;
 
     }
 
-    private List<Client> getClients() throws Exception {
-        List<Client> list = (List<Client>) clientManager.getAll(helper.getConnectedToken());
+    List<Client> getAll() throws Exception {
+        List<Client> list = (List<Client>) manager.getAll(helper.getConnectedToken());
         return list;
     }
-
 
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView clientById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
+        LOGGER.info("trying to get " + keyWord + " with id " + id);
+        ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
         LOGGER.info("client is null");
-        Client client = (Client) clientManager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + client.getPhoneNumber());
-        mv.addObject("clientForm", client);
+        Client client = (Client) manager.getById(helper.getConnectedToken(), id);
+        mv.addObject("form", client);
         mv.addObject("showForm", 1);
         mv.addObject("client", client);
         return mv;
@@ -68,29 +67,29 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid ClientForm clientForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + clientForm.getId());
+    public ModelAndView update(@Valid ClientForm form, BindingResult bindingResult) throws Exception {
+        LOGGER.info("trying to update member with id " + form.getId());
         ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
-        mv.addObject("clientForm", new ClientForm());
+        mv.addObject("form", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
-            Client client = (Client) clientManager.getById(helper.getConnectedToken(), clientForm.getId());
+            Client client = (Client) manager.getById(helper.getConnectedToken(), form.getId());
             mv.addObject("client", client);
-            mv.addObject("clientForm", clientForm);
+            mv.addObject("form", form);
             mv.addObject("showForm", 0);
             return mv;
         }
         LOGGER.info("carrying on");
-        LOGGER.info("client retrieved: " + clientForm);
-        clientManager.update(helper.getConnectedToken(), clientForm);
-        return new ModelAndView("redirect:" + "/clients/" + clientForm.getId());
+        LOGGER.info("client retrieved: " + form);
+        manager.update(helper.getConnectedToken(), form);
+        return new ModelAndView("redirect:" + "/clients/" + form.getId());
     }
 
     @GetMapping(value = "/delete/{id}")
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        clientManager.delete(helper.getConnectedToken(), id);
+        manager.delete(helper.getConnectedToken(), id);
         return clients();
     }
 
@@ -106,26 +105,25 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid ClientForm clientForm, BindingResult bindingResult) throws Exception {
+    public ModelAndView create(@Valid ClientForm form, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("clients/clients_new");
-        mv.addObject("clientForm", new ClientForm());
+        mv.addObject("form", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
-            mv.addObject("clientForm", clientForm);
+            mv.addObject("form", form);
             mv.addObject("showForm", 1);
             return mv;
         }
-        String feedback = clientManager.add(helper.getConnectedToken(), clientForm);
+        String feedback = manager.add(helper.getConnectedToken(), form);
         try {
             int id = Integer.parseInt(feedback);
-            return new ModelAndView("redirect:" + "/clients/" + id);
+            return new ModelAndView("redirect:" + "/" + keyWord + "/" + id);
         } catch (NumberFormatException e) {
             LOGGER.error(e.getMessage());
             mv.addObject("error", feedback);
         }
         return mv;
-        //   return new ModelAndView("redirect:/clients");
     }
 
 

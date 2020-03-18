@@ -3,6 +3,7 @@ package com.autodoc.spring.controller.impl;
 import com.autodoc.business.contract.BillManager;
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
+import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.dtos.RegistrationForm;
@@ -24,7 +25,7 @@ import javax.validation.Valid;
 @Controller
 @ControllerAdvice
 @RequestMapping("/")
-public class GlobalController<D, T> {
+public class GlobalController<T, D> {
     private static final String LOGIN = "login";
     private static final String HOME = "home";
     private static final String RESET = "passwordReset/passwordReset";
@@ -42,6 +43,8 @@ public class GlobalController<D, T> {
     @Inject
     private EmployeeManager employeeManager;
     private PasswordCheckerImpl passwordChecker;
+    GlobalManager manager;
+
 
     @Inject
     public GlobalController(LibraryHelper helper) {

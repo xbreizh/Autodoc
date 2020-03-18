@@ -141,10 +141,10 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         return new ModelAndView("redirect:/tasks");
     }
 
-/*    private TaskDTO convertFormIntoDto(TaskForm taskForm) {
+    private TaskDTO convertFormIntoDto(TaskForm taskForm) {
         LOGGER.info("TODO");
         return null;
-    }*/
+    }
 
 
 }
