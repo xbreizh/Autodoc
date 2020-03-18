@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -35,6 +36,7 @@ public class GlobalController<T, D> {
     private static final String RESET_KO = "passwordReset/passwordResetLinkKo";
     private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
     private static Logger LOGGER = Logger.getLogger(GlobalController.class);
+    // String keyWord = "global";
     LibraryHelper helper;
     @Inject
     BillManager billManager;
@@ -46,10 +48,37 @@ public class GlobalController<T, D> {
     GlobalManager manager;
 
 
+    String getKeyWord() {
+        return "pluof";
+    }
+
+
     @Inject
     public GlobalController(LibraryHelper helper) {
         this.helper = helper;
     }
+
+
+  /*  List<T> getAll() throws Exception {
+        List<T> list = (List<T>) manager.getAll(helper.getConnectedToken());
+        return list;
+    }*/
+
+    ModelAndView getList() throws Exception {
+        String keyWord = getKeyWord();
+        LOGGER.info("retrieving " + keyWord);
+        ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord);
+
+        List<T> all = (List<T>) manager.getAll(helper.getConnectedToken());
+
+        if (all.isEmpty()) {
+            return sendError(mv, "no " + keyWord + " found");
+        }
+
+        mv.addObject(keyWord, all);
+        return mv;
+    }
+
 
     protected void getPricePerHour(ModelAndView mv) {
         mv.addObject("pricePerHour", billManager.getPricePerHour());

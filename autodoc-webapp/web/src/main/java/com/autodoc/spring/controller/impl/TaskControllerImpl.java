@@ -23,9 +23,16 @@ import java.util.List;
 public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implements TaskController {
 
     private static Logger LOGGER = Logger.getLogger(TaskControllerImpl.class);
+    private static final String KEY_WORD = "tasks";
     // @Inject
-    TaskManager manager;
+    //  TaskManager manager;
     PieceManager pieceManager;
+
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
+
 
     public TaskControllerImpl(LibraryHelper helper, TaskManager manager, PieceManager pieceManager) {
         super(helper);
@@ -36,7 +43,8 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
 
     @GetMapping("")
     public ModelAndView tasks() throws Exception {
-        LOGGER.info("retrieving tasks");
+        // getPricePerHour(mv);
+       /* LOGGER.info("retrieving tasks");
         ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks");
         List<Task> tasks;
         getPricePerHour(mv);
@@ -52,8 +60,10 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         }
 
 
+        return mv;*/
+        ModelAndView mv = getList();
+        getPricePerHour(mv);
         return mv;
-
     }
 
 
@@ -141,10 +151,10 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         return new ModelAndView("redirect:/tasks");
     }
 
-    private TaskDTO convertFormIntoDto(TaskForm taskForm) {
+ /*   private TaskDTO convertFormIntoDto(TaskForm taskForm) {
         LOGGER.info("TODO");
         return null;
-    }
+    }*/
 
 
 }

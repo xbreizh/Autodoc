@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -22,17 +21,23 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
 
     private static Logger LOGGER = Logger.getLogger(ProviderControllerImpl.class);
     // @Inject
-    ProviderManager manager;
+    private static final String KEY_WORD = "providers";
+    //  ProviderManager manager;
 
     public ProviderControllerImpl(LibraryHelper helper, ProviderManager manager) {
         super(helper);
         this.manager = manager;
     }
 
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
+
 
     @GetMapping("")
     public ModelAndView providers() throws Exception {
-        LOGGER.info("retrieving providers");
+       /* LOGGER.info("retrieving providers");
         ModelAndView mv = checkAndAddConnectedDetails("providers/providers");
         List<Provider> providers;
         try {
@@ -49,7 +54,8 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
 
 
 
-        return mv;
+        return mv;*/
+        return getList();
 
     }
 

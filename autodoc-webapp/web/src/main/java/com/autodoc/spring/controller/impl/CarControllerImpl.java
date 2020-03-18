@@ -28,12 +28,18 @@ import java.util.List;
 public class CarControllerImpl extends GlobalController<CarDTO, Car> implements CarController {
 
     private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
+    private static final String KEY_WORD = "cars";
     // @Inject
-    CarManager manager;
+    //  CarManager manager;
     ClientManager clientManager;
     CarManager carManager;
     EmployeeManager employeeManager;
     CarModelManager carModelManager;
+
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
 
     public CarControllerImpl(LibraryHelper helper, CarManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, CarModelManager carModelManager) {
         super(helper);
@@ -96,7 +102,7 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
 
     @GetMapping("")
     public ModelAndView cars() throws Exception {
-        LOGGER.info("retrieving cars");
+       /* LOGGER.info("retrieving cars");
         ModelAndView mv = checkAndAddConnectedDetails("cars/cars");
         List<Car> cars;
         try {
@@ -111,7 +117,8 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         }
 
 
-        return mv;
+        return mv;*/
+        return getList();
 
     }
 

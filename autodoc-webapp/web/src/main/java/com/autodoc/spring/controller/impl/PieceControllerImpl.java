@@ -26,11 +26,17 @@ import java.util.List;
 public class PieceControllerImpl extends GlobalController implements PieceController {
 
     private static Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
+    private static final String KEY_WORD = "pieces";
     // @Inject
-    PieceManager manager;
+    // PieceManager manager;
     PieceTypeManager pieceTypeManager;
     CarModelManager carModelManager;
     ProviderManager providerManager;
+
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
 
     public PieceControllerImpl(LibraryHelper helper, PieceManager manager, PieceTypeManager pieceTypeManager, CarModelManager carModelManager, ProviderManager providerManager) {
         super(helper);
@@ -43,7 +49,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
 
     @GetMapping("")
     public ModelAndView pieces() throws Exception {
-        LOGGER.info("retrieving pieces");
+       /* LOGGER.info("retrieving pieces");
         ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces");
 
         List<Piece> pieces = getPieces();
@@ -54,14 +60,15 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
         }
 
         mv.addObject("pieces", pieces);
-        return mv;
+        return mv;*/
+        return getList();
 
     }
-
+/*
     private List<Piece> getPieces() throws Exception {
         List<Piece> list = (List<Piece>) manager.getAll(helper.getConnectedToken());
         return list;
-    }
+    }*/
 
 
     @GetMapping(value = "/{id}")

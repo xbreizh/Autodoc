@@ -2,7 +2,6 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.PieceTypeManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.dtos.pieces.PieceTypeForm;
 import com.autodoc.model.models.pieces.PieceType;
 import com.autodoc.spring.controller.contract.PieceTypeController;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -22,17 +20,22 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
 
     private static Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
     // @Inject
-    PieceTypeManager manager;
+    // PieceTypeManager manager;
+    private static final String KEY_WORD = "pieceTypes";
 
     public PieceTypeControllerImpl(LibraryHelper helper, PieceTypeManager manager) {
         super(helper);
         this.manager = manager;
     }
 
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
 
     @GetMapping("")
     public ModelAndView pieceTypes() throws Exception {
-        LOGGER.info("retrieving pieceTypes");
+       /* LOGGER.info("retrieving pieceTypes");
         ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes");
 
         List<PieceTypeDTO> pieceTypes = getPieceTypes();
@@ -43,15 +46,16 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
         }
 
         mv.addObject("pieceTypes", pieceTypes);
-        return mv;
+        return mv;*/
+        return getList();
 
     }
 
-    private List<PieceTypeDTO> getPieceTypes() throws Exception {
+ /*   private List<PieceTypeDTO> getPieceTypes() throws Exception {
         List<PieceTypeDTO> list = (List<PieceTypeDTO>) manager.getAll(helper.getConnectedToken());
         return list;
     }
-
+*/
 
     @GetMapping(value = "/{id}")
     @ResponseBody

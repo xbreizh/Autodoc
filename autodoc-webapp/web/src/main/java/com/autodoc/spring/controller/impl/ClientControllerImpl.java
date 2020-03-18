@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -21,8 +20,8 @@ import java.util.List;
 public class ClientControllerImpl extends GlobalController<Client, ClientDTO> implements ClientController {
 
     private static Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
-    String keyWord = "clients";
-    ClientManager manager;
+    private static final String KEY_WORD = "clients";
+    // ClientManager manager;
 
     public ClientControllerImpl(LibraryHelper helper, ClientManager manager) {
         super(helper);
@@ -30,32 +29,30 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO> im
     }
 
 
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
+
+
     @GetMapping("")
     public ModelAndView clients() throws Exception {
-        LOGGER.info("retrieving " + keyWord);
-        ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord);
-
-        List<Client> clients = getAll();
-
-        if (clients.isEmpty()) {
-            return sendError(mv, "no client found");
-        }
-
-        mv.addObject(keyWord, clients);
-        return mv;
+        return getList();
 
     }
 
-    List<Client> getAll() throws Exception {
+
+
+  /*  List<Client> getAll() throws Exception {
         List<Client> list = (List<Client>) manager.getAll(helper.getConnectedToken());
         return list;
-    }
+    }*/
 
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView clientById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get " + keyWord + " with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
+        LOGGER.info("trying to get " + KEY_WORD + " with id " + id);
+        ModelAndView mv = checkAndAddConnectedDetails(KEY_WORD + "/" + KEY_WORD + "_details");
         LOGGER.info("client is null");
         Client client = (Client) manager.getById(helper.getConnectedToken(), id);
         mv.addObject("form", client);
@@ -118,7 +115,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO> im
         String feedback = manager.add(helper.getConnectedToken(), form);
         try {
             int id = Integer.parseInt(feedback);
-            return new ModelAndView("redirect:" + "/" + keyWord + "/" + id);
+            return new ModelAndView("redirect:" + "/" + KEY_WORD + "/" + id);
         } catch (NumberFormatException e) {
             LOGGER.error(e.getMessage());
             mv.addObject("error", feedback);

@@ -2,6 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.spring.controller.contract.EmployeeController;
@@ -12,27 +13,31 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @ControllerAdvice
 @RequestMapping("/employees")
-public class EmployeeControllerImpl extends GlobalController implements EmployeeController {
+public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeDTO> implements EmployeeController {
 
     // @Inject
-    EmployeeManager employeeManager;
-
+    // EmployeeManager employeeManager;
+    private static final String KEY_WORD = "employees";
     private static Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
 
-    public EmployeeControllerImpl(LibraryHelper helper, EmployeeManager employeeManager) {
+    public EmployeeControllerImpl(LibraryHelper helper, EmployeeManager manager) {
         super(helper);
-        this.employeeManager = employeeManager;
+        this.manager = manager;
+    }
+
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
     }
 
 
     @GetMapping("")
     public ModelAndView employees() throws Exception {
-        LOGGER.info("retrieving employees");
+       /* LOGGER.info("retrieving employees");
         ModelAndView mv = checkAndAddConnectedDetails("employees/employees");
 
         List<Employee> employees = getEmployees();
@@ -42,14 +47,17 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         }
 
         mv.addObject("employees", employees);
-        return mv;
+        return mv;*/
+        return getList();
 
     }
 
+/*
     private List<Employee> getEmployees() throws Exception {
-        List<Employee> list = (List<Employee>) employeeManager.getAll(helper.getConnectedToken());
+        List<Employee> list = (List<Employee>) manager.getAll(helper.getConnectedToken());
         return list;
     }
+*/
 
 
     @GetMapping(value = "/{id}")
@@ -58,7 +66,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         LOGGER.info("trying to get member with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
         LOGGER.info("employee is null");
-        Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), id);
+        Employee employee = (Employee) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("phoneMumber: " + employee.getPhoneNumber());
         LOGGER.info("lastC: " + employee.getLastConnection());
         LOGGER.info("startDate: " + employee.getStartDate());
@@ -72,6 +80,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
 
     private void addingRoleList(ModelAndView mv) {
         LOGGER.info("adding roleList");
+        EmployeeManager employeeManager = (EmployeeManager) manager;
         mv.addObject("roleList", employeeManager.getRoles(helper.getConnectedToken()));
     }
 
@@ -84,7 +93,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
-            Employee employee = (Employee) employeeManager.getById(helper.getConnectedToken(), employeeForm.getId());
+            Employee employee = (Employee) manager.getById(helper.getConnectedToken(), employeeForm.getId());
             mv.addObject("employee", employee);
             mv.addObject("employeeForm", employeeForm);
             mv.addObject("showForm", 0);
@@ -93,7 +102,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         }
         LOGGER.info("carrying on");
         LOGGER.info("employee retrieved: " + employeeForm);
-        employeeManager.update(helper.getConnectedToken(), employeeForm);
+        manager.update(helper.getConnectedToken(), employeeForm);
         return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());
     }
 
@@ -101,7 +110,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        employeeManager.delete(helper.getConnectedToken(), id);
+        manager.delete(helper.getConnectedToken(), id);
         return employees();
     }
 
@@ -126,6 +135,7 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         ModelAndView mv = checkAndAddConnectedDetails("employees/employees_new");
         LOGGER.info("empl: " + employeeForm);
         mv.addObject("employeeForm", new EmployeeForm());
+        EmployeeManager employeeManager = (EmployeeManager) manager;
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             addingRoleList(mv);

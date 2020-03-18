@@ -28,14 +28,20 @@ import java.util.List;
 public class BillControllerImpl extends GlobalController<BillDTO, Bill> implements BillController {
 
     private static Logger LOGGER = Logger.getLogger(BillControllerImpl.class);
+    private static final String KEY_WORD = "bills";
     // @Inject
-    BillManager manager;
+    //  BillManager manager;
     ClientManager clientManager;
     CarManager carManager;
     EmployeeManager employeeManager;
     BillManager billManager;
     TaskManager taskManager;
     PieceManager pieceManager;
+
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
 
     public BillControllerImpl(LibraryHelper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, BillManager billManager, TaskManager taskManager) {
         super(helper);
@@ -51,7 +57,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
 
     @GetMapping("")
     public ModelAndView bills() throws Exception {
-        LOGGER.info("retrieving bills");
+       /* LOGGER.info("retrieving bills");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills");
         List<Bill> bills;
         try {
@@ -67,7 +73,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         }
 
 
-        return mv;
+        return mv;*/
+        return getList();
 
     }
 
