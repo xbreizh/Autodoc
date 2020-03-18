@@ -123,7 +123,7 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
         }
         LOGGER.info("pieceType retrieved: " + pieceTypeForm);
         manager.add(helper.getConnectedToken(), pieceTypeForm);
-        return pieceTypes();
+        return new ModelAndView("redirect:/pieceTypes");
     }
 
 

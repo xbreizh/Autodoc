@@ -106,10 +106,9 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid ClientForm clientForm, BindingResult bindingResult) throws Exception {
+    public ModelAndView create(@Valid ClientForm clientForm, BindingResult bindingResult) {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("clients/clients_new");
-        LOGGER.info("empl: " + clientForm);
         mv.addObject("clientForm", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
@@ -117,9 +116,7 @@ public class ClientControllerImpl extends GlobalController implements ClientCont
             mv.addObject("showForm", 1);
             return mv;
         }
-        LOGGER.info("client retrieved: " + clientForm);
-        clientManager.add(helper.getConnectedToken(), clientForm);
-        return clients();
+        return new ModelAndView("redirect:/clients");
     }
 
 

@@ -275,14 +275,16 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
             return mv;
         }
         LOGGER.info("car retrieved: " + searchCarForm);
-        manager.add(helper.getConnectedToken(), searchCarForm);
-        return cars();
+        // manager.add(helper.getConnectedToken(), searchCarForm);
+        return new ModelAndView("redirect:/cars");
     }
 
+/*
     private CarDTO convertFormIntoDto(SearchCarForm searchCarForm) {
         LOGGER.info("TODO");
         return null;
     }
+*/
 
 
 }

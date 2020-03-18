@@ -138,14 +138,13 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         }
         LOGGER.info("task retrieved: " + taskForm);
         manager.add(helper.getConnectedToken(), taskForm);
-        return tasks();
-        //return new ModelAndView("redirect:" + "/tasks/" );
+        return new ModelAndView("redirect:/tasks");
     }
 
-    private TaskDTO convertFormIntoDto(TaskForm taskForm) {
+/*    private TaskDTO convertFormIntoDto(TaskForm taskForm) {
         LOGGER.info("TODO");
         return null;
-    }
+    }*/
 
 
 }

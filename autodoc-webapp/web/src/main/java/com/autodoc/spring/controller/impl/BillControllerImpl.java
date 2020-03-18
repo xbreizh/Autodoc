@@ -232,7 +232,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
         billForm.setClientId(clients.get(0).getId());
         LOGGER.info("bill retrieved: " + billForm);
         manager.add(helper.getConnectedToken(), billForm);
-        return bills();
+        return new ModelAndView("redirect:/bills");
     }
 
 

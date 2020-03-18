@@ -105,7 +105,6 @@ public class GlobalServiceImpl<D> implements GlobalService {
         try {
             String className = getClassName();
             String url = BASE_URL + className + "/criteria";
-            //final HttpHeaders headers = setupHeader(token);
 
             String criteria = searchDto.toString();
             HttpEntity<String> request = new HttpEntity<>(criteria, headers);
@@ -136,7 +135,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
 
     private String globalCall(String token, Object object, HttpMethod method) {
-        //setupHeader(token);
+        setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
         // final HttpHeaders headers = setupHeader(token);
@@ -144,7 +143,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
         try {
             return restTemplate.exchange(url, method, new HttpEntity<>((D) object, headers), String.class).getBody();
         } catch (HttpClientErrorException error) {
-            String errorDetails = error.getResponseBodyAsString();
+            String errorDetails = error.getRawStatusCode() + " / " + error.getResponseBodyAsString();
             LOGGER.info(errorDetails);
             if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
                 LOGGER.info("bam");

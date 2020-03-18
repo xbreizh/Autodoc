@@ -125,7 +125,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
         }
         LOGGER.info("provider retrieved: " + providerForm);
         manager.add(helper.getConnectedToken(), providerForm);
-        return providers();
+        return new ModelAndView("redirect:/providers");
     }
 
 

@@ -2,7 +2,6 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.spring.controller.contract.EmployeeController;
@@ -138,13 +137,13 @@ public class EmployeeControllerImpl extends GlobalController implements Employee
         LOGGER.info("employee retrieved: " + employeeForm);
         employeeManager.add(helper.getConnectedToken(), employeeForm);
         addingRoleList(mv);
-        return employees();
+        return new ModelAndView("redirect:/employees");
     }
 
-    private EmployeeDTO convertFormIntoDto(EmployeeForm employeeForm) {
+/*    private EmployeeDTO convertFormIntoDto(EmployeeForm employeeForm) {
         LOGGER.info("TODO");
         return null;
-    }
+    }*/
 
 
 }

@@ -153,7 +153,7 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
             LOGGER.error("binding has errors");
             mv.addObject("pieceForm", pieceForm);
             mv.addObject("showForm", 1);
-            return mv;
+            return new ModelAndView("redirect:/pieces");
         }
         LOGGER.info("piece retrieved: " + pieceForm);
         manager.add(helper.getConnectedToken(), pieceForm);
