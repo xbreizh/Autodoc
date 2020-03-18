@@ -74,6 +74,7 @@ class ClientDaoImplTest {
         client2.setLastName("Moran");
         client2.setPhoneNumber("2133232");
         int id = clientDao.create(client2);
+        System.out.println("id returned: "+id);
         assertNotEquals(0, id);
     }
 

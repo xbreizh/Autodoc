@@ -77,7 +77,7 @@ public abstract class AbstractHibernateDao<T> {
         try {
             return (Integer) getCurrentSession().save(entity);
         } catch (Exception e) {
-            LOGGER.info("error while creating");
+            LOGGER.error("error while creating");
             return 0;
         }
     }

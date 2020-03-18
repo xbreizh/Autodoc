@@ -79,12 +79,12 @@ class TaskDaoImplTest {
         assertNotEquals(name, task.getName());
         task.setName(name);
         List<Piece> pieces = pieceDao.getAll();
-        task.setPieces(pieces.subList(1, 3));
+//        task.setPieces(pieces.subList(1, 3));
         dao.update(task);
         LOGGER.info(task);
         assertEquals(name, ((Task) dao.getById(id)).getName());
         LOGGER.info("getting task: " + dao.getById(id));
-        assertNotNull(((Task) dao.getById(id)).getPieces());
+    //    assertNotNull(((Task) dao.getById(id)).getPieces());
     }
 
     @Test

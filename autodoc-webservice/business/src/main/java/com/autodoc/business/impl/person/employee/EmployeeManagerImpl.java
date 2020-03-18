@@ -128,7 +128,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     private void checkAndPassLogin(Employee employee, String login) throws InvalidDtoException {
         Employee employee1 = employeeDao.getByLogin(login.toUpperCase());
-        if(employee1!=null){
+        LOGGER.info(employee);
+        if(employee1!=null && employee.getId()!=0){
             if (employee1.getId()!=employee.getId()) {
                 String error = "Login " + login.toUpperCase() + "already exists";
                 LOGGER.error(error);
