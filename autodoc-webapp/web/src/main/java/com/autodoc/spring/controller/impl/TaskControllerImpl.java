@@ -10,12 +10,10 @@ import com.autodoc.spring.controller.contract.TaskController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @ControllerAdvice
@@ -60,30 +58,33 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid TaskForm taskForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + taskForm.getId());
+    public ModelAndView update(@Valid TaskForm form, BindingResult bindingResult) throws Exception {
+        // LOGGER.info("trying to update member with id " + taskForm.getId());
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_details");
+        if (form == null) form = new TaskForm();
+        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+        mv.addObject("pieceList", pieceManager.getAll(token));
+       /* ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_details");
         mv.addObject("taskForm", new TaskForm());
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {
                 LOGGER.info(error.getObjectName() + " - " + error.getDefaultMessage());
             }
-            LOGGER.error("binding has errors: ");
-            Task task = (Task) manager.getById(token, taskForm.getId());
+            LOGGER.error("binding has errors: ");*/
+          /*  Task task = (Task) manager.getById(token, taskForm.getId());
             mv.addObject("pieceList", pieceManager.getAll(token));
             mv.addObject("obj", task);
             mv.addObject("form", taskForm);
-            mv.addObject("showForm", 0);
-            getPricePerHour(mv);
-            return mv;
-        }
+            mv.addObject("showForm", 0);*/
+        getPricePerHour(mv);
+        return mv;
+      /*  }
         LOGGER.info("carrying on");
         LOGGER.info("task retrieved: " + taskForm);
         // LOGGER.info("getting the pieces list: "+taskForm.getPieces());
         manager.update(helper.getConnectedToken(), taskForm);
-        return new ModelAndView("redirect:" + "/tasks/" + taskForm.getId());
+        return new ModelAndView("redirect:" + "/tasks/" + taskForm.getId());*/
 
     }
 
