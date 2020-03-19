@@ -15,7 +15,7 @@
 
 
     <h1>Bill Form</h1>
-    <label style="display: block" th:id="'switch' + ${bill.id}">
+    <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -23,63 +23,63 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${bill.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="bills/bills_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${bill.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
         <div th:fragment="bill_table" xmlns:th="http:/www.w3.org/1999/xhtml">
             <table>
                 <tr>
                     <td>Id</td>
-                    <td th:text="${bill.id}">Id</td>
+                    <td th:text="${obj.id}">Id</td>
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td th:text="${#dates.format(bill.dateReparation, 'dd-MMM-yyyy hh:mm')}">Date></td>
+                    <td th:text="${#dates.format(obj.dateReparation, 'dd-MMM-yyyy hh:mm')}">Date></td>
 
                 </tr>
                 <tr>
                     <td>Registration</td>
-                    <td th:onclick="'javascript:rowClicked(\'' +@{'/cars/' + ${bill.car.id}}+ '\');'"
-                        th:text="${bill.car.registration}">Registration
+                    <td th:onclick="'javascript:rowClicked(\'' +@{'/cars/' + ${obj.car.id}}+ '\');'"
+                        th:text="${obj.car.registration}">Registration
                     </td>
                 </tr>
                 <tr>
                     <td>Client</td>
-                    <td th:onclick="'javascript:rowClicked(\'' +@{'/clients/' + ${bill.client.id}}+ '\');'"
-                        th:text="${bill.client.lastName}">Client
+                    <td th:onclick="'javascript:rowClicked(\'' +@{'/clients/' + ${obj.client.id}}+ '\');'"
+                        th:text="${obj.client.lastName}">Client
                     </td>
                 </tr>
                 <tr>
                     <td> Employee</td>
-                    <td th:onclick="'javascript:rowClicked(\'' +@{'/employees/' + ${bill.employee.id}}+ '\');'"
-                        th:text="${bill.employee.login}">Employee
+                    <td th:onclick="'javascript:rowClicked(\'' +@{'/employees/' + ${obj.employee.id}}+ '\');'"
+                        th:text="${obj.employee.login}">Employee
                     </td>
                 </tr>
                 <tr>
                     <td>VAT</td>
-                    <td th:text="${bill.vat}">VAT</td>
+                    <td th:text="${obj.vat}">VAT</td>
                 </tr>
                 <tr>
                     <td>Discount ( % )</td>
-                    <td th:text="${bill.discount}">Discount</td>
+                    <td th:text="${obj.discount}">Discount</td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td th:text="${bill.total}">Total</td>
+                    <td th:text="${obj.total}">Total</td>
                 </tr>
                 <tr>
                     <td>Comments</td>
-                    <td th:text="${bill.comments}">Comments</td>
+                    <td th:text="${obj.comments}">Comments</td>
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td th:text="${bill.status}">Comments</td>
+                    <td th:text="${obj.status}">Comments</td>
                 </tr>
             </table>
             <h2>Tasks</h2>
-            <div th:if="${not #lists.isEmpty(bill.tasks)}">
+            <div th:if="${not #lists.isEmpty(obj.tasks)}">
 
 
                 <table class="table table-striped">
@@ -93,7 +93,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="data-link" th:each="task : ${bill.tasks}"
+                    <tr class="data-link" th:each="task : ${obj.tasks}"
                         th:onclick="'javascript:rowClicked(\'' +@{'/tasks/' + ${task.id}}+ '\');'">
                         <td th:text="${task.name}">name</td>
                         <td th:text="${task.description}">description</td>
@@ -103,7 +103,7 @@
                     </tbody>
                 </table>
                 <h2>Pieces</h2>
-                <div th:if="${not #lists.isEmpty(bill.pieces)}">
+                <div th:if="${not #lists.isEmpty(obj.pieces)}">
 
 
                     <table class="table table-striped">
@@ -116,7 +116,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="data-link" th:each="piece : ${bill.pieces}"
+                        <tr class="data-link" th:each="piece : ${obj.pieces}"
                             th:onclick="'javascript:rowClicked(\'' +@{'/pieces/' + ${piece.id}}+ '\');'">
                             <td th:text="${piece.pieceType.name}">category</td>
                             <td th:text="${piece.name}">name</td>
@@ -208,7 +208,7 @@
 
                 /*<![CDATA[*/
 
-                let pieces = /*[[${bill.pieces}]]*/ null;
+                let pieces = /*[[${obj.pieces}]]*/ null;
 
                 /*]]>*/
                 return pieces;
@@ -230,7 +230,7 @@
 
                 /*<![CDATA[*/
 
-                let tasks = /*[[${bill.tasks}]]*/ null;
+                let tasks = /*[[${obj.tasks}]]*/ null;
 
                 /*]]>*/
                 return tasks;

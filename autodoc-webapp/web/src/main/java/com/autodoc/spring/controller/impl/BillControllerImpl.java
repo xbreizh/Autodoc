@@ -29,12 +29,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
 
     private static Logger LOGGER = Logger.getLogger(BillControllerImpl.class);
     private static final String KEY_WORD = "bills";
-    // @Inject
-    //  BillManager manager;
+
     ClientManager clientManager;
     CarManager carManager;
     EmployeeManager employeeManager;
-    BillManager billManager;
     TaskManager taskManager;
     PieceManager pieceManager;
 
@@ -43,11 +41,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         return KEY_WORD;
     }
 
-    public BillControllerImpl(LibraryHelper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, BillManager billManager, TaskManager taskManager) {
+    public BillControllerImpl(LibraryHelper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager) {
         super(helper);
         this.manager = manager;
         this.pieceManager = pieceManager;
-        this.billManager = billManager;
         this.clientManager = clientManager;
         this.carManager = carManager;
         this.employeeManager = employeeManager;
@@ -65,35 +62,16 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get bill with id " + id);
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
-        LOGGER.info("bill is null");
-        Bill bill = (Bill) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("dateRepaUpdate: " + bill.getDateReparation());
-        LOGGER.info("bill: " + bill);
-        List<Employee> employees = employeeManager.getAll(token);
-        List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = carManager.getAll(token);
-        for (Car car : cars) System.out.println("reg: " + car.getRegistration());
-        LOGGER.info("cars: " + cars.size());
-        LOGGER.info("clients: " + clients.size());
-        LOGGER.info("employees: " + employees.size());
-        mv.addObject("employees", employees);
-        mv.addObject("clients", clients);
-        mv.addObject("cars", cars);
-        mv.addObject("billForm", bill);
-        mv.addObject("showForm", 1);
-        mv.addObject("bill", bill);
-        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
-        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-        mv.addObject("pieceList", pieceList);
+        ModelAndView mv = getById(id);
 
-
-        LOGGER.info("tasks: " + taskList);
-        LOGGER.info("pieces: " + pieceList);
+        mv.addObject("employees", employeeManager.getAll(token));
+        mv.addObject("clients", clientManager.getAll(token));
+        mv.addObject("cars", carManager.getAll(token));
+        mv.addObject("taskList", taskManager.getTemplates(token));
+        mv.addObject("pieceList", pieceManager.getAll(token));
         getPricePerHour(mv);
-        mv.addObject("taskList", taskList);
+
         return mv;
     }
 

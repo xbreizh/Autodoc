@@ -55,7 +55,6 @@ public class GlobalController<T, D, F> {
         String keyWord = getKeyWord();
         LOGGER.info("trying to get " + keyWord + " with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
-        LOGGER.info("client is null");
         T obj = (T) manager.getById(helper.getConnectedToken(), id);
         mv.addObject("form", obj);
         mv.addObject("showForm", 1);

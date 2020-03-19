@@ -5,12 +5,12 @@
     <button class="btn btn btn-info" onclick="pieceFunction(getPieces())">Add Piece</button>
     <button class="btn btn btn-info" onclick="taskFunction(getTasks())">Add Task</button>
     <br>
-    <form action="#" method="post" th:action="@{'/bills/update/' + ${bill.id}}" th:object="${billForm}">
+    <form action="#" method="post" th:action="@{'/bills/update/' + ${obj.id}}" th:object="${form}">
 
         <div class="form-group">
             <label for="id">Id</label>
             <input class="form-control" id="id" name="id" readonly required="required"
-                   th:value="${bill.id}"
+                   th:value="${obj.id}"
                    type="text"/>
             <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         </div>
@@ -41,10 +41,10 @@
         <div class="form-group">
             <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
                 <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
-                       th:value="${billForm.dateReparation}"
+                       th:value="${form.dateReparation}"
                        type="text"/>
                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                     id="dateReparation" name="dateReparation" th:value="${billForm.dateReparation}">
+                     id="dateReparation" name="dateReparation" th:value="${form.dateReparation}">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <div class="form-group">
             <label for="comments">Comments</label>
             <input class="form-control" id="comments" name="comments"
-                   th:value="${billForm.comments}"
+                   th:value="${form.comments}"
                    type="text"/>
             <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
         </div>
