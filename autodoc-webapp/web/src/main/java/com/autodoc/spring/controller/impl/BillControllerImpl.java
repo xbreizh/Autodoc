@@ -25,7 +25,7 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/bills")
-public class BillControllerImpl extends GlobalController<BillDTO, Bill> implements BillController {
+public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm> implements BillController {
 
     private static Logger LOGGER = Logger.getLogger(BillControllerImpl.class);
     private static final String KEY_WORD = "bills";
@@ -57,23 +57,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill> implemen
 
     @GetMapping("")
     public ModelAndView bills() throws Exception {
-       /* LOGGER.info("retrieving bills");
-        ModelAndView mv = checkAndAddConnectedDetails("bills/bills");
-        List<Bill> bills;
-        try {
-            bills = manager.getAll(helper.getConnectedToken());
-            LOGGER.info("bills found: " + bills.size());
-            if (bills.isEmpty()) {
-                return sendError(mv, "no bill found");
-            }
-            getPricePerHour(mv);
-            mv.addObject("bills", bills);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-
-
-        return mv;*/
         return getList();
 
     }

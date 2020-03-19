@@ -11,7 +11,10 @@ import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -22,7 +25,7 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/")
-public class GlobalController<T, D> {
+public class GlobalController<T, D, F> {
     private static final String LOGIN = "login";
     private static final String HOME = "home";
     private static final String REDIRECT_HOME = "redirect:/";
@@ -48,7 +51,7 @@ public class GlobalController<T, D> {
         this.helper = helper;
     }
 
-    protected ModelAndView getById(@PathVariable Integer id) throws Exception {
+    protected ModelAndView getById(int id) throws Exception {
         String keyWord = getKeyWord();
         LOGGER.info("trying to get " + keyWord + " with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
@@ -74,6 +77,25 @@ public class GlobalController<T, D> {
 
         mv.addObject(keyWord, all);
         return mv;
+    }
+
+    public ModelAndView updateObject(F form, int id, BindingResult bindingResult) throws Exception {
+        String keyWord = getKeyWord();
+        //LOGGER.info("trying to update member with id " + form.getId());
+        ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
+        // mv.addObject("form", new ClientForm());
+        if (bindingResult.hasErrors()) {
+            LOGGER.error("binding has errors");
+            T obj = (T) manager.getById(helper.getConnectedToken(), id);
+            mv.addObject("obj", obj);
+            mv.addObject("form", form);
+            mv.addObject("showForm", 0);
+            return mv;
+        }
+        LOGGER.info("carrying on");
+        LOGGER.info("client retrieved: " + form);
+        manager.update(helper.getConnectedToken(), form);
+        return new ModelAndView("redirect:" + "/" + keyWord + "/" + id);
     }
 
 

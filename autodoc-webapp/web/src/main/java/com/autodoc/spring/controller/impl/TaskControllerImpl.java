@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/tasks")
-public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implements TaskController {
+public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm> implements TaskController {
 
     private static Logger LOGGER = Logger.getLogger(TaskControllerImpl.class);
     private static final String KEY_WORD = "tasks";

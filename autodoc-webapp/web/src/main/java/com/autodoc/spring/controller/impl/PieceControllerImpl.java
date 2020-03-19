@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/pieces")
-public class PieceControllerImpl extends GlobalController implements PieceController {
+public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, PieceForm> implements PieceController {
 
     private static Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
     private static final String KEY_WORD = "pieces";

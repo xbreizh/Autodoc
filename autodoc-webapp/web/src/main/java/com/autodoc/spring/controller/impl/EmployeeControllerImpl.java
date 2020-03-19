@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @Controller
 @ControllerAdvice
 @RequestMapping("/employees")
-public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeDTO> implements EmployeeController {
+public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeDTO, EmployeeForm> implements EmployeeController {
 
     // @Inject
     // EmployeeManager employeeManager;

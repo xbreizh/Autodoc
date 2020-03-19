@@ -25,7 +25,7 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/cars")
-public class CarControllerImpl extends GlobalController<Car, CarDTO> implements CarController {
+public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> implements CarController {
 
     private static final String KEY_WORD = "cars";
     private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);

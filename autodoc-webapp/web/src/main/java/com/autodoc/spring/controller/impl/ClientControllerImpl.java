@@ -17,10 +17,11 @@ import javax.validation.Valid;
 @Controller
 @ControllerAdvice
 @RequestMapping("/clients")
-public class ClientControllerImpl extends GlobalController<Client, ClientDTO> implements ClientController {
+public class ClientControllerImpl extends GlobalController<Client, ClientDTO, ClientForm> implements ClientController {
 
     private static final Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
     private static final String KEY_WORD = "clients";
+
     public ClientControllerImpl(LibraryHelper helper, ClientManager manager) {
         super(helper);
         this.manager = manager;
@@ -52,9 +53,13 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO> im
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid ClientForm form, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + form.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
-        mv.addObject("form", new ClientForm());
+
+
+        //LOGGER.info("trying to update member with id " + form.getId());
+        //ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
+        if (form == null) form = new ClientForm();
+        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+       /* mv.addObject("form", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             Client client = (Client) manager.getById(helper.getConnectedToken(), form.getId());
@@ -66,7 +71,8 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO> im
         LOGGER.info("carrying on");
         LOGGER.info("client retrieved: " + form);
         manager.update(helper.getConnectedToken(), form);
-        return new ModelAndView("redirect:" + "/clients/" + form.getId());
+        return new ModelAndView("redirect:" + "/clients/" + form.getId());*/
+        return mv;
     }
 
     @GetMapping(value = "/delete/{id}")

@@ -2,6 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.PieceTypeManager;
 import com.autodoc.helper.LibraryHelper;
+import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.dtos.pieces.PieceTypeForm;
 import com.autodoc.model.models.pieces.PieceType;
 import com.autodoc.spring.controller.contract.PieceTypeController;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 @Controller
 @ControllerAdvice
 @RequestMapping("/pieceTypes")
-public class PieceTypeControllerImpl extends GlobalController implements PieceTypeController {
+public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTypeDTO, PieceTypeForm> implements PieceTypeController {
 
     private static Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
     // @Inject

@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @Controller
 @ControllerAdvice
 @RequestMapping("/providers")
-public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provider> implements ProviderController {
+public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provider, ProviderForm> implements ProviderController {
 
     private static Logger LOGGER = Logger.getLogger(ProviderControllerImpl.class);
     // @Inject
