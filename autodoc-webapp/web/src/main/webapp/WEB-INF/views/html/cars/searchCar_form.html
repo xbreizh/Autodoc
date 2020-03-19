@@ -5,7 +5,7 @@
         <div class="col-12">
             <form action="#" method="post" th:action="@{/cars/searchCar}" th:object="${searchCarForm}">
                 <div class="form-group">
-                    <label for="registration">Registration:</label>
+                    <label for="registration">Registration</label>
                     <input class="form-control" id="registration" name="registration" placeholder="Enter Registration"
                            required="required" th:value="${registration}" type="text"/>
                     <div th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error

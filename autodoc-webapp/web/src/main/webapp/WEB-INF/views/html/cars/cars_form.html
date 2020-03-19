@@ -1,15 +1,15 @@
 <div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
-    <form action="#" method="post" th:action="@{'/cars/update/' + ${car.id}}" th:object="${carForm}">
+    <form action="#" method="post" th:action="@{'/cars/update/' + ${obj.id}}" th:object="${carForm}">
 
-        <input name="registration" required="required" th:id="registration" th:value="${searchCarForm.registration}"
+        <input name="registration" required="required" th:id="registration" th:value="${form.registration}"
                type="hidden"/>
-        <input name="carModelId" required="required" th:id="carModelId" th:value="${car.model.id}" type="hidden"/>
+        <input name="carModelId" required="required" th:id="carModelId" th:value="${obj.model.id}" type="hidden"/>
         <div class="form-group">
             <select name="clientId" onchange="this.form.submit()" th:id="clientId">
                 <option th:each="client : ${clients}"
-                        th:selected="${client.id == currentClient}"
+                        th:selected="${client.id == obj.client.id}"
                         th:text="${client.firstName+' '+client.lastName}"
                         th:value="${client.id}"></option>
             </select>

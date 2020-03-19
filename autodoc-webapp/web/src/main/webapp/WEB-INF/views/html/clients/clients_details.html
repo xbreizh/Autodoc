@@ -14,7 +14,7 @@
     <a th:href="@{/clients}"><h4>(Back to list)</h4></a>
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${client.id}">
+    <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -22,30 +22,30 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${client.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="clients/clients_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${client.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
         <table>
             <tr>
-                <td>Id:</td>
-                <td th:text="${client.id}">Login</td>
+                <td>Id</td>
+                <td th:text="${obj.id}">Login</td>
             </tr>
             <tr>
-                <td>FirstName:</td>
-                <td th:text="${client.firstName}">FirstName</td>
+                <td>FirstName</td>
+                <td th:text="${obj.firstName}">FirstName</td>
             </tr>
             <tr>
-                <td>LastName:</td>
-                <td th:text="${client.lastName}">LastName</td>
+                <td>LastName</td>
+                <td th:text="${obj.lastName}">LastName</td>
             </tr>
             <tr>
-                <td>PhoneNumber1:</td>
-                <td th:text="${client.phoneNumber}">PhoneNumber</td>
+                <td>PhoneNumber1</td>
+                <td th:text="${obj.phoneNumber}">PhoneNumber</td>
             </tr>
         </table>
-        <a th:href="@{'/clients/delete/' + ${client.id}}">
+        <a th:href="@{'/clients/delete/' + ${obj.id}}">
             <button class="btn btn-danger" type="button">Delete</button>
         </a>
 

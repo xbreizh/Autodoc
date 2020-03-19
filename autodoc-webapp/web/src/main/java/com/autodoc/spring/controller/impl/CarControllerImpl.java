@@ -25,21 +25,16 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/cars")
-public class CarControllerImpl extends GlobalController<CarDTO, Car> implements CarController {
+public class CarControllerImpl extends GlobalController<Car, CarDTO> implements CarController {
 
-    private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
     private static final String KEY_WORD = "cars";
+    private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
     // @Inject
     //  CarManager manager;
     ClientManager clientManager;
     CarManager carManager;
     EmployeeManager employeeManager;
     CarModelManager carModelManager;
-
-    @Override
-    String getKeyWord() {
-        return KEY_WORD;
-    }
 
     public CarControllerImpl(LibraryHelper helper, CarManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, CarModelManager carModelManager) {
         super(helper);
@@ -48,6 +43,11 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
         this.carManager = carManager;
         this.employeeManager = employeeManager;
         this.carModelManager = carModelManager;
+    }
+
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
     }
 
     @PostMapping("/searchCar")
@@ -102,22 +102,6 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
 
     @GetMapping("")
     public ModelAndView cars() throws Exception {
-       /* LOGGER.info("retrieving cars");
-        ModelAndView mv = checkAndAddConnectedDetails("cars/cars");
-        List<Car> cars;
-        try {
-            cars = manager.getAll(helper.getConnectedToken());
-            LOGGER.info("cars found: " + cars.size());
-            if (cars.isEmpty()) {
-                return sendError(mv, "no car found");
-            }
-            mv.addObject("cars", cars);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-
-
-        return mv;*/
         return getList();
 
     }
@@ -126,33 +110,9 @@ public class CarControllerImpl extends GlobalController<CarDTO, Car> implements 
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView carById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
+        ModelAndView mv = getById(id);
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("cars/cars_details");
-        LOGGER.info("car is null");
-        Car car = (Car) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("car: " + car);
-        List employees = employeeManager.getAll(token);
-        List clients = clientManager.getAll(token);
-        List cars = employeeManager.getAll(token);
-        LOGGER.info("cars: " + cars.size());
-        LOGGER.info("clients: " + clients.size());
-        LOGGER.info("employees: " + employees.size());
-        LOGGER.info("car details: " + car);
-        ClientList clientList = new ClientList(clientManager.getAll(helper.getConnectedToken()));
-        mv.addObject("clientList", clientList);
-        mv.addObject("employees", employees);
-        mv.addObject("clients", clients);
-        mv.addObject("cars", cars);
-        mv.addObject("searchCarForm", car);
-        mv.addObject("showForm", 1);
-        mv.addObject("car", car);
-        mv.addObject("bills", car.getBills());
-        mv.addObject("currentClient", car.getClient().getId());
-        Client test = clientList.getList().get(1);
-        mv.addObject("test", test);
-        LOGGER.info("test: " + test);
-        LOGGER.info("bills for car: " + car.getBills().size());
+        mv.addObject("clients", clientManager.getAll(token));
         return mv;
     }
 

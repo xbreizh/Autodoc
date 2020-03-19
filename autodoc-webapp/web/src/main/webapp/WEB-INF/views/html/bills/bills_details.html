@@ -31,54 +31,54 @@
         <div th:fragment="bill_table" xmlns:th="http:/www.w3.org/1999/xhtml">
             <table>
                 <tr>
-                    <td>Id:</td>
+                    <td>Id</td>
                     <td th:text="${bill.id}">Id</td>
                 </tr>
                 <tr>
-                    <td>Date:</td>
+                    <td>Date</td>
                     <td th:text="${#dates.format(bill.dateReparation, 'dd-MMM-yyyy hh:mm')}">Date></td>
 
                 </tr>
                 <tr>
-                    <td>Registration:</td>
+                    <td>Registration</td>
                     <td th:onclick="'javascript:rowClicked(\'' +@{'/cars/' + ${bill.car.id}}+ '\');'"
                         th:text="${bill.car.registration}">Registration
                     </td>
                 </tr>
                 <tr>
-                    <td>Client:</td>
+                    <td>Client</td>
                     <td th:onclick="'javascript:rowClicked(\'' +@{'/clients/' + ${bill.client.id}}+ '\');'"
                         th:text="${bill.client.lastName}">Client
                     </td>
                 </tr>
                 <tr>
-                    <td> Employee:</td>
+                    <td> Employee</td>
                     <td th:onclick="'javascript:rowClicked(\'' +@{'/employees/' + ${bill.employee.id}}+ '\');'"
                         th:text="${bill.employee.login}">Employee
                     </td>
                 </tr>
                 <tr>
-                    <td>VAT:</td>
+                    <td>VAT</td>
                     <td th:text="${bill.vat}">VAT</td>
                 </tr>
                 <tr>
-                    <td>Discount ( % ):</td>
+                    <td>Discount ( % )</td>
                     <td th:text="${bill.discount}">Discount</td>
                 </tr>
                 <tr>
-                    <td>Total:</td>
+                    <td>Total</td>
                     <td th:text="${bill.total}">Total</td>
                 </tr>
                 <tr>
-                    <td>Comments:</td>
+                    <td>Comments</td>
                     <td th:text="${bill.comments}">Comments</td>
                 </tr>
                 <tr>
-                    <td>Status:</td>
+                    <td>Status</td>
                     <td th:text="${bill.status}">Comments</td>
                 </tr>
             </table>
-            <h2>Tasks:</h2>
+            <h2>Tasks</h2>
             <div th:if="${not #lists.isEmpty(bill.tasks)}">
 
 
@@ -102,7 +102,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <h2>Pieces:</h2>
+                <h2>Pieces</h2>
                 <div th:if="${not #lists.isEmpty(bill.pieces)}">
 
 

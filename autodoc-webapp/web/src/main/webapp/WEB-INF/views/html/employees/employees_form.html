@@ -9,20 +9,22 @@
           <td th:text="${employee.id}">Id</td>
       </div>-->
 
-    <form action="#" method="post" th:action="@{'/employees/update/' + ${employee.id}}" th:object="${employeeForm}">
-        <label for="id">Id:</label>
-        <input class="form-control" id="id" name="id" readonly required="required"
-               th:value="${employee.id}"
-               type="text"/>
-        <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+    <form action="#" method="post" th:action="@{'/employees/update/' + ${obj.id}}" th:object="${form}">
+        <div class="form-group">
+            <label for="id">Id</label>
+            <input class="form-control" id="id" name="id" readonly required="required"
+                   th:value="${obj.id}"
+                   type="text"/>
+            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+        </div>
         <div class="form-group">
             <label for="startDate">startDate:</label>
             <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
                 <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
-                       th:value="${employee.startDate}"
+                       th:value="${obj.startDate}"
                        type="text"/>
                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                     id="startDate" name="startDate" th:value="${employee.startDate}">
+                     id="startDate" name="startDate" th:value="${obj.startDate}">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
             </div>
@@ -30,28 +32,28 @@
         <div class="form-group">
             <label for="login">Login:</label>
             <input class="form-control" id="login" name="login" required="required"
-                   th:value="${employee.login}"
+                   th:value="${obj.login}"
                    type="text"/>
-            <div th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
+            <div th:errors="*{obj.login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
         </div>
         <div class="form-group">
             <label for="firstName">FirstName:</label>
             <input class="form-control" id="firstName" name="firstName" required="required"
-                   th:value="${employee.firstName}"
+                   th:value="${obj.firstName}"
                    type="text"/>
             <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
         </div>
         <div class="form-group">
             <label for="lastName">LastName:</label>
             <input class="form-control" id="lastName" name="lastName" required="required"
-                   th:value="${employee.lastName}"
+                   th:value="${obj.lastName}"
                    type="text"/>
             <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
         </div>
         <div class="form-group">
             <label for="phoneNumber">PhoneNumber:</label>
             <input class="form-control" id="phoneNumber" name="phoneNumber" required="required"
-                   th:value="${employee.phoneNumber}"
+                   th:value="${obj.phoneNumber}"
                    type="text"/>
             <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
         </div>
@@ -59,7 +61,7 @@
         <div class="form-group">
             <label for="roles">Roles:</label><br>
             <th:block th:each="role : ${roleList}">
-                <input id="roles" name="roles" th:checked="${#lists.contains(employee.roles,role)}"
+                <input id="roles" name="roles" th:checked="${#lists.contains(obj.roles,role)}"
                        th:value="${role}"
                        type="checkbox"/>
                 <label th:text="${role}"></label>
@@ -69,7 +71,7 @@
 
     </form>
     <br>
-    <a th:href="@{'/employees/delete/' + ${employee.id}}">
+    <a th:href="@{'/employees/delete/' + ${obj.id}}">
         <button class="btn btn-danger" type="button">Delete</button>
     </a>
 </div>

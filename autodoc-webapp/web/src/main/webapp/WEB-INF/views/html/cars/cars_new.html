@@ -5,14 +5,14 @@
 
     <form action="#" method="post" th:action="@{'/cars/newCar/'}" th:object="${carForm}">
         <div class="form-group">
-            <label for="registration">Registration:</label>
+            <label for="registration">Registration</label>
             <input class="form-control" id="registration" name="registration" placeholder="Enter Registration"
                    readonly required="required" th:value="${searchCarForm.registration}" type="text"/>
             <div th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</div>
         </div>
 
         <div class="form-group">
-            <label for="modelId">Model:</label>
+            <label for="modelId">Model</label>
             <select id="modelId" name="modelId">
                 <option th:each="model : ${models}"
                         th:utext="${model.manufacturer.name+' '+model.name}"
@@ -20,19 +20,19 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="client.firstName">FirstName:</label>
+            <label for="client.firstName">FirstName</label>
             <input class="form-control" id="client.firstName" name="client.firstName" placeholder="Enter FirstName"
                    required="required" type="text"/>
             <div th:errors="*{client.firstName}" th:if="${#fields.hasErrors('client.firstName')}">FirstName Error</div>
         </div>
         <div class="form-group">
-            <label for="client.lastName">LastName:</label>
+            <label for="client.lastName">LastName</label>
             <input class="form-control" id="client.lastName" name="client.lastName" placeholder="Enter LastName"
                    required="required" th:value="${carForm.client.lastName}" type="text"/>
             <div th:errors="*{client.lastName}" th:if="${#fields.hasErrors('client.lastName')}">LastName Error</div>
         </div>
         <div class="form-group">
-            <label for="client.phoneNumber">PhoneNumber:</label>
+            <label for="client.phoneNumber">PhoneNumber</label>
             <input class="form-control" id="client.phoneNumber" name="client.phoneNumber"
                    placeholder="Enter PhoneNumber"
                    required="required" th:value="${carForm.client.phoneNumber}" type="text"/>

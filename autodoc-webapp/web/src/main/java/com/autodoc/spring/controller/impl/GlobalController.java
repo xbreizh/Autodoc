@@ -12,10 +12,7 @@ import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -29,14 +26,8 @@ import java.util.List;
 public class GlobalController<T, D> {
     private static final String LOGIN = "login";
     private static final String HOME = "home";
-    private static final String RESET = "passwordReset/passwordReset";
     private static final String REDIRECT_HOME = "redirect:/";
-    private static final String RESET_OK = "passwordReset/passwordResetOk";
-    private static final String SEND_EMAIL_OK = "passwordReset/passwordResetLinkOk";
-    private static final String RESET_KO = "passwordReset/passwordResetLinkKo";
-    private static final String SEND_EMAIL = "passwordReset/passwordResetSendEmail";
     private static Logger LOGGER = Logger.getLogger(GlobalController.class);
-    // String keyWord = "global";
     LibraryHelper helper;
     @Inject
     BillManager billManager;
@@ -49,7 +40,7 @@ public class GlobalController<T, D> {
 
 
     String getKeyWord() {
-        return "pluof";
+        return "";
     }
 
 
@@ -58,13 +49,20 @@ public class GlobalController<T, D> {
         this.helper = helper;
     }
 
+    protected ModelAndView getById(@PathVariable Integer id) throws Exception {
+        String keyWord = getKeyWord();
+        LOGGER.info("trying to get " + keyWord + " with id " + id);
+        ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
+        LOGGER.info("client is null");
+        T obj = (T) manager.getById(helper.getConnectedToken(), id);
+        mv.addObject("form", obj);
+        mv.addObject("showForm", 1);
+        mv.addObject("obj", obj);
+        return mv;
+    }
 
-  /*  List<T> getAll() throws Exception {
-        List<T> list = (List<T>) manager.getAll(helper.getConnectedToken());
-        return list;
-    }*/
 
-    ModelAndView getList() throws Exception {
+    protected ModelAndView getList() throws Exception {
         String keyWord = getKeyWord();
         LOGGER.info("retrieving " + keyWord);
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord);

@@ -8,14 +8,14 @@
     <form action="#" method="post" th:action="@{'/bills/update/' + ${bill.id}}" th:object="${billForm}">
 
         <div class="form-group">
-            <label for="id">Id:</label>
+            <label for="id">Id</label>
             <input class="form-control" id="id" name="id" readonly required="required"
                    th:value="${bill.id}"
                    type="text"/>
             <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         </div>
         <div class="form-group">
-            <label for="carRegistration">Registration:</label>
+            <label for="carRegistration">Registration</label>
             <select id="carRegistration" name="carRegistration">
                 <option th:each="car : ${cars}"
                         th:utext="${car.registration}"
@@ -23,7 +23,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="clientId">Client:</label>
+            <label for="clientId">Client</label>
             <select id="clientId" name="clientId">
                 <option th:each="client : ${clients}"
                         th:utext="${client.firstName}"
@@ -31,7 +31,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="employeeLogin">Employee:</label>
+            <label for="employeeLogin">Employee</label>
             <select id="employeeLogin" name="employeeLogin">
                 <option th:each="employee : ${employees}"
                         th:utext="${employee.firstName}"
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="discount">Discount:</label>
+            <label for="discount">Discount</label>
             <input class="form-control" id="discount" name="discount" placeholder="Enter Discount"
                    type="number"
                    value="0"/>
@@ -58,7 +58,7 @@
         </div>
         <input required="required" th:field="*{status}" type="hidden"/>
         <div class="form-group">
-            <label for="comments">Comments:</label>
+            <label for="comments">Comments</label>
             <input class="form-control" id="comments" name="comments"
                    th:value="${billForm.comments}"
                    type="text"/>
@@ -68,11 +68,11 @@
         <input required="required" th:field="*{vat}" type="hidden"/>
 
         <div class="form-group" id="tasks">
-            <label>Tasks:</label>
+            <label>Tasks</label>
             <span id="myTasks"></span> <br><br>
         </div>
         <div class="form-group">
-            <label>Pieces:</label>
+            <label>Pieces</label>
             <span id="myPieces"></span>
         </div>
 

@@ -40,7 +40,7 @@
                 <tr class="data-link" th:each="bill : ${bills}"
                     th:onclick="'javascript:rowClicked(\'' +@{'/bills/' + ${bill.id}}+ '\');'">
                     <td th:text="${bill.id}">id</td>
-                    <td><span th:text="${bill.client.firstName}">firstName</span><span
+                    <td><span th:text="${bill.client.firstName}">firstName</span> <span
                             th:text="${bill.client.lastName}">lastName</span>
                     </td>
                     <td th:text="${bill.car.registration}">registration</td>

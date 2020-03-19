@@ -15,34 +15,34 @@
 
     <form action="#" method="post" th:action="@{'/pieces/new/'}" th:object="${pieceForm}">
         <div class="form-group">
-            <label for="name">Name:</label>
+            <label for="name">Name</label>
             <input class="form-control" id="name" name="name" required="required"
                    th:value="${name}"
                    type="text"/>
             <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
         </div>
         <div class="form-group">
-            <label for="brand">Brand:</label>
+            <label for="brand">Brand</label>
             <input class="form-control" id="brand" name="brand" required="required"
                    th:value="${brand}"
                    type="text"/>
             <div th:errors="*{brand}" th:if="${#fields.hasErrors('brand')}">Brand Error</div>
         </div>
         <div class="form-group">
-            <label for="buyingPrice">Buying Price:</label>
+            <label for="buyingPrice">Buying Price</label>
             <input class="form-control" id="buyingPrice" name="buyingPrice" required="required"
                    th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}" th:value="${buyingPrice}"/>
             <div th:errors="*{buyingPrice}" th:if="${#fields.hasErrors('buyingPrice')}">Buying Price Error</div>
         </div>
         <div class="form-group">
-            <label for="sellPrice">Sell Price:</label>
+            <label for="sellPrice">Sell Price</label>
             <input class="form-control" id="sellPrice" name="sellPrice" required="required"
                    th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}" th:value="${sellPrice}"/>
             <div th:errors="*{sellPrice}" th:if="${#fields.hasErrors('sellPrice')}">Sell Price Error</div>
         </div>
 
         <div class="form-group">
-            <label for="pieceTypeId">Piece Type:</label>
+            <label for="pieceTypeId">Piece Type</label>
             <select id="pieceTypeId" th:id="pieceTypeId" th:name="pieceTypeId">
                 <option value="0"> --</option>
                 <option th:each="pieceType : ${pieceTypes}"
@@ -51,7 +51,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="quantity">Quantity:</label>
+            <label for="quantity">Quantity</label>
             <input id="quantity" min="0.00" required="required" step="1" th:field="*{quantity}" type="number"
                    value="0.00"/>
             <div th:errors="*{quantity}" th:if="${#fields.hasErrors('quantity')}">Quantity Error</div>

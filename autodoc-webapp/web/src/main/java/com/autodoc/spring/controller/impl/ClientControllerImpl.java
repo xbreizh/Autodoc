@@ -19,10 +19,8 @@ import javax.validation.Valid;
 @RequestMapping("/clients")
 public class ClientControllerImpl extends GlobalController<Client, ClientDTO> implements ClientController {
 
-    private static Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
     private static final String KEY_WORD = "clients";
-    // ClientManager manager;
-
     public ClientControllerImpl(LibraryHelper helper, ClientManager manager) {
         super(helper);
         this.manager = manager;
@@ -36,29 +34,18 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO> im
 
 
     @GetMapping("")
-    public ModelAndView clients() throws Exception {
+    public ModelAndView allClients() throws Exception {
         return getList();
 
     }
 
 
 
-  /*  List<Client> getAll() throws Exception {
-        List<Client> list = (List<Client>) manager.getAll(helper.getConnectedToken());
-        return list;
-    }*/
 
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView clientById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get " + KEY_WORD + " with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails(KEY_WORD + "/" + KEY_WORD + "_details");
-        LOGGER.info("client is null");
-        Client client = (Client) manager.getById(helper.getConnectedToken(), id);
-        mv.addObject("form", client);
-        mv.addObject("showForm", 1);
-        mv.addObject("client", client);
-        return mv;
+        return getById(id);
     }
 
 
@@ -87,7 +74,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO> im
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
         manager.delete(helper.getConnectedToken(), id);
-        return clients();
+        return allClients();
     }
 
     @GetMapping(value = "/new")

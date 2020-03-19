@@ -13,7 +13,7 @@
     <h2>Employee details </h2>
     <a th:href="@{/employees}"><h4>(Back to list)</h4></a>
 
-    <label style="display: block" th:id="'switch' + ${employee.id}">
+    <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -21,43 +21,43 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${employee.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="employees/employees_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${employee.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
         <table>
             <tr>
-                <td>Id:</td>
-                <td th:text="${employee.id}">Id</td>
+                <td>Id</td>
+                <td th:text="${obj.id}">Id</td>
             </tr>
             <tr>
-                <td>Start Date:</td>
-                <td th:text="${#dates.format(employee.startDate, 'dd-MMM-yyyy')}">Start Date</td>
+                <td>Start Date</td>
+                <td th:text="${#dates.format(obj.startDate, 'dd-MMM-yyyy')}">Start Date</td>
             </tr>
             <tr>
-                <td>Last Connection:</td>
-                <td th:text="${#dates.format(employee.lastConnection, 'dd-MMM-yyyy')}">Last Connection</td>
+                <td>Last Connection</td>
+                <td th:text="${#dates.format(obj.lastConnection, 'dd-MMM-yyyy')}">Last Connection</td>
             </tr>
             <tr>
-                <td>Login:</td>
-                <td th:text="${employee.login}">Login</td>
+                <td>Login</td>
+                <td th:text="${obj.login}">Login</td>
             </tr>
             <tr>
-                <td>FirstName:</td>
-                <td th:text="${employee.firstName}">FirstName</td>
+                <td>FirstName</td>
+                <td th:text="${obj.firstName}">FirstName</td>
             </tr>
             <tr>
-                <td>LastName:</td>
-                <td th:text="${employee.lastName}">LastName</td>
+                <td>LastName</td>
+                <td th:text="${obj.lastName}">LastName</td>
             </tr>
             <tr>
-                <td>Roles:</td>
-                <td th:text="${employee.roles}">Roles</td>
+                <td>Roles</td>
+                <td th:text="${obj.roles}">Roles</td>
             </tr>
             <tr>
-                <td>PhoneNumber:</td>
-                <td th:text="${employee.phoneNumber}">PhoneNumber</td>
+                <td>PhoneNumber</td>
+                <td th:text="${obj.phoneNumber}">PhoneNumber</td>
             </tr>
         </table>
 

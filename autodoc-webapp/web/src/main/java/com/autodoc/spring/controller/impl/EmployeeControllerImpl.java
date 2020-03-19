@@ -37,44 +37,18 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
 
     @GetMapping("")
     public ModelAndView employees() throws Exception {
-       /* LOGGER.info("retrieving employees");
-        ModelAndView mv = checkAndAddConnectedDetails("employees/employees");
-
-        List<Employee> employees = getEmployees();
-
-        if (employees.isEmpty()) {
-            return sendError(mv, "no employee found");
-        }
-
-        mv.addObject("employees", employees);
-        return mv;*/
         return getList();
 
     }
 
-/*
-    private List<Employee> getEmployees() throws Exception {
-        List<Employee> list = (List<Employee>) manager.getAll(helper.getConnectedToken());
-        return list;
-    }
-*/
+
 
 
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView employeeById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
-        LOGGER.info("employee is null");
-        Employee employee = (Employee) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + employee.getPhoneNumber());
-        LOGGER.info("lastC: " + employee.getLastConnection());
-        LOGGER.info("startDate: " + employee.getStartDate());
-        mv.addObject("employeeForm", employee);
-        mv.addObject("showForm", 1);
-        mv.addObject("employee", employee);
+        ModelAndView mv = getById(id);
         addingRoleList(mv);
-        //mv.addObject("rol", employee.getRoles().get(0));
         return mv;
     }
 
