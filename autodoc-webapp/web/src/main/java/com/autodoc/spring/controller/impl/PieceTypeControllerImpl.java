@@ -50,8 +50,13 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid PieceTypeForm pieceTypeForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + pieceTypeForm.getId());
+    public ModelAndView update(@Valid PieceTypeForm form, BindingResult bindingResult) throws Exception {
+
+        if (form == null) form = new PieceTypeForm();
+        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+
+
+       /* LOGGER.info("trying to update member with id " + pieceTypeForm.getId());
         ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes_details");
         mv.addObject("pieceTypeForm", new PieceTypeForm());
         if (bindingResult.hasErrors()) {
@@ -65,7 +70,8 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
         LOGGER.info("carrying on");
         LOGGER.info("pieceType retrieved: " + pieceTypeForm);
         manager.update(helper.getConnectedToken(), pieceTypeForm);
-        return new ModelAndView("redirect:" + "/pieceTypes/" + pieceTypeForm.getId());
+        return new ModelAndView("redirect:" + "/pieceTypes/" + pieceTypeForm.getId());*/
+        return mv;
     }
 
     @GetMapping(value = "/delete/{id}")

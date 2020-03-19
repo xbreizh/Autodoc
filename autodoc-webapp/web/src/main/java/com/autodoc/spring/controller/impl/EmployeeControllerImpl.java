@@ -42,8 +42,6 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
     }
 
 
-
-
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView employeeById(@PathVariable Integer id) throws Exception {
@@ -61,10 +59,13 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update member with id " + employeeForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
-        mv.addObject("employeeForm", new EmployeeForm());
+    public ModelAndView update(@Valid EmployeeForm form, BindingResult bindingResult) throws Exception {
+        // LOGGER.info("trying to update member with id " + employeeForm.getId());
+        //  ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
+        if (form == null) form = new EmployeeForm();
+        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+        addingRoleList(mv);
+      /*  mv.addObject("employeeForm", new EmployeeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             Employee employee = (Employee) manager.getById(helper.getConnectedToken(), employeeForm.getId());
@@ -77,7 +78,8 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
         LOGGER.info("carrying on");
         LOGGER.info("employee retrieved: " + employeeForm);
         manager.update(helper.getConnectedToken(), employeeForm);
-        return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());
+        return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());*/
+        return mv;
     }
 
     @GetMapping(value = "/delete/{id}")
@@ -99,7 +101,6 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
         addingRoleList(mv);
         return mv;
     }
-
 
 
     @PostMapping(value = "/new")

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.ProviderManager;
@@ -111,3 +112,4 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
 
 }
 
+*/

@@ -78,16 +78,20 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid PieceForm pieceForm, BindingResult bindingResult) throws Exception {
+    public ModelAndView update(@Valid PieceForm form, BindingResult bindingResult) throws Exception {
 
-        LOGGER.info("trying to update piece with id " + pieceForm.getId());
+
+        if (form == null) form = new PieceForm();
+        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+
+        /*LOGGER.info("trying to update piece with id " + pieceForm.getId());
         ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_details");
-        mv.addObject("pieceForm", new PieceForm());
+        mv.addObject("pieceForm", new PieceForm());*/
         List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
         List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
         mv.addObject("carModels", carModels);
         mv.addObject("pieceTypes", pieceTypes);
-        if (bindingResult.hasErrors()) {
+      /*  if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             LOGGER.error(bindingResult.getFieldError().getDefaultMessage());
             LOGGER.info("pieceForm: "+pieceForm);
@@ -100,7 +104,8 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
         LOGGER.info("carrying on");
         LOGGER.info("piece retrieved: " + pieceForm);
         manager.update(helper.getConnectedToken(), pieceForm);
-        return new ModelAndView("redirect:" + "/pieces/" + pieceForm.getId());
+        return new ModelAndView("redirect:" + "/pieces/" + pieceForm.getId());*/
+        return mv;
     }
 
     @GetMapping(value = "/delete/{id}")
