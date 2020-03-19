@@ -15,7 +15,7 @@
 
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${task.id}">
+    <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -23,65 +23,40 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${task.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="tasks/tasks_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${task.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
         <table>
             <tr>
                 <td>Id</td>
-                <td th:text="${task.id}">Id</td>
+                <td th:text="${obj.id}">Id</td>
             </tr>
             <tr>
                 <td>Name</td>
-                <td th:text="${task.name}">Name</td>
+                <td th:text="${obj.name}">Name</td>
             </tr>
             <tr>
                 <td>Description</td>
-                <td th:text="${task.description}">Description</td>
+                <td th:text="${obj.description}">Description</td>
             </tr>
             <tr>
                 <td> Price</td>
-                <td th:text="${task.estimatedTime * pricePerHour}">Price</td>
+                <td th:text="${obj.estimatedTime * pricePerHour}">Price</td>
             </tr>
             <tr>
                 <td>Estimated Time ( heure )</td>
-                <td th:text="${task.estimatedTime}">Estimated Time</td>
+                <td th:text="${obj.estimatedTime}">Estimated Time</td>
             </tr>
             <tr>
                 <td>Template</td>
-                <td th:text="${task.template}">Template</td>
+                <td th:text="${obj.template}">Template</td>
             </tr>
         </table>
-        <a th:href="@{'/tasks/delete/' + ${task.id}}">
+        <a th:href="@{'/tasks/delete/' + ${obj.id}}">
             <button class="btn btn-danger" type="button">Delete</button>
         </a><br>
-        <!--<h3>Pieces</h3><br><br><br>
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th th:text="Name">Name</th>
-                <th th:text="Brand">Brand</th>
-                <th th:text="BuyingPrice">Buying Price</th>
-                <th th:text="SellPrice">Sell Price</th>
-                <th th:text="PieceType">PieceType</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="piece : ${pieces}">
-                <td th:text="${piece.pieceType.name}">PieceType</td>
-                <td th:text="${piece.name}">name</td>
-                <td th:text="${piece.brand}">brand</td>
-                <td th:text="${piece.buyingPrice}">buyingPrice</td>
-                <td th:text="${piece.sellPrice}">sellPrice</td>
-            </tr>
-
-
-            </tbody>
-        </table>-->
 
     </div>
 </div>

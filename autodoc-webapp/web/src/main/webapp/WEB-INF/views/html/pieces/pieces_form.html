@@ -3,12 +3,12 @@
 
     <h2>Piece form</h2>
 
-    <form action="#" method="post" th:action="@{'/pieces/update/' + ${piece.id}}" th:object="${pieceForm}">
+    <form action="#" method="post" th:action="@{'/pieces/update/' + ${obj.id}}" th:object="${form}">
 
         <div class="form-group">
             <label for="id">Id</label>
             <input class="form-control" id="id" name="id" readonly required="required"
-                   th:value="${piece.id}"
+                   th:value="${obj.id}"
                    type="text"/>
             <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         </div>
@@ -23,21 +23,21 @@
         <div class="form-group">
             <label for="name">Name</label>
             <input class="form-control" id="name" name="name" required="required"
-                   th:value="${piece.name}"
+                   th:value="${obj.name}"
                    type="text"/>
             <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
         </div>
         <div class="form-group">
             <label for="brand">Brand</label>
             <input class="form-control" id="brand" name="brand" required="required"
-                   th:value="${piece.brand}"
+                   th:value="${obj.brand}"
                    type="text"/>
             <div th:errors="*{brand}" th:if="${#fields.hasErrors('brand')}">Brand Error</div>
         </div>
         <div class="form-group">
             <label for="buyingPrice">Buying Price</label>
             <input class="form-control" id="buyingPrice" name="buyingPrice" required="required" step="0.01"
-                   th:value="${piece.buyingPrice}"
+                   th:value="${obj.buyingPrice}"
                    type="number"/>
             <div th:errors="*{buyingPrice}" th:if="${#fields.hasErrors('buyingPrice')}">Buying Price Error</div>
         </div>
@@ -45,12 +45,13 @@
             <label for="sellPrice">Sell Price</label>
             <input class="form-control" id="sellPrice" name="sellPrice" required="required" step="0.01"
                    th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}"
-                   th:value="${piece.sellPrice}" type="number"/>
+                   th:value="${obj.sellPrice}" type="number"/>
             <div th:errors="*{sellPrice}" th:if="${#fields.hasErrors('sellPrice')}">Sell Price Error</div>
         </div>
         <div class="form-group">
             <label for="quantity">Quantity</label>
-            <input id="quantity" min="0.00" required="required" step="1" th:field="*{quantity}" type="number"
+            <input id="quantity" min="0.00" name="quantity" required="required" step="1" th:value="${obj.quantity}"
+                   type="number"
                    value="0.00"/>
             <div th:errors="*{quantity}" th:if="${#fields.hasErrors('quantity')}">Quantity Error</div>
         </div>

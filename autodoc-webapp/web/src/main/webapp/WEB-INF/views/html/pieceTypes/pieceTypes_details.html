@@ -15,7 +15,7 @@
 
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${pieceType.id}">
+    <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -23,22 +23,22 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${pieceType.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="pieceTypes/pieceTypes_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${pieceType.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
         <table>
             <tr>
                 <td>Id</td>
-                <td th:text="${pieceType.id}">Login</td>
+                <td th:text="${obj.id}">Login</td>
             </tr>
             <tr>
                 <td>Name</td>
-                <td th:text="${pieceType.name}">Name</td>
+                <td th:text="${obj.name}">Name</td>
             </tr>
         </table>
-        <a th:href="@{'/pieceTypes/delete/' + ${pieceType.id}}">
+        <a th:href="@{'/pieceTypes/delete/' + ${obj.id}}">
             <button class="btn btn-danger" type="button">Delete</button>
         </a>
 

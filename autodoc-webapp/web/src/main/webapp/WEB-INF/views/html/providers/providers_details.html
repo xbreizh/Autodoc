@@ -15,7 +15,7 @@
     <p th:text="${provider.company}">Login</p>
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${provider.id}">
+    <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -23,38 +23,38 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${provider.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="providers/providers_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${provider.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
         <table>
             <tr>
                 <td>Id</td>
-                <td th:text="${provider.id}">Id</td>
+                <td th:text="${obj.id}">Id</td>
             </tr>
             <tr>
                 <td>Company</td>
-                <td th:text="${provider.company}">Roles</td>
+                <td th:text="${obj.company}">Roles</td>
             </tr>
             <tr>
                 <td>FirstName</td>
-                <td th:text="${provider.firstName}">FirstName</td>
+                <td th:text="${obj.firstName}">FirstName</td>
             </tr>
             <tr>
                 <td>LastName</td>
-                <td th:text="${provider.lastName}">LastName</td>
+                <td th:text="${obj.lastName}">LastName</td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td th:text="${provider.email}">Email1</td>
+                <td th:text="${obj.email}">Email1</td>
             </tr>
             <tr>
                 <td>PhoneNumber</td>
-                <td th:text="${provider.phoneNumber}">PhoneNumber1</td>
+                <td th:text="${obj.phoneNumber}">PhoneNumber1</td>
             </tr>
         </table>
-        <a th:href="@{'/providers/delete/' + ${provider.id}}">
+        <a th:href="@{'/providers/delete/' + ${obj.id}}">
             <button class="btn btn-danger" type="button">Delete</button>
         </a>
 

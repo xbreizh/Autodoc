@@ -43,24 +43,6 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
 
     @GetMapping("")
     public ModelAndView tasks() throws Exception {
-        // getPricePerHour(mv);
-       /* LOGGER.info("retrieving tasks");
-        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks");
-        List<Task> tasks;
-        getPricePerHour(mv);
-        try {
-            tasks = manager.getAll(helper.getConnectedToken());
-            LOGGER.info("tasks found: " + tasks.size());
-            if (tasks.isEmpty()) {
-                return sendError(mv, "no task found");
-            }
-            mv.addObject("tasks", tasks);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-
-
-        return mv;*/
         ModelAndView mv = getList();
         getPricePerHour(mv);
         return mv;
@@ -70,19 +52,8 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView taskById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
-        String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_details");
-        LOGGER.info("task is null");
-        Task task = (Task) manager.getById(token, id);
-        LOGGER.info("phoneMumber: " + task.getName());
+        ModelAndView mv = getById(id);
         getPricePerHour(mv);
-       /* LOGGER.info("task pieces: " + task.getPieces());
-        mv.addObject("pieceList", pieceManager.getAll(token));
-        mv.addObject("pieces", task.getPieces());*/
-        mv.addObject("taskForm", task);
-        mv.addObject("showForm", 1);
-        mv.addObject("task", task);
         return mv;
     }
 
@@ -96,15 +67,16 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task> implemen
         mv.addObject("taskForm", new TaskForm());
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors ) {
-                LOGGER.info (error.getObjectName() + " - " + error.getDefaultMessage());
+            for (FieldError error : errors) {
+                LOGGER.info(error.getObjectName() + " - " + error.getDefaultMessage());
             }
             LOGGER.error("binding has errors: ");
             Task task = (Task) manager.getById(token, taskForm.getId());
             mv.addObject("pieceList", pieceManager.getAll(token));
-            mv.addObject("task", task);
-            mv.addObject("taskForm", taskForm);
+            mv.addObject("obj", task);
+            mv.addObject("form", taskForm);
             mv.addObject("showForm", 0);
+            getPricePerHour(mv);
             return mv;
         }
         LOGGER.info("carrying on");

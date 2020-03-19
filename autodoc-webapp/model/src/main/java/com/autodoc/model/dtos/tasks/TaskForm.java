@@ -20,6 +20,7 @@ public class TaskForm {
     private String name;
 
     @NotEmpty(message = "description cannot be empty")
+    @Size(min = 3, max = 7)
     private String description;
 
     @Min(value = 1, message = "estimatedTime cannot be null")

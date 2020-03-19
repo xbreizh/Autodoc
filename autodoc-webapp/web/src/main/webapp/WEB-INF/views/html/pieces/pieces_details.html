@@ -15,7 +15,7 @@
 
 
     <h1>Form</h1>
-    <label style="display: block" th:id="'switch' + ${piece.id}">
+    <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">
         <span class="slider round"></span>
@@ -23,43 +23,43 @@
     <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${piece.id}">
+    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="pieces/pieces_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${piece.id}">
+    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
         <table>
             <tr>
                 <td>Id</td>
-                <td th:text="${piece.id}">Id</td>
+                <td th:text="${obj.id}">Id</td>
             </tr>
             <tr>
                 <td>PieceType</td>
-                <td th:text="${piece.pieceType.name}">PieceTypeId</td>
+                <td th:text="${obj.pieceType.name}">PieceTypeId</td>
             </tr>
             <tr>
                 <td>Brand</td>
-                <td th:text="${piece.brand}">Brand</td>
+                <td th:text="${obj.brand}">Brand</td>
             </tr>
             <tr>
                 <td>Name</td>
-                <td th:text="${piece.name}">Name</td>
+                <td th:text="${obj.name}">Name</td>
             </tr>
             <tr>
                 <td>Buying Price</td>
-                <td th:text="${piece.buyingPrice}">Buying Price</td>
+                <td th:text="${obj.buyingPrice}">Buying Price</td>
             </tr>
             <tr>
                 <td>Sell Price</td>
-                <td th:text="${piece.sellPrice}">Sell Price</td>
+                <td th:text="${obj.sellPrice}">Sell Price</td>
             </tr>
             <tr>
                 <td>Quantity</td>
-                <td th:text="${piece.quantity}">Sell Price</td>
+                <td th:text="${obj.quantity}">Sell Price</td>
             </tr>
 
         </table>
-        <a th:href="@{'/pieces/delete/' + ${piece.id}}">
+        <a th:href="@{'/pieces/delete/' + ${obj.id}}">
             <button class="btn btn-danger" type="button">Delete</button>
         </a>
 

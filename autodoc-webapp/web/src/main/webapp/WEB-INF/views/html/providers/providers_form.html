@@ -3,11 +3,11 @@
 
     <h2>Provider form</h2>
 
-     <form action="#" method="post" th:action="@{'/providers/update/' + ${provider.id}}" th:object="${providerForm}">
+     <form action="#" method="post" th:action="@{'/providers/update/' + ${obj.id}}" th:object="${form}">
          <table>
              <tr>
                  <td>Id</td>
-                 <td th:text="${provider.id}">Id</td>
+                 <td th:text="${obj.id}">Id</td>
              </tr>
              <tr>
                  <td>Company</td>

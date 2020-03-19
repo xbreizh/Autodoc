@@ -35,41 +35,15 @@ public class PieceTypeControllerImpl extends GlobalController implements PieceTy
 
     @GetMapping("")
     public ModelAndView pieceTypes() throws Exception {
-       /* LOGGER.info("retrieving pieceTypes");
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes");
-
-        List<PieceTypeDTO> pieceTypes = getPieceTypes();
-        LOGGER.info("pieceTypes found: " + pieceTypes.size());
-
-        if (pieceTypes.isEmpty()) {
-            return sendError(mv, "no pieceType found");
-        }
-
-        mv.addObject("pieceTypes", pieceTypes);
-        return mv;*/
         return getList();
 
     }
 
- /*   private List<PieceTypeDTO> getPieceTypes() throws Exception {
-        List<PieceTypeDTO> list = (List<PieceTypeDTO>) manager.getAll(helper.getConnectedToken());
-        return list;
-    }
-*/
 
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView pieceTypeById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes_details");
-        LOGGER.info("pieceType is null");
-        PieceType pieceType = (PieceType) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + pieceType.getName());
-        LOGGER.info("pieceType: " + pieceType);
-        mv.addObject("pieceTypeForm", pieceType);
-        mv.addObject("showForm", 1);
-        mv.addObject("pieceType", pieceType);
-        return mv;
+        return getById(id);
     }
 
 

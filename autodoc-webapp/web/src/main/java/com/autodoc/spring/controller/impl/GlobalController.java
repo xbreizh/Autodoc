@@ -5,7 +5,6 @@ import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.helper.LibraryHelper;
-import com.autodoc.helper.PasswordCheckerImpl;
 import com.autodoc.model.dtos.RegistrationForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
 import com.autodoc.model.models.person.employee.Employee;
@@ -35,7 +34,7 @@ public class GlobalController<T, D> {
     private ClientManager clientManager;
     @Inject
     private EmployeeManager employeeManager;
-    private PasswordCheckerImpl passwordChecker;
+   // private PasswordCheckerImpl passwordChecker;
     GlobalManager manager;
 
 

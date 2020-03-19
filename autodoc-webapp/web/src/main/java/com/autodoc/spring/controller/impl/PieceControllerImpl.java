@@ -49,46 +49,29 @@ public class PieceControllerImpl extends GlobalController implements PieceContro
 
     @GetMapping("")
     public ModelAndView pieces() throws Exception {
-       /* LOGGER.info("retrieving pieces");
-        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces");
-
-        List<Piece> pieces = getPieces();
-        LOGGER.info("pieces found: " + pieces.size());
-
-        if (pieces.isEmpty()) {
-            return sendError(mv, "no piece found");
-        }
-
-        mv.addObject("pieces", pieces);
-        return mv;*/
         return getList();
 
     }
-/*
-    private List<Piece> getPieces() throws Exception {
-        List<Piece> list = (List<Piece>) manager.getAll(helper.getConnectedToken());
-        return list;
-    }*/
 
 
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView pieceById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get piece with id " + id);
+        /*LOGGER.info("trying to get piece with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_details");
         LOGGER.info("piece is null");
         Piece piece = (Piece) manager.getById(helper.getConnectedToken(), id);
         LOGGER.info("name: " + piece.getName());
         LOGGER.info("piece: " + piece);
-        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
-        LOGGER.info("carModels: "+carModels);
-        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
-        LOGGER.info("pieceTypes: "+pieceTypes);
-        mv.addObject("carModels", carModels);
-        mv.addObject("pieceTypes", pieceTypes);
         mv.addObject("pieceForm", piece);
         mv.addObject("showForm", 1);
-        mv.addObject("piece", piece);
+        mv.addObject("piece", piece);*/
+
+        ModelAndView mv = getById(id);
+        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        mv.addObject("carModels", carModels);
+        mv.addObject("pieceTypes", pieceTypes);
         return mv;
     }
 

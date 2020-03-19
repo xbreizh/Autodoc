@@ -37,24 +37,6 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
 
     @GetMapping("")
     public ModelAndView providers() throws Exception {
-       /* LOGGER.info("retrieving providers");
-        ModelAndView mv = checkAndAddConnectedDetails("providers/providers");
-        List<Provider> providers;
-        try {
-           providers = manager.getAll(helper.getConnectedToken());
-            LOGGER.info("providers found: " + providers.size());
-            if (providers.isEmpty()) {
-                return sendError(mv, "no provider found");
-            }
-            mv.addObject("providers", providers);
-        }catch (Exception e){
-            LOGGER.error(e.getMessage());
-        }
-
-
-
-
-        return mv;*/
         return getList();
 
     }
@@ -64,16 +46,7 @@ public class ProviderControllerImpl extends GlobalController<ProviderDTO, Provid
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView providerById(@PathVariable Integer id) throws Exception {
-        LOGGER.info("trying to get member with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("providers/providers_details");
-        LOGGER.info("provider is null");
-        Provider provider = (Provider) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("phoneMumber: " + provider.getPhoneNumber());
-        LOGGER.info("provider: " + provider);
-        mv.addObject("providerForm", provider);
-        mv.addObject("showForm", 1);
-        mv.addObject("provider", provider);
-        return mv;
+        return getById(id);
     }
 
 
