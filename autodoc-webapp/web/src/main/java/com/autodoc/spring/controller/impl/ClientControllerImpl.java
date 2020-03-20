@@ -55,23 +55,8 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
     public ModelAndView update(@Valid ClientForm form, BindingResult bindingResult) throws Exception {
 
 
-        //LOGGER.info("trying to update member with id " + form.getId());
-        //ModelAndView mv = checkAndAddConnectedDetails("clients/clients_details");
         if (form == null) form = new ClientForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
-       /* mv.addObject("form", new ClientForm());
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            Client client = (Client) manager.getById(helper.getConnectedToken(), form.getId());
-            mv.addObject("client", client);
-            mv.addObject("form", form);
-            mv.addObject("showForm", 0);
-            return mv;
-        }
-        LOGGER.info("carrying on");
-        LOGGER.info("client retrieved: " + form);
-        manager.update(helper.getConnectedToken(), form);
-        return new ModelAndView("redirect:" + "/clients/" + form.getId());*/
         return mv;
     }
 

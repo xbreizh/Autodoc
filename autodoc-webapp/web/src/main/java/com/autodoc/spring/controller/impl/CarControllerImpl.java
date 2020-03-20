@@ -51,49 +51,31 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
     }
 
     @PostMapping("/searchCar")
-    public ModelAndView searchCar(@Valid SearchCarForm searchCarForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("getting here: " + searchCarForm);
-        String registration = searchCarForm.getRegistration().toUpperCase();
+    public ModelAndView searchCar(@Valid SearchCarForm form, BindingResult bindingResult) throws Exception {
+        LOGGER.info("getting here: " + form);
+        String registration = form.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         String token = helper.getConnectedToken();
         if (bindingResult.hasErrors()) {
+            LOGGER.error(bindingResult.getFieldError().getRejectedValue());
             return mv;
         }
 
 
         Car car = carManager.getByRegistration(helper.getConnectedToken(), registration);
-        LOGGER.info("car found: " + car);
         if (car == null) {
-            mv.addObject("message", "registration not found in the system");
+            mv.addObject("message", "Registration not found in the system: ");
             mv.addObject("registration", registration);
-            mv.addObject("carForm", new CarForm());
+            mv.addObject("form", new CarForm());
             mv.addObject("models", carModelManager.getAll(token));
             return mv;
         }
-        mv = checkAndAddConnectedDetails("cars/cars_details");
-        LOGGER.info("car: " + car);
-        List employees = employeeManager.getAll(token);
-        List clients = clientManager.getAll(token);
-        List cars = employeeManager.getAll(token);
-        LOGGER.info("cars: " + cars.size());
-        LOGGER.info("clients: " + clients.size());
-        LOGGER.info("employees: " + employees.size());
-        LOGGER.info("car details: " + car);
-        Client test = (Client) clients.get(1);
-        mv.addObject("test", test);
-        LOGGER.info("test: " + test);
-        ClientList clientList = new ClientList(clientManager.getAll(helper.getConnectedToken()));
-        mv.addObject("clientList", clientList);
-        mv.addObject("employees", employees);
-        mv.addObject("clients", clients);
-        mv.addObject("cars", cars);
-        mv.addObject("searchCarForm", car);
-        mv.addObject("showForm", 1);
-        mv.addObject("bills", car.getBills());
-        LOGGER.info("bills for car: " + car.getBills().size());
-        mv.addObject("currentClient", car.getClient().getId());
-        mv.addObject("car", car);
 
+        mv = getById(car.getId());
+        List<Client> clients = clientManager.getAll(token);
+        mv.addObject("clients", clients);
+        ClientList clientList = new ClientList(clients);
+        mv.addObject("clientList", clientList);
         return mv;
 
 
@@ -174,7 +156,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
     @PostMapping(value = "/newCar")
     @ResponseBody
     public ModelAndView createNew(@Valid CarForm carForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to create new Car ");
+        LOGGER.info("carForm received: " + carForm);
         String token = helper.getConnectedToken();
 
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
@@ -186,38 +168,10 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
         }
 
 
-        LOGGER.info("carForm received: " + carForm);
 
         int id = Integer.parseInt(carManager.addNewCar(token, carForm));
-        if (id != 0) carById(id);
 
-
-        mv = checkAndAddConnectedDetails("cars/cars_details");
-        LOGGER.info("car is null");
-        Car car = (Car) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("car: " + car);
-        List employees = employeeManager.getAll(token);
-        List clients = clientManager.getAll(token);
-        List cars = employeeManager.getAll(token);
-        LOGGER.info("cars: " + cars.size());
-        LOGGER.info("clients: " + clients.size());
-        LOGGER.info("employees: " + employees.size());
-        LOGGER.info("car details: " + car);
-        ClientList clientList = new ClientList(clientManager.getAll(helper.getConnectedToken()));
-        mv.addObject("clientList", clientList);
-        mv.addObject("employees", employees);
-        mv.addObject("clients", clients);
-        mv.addObject("cars", cars);
-        mv.addObject("searchCarForm", car);
-        mv.addObject("showForm", 1);
-        mv.addObject("car", car);
-        mv.addObject("bills", car.getBills());
-        mv.addObject("currentClient", car.getClient().getId());
-        Client test = clientList.getList().get(1);
-        mv.addObject("test", test);
-        LOGGER.info("test: " + test);
-        LOGGER.info("bills for car: " + car.getBills().size());
-        return mv;
+        return new ModelAndView("redirect:" + "/cars" + "/" + id);
     }
 
 
@@ -231,7 +185,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
         mv.addObject("carForm", new SearchCarForm());
         List<Employee> employees = employeeManager.getAll(token);
         List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = employeeManager.getAll(token);
+        List<Car> cars = carManager.getAll(token);
         mv.addObject("employees", employees);
         mv.addObject("clients", clients);
         mv.addObject("cars", cars);

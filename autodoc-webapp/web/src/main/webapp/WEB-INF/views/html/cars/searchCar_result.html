@@ -1,4 +1,3 @@
-<!--
 <div th:fragment="searchCar_result" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
@@ -56,7 +55,7 @@
             <td th:text="${car.client.lastName}">lastName</td>
             <td th:text="${car.client.phoneNumber}">phoneNumber</td>
         </tr>
-        &lt;!&ndash; <tr>
+        <!-- <tr>
              <td>Select Client:</td>
              <td>
                  <select th:field="*{client}">
@@ -65,15 +64,15 @@
                              th:value="${client}"/>
                  </select>
              </td>
-         </tr>&ndash;&gt;
+         </tr>-->
 
 
         </tbody>
     </table>
-    &lt;!&ndash; <div th:replace="cars/cars_form :: form"></div>&ndash;&gt;
+    <!-- <div th:replace="cars/cars_form :: form"></div>-->
     <br><br>
 
-    &lt;!&ndash;    <form action="#" method="post" th:action="@{'/bills/balako/'" th:object="${NewBillForm}">
+    <!--    <form action="#" method="post" th:action="@{'/bills/balako/'" th:object="${NewBillForm}">
             <table>
                 <tr>
                     <td>Registration:</td>
@@ -91,7 +90,7 @@
                 </tr>
             </table>
         </form>
-        <br><br>&ndash;&gt;
+        <br><br>-->
     <a th:href="@{'/bills/new(id={car.id})'}">
         <button class="btn btn-info" type="button">New Bill</button>
     </a>
@@ -129,4 +128,3 @@
 
 
 
--->
