@@ -10,8 +10,6 @@ import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.client.ClientList;
-import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.spring.controller.contract.CarController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,7 @@ import java.util.List;
 @Controller
 @ControllerAdvice
 @RequestMapping("/cars")
-public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> implements CarController {
+public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarForm> implements CarController {
 
     private static final String KEY_WORD = "cars";
     private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
@@ -68,14 +66,12 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
             mv.addObject("registration", registration);
             mv.addObject("form", new CarForm());
             mv.addObject("models", carModelManager.getAll(token));
+            List<Client> clients = clientManager.getAll(token);
+            mv.addObject("clients", clients);
             return mv;
         }
 
         mv = getById(car.getId());
-        List<Client> clients = clientManager.getAll(token);
-        mv.addObject("clients", clients);
-        ClientList clientList = new ClientList(clients);
-        mv.addObject("clientList", clientList);
         return mv;
 
 
@@ -101,38 +97,17 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid SearchCarForm searchCarForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update car with id " + searchCarForm.getId());
+    public ModelAndView update(@Valid SearchCarForm form, BindingResult bindingResult) throws Exception {
+        LOGGER.info("trying to update car with id " + form.getId());
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("cars/cars_details");
+        if (form == null) form = new SearchCarForm();
+        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
 
-       // LOGGER.info("carform: " + searchCarForm);
-        if (searchCarForm == null) searchCarForm = new SearchCarForm();
-        mv.addObject("carForm", searchCarForm);
+        mv.addObject("carForm", form);
 
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            LOGGER.error("error: " + bindingResult.getFieldError());
-            Car car = (Car) manager.getById(token, searchCarForm.getId());
-            //List<Employee> employees = employeeManager.getAll(token);
-            List<Client> clients = clientManager.getAll(token);
-            // List<Car> cars = employeeManager.getAll(token);
-            //mv.addObject("employees", employees);
-            mv.addObject("clients", clients);
-            Client test = clients.get(1);
-            mv.addObject("test", test);
-            LOGGER.info("test: " + test);
-            //  mv.addObject("cars", cars);
-            mv.addObject("car", car);
-            mv.addObject("carForm", searchCarForm);
-            mv.addObject("showForm", 0);
-            //  mv.addObject("currentClient", car.getClient().getId());
-            return mv;
-        }
-        //  LOGGER.info("carrying on");
-        LOGGER.info("car retrieved: " + searchCarForm);
-        manager.update(helper.getConnectedToken(), searchCarForm);
-        return new ModelAndView("redirect:" + "/cars/" + searchCarForm.getId());
+        List<Client> clients = clientManager.getAll(token);
+        mv.addObject("clients", clients);
+        return mv;
     }
 
 
@@ -147,35 +122,30 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
     @GetMapping(value = "/new")
     public ModelAndView getCreate() {
         LOGGER.info("getting create form");
-        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
-        mv.addObject("carForm", new SearchCarForm());
-        mv.addObject("showForm", 1);
-        return mv;
+        return checkAndAddConnectedDetails("bills/bills_new");
     }
 
     @PostMapping(value = "/newCar")
     @ResponseBody
-    public ModelAndView createNew(@Valid CarForm carForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("carForm received: " + carForm);
+    public ModelAndView createNew(@Valid CarForm form, BindingResult bindingResult) throws Exception {
+        LOGGER.info("carForm received: " + form);
         String token = helper.getConnectedToken();
 
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         if (bindingResult.hasErrors()) {
             mv.addObject("message", "registration not found in the system");
-            mv.addObject("carForm", new CarForm());
+            mv.addObject("form", new CarForm());
             mv.addObject("models", carModelManager.getAll(token));
             return mv;
         }
 
-
-
-        int id = Integer.parseInt(carManager.addNewCar(token, carForm));
+        int id = Integer.parseInt(carManager.addNewCar(token, form));
 
         return new ModelAndView("redirect:" + "/cars" + "/" + id);
     }
 
 
-    @PostMapping(value = "/new")
+  /*  @PostMapping(value = "/new")
     @ResponseBody
     public ModelAndView create(@Valid SearchCarForm searchCarForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
@@ -198,14 +168,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
         LOGGER.info("car retrieved: " + searchCarForm);
         manager.add(helper.getConnectedToken(), searchCarForm);
         return new ModelAndView("redirect:/cars");
-    }
-
-/*
-    private CarDTO convertFormIntoDto(SearchCarForm searchCarForm) {
-        LOGGER.info("TODO");
-        return null;
-    }
-*/
+    }*/
 
 
 }
