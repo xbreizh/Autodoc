@@ -13,13 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -136,12 +134,13 @@ public class GlobalController<T, D, F> {
 
 
     @GetMapping("/operations")
-    public ModelAndView operations(SearchCarForm registrationForm) throws Exception {
+    public ModelAndView operations(SearchCarForm form) {
         LOGGER.info("show form");
-        ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
-        LOGGER.info("clientManager: " + clientManager);
-        mv.addObject("clients", clientManager.getAll(helper.getConnectedToken()));
-        return mv;
+        //ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
+        /*LOGGER.info("clientManager: " + clientManager);
+        mv.addObject("clients", clientManager.getAll(helper.getConnectedToken()));*/
+        //mv.addObject("registration", "");
+        return checkAndAddConnectedDetails("operations/operations");
     }
 
     @GetMapping("/person")
@@ -149,7 +148,7 @@ public class GlobalController<T, D, F> {
         LOGGER.info("show form");
         return "operations/operations";
     }
-
+/*
     @PostMapping("/person")
     public String checkPersonInfo(@Valid RegistrationForm personForm, BindingResult bindingResult) {
 
@@ -166,7 +165,7 @@ public class GlobalController<T, D, F> {
         ModelAndView mv = checkAndAddConnectedDetails("repairs");
 
         return mv;
-    }
+    }*/
 
     public ModelAndView checkAndAddConnectedDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);

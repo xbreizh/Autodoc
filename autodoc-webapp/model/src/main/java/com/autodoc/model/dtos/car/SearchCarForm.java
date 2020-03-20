@@ -14,7 +14,7 @@ public class SearchCarForm {
 
     private int clientId;
 
-    private int carModelId;
+    private int modelId;
 
     @NotNull
     @Size(min = 5, max = 12, message = "{registration.size}")
@@ -28,7 +28,7 @@ public class SearchCarForm {
         return "CarForm{" +
                 "id=" + id +
                 ", clientId=" + clientId +
-                ", carModelId=" + carModelId +
+                ", carModelId=" + modelId +
                 ", registration='" + registration + '\'' +
                 '}';
     }

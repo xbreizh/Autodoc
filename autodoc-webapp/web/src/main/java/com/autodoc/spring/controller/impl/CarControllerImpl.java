@@ -106,7 +106,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
         String token = helper.getConnectedToken();
         ModelAndView mv = checkAndAddConnectedDetails("cars/cars_details");
 
-        LOGGER.info("carform: " + searchCarForm);
+       // LOGGER.info("carform: " + searchCarForm);
         if (searchCarForm == null) searchCarForm = new SearchCarForm();
         mv.addObject("carForm", searchCarForm);
 
@@ -114,22 +114,22 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, CarForm> im
             LOGGER.error("binding has errors");
             LOGGER.error("error: " + bindingResult.getFieldError());
             Car car = (Car) manager.getById(token, searchCarForm.getId());
-            List<Employee> employees = employeeManager.getAll(token);
+            //List<Employee> employees = employeeManager.getAll(token);
             List<Client> clients = clientManager.getAll(token);
-            List<Car> cars = employeeManager.getAll(token);
-            mv.addObject("employees", employees);
+            // List<Car> cars = employeeManager.getAll(token);
+            //mv.addObject("employees", employees);
             mv.addObject("clients", clients);
             Client test = clients.get(1);
             mv.addObject("test", test);
             LOGGER.info("test: " + test);
-            mv.addObject("cars", cars);
+            //  mv.addObject("cars", cars);
             mv.addObject("car", car);
             mv.addObject("carForm", searchCarForm);
             mv.addObject("showForm", 0);
-            mv.addObject("currentClient", car.getClient().getId());
+            //  mv.addObject("currentClient", car.getClient().getId());
             return mv;
         }
-        LOGGER.info("carrying on");
+        //  LOGGER.info("carrying on");
         LOGGER.info("car retrieved: " + searchCarForm);
         manager.update(helper.getConnectedToken(), searchCarForm);
         return new ModelAndView("redirect:" + "/cars/" + searchCarForm.getId());
