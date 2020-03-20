@@ -22,8 +22,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
 
     private static Logger LOGGER = Logger.getLogger(TaskControllerImpl.class);
     private static final String KEY_WORD = "tasks";
-    // @Inject
-    //  TaskManager manager;
+
     PieceManager pieceManager;
 
     @Override
@@ -59,32 +58,13 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid TaskForm form, BindingResult bindingResult) throws Exception {
-        // LOGGER.info("trying to update member with id " + taskForm.getId());
         String token = helper.getConnectedToken();
         if (form == null) form = new TaskForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
         mv.addObject("pieceList", pieceManager.getAll(token));
-       /* ModelAndView mv = checkAndAddConnectedDetails("tasks/tasks_details");
-        mv.addObject("taskForm", new TaskForm());
-        if (bindingResult.hasErrors()) {
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors) {
-                LOGGER.info(error.getObjectName() + " - " + error.getDefaultMessage());
-            }
-            LOGGER.error("binding has errors: ");*/
-          /*  Task task = (Task) manager.getById(token, taskForm.getId());
-            mv.addObject("pieceList", pieceManager.getAll(token));
-            mv.addObject("obj", task);
-            mv.addObject("form", taskForm);
-            mv.addObject("showForm", 0);*/
+
         getPricePerHour(mv);
         return mv;
-      /*  }
-        LOGGER.info("carrying on");
-        LOGGER.info("task retrieved: " + taskForm);
-        // LOGGER.info("getting the pieces list: "+taskForm.getPieces());
-        manager.update(helper.getConnectedToken(), taskForm);
-        return new ModelAndView("redirect:" + "/tasks/" + taskForm.getId());*/
 
     }
 
@@ -123,11 +103,6 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
         manager.add(helper.getConnectedToken(), taskForm);
         return new ModelAndView("redirect:/tasks");
     }
-
- /*   private TaskDTO convertFormIntoDto(TaskForm taskForm) {
-        LOGGER.info("TODO");
-        return null;
-    }*/
 
 
 }

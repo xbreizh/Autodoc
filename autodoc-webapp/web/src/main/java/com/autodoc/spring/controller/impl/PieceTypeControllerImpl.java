@@ -19,10 +19,8 @@ import javax.validation.Valid;
 @RequestMapping("/pieceTypes")
 public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTypeDTO, PieceTypeForm> implements PieceTypeController {
 
-    private static Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
-    // @Inject
-    // PieceTypeManager manager;
     private static final String KEY_WORD = "pieceTypes";
+    private static Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
 
     public PieceTypeControllerImpl(LibraryHelper helper, PieceTypeManager manager) {
         super(helper);
@@ -54,23 +52,6 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
 
         if (form == null) form = new PieceTypeForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
-
-
-       /* LOGGER.info("trying to update member with id " + pieceTypeForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("pieceTypes/pieceTypes_details");
-        mv.addObject("pieceTypeForm", new PieceTypeForm());
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            PieceType pieceType = (PieceType) manager.getById(helper.getConnectedToken(), pieceTypeForm.getId());
-            mv.addObject("pieceType", pieceType);
-            mv.addObject("pieceTypeForm", pieceTypeForm);
-            mv.addObject("showForm", 0);
-            return mv;
-        }
-        LOGGER.info("carrying on");
-        LOGGER.info("pieceType retrieved: " + pieceTypeForm);
-        manager.update(helper.getConnectedToken(), pieceTypeForm);
-        return new ModelAndView("redirect:" + "/pieceTypes/" + pieceTypeForm.getId());*/
         return mv;
     }
 
@@ -110,7 +91,6 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
         manager.add(helper.getConnectedToken(), pieceTypeForm);
         return new ModelAndView("redirect:/pieceTypes");
     }
-
 
 
 }

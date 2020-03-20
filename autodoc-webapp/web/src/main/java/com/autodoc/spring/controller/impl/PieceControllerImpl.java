@@ -25,18 +25,12 @@ import java.util.List;
 @RequestMapping("/pieces")
 public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, PieceForm> implements PieceController {
 
-    private static Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
     private static final String KEY_WORD = "pieces";
-    // @Inject
-    // PieceManager manager;
+    private static Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
+
     PieceTypeManager pieceTypeManager;
     CarModelManager carModelManager;
     ProviderManager providerManager;
-
-    @Override
-    String getKeyWord() {
-        return KEY_WORD;
-    }
 
     public PieceControllerImpl(LibraryHelper helper, PieceManager manager, PieceTypeManager pieceTypeManager, CarModelManager carModelManager, ProviderManager providerManager) {
         super(helper);
@@ -46,6 +40,10 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
         this.pieceTypeManager = pieceTypeManager;
     }
 
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
 
     @GetMapping("")
     public ModelAndView pieces() throws Exception {
@@ -57,15 +55,6 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView pieceById(@PathVariable Integer id) throws Exception {
-        /*LOGGER.info("trying to get piece with id " + id);
-        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_details");
-        LOGGER.info("piece is null");
-        Piece piece = (Piece) manager.getById(helper.getConnectedToken(), id);
-        LOGGER.info("name: " + piece.getName());
-        LOGGER.info("piece: " + piece);
-        mv.addObject("pieceForm", piece);
-        mv.addObject("showForm", 1);
-        mv.addObject("piece", piece);*/
 
         ModelAndView mv = getById(id);
         List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
@@ -84,27 +73,10 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
         if (form == null) form = new PieceForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
 
-        /*LOGGER.info("trying to update piece with id " + pieceForm.getId());
-        ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_details");
-        mv.addObject("pieceForm", new PieceForm());*/
         List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
         List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
         mv.addObject("carModels", carModels);
         mv.addObject("pieceTypes", pieceTypes);
-      /*  if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            LOGGER.error(bindingResult.getFieldError().getDefaultMessage());
-            LOGGER.info("pieceForm: "+pieceForm);
-            Piece piece = (Piece) manager.getById(helper.getConnectedToken(), pieceForm.getId());
-            mv.addObject("piece", piece);
-            mv.addObject("pieceForm", pieceForm);
-            mv.addObject("showForm", 0);
-            return mv;
-        }
-        LOGGER.info("carrying on");
-        LOGGER.info("piece retrieved: " + pieceForm);
-        manager.update(helper.getConnectedToken(), pieceForm);
-        return new ModelAndView("redirect:" + "/pieces/" + pieceForm.getId());*/
         return mv;
     }
 
@@ -153,11 +125,6 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
         LOGGER.info("piece retrieved: " + pieceForm);
         manager.add(helper.getConnectedToken(), pieceForm);
         return pieces();
-    }
-
-    private PieceDTO convertFormIntoDto(PieceForm pieceForm) {
-        LOGGER.info("TODO");
-        return null;
     }
 
 

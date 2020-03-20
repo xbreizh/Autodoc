@@ -27,8 +27,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
 
     private static final String KEY_WORD = "cars";
     private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
-    // @Inject
-    //  CarManager manager;
+
     ClientManager clientManager;
     CarManager carManager;
     EmployeeManager employeeManager;
@@ -144,31 +143,6 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         return new ModelAndView("redirect:" + "/cars" + "/" + id);
     }
 
-
-  /*  @PostMapping(value = "/new")
-    @ResponseBody
-    public ModelAndView create(@Valid SearchCarForm searchCarForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to create member ");
-        String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("cars/cars_new");
-        LOGGER.info("empl: " + searchCarForm);
-        mv.addObject("carForm", new SearchCarForm());
-        List<Employee> employees = employeeManager.getAll(token);
-        List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = carManager.getAll(token);
-        mv.addObject("employees", employees);
-        mv.addObject("clients", clients);
-        mv.addObject("cars", cars);
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            mv.addObject("carForm", searchCarForm);
-            mv.addObject("showForm", 1);
-            return mv;
-        }
-        LOGGER.info("car retrieved: " + searchCarForm);
-        manager.add(helper.getConnectedToken(), searchCarForm);
-        return new ModelAndView("redirect:/cars");
-    }*/
 
 
 }

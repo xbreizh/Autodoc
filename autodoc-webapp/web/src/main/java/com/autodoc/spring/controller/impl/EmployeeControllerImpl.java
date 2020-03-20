@@ -19,8 +19,6 @@ import javax.validation.Valid;
 @RequestMapping("/employees")
 public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeDTO, EmployeeForm> implements EmployeeController {
 
-    // @Inject
-    // EmployeeManager employeeManager;
     private static final String KEY_WORD = "employees";
     private static Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
 
@@ -60,25 +58,9 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid EmployeeForm form, BindingResult bindingResult) throws Exception {
-        // LOGGER.info("trying to update member with id " + employeeForm.getId());
-        //  ModelAndView mv = checkAndAddConnectedDetails("employees/employees_details");
         if (form == null) form = new EmployeeForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
         addingRoleList(mv);
-      /*  mv.addObject("employeeForm", new EmployeeForm());
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            Employee employee = (Employee) manager.getById(helper.getConnectedToken(), employeeForm.getId());
-            mv.addObject("employee", employee);
-            mv.addObject("employeeForm", employeeForm);
-            mv.addObject("showForm", 0);
-            addingRoleList(mv);
-            return mv;
-        }
-        LOGGER.info("carrying on");
-        LOGGER.info("employee retrieved: " + employeeForm);
-        manager.update(helper.getConnectedToken(), employeeForm);
-        return new ModelAndView("redirect:" + "/employees/" + employeeForm.getId());*/
         return mv;
     }
 
@@ -97,7 +79,6 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
         mv.addObject("employeeForm", new EmployeeForm());
         mv.addObject("showForm", 1);
 
-        //mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
         addingRoleList(mv);
         return mv;
     }
@@ -124,12 +105,6 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
         addingRoleList(mv);
         return new ModelAndView("redirect:/employees");
     }
-
-/*    private EmployeeDTO convertFormIntoDto(EmployeeForm employeeForm) {
-        LOGGER.info("TODO");
-        return null;
-    }*/
-
 
 }
 

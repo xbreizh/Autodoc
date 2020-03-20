@@ -1,7 +1,6 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.BillManager;
-import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.helper.LibraryHelper;
@@ -31,22 +30,18 @@ public class GlobalController<T, D, F> {
     LibraryHelper helper;
     @Inject
     BillManager billManager;
-    @Inject
-    private ClientManager clientManager;
+    GlobalManager manager;
     @Inject
     private EmployeeManager employeeManager;
-   // private PasswordCheckerImpl passwordChecker;
-    GlobalManager manager;
-
-
-    String getKeyWord() {
-        return "";
-    }
 
 
     @Inject
     public GlobalController(LibraryHelper helper) {
         this.helper = helper;
+    }
+
+    String getKeyWord() {
+        return "";
     }
 
     protected ModelAndView getById(int id) throws Exception {
@@ -78,9 +73,7 @@ public class GlobalController<T, D, F> {
 
     public ModelAndView updateObject(F form, int id, BindingResult bindingResult) throws Exception {
         String keyWord = getKeyWord();
-        //LOGGER.info("trying to update member with id " + form.getId());
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
-        // mv.addObject("form", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
             T obj = (T) manager.getById(helper.getConnectedToken(), id);
@@ -136,10 +129,6 @@ public class GlobalController<T, D, F> {
     @GetMapping("/operations")
     public ModelAndView operations(SearchCarForm form) {
         LOGGER.info("show form");
-        //ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
-        /*LOGGER.info("clientManager: " + clientManager);
-        mv.addObject("clients", clientManager.getAll(helper.getConnectedToken()));*/
-        //mv.addObject("registration", "");
         return checkAndAddConnectedDetails("operations/operations");
     }
 
@@ -148,24 +137,6 @@ public class GlobalController<T, D, F> {
         LOGGER.info("show form");
         return "operations/operations";
     }
-/*
-    @PostMapping("/person")
-    public String checkPersonInfo(@Valid RegistrationForm personForm, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "form";
-        }
-
-        return "redirect:/results";
-    }
-
-
-    @GetMapping("/repairs")
-    public ModelAndView repairs() {
-        ModelAndView mv = checkAndAddConnectedDetails("repairs");
-
-        return mv;
-    }*/
 
     public ModelAndView checkAndAddConnectedDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
