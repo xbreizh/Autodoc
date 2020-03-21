@@ -6,8 +6,6 @@ import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
@@ -107,84 +105,78 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     public ModelAndView getCreateForm(@RequestParam(required = false) int id) throws Exception {
 
         String token = helper.getConnectedToken();
-        LOGGER.info("getting create form");
+        String login = helper.getConnectedLogin();
+        LOGGER.info("getting create newForm");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
-        BillForm billForm = new BillForm();
-        LOGGER.info("id received: " + id);
+        BillForm form = new BillForm();
         Car car = (Car) carManager.getById(token, id);
         if (car == null) throw new Exception("invalid carId: " + id);
-        billForm.setCarRegistration(car.getRegistration());
-        billForm.setClientId(car.getClient().getId());
+        mv.addObject("car", car);
+        form.setCarRegistration(car.getRegistration());
+        form.setClientId(car.getClient().getId());
 
-        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
+        List<Task> taskList = taskManager.getTemplates(token);
         mv.addObject("taskList", taskList);
-        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
+        List<Piece> pieceList = pieceManager.getAll(token);
         mv.addObject("pieceList", pieceList);
 
-        LOGGER.info("pieces: " + pieceList);
-        String employeeLogin = helper.getConnectedLogin();
-        LOGGER.info("getting login: " + employeeLogin);
-        Client client = (Client) clientManager.getById(token, car.getClient().getId());
-        mv.addObject("client", client);
-        billForm.setEmployeeLogin(employeeLogin);
-        billForm.setVat(19.6);
-        billForm.setStatus("PENDING_PAYMENT");
-        billForm.setVat(19.6);
-        mv.addObject("billForm", billForm);
+        form.setEmployeeLogin(login);
+        form.setStatus("PENDING_PAYMENT");
+        form.setVat(19.6);
+        mv.addObject("form", form);
         mv.addObject("showForm", 1);
 
         getPricePerHour(mv);
+        LOGGER.info("form: " + form);
         return mv;
     }
 
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView create(@Valid BillForm billForm, BindingResult bindingResult, Model model) throws Exception {
-        if (billForm.getDateReparation() == null) LOGGER.error("date shouldn't be null");
-        if (billForm.getPieces() == null) bindingResult.addError(new ObjectError("pieces", " should not be null"));
-        LOGGER.info("trying to create bill " + billForm);
-        LOGGER.info("dateRepa: " + billForm.getDateReparation());
+    public ModelAndView create(@Valid BillForm form, BindingResult bindingResult, Model model) throws Exception {
+        LOGGER.info("trying to create bill " + form);
         String token = helper.getConnectedToken();
+        if (form.getDateReparation() == null) LOGGER.error("date shouldn't be null");
+        if (form.getPieces() == null && form.getTasks() == null) {
+            String error = "there should be at least one piece or one task";
+            bindingResult.addError(new ObjectError("pieces", error));
+            bindingResult.addError(new ObjectError("tasks", error));
+        }
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
+
         List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
         LOGGER.info("tasks: " + taskList);
         mv.addObject("taskList", taskList);
         List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
         mv.addObject("pieceList", pieceList);
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors: " + bindingResult.toString());
             LOGGER.error("binding has errors: " + bindingResult.getGlobalError());
-            LOGGER.error("binding has errors: " + bindingResult.getObjectName());
-            mv.addObject("billForm", billForm);
+            mv.addObject("form", form);
             mv.addObject("showForm", 1);
-
+            mv.addObject("error", bindingResult.getGlobalError());
             return mv;
         }
-        mv.addObject("billForm", new BillForm());
-        List<Employee> employees = employeeManager.getAll(token);
-        List<Client> clients = clientManager.getAll(token);
-        List<Car> cars = carManager.getAll(token);
+        if (form == null) form = new BillForm();
+        mv.addObject("form", form);
+        mv.addObject("cars", carManager.getAll(token));
+        mv.addObject("clients", clientManager.getAll(token));
+        mv.addObject("employees", employeeManager.getAll(token));
 
-
-        billForm.setStatus("PENDING_PAYMENT");
-        mv.addObject("employees", employees);
-        mv.addObject("clients", clients);
-        mv.addObject("cars", cars);
-
-        //test//
-        mv.addObject("myVar", "plouf");
-
-        String employeeLogin = helper.getConnectedLogin();
-        LOGGER.info("getting login: " + employeeLogin);
-        billForm.setEmployeeLogin(employeeLogin);
-        billForm.setCarRegistration(cars.get(0).getRegistration());
+        form.setStatus("PENDING_PAYMENT");
 
         getPricePerHour(mv);
-        billForm.setClientId(clients.get(0).getId());
-        LOGGER.info("bill retrieved: " + billForm);
-        manager.add(helper.getConnectedToken(), billForm);
-        return new ModelAndView("redirect:/bills");
+        LOGGER.info("bill retrieved: " + form);
+
+        String feedback = manager.add(token, form);
+        try {
+            int id = Integer.parseInt(feedback);
+            return new ModelAndView("redirect:" + "/" + KEY_WORD + "/" + id);
+        } catch (NumberFormatException e) {
+            LOGGER.error(e.getMessage());
+            mv.addObject("error", feedback);
+        }
+        return mv;
     }
 
 

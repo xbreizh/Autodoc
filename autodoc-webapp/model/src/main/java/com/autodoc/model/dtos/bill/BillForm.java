@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
@@ -48,7 +51,6 @@ public class BillForm {
     @Max(100)
     private double discount;
 
-    @Size(min = 2, max = 250, message = "{comment.size}")
     private String comments;
 
 

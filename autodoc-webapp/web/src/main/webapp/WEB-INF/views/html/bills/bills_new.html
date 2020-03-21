@@ -16,20 +16,22 @@
     <button class="btn btn btn-info" onclick="pieceFunction()">Add Piece</button>
     <button class="btn btn btn-info" onclick="taskFunction()">Add Task</button>
 
+    <div th:text="${error}">error</div>
+    <div th:text="${feedback}">feedback</div>
 
-    <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${billForm}">
+    <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${form}">
         <span id="myForm"></span>
         <div class="form-group">
             <label for="employeeLogin">Employee:</label>
             <input class="form-control" id="employeeLogin" name="employeeLogin" placeholder="Enter Employee Login"
-                   required="required" th:value="${billForm.employeeLogin}" type="text"/>
+                   required="required" th:value="${form.employeeLogin}" type="text"/>
             <div th:errors="*{employeeLogin}" th:if="${#fields.hasErrors('employeeLogin')}">Employee Error</div>
         </div>
 
         <div class="form-group">
             <label for="carRegistration">Registration:</label>
             <input class="form-control" id="carRegistration" name="carRegistration" placeholder="Enter Registration"
-                   required="required" th:value="${billForm.carRegistration}" type="text"/>
+                   required="required" th:value="${form.carRegistration}" type="text"/>
             <div th:errors="*{carRegistration}" th:if="${#fields.hasErrors('carRegistration')}">Registration Error</div>
         </div>
 
