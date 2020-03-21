@@ -48,7 +48,7 @@ public class BillForm {
     @Max(100)
     private double discount;
 
-    //@Max(1000)
+    @Size(min = 2, max = 250, message = "{comment.size}")
     private String comments;
 
 

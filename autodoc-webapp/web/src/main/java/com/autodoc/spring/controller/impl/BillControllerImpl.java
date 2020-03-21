@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/bills")
 public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm> implements BillController {
 
-    private static Logger LOGGER = Logger.getLogger(BillControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(BillControllerImpl.class);
     private static final String KEY_WORD = "bills";
 
     ClientManager clientManager;
@@ -65,11 +65,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         String token = helper.getConnectedToken();
         ModelAndView mv = getById(id);
 
-        mv.addObject("employees", employeeManager.getAll(token));
-        mv.addObject("clients", clientManager.getAll(token));
         mv.addObject("cars", carManager.getAll(token));
-        mv.addObject("taskList", taskManager.getTemplates(token));
+        mv.addObject("clients", clientManager.getAll(token));
+        mv.addObject("employees", employeeManager.getAll(token));
         mv.addObject("pieceList", pieceManager.getAll(token));
+        mv.addObject("taskList", taskManager.getTemplates(token));
         getPricePerHour(mv);
 
         return mv;
@@ -78,35 +78,20 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid BillForm billForm, BindingResult bindingResult) throws Exception {
-        LOGGER.info("trying to update bill " + billForm);
+    public ModelAndView update(@Valid BillForm form, BindingResult bindingResult) throws Exception {
+        LOGGER.info("trying to update bill " + form);
         String token = helper.getConnectedToken();
-        ModelAndView mv = checkAndAddConnectedDetails("bills/bills_details");
-        mv.addObject("billForm", new BillForm());
-        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
-        LOGGER.info("tasks: " + taskList);
-        mv.addObject("taskList", taskList);
-        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-        mv.addObject("pieceList", pieceList);
+        if (form == null) form = new BillForm();
+        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+        mv.addObject("form", form);
+        mv.addObject("cars", carManager.getAll(token));
+        mv.addObject("clients", clientManager.getAll(token));
+        mv.addObject("employees", employeeManager.getAll(token));
+        mv.addObject("pieceList", pieceManager.getAll(token));
+        mv.addObject("taskList", taskManager.getTemplates(token));
         getPricePerHour(mv);
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors: " + bindingResult.getFieldError() + " / " + bindingResult.getGlobalError());
-            Bill bill = (Bill) manager.getById(token, billForm.getId());
-            List<Employee> employees = employeeManager.getAll(token);
-            List<Client> clients = clientManager.getAll(token);
-            List<Car> cars = employeeManager.getAll(token);
-            mv.addObject("employees", employees);
-            mv.addObject("clients", clients);
-            mv.addObject("cars", cars);
-            mv.addObject("bill", bill);
-            mv.addObject("billForm", billForm);
-            mv.addObject("showForm", 0);
-            return mv;
-        }
-        LOGGER.info("carrying on");
-        LOGGER.info("bill retrieved: " + billForm);
-        manager.update(helper.getConnectedToken(), billForm);
-        return new ModelAndView("redirect:" + "/bills/" + billForm.getId());
+        return mv;
+
     }
 
     @GetMapping(value = "/delete/{id}")
@@ -147,8 +132,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         billForm.setVat(19.6);
         mv.addObject("billForm", billForm);
         mv.addObject("showForm", 1);
-        //test//
-        mv.addObject("myVar", "plouf");
+
         getPricePerHour(mv);
         return mv;
     }
