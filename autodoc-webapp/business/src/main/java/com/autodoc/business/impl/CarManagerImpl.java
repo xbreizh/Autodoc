@@ -27,9 +27,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
 
     private CarService service;
 
-    //@Inject
     private CarModelManager carModelManager;
-    // @Inject
     private ClientManager clientManager;
     private BillService billService;
 
@@ -70,14 +68,14 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
 
     public CarDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
-        SearchCarForm dto = (SearchCarForm) obj;
-        LOGGER.info("dto: " + dto);
-        LOGGER.info(dto.getRegistration());
+        SearchCarForm form = (SearchCarForm) obj;
+        LOGGER.info("form: " + form);
+        LOGGER.info(form.getRegistration());
         CarDTO carDTO = new CarDTO();
-        if (dto.getId() != 0) carDTO.setId(dto.getId());
-        carDTO.setClientId(dto.getClientId());
-        carDTO.setCarModelId(dto.getModelId());
-        carDTO.setRegistration(dto.getRegistration());
+        if (form.getId() != 0) carDTO.setId(form.getId());
+        carDTO.setClientId(form.getClientId());
+        carDTO.setCarModelId(form.getModelId());
+        carDTO.setRegistration(form.getRegistration());
         LOGGER.info("entity transferred: " + carDTO);
         return carDTO;
     }

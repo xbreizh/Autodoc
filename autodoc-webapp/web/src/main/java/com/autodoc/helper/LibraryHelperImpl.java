@@ -40,9 +40,8 @@ public class LibraryHelperImpl implements LibraryHelper {
         Authentication authentication = getAuthentication();
         LOGGER.info("get connected login " + authentication.getPrincipal().toString());
         return authentication.getPrincipal().toString();
-
-
     }
+
 
     @Override
     public String getConnectedToken() {

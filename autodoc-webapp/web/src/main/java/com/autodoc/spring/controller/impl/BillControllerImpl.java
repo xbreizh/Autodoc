@@ -6,7 +6,6 @@ import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
 import org.apache.log4j.Logger;
@@ -34,11 +33,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     TaskManager taskManager;
     PieceManager pieceManager;
 
-    @Override
-    String getKeyWord() {
-        return KEY_WORD;
-    }
-
     public BillControllerImpl(LibraryHelper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager) {
         super(helper);
         this.manager = manager;
@@ -49,6 +43,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         this.taskManager = taskManager;
     }
 
+    @Override
+    String getKeyWord() {
+        return KEY_WORD;
+    }
 
     @GetMapping("")
     public ModelAndView bills() throws Exception {
@@ -63,11 +61,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         String token = helper.getConnectedToken();
         ModelAndView mv = getById(id);
 
-        mv.addObject("cars", carManager.getAll(token));
-        mv.addObject("clients", clientManager.getAll(token));
-        mv.addObject("employees", employeeManager.getAll(token));
-        mv.addObject("pieceList", pieceManager.getAll(token));
-        mv.addObject("taskList", taskManager.getTemplates(token));
+        addCars(token, mv);
+        addClients(token, mv);
+        addEmployees(token, mv);
+        addPieces(token, mv);
+        addTasks(token, mv);
         getPricePerHour(mv);
 
         return mv;
@@ -82,11 +80,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         if (form == null) form = new BillForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
         mv.addObject("form", form);
-        mv.addObject("cars", carManager.getAll(token));
-        mv.addObject("clients", clientManager.getAll(token));
-        mv.addObject("employees", employeeManager.getAll(token));
-        mv.addObject("pieceList", pieceManager.getAll(token));
-        mv.addObject("taskList", taskManager.getTemplates(token));
+        addCars(token, mv);
+        addClients(token, mv);
+        addEmployees(token, mv);
+        addPieces(token, mv);
+        addTasks(token, mv);
         getPricePerHour(mv);
         return mv;
 
@@ -114,12 +112,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         mv.addObject("car", car);
         form.setCarRegistration(car.getRegistration());
         form.setClientId(car.getClient().getId());
-
-        List<Task> taskList = taskManager.getTemplates(token);
-        mv.addObject("taskList", taskList);
-        List<Piece> pieceList = pieceManager.getAll(token);
-        mv.addObject("pieceList", pieceList);
-
+        addTasks(token, mv);
+        addPieces(token, mv);
         form.setEmployeeLogin(login);
         form.setStatus("PENDING_PAYMENT");
         form.setVat(19.6);
@@ -145,11 +139,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         }
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
 
-        List<Task> taskList = taskManager.getTemplates(helper.getConnectedToken());
+        List<Task> taskList = taskManager.getTemplates(token);
         LOGGER.info("tasks: " + taskList);
-        mv.addObject("taskList", taskList);
-        List<Piece> pieceList = pieceManager.getAll(helper.getConnectedToken());
-        mv.addObject("pieceList", pieceList);
+        addTasks(token, mv);
+        addPieces(token, mv);
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors: " + bindingResult.getGlobalError());
             mv.addObject("form", form);
@@ -159,9 +152,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         }
         if (form == null) form = new BillForm();
         mv.addObject("form", form);
-        mv.addObject("cars", carManager.getAll(token));
-        mv.addObject("clients", clientManager.getAll(token));
-        mv.addObject("employees", employeeManager.getAll(token));
+        addCars(token, mv);
+        addClients(token, mv);
+        addEmployees(token, mv);
 
         form.setStatus("PENDING_PAYMENT");
 
@@ -179,6 +172,26 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         return mv;
     }
 
+    private void addTasks(String token, ModelAndView mv) throws Exception {
+        mv.addObject("taskList", taskManager.getTemplates(token));
+    }
+
+    private void addClients(String token, ModelAndView mv) throws Exception {
+        mv.addObject("clients", clientManager.getAll(token));
+    }
+
+
+    private void addPieces(String token, ModelAndView mv) throws Exception {
+        mv.addObject("pieceList", pieceManager.getAll(token));
+    }
+
+    private void addEmployees(String token, ModelAndView mv) throws Exception {
+        mv.addObject("employees", employeeManager.getAll(token));
+    }
+
+    private void addCars(String token, ModelAndView mv) throws Exception {
+        mv.addObject("cars", carManager.getAll(token));
+    }
 
 }
 

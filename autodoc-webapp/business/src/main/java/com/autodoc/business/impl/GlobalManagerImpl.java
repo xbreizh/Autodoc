@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
+    protected static final double pricePerHour = 15;
     private static Logger LOGGER = Logger.getLogger(GlobalManagerImpl.class);
     GlobalService service;
-    protected static final double pricePerHour = 15;
 
     public GlobalManagerImpl(GlobalService service) {
         this.service = service;
@@ -44,7 +44,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
 
     public List<T> getAll(String token) throws Exception {
-        return  convertList(token, service.getAll(token));
+        return convertList(token, service.getAll(token));
     }
 
     public String add(String token, Object obj) throws Exception {
@@ -84,12 +84,12 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     List<T> convertList(String token, List<D> list) throws Exception {
-        LOGGER.info("converting list: "+list);
+        LOGGER.info("converting list: " + list);
         List<T> newList = new ArrayList<>();
         for (D obj : list) {
             newList.add(dtoToEntity(token, obj));
         }
-        LOGGER.info("new list: "+newList);
+        LOGGER.info("new list: " + newList);
         return newList;
     }
 
