@@ -1,11 +1,11 @@
 package com.autodoc.business.impl;
 
+import com.autodoc.business.contract.ConnectManager;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Named
-public class ConnectManagerImpl implements AuthenticationProvider {
+public class ConnectManagerImpl implements ConnectManager {
 
     private static final String ROLE = "USER";
     private static final String BASE_URL = "http://localhost:8087/autodoc/";
