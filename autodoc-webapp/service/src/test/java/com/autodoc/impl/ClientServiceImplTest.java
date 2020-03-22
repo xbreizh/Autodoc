@@ -16,6 +16,19 @@ class ClientServiceImplTest {
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4NDU0Mjc2MywiaWF0IjoxNTg0NTI0NzYzfQ.HvyVU1IoPObGSLQuUVHd2jUVS53PuV1tsmc6JVycey3EsZlVNgnSXIO6PUnByceAUwiamTEmbKJUzsk8cRZzEg";
     private ClientDTO dto;
 
+   /* @BeforeEach
+    String getToken(){
+        String login = "lmolo";
+        String password = "password";
+        String role = "user";
+        Authentication authToken = new UsernamePasswordAuthenticationToken(login, password, Arrays.asList(new SimpleGrantedAuthority(role)));
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+        String newToken = new ConnectManagerImpl().authenticate(authToken).getDetails().toString();
+        token = newToken.replace("{\"token\":\"", "");
+        token = newToken.replace("\"}", "");
+        return token;
+    }*/
+
     @BeforeEach
     void init() {
         service = new ClientServiceImpl();

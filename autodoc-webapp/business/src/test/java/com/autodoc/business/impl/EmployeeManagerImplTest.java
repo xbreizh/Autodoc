@@ -11,24 +11,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeManagerImplTest {
-    // private static final String baseUrl = "http://localhost:8087/autodoc/";
     private static final Logger LOGGER = Logger.getLogger(EmployeeManagerImplTest.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
     private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUzNDM5MCwiaWF0IjoxNTc2NTE2MzkwfQ.r64Ed4Df6I8ZbL8LK9p4ZLDye_kH5UcwhhbZaS4HQQXbDLzE1Z6dTo7Bn51qHyzpZJE1MpDl-wJSTEPq_ytBUA";
-    // String url = "http://localhost:8087/autodoc/employees";
     private EmployeeManager employeeManager;
-    //@Inject
     private EmployeeService service;
 
     private EnumService enumService;
 
+
     @BeforeEach
     void init() {
+
         service = new EmployeeServiceImpl();
         enumService = new EnumServiceImpl();
         employeeManager = new EmployeeManagerImpl(service, enumService);
@@ -36,12 +33,9 @@ class EmployeeManagerImplTest {
 
     @Test
     @DisplayName("should return a valid employee")
-    public void getEmployeeByLogin()
-            throws IOException {
-
+    public void getEmployeeByLogin() {
+        System.out.println("token: " + token);
         String login = "LMOLO";
-        LOGGER.info(employeeManager.getByLogin(token, login));
-
         assertNotNull(employeeManager.getByLogin(token, login));
 
     }

@@ -1,13 +1,11 @@
-package com.autodoc.business.contract;
+package com.autodoc.contract;
 
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import javax.inject.Named;
 
-@Named
-public interface ConnectManager {
+public interface AuthenticationService extends AuthenticationProvider {
 
     UsernamePasswordAuthenticationToken authenticate(Authentication authentication);
-
 }

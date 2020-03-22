@@ -25,8 +25,8 @@ class ConnectManagerImplTest {
 
     @BeforeEach
     void init() {
-        manager = new ConnectManagerImpl();
         authToken = new UsernamePasswordAuthenticationToken(login, password, Arrays.asList(new SimpleGrantedAuthority(role)));
+       // manager = new ConnectManagerImpl();
         SecurityContextHolder.getContext().setAuthentication(authToken);
     }
 
