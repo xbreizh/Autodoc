@@ -11,17 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
-class ProviderServiceImplTest {
+class ProviderServiceImplTest extends HelperTest {
 
     String name = "sdsdsd";
     private ProviderService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njc2MTg5MCwiaWF0IjoxNTc2NzQzODkwfQ.-7anXTdLUePoEIXn_dQhZDtaO7X1-gwZSiQakTehnfHJbsJZ106n1_vKSHhJjWjdE-7Onz8wLTi6TGyX55RyaQ";
+
     private ProviderDTO dto;
     private Class clazz = ProviderDTO.class;
     private static final Logger LOGGER = Logger.getLogger(ProviderServiceImplTest.class);
 
     @BeforeEach
     void init() {
+
         service = new ProviderServiceImpl();
         dto = new ProviderDTO();
         dto.setFirstName("ssssss");

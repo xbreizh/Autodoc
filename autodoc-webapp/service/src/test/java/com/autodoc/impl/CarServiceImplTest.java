@@ -11,10 +11,10 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CarServiceImplTest {
+class CarServiceImplTest extends HelperTest {
 
     private CarService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUxMjU5NSwiaWF0IjoxNTc2NDk0NTk1fQ.vBhwMkX1UII2cxkq4oaqTJOiBb4tCip0tq35NR8Eb-ECPwHG_Oz75YJq9iybf3U3J6MccTP07gLKu9x67MEacg";
+
     private static final Logger LOGGER = Logger.getLogger(CarServiceImplTest.class);
     private CarDTO dto;
 
@@ -25,6 +25,7 @@ class CarServiceImplTest {
         dto.setClientId(2);
         dto.setCarModelId(1);
         dto.setRegistration("abc1234");
+
     }
 
 

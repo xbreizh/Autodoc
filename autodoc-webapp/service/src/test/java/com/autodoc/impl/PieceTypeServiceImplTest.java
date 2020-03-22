@@ -13,16 +13,17 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
-class PieceTypeServiceImplTest {
+class PieceTypeServiceImplTest extends HelperTest {
 
     String name = "sdsdsd";
     private PieceTypeService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjY5OTM1NSwiaWF0IjoxNTc2NjgxMzU1fQ.xxKBPNKwLwJvqpXM920A3sd8i9hf6dRxzlSTQrUDVNDiL2DFxilI5CvrI_x5EK1AZ-Y83VS75BQ2Jw-DGAQEiQ";
+
     private PieceTypeDTO dto;
     private static final Logger LOGGER = Logger.getLogger(PieceTypeServiceImplTest.class);
 
     @BeforeEach
     void init() {
+
         service = new PieceTypeServiceImpl();
         dto = new PieceTypeDTO();
         dto.setName(name);

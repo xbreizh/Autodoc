@@ -13,17 +13,18 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
-class TaskServiceImplTest {
+class TaskServiceImplTest extends HelperTest {
 
     String name = "BATTERY CHANGE1";
     private TaskService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3Njg1MzEzMywiaWF0IjoxNTc2ODM1MTMzfQ.FTrgIwjlfOHF4ysTXGrsOIHzVWeU9UMVbmNad6KdxrOpgLY0T2XztpCxSBvEyqk6Sy65eFLBlyol13vVXsPRpQ";
+
     private TaskDTO dto;
     private Class clazz = TaskDTO.class;
     private static final Logger LOGGER = Logger.getLogger(TaskServiceImplTest.class);
 
     @BeforeEach
     void init() {
+
         service = new TaskServiceImpl();
         dto = new TaskDTO();
         dto.setName(name);

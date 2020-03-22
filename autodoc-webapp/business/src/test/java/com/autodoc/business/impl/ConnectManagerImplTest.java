@@ -1,6 +1,7 @@
 package com.autodoc.business.impl;
 
-import com.autodoc.business.contract.ConnectManager;
+import com.autodoc.contract.AuthenticationService;
+import com.autodoc.impl.AuthenticationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,26 +18,28 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ConnectManagerImplTest {
 
-    private ConnectManager manager;
+    String token;
     private Authentication authToken;
     private String login = "lmolo";
     private String password = "password";
     private String role = "user";
+    private AuthenticationService service;
 
     @BeforeEach
-    void init() {
-        authToken = new UsernamePasswordAuthenticationToken(login, password, Arrays.asList(new SimpleGrantedAuthority(role)));
-       // manager = new ConnectManagerImpl();
+    void getToken() {
+        authToken = new UsernamePasswordAuthenticationToken("lmolo", "password", Arrays.asList(new SimpleGrantedAuthority("user")));
+        service = new AuthenticationServiceImpl();
         SecurityContextHolder.getContext().setAuthentication(authToken);
+        String token = service.authenticate(authToken).getDetails().toString();
+        String newToken = token.replace("{\"token\":\"", "");
+        this.token = newToken.replace("\"}", "");
     }
 
     @Test
     @DisplayName("should return a token if credentials are valid")
     void authenticate() {
-        String token = manager.authenticate(authToken).getDetails().toString();
-        String newToken = token.replace("{\"token\":\"", "");
-        newToken = newToken.replace("\"}", "");
-        assertNotNull(newToken);
+
+        assertNotNull(token);
     }
 
 
@@ -44,6 +47,6 @@ class ConnectManagerImplTest {
     @DisplayName("should return a token if credentials are valid")
     void authenticate1() {
         Authentication auth2 = new UsernamePasswordAuthenticationToken("john", "abc123", Arrays.asList(new SimpleGrantedAuthority("admin")));
-        assertThrows(BadCredentialsException.class, () -> manager.authenticate(auth2));
+        assertThrows(BadCredentialsException.class, () -> service.authenticate(auth2));
     }
 }

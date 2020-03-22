@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class ManufacturerServiceImplTest {
+class ManufacturerServiceImplTest extends HelperTest {
 
     private ManufacturerService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDk1MzUzMSwiaWF0IjoxNTc0OTM1NTMxfQ.bIHrPZsU3QXPsMmupHb7hebHR5P3krJ32HlTfsbNNqQqzqO4miDuGY9qlLuiDu3hGQDzkja7T0xZlG051ncdJQ";
+
 
     @BeforeEach
     void init() {
+        this.token = getToken();
         service = new ManufacturerServiceImpl();
     }
 

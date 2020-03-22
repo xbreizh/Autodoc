@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class CountryServiceImplTest {
+class CountryServiceImplTest extends HelperTest {
 
     private GlobalService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NTA1OTQ1OSwiaWF0IjoxNTc1MDQxNDU5fQ.gJCEsF1qgI-USKDeUW952b-K8P-hoiJYHYbuBrbQyaXFm7z7lXu2iIq_7R5_BzKwKd1ARc05crxNvfio9zojeQ";
     private static final Logger LOGGER = Logger.getLogger(CountryServiceImplTest.class);
+
     @BeforeEach
     void init() {
 

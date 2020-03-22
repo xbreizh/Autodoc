@@ -7,11 +7,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EnumServiceImplTest {
+class EnumServiceImplTest extends HelperTest {
 
 
     private EnumService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NjUxMTg2OCwiaWF0IjoxNTc2NDkzODY4fQ.a16ravsbs82K4DduMhMAK8RKHnscnWLvkihBjfMu1qHw7-z2e2Q-nU0FjsX-8QRmHvJurFtymQtyjomuh-PLsw";
 
     @BeforeEach
     void init() {

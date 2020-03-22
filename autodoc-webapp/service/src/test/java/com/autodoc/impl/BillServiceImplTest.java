@@ -16,15 +16,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class BillServiceImplTest {
+class BillServiceImplTest extends HelperTest {
 
     private static final Logger LOGGER = Logger.getLogger(BillServiceImplTest.class);
     private BillService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4MjA3MTcxMCwiaWF0IjoxNTgyMDUzNzEwfQ.P5MperueqLLR81axHY2g2aRYBNnF3PzCA3rAPAf5DbgoZbpO1HZk89ZZvKd2h-KglTUKZ5skSd8W99Yr1QwvEw";
+
     private Class clazz = BillDTO.class;
 
     @BeforeEach
     void init() {
+
         service = new BillServiceImpl();
     }
 

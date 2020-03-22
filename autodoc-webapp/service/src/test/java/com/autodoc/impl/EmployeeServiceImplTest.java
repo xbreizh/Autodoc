@@ -15,10 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @Transactional
-class EmployeeServiceImplTest {
+class EmployeeServiceImplTest extends HelperTest {
 
     private EmployeeService service;
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU4NDQ2NDQ5NCwiaWF0IjoxNTg0NDQ2NDk0fQ.20zK2p1Id6LpO65krPbjh2wrVjSVHyBhxjmlT_1fD-cGv6zl2iQbHYGhDZlxZ4xVzLA9fKyRhyd7eqlAyNsO-g";
     private EmployeeDTO dto;
     private Class clazz = EmployeeDTO.class;
     private static final Logger LOGGER = Logger.getLogger(EmployeeServiceImplTest.class);
