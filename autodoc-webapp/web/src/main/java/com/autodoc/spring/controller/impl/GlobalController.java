@@ -3,6 +3,7 @@ package com.autodoc.spring.controller.impl;
 import com.autodoc.business.contract.BillManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.business.contract.GlobalManager;
+import com.autodoc.business.impl.ObjectFormattingException;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.RegistrationForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
@@ -76,16 +77,28 @@ public class GlobalController<T, D, F> {
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
-            T obj = (T) manager.getById(helper.getConnectedToken(), id);
-            mv.addObject("obj", obj);
-            mv.addObject("form", form);
-            mv.addObject("showForm", 0);
+            resettingUpdateViewElements(form, id, mv);
             return mv;
         }
         LOGGER.info("carrying on");
         LOGGER.info("client retrieved: " + form);
-        manager.update(helper.getConnectedToken(), form);
+        try {
+            manager.update(helper.getConnectedToken(), form);
+        } catch (ObjectFormattingException e) {
+            String error = e.getMessage();
+            LOGGER.error("error found: " + error);
+            mv.addObject("error", error);
+            resettingUpdateViewElements(form, id, mv);
+            return mv;
+        }
         return new ModelAndView("redirect:" + "/" + keyWord + "/" + id);
+    }
+
+    private void resettingUpdateViewElements(F form, int id, ModelAndView mv) throws Exception {
+        T obj = (T) manager.getById(helper.getConnectedToken(), id);
+        mv.addObject("obj", obj);
+        mv.addObject("form", form);
+        mv.addObject("showForm", 0);
     }
 
 

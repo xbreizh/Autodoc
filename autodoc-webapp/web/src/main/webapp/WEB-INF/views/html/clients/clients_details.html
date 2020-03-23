@@ -8,12 +8,15 @@
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
-    <div th:replace="fragments/menu :: menu"></div>
+    <h4 th:replace="fragments/menu :: menu"></h4>
 
     <h2>Client details</h2>
     <a th:href="@{/clients}"><h4>(Back to list)</h4></a>
 
     <h1>Form</h1>
+
+    <div th:text="${error}"></div>
+
     <label style="display: block" th:id="'switch' + ${obj.id}">
         <input onclick="toggle_displays();"
                type="checkbox">

@@ -45,14 +45,14 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
 
     public ClientDTO formToDto(Object obj, String token) {
         LOGGER.info("stuff to update: " + obj);
-        ClientForm dto = (ClientForm) obj;
-        LOGGER.info("dto: " + dto);
-        LOGGER.info(dto.getFirstName());
+        ClientForm form = (ClientForm) obj;
+        LOGGER.info("form: " + form);
+        LOGGER.info(form.getFirstName());
         ClientDTO client = new ClientDTO();
-        if (dto.getId() != 0) client.setId(dto.getId());
-        client.setFirstName(dto.getFirstName());
-        client.setLastName(dto.getLastName());
-        client.setPhoneNumber(dto.getPhoneNumber());
+        if (form.getId() != 0) client.setId(form.getId());
+        client.setFirstName(form.getFirstName());
+        client.setLastName(form.getLastName());
+        client.setPhoneNumber(form.getPhoneNumber());
         LOGGER.info("entity transferred: " + client);
         return client;
     }

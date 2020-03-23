@@ -1,5 +1,6 @@
 package com.autodoc.spring.controller.impl;
 
+import com.autodoc.business.impl.ObjectFormattingException;
 import com.autodoc.spring.controller.contract.ExceptionController;
 import org.apache.log4j.Logger;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -37,8 +38,14 @@ public class ExceptionControllerImpl implements ExceptionController {
         return new ModelAndView(NOT_FOUND);
     }
 
+    @ExceptionHandler(ObjectFormattingException.class)
+    public String handlesCustomObjectexception(HttpServletRequest request, Exception e) {
+        logError(request, e);
+        return e.getMessage();
+    }
+
     @ExceptionHandler(HttpClientErrorException.class)
-    public ModelAndView handle400(HttpServletRequest request, Exception e){
+    public ModelAndView handle400(HttpServletRequest request, Exception e) {
         logError(request, e);
         return new ModelAndView(BAD_REQUEST);
     }
