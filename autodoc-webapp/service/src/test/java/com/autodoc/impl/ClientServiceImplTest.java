@@ -36,8 +36,7 @@ class ClientServiceImplTest extends HelperTest {
     @Test
     @DisplayName("should return client id when insertion ok")
     void create() {
-        //System.out.println("feedback: " + service.create(token, dto));
-        assertEquals(3, service.create(token, dto));
+        assertEquals("3", service.create(token, dto));
 
 
     }

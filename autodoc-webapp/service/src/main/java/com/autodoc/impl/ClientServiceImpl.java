@@ -7,7 +7,6 @@ import javax.inject.Named;
 
 @Named
 public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements ClientService {
-   // private static Logger LOGGER = Logger.getLogger(ClientServiceImpl.class);
 
     Class getObjectClass() {
         return ClientDTO.class;
@@ -16,7 +15,6 @@ public class ClientServiceImpl extends GlobalServiceImpl<ClientDTO> implements C
     Class getListClass() {
         return ClientDTO[].class;
     }
-
 
 
 }

@@ -79,7 +79,6 @@ public class Filler {
 
     public void fill() throws Exception {
         if (manufacturerDao.getAll().isEmpty()) {
-
             LOGGER.debug("getting here");
             fillEmployee();
             fillManufacturer();

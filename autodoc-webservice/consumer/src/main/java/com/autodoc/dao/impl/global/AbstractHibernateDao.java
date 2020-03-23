@@ -85,6 +85,10 @@ public abstract class AbstractHibernateDao<T> {
     public boolean delete(T entity) {
         LOGGER.info("I want to delete: " + entity);
         getCurrentSession().delete(entity);
+        /*LOGGER.info("flushing");
+        getCurrentSession().flush();
+        LOGGER.info("clearing");
+        getCurrentSession().clear();*/
         return true;
 
     }
@@ -104,7 +108,6 @@ public abstract class AbstractHibernateDao<T> {
             return false;
         }
         delete(entity);
-       // return getById(entityId) == null;
         return true;
     }
 
