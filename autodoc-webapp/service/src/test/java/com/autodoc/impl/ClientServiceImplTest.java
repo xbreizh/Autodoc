@@ -46,8 +46,9 @@ class ClientServiceImplTest extends HelperTest {
     @Test
     @DisplayName("should return exception if name already exist")
     void create1() {
-        // trying to insert twice the same value
-        service.create(token, dto);
+        //trying to insert client that is already in DB
+        dto.setLastName("moore");
+        dto.setFirstName("ROGER");
         assertThrows(NumberFormatException.class, () -> Integer.parseInt(service.create(token, dto)));
 
 
