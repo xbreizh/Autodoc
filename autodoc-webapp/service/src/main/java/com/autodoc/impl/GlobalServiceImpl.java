@@ -192,4 +192,26 @@ public class GlobalServiceImpl<D> implements GlobalService {
         }
 
     }
+
+    @Override
+    public void reset() {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        this.restTemplate = new RestTemplate();
+
+        this.request = new HttpEntity<>(headers);
+        try {
+            LOGGER.info("restTemplate ready");
+            String url = BASE_URL + "reset";
+            LOGGER.info(ArrayList.class);
+
+            restTemplate.exchange(url, HttpMethod.GET, request, Void.class);
+        } catch (Exception e) {
+            LOGGER.info("error occured");
+            throw new
+                    BadCredentialsException("External system authentication failed");
+        }
+
+    }
 }

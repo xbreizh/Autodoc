@@ -25,4 +25,6 @@ public interface GlobalService<T> {
     String getClassName();
 
     void filler();
+
+    void reset();
 }

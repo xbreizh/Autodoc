@@ -7,7 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ClientServiceImplTest extends HelperTest {
 
@@ -25,6 +26,7 @@ class ClientServiceImplTest extends HelperTest {
         dto.setLastName("john");
         dto.setFirstName("ssss");
         dto.setPhoneNumber("32323232323");
+
     }
 
 
@@ -36,7 +38,17 @@ class ClientServiceImplTest extends HelperTest {
     @Test
     @DisplayName("should return client id when insertion ok")
     void create() {
-        assertEquals("3", service.create(token, dto));
+        assertDoesNotThrow(() -> Integer.parseInt(service.create(token, dto)));
+
+
+    }
+
+    @Test
+    @DisplayName("should return exception if name already exist")
+    void create1() {
+        // trying to insert twice the same value
+        service.create(token, dto);
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(service.create(token, dto)));
 
 
     }
