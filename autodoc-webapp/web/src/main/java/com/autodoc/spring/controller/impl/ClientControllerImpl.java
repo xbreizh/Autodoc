@@ -83,6 +83,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
     public ModelAndView create(@Valid ClientForm form, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to create member ");
         ModelAndView mv = checkAndAddConnectedDetails("clients/clients_new");
+        if (form == null) form = new ClientForm();
         mv.addObject("form", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");

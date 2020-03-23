@@ -3,7 +3,7 @@ package com.autodoc.spring.controller.impl;
 import com.autodoc.business.contract.BillManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.business.contract.GlobalManager;
-import com.autodoc.business.impl.ObjectFormattingException;
+import com.autodoc.business.exceptions.ObjectFormattingException;
 import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.RegistrationForm;
 import com.autodoc.model.dtos.car.SearchCarForm;

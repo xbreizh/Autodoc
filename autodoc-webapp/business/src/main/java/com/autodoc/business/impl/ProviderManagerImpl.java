@@ -14,12 +14,10 @@ import javax.inject.Named;
 public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO> implements ProviderManager {
 
     private static final Logger LOGGER = Logger.getLogger(ProviderManagerImpl.class);
-    public Provider provider;
-    private ProviderService service;
+
 
     public ProviderManagerImpl(ProviderService service) {
         super(service);
-        this.service = service;
     }
 
     public Provider dtoToEntity(String token, Object obj) {

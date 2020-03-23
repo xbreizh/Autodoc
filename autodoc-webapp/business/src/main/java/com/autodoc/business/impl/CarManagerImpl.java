@@ -23,10 +23,7 @@ import java.util.List;
 public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements CarManager {
 
     private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
-
-
     private CarService service;
-
     private CarModelManager carModelManager;
     private ClientManager clientManager;
     private BillService billService;
@@ -43,7 +40,6 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     @Override
     public Car getByRegistration(String token, String registration) throws Exception {
         LOGGER.info("trying to get car by registration");
-        LOGGER.info(service);
         CarDTO dto = service.getByRegistration(token, registration);
         if (dto == null) return null;
         Car car = dtoToEntity(token, dto);
@@ -60,10 +56,8 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         CarDTO dto = new CarDTO();
         dto.setRegistration(carForm.getRegistration());
         dto.setCarModelId(carForm.getModelId());
-        int clientId = Integer.parseInt(clientManager.add(token, carForm.getClient()));
-        dto.setClientId(clientId);
+        return clientManager.add(token, carForm.getClient());
 
-        return service.create(token, dto);
     }
 
     public CarDTO formToDto(Object obj, String token) {

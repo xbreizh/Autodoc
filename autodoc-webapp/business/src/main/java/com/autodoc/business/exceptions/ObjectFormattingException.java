@@ -1,4 +1,4 @@
-package com.autodoc.business.impl;
+package com.autodoc.business.exceptions;
 
 public class ObjectFormattingException extends RuntimeException {
 

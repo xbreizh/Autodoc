@@ -1,7 +1,6 @@
 package com.autodoc.business.impl;
 
 
-import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.TaskManager;
 import com.autodoc.contract.TaskService;
 import com.autodoc.model.dtos.tasks.TaskDTO;
@@ -19,15 +18,13 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
     private static final Logger LOGGER = Logger.getLogger(TaskManagerImpl.class);
     public Task task;
     private TaskService service;
-    private PieceManager pieceManager;
 
-    public TaskManagerImpl(TaskService service, PieceManager pieceManager) {
+    public TaskManagerImpl(TaskService service) {
         super(service);
         this.service = service;
-        this.pieceManager = pieceManager;
     }
 
-    public Task dtoToEntity(String token, Object obj) throws Exception {
+    public Task dtoToEntity(String token, Object obj) {
 
         TaskDTO dto = (TaskDTO) obj;
         LOGGER.info("dto: " + dto);
@@ -46,7 +43,7 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         return task;
     }
 
-    public void update(String token, Object obj) throws Exception {
+    public void update(String token, Object obj) {
         LOGGER.info("updating task: " + obj);
         TaskDTO taskDto = formToDto(obj, token);
         TaskDTO taskToUpdate = (TaskDTO) service.getById(token, taskDto.getId());

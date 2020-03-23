@@ -16,12 +16,10 @@ import java.util.List;
 public class PieceTypeManagerImpl extends GlobalManagerImpl<PieceType, PieceTypeDTO> implements PieceTypeManager {
 
     private static final Logger LOGGER = Logger.getLogger(PieceTypeManagerImpl.class);
-    public PieceType pieceType;
-    private PieceTypeService service;
+
 
     public PieceTypeManagerImpl(PieceTypeService service) {
         super(service);
-        this.service = service;
     }
 
     public PieceType dtoToEntity(String token, Object obj) {

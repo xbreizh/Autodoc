@@ -15,7 +15,7 @@ public class CountryManagerImpl extends GlobalManagerImpl<Country, CountryDTO> i
     private static final Logger LOGGER = Logger.getLogger(CountryManagerImpl.class);
 
 
-    private CountryService service;
+   // private CountryService service;
 
     public CountryManagerImpl(CountryService service) {
         super(service);

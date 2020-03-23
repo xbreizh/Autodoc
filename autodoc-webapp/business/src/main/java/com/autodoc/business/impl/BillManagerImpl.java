@@ -3,7 +3,6 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.*;
 import com.autodoc.contract.BillService;
-import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
@@ -24,17 +23,15 @@ import java.util.List;
 public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements BillManager {
 
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
-    public Bill bill;
     private BillService service;
     private CarManager carManager;
     private TaskManager taskManager;
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
     private PieceManager pieceManager;
-    private EnumService enumService;
     private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-    public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, PieceManager pieceManager, EnumService enumService) {
+    public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, PieceManager pieceManager) {
         super(service);
         this.service = service;
         this.carManager = carManager;
@@ -42,7 +39,6 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         this.pieceManager = pieceManager;
         this.clientManager = clientManager;
         this.employeeManager = employeeManager;
-        this.enumService = enumService;
     }
 
     public Bill dtoToEntity(String token, Object obj) throws Exception {

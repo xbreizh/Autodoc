@@ -9,7 +9,6 @@ import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import org.apache.log4j.Logger;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
@@ -18,9 +17,7 @@ public class CarModelManagerImpl extends GlobalManagerImpl<CarModel, CarModelDTO
     private static final Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
 
 
-    private CarModelService service;
-
-    @Inject
+    //@Inject
     private ManufacturerManager manufacturerManager;
 
     public CarModelManagerImpl(CarModelService service, ManufacturerManager manufacturerManager) {

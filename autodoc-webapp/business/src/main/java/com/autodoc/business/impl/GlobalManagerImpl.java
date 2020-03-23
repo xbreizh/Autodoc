@@ -1,7 +1,9 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.GlobalManager;
+import com.autodoc.contract.EnumService;
 import com.autodoc.contract.GlobalService;
+import com.autodoc.impl.EnumServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
@@ -13,9 +15,11 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     protected static final double pricePerHour = 15;
     private static Logger LOGGER = Logger.getLogger(GlobalManagerImpl.class);
     GlobalService service;
+    EnumService enumService;
 
     public GlobalManagerImpl(GlobalService service) {
         this.service = service;
+        if (enumService == null) enumService = new EnumServiceImpl();
     }
 
     public double getPricePerHour() {
@@ -52,14 +56,23 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     public String add(String token, Object obj) throws Exception {
         LOGGER.info("stuff to insert: " + obj);
         D objToInsert = formToDto(obj, token);
-        String feedback = service.create(token, objToInsert);
+        /*String feedback = service.create(token, objToInsert);
         try {
             Integer.parseInt(feedback);
         } catch (NumberFormatException e) {
             LOGGER.error(feedback);
+            throw new ObjectFormattingException(feedback)
         }
         LOGGER.info("id: " + feedback);
-        return returnFeedback(201, feedback);
+        return returnFeedback(201, feedback);*/
+        return service.create(token, objToInsert);
+       /* String feedBack = "";
+        try {
+            feedBack = service.update(token, objToInsert);
+            return feedBack;
+        } catch (RuntimeException e) {
+            throw new ObjectFormattingException( getFeedbackDetails(feedBack));
+        }*/
 
     }
 

@@ -49,12 +49,13 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
 
     @PostMapping("/searchCar")
     public ModelAndView searchCar(@Valid SearchCarForm form, BindingResult bindingResult) throws Exception {
+        String token = helper.getConnectedToken();
         LOGGER.info("getting here: " + form);
         String registration = form.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
-        String token = helper.getConnectedToken();
         if (bindingResult.hasErrors()) {
             LOGGER.error(bindingResult.getFieldError().getRejectedValue());
+            mv.addObject("registration", registration);
             return mv;
         }
 
@@ -124,23 +125,33 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         return checkAndAddConnectedDetails("bills/bills_new");
     }
 
-    @PostMapping(value = "/newCar")
+    @PostMapping(value = "/new")
     @ResponseBody
     public ModelAndView createNew(@Valid CarForm form, BindingResult bindingResult) throws Exception {
         LOGGER.info("carForm received: " + form);
         String token = helper.getConnectedToken();
-
+        if (form == null) form = new CarForm();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         if (bindingResult.hasErrors()) {
             mv.addObject("message", "registration not found in the system");
-            mv.addObject("form", new CarForm());
+            mv.addObject("form", form);
             mv.addObject("models", carModelManager.getAll(token));
+            LOGGER.error("error here");
             return mv;
         }
+        String feedback = "";
 
-        int id = Integer.parseInt(carManager.addNewCar(token, form));
-
-        return new ModelAndView("redirect:" + "/cars" + "/" + id);
+        try {
+            feedback = carManager.addNewCar(token, form);
+            int id = Integer.parseInt(feedback);
+            return new ModelAndView("redirect:" + "/" + KEY_WORD + "/" + id);
+        } catch (NumberFormatException e) {
+            LOGGER.error("bashing: " + e.getMessage());
+            mv.addObject("form", form);
+            mv.addObject("models", carModelManager.getAll(token));
+            mv.addObject("error", feedback);
+        }
+        return mv;
     }
 
 

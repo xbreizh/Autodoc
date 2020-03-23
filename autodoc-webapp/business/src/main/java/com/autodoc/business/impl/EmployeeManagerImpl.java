@@ -2,7 +2,6 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.contract.EmployeeService;
-import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
@@ -17,19 +16,13 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
     private static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
 
 
-    EmployeeService service;
-    EnumService enumService;
-
-
-    public EmployeeManagerImpl(EmployeeService service, EnumService enumService) {
+    public EmployeeManagerImpl(EmployeeService service) {
         super(service);
-        this.service = service;
-        this.enumService = enumService;
     }
 
     @Override
     public Employee getByLogin(String token, String login) {
-        LOGGER.info("serviceee: " + service);
+        LOGGER.info("trying to get by login: " + login);
         return dtoToEntity(token, service.getByName(token, login));
     }
 

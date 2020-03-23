@@ -2,7 +2,6 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.ClientService;
-import com.autodoc.contract.EnumService;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.person.client.Client;
@@ -16,14 +15,10 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
     private static Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
 
 
-    ClientService service;
-    EnumService enumService;
 
-
-    public ClientManagerImpl(ClientService service, EnumService enumService) {
+    public ClientManagerImpl(ClientService service) {
         super(service);
         this.service = service;
-        this.enumService = enumService;
     }
 
 
