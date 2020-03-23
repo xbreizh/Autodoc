@@ -71,8 +71,6 @@ class ProviderServiceImplTest extends HelperTest {
     @DisplayName("should return 201 when insertion ok")
     void create() {
         LOGGER.info(dto);
-        service.filler();
-        //service.delete(token, 6);
         assertEquals(201, service.create(token, dto));
     }
 

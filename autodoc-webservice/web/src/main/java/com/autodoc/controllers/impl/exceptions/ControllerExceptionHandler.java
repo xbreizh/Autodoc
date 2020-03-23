@@ -35,13 +35,13 @@ public class ControllerExceptionHandler extends RuntimeException {
         if(e.getClass() == ObjectNotFoundException.class) return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("No object found");
-        LOGGER.info("Item not found. HTTP 500 returned.");
-        LOGGER.debug("req: " + req.getRequestURI());
-        LOGGER.error("capturing 500 " + e.getMessage());
-        LOGGER.error("capturing 500 " + e.getLocalizedMessage());
+       // LOGGER.info("Item not found. HTTP 500 returned.");
+      //  LOGGER.debug("req: " + req.getRequestURI());
+        LOGGER.error("capturing"+e.getClass() + e.getMessage());
+       /* LOGGER.error("capturing 500 " + e.getLocalizedMessage());
         LOGGER.error("capturing 500 " + e.getCause());
         LOGGER.error("capturing 500 " + e.getStackTrace());
-        LOGGER.error("class: " + e.getClass());
+        LOGGER.error("class: " + e.getClass());*/
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(e.getMessage());

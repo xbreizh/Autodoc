@@ -3,6 +3,8 @@ package com.autodoc.business.impl;
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.contract.GlobalService;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,14 +59,37 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
             LOGGER.error(feedback);
         }
         LOGGER.info("id: " + feedback);
-        return feedback;
+        return returnFeedback(201, feedback);
 
+    }
+
+    private String returnFeedback(int codeExpected, String feedback) {
+        if (getRequestCode(feedback) != codeExpected) return getFeedbackDetails(feedback);
+        return feedback;
+    }
+
+    protected String getFeedbackDetails(String feedback) {
+        try {
+            int start = feedback.indexOf("\"");
+            String details = feedback.substring(start + 1, feedback.length() - 1);
+            return details;
+        } catch (Exception e) {
+            LOGGER.error("issue while getting feedback details: " + e.getStackTrace());
+            LOGGER.error(feedback);
+        }
+        return "an error occurred. Please check the logs";
     }
 
     public void update(String token, Object obj) throws Exception {
         LOGGER.info("stuff to update: " + obj);
         D objToUpdate = formToDto(obj, token);
-        service.update(token, objToUpdate);
+        String feedBack = "";
+        try {
+            feedBack = service.update(token, objToUpdate);
+        } catch (Exception e) {
+            HttpStatus status = HttpStatus.valueOf(getRequestCode(feedBack));
+            throw new HttpClientErrorException(status, getFeedbackDetails(feedBack));
+        }
 
     }
 
@@ -92,5 +117,17 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         LOGGER.info("new list: " + newList);
         return newList;
     }
+
+    int getRequestCode(String feedback) {
+        String code = feedback.substring(0, 3);
+        try {
+            return Integer.parseInt(code);
+
+        } catch (NumberFormatException e) {
+            LOGGER.error("invalid code received: " + code);
+        }
+        return 999;
+    }
+
 
 }
