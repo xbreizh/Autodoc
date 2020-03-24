@@ -43,7 +43,6 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         CarDTO dto = service.getByRegistration(token, registration);
         if (dto == null) return null;
         Car car = dtoToEntity(token, dto);
-        LOGGER.info("yoyho");
         if (car == null) {
             LOGGER.info("car is null");
             return null;
@@ -52,11 +51,15 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     }
 
     @Override
-    public String addNewCar(String token, CarForm carForm) throws Exception {
+    public String addNewCar(String token, CarForm form) throws Exception {
         CarDTO dto = new CarDTO();
-        dto.setRegistration(carForm.getRegistration());
-        dto.setCarModelId(carForm.getModelId());
-        return clientManager.add(token, carForm.getClient());
+        dto.setRegistration(form.getRegistration());
+        dto.setCarModelId(form.getModelId());
+        //adding client
+        int clientId = Integer.parseInt(clientManager.add(token, form.getClient()));
+        dto.setClientId(clientId);
+        LOGGER.info("new car to be added: " + dto);
+        return service.create(token, dto);
 
     }
 
