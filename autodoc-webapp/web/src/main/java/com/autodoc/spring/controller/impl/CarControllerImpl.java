@@ -48,10 +48,10 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
     }
 
     @PostMapping("/searchCar")
-    public ModelAndView searchCar(@Valid SearchCarForm form, BindingResult bindingResult) throws Exception {
+    public ModelAndView searchCar(@Valid SearchCarForm searchForm, BindingResult bindingResult) throws Exception {
         String token = helper.getConnectedToken();
-        LOGGER.info("getting here: " + form);
-        String registration = form.getRegistration().toUpperCase();
+        LOGGER.info("getting here: " + searchForm);
+        String registration = searchForm.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         if (bindingResult.hasErrors()) {
             LOGGER.error(bindingResult.getFieldError().getRejectedValue());
@@ -64,7 +64,12 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         if (car == null) {
             mv.addObject("message", "Registration not found in the system: ");
             mv.addObject("registration", registration);
-            mv.addObject("form", new CarForm());
+            CarForm carForm = new CarForm();
+            //ClientForm clientForm = new ClientForm("", "", "");
+            //if (form.get()==null)form.setClientForm(clientForm);
+            carForm.setRegistration(registration);
+            mv.addObject("carForm", carForm);
+            LOGGER.info("form: " + carForm);
             mv.addObject("models", carModelManager.getAll(token));
             List<Client> clients = clientManager.getAll(token);
             mv.addObject("clients", clients);
@@ -127,27 +132,32 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
 
     @PostMapping(value = "/new")
     @ResponseBody
-    public ModelAndView createNew(@Valid CarForm form, BindingResult bindingResult) throws Exception {
-        LOGGER.info("carForm received: " + form);
+    public ModelAndView createNew(@Valid CarForm carForm, BindingResult bindingResult) throws Exception {
+        LOGGER.info("carForm received: " + carForm);
         String token = helper.getConnectedToken();
-        if (form == null) form = new CarForm();
+        if (carForm == null) carForm = new CarForm();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
+        mv.addObject("registration", carForm.getRegistration());
+        SearchCarForm searchCarForm = new SearchCarForm();
+        searchCarForm.setRegistration(carForm.getRegistration());
+        mv.addObject("searchCarForm", new SearchCarForm());
+
         if (bindingResult.hasErrors()) {
             mv.addObject("message", "registration not found in the system");
-            mv.addObject("form", form);
+            mv.addObject("carForm", carForm);
             mv.addObject("models", carModelManager.getAll(token));
-            LOGGER.error("error here");
+            LOGGER.error("error here: " + bindingResult.getFieldError());
             return mv;
         }
         String feedback = "";
 
         try {
-            feedback = carManager.addNewCar(token, form);
+            feedback = carManager.addNewCar(token, carForm);
             int id = Integer.parseInt(feedback);
             return new ModelAndView("redirect:" + "/" + KEY_WORD + "/" + id);
         } catch (NumberFormatException e) {
             LOGGER.error("bashing: " + e.getMessage());
-            mv.addObject("form", form);
+            mv.addObject("carForm", carForm);
             mv.addObject("models", carModelManager.getAll(token));
             mv.addObject("error", feedback);
         }

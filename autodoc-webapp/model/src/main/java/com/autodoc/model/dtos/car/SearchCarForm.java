@@ -25,7 +25,7 @@ public class SearchCarForm {
 
     @Override
     public String toString() {
-        return "CarForm{" +
+        return "SearchCarForm{" +
                 "id=" + id +
                 ", clientId=" + clientId +
                 ", carModelId=" + modelId +
