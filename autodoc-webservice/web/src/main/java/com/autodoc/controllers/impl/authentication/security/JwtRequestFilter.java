@@ -22,11 +22,12 @@ import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+    private static final Logger LOGGER = Logger.getLogger(JwtRequestFilter.class);
     @Inject
     private JwtConnect jwtUserDetailsService;
     @Inject
     private JwtTokenUtil jwtTokenUtil;
-    private static final Logger LOGGER = Logger.getLogger(JwtRequestFilter.class);
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
@@ -76,6 +77,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 // Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
+
         }
         chain.doFilter(request, response);
     }

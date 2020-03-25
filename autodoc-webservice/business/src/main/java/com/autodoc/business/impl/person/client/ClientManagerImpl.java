@@ -35,14 +35,11 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
     public ClientDTO entityToDto(Object client1) {
         LOGGER.info("converting into dto");
         ClientDTO dto = mapper.map(client1, ClientDTO.class);
-
-
         return dto;
     }
 
     @Override
     public Client dtoToEntity(Object entity) throws Exception {
-        LOGGER.info("converting into entity");
         LOGGER.info("converting into entity: " + entity);
         ClientDTO dto = (ClientDTO) entity;
         checkDataInsert(dto);

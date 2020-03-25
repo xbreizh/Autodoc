@@ -5,7 +5,6 @@ import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
 import org.apache.log4j.Logger;
-import org.hibernate.ObjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,11 +50,17 @@ class EmployeeDaoImplTest {
 
     }
 
+    @Test
+    void getLastConnection() {
+        assertNotNull(dao.getByLogin("LMOLO").getLastConnection());
+
+    }
+
 
     @Test
     @DisplayName("should return null if nothing found")
     void getById() {
-       assertNull(dao.getById(23232));
+        assertNull(dao.getById(23232));
     }
 
     @Test

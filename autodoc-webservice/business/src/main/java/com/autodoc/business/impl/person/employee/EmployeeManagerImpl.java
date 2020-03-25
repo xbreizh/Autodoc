@@ -46,6 +46,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         dto.setRoles(convertRoleFromEntityToDto(((Employee) entity).getRoles()));
         dto.setLastName(((Employee) entity).getLastName());
         dto.setPhoneNumber(((Employee) entity).getPhoneNumber());
+        dto.setLastConnection(((Employee) entity).getLastConnection());
         LOGGER.info("dto: " + dto);
         return dto;
     }
@@ -82,7 +83,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         if (dto.getLastName() != null) employee.setLastName(dto.getLastName().toUpperCase());
         if (dto.getPhoneNumber() != null) employee.setPhoneNumber(dto.getPhoneNumber().toUpperCase());
         if (dto.getRoles() != null) employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
-
+        if (dto.getLastConnection() != null) employee.setLastConnection(dto.getLastConnection());
         return employee;
     }
 
@@ -154,10 +155,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     @Override
     public Employee getByLogin(String login) {
-
-        login = login.toUpperCase();
         LOGGER.info("login to find: " + login);
-        return employeeDao.getByLogin(login);
+        return employeeDao.getByLogin(login.toUpperCase());
     }
 
     @Override

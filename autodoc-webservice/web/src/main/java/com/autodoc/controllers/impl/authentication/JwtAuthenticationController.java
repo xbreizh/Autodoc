@@ -28,6 +28,7 @@ public class JwtAuthenticationController {
     @Inject
     private JwtConnect jwtConnect;
 
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         LOGGER.debug("create autjhentication token");
