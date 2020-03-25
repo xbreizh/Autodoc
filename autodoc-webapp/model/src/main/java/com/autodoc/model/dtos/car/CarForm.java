@@ -1,8 +1,10 @@
 package com.autodoc.model.dtos.car;
 
+import com.autodoc.model.dtos.person.client.ClientForm;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,11 +19,10 @@ public class CarForm {
 
     private int modelId;
 
-    /* @Valid
-     @NotNull
-     private ClientForm clientForm;
- */
+    @Valid
     @NotNull
+    private ClientForm client;
+   /* @NotNull
     @Size(min = 3, max = 12, message = "should be between 3 and 12")
     private String firstName;
 
@@ -32,7 +33,7 @@ public class CarForm {
 
     @NotNull
     @Size(min = 8, max = 12, message = "should be between 8 and 12")
-    private String phoneNumber;
+    private String phoneNumber;*/
 
     public CarForm() {
     }
@@ -43,9 +44,7 @@ public class CarForm {
         return "CarForm{" +
                 "registration='" + registration + '\'' +
                 ", modelId=" + modelId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", client=" + client +
                 '}';
     }
 }

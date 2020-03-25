@@ -11,15 +11,15 @@ import javax.validation.constraints.Size;
 public class ClientForm {
 
 
-    @NotNull
+   // @NotNull
     @Size(min = 3, max = 12, message = "should be between 3 and 12")
     private String firstName;
-    @NotNull
+    //@NotNull
     @Size(min = 3, max = 12, message = "should be between 3 and 12")
     private String lastName;
 
     private int id;
-    @NotNull
+    //@NotNull
     @Size(min = 8, max = 12, message = "should be between 8 and 12")
     private String phoneNumber;
 

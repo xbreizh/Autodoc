@@ -8,6 +8,7 @@ import com.autodoc.helper.LibraryHelper;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
+import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.spring.controller.contract.CarController;
@@ -63,11 +64,9 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         Car car = carManager.getByRegistration(helper.getConnectedToken(), registration);
         if (car == null) {
             mv.addObject("message", "Registration not found in the system: ");
-            mv.addObject("registration", registration);
             CarForm carForm = new CarForm();
-            //ClientForm clientForm = new ClientForm("", "", "");
-            //if (form.get()==null)form.setClientForm(clientForm);
             carForm.setRegistration(registration);
+            carForm.setClient(new ClientForm("", "", ""));
             mv.addObject("carForm", carForm);
             LOGGER.info("form: " + carForm);
             mv.addObject("models", carModelManager.getAll(token));
@@ -141,7 +140,8 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         SearchCarForm searchCarForm = new SearchCarForm();
         searchCarForm.setRegistration(carForm.getRegistration());
         mv.addObject("searchCarForm", new SearchCarForm());
-
+        carForm.setRegistration(carForm.getRegistration());
+        mv.addObject("carForm", carForm);
         if (bindingResult.hasErrors()) {
             mv.addObject("message", "registration not found in the system");
             mv.addObject("carForm", carForm);
