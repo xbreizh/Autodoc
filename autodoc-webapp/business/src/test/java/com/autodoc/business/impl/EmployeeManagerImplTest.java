@@ -28,7 +28,7 @@ class EmployeeManagerImplTest {
 
         service = new EmployeeServiceImpl();
         enumService = new EnumServiceImpl();
-        employeeManager = new EmployeeManagerImpl(service, enumService);
+        employeeManager = new EmployeeManagerImpl(service);
     }
 
     @Test

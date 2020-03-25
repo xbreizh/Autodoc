@@ -2,6 +2,7 @@
 
     <h3>New Car</h3>
 
+    <div th:text="${error}">error</div>
 
     <form action="#" method="post" th:action="@{'/cars/new/'}" th:object="${carForm}">
         <div class="form-group">

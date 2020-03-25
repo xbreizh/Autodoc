@@ -1,6 +1,7 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.GlobalManager;
+import com.autodoc.business.exceptions.ObjectFormattingException;
 import com.autodoc.contract.EnumService;
 import com.autodoc.contract.GlobalService;
 import com.autodoc.impl.EnumServiceImpl;
@@ -65,7 +66,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         }
         LOGGER.info("id: " + feedback);
         return returnFeedback(201, feedback);*/
-        return service.create(token, objToInsert);
+        //  return service.create(token, objToInsert);
        /* String feedBack = "";
         try {
             feedBack = service.update(token, objToInsert);
@@ -73,7 +74,20 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         } catch (RuntimeException e) {
             throw new ObjectFormattingException( getFeedbackDetails(feedBack));
         }*/
+        String feedBack = "";
+        try {
+            feedBack = service.create(token, objToInsert);
+            LOGGER.info("feedback: " + feedBack);
+        } catch (Exception e) {
+            LOGGER.error("exception found: " + e.getMessage());
+            HttpStatus status = HttpStatus.valueOf(getRequestCode(feedBack));
+            throw new HttpClientErrorException(status, getFeedbackDetails(feedBack));
+        }
 
+        if (feedBack.startsWith("400 /")) {
+            throw new ObjectFormattingException(getFeedbackDetails(feedBack));
+        }
+        return feedBack;
     }
 
     private String returnFeedback(int codeExpected, String feedback) {
@@ -82,9 +96,11 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     protected String getFeedbackDetails(String feedback) {
+        LOGGER.info("feedback: " + feedback);
         try {
             int start = feedback.indexOf("\"");
             String details = feedback.substring(start + 1, feedback.length() - 1);
+            LOGGER.info("details: " + details);
             return details;
         } catch (Exception e) {
             LOGGER.error("issue while getting feedback details: " + e.getStackTrace());
@@ -132,6 +148,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     int getRequestCode(String feedback) {
+        LOGGER.info("feedback: " + feedback);
         String code = feedback.substring(0, 3);
         try {
             return Integer.parseInt(code);

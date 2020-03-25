@@ -56,9 +56,15 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         dto.setRegistration(form.getRegistration());
         dto.setCarModelId(form.getModelId());
         //adding client
-        // int clientId = Integer.parseInt(clientManager.add(token, form.getClient()));
-        // TODO remove patch below
-        dto.setClientId(2);
+        String feedbackFromClientAdd = "";
+        try {
+            feedbackFromClientAdd = clientManager.add(token, form.getClient());
+            int clientId = Integer.parseInt(feedbackFromClientAdd);
+            dto.setClientId(clientId);
+        } catch (NumberFormatException e) {
+            LOGGER.error("error while creating the client");
+            return getFeedbackDetails(feedbackFromClientAdd);
+        }
         LOGGER.info("new car to be added: " + dto);
         return service.create(token, dto);
 

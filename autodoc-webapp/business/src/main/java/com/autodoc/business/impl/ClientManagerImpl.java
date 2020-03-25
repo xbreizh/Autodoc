@@ -39,10 +39,9 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
     }
 
     public ClientDTO formToDto(Object obj, String token) {
-        LOGGER.info("stuff to update: " + obj);
         ClientForm form = (ClientForm) obj;
         LOGGER.info("form: " + form);
-        LOGGER.info(form.getFirstName());
+//        LOGGER.info(form.getFirstName());
         ClientDTO client = new ClientDTO();
         if (form.getId() != 0) client.setId(form.getId());
         client.setFirstName(form.getFirstName());

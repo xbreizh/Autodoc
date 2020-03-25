@@ -26,7 +26,7 @@ class ClientManagerImplTest {
     @BeforeEach
     void init() {
         service = mock(ClientServiceImpl.class);
-        clientManager = new ClientManagerImpl(service, enumService);
+        clientManager = new ClientManagerImpl(service);
     }
 
     @Test
