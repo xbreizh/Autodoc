@@ -1,3 +1,4 @@
+/*
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
@@ -59,7 +60,8 @@ class EmployeeControllerImplTest {
         employees.add(employee);
     }
 
- /*   @Test
+ */
+/*   @Test
     void employees() {
         LOGGER.info(employeeManager);
         when(helper.getConnectedToken()).thenReturn("token123");
@@ -71,5 +73,6 @@ class EmployeeControllerImplTest {
         assertAll(
                 () -> assertNotNull(controller.employees())
         );
-    }*/
-}
+    }*//*
+
+}*/

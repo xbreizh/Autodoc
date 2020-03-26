@@ -28,7 +28,7 @@
             <label for="clientId">Client</label>
             <select id="clientId" name="clientId">
                 <option th:each="client : ${clients}"
-                        th:utext="${client.firstName}"
+                        th:utext="${client.firstName+' '+client.lastName+' /'+client.phoneNumber}"
                         th:value="${client.id}"/>
             </select>
         </div>

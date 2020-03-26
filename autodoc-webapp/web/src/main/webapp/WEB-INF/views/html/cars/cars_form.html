@@ -10,7 +10,7 @@
             <select name="clientId" onchange="this.form.submit()" th:id="clientId">
                 <option th:each="client : ${clients}"
                         th:selected="${client.id == obj.client.id}"
-                        th:text="${client.firstName+' '+client.lastName}"
+                        th:text="${client.firstName+' '+client.lastName+' '+client.phoneNumber}"
                         th:value="${client.id}"></option>
             </select>
         </div>

@@ -37,7 +37,7 @@
             <tr>
                 <td>Client</td>
                 <td th:onclick="'javascript:rowClicked(\'' +@{'/clients/' + ${obj.client.id}}+ '\');'"
-                    th:text="${obj.client.firstName+' '+obj.client.lastName}">Client
+                    th:text="${obj.client.firstName+' '+obj.client.lastName+' '+obj.client.phoneNumber}">Client
 
                 </td>
             </tr>
