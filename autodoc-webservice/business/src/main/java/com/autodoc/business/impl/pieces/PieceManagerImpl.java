@@ -3,12 +3,9 @@ package com.autodoc.business.impl.pieces;
 import com.autodoc.business.contract.pieces.PieceManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.contract.car.CarModelDao;
-import com.autodoc.dao.contract.person.provider.ProviderDao;
+import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
-import com.autodoc.dao.impl.pieces.PieceDaoImpl;
 import com.autodoc.model.dtos.pieces.PieceDTO;
-import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
@@ -20,19 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class PieceManagerImpl<T, D> extends AbstractGenericManager implements PieceManager {
     private static final Logger LOGGER = Logger.getLogger(PieceManagerImpl.class);
-    private PieceDaoImpl<Piece> pieceDao;
+    private PieceDao pieceDao;
     private ModelMapper mapper;
-    private CarModelDao carModelDao;
     private PieceTypeDao pieceTypeDao;
-    private ProviderDao providerDao;
 
-    public PieceManagerImpl(PieceDaoImpl<Piece> pieceDao, CarModelDao carModelDao, PieceTypeDao pieceTypeDao, ProviderDao providerDao) {
+    public PieceManagerImpl(PieceDao pieceDao, PieceTypeDao pieceTypeDao) {
         super(pieceDao);
         this.mapper = new ModelMapper();
         this.pieceDao = pieceDao;
-        this.carModelDao = carModelDao;
         this.pieceTypeDao = pieceTypeDao;
-        this.providerDao = providerDao;
     }
 
 
@@ -61,12 +54,17 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         piece.setBrand(dto.getBrand().toUpperCase());
         piece.setBuyingPrice(dto.getBuyingPrice());
         piece.setSellPrice(dto.getSellPrice());
+        checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
         piece.setQuantity(dto.getQuantity());
-     //   transferCarModel(dto, piece);
         transferPieceType(dto, piece);
         LOGGER.info("piece to transfer: " + piece);
         return piece;
 
+    }
+
+    public void checkSellingPriceIsEqualOrHigherBuyingPrice(Piece piece) {
+        if (piece.getSellPrice() < piece.getBuyingPrice())
+            throw new InvalidDtoException("the selling price must be equal or higher the buying price");
     }
 
 
@@ -78,13 +76,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         }
     }
 
-/*    private void transferCarModel(PieceDTO dto, Piece piece) throws InvalidDtoException {
-        if (dto.getCarModelId() != 0) {
-            CarModel carModel = (CarModel) carModelDao.getById(dto.getCarModelId());
-            if (carModel == null) throw new InvalidDtoException("invalid carModel id: " + dto.getCarModelId());
-            piece.setCarModel(carModel);
-        }
-    }*/
+
 
     public Piece transferUpdate(Object obj) throws InvalidDtoException {
         PieceDTO dto = (PieceDTO) obj;
@@ -102,8 +94,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         if (buyingPrice != 0) piece.setBuyingPrice(buyingPrice);
         if (sellPrice != 0) piece.setSellPrice(sellPrice);
         if (quantity != 0) piece.setQuantity(quantity);
-
-       // transferCarModel(dto, piece);
+        checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
         transferPieceType(dto, piece);
         LOGGER.info("piece to update: " + piece);
         return piece;

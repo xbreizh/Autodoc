@@ -22,18 +22,6 @@ public class CarForm {
     @Valid
     @NotNull
     private ClientForm client;
-   /* @NotNull
-    @Size(min = 3, max = 12, message = "should be between 3 and 12")
-    private String firstName;
-
-
-    @NotNull
-    @Size(min = 3, max = 12, message = "should be between 3 and 12")
-    private String lastName;
-
-    @NotNull
-    @Size(min = 8, max = 12, message = "should be between 8 and 12")
-    private String phoneNumber;*/
 
     public CarForm() {
     }

@@ -52,7 +52,7 @@ class TaskManagerImplTest {
         int id = 34;
         dto.setName(name);
         double price = 12345678910L;
-        dto.setPrice(price);
+    //    dto.setPrice(price);
         List<Integer> subTaskList = new ArrayList<>();
         subTaskList.add(id);
         when(dao.create(any(Task.class))).thenReturn(id);
@@ -71,7 +71,7 @@ class TaskManagerImplTest {
         int id = 34;
         dto.setName(name);
         double price = 12345678910L;
-        dto.setPrice(price);
+        //    dto.setPrice(price);
         List<Integer> subTaskList = new ArrayList<>();
         subTaskList.add(id);
         when(dao.update(any(Task.class))).thenReturn(true);
@@ -87,7 +87,7 @@ class TaskManagerImplTest {
         dto.setName(name);
         dto.setId(id);
         double price = 12345678910L;
-        dto.setPrice(price);
+//        dto.setPrice(price);
         List<Integer> subTaskList = new ArrayList<>();
         subTaskList.add(id);
         when(dao.getById(anyInt())).thenReturn(task);
@@ -155,7 +155,7 @@ class TaskManagerImplTest {
     void deleteById() throws Exception {
         List<Piece> pieceList = new ArrayList<>();
         pieceList.add(new Piece());
-        task.setPieces(pieceList);
+        //  task.setPieces(pieceList);
         task.setTemplate(false);
         when(dao.deleteById(anyInt())).thenReturn(true);
         when(dao.getById(anyInt())).thenReturn(task);
@@ -166,7 +166,7 @@ class TaskManagerImplTest {
     void deleteTemplateById() throws Exception {
         List<Piece> pieceList = new ArrayList<>();
         pieceList.add(new Piece());
-        task.setPieces(pieceList);
+        //  task.setPieces(pieceList);
         task.setTemplate(true);
         when(dao.deleteById(anyInt())).thenReturn(true);
         when(dao.getById(anyInt())).thenReturn(task);
