@@ -177,10 +177,10 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         }
         LOGGER.info("updating status");
 
-        if (dto.getStatus() != null && !dto.getStatus().isEmpty() && bill.getStatus() == null)
+        if (dto.getStatus() != null && !dto.getStatus().isEmpty() && bill.getStatus() == null) {
             bill.setStatus(Status.valueOf(dto.getStatus()));
+        }
         LOGGER.info("bill transferred: " + bill);
-        //  checkDataInsert(dto);
         return bill;
     }
 
