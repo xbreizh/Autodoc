@@ -13,6 +13,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Transactional
 @Component
 public class PieceManagerImpl<T, D> extends AbstractGenericManager implements PieceManager {
@@ -31,8 +34,9 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
 
     @Override
     public PieceDTO entityToDto(Object entity) {
+        LOGGER.info("entity received: " + entity);
         PieceDTO dto = mapper.map(entity, PieceDTO.class);
-        LOGGER.info("converted into dto");
+        LOGGER.info("converted into dto " + dto);
         return dto;
     }
 
@@ -62,6 +66,51 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
 
     }
 
+    public List<Piece> updateStockAndAddPieces(List<Piece> pieces) {
+        LOGGER.info("updating stock");
+        List<Piece> billPieceList = new ArrayList<>();
+        for (Piece piece : pieces) {
+            Piece pieceFromStock = (Piece) pieceDao.getById(piece.getId());
+            piece = updateQuantity(pieceFromStock, "-");
+            billPieceList.add(piece);
+        }
+        return billPieceList;
+    }
+
+    public Piece updateQuantity(Piece piece, String sign) {
+        LOGGER.info("updating quantity: " + piece);
+        int actualQuantity = piece.getQuantity();
+        if (sign.equalsIgnoreCase("+")) {
+            piece.setQuantity(actualQuantity + 1);
+        } else if (sign.equalsIgnoreCase("-")) {
+            LOGGER.info("removing");
+            piece.setQuantity(actualQuantity - 1);
+        }
+        LOGGER.info("piece now: " + piece);
+        pieceDao.update(piece);
+        updateNameAccordingToStock(piece.getId());
+
+        return piece;
+    }
+
+    public void updateNameAccordingToStock(int id) {
+        Piece piece = (Piece) pieceDao.getById(id);
+        int quantity = piece.getQuantity();
+        LOGGER.info("updating name according to stock: " + quantity);
+        String outOfStock = "OOS ";
+        String currentName = piece.getName();
+        if (quantity <= 0) {
+            if (!piece.getName().startsWith(outOfStock)) {
+                piece.setName(outOfStock + currentName);
+            }
+        }
+        if (quantity > 0 && currentName.startsWith(outOfStock)) {
+            piece.setName(currentName.substring(4));
+        }
+        LOGGER.info("new name: " + piece.getName());
+        pieceDao.update(piece);
+    }
+
     public void checkSellingPriceIsEqualOrHigherBuyingPrice(Piece piece) {
         if (piece.getSellPrice() < piece.getBuyingPrice())
             throw new InvalidDtoException("the selling price must be equal or higher the buying price");
@@ -75,7 +124,6 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
             piece.setPieceType(pieceType);
         }
     }
-
 
 
     public Piece transferUpdate(Object obj) throws InvalidDtoException {

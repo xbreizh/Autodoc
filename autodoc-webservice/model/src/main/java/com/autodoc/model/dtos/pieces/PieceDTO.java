@@ -17,7 +17,6 @@ public class PieceDTO {
     @Min(value = 1, message = "pieceTypeId cannot be null")
     private int pieceTypeId;
 
-
    /* @Min(value = 1, message = "carModelId cannot be null")
     private int carModelId;*/
     @NotNull(message = "name cannot be null")

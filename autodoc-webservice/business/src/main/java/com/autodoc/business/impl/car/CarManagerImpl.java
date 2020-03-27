@@ -67,7 +67,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
     @Override
     public CarDTO updateClient(int carId, int clientId) throws Exception {
-        CarDTO carDto = (CarDTO) carDao.getById(carId);
+       // CarDTO carDto = (CarDTO) carDao.getById(carId);
         Client client = (Client) clientDao.getById(clientId);
         if (client == null) throw new NotFoundException("client not found");
         return null;
