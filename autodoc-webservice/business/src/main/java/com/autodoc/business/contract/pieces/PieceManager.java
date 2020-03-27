@@ -9,9 +9,10 @@ public interface PieceManager extends IGenericManager {
 
     void checkSellingPriceIsEqualOrHigherBuyingPrice(Piece piece);
 
-    List<Piece> updateStockAndAddPieces(List<Piece> pieces);
+    List<Piece> updateStockAndAddPieces(List<Piece> pieces, List<Piece> pieceFromDb);
 
     void updateNameAccordingToStock(int id);
 
     Piece updateQuantity(Piece piece, String sign);
+
 }

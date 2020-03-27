@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -66,15 +65,50 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
 
     }
 
-    public List<Piece> updateStockAndAddPieces(List<Piece> pieces) {
+    public List<Piece> updateStockAndAddPieces(List<Piece> pieces, List<Piece> pieceFromDb) {
+
         LOGGER.info("updating stock");
-        List<Piece> billPieceList = new ArrayList<>();
+        LOGGER.info(pieces);
+        LOGGER.info(pieceFromDb);
+
+        if (pieceFromDb != null) {
+
+            // raises db quantity if removing a new item from the bill
+            for (Piece p : pieceFromDb) {
+                if (!pieces.contains(p)) {
+                    LOGGER.info("adding an item");
+                    updateQuantity(p, "+");
+                }
+                pieceDao.update(p);
+            }
+        }
+
+
+        if (pieces != null) {
+
+            // raises db quantity if removing a new item from the bill
+            for (Piece p : pieces) {
+                if (!pieces.contains(p)) {
+                    LOGGER.info("adding an item");
+                    updateQuantity(p, "+");
+                    //  billPieceList.add(p);
+                }
+                pieceDao.update(p);
+            }
+        }
+
+        // removes all items from db quantity according to bill
         for (Piece piece : pieces) {
+            LOGGER.info("removing an item: " + piece.getId());
             Piece pieceFromStock = (Piece) pieceDao.getById(piece.getId());
             piece = updateQuantity(pieceFromStock, "-");
-            billPieceList.add(piece);
         }
-        return billPieceList;
+        LOGGER.info("billPieceList: " + pieces);
+        if (pieces != null || pieces.isEmpty()) {
+            return pieceFromDb;
+        }
+        return pieces;
+
     }
 
     public Piece updateQuantity(Piece piece, String sign) {

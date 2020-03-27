@@ -35,8 +35,8 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
     private BillDao billDao;
     private ModelMapper mapper;
-    private  CarDao carDao;
-    private  ClientDao clientDao;
+    private CarDao carDao;
+    private ClientDao clientDao;
     private EmployeeDao employeeDao;
     private PieceDao pieceDao;
     private PieceManager pieceManager;
@@ -84,12 +84,11 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setTasks(taskList);
 
         List<Integer> pieceList = new ArrayList<>();
-        List<Piece> pieces = (bill).getPieces();
-        List<Piece> updatedList = pieceManager.updateStockAndAddPieces(pieces);
-        for (Piece piece : updatedList) {
+        List<Piece> pieces = bill.getPieces();
+        for (Piece piece : pieces) {
             pieceList.add(piece.getId());
-            updateBillStatusIfMissingPiece(bill);
         }
+
         dto.setPieces(pieceList);
         LOGGER.info("bill dto: " + dto);
         return dto;
@@ -138,18 +137,22 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             bill.setTasks(taskList);
         }
         LOGGER.info("tasks set: " + bill.getTasks());
-        LOGGER.info("updating pieces");
+        LOGGER.info("updating pieces: " + bill.getPieces());
+        List<Piece> oldPieceList = bill.getPieces();
         if (dto.getPieces() != null) {
-            List<Piece> pieceList = new ArrayList<>();
+            List<Piece> newPieceList = new ArrayList<>();
             for (Integer i : dto.getPieces()) {
                 Piece piece = (Piece) pieceDao.getById(i);
                 if (piece == null) throw new InvalidDtoException("invalid piece");
-                pieceList.add(piece);
+                newPieceList.add(piece);
             }
-            pieceManager.updateStockAndAddPieces(pieceList);
-            bill.setPieces(pieceList);
+            bill.setPieces(newPieceList);
+            LOGGER.info("old list: " + oldPieceList);
+            LOGGER.info("new list: " + newPieceList);
+            pieceManager.updateStockAndAddPieces(newPieceList, oldPieceList);
             updateBillStatusIfMissingPiece(bill);
         }
+        LOGGER.info("pieces list: " + bill.getPieces());
         LOGGER.info("updating client");
         if (dto.getClientId() != 0) {
             Client client = (Client) clientDao.getById(dto.getClientId());
@@ -223,7 +226,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 if (piece == null) throw new InvalidDtoException("invalid piece");
                 pieceList.add(piece);
             }
-            pieceManager.updateStockAndAddPieces(pieceList);
+            pieceManager.updateStockAndAddPieces(pieceList, bill.getPieces());
             bill.setPieces(pieceList);
         }
         Client client = (Client) clientDao.getById(dto.getClientId());
