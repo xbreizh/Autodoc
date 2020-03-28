@@ -197,10 +197,10 @@
 
                 /*<![CDATA[*/
 
-                let pieces = /*[[${pieceList}]]*/ null;
+                let pieceList = /*[[${pieceList}]]*/ null;
 
                 /*]]>*/
-                return pieces;
+                return pieceList;
             }
 
             function getBillPieces() {
@@ -208,10 +208,10 @@
 
                 /*<![CDATA[*/
 
-                let pieces = /*[[${obj.pieces}]]*/ null;
+                let billPieces = /*[[${obj.pieces}]]*/ null;
 
                 /*]]>*/
-                return pieces;
+                return billPieces;
             }
 
             function getTasks() {
@@ -219,10 +219,10 @@
 
                 /*<![CDATA[*/
 
-                let tasks = /*[[${taskList}]]*/ null;
+                let taskList = /*[[${taskList}]]*/ null;
 
                 /*]]>*/
-                return tasks;
+                return taskList;
             }
 
             function getBillTasks() {
@@ -230,10 +230,10 @@
 
                 /*<![CDATA[*/
 
-                let tasks = /*[[${obj.tasks}]]*/ null;
+                let billTasks = /*[[${obj.tasks}]]*/ null;
 
                 /*]]>*/
-                return tasks;
+                return billTasks;
             }
         </script>
 
@@ -246,14 +246,17 @@
 
 
             function loadLists() {
-                let p = getBillPieces();
-                let t = getBillTasks();
+                let taskList = getTasks();
+                let pieceList = getPieces();
 
-                for (let i = 0; i < p.length; i++) {
-                    pieceFunction(p);
+                let billTasks = getBillTasks();
+                let billPieces = getBillPieces();
+
+                for (let i = 0; i < billPieces.length; i++) {
+                    pieceFunction(pieceList);
                 }
-                for (let j = 0; j < t.length; j++) {
-                    taskFunction(t);
+                for (let j = 0; j < billTasks.length; j++) {
+                    taskFunction(taskList);
                 }
 
             }
