@@ -74,8 +74,10 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         ClientDTO dto = (ClientDTO) entity;
         Search search1 = new Search("firstName", "=", dto.getFirstName().toUpperCase());
         Search search2 = new Search("lastName", "=", dto.getLastName().toUpperCase());
+        Search search3 = new Search("phoneNumber", "=", dto.getPhoneNumber().toUpperCase());
         searchList.add(search1);
         searchList.add(search2);
+        searchList.add(search3);
         List<Client> clients = clientDao.getByCriteria(searchList);
         if (!clients.isEmpty())
             throw new Exception("that client already exist: " + dto.getFirstName() + " " + dto.getLastName());

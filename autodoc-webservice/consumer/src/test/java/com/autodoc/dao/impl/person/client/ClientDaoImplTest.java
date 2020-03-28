@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.person.client;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.person.client.Client;
+import com.autodoc.model.models.search.Search;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,6 +57,34 @@ class ClientDaoImplTest {
         assertEquals(client, clientDao.getById(id));
     }
 
+    @Test
+    @DisplayName("should return a list")
+    void searchByCriteria() throws Exception {
+        Client client = (Client) clientDao.getById(2);
+        List<Search> searchList = new ArrayList<>();
+        Search search1 = new Search("firstName", "=", client.getFirstName().toUpperCase());
+        Search search2 = new Search("lastName", "=", client.getLastName().toUpperCase());
+        Search search3 = new Search("phoneNumber", "=", client.getPhoneNumber().toUpperCase());
+        searchList.add(search1);
+        searchList.add(search2);
+        searchList.add(search3);
+        assertFalse(clientDao.getByCriteria(searchList).isEmpty());
+    }
+
+
+    @Test
+    @DisplayName("should return an empty list")
+    void searchByCriteria1() throws Exception {
+        Client client = (Client) clientDao.getById(2);
+        List<Search> searchList = new ArrayList<>();
+        Search search1 = new Search("firstName", "=", "rodolf");
+        Search search2 = new Search("lastName", "=", client.getLastName().toUpperCase());
+        Search search3 = new Search("phoneNumber", "=", client.getPhoneNumber().toUpperCase());
+        searchList.add(search1);
+        searchList.add(search2);
+        searchList.add(search3);
+        assertTrue(clientDao.getByCriteria(searchList).isEmpty());
+    }
 
     @Test
     @DisplayName("should return client if valid name")
