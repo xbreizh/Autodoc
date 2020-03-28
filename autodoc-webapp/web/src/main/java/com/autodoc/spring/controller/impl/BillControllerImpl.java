@@ -6,6 +6,7 @@ import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.autodoc.spring.controller.contract.BillController;
 import org.apache.log4j.Logger;
@@ -177,8 +178,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     private void addTasks(String token, ModelAndView mv) throws Exception {
         List<Task> taskList = taskManager.getTemplates(token);
         List<Task> sortedList = taskList.stream().sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
-        System.out.println("taskList: " + taskList);
-        System.out.println("sortedList: " + sortedList);
         mv.addObject("taskList", sortedList);
     }
 
@@ -188,7 +187,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
 
 
     private void addPieces(String token, ModelAndView mv) throws Exception {
-        mv.addObject("pieceList", pieceManager.getAll(token));
+        List<Piece> pieceList = pieceManager.getAll(token);
+        List<Piece> sortedList = pieceList.stream().sorted(Comparator.comparing(Piece::getId)).collect(Collectors.toList());
+        System.out.println("pieceList: " + pieceList);
+        System.out.println("sortedList: " + sortedList);
+        mv.addObject("pieceList", sortedList);
     }
 
     private void addEmployees(String token, ModelAndView mv) throws Exception {

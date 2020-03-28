@@ -253,7 +253,7 @@
                 let billPieces = getBillPieces();
 
                 for (let i = 0; i < billPieces.length; i++) {
-                    pieceFunction(pieceList);
+                    pieceFunction(pieceList, billPieces[i].id);
                 }
                 for (let j = 0; j < billTasks.length; j++) {
                     taskFunction(taskList, billTasks[j].id);
@@ -289,7 +289,7 @@
 
             ----------------------------------------------------------------------------
             */
-            function pieceFunction(pieces) {
+            function pieceFunction(pieces, pieceId) {
                 //let pieces = getPieces();
 
 
@@ -319,6 +319,7 @@
                 r.appendChild(g);
                 r.setAttribute("id", "id_" + i);
                 document.getElementById("myPieces").appendChild(r);
+                y.selectedIndex = pieceId - 1;
             }
 
             /*
