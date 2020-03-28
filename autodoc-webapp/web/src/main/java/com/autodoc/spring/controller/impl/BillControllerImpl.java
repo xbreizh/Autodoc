@@ -189,8 +189,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     private void addPieces(String token, ModelAndView mv) throws Exception {
         List<Piece> pieceList = pieceManager.getAll(token);
         List<Piece> sortedList = pieceList.stream().sorted(Comparator.comparing(Piece::getId)).collect(Collectors.toList());
-        System.out.println("pieceList: " + pieceList);
-        System.out.println("sortedList: " + sortedList);
         mv.addObject("pieceList", sortedList);
     }
 
