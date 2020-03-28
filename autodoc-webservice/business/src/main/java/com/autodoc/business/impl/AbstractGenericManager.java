@@ -86,8 +86,8 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     @Override
-    public void checkDataInsert(Object dto) throws Exception {
-        LOGGER.info("checking insert data: "+dto);
+    public void checkIfDuplicate(Object dto) throws Exception {
+        LOGGER.info("checking insert data: " + dto);
     }
 
     @Override

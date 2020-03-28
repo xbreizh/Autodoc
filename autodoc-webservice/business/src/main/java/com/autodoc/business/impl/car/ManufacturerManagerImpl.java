@@ -44,7 +44,7 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
         LOGGER.info("converted into ");
         ManufacturerDTO dto = (ManufacturerDTO) entity;
         Manufacturer manufacturer = mapper.map(entity, Manufacturer.class);
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         return manufacturer;
     }
 
@@ -60,7 +60,7 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
 
 
     @Override
-    public void checkDataInsert(Object dtoToCheck) throws InvalidDtoException {
+    public void checkIfDuplicate(Object dtoToCheck) throws InvalidDtoException {
         ManufacturerDTO dto = (ManufacturerDTO) dtoToCheck;
         if (dto.getName() == null || dto.getName().isEmpty()) {
             throw new InvalidDtoException("there should be a name");

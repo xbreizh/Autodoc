@@ -35,7 +35,7 @@ public class CountryManagerImpl<T, D> extends AbstractGenericManager implements 
     public Country dtoToEntity(Object entity) throws Exception {
         CountryDTO dto = (CountryDTO) entity;
         Country country = mapper.map(entity, Country.class);
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         return country;
     }
 }

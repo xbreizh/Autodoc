@@ -24,7 +24,7 @@ public interface IGenericManager<T, D> {
 
     T dtoToEntity(final D entity) throws Exception;
 
-    void checkDataInsert(Object dto) throws Exception;
+    void checkIfDuplicate(Object dto) throws Exception;
 
     void checkDataUpdate(Object dto) throws InvalidDtoException;
 

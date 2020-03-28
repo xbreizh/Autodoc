@@ -50,7 +50,7 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
     }
 
     @Override
-    public void checkDataInsert(Object obj) throws InvalidDtoException {
+    public void checkIfDuplicate(Object obj) throws InvalidDtoException {
         LOGGER.info("just passing");
 
     }

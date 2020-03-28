@@ -43,7 +43,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
     public Piece dtoToEntity(Object entity) throws Exception {
         PieceDTO dto = (PieceDTO) entity;
         Piece piece = mapper.map(entity, Piece.class);
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         return piece;
     }
 

@@ -42,7 +42,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
     public Client dtoToEntity(Object entity) throws Exception {
         LOGGER.info("converting into entity: " + entity);
         ClientDTO dto = (ClientDTO) entity;
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         Client client = new Client();
         client.setFirstName(dto.getFirstName().toUpperCase());
         client.setLastName(dto.getLastName().toUpperCase());
@@ -53,6 +53,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
 
 
     public Client transferUpdate(Object obj) throws Exception {
+        LOGGER.info("updating");
         ClientDTO dto = (ClientDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new Exception("id cannot be null");
@@ -64,12 +65,14 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         if (firstName != null) client.setFirstName(firstName.toUpperCase());
         if (lastName != null) client.setLastName(lastName.toUpperCase());
         if (phoneNumber != null) client.setPhoneNumber(phoneNumber.toUpperCase());
+        checkIfDuplicate(dto);
         return client;
 
 
     }
 
-    public void checkDataInsert(Object entity) throws Exception {
+    public void checkIfDuplicate(Object entity) throws Exception {
+        LOGGER.info("checking for duplicates");
         List<Search> searchList = new ArrayList<>();
         ClientDTO dto = (ClientDTO) entity;
         Search search1 = new Search("firstName", "=", dto.getFirstName().toUpperCase());
@@ -79,10 +82,15 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         searchList.add(search2);
         searchList.add(search3);
         List<Client> clients = clientDao.getByCriteria(searchList);
-        if (!clients.isEmpty())
-            throw new Exception("that client already exist: " + dto.getFirstName() + " " + dto.getLastName());
+        LOGGER.info("clients: " + clients);
+        if (!clients.isEmpty()) {
+            int id = clients.get(0).getId();
+            LOGGER.info("id: " + id + " / " + dto.getId());
+            if (id != dto.getId())
+                throw new Exception("that client already exist: " + dto.getFirstName() + " " + dto.getLastName() + " " + dto.getPhoneNumber());
+
+        }
+
 
     }
-
-
 }

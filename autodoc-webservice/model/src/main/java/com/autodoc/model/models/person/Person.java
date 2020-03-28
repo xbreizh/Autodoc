@@ -29,9 +29,21 @@ public abstract class Person {
     }
 
     public Person(String firstName, String lastName, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
+        this.firstName = firstName.toUpperCase();
+        this.lastName = lastName.toUpperCase();
+        this.phoneNumber = phoneNumber.toUpperCase();
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName.toUpperCase();
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName.toUpperCase();
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber.toUpperCase();
     }
 
     @Override

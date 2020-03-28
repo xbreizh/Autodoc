@@ -35,7 +35,7 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
     public CarModel dtoToEntity(Object entity) throws Exception {
         CarModelDTO dto = (CarModelDTO) entity;
         CarModel carModel = mapper.map(entity, CarModel.class);
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         return carModel;
     }
 

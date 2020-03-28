@@ -241,7 +241,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         LOGGER.info("employee found: " + employee);
         bill.setEmployee(employee);
         LOGGER.info("bill transferred: " + bill);
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         return bill;
     }
 

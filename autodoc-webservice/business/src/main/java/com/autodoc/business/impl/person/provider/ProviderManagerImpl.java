@@ -40,13 +40,13 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
     public Provider dtoToEntity(Object entity) throws Exception {
         ProviderDTO dto = (ProviderDTO) entity;
         Provider provider = mapper.map(entity, Provider.class);
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         return provider;
     }
 
     public Provider transferInsert(Object obj) throws Exception {
         ProviderDTO dto = (ProviderDTO) obj;
-        checkDataInsert(dto);
+        checkIfDuplicate(dto);
         Provider provider = new Provider();
         provider.setFirstName(dto.getFirstName().toUpperCase());
         provider.setLastName(dto.getLastName().toUpperCase());
@@ -106,7 +106,7 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
     }
 
 
-    public void checkDataInsert(Object entity) throws Exception {
+    public void checkIfDuplicate(Object entity) throws Exception {
         List<Search> searchList = new ArrayList<>();
         ProviderDTO dto = (ProviderDTO) entity;
         Search search1 = new Search("firstName", "=", dto.getFirstName().toUpperCase());
