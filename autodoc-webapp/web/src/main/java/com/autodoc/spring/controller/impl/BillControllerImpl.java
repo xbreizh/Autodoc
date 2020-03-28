@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @ControllerAdvice
@@ -173,7 +175,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     }
 
     private void addTasks(String token, ModelAndView mv) throws Exception {
-        mv.addObject("taskList", taskManager.getTemplates(token));
+        List<Task> taskList = taskManager.getTemplates(token);
+        List<Task> sortedList = taskList.stream().sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
+        System.out.println("taskList: " + taskList);
+        System.out.println("sortedList: " + sortedList);
+        mv.addObject("taskList", sortedList);
     }
 
     private void addClients(String token, ModelAndView mv) throws Exception {
