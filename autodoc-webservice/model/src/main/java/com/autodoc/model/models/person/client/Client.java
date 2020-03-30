@@ -5,8 +5,10 @@ import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.Person;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -16,8 +18,10 @@ import java.util.Map;
 
 @Entity
 @Table(name = "client")
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 public class Client extends Person {
 
     public static Map<String, SearchType> getSearchField() {
@@ -35,12 +39,6 @@ public class Client extends Person {
         return Collections.unmodifiableMap(result);
     }
 
-    public Client(String firstName, String lastName, String phoneNumber) {
-        super(firstName, lastName, phoneNumber);
-    }
-
-    public Client() {
-    }
 
     @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Car> cars;

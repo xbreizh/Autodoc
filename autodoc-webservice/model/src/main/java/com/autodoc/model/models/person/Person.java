@@ -1,8 +1,10 @@
 package com.autodoc.model.models.person;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 public abstract class Person {
 
 
@@ -24,15 +28,6 @@ public abstract class Person {
     protected String lastName;
     @NonNull
     protected String phoneNumber;
-
-    public Person() {
-    }
-
-    public Person(String firstName, String lastName, String phoneNumber) {
-        this.firstName = firstName.toUpperCase();
-        this.lastName = lastName.toUpperCase();
-        this.phoneNumber = phoneNumber.toUpperCase();
-    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName.toUpperCase();
@@ -55,4 +50,6 @@ public abstract class Person {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
+
+
 }

@@ -164,9 +164,9 @@ public class Filler {
 
     void fillProvider() {
         LOGGER.debug("filling providers");
-        Provider provider = new Provider("Paul", "Morigo", "121215", "info@mazda.ie", "MAZDA");
+        Provider provider = Provider.builder().firstName("Paul").lastName("Morigo").phoneNumber("121215").email1("info@mazda.ie").company("MAZDA").build();
+        Provider provider1 = Provider.builder().firstName("JACQUES").lastName("PLACO").phoneNumber("32434343").email1("info@RENAUDO.ie").company("RENAUDO").build();
         providerDao.create(provider);
-        Provider provider1 = new Provider("JACQUES", "PLACO", "124542", "info@RENAUDO.ie", "RENAUDO");
         providerDao.create(provider1);
     }
 
@@ -201,8 +201,8 @@ public class Filler {
 
     void fillClient() {
         LOGGER.debug("filling client");
-        Client client = new Client("angela", "bauer", "03938937837");
-        Client client1 = new Client("ROGER", "MOORE", "0584759852");
+        Client client = Client.builder().firstName("angela").lastName("bauer").phoneNumber("03938937837").build();
+        Client client1 = Client.builder().firstName("ROGER").lastName("MOORE").phoneNumber("0584759852").build();
         clientDao.create(client);
         clientDao.create(client1);
     }
@@ -225,12 +225,12 @@ public class Filler {
         String pattern = "MM-dd-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date date = simpleDateFormat.parse("12-01-2018");
-        Employee employee = new Employee("paul", "MOLO", "03938937837", roleList, date, login, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        Employee employee = Employee.builder().firstName("paul").lastName("MOLO").phoneNumber("03938937837").roles(roleList).startDate(date).login(login).password("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6").build();
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MECANIC);
         employee.setRoles(roles);
         String login2 = "MALIK";
-        Employee employee2 = new Employee("MALIK", "GAUMONT", "0862547895", roleList, date, login2, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+        Employee employee2 = Employee.builder().firstName("MALIK").lastName("GAUMONT").phoneNumber("0862547895").roles(roleList).startDate(date).login(login2).password("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6").build();
         List<Role> roles2 = new ArrayList<>();
         roles2.add(Role.MECANIC);
         roles2.add(Role.MANAGER);

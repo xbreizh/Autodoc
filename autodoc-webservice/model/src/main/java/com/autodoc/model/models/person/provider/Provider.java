@@ -3,9 +3,10 @@ package com.autodoc.model.models.person.provider;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.person.Person;
 import com.autodoc.model.models.pieces.Piece;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,8 +20,10 @@ import java.util.Map;
 
 @Entity
 @Table(name = "provider")
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 public class Provider extends Person {
 
     public static Map<String, SearchType> getSearchField() {
@@ -48,19 +51,23 @@ public class Provider extends Person {
     private String email2;
     @NotNull
     private String company;
-    // @NonNull
-/*    @Enumerated(EnumType.STRING)
-    private Rate rate;*/
 
-    public Provider(String firstName, String lastName, String phoneNumber, String email1, @NonNull String company) {
-        super(firstName, lastName, phoneNumber);
-        this.email1 = email1;
-        this.company = company;
+
+    public void setWebsite(String website) {
+        this.website = website.toUpperCase();
     }
 
-    public Provider() {
+    public void setEmail1(String email1) {
+        this.email1 = email1.toUpperCase();
     }
 
+    public void setEmail2(String email2) {
+        this.email2 = email2.toUpperCase();
+    }
+
+    public void setCompany(String company) {
+        this.company = company.toUpperCase();
+    }
 
     @Override
     public String toString() {

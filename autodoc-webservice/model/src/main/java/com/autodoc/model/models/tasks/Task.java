@@ -71,5 +71,16 @@ public class Task {
                 '}';
     }
 
+    public static class TaskBuilder {
+        public TaskBuilder name(String name) {
+            this.name = name.toUpperCase();
+            return this;
+        }
 
+        public TaskBuilder description(String description) {
+            this.description = description.toUpperCase();
+            return this;
+        }
+
+    }
 }

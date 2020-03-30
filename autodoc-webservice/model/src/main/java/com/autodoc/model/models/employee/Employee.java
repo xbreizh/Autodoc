@@ -5,8 +5,10 @@ import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,8 +16,10 @@ import java.util.*;
 
 @Entity
 @Table(name = "employee")
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 public class Employee extends Person {
 
 
@@ -26,9 +30,6 @@ public class Employee extends Person {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
-    /* @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-     private List<SubTask> subTasks;*/
-    //@NotNull
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date startDate;
     @NotNull
@@ -38,24 +39,10 @@ public class Employee extends Person {
     private String token;
 
 
-    /*  @ManyToMany(mappedBy = "employees", cascade = CascadeType.REMOVE)
-      private List<Skill> skills;
-  */
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date lastConnection;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date tokenExpiration;
-
-    public Employee() {
-    }
-
-    public Employee(String firstName, String lastName, String phoneNumber, @NotNull List<Role> roles, @NotNull Date startDate, @NotNull String login, @NotNull String password) {
-        super(firstName, lastName, phoneNumber);
-        this.roles = roles;
-        this.startDate = startDate;
-        this.login = login;
-        this.password = password;
-    }
 
     public static Map<String, SearchType> getSearchField() {
         return SEARCH_FIELD;
@@ -85,6 +72,10 @@ public class Employee extends Person {
                 ", tokenExpiration=" + tokenExpiration +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    public void setLogin(String login) {
+        this.login = login.toUpperCase();
     }
 
 
