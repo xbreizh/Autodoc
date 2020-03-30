@@ -57,9 +57,9 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         ClientDTO dto = (ClientDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new Exception("id cannot be null");
-        String firstName = dto.getFirstName();
-        String lastName = dto.getLastName();
-        String phoneNumber = dto.getPhoneNumber();
+        String firstName = dto.getFirstName().toUpperCase();
+        String lastName = dto.getLastName().toUpperCase();
+        String phoneNumber = dto.getPhoneNumber().toUpperCase();
         Client client = (Client) clientDao.getById(id);
         if (client == null) throw new Exception("invalid id");
         if (firstName != null) client.setFirstName(firstName.toUpperCase());
