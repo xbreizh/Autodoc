@@ -83,4 +83,6 @@ public class Manufacturer {
     public void setCarModels(List<CarModel> carModels) {
         this.carModels = carModels;
     }
+
+
 }

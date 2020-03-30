@@ -61,4 +61,13 @@ public class Country  {
     public void setName(String name) {
         this.name = name.toUpperCase();
     }
+
+    public static class CountryBuilder {
+        public CountryBuilder name(String name) {
+            this.name = name.toUpperCase();
+            return this;
+        }
+
+
+    }
 }

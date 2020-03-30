@@ -101,4 +101,24 @@ public class CarModel {
     public void setEngine(String engine) {
         this.engine = engine.toUpperCase();
     }
+
+
+    public static class CarModelBuilder {
+        public CarModelBuilder name(String name) {
+            this.name = name.toUpperCase();
+            return this;
+        }
+
+        public CarModelBuilder description(String description) {
+            this.description = description.toUpperCase();
+            return this;
+        }
+
+        public CarModelBuilder engine(String engine) {
+            this.engine = engine.toUpperCase();
+            return this;
+        }
+
+
+    }
 }

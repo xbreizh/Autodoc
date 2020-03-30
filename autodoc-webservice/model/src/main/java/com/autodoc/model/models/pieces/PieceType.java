@@ -55,4 +55,14 @@ public class PieceType {
     public void setName(String name) {
         this.name = name.toUpperCase();
     }
+
+
+    public static class PieceTypeBuilder {
+        public PieceTypeBuilder name(String name) {
+            this.name = name.toUpperCase();
+            return this;
+        }
+
+
+    }
 }

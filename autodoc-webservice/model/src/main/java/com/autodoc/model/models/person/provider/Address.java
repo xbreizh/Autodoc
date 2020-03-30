@@ -60,6 +60,26 @@ public class Address {
     public void setPostcode(String postcode) {
         this.postcode = postcode.toUpperCase();
     }
+
+
+    public static class AddressBuilder {
+        public AddressBuilder streetName(String streetName) {
+            this.streetName = streetName.toUpperCase();
+            return this;
+        }
+
+        public AddressBuilder city(String city) {
+            this.city = city.toUpperCase();
+            return this;
+        }
+
+        public AddressBuilder postcode(String postcode) {
+            this.postcode = postcode.toUpperCase();
+            return this;
+        }
+
+
+    }
 }
 
 
