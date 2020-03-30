@@ -77,4 +77,15 @@ public class Car  {
     public void setRegistration(String registration) {
         this.registration = registration.toUpperCase();
     }
+
+    public static class CarBuilder {
+        public CarBuilder registration(String registration) {
+            this.registration = registration.toUpperCase();
+            return this;
+        }
+
+
+    }
+
+
 }

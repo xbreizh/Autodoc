@@ -128,4 +128,13 @@ public class Bill {
         this.comments = comments.toUpperCase();
     }
 
+    public static class BillBuilder {
+        public BillBuilder comments(String comments) {
+            this.comments = comments.toUpperCase();
+            return this;
+        }
+
+
+    }
+
 }
