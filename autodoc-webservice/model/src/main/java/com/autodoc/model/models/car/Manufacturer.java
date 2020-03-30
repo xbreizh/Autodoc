@@ -2,6 +2,10 @@ package com.autodoc.model.models.car;
 
 
 import com.autodoc.model.enums.SearchType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
@@ -15,6 +19,10 @@ import java.util.Map;
 @Entity
 @Table(name = "manufacturer")
 @Cacheable
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Manufacturer {
 
     public static Map<String, SearchType> getSearchField() {
@@ -46,18 +54,18 @@ public class Manufacturer {
     private List<CarModel> carModels;
 
 
-    public Manufacturer() {
+    /*public Manufacturer() {
     }
 
 
     public Manufacturer(String name) {
         this.name = name;
-    }
+    }*/
 
     @Override
     public String toString() {
         int carModelSize = 0;
-        if (carModels != null) carModelSize = carModels.size();
+        /* if (carModels != null) carModelSize = carModels.size();*/
         return "Manufacturer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -65,21 +73,7 @@ public class Manufacturer {
                 '}';
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @JsonIgnore
     public List<CarModel> getCarModels() {

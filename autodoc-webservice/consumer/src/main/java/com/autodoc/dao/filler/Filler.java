@@ -184,7 +184,7 @@ public class Filler {
         LOGGER.debug("filling manufacturer");
         String[] list = {"AUDI", "BMW", "RENAULT", "OPEL", "NISSAN", "TOYOTA"};
         for (int i = 0; i < list.length; i++) {
-            manufacturerDao.create(new Manufacturer(list[i]));
+            manufacturerDao.create(Manufacturer.builder().name(list[i]).build());
         }
     }
 
