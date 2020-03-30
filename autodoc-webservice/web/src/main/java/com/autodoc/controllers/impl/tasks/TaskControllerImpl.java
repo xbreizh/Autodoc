@@ -8,11 +8,8 @@ import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/tasks")
@@ -27,7 +24,7 @@ public class TaskControllerImpl extends GlobalControllerImpl<Task, TaskDTO> impl
         this.manager = manager;
     }
 
-    @Override
+  /*  @Override
     @GetMapping(value = "/templates",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -88,6 +85,6 @@ public class TaskControllerImpl extends GlobalControllerImpl<Task, TaskDTO> impl
                     .body(response);
         }
     }
-
+*/
 
 }

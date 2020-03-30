@@ -3,8 +3,10 @@ package com.autodoc.model.dtos.tasks;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
 @Getter
@@ -30,16 +32,16 @@ public class TaskDTO {
     private double estimatedTime;
 
 
-    private String template;
+    //  private String template;
 
    // private double price;
 
-    public TaskDTO(String name, String description, double estimatedTime,/* double price, */String template) {
+    public TaskDTO(String name, String description, double estimatedTime/*, double price, *//*String template)*/) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-       // this.price = price;
-        this.template = template;
+        // this.price = price;
+        //     this.template = template;
     }
 
     public TaskDTO() {
@@ -54,8 +56,8 @@ public class TaskDTO {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
-                ", template='" + template + '\'' +
-              //  ", price=" + price +
+                //   ", template='" + template + '\'' +
+                //  ", price=" + price +
                 '}';
     }
 }

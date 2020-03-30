@@ -2,7 +2,6 @@ package com.autodoc.model.models.tasks;
 
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
-import com.autodoc.model.models.pieces.Piece;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,18 +42,18 @@ public class Task {
     private double estimatedTime;
 
 
-    @NotNull
-    private boolean template;
+  /*  @NotNull
+    private boolean template;*/
 
   /*  @NotNull
     private double price;*/
 
-    public Task(String name, String description, double estimatedTime,/* double price,*/ boolean template) {
+    public Task(String name, String description, double estimatedTime/*, double price, boolean template*/) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-       // this.price = price;
-        this.template = template;
+        // this.price = price;
+        //  this.template = template;
     }
 
     public Task() {
@@ -81,8 +80,8 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
-                ", template=" + template +
-               // ", price=" + price +
+                //   ", template=" + template +
+                // ", price=" + price +
                 '}';
     }
 }

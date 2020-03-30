@@ -6,7 +6,6 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.tasks.TaskDTO;
-import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -44,7 +43,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         dto.setDescription(task.getDescription());
      //   dto.setPrice(task.getPrice());
         dto.setEstimatedTime(task.getEstimatedTime());
-        dto.setTemplate(Boolean.toString(task.isTemplate()));
+       // dto.setTemplate(Boolean.toString(task.isTemplate()));
         List<Integer> pieceIds = new ArrayList<>();
         LOGGER.info("converting pieces");
       /*  if (task.getPieces()!=null){
@@ -72,13 +71,13 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         LOGGER.info("trying to delete by id");
         Task task = (Task) taskDao.getById(id);
         if (task == null) throw new Exception("id is invalid: " + id);
-        if (task.isTemplate())
-            throw new Exception("You must use the specific deleteTemplate method for deleting templates");
+        /*if (task.isTemplate())
+            throw new Exception("You must use the specific deleteTemplate method for deleting templates");*/
         return taskDao.deleteById(id);
     }
 
 
-    @Override
+ /*   @Override
     public boolean deleteTemplateById(int id) throws Exception {
         Task task = (Task) taskDao.getById(id);
         if (task == null) throw new Exception("id is invalid: " + id);
@@ -101,7 +100,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         Task newTask = (Task) taskDao.getById(taskId);
         return newTask;
 
-    }
+    }*/
 
 
     public Task transferInsert(Object obj) throws InvalidDtoException {
@@ -116,7 +115,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         //if (price == 0) throw new InvalidDtoException("there should be a price");
         if (estimatedTime == 0) throw new InvalidDtoException("there should be an estimated time");
         task.setName(dto.getName().toUpperCase());
-        transferTemplateToEntity(dto, task);
+        //  transferTemplateToEntity(dto, task);
         task.setDescription(dto.getDescription());
         task.setEstimatedTime(dto.getEstimatedTime());
       //  task.setPrice(dto.getPrice());
@@ -125,7 +124,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         return task;
     }
 
-    private void transferTemplateToEntity(TaskDTO dto, Task task) throws InvalidDtoException {
+   /* private void transferTemplateToEntity(TaskDTO dto, Task task) throws InvalidDtoException {
         String template = dto.getTemplate();
 
         if (template != null) {
@@ -135,7 +134,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
             task.setTemplate(Boolean.parseBoolean(template));
             LOGGER.info("passing template value: " + task);
         }
-    }
+    }*/
 
 
    /* private void updatePieces(TaskDTO dto, Task task) throws InvalidDtoException {
@@ -168,31 +167,31 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         TaskDTO dto = (TaskDTO) obj;
         LOGGER.info("trying to convert into entity: " + dto);
         String name = dto.getName();
-     //   double price = dto.getPrice();
+        //   double price = dto.getPrice();
         double estimatedTime = dto.getEstimatedTime();
         String description = dto.getDescription();
-        String template = dto.getTemplate();
+        // String template = dto.getTemplate();
 
         int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("no id provided");
         Task task = (Task) taskDao.getById(id);
         if (task == null) throw new InvalidDtoException("invalid id " + id);
-        LOGGER.info("task to update: "+task);
-        if (task.isTemplate())
-            throw new InvalidDtoException("you must use the updateTemplate method for updating templates");
-        transferTemplateToEntity(dto, task);
+        LOGGER.info("task to update: " + task);
+       /* if (task.isTemplate())
+            throw new InvalidDtoException("you must use the updateTemplate method for updating templates");*/
+        //transferTemplateToEntity(dto, task);
         if (name != null) task.setName(name.toUpperCase());
-      //  if (price != 0) task.setPrice(price);
+        //  if (price != 0) task.setPrice(price);
         if (estimatedTime != 0) task.setEstimatedTime(estimatedTime);
         if (description != null) task.setDescription(description);
         LOGGER.info("here: " + task);
-    //    updatePieces(dto, task);
+        //    updatePieces(dto, task);
 
         return task;
     }
 
 
-    @Override
+  /*  @Override
     public List<TaskDTO> getTemplates() {
         List<TaskDTO> templateList = new ArrayList<>();
         List<TaskDTO> globalList = (List<TaskDTO>) getAll();
@@ -225,5 +224,5 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
        // updatePieces(dto, task);
 
         return taskDao.update(task);
-    }
+    }*/
 }

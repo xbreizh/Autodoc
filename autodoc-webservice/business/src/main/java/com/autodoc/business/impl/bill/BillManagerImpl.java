@@ -126,13 +126,14 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             for (Integer i : dto.getTasks()) {
                 Task task = (Task) taskDao.getById(i);
                 if (task == null) throw new InvalidDtoException("invalid task");
-                if (task.isTemplate()) {
+                taskList.add(task);
+                /*if (task.isTemplate()) {
                     Task duplicateFromTemplate = taskManager.createFromTemplate(task.getId());
                     taskList.add(duplicateFromTemplate);
                     LOGGER.info("created duplicate from template");
                 } else {
                     taskList.add(task);
-                }
+                }*/
             }
             bill.setTasks(taskList);
         }
@@ -208,13 +209,14 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             for (Integer i : dto.getTasks()) {
                 Task task = (Task) taskDao.getById(i);
                 if (task == null) throw new InvalidDtoException("invalid task");
-                if (task.isTemplate()) {
+               /* if (task.isTemplate()) {
                     Task duplicateFromTemplate = taskManager.createFromTemplate(task.getId());
                     taskList.add(duplicateFromTemplate);
                     LOGGER.info("created duplicate from template");
                 } else {
                     taskList.add(task);
-                }
+                }*/
+                taskList.add(task);
             }
             bill.setTasks(taskList);
         }

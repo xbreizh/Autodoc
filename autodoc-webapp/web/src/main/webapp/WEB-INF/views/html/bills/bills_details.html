@@ -235,6 +235,16 @@
                 /*]]>*/
                 return billTasks;
             }
+            function getAllTasks() {
+
+
+                /*<![CDATA[*/
+
+                let allTasks = /*[[${allTasks}]]*/ null;
+
+                /*]]>*/
+                return allTasks;
+            }
         </script>
 
 
@@ -251,12 +261,13 @@
 
                 let billTasks = getBillTasks();
                 let billPieces = getBillPieces();
+                let allTasks = getAllTasks();
 
                 for (let i = 0; i < billPieces.length; i++) {
                     pieceFunction(pieceList, billPieces[i].id);
                 }
                 for (let j = 0; j < billTasks.length; j++) {
-                    taskFunction(taskList, billTasks[j].name);
+                    taskFunction(taskList, billTasks[j].id, allTasks);
                 }
 
             }
@@ -327,22 +338,25 @@
 
                     ----------------------------------------------------------------------------
                     */
-            function taskFunction(tasks, taskName) {
+            function taskFunction(tasks, taskId, allTasks) {
                 let r = document.createElement('div');
                 let y = document.createElement("SELECT");
                 r.className += "form-group";
                 y.className += "form-control";
                 r.setAttribute("id", "taskList");
 
-                let taskId;
+               // let taskId;
                 for (let k = 0; k < tasks.length; k++) {
                     let z = document.createElement("option");
                     let currentTaskId = tasks[k].id;
-                    let currentTaskName = tasks[k].name;
+                   // let currentTaskName = tasks[k].name;
+                    for (let v = 0; v < allTasks.length; v++) {
 
+                    }
                     z.setAttribute("value", currentTaskId);
                     let t = document.createTextNode(currentTaskName);
-                    if (currentTaskName == taskName) taskId = currentTaskId;
+                    //if (currentTaskName == taskName) taskId = currentTaskId;
+                    taskId = currentTaskId;
                     z.appendChild(t);
                     y.appendChild(z);
                 }
