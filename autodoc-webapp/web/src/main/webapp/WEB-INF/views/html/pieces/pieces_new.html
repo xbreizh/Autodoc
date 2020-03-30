@@ -52,7 +52,7 @@
         </div>
         <div class="form-group">
             <label for="quantity">Quantity</label>
-            <input id="quantity" min="0.00" required="required" step="1" th:field="*{quantity}" type="number"
+            <input id="quantity" required="required" step="1" th:field="*{quantity}" type="number"
                    value="0.00"/>
             <div th:errors="*{quantity}" th:if="${#fields.hasErrors('quantity')}">Quantity Error</div>
         </div>
