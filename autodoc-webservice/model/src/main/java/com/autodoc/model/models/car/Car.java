@@ -4,8 +4,10 @@ package com.autodoc.model.models.car;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.client.Client;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,8 +18,10 @@ import java.util.Map;
 
 @Entity
 @Table(name = "car")
-@Setter
-@Getter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Cacheable
 public class Car  {
 
@@ -35,14 +39,6 @@ public class Car  {
         return Collections.unmodifiableMap(result);
     }
 
-    public Car() {
-    }
-
-    public Car(String registration, CarModel carModel, Client client) {
-        this.registration = registration;
-        this.carModel = carModel;
-        this.client = client;
-    }
 
 
 
@@ -78,43 +74,7 @@ public class Car  {
                 '}';
     }
 
-   /* public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRegistration() {
-        return registration;
-    }
-
     public void setRegistration(String registration) {
-        this.registration = registration;
+        this.registration = registration.toUpperCase();
     }
-
-    public CarModel getCarModel() {
-        return carModel;
-    }
-
-    public void setCarModel(CarModel carModel) {
-        this.carModel = carModel;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public List<Bill> getBills() {
-        return bills;
-    }
-
-    public void setBills(List<Bill> bills) {
-        this.bills = bills;
-    }*/
 }

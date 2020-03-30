@@ -212,8 +212,8 @@ public class Filler {
         CarModel carModel = (CarModel) carModelDao.getByName("AURIS");
         CarModel carModel1 = (CarModel) carModelDao.getByName("CLIO");
         Client client = (Client) clientDao.getAll().get(0);
-        Car car = new Car("05D154875", carModel, client);
-        Car car1 = new Car("D12447F", carModel1, client);
+        Car car = Car.builder().registration("05d121487").carModel(carModel).client(client).build();
+        Car car1 = Car.builder().registration("D21323f").carModel(carModel1).client(client).build();
         carDao.create(car);
         carDao.create(car1);
     }
