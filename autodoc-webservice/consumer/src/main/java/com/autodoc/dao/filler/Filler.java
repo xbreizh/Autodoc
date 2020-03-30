@@ -138,9 +138,9 @@ public class Filler {
 
     void fillPieceTypes() {
         LOGGER.debug("filling pieceCategories");
-        PieceType pieceType1 = new PieceType("BRAKE");
-        PieceType pieceType2 = new PieceType("LAMP");
-        PieceType pieceType3 = new PieceType("SCREW");
+        PieceType pieceType1 = PieceType.builder().name("BRAKE").build();
+        PieceType pieceType2 = PieceType.builder().name("LAMP").build();
+        PieceType pieceType3 = PieceType.builder().name("SCREW").build();
         pieceTypeDao.create(pieceType1);
         pieceTypeDao.create(pieceType2);
         pieceTypeDao.create(pieceType3);

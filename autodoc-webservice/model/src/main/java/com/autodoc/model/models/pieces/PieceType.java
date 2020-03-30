@@ -1,9 +1,7 @@
 package com.autodoc.model.models.pieces;
 
 import com.autodoc.model.enums.SearchType;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -13,8 +11,10 @@ import java.util.Map;
 
 @Entity
 @Table(name = "pieceType")
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PieceType {
 
 
@@ -30,15 +30,6 @@ public class PieceType {
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }
-
-    public PieceType() {
-    }
-
-
-    public PieceType(String name) {
-        this.name = name; }
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,5 +50,9 @@ public class PieceType {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public void setName(String name) {
+        this.name = name.toUpperCase();
     }
 }
