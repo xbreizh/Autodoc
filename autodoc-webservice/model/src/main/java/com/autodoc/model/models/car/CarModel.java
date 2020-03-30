@@ -3,9 +3,10 @@ package com.autodoc.model.models.car;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.enums.SearchType;
-import com.autodoc.model.models.pieces.Piece;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,8 +17,10 @@ import java.util.Map;
 
 @Entity
 @Table(name = "carModel")
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Cacheable
 public class CarModel {
 
@@ -39,18 +42,6 @@ public class CarModel {
         return Collections.unmodifiableMap(result);
     }
 
-
-    public CarModel() {
-    }
-
-    public CarModel(@NotNull Manufacturer manufacturer, @NotNull String name, @NotNull String description, @NotNull GearBox gearbox, @NotNull String engine, @NotNull FuelType fuelType) {
-        this.manufacturer = manufacturer;
-        this.name = name;
-        this.description = description;
-        this.gearbox = gearbox;
-        this.engine = engine;
-        this.fuelType = fuelType;
-    }
 
 
 
@@ -97,5 +88,17 @@ public class CarModel {
                 ", engine='" + engine + '\'' +
                 ", fuelType=" + fuelType +
                 '}';
+    }
+
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
+    public void setDescription(String description) {
+        this.description = description.toUpperCase();
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine.toUpperCase();
     }
 }

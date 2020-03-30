@@ -192,11 +192,12 @@ public class Filler {
     void fillCarModel() {
         LOGGER.debug("filling car model");
         Manufacturer man = (Manufacturer) manufacturerDao.getByName("NISSAN");
-        carModelDao.create(new CarModel(man, "QASHQAI", "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL));
-        man = (Manufacturer) manufacturerDao.getByName("RENAULT");
-        carModelDao.create(new CarModel(man, "CLIO", "BEBOP", GearBox.MANUAL, "1528", FuelType.PETROL));
-        man = (Manufacturer) manufacturerDao.getByName("TOYOTA");
-        carModelDao.create(new CarModel(man, "AURIS", "T SPIRIT D4D", GearBox.MANUAL, "1998", FuelType.HYBRID));
+        Manufacturer man1 = (Manufacturer) manufacturerDao.getByName("TOYOTA");
+        Manufacturer man2 = (Manufacturer) manufacturerDao.getByName("RENAULT");
+        carModelDao.create(CarModel.builder().manufacturer(man).name("QASHQAI").description("VISIA DCI").gearbox(GearBox.AUTOMATIC).engine("1528").fuelType(FuelType.DIESEL).build());
+        carModelDao.create(CarModel.builder().manufacturer(man1).name("CLIO").description("BEBOP").gearbox(GearBox.MANUAL).engine("1528").fuelType(FuelType.PETROL).build());
+        carModelDao.create(CarModel.builder().manufacturer(man2).name("AURIS").description("T SPIRIT D4D").gearbox(GearBox.MANUAL).engine("84545").fuelType(FuelType.HYBRID).build());
+
     }
 
     void fillClient() {
