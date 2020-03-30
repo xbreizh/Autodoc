@@ -2,7 +2,10 @@ package com.autodoc.model.models.tasks;
 
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,8 +17,7 @@ import java.util.Map;
 @Entity
 @Table(name = "task")
 @Builder
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task {
@@ -51,6 +53,14 @@ public class Task {
         return Collections.unmodifiableMap(result);
     }
 
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
+    public void setDescription(String description) {
+        this.description = description.toUpperCase();
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -61,16 +71,5 @@ public class Task {
                 '}';
     }
 
-    public static class TaskBuilder {
-        public TaskBuilder name(String name) {
-            this.name = name.toUpperCase();
-            return this;
-        }
 
-        public TaskBuilder description(String description) {
-            this.description = description.toUpperCase();
-            return this;
-        }
-
-    }
 }

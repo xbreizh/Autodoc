@@ -9,8 +9,10 @@ import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -20,8 +22,10 @@ import java.util.*;
 
 @Entity
 @Table(name = "BILL")
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bill {
 
     public static Map<String, SearchType> getSearchField() {
@@ -41,10 +45,10 @@ public class Bill {
     }
 
 
-    public Bill() {
-    }
+ /*   public Bill() {
+    }*/
 
-    public Bill(@NotNull Date dateReparation, @NotNull Status status, @NotNull Car car, @NotNull Employee employee, @NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
+/*    public Bill(@NotNull Date dateReparation, @NotNull Status status, @NotNull Car car, @NotNull Employee employee, @NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
         this.dateReparation = dateReparation;
         this.status = status;
         this.car = car;
@@ -54,7 +58,7 @@ public class Bill {
         this.total = total;
         this.vat = vat;
         this.discount = discount;
-    }
+    }*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,4 +123,9 @@ public class Bill {
                 ", comments='" + comments + '\'' +
                 '}';
     }
+
+    public void setComments(String comments) {
+        this.comments = comments.toUpperCase();
+    }
+
 }

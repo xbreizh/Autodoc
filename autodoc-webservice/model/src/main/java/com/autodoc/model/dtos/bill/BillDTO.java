@@ -48,21 +48,5 @@ public class BillDTO {
     public BillDTO() {
     }
 
-    @Override
-    public String toString() {
-        return "BillDTO{" +
-                "id=" + id +
-                ", dateReparation='" + dateReparation + '\'' +
-                ", status='" + status + '\'' +
-                ", tasks=" + tasks +
-                ", pieces=" + pieces +
-                ", registration='" + registration + '\'' +
-                ", clientId=" + clientId +
-                ", employeeId=" + employeeId +
-                ", vat=" + vat +
-                ", total=" + total +
-                ", discount=" + discount +
-                ", comments='" + comments + '\'' +
-                '}';
-    }
+
 }

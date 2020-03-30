@@ -103,12 +103,9 @@ public class Filler {
         Client client = (Client) clientDao.getAll().get(0);
         List<Task> tasks = taskDao.getAll();
         List<Piece> pieces = pieceDao.getAll();
-        Bill bill1 = new Bill(new Date(), Status.PENDING_PAYMENT, car, employee, client, tasks, 125.44, 19, 20);
-        Bill bill2 = new Bill(new Date(), Status.PENDING_PIECES, car2, employee, client, tasks, 84.44, 19, 0);
-        Bill bill3 = new Bill(new Date(), Status.CANCELLED, car, employee, client, tasks, 1451.44, 19, 0);
-        bill1.setPieces(pieces);
-        bill2.setPieces(pieces);
-        bill3.setPieces(pieces);
+        Bill bill1 = Bill.builder().dateReparation(new Date()).status(Status.PENDING_PAYMENT).car(car).employee(employee).client(client).tasks(tasks).total(125.44).vat(19).discount(20).pieces(pieces).build();
+        Bill bill2 = Bill.builder().dateReparation(new Date()).status(Status.PENDING_PIECES).car(car2).employee(employee).client(client).tasks(tasks).total(84.44).vat(19).discount(0).pieces(pieces).build();
+        Bill bill3 = Bill.builder().dateReparation(new Date()).status(Status.CANCELLED).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
         billDao.create(bill1);
         billDao.create(bill2);
         billDao.create(bill3);
