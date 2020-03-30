@@ -20,13 +20,13 @@ public class TaskDTO {
     private double estimatedTime;
 
 
-    private String template;
+  //  private String template;
 
-    public TaskDTO(String name, String description, double estimatedTime, String template) {
+    public TaskDTO(String name, String description, double estimatedTime/*, String template*/) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        this.template = template;
+        // this.template = template;
     }
 
     public TaskDTO() {
@@ -47,7 +47,7 @@ public class TaskDTO {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
-                ", template='" + template + '\'' +
+                // ", template='" + template + '\'' +
                 '}';
     }
 }

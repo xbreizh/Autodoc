@@ -65,10 +65,12 @@ public class GlobalController<T, D, F> {
         List<T> all = (List<T>) manager.getAll(helper.getConnectedToken());
 
         if (all.isEmpty()) {
+            LOGGER.error("nothing to return");
             return sendError(mv, "no " + keyWord + " found");
         }
 
         mv.addObject(keyWord, all);
+        LOGGER.info("mv: " + mv);
         return mv;
     }
 

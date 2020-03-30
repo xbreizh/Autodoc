@@ -9,8 +9,6 @@ import com.autodoc.model.models.tasks.Task;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements TaskManager {
@@ -35,9 +33,9 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         task.setName(dto.getName());
         task.setDescription(dto.getDescription());
         task.setEstimatedTime(dto.getEstimatedTime());
-        String templateValue = dto.getTemplate();
-        if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
-            task.setTemplate(Boolean.valueOf(templateValue));
+        // String templateValue = dto.getTemplate();
+       /* if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
+            task.setTemplate(Boolean.valueOf(templateValue));*/
         LOGGER.info("task transferred: " + task);
 
         return task;
@@ -46,14 +44,14 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
     public void update(String token, Object obj) {
         LOGGER.info("updating task: " + obj);
         TaskDTO taskDto = formToDto(obj, token);
-        TaskDTO taskToUpdate = (TaskDTO) service.getById(token, taskDto.getId());
-        if (taskToUpdate.getTemplate().equalsIgnoreCase("true")) {
+        //TaskDTO taskToUpdate = (TaskDTO) service.getById(token, taskDto.getId());
+        /*if (taskToUpdate.getTemplate().equalsIgnoreCase("true")) {
             LOGGER.info("updating a template: " + taskDto);
             service.updateTemplate(token, taskDto);
         } else {
-            LOGGER.info("regular update: " + taskDto);
-            service.update(token, taskDto);
-        }
+        }*/
+        LOGGER.info("regular update: " + taskDto);
+        service.update(token, taskDto);
     }
 
 
@@ -66,15 +64,15 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         dto.setName(form.getName());
         dto.setDescription(form.getDescription());
         dto.setEstimatedTime(form.getEstimatedTime());
-        String templateValue = String.valueOf(form.isTemplate());
-        if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
-            dto.setTemplate(templateValue);
+        // String templateValue = String.valueOf(form.isTemplate());
+      /*  if (templateValue.equalsIgnoreCase("true") || templateValue.equalsIgnoreCase("false"))
+            dto.setTemplate(templateValue);*/
         LOGGER.info("task transferred: " + dto);
         return dto;
     }
 
 
-    @Override
+  /*  @Override
     public List<Task> getTemplates(String token) throws Exception {
         List<Task> templates = new ArrayList<>();
         for (Object obj : service.getAll(token)) {
@@ -82,5 +80,5 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
             if (task.isTemplate()) templates.add(task);
         }
         return templates;
-    }
+    }*/
 }

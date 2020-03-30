@@ -27,11 +27,11 @@ public class Task {
     private boolean template;
 
 
-    public Task(String name, String description, double estimatedTime, boolean template) {
+    public Task(String name, String description, double estimatedTime/*, boolean template*/) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        this.template = template;
+        //   this.template = template;
     }
 
     public Task() {
@@ -53,7 +53,7 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
-                ", template=" + template +
+                // ", template=" + template +
                 '}';
     }
 

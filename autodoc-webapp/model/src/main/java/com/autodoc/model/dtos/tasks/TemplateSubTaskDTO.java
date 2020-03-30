@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.dtos.tasks;
 
 import lombok.Getter;
@@ -27,3 +28,4 @@ public class TemplateSubTaskDTO {
         this.estimatedTime = estimatedTime;
     }
 }
+*/

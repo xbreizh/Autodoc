@@ -3,13 +3,8 @@ package com.autodoc.impl;
 import com.autodoc.contract.TaskService;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 
 import javax.inject.Named;
-import java.util.Collections;
 
 @Named
 public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskService {
@@ -28,7 +23,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
     }
 
 
-    @Override
+  /*  @Override
     public int updateTemplate(String token, Object object) {
         TaskDTO dto = (TaskDTO) object;
         setupHeader(token);
@@ -44,7 +39,7 @@ public class TaskServiceImpl extends GlobalServiceImpl<TaskDTO> implements TaskS
         return codeValue;
 
     }
-
+*/
 
 
 }

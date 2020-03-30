@@ -142,8 +142,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         }
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
 
-        List<Task> taskList = taskManager.getTemplates(token);
-        LOGGER.info("tasks: " + taskList);
+        // List<Task> taskList = taskManager.getTemplates(token);
+        // LOGGER.info("tasks: " + taskList);
         addTasks(token, mv);
         addPieces(token, mv);
         if (bindingResult.hasErrors()) {
@@ -176,12 +176,12 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     }
 
     private void addTasks(String token, ModelAndView mv) throws Exception {
-        List<Task> taskList = taskManager.getTemplates(token);
-        List<Task> allTasks = taskManager.getAll(token);
+        //  List<Task> taskList = taskManager.getTemplates(token);
+        List<Task> taskList = taskManager.getAll(token);
         List<Task> sortedList = taskList.stream().sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
-        List<Task> sortedAll = allTasks.stream().sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
+        //   List<Task> sortedAll = allTasks.stream().sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
+        //   mv.addObject("taskList", sortedList);
         mv.addObject("taskList", sortedList);
-        mv.addObject("allTasks", sortedAll);
     }
 
     private void addClients(String token, ModelAndView mv) throws Exception {

@@ -30,7 +30,7 @@
                 <th th:text="Description">Description</th>
                 <th th:text="EstimatedTime">Estimated time( heure )</th>
                 <th th:text="Price">Price</th>
-                <th th:text="Template">Template</th>
+              <!--  <th th:text="Template">Template</th>-->
                 <th></th>
             </tr>
             </thead>
@@ -42,7 +42,7 @@
                 <td th:text="${task.description}">description</td>
                 <td th:text="${task.estimatedTime}">estimatedTime</td>
                 <td th:text="${task.estimatedTime * pricePerHour}">Price</td>
-                <td th:text="${task.template}">template</td>
+                <!-- <td th:text="${task.template}">template</td>-->
                 <td>
                     <a th:href="@{'/tasks/delete/' + ${task.id}}">
                         <button class="btn btn-danger" type="button">Delete</button>

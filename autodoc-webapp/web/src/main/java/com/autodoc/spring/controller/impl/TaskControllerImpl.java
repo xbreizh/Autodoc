@@ -40,6 +40,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
 
     @GetMapping("")
     public ModelAndView tasks() throws Exception {
+        LOGGER.info("getting all tasks");
         ModelAndView mv = getList();
         getPricePerHour(mv);
         return mv;

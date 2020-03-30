@@ -25,8 +25,8 @@ public class TaskForm {
     @Min(value = 1, message = "estimatedTime cannot be null")
     private double estimatedTime;
 
-    @NotEmpty(message = "template must be true or false")
-    private boolean template;
+   /* @NotEmpty(message = "template must be true or false")
+    private boolean template;*/
 
 
     public TaskForm() {
@@ -48,7 +48,7 @@ public class TaskForm {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
-                ", template='" + template + '\'' +
+                //   ", template='" + template + '\'' +
                 '}';
     }
 }
