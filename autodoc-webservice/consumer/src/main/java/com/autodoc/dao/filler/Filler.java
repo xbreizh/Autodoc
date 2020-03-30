@@ -130,9 +130,9 @@ public class Filler {
 
     void fillTasks() {
         LOGGER.debug("filling Tasks");
-        Task task1 = new Task("BATTERY CHANGE", "BATTERY CHANGE", 60);
-        Task task2 = new Task("BULB CHANGE", "INSPECTION, CHANGE IF REQUIRED", 30);
-        Task task3 = new Task("OIL CHANGE", "CHECK AND CHANGE OIL, CHECK FILTER", 120);
+        Task task1 = Task.builder().name("battery change").description("battery change").estimatedTime(60).build();
+        Task task2 = Task.builder().name("BULB CHANGE").description("INSPECTION, CHANGE IF REQUIRED").estimatedTime(30).build();
+        Task task3 = Task.builder().name("OIL CHANGE").description("CHECK AND CHANGE OIL, CHECK FILTER").estimatedTime(120).build();
         taskDao.create(task1);
         taskDao.create(task2);
         taskDao.create(task3);

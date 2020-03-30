@@ -2,8 +2,7 @@ package com.autodoc.model.models.tasks;
 
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,8 +13,11 @@ import java.util.Map;
 
 @Entity
 @Table(name = "task")
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
 
 
@@ -24,10 +26,6 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
-
-  /*  @ManyToMany(mappedBy = "tasks")
-    private List<Piece> pieces;*/
 
     @ManyToMany(mappedBy = "tasks")
     private List<Bill> bills;
@@ -41,24 +39,6 @@ public class Task {
     @NotNull
     private double estimatedTime;
 
-
-  /*  @NotNull
-    private boolean template;*/
-
-  /*  @NotNull
-    private double price;*/
-
-    public Task(String name, String description, double estimatedTime/*, double price, boolean template*/) {
-        this.name = name;
-        this.description = description;
-        this.estimatedTime = estimatedTime;
-        // this.price = price;
-        //  this.template = template;
-    }
-
-    public Task() {
-    }
-
     public static Map<String, SearchType> getSearchField() {
         return SEARCH_FIELD;
     }
@@ -71,17 +51,26 @@ public class Task {
         return Collections.unmodifiableMap(result);
     }
 
-
     @Override
     public String toString() {
         return "Task{" +
                 "id=" + id +
-              //  ", pieces=" + pieces +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
-                //   ", template=" + template +
-                // ", price=" + price +
                 '}';
+    }
+
+    public static class TaskBuilder {
+        public TaskBuilder name(String name) {
+            this.name = name.toUpperCase();
+            return this;
+        }
+
+        public TaskBuilder description(String description) {
+            this.description = description.toUpperCase();
+            return this;
+        }
+
     }
 }

@@ -60,7 +60,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     public Task dtoToEntity(Object entity) throws InvalidDtoException {
         LOGGER.info("trying to convert into entity");
         TaskDTO dto = (TaskDTO) entity;
-        Task task = new Task();
+        Task task = Task.builder().build();
 
         //checkDataInsert(dto);
         return task;
@@ -111,7 +111,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         double estimatedTime = dto.getEstimatedTime();
         Task task = (Task) taskDao.getByName(name);
         if (task != null) throw new InvalidDtoException("there is already a task with that name");
-        task = new Task();
+        task = Task.builder().build();
         //if (price == 0) throw new InvalidDtoException("there should be a price");
         if (estimatedTime == 0) throw new InvalidDtoException("there should be an estimated time");
         task.setName(dto.getName().toUpperCase());
