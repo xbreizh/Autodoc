@@ -1,8 +1,10 @@
 package com.autodoc.model.models.person.provider;
 
 import com.autodoc.model.enums.SearchType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,8 +16,10 @@ import java.util.Map;
 
 @Entity
 @Table(name = "country")
-@Setter
-@Getter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Country  {
 
 
@@ -30,14 +34,6 @@ public class Country  {
         result.put("NAME", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
-    }
-
-
-    public Country() {
-    }
-
-    public Country(String name) {
-        this.name = name;
     }
 
 
@@ -60,5 +56,9 @@ public class Country  {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public void setName(String name) {
+        this.name = name.toUpperCase();
     }
 }

@@ -22,7 +22,6 @@ import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.provider.Address;
 import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
@@ -90,7 +89,7 @@ public class Filler {
             fillPieceTypes();
             fillPieces();
             fillTasks();
-            fillAddresses();
+           // fillAddresses();
             fillBills();
         }
     }
@@ -113,17 +112,17 @@ public class Filler {
     }
 
 
-    void fillAddresses() {
+  /*  void fillAddresses() {
         LOGGER.debug("filling addresses");
         Country country1 = (Country) countryDao.getAll().get(0);
         Country country2 = (Country) countryDao.getAll().get(1);
         LOGGER.info("country1: " + country1);
-        Address address1 = new Address(country1, "21, Corry street", "Biarritz");
-        Address address2 = new Address(country2, "23, Madison Boulevard", "Portmarnock");
+        Address address1 = Address.builder().country(country1).streetName("21, Corry street").city("Biarritz").build();
+        Address address2 = Address.builder().country(country2).streetName("12, serenity street upper").city("Portmarnok").build();
         addressDao.create(address1);
         addressDao.create(address2);
     }
-
+*/
 
     void fillTasks() {
         LOGGER.debug("filling Tasks");
@@ -152,10 +151,10 @@ public class Filler {
         Provider provider = (Provider) providerDao.getById(1);
         PieceType pieceType1 = (PieceType) pieceTypeDao.getById(1);
         PieceType pieceType2 = (PieceType) pieceTypeDao.getById(2);
-        Piece piece1 = new Piece(provider, pieceType1, "BRAKE PAD DE4", "DEVO", 10, 14, 2);
-        Piece piece2 = new Piece(provider, pieceType1, "GAZOL FILTER 1/454", "MAKO", 20, 84, 0);
-        Piece piece3 = new Piece(provider, pieceType2, "WINTER TYRE 15/4587", "PLOUGHLY", 300, 314, 33);
-        Piece piece4 = new Piece(provider, pieceType2, "CLUTCH PEDAL CARBON", "MANIET", 40, 88, 3);
+        Piece piece1 = Piece.builder().provider(provider).pieceType(pieceType1).name("BRAKE PAD DE4").brand("DEVO").buyingPrice(10).sellPrice(14).quantity(2).build();
+        Piece piece2 = Piece.builder().provider(provider).pieceType(pieceType2).name("GAZOL FILTER 1/454").brand("MAKO").buyingPrice(20).sellPrice(84).quantity(22).build();
+        Piece piece3 = Piece.builder().provider(provider).pieceType(pieceType1).name("WINTER TYRE 15/4587").brand("PLOUGHLY").buyingPrice(300).sellPrice(314).quantity(33).build();
+        Piece piece4 = Piece.builder().provider(provider).pieceType(pieceType2).name("CLUTCH PEDAL CARBON").brand("MANIET").buyingPrice(40).sellPrice(88).quantity(2).build();
         pieceDao.create(piece1);
         pieceDao.create(piece2);
         pieceDao.create(piece3);
@@ -176,7 +175,7 @@ public class Filler {
         LOGGER.debug("filling countries");
         String[] list = {"SPAIN", "IRELAND", "MEXICO", "JAPAN", "NEW-ZEALAND", "BELGIUM"};
         for (int i = 0; i < list.length; i++) {
-            countryDao.create(new Country(list[i]));
+            countryDao.create(Country.builder().name(list[i]).build());
         }
     }
 

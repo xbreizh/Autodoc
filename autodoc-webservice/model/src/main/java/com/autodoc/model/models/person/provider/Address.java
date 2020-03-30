@@ -1,8 +1,6 @@
 package com.autodoc.model.models.person.provider;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,8 +8,10 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "address")
-@Setter
-@Getter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
 
@@ -19,10 +19,6 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
-
-    public Address() {
-
-    }
 
     @ManyToOne
     @NotNull(message = "country missing or invalid")
@@ -41,11 +37,6 @@ public class Address {
 
     private String postcode;
 
-    public Address(@NotNull Country country, @NotNull String streetName, @NotNull String city) {
-        this.country = country;
-        this.streetName = streetName;
-        this.city = city;
-    }
 
     @Override
     public String toString() {
@@ -56,6 +47,18 @@ public class Address {
                 ", postcode='" + postcode + '\'' +
                 ", city='" + city + '\'' +
                 '}';
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName.toUpperCase();
+    }
+
+    public void setCity(String city) {
+        this.city = city.toUpperCase();
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode.toUpperCase();
     }
 }
 
