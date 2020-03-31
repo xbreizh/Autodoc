@@ -2,22 +2,25 @@ package com.autodoc.business.impl;
 
 
 import com.autodoc.business.contract.ProviderManager;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.contract.ProviderService;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
 import com.autodoc.model.dtos.person.provider.ProviderForm;
 import com.autodoc.model.models.person.provider.Provider;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
+@Builder
 public class ProviderManagerImpl extends GlobalManagerImpl<Provider, ProviderDTO> implements ProviderManager {
 
     private static final Logger LOGGER = Logger.getLogger(ProviderManagerImpl.class);
+    ProviderService service;
 
-
-    public ProviderManagerImpl(ProviderService service) {
-        super(service);
+    GlobalService getService() {
+        return service;
     }
 
     public Provider dtoToEntity(String token, Object obj) {

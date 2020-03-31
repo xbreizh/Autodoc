@@ -17,19 +17,7 @@ public abstract class AbstractHibernateDao<T> {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
     @Inject
     SessionFactory sessionFactory;
-    //  int maxCharacters = 22;
     private Class<T> clazz;
-    //private String dateFormat;
-
-   /* public static boolean isValidNumber(String strNum) {
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
-    }*/
-
     public Class<T> getClazz() {
         return clazz;
     }
@@ -39,9 +27,6 @@ public abstract class AbstractHibernateDao<T> {
 
     }
 
-/*    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }*/
 
     public T getById(int id) throws ObjectNotFoundException {
         final Serializable entityId = id;
@@ -49,7 +34,6 @@ public abstract class AbstractHibernateDao<T> {
         Object obj;
         try {
             obj = getCurrentSession().load(clazz, entityId);
-            // sysout setup to provoke the ObjectNotFoundException if required
             System.out.println(obj);
         } catch (ObjectNotFoundException nf) {
             return null;
@@ -140,33 +124,6 @@ public abstract class AbstractHibernateDao<T> {
 
     }
 
-/*    private void checkIfInvalidValue(Compare compare, String value) throws Exception {
-        String type = compare.getType();
-        if (type.equals("Integer")) {
-            if (!isValidNumber(value)) throw new Exception(value + " is not a number");
-        } else if (type.equals("Date")) {
-            if (!isValidDate(value)) throw new Exception(value + "is not a date");
-        }
-    }
-
-    private void checkIfInvalidField(Map<String, SearchType> authorizedSearchFieldList, Search s) throws Exception {
-        if (!authorizedSearchFieldList.containsKey(s.getFieldName())) {
-            throw new Exception("invalid criteria: " + s.getFieldName());
-        }
-    }*/
-
- /*   public boolean isValidDate(String dateStr) {
-        DateFormat sdf = new SimpleDateFormat(this.dateFormat);
-        sdf.setLenient(false);
-        try {
-            sdf.parse(dateStr);
-        } catch (ParseException e) {
-            return false;
-        } catch (java.text.ParseException e) {
-            return false;
-        }
-        return true;
-    }*/
 
 
     public Map<String, SearchType> getSearchField() {

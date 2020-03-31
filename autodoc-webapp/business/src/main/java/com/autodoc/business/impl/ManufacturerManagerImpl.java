@@ -2,18 +2,17 @@ package com.autodoc.business.impl;
 
 
 import com.autodoc.business.contract.ManufacturerManager;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.contract.ManufacturerService;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
-import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.car.Manufacturer;
-import com.autodoc.model.models.person.employee.Employee;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
+@Builder
 public class ManufacturerManagerImpl extends GlobalManagerImpl<Manufacturer, ManufacturerDTO> implements ManufacturerManager {
 
     private static final Logger LOGGER = Logger.getLogger(ManufacturerManagerImpl.class);
@@ -21,10 +20,8 @@ public class ManufacturerManagerImpl extends GlobalManagerImpl<Manufacturer, Man
 
     private ManufacturerService service;
 
-    public ManufacturerManagerImpl(ManufacturerService service) {
-        super(service);
-        this.service = service;
-        LOGGER.info("created stuff " + service);
+    GlobalService getService() {
+        return service;
     }
 
     public Manufacturer dtoToEntity(String token, Object obj) {

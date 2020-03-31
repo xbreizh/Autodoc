@@ -2,23 +2,24 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.ClientService;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.person.client.Client;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
+@Builder
 public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> implements ClientManager {
 
     private static Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
+    ClientService service;
 
-
-
-    public ClientManagerImpl(ClientService service) {
-        super(service);
-        this.service = service;
+    GlobalService getService() {
+        return service;
     }
 
 

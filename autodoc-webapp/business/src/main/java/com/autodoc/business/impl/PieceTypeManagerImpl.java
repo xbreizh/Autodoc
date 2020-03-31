@@ -2,10 +2,12 @@ package com.autodoc.business.impl;
 
 
 import com.autodoc.business.contract.PieceTypeManager;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.contract.PieceTypeService;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.dtos.pieces.PieceTypeForm;
 import com.autodoc.model.models.pieces.PieceType;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
@@ -13,13 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
+@Builder
 public class PieceTypeManagerImpl extends GlobalManagerImpl<PieceType, PieceTypeDTO> implements PieceTypeManager {
 
     private static final Logger LOGGER = Logger.getLogger(PieceTypeManagerImpl.class);
 
+    PieceTypeService service;
 
-    public PieceTypeManagerImpl(PieceTypeService service) {
-        super(service);
+    GlobalService getService() {
+        return service;
     }
 
     public PieceType dtoToEntity(String token, Object obj) {

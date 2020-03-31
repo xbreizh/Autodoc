@@ -6,6 +6,7 @@ import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.contract.BillService;
 import com.autodoc.contract.CarService;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.dtos.car.CarForm;
@@ -14,12 +15,14 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 import java.util.List;
 
 @Named
+@Builder
 public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements CarManager {
 
     private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
@@ -28,13 +31,8 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
     private ClientManager clientManager;
     private BillService billService;
 
-    public CarManagerImpl(CarService service, CarModelManager carModelManager, ClientManager clientManager, BillService billService) {
-        super(service);
-        this.service = service;
-        this.billService = billService;
-        this.carModelManager = carModelManager;
-        this.clientManager = clientManager;
-        LOGGER.info("created stuff" + clientManager);
+    GlobalService getService() {
+        return service;
     }
 
     @Override

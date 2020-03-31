@@ -4,26 +4,28 @@ package com.autodoc.business.impl;
 import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.PieceTypeManager;
 import com.autodoc.business.exceptions.ObjectFormattingException;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.contract.PieceService;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
+@Builder
 public class PieceManagerImpl extends GlobalManagerImpl<Piece, PieceDTO> implements PieceManager {
 
     private static final Logger LOGGER = Logger.getLogger(PieceManagerImpl.class);
-    public Piece piece;
+    PieceService service;
+    // public Piece piece;
     private PieceTypeManager pieceTypeManager;
 
-    public PieceManagerImpl(PieceService service, PieceTypeManager pieceTypeManager) {
-        super(service);
-        this.service = service;
-        this.pieceTypeManager = pieceTypeManager;
+    GlobalService getService() {
+        return service;
     }
 
     public Piece dtoToEntity(String token, Object obj) throws Exception {

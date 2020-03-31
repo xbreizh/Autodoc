@@ -15,19 +15,24 @@ import java.util.List;
 public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     protected static final double pricePerHour = 15;
     private static Logger LOGGER = Logger.getLogger(GlobalManagerImpl.class);
-    GlobalService service;
-    EnumService enumService;
+    //  GlobalService service;
+    EnumService enumService = new EnumServiceImpl();
 
-    public GlobalManagerImpl(GlobalService service) {
+    GlobalService getService() {
+        return null;
+    }
+
+/*    public GlobalManagerImpl(GlobalService service) {
         this.service = service;
         if (enumService == null) enumService = new EnumServiceImpl();
-    }
+    }*/
 
     public double getPricePerHour() {
         return pricePerHour;
     }
 
     public T getById(String token, int id) throws Exception {
+        GlobalService service = getService();
         LOGGER.info("getting by id");
         LOGGER.info(service);
         D obj = (D) service.getById(token, id);
@@ -39,7 +44,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     public T getByName(String token, String name) throws Exception {
-
+        GlobalService service = getService();
         D obj = (D) service.getByName(token, name);
         return dtoToEntity(token, obj);
     }
@@ -51,29 +56,14 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
 
     public List<T> getAll(String token) throws Exception {
+        GlobalService service = getService();
         return convertList(token, service.getAll(token));
     }
 
     public String add(String token, Object obj) throws Exception {
         LOGGER.info("stuff to insert: " + obj);
+        GlobalService service = getService();
         D objToInsert = formToDto(obj, token);
-        /*String feedback = service.create(token, objToInsert);
-        try {
-            Integer.parseInt(feedback);
-        } catch (NumberFormatException e) {
-            LOGGER.error(feedback);
-            throw new ObjectFormattingException(feedback)
-        }
-        LOGGER.info("id: " + feedback);
-        return returnFeedback(201, feedback);*/
-        //  return service.create(token, objToInsert);
-       /* String feedBack = "";
-        try {
-            feedBack = service.update(token, objToInsert);
-            return feedBack;
-        } catch (RuntimeException e) {
-            throw new ObjectFormattingException( getFeedbackDetails(feedBack));
-        }*/
         String feedBack = "";
         try {
             feedBack = service.create(token, objToInsert);
@@ -90,10 +80,10 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         return feedBack;
     }
 
-    private String returnFeedback(int codeExpected, String feedback) {
+   /* private String returnFeedback(int codeExpected, String feedback) {
         if (getRequestCode(feedback) != codeExpected) return getFeedbackDetails(feedback);
         return feedback;
-    }
+    }*/
 
     protected String getFeedbackDetails(String feedback) {
         LOGGER.info("feedback: " + feedback);
@@ -111,6 +101,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     public void update(String token, Object obj) throws Exception {
         LOGGER.info("stuff to update: " + obj);
+        GlobalService service = getService();
         D objToUpdate = formToDto(obj, token);
         String feedBack = "";
         try {
@@ -128,6 +119,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     public void delete(String token, int id) {
+        GlobalService service = getService();
         LOGGER.info("deleting: " + id);
         service.delete(token, id);
     }

@@ -4,27 +4,27 @@ package com.autodoc.business.impl;
 import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.ManufacturerManager;
 import com.autodoc.contract.CarModelService;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 
 @Named
+@Builder
 public class CarModelManagerImpl extends GlobalManagerImpl<CarModel, CarModelDTO> implements CarModelManager {
 
     private static final Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
 
 
-    //@Inject
+    CarModelService service;
     private ManufacturerManager manufacturerManager;
 
-    public CarModelManagerImpl(CarModelService service, ManufacturerManager manufacturerManager) {
-        super(service);
-        this.service = service;
-        this.manufacturerManager = manufacturerManager;
-        LOGGER.info("manuf: " + manufacturerManager);
+    GlobalService getService() {
+        return service;
     }
 
     public CarModel dtoToEntity(String token, Object obj) throws Exception {

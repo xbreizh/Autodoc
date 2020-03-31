@@ -3,6 +3,7 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.*;
 import com.autodoc.contract.BillService;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
@@ -12,6 +13,7 @@ import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.employee.Employee;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
+@Builder
 public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements BillManager {
 
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
@@ -29,9 +32,17 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private ClientManager clientManager;
     private EmployeeManager employeeManager;
     private PieceManager pieceManager;
-    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    //private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-    public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, PieceManager pieceManager) {
+    protected SimpleDateFormat getDateFormat() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    }
+
+    GlobalService getService() {
+        return service;
+    }
+
+   /* public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, PieceManager pieceManager) {
         super(service);
         this.service = service;
         this.carManager = carManager;
@@ -39,7 +50,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         this.pieceManager = pieceManager;
         this.clientManager = clientManager;
         this.employeeManager = employeeManager;
-    }
+    }*/
 
     public Bill dtoToEntity(String token, Object obj) throws Exception {
 
@@ -50,7 +61,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         LOGGER.info("id: " + id);
         bill.setId(id);
         LOGGER.info("old date: " + dto.getDateReparation());
-        bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
+        bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
         LOGGER.info("new date: " + bill.getDateReparation());
         Car car = carManager.getByRegistration(token, dto.getRegistration());
         if (car == null) throw new Exception("car cannot be null");
@@ -106,7 +117,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         dto.setClientId(form.getClientId());
 
 
-        String mdy = mdyFormat.format(form.getDateReparation());
+        String mdy = getDateFormat().format(form.getDateReparation());
         dto.setDateReparation(mdy);
         LOGGER.info("date passed: " + dto.getDateReparation());
         dto.setDiscount(form.getDiscount());

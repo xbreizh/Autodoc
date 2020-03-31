@@ -24,4 +24,10 @@ dependencies {
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.5.0'
     compile 'com.google.code.gson:gson:2.8.5'
 
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testCompileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+
 }

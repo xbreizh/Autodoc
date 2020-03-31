@@ -2,22 +2,26 @@ package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.contract.EmployeeService;
+import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 import java.util.List;
 
 @Named
+@Builder
 public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO> implements EmployeeManager {
 
     private static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
 
+    EmployeeService service;
 
-    public EmployeeManagerImpl(EmployeeService service) {
-        super(service);
+    GlobalService getService() {
+        return service;
     }
 
     @Override
