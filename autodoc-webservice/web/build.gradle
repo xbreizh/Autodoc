@@ -57,6 +57,12 @@ dependencies {
             'org.springframework.security:spring-security-core:5.1.6.RELEASE',
             'io.jsonwebtoken:jjwt:0.9.1'
 
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testCompileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+
 
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 

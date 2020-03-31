@@ -1,10 +1,8 @@
 package com.autodoc.controllers.impl;
 
-import com.autodoc.business.contract.person.provider.CountryManager;
-import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.enums.*;
+import lombok.Builder;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,18 +16,11 @@ import java.util.List;
 
 
 @Controller
+@Builder
 @RequestMapping("")
-public class EnumController {
+public class EnumController extends GlobalControllerImpl {
 
     private final static Logger LOGGER = Logger.getLogger(EnumController.class);
-    protected HttpHeaders responseHeaders;
-   // private CountryManager manager;
-    private GsonConverter converter;
-
-    public EnumController(/*CountryManager manager*/) {
-        converter = new GsonConverter();
-       // this.manager = manager;
-    }
 
 
     @GetMapping(value = "/roles",

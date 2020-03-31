@@ -4,6 +4,7 @@ package com.autodoc.controllers.impl;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.dao.filler.Remover;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,17 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.inject.Inject;
-
 @Controller
+@Builder
 public class FillerControllerImpl {
     private static final Logger LOGGER = Logger.getLogger(FillerControllerImpl.class);
-    @Inject
     private Filler filler;
-    @Inject
     private Remover remover;
-
-    @Inject
     private GsonConverter converter;
 
 

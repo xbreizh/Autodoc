@@ -1,13 +1,14 @@
 package com.autodoc.controllers.impl.person.employee;
 
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.controllers.contract.person.employee.EmployeeController;
-import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.models.employee.Employee;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +19,15 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/employees")
+@Builder
 public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, EmployeeDTO> implements EmployeeController {
     private static final Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
     private EmployeeManager manager;
-    private GsonConverter converter;
+    //   private GsonConverter converter;
 
-    public EmployeeControllerImpl(EmployeeManager manager) {
-        super(manager);
-        converter = new GsonConverter();
-        this.manager = manager;
+    public IGenericManager getManager() {
+        return manager;
     }
-
 
     @Override
     @GetMapping(value = "/name",

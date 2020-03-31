@@ -43,6 +43,7 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
         LOGGER.info("converted into ");
         ManufacturerDTO dto = (ManufacturerDTO) entity;
         Manufacturer manufacturer = mapper.map(entity, Manufacturer.class);
+        manufacturer.setName(((ManufacturerDTO) entity).getName().toUpperCase());
         checkIfDuplicate(dto);
         return manufacturer;
     }

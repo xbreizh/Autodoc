@@ -1,12 +1,13 @@
 package com.autodoc.controllers.impl.car;
 
 
+import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.contract.car.CarController;
-import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,17 +20,22 @@ import javax.inject.Named;
 @Named
 @Controller
 @RequestMapping("/cars")
+@Builder
 public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> implements CarController {
     private static final Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
     private CarManager carManager;
 
-    private GsonConverter converter;
+    public IGenericManager getManager() {
+        return carManager;
+    }
 
-    public CarControllerImpl(CarManager carManager) {
+
+
+/*    public CarControllerImpl(CarManager carManager) {
         super(carManager);
         if (converter == null) converter = new GsonConverter();
         this.carManager = carManager;
-    }
+    }*/
 
 
     @Override

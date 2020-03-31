@@ -54,13 +54,14 @@ public class Manufacturer {
     private List<CarModel> carModels;
 
 
-    /*public Manufacturer() {
+    public static class ManufacturerBuilder {
+        public ManufacturerBuilder name(String name) {
+            this.name = name.toUpperCase();
+            return this;
+        }
+
+
     }
-
-
-    public Manufacturer(String name) {
-        this.name = name;
-    }*/
 
     @Override
     public String toString() {
