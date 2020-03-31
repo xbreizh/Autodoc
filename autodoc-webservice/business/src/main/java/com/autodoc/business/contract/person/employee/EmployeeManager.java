@@ -23,6 +23,6 @@ public interface EmployeeManager extends IGenericManager {
 
     List<EmployeeDTO> getByRoles(List<RoleListDTO> roles) throws Exception;
 
-    List<Role> checkRoleValuesValid(List<RoleListDTO> roles)throws Exception;
+    List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws Exception;
 
 }

@@ -1,14 +1,18 @@
 package com.autodoc.model.dtos.pieces;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PieceDTO {
 
     @Min(value = 1, message = "buyingPrice cannot be null")
@@ -17,8 +21,6 @@ public class PieceDTO {
     @Min(value = 1, message = "pieceTypeId cannot be null")
     private int pieceTypeId;
 
-   /* @Min(value = 1, message = "carModelId cannot be null")
-    private int carModelId;*/
     @NotNull(message = "name cannot be null")
     private String name;
     @NotNull(message = "brand cannot be null")
@@ -27,8 +29,6 @@ public class PieceDTO {
     private double sellPrice;
     private int quantity;
 
-    public PieceDTO() {
-    }
 
     @Override
     public String toString() {

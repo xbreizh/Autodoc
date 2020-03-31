@@ -4,5 +4,5 @@ import com.autodoc.dao.contract.global.IGenericDao;
 
 public interface CarModelDao extends IGenericDao {
 
- //   CarModel findByName(String name);
+    //   CarModel findByName(String name);
 }

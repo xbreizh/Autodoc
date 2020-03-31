@@ -87,7 +87,6 @@ class CarControllerImplTest {
     }
 
 
-
     @Test
     @DisplayName("should return object if registration is valid")
     void getByRegistration() throws Exception {
@@ -100,7 +99,7 @@ class CarControllerImplTest {
         assertEquals(200, carController.getByRegistration("momo").getStatusCodeValue());
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get(urlItem+"/registration?registration="+registration)
+                        .get(urlItem + "/registration?registration=" + registration)
                         .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(registration))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -138,11 +137,10 @@ class CarControllerImplTest {
     }
 
 
-
     @Test
     @DisplayName("should return object if id is valid")
     void getById() throws Exception {
-       // String name = carDTO.getId();
+        // String name = carDTO.getId();
         int id = 3;
         when(carManager.getById(id)).thenReturn(carDTO);
         assertEquals(200, carController.getById(id).getStatusCodeValue());
@@ -155,8 +153,8 @@ class CarControllerImplTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
-               // .andExpect(jsonPath("$.name").value(name))
-               // .andExpect(jsonPath("$.id").value(id))
+        // .andExpect(jsonPath("$.name").value(name))
+        // .andExpect(jsonPath("$.id").value(id))
             /*    .andDo(document("{ClassName}/{methodName}",
                         responseFields(descriptor)
                 ));*/
@@ -166,7 +164,7 @@ class CarControllerImplTest {
     @Test
     @DisplayName("should return 404 if id is invalid")
     void getById1() throws Exception {
-        int id =24;
+        int id = 24;
         carManager = mock(CarManager.class);
         carController = new CarControllerImpl(carManager);
         when(carManager.getById(id)).thenReturn(null);

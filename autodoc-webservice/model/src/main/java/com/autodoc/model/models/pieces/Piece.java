@@ -73,10 +73,10 @@ public class Piece {
 
     @Override
     public String toString() {
-        int providerId=0;
-        int pieceTypeId=0;
-        if(pieceType!=null)pieceTypeId=pieceType.getId();
-        if(provider!=null)providerId=provider.getId();
+        int providerId = 0;
+        int pieceTypeId = 0;
+        if (pieceType != null) pieceTypeId = pieceType.getId();
+        if (provider != null) providerId = provider.getId();
         return "Piece{" +
                 "id=" + id +
                 ", provider=" + providerId +

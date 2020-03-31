@@ -1,11 +1,17 @@
 package com.autodoc.model.dtos.person.provider;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CountryDTO {
 
 
@@ -16,10 +22,5 @@ public class CountryDTO {
     @Size(min = 2, max = 30, message = "name should have between {min} and {max} characters")
     private String name;
 
-    public CountryDTO(@NotNull(message = "name cannot be null") String name) {
-        this.name = name;
-    }
 
-    public CountryDTO() {
-    }
 }

@@ -65,8 +65,6 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
     }
 
 
-
-
     public Task transferInsert(Object obj) throws InvalidDtoException {
         LOGGER.info("trying to convert into entity");
         TaskDTO dto = (TaskDTO) obj;
@@ -82,7 +80,6 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
         LOGGER.info("task so far: " + task);
         return task;
     }
-
 
 
     public Task transferUpdate(Object obj) throws InvalidDtoException {

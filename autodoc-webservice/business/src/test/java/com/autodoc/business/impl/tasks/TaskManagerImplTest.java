@@ -52,7 +52,7 @@ class TaskManagerImplTest {
         int id = 34;
         dto.setName(name);
         double price = 12345678910L;
-    //    dto.setPrice(price);
+        //    dto.setPrice(price);
         List<Integer> subTaskList = new ArrayList<>();
         subTaskList.add(id);
         when(dao.create(any(Task.class))).thenReturn(id);

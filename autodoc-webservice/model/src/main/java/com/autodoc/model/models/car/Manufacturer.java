@@ -75,7 +75,6 @@ public class Manufacturer {
     }
 
 
-
     @JsonIgnore
     public List<CarModel> getCarModels() {
         return carModels;

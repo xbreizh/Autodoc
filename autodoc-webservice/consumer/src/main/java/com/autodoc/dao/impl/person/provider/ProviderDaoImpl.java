@@ -22,7 +22,7 @@ public class ProviderDaoImpl<T> extends AbstractHibernateDao implements Provider
 
     public Map<String, SearchType> getSearchField() {
 
-        return  Provider.SEARCH_FIELD;
+        return Provider.SEARCH_FIELD;
     }
 
 }

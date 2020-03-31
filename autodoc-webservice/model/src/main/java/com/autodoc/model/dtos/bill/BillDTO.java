@@ -1,21 +1,24 @@
 package com.autodoc.model.dtos.bill;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BillDTO {
 
     private static final double VAT = 00.195;
     private int id;
 
-
-    //@FutureOrPresent(message = "date should not be in the past")
-    //@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private String dateReparation;
 
     @NotNull
@@ -44,9 +47,6 @@ public class BillDTO {
     private double discount;
 
     private String comments;
-
-    public BillDTO() {
-    }
 
 
 }

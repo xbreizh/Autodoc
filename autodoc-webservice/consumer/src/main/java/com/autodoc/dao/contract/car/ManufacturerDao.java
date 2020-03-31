@@ -5,5 +5,5 @@ import com.autodoc.dao.contract.global.IGenericDao;
 public interface ManufacturerDao extends IGenericDao {
 
 
-   /* Manufacturer getByName(String name);*/
+    /* Manufacturer getByName(String name);*/
 }

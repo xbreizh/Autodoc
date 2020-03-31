@@ -77,7 +77,7 @@ public class Provider extends Person {
                 ", email1='" + email1 + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", company='" + company + '\'' +
-              /*  ", rate=" + rate +*/
+                /*  ", rate=" + rate +*/
                 ", id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

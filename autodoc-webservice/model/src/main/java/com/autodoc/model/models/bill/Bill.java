@@ -44,28 +44,12 @@ public class Bill {
         return Collections.unmodifiableMap(result);
     }
 
-
- /*   public Bill() {
-    }*/
-
-/*    public Bill(@NotNull Date dateReparation, @NotNull Status status, @NotNull Car car, @NotNull Employee employee, @NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
-        this.dateReparation = dateReparation;
-        this.status = status;
-        this.car = car;
-        this.employee = employee;
-        this.client = client;
-        this.tasks = tasks;
-        this.total = total;
-        this.vat = vat;
-        this.discount = discount;
-    }*/
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date dateReparation;
 
     @NotNull

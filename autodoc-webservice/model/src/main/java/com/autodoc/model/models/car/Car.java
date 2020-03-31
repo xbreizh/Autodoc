@@ -23,7 +23,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Cacheable
-public class Car  {
+public class Car {
 
     public static Map<String, SearchType> getSearchField() {
         return SEARCH_FIELD;
@@ -38,9 +38,6 @@ public class Car  {
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }
-
-
-
 
 
     @Id

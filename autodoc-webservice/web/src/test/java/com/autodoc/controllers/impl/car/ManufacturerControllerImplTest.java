@@ -125,7 +125,7 @@ class ManufacturerControllerImplTest {
         String name = manufacturerDTO.getName();
         int id = 3;
         when(manufacturerManager.getById(anyInt())).thenReturn(manufacturerDTO);
-    assertEquals(200, manufacturerController.getById(id).getStatusCodeValue());
+        assertEquals(200, manufacturerController.getById(id).getStatusCodeValue());
         this.mockMvc.perform(
                 get(urlItem + "/" + id)
                         .header("Authorization", "Bearer token")

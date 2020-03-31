@@ -1,7 +1,6 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
-import com.autodoc.business.impl.bill.BillManagerImpl;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.client.ClientDao;

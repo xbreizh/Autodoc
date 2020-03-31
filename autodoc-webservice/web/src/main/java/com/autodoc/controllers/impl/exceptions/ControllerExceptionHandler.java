@@ -32,12 +32,12 @@ public class ControllerExceptionHandler extends RuntimeException {
     @ExceptionHandler({Exception.class, SQLException.class, ConstraintViolationException.class, NestedServletException.class})
     public ResponseEntity notFoundHandler(Exception e, HttpServletRequest req) {
 
-        if(e.getClass() == ObjectNotFoundException.class) return ResponseEntity
+        if (e.getClass() == ObjectNotFoundException.class) return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("No object found");
-       // LOGGER.info("Item not found. HTTP 500 returned.");
-      //  LOGGER.debug("req: " + req.getRequestURI());
-        LOGGER.error("capturing"+e.getClass() + e.getMessage());
+        // LOGGER.info("Item not found. HTTP 500 returned.");
+        //  LOGGER.debug("req: " + req.getRequestURI());
+        LOGGER.error("capturing" + e.getClass() + e.getMessage());
        /* LOGGER.error("capturing 500 " + e.getLocalizedMessage());
         LOGGER.error("capturing 500 " + e.getCause());
         LOGGER.error("capturing 500 " + e.getStackTrace());

@@ -1,13 +1,17 @@
 package com.autodoc.model.dtos.pieces;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PieceTypeDTO {
 
 
@@ -17,12 +21,6 @@ public class PieceTypeDTO {
     @NotNull(message = "name cannot be null")
     private String name;
 
-    public PieceTypeDTO(@NotNull(message = "name cannot be null") String name) {
-        this.name = name;
-    }
-
-    public PieceTypeDTO() {
-    }
 
     @Override
     public String toString() {

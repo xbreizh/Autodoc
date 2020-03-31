@@ -1,18 +1,17 @@
 package com.autodoc.model.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoleListDTO {
 
     String role;
 
-    public RoleListDTO(String role) {
-        this.role = role;
-    }
 
-    public RoleListDTO() {
-    }
 }

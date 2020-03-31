@@ -18,5 +18,4 @@ public class AddressDaoImpl<T> extends AbstractHibernateDao implements AddressDa
     }
 
 
-
 }

@@ -84,7 +84,7 @@ class TaskDaoImplTest {
         LOGGER.info(task);
         assertEquals(name, ((Task) dao.getById(id)).getName());
         LOGGER.info("getting task: " + dao.getById(id));
-    //    assertNotNull(((Task) dao.getById(id)).getPieces());
+        //    assertNotNull(((Task) dao.getById(id)).getPieces());
     }
 
     @Test

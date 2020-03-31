@@ -18,13 +18,14 @@ import java.util.Map;
 public class ClientDaoImpl<T> extends AbstractHibernateDao implements ClientDao {
     private static final Logger LOGGER = Logger.getLogger(ClientDaoImpl.class);
     private Class cl = Client.class;
+
     public ClientDaoImpl() {
         this.setClazz(Client.class);
     }
 
     public Map<String, SearchType> getSearchField() {
 
-        return  Client.SEARCH_FIELD;
+        return Client.SEARCH_FIELD;
     }
 
 

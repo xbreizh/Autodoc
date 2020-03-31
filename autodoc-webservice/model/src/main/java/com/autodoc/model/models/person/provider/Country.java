@@ -20,7 +20,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country  {
+public class Country {
 
 
     public static Map<String, SearchType> getSearchField() {

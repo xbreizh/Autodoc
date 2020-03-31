@@ -120,9 +120,9 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         employee.setLastName(dto.getLastName().toUpperCase());
         employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
         employee.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
-        if(dto.getStartDate()==null){
+        if (dto.getStartDate() == null) {
             employee.setStartDate(new Date());
-        }else {
+        } else {
             employee.setStartDate(dto.getStartDate());
         }
         employee.setPhoneNumber(dto.getPhoneNumber());
@@ -133,8 +133,8 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     private void checkAndPassLogin(Employee employee, String login) throws InvalidDtoException {
         Employee employee1 = dao.getByLogin(login.toUpperCase());
         LOGGER.info(employee);
-        if(employee1!=null && employee.getId()!=0){
-            if (employee1.getId()!=employee.getId()) {
+        if (employee1 != null && employee.getId() != 0) {
+            if (employee1.getId() != employee.getId()) {
                 String error = "Login " + login.toUpperCase() + "already exists";
                 LOGGER.error(error);
                 throw new InvalidDtoException(error);

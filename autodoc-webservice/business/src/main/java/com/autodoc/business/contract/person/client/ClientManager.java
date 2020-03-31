@@ -15,7 +15,7 @@ public interface ClientManager extends IGenericManager {
 
     String delete(int anyInt);*/
 
-  //  ClientDTO getByName(String name);
+    //  ClientDTO getByName(String name);
 
 
     /* Client getById(int id);*/

@@ -2,20 +2,15 @@ package com.autodoc.model.dtos.person.client;
 
 
 import com.autodoc.model.dtos.person.PersonDTO;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@SuperBuilder
 public class ClientDTO extends PersonDTO {
-    public ClientDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber) {
-        super(lastName, firstName, phoneNumber);
-    }
-
-    public ClientDTO() {
-    }
 
 
     @Override

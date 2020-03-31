@@ -43,8 +43,6 @@ public class CarModel {
     }
 
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -56,7 +54,6 @@ public class CarModel {
 
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Car> cars;
-
 
 
     @NotNull

@@ -20,11 +20,10 @@ public class GsonConverter {
         Gson gsonBuilder = new GsonBuilder()
                 .setDateFormat("dd-MM-yyyy HH:mm:ss").create();
         String convertedObject = gsonBuilder.toJson(list);
-       // String convertedObject = new Gson().toJson(list);
+        // String convertedObject = new Gson().toJson(list);
         LOGGER.debug("object: " + convertedObject);
         return convertedObject;
     }
-
 
 
 }

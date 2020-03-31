@@ -2,20 +2,22 @@ package com.autodoc.model.dtos.person.employee;
 
 import com.autodoc.model.dtos.person.PersonDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 public class EmployeeDTO extends PersonDTO {
 
 
@@ -24,7 +26,7 @@ public class EmployeeDTO extends PersonDTO {
     private List<String> roles;
 
     //@PastOrPresent
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date startDate;
 
     @NotNull(message = "login cannot be null")
@@ -35,18 +37,9 @@ public class EmployeeDTO extends PersonDTO {
     private String password;
 
     //@PastOrPresent
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date lastConnection;
 
-    public EmployeeDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber, @NotNull(message = "role should not be null") List<String> roles, @PastOrPresent Date startDate, @NotNull(message = "login cannot be null") String login) {
-        super(lastName, firstName, phoneNumber);
-        this.roles = roles;
-        this.startDate = startDate;
-        this.login = login;
-    }
-
-    public EmployeeDTO() {
-    }
 
     @Override
     public String toString() {

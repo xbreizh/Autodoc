@@ -4,7 +4,7 @@ import com.autodoc.business.contract.IGenericManager;
 
 public interface TaskManager extends IGenericManager {
 
- //   List<TaskDTO> getTemplates();
+    //   List<TaskDTO> getTemplates();
 
     //   boolean updateTemplate(TaskDTO taskDTO) throws Exception;
 

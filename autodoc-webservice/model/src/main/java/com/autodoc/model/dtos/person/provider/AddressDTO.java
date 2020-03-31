@@ -1,12 +1,17 @@
 package com.autodoc.model.dtos.person.provider;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AddressDTO {
 
 
@@ -28,14 +33,5 @@ public class AddressDTO {
     @Size(min = 2, max = 30, message = "city mush have between {min} and {max} characters")
     private String city;
 
-    public AddressDTO(int id, @Min(value = 1, message = "countryName cannot be null") String countryName, @NotNull(message = "streetName cannot be null") String streetName, String postcode, @NotNull(message = "city cannot be null") String city) {
-        this.id = id;
-        this.countryName = countryName;
-        this.streetName = streetName;
-        this.postcode = postcode;
-        this.city = city;
-    }
 
-    public AddressDTO() {
-    }
 }

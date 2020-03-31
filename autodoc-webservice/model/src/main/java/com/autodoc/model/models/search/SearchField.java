@@ -7,15 +7,16 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter @Setter
+@Getter
+@Setter
 public class SearchField {
 
 
-   Map<String, SearchType> list = new HashMap<>();
+    Map<String, SearchType> list = new HashMap<>();
 
     public SearchField(String... args) {
         for (String arg : args) {
-           // this.list.add(arg);
+            // this.list.add(arg);
         }
 
     }

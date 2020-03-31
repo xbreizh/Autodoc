@@ -52,12 +52,9 @@ public class ManufacturerDaoImpl<T> extends AbstractHibernateDao implements Manu
 */
 
 
-
-
-
     public Map<String, SearchType> getSearchField() {
 
-        return  Manufacturer.SEARCH_FIELD;
+        return Manufacturer.SEARCH_FIELD;
     }
 
 }

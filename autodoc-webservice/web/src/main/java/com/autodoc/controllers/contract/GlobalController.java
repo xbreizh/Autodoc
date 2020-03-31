@@ -13,5 +13,4 @@ public interface GlobalController<T, D> {
     ResponseEntity deleteById(Integer id) throws Exception;
 
 
-
 }

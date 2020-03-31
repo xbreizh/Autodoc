@@ -21,7 +21,7 @@ public class CarModelDaoImpl<T> extends AbstractHibernateDao implements CarModel
 
     public Map<String, SearchType> getSearchField() {
 
-        return  CarModel.SEARCH_FIELD;
+        return CarModel.SEARCH_FIELD;
     }
 
     public CarModelDaoImpl() {

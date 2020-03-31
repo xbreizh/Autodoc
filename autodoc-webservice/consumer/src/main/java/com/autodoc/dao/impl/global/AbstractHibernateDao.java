@@ -96,7 +96,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public boolean deleteById(int entityId) {
-        LOGGER.info("trying to delete "+clazz+" with id: " + entityId);
+        LOGGER.info("trying to delete " + clazz + " with id: " + entityId);
         T entity = getCurrentSession().get(clazz, entityId);
         LOGGER.info(entity);
         if (entity == null) {

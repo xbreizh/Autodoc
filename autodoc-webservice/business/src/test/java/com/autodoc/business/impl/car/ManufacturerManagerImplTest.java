@@ -82,7 +82,6 @@ class ManufacturerManagerImplTest {
     }
 
 
-
     @Test
     @DisplayName("return false when dao returns false")
     void deleteById() throws Exception {

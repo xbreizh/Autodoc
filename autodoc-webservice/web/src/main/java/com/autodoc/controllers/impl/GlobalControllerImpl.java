@@ -82,7 +82,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
     @PostMapping(value = "/criteria",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchByCriteria(@RequestBody @Valid List<SearchDTO> searchDTO)throws Exception{
+    public ResponseEntity searchByCriteria(@RequestBody @Valid List<SearchDTO> searchDTO) throws Exception {
         IGenericManager manager = getManager();
 
         LOGGER.info("getting by criteria: " + searchDTO.get(0));
