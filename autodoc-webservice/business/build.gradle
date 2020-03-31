@@ -17,6 +17,11 @@ dependencies {
             compile 'log4j:log4j:1.2.17'
     testCompile group: 'org.springframework', name: 'spring-test', version: '5.1.9.RELEASE'
 
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    testCompileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+
     /* // to recognize webapp folder
      compile 'org.springframework:spring-core:4.1.2.RELEASE',
              'org.springframework:spring-web:4.1.2.RELEASE',
