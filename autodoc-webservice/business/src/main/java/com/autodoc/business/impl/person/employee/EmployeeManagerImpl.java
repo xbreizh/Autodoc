@@ -3,11 +3,13 @@ package com.autodoc.business.impl.person.employee;
 import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
+import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
 import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,21 +22,26 @@ import java.util.List;
 
 @Transactional
 @Component
+@Builder
 public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements EmployeeManager {
     private final static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
-    private ModelMapper mapper;
-    private EmployeeDaoImpl employeeDao;
+    private static final ModelMapper mapper = new ModelMapper();
+    private EmployeeDaoImpl dao;
 
-    public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
-        //super(employeeDao);
-        this.mapper = new ModelMapper();
-        this.employeeDao = employeeDao;
+    /*  public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
+          //super(employeeDao);
+          this.mapper = new ModelMapper();
+          this.employeeDao = employeeDao;
+      }*/
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao");
+        return dao;
     }
-
 
     @Override
     public boolean exist(String login) {
-        return employeeDao.getByLogin(login) != null;
+        return dao.getByLogin(login) != null;
     }
 
 
@@ -76,7 +83,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         LOGGER.info("transfer update: " + obj);
         EmployeeDTO dto = (EmployeeDTO) obj;
         if (dto.getId() == 0) throw new InvalidDtoException("invalid id: " + 0);
-        Employee employee = (Employee) employeeDao.getById(dto.getId());
+        Employee employee = (Employee) dao.getById(dto.getId());
         if (employee == null) return null;
         if (dto.getLogin() != null) checkAndPassLogin(employee, dto.getLogin().toUpperCase());
         if (dto.getFirstName() != null) employee.setFirstName(dto.getFirstName().toUpperCase());
@@ -105,9 +112,9 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
 
     public Employee transferInsert(Object obj) throws Exception {
         EmployeeDTO dto = (EmployeeDTO) obj;
-        Employee employee1 = employeeDao.getByLogin(dto.getLogin().toUpperCase());
+        Employee employee1 = dao.getByLogin(dto.getLogin().toUpperCase());
         LOGGER.info("employee1: " + employee1);
-        if (employeeDao.getByLogin(dto.getLogin()) != null) {
+        if (dao.getByLogin(dto.getLogin()) != null) {
             throw new InvalidDtoException("That login is already used: " + dto.getLogin());
         }
         LOGGER.info("transferring data: " + dto);
@@ -128,7 +135,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     }
 
     private void checkAndPassLogin(Employee employee, String login) throws InvalidDtoException {
-        Employee employee1 = employeeDao.getByLogin(login.toUpperCase());
+        Employee employee1 = dao.getByLogin(login.toUpperCase());
         LOGGER.info(employee);
         if(employee1!=null && employee.getId()!=0){
             if (employee1.getId()!=employee.getId()) {
@@ -143,25 +150,25 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     @Override
     public EmployeeDTO getEmployeeByLogin(String login) {
         LOGGER.info("getting by login: " + login);
-        Employee employee = employeeDao.getByLogin(login);
+        Employee employee = dao.getByLogin(login);
         if (employee == null) return null;
-        return entityToDto(employeeDao.getByLogin(login));
+        return entityToDto(dao.getByLogin(login));
     }
 
     @Override
     public EmployeeDTO getEmployeeByToken(String token) {
-        return entityToDto(employeeDao.getByToken(token));
+        return entityToDto(dao.getByToken(token));
     }
 
     @Override
     public Employee getByLogin(String login) {
         LOGGER.info("login to find: " + login);
-        return employeeDao.getByLogin(login.toUpperCase());
+        return dao.getByLogin(login.toUpperCase());
     }
 
     @Override
     public Employee getByToken(String token) {
-        return employeeDao.getByToken(token);
+        return dao.getByToken(token);
     }
 
     @Override
@@ -172,7 +179,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
         /*for (RoleListDTO role: roles){
             roleList.add(role.getRole());
         }*/
-        List<Employee> employeeList = employeeDao.getByRole(roleList);
+        List<Employee> employeeList = dao.getByRole(roleList);
         LOGGER.info("role: " + roleList.get(0));
         List<EmployeeDTO> employeeDTOList = new ArrayList<>();
         for (Employee employee : employeeList) {

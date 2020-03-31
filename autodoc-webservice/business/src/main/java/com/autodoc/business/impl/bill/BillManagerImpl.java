@@ -7,6 +7,7 @@ import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
+import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
@@ -33,8 +34,8 @@ import java.util.List;
 @Component
 public class BillManagerImpl extends AbstractGenericManager implements BillManager {
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
-    private BillDao billDao;
-    private ModelMapper mapper;
+    private static final ModelMapper mapper = new ModelMapper();
+    private BillDao dao;
     private CarDao carDao;
     private ClientDao clientDao;
     private EmployeeDao employeeDao;
@@ -44,17 +45,23 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private TaskManager taskManager;
     private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-    public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, PieceDao pieceDao, TaskManager taskManager, PieceManager pieceManager) {
+    public BillManagerImpl(BillDao dao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, PieceDao pieceDao, TaskManager taskManager, PieceManager pieceManager) {
         //super(billDao);
-        this.mapper = new ModelMapper();
+        // this.mapper = new ModelMapper();
         this.taskManager = taskManager;
-        this.billDao = billDao;
+        this.dao = dao;
         this.carDao = carDao;
         this.clientDao = clientDao;
         this.employeeDao = employeeDao;
         this.taskDao = taskDao;
         this.pieceDao = pieceDao;
         this.pieceManager = pieceManager;
+    }
+
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao");
+        return dao;
     }
 
 
@@ -106,7 +113,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         BillDTO dto = (BillDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new Exception("no id provided");
-        Bill bill = (Bill) billDao.getById(dto.getId());
+        Bill bill = (Bill) dao.getById(dto.getId());
         if (bill == null) throw new Exception("no bill found with that reference: " + dto.getId());
         if (dto.getDateReparation() != null) {
             bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
