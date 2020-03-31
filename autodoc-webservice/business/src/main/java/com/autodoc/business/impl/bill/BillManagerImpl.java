@@ -45,7 +45,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
     public BillManagerImpl(BillDao billDao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, PieceDao pieceDao, TaskManager taskManager, PieceManager pieceManager) {
-        super(billDao);
+        //super(billDao);
         this.mapper = new ModelMapper();
         this.taskManager = taskManager;
         this.billDao = billDao;
@@ -113,7 +113,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         }
         LOGGER.info("updating car");
         if (dto.getRegistration() != null && !dto.getRegistration().isEmpty()) {
-            Car car = carDao.getCarByRegistration(dto.getRegistration());
+            Car car = (Car) carDao.getCarByRegistration(dto.getRegistration());
             if (car == null) throw new InvalidDtoException("car cannot be null");
             LOGGER.info("car found: " + car);
             bill.setCar(car);
@@ -198,7 +198,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         LOGGER.info("dto date: " + dto.getDateReparation());
         bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
         LOGGER.info("entity date: " + bill.getDateReparation());
-        Car car = carDao.getCarByRegistration(dto.getRegistration());
+        Car car = (Car) carDao.getCarByRegistration(dto.getRegistration());
         if (car == null) throw new InvalidDtoException("car cannot be null");
         LOGGER.info("car found: " + car);
         bill.setCar(car);

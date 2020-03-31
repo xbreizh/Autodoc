@@ -18,7 +18,7 @@ public class CountryManagerImpl<T, D> extends AbstractGenericManager implements 
     private CountryDaoImpl providerDao;
 
     public CountryManagerImpl(CountryDaoImpl providerDao) {
-        super(providerDao);
+        //super(providerDao);
         this.mapper = new ModelMapper();
         this.providerDao = providerDao;
     }

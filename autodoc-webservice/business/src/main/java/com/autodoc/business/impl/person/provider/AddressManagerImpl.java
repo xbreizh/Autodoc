@@ -26,7 +26,7 @@ public class AddressManagerImpl<T, D> extends AbstractGenericManager implements 
 
 
     public AddressManagerImpl(AddressDao addressDao, CountryDao countryDao, ProviderDao providerDao) {
-        super(addressDao);
+        //super(addressDao);
         this.addressDao = addressDao;
         this.mapper = new ModelMapper();
         this.countryDao = countryDao;

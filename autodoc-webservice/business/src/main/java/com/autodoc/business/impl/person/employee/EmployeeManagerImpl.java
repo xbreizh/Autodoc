@@ -26,7 +26,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     private EmployeeDaoImpl employeeDao;
 
     public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
-        super(employeeDao);
+        //super(employeeDao);
         this.mapper = new ModelMapper();
         this.employeeDao = employeeDao;
     }

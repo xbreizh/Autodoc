@@ -3,49 +3,42 @@ package com.autodoc.business.impl.car;
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
+import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
 import javassist.NotFoundException;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
 @Transactional
 @Component
+@Builder
 public class CarManagerImpl extends AbstractGenericManager implements CarManager {
     private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
-    @Inject
-    private CarDao carDao;
-    private CarModelDao carModelDao;
-    private ClientDao clientDao;
-    @Inject
-    private BillDao billDao;
-    // @Inject
-    private ModelMapper mapper;
+    private static final ModelMapper mapper = new ModelMapper();
+    private final CarDao dao;
+    private final CarModelDao carModelDao;
+    private final ClientDao clientDao;
 
-
-    public CarManagerImpl(ClientDao clientDao, CarDao dao, CarModelDao carModelDao) {
-        super(dao);
-        this.carModelDao = carModelDao;
-        this.clientDao = clientDao;
-        this.carDao = dao;
-        this.mapper = new ModelMapper();
-        LOGGER.info("creating manager");
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao");
+        return dao;
     }
 
 
     public boolean deleteById(int entityId) throws Exception {
-        return carDao.deleteById(entityId);
+        return dao.deleteById(entityId);
 
 
     }
@@ -53,21 +46,18 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     @Override
     public CarDTO getByRegistration(String registration) {
         LOGGER.info("reg: " + registration);
-        LOGGER.info(carDao);
-        Car car = carDao.getCarByRegistration(registration.toUpperCase());
+        Car car = (Car) dao.getCarByRegistration(registration.toUpperCase());
         LOGGER.info(car);
         if (car == null) {
             LOGGER.info("car is null");
             return null;
         }
-        CarDTO carDTO = entityToDto(car);
-        return carDTO;
+        return entityToDto(car);
     }
 
 
     @Override
     public CarDTO updateClient(int carId, int clientId) throws Exception {
-       // CarDTO carDto = (CarDTO) carDao.getById(carId);
         Client client = (Client) clientDao.getById(clientId);
         if (client == null) throw new NotFoundException("client not found");
         return null;
@@ -79,10 +69,8 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         LOGGER.info("converting into dto");
         if (entity == null) return null;
         LOGGER.info(entity);
-        CarDTO dto = new CarDTO();
         LOGGER.info("mapper: " + mapper);
-        dto = mapper.map(entity, CarDTO.class);
-        return dto;
+        return mapper.map(entity, CarDTO.class);
     }
 
     @Override
@@ -115,10 +103,10 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             throw new InvalidDtoException("no update parameters provided");
         Car car = null;
         if (id != 0) {
-            car = (Car) carDao.getById(id);
+            car = (Car) dao.getById(id);
             if (car == null) throw new InvalidDtoException("invalid car id: " + id);
         } else if (!registration.isEmpty()) {
-            car = carDao.getCarByRegistration(registration);
+            car = (Car) dao.getCarByRegistration(registration);
             if (car == null) throw new InvalidDtoException("invalid registration: " + registration);
         }
 
@@ -140,7 +128,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         }
 
         if (registration != null && !registration.isEmpty() && id != 0) {
-            Car carCheck = carDao.getCarByRegistration(registration);
+            Car carCheck = (Car) dao.getCarByRegistration(registration);
             if (carCheck != null && carCheck.getId() != id)
                 throw new InvalidDtoException("there is another existing car with that registration");
 
@@ -152,14 +140,14 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
     private boolean checkRegistrationNotInUse(int id, String registration) {
         LOGGER.info("checking that the registration is not used for another car");
-        Car car = carDao.getCarByRegistration(registration);
+        Car car = (Car) dao.getCarByRegistration(registration);
         if (car == null) return false;
         return car.getId() == id;
     }
 
     boolean checkIfExistingCar(String registration) {
         LOGGER.info("checking if car already in the db");
-        return carDao.getCarByRegistration(registration.toUpperCase()) != null;
+        return dao.getCarByRegistration(registration.toUpperCase()) != null;
     }
 
     private void checkData(CarDTO dto) throws InvalidDtoException {

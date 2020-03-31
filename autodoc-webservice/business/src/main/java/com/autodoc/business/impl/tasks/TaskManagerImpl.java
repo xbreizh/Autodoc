@@ -25,7 +25,7 @@ public class TaskManagerImpl<T, D> extends AbstractGenericManager implements Tas
 
 
     public TaskManagerImpl(TaskDao taskDao, PieceDao pieceDao) {
-        super(taskDao);
+        //super(taskDao);
         this.mapper = new ModelMapper();
         this.taskDao = taskDao;
         this.pieceDao = pieceDao;

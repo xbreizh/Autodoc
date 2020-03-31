@@ -19,7 +19,7 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
     private ModelMapper mapper;
 
     public PieceTypeManagerImpl(PieceTypeDaoImpl<PieceType> pieceTypeDao) {
-        super(pieceTypeDao);
+        //super(pieceTypeDao);
         this.mapper = new ModelMapper();
         this.pieceTypeDao = pieceTypeDao;
     }

@@ -21,7 +21,7 @@ public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implem
     private Link link = new Link("http://localhost:8087/autodoc/manufacturers/");
 
     public ManufacturerManagerImpl(ManufacturerDao manufacturerDao) {
-        super(manufacturerDao);
+        //super(manufacturerDao);
         this.mapper = new ModelMapper();
         this.manufacturerDao = manufacturerDao;
 

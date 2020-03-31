@@ -22,7 +22,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
     private ModelMapper mapper;
 
     public ClientManagerImpl(ClientDaoImpl clientDao) {
-        super(clientDao);
+        //super(clientDao);
         this.mapper = new ModelMapper();
         this.clientDao = clientDao;
 

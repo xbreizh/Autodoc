@@ -3,8 +3,10 @@ package com.autodoc.business.impl.car;
 import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.car.CarModelDao;
+import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -12,16 +14,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Component
+@Builder
 public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements CarModelManager {
     private final static Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
-    private CarModelDao carModelDao;
-    private ModelMapper mapper;
+    private static final ModelMapper mapper = new ModelMapper();
+    private CarModelDao dao;
 
-    public CarModelManagerImpl(CarModelDao carModelDao) {
-        super(carModelDao);
+   /* public CarModelManagerImpl(CarModelDao dao) {
+        //super(carModelDao);
         this.mapper = new ModelMapper();
-        this.carModelDao = carModelDao;
+        this.dao = dao;
 
+    }*/
+
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao");
+        return dao;
     }
 
 
@@ -42,7 +51,7 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
     @Override
     public CarModelDTO getByName(String name) {
         LOGGER.info("trying to get by name: " + name);
-        CarModel carModel = (CarModel) carModelDao.getByName(name);
+        CarModel carModel = (CarModel) dao.getByName(name);
         if (carModel == null) return null;
         return entityToDto(carModel);
     }

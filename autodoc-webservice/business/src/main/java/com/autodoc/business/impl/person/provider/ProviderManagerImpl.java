@@ -23,7 +23,7 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
     ModelMapper mapper;
 
     public ProviderManagerImpl(ProviderDaoImpl<Provider> providerDao) {
-        super(providerDao);
+        //super(providerDao);
         this.mapper = new ModelMapper();
         this.providerDao = providerDao;
     }

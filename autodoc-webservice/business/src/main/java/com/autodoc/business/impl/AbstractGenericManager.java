@@ -6,6 +6,7 @@ import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
 import com.autodoc.model.models.search.SearchDTO;
+import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -17,30 +18,29 @@ import java.util.*;
 
 @Transactional
 @Component
+@NoArgsConstructor
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
 
     protected String exception = "";
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
-    private IGenericDao<T> dao;
+
 
     String[] globalComparator = {"equals", "notEquals"};
-    String[] numberComparator = {"smaller", "bigger", "smallerOrEqual", };
+    String[] numberComparator = {"smaller", "bigger", "smallerOrEqual",};
 
-    public AbstractGenericManager(IGenericDao dao) {
-        this.dao = dao;
-
-    }
-
-    public AbstractGenericManager() {
-    }
 
     protected void resetException() {
         exception = "";
     }
 
+    public IGenericDao getDao() {
+        return null;
+    }
+
 
     public String save(D object) throws InvalidDtoException {
         LOGGER.info("trying to save: " + object.getClass());
+        IGenericDao dao = getDao();
         try {
             T objectToSave = transferInsert(object);
             LOGGER.info("object to save: " + objectToSave);
@@ -75,7 +75,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public boolean update(Object entity) throws Exception {
 
         T obj = transferUpdate((D) entity);
-        return dao.update(obj);
+        return getDao().update(obj);
 
     }
 
@@ -98,29 +98,29 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public D getById(int id) throws Exception {
-        if (dao.getById(id) == null) {
+        if (getDao().getById(id) == null) {
             exception = "no record found by id: " + id;
             return null;
         }
-        return entityToDto(dao.getById(id));
+        return entityToDto((T) getDao().getById(id));
     }
 
     @Override
     public D getByName(String name) throws Exception {
-        if (dao.getByName(name) == null) {
+        if (getDao().getByName(name) == null) {
             exception = "no record found by name: " + name;
             return null;
         }
         LOGGER.info("record found!! ");
-        return entityToDto(dao.getByName(name));
+        return entityToDto((T) getDao().getByName(name));
     }
 
     @Override
     public List getAll() {
         LOGGER.info("getting ghtm all: ");
         LOGGER.info("trying to find them all");
-        LOGGER.debug("dao: " + dao);
-        return convertList(dao.getAll());
+        LOGGER.debug("dao: " + getDao());
+        return convertList(getDao().getAll());
     }
 
     protected List<D> convertList(List<T> list) {
@@ -140,26 +140,26 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public boolean delete(Object entity) throws Exception {
         LOGGER.info("trying to delete " + entity.toString());
         T obj = dtoToEntity((D) entity);
-        return dao.delete((T) entity);
+        return getDao().delete(entity);
 
     }
 
     @Override
     public boolean deleteById(int entityId) throws Exception {
-        T entity = dao.getById(entityId);
+        T entity = (T) getDao().getById(entityId);
         if (entity == null) throw new Exception("id is invalid: " + entityId);
         LOGGER.info("deleting by uid manager");
 
-        return dao.deleteById(entityId);
+        return getDao().deleteById(entityId);
     }
 
     public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {
         List<Search> search = convertDtoIntoSearch(dtoList);
-        return convertList(dao.getByCriteria(search));
+        return convertList(getDao().getByCriteria(search));
     }
 
     private List<Search> convertDtoIntoSearch(List<SearchDTO> dtoList) throws Exception {
-        Map<String, SearchType> authorizedList=dao.getSearchField();
+        Map<String, SearchType> authorizedList = getDao().getSearchField();
         if(authorizedList==null)throw new Exception("no criteria available");
         List<Search> searchList = new ArrayList<>();
         for (SearchDTO dto:dtoList){

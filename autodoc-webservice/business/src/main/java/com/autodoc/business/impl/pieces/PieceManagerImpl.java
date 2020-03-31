@@ -24,7 +24,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
     private PieceTypeDao pieceTypeDao;
 
     public PieceManagerImpl(PieceDao pieceDao, PieceTypeDao pieceTypeDao) {
-        super(pieceDao);
+        //super(pieceDao);
         this.mapper = new ModelMapper();
         this.pieceDao = pieceDao;
         this.pieceTypeDao = pieceTypeDao;
