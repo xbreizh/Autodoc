@@ -31,6 +31,18 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         return null;
     }
 
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home() {
+        return "index";
+    }
+
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String privateHome() {
+        return "privatePage";
+    }
+
     @Override
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,7 +59,6 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         return entity;
     }
 
-    //@Override
     @PostMapping(value = "",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity add(@RequestBody @Valid D obj) throws Exception {
@@ -69,8 +80,6 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
     }
 
-
-   // @Override
     @PostMapping(value = "/criteria",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity searchByCriteria(@RequestBody @Valid List<SearchDTO> searchDTO)throws Exception{

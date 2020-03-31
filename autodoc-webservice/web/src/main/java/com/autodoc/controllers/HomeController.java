@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -17,4 +18,4 @@ public class HomeController {
     public String privateHome() {
         return "privatePage";
     }
-}
+}*/
