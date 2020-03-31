@@ -3,11 +3,13 @@ package com.autodoc.business.impl.pieces;
 import com.autodoc.business.contract.pieces.PieceManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
+import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -17,17 +19,18 @@ import java.util.List;
 
 @Transactional
 @Component
+@Builder
 public class PieceManagerImpl<T, D> extends AbstractGenericManager implements PieceManager {
     private static final Logger LOGGER = Logger.getLogger(PieceManagerImpl.class);
-    private PieceDao pieceDao;
-    private ModelMapper mapper;
+    private static final ModelMapper mapper = new ModelMapper();
+    private PieceDao dao;
     private PieceTypeDao pieceTypeDao;
 
-    public PieceManagerImpl(PieceDao pieceDao, PieceTypeDao pieceTypeDao) {
-        //super(pieceDao);
-        this.mapper = new ModelMapper();
-        this.pieceDao = pieceDao;
-        this.pieceTypeDao = pieceTypeDao;
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao: ");
+
+        return dao;
     }
 
 
@@ -51,7 +54,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
     public Piece transferInsert(Object obj) throws InvalidDtoException {
         PieceDTO dto = (PieceDTO) obj;
         String name = dto.getName().toUpperCase();
-        if (pieceDao.getByName(name) != null) throw new InvalidDtoException("that piece already exist");
+        if (dao.getByName(name) != null) throw new InvalidDtoException("that piece already exist");
         Piece piece = new Piece();
         piece.setName(name.toUpperCase());
         piece.setBrand(dto.getBrand().toUpperCase());
@@ -79,7 +82,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
                     LOGGER.info("adding an item");
                     updateQuantity(p, "+");
                 }
-                pieceDao.update(p);
+                dao.update(p);
             }
         }
 
@@ -93,14 +96,14 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
                     updateQuantity(p, "+");
                     //  billPieceList.add(p);
                 }
-                pieceDao.update(p);
+                dao.update(p);
             }
         }
 
         // removes all items from db quantity according to bill
         for (Piece piece : pieces) {
             LOGGER.info("removing an item: " + piece.getId());
-            Piece pieceFromStock = (Piece) pieceDao.getById(piece.getId());
+            Piece pieceFromStock = (Piece) dao.getById(piece.getId());
             piece = updateQuantity(pieceFromStock, "-");
         }
         LOGGER.info("billPieceList: " + pieces);
@@ -121,14 +124,14 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
             piece.setQuantity(actualQuantity - 1);
         }
         LOGGER.info("piece now: " + piece);
-        pieceDao.update(piece);
+        dao.update(piece);
         updateNameAccordingToStock(piece.getId());
 
         return piece;
     }
 
     public void updateNameAccordingToStock(int id) {
-        Piece piece = (Piece) pieceDao.getById(id);
+        Piece piece = (Piece) dao.getById(id);
         int quantity = piece.getQuantity();
         LOGGER.info("updating name according to stock: " + quantity);
         String outOfStock = "OOS ";
@@ -142,7 +145,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
             piece.setName(currentName.substring(4));
         }
         LOGGER.info("new name: " + piece.getName());
-        pieceDao.update(piece);
+        dao.update(piece);
     }
 
     public void checkSellingPriceIsEqualOrHigherBuyingPrice(Piece piece) {
@@ -164,7 +167,7 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
         PieceDTO dto = (PieceDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("no id passed");
-        Piece piece = (Piece) pieceDao.getById(id);
+        Piece piece = (Piece) dao.getById(id);
         if (piece == null) throw new InvalidDtoException("invalid id: " + id);
         String name = dto.getName();
         String brand = dto.getBrand();

@@ -6,7 +6,6 @@ import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
 import com.autodoc.model.models.search.SearchDTO;
-import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -18,16 +17,9 @@ import java.util.*;
 
 @Transactional
 @Component
-@NoArgsConstructor
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
-
-    protected String exception = "";
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
-
-
-    String[] globalComparator = {"equals", "notEquals"};
-    String[] numberComparator = {"smaller", "bigger", "smallerOrEqual",};
-
+    protected String exception = "";
 
     protected void resetException() {
         exception = "";
@@ -134,8 +126,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
 
-
-
     @Override
     public boolean delete(Object entity) throws Exception {
         LOGGER.info("trying to delete " + entity.toString());
@@ -160,10 +150,10 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     private List<Search> convertDtoIntoSearch(List<SearchDTO> dtoList) throws Exception {
         Map<String, SearchType> authorizedList = getDao().getSearchField();
-        if(authorizedList==null)throw new Exception("no criteria available");
+        if (authorizedList == null) throw new Exception("no criteria available");
         List<Search> searchList = new ArrayList<>();
-        for (SearchDTO dto:dtoList){
-            boolean found=false;
+        for (SearchDTO dto : dtoList) {
+            boolean found = false;
             String field = dto.getFieldName();
             String compare = dto.getCompare().toUpperCase();
             String value = dto.getValue().toUpperCase();
@@ -174,21 +164,22 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             // if so, the field takes the key value (for avoiding case sensitive issue on sql request)
             // and found turns gets "true" value
             while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
+                Map.Entry pair = (Map.Entry) it.next();
                 String keyName = pair.getKey().toString();
-                if (keyName.equalsIgnoreCase(field)){
-                    field=keyName;
-                    found=true;
+                if (keyName.equalsIgnoreCase(field)) {
+                    field = keyName;
+                    found = true;
                 }
             }
-            if (!found)throw new Exception(field+" is an invalid search criteria");
+            if (!found) throw new Exception(field + " is an invalid search criteria");
             String type = authorizedList.get(field).toString();
-            if(!isCompareCriteria(type, dto))throw new Exception(compare+" is invalid or can't be used with "+field);
-            if(type.equals("INTEGER")) {
-                if(!IsValidNumber(value))throw new Exception(value+" is not a valid number");
+            if (!isCompareCriteria(type, dto))
+                throw new Exception(compare + " is invalid or can't be used with " + field);
+            if (type.equals("INTEGER")) {
+                if (!IsValidNumber(value)) throw new Exception(value + " is not a valid number");
             }
-            if(type.equals("DATE"))checkDateValue(value);
-            if(type.equals("STRING"))value = checkAndAdaptValue(compare, value);
+            if (type.equals("DATE")) checkDateValue(value);
+            if (type.equals("STRING")) value = checkAndAdaptValue(compare, value);
             Search search = new Search(field, compare, value);
             search.setCompare(replaceCompareValueWithSqlCompare(type, compare));
             searchList.add(search);
@@ -198,18 +189,18 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     private String checkAndAdaptValue(String compare, String value) throws Exception {
-        if (value==null || value.isEmpty())throw new Exception("value cannot be null");
-        String[] containsValues={"CONTAINS", "DOESNOTCONTAIN"};
-        if (Arrays.asList(containsValues).contains(compare))value="%"+value+"%";
+        if (value == null || value.isEmpty()) throw new Exception("value cannot be null");
+        String[] containsValues = {"CONTAINS", "DOESNOTCONTAIN"};
+        if (Arrays.asList(containsValues).contains(compare)) value = "%" + value + "%";
         return value;
 
     }
 
     private String replaceCompareValueWithSqlCompare(String type, String compare) throws Exception {
         LOGGER.info("compare: " + compare);
-        for (SearchType searchType: SearchType.values()){
-            if (searchType.name().equals(type)){
-                for (String[] str:searchType.getValues()) {
+        for (SearchType searchType : SearchType.values()) {
+            if (searchType.name().equals(type)) {
+                for (String[] str : searchType.getValues()) {
                     if (str[0].equalsIgnoreCase(compare)) {
                         return str[1];
                     }
@@ -242,7 +233,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         try {
             sdf.parse(dateStr);
         } catch (ParseException e) {
-            LOGGER.error("invalid date: "+dateStr);
+            LOGGER.error("invalid date: " + dateStr);
             return false;
         }
         return true;
@@ -258,8 +249,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         }
         return true;
     }
-
-
 
 
 }

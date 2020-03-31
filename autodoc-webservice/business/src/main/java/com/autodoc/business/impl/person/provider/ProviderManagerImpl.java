@@ -3,7 +3,8 @@ package com.autodoc.business.impl.person.provider;
 import com.autodoc.business.contract.person.provider.ProviderManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.impl.person.provider.ProviderDaoImpl;
+import com.autodoc.dao.contract.global.IGenericDao;
+import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.search.Search;
@@ -18,14 +19,15 @@ import java.util.List;
 @Transactional
 @Component
 public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements ProviderManager {
-    private ProviderDaoImpl<Provider> providerDao;
+    private static final ModelMapper mapper = new ModelMapper();
     private static final Logger LOGGER = Logger.getLogger(ProviderManagerImpl.class);
-    ModelMapper mapper;
+    private ProviderDao dao;
 
-    public ProviderManagerImpl(ProviderDaoImpl<Provider> providerDao) {
-        //super(providerDao);
-        this.mapper = new ModelMapper();
-        this.providerDao = providerDao;
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao: ");
+
+        return dao;
     }
 
 
@@ -77,7 +79,7 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         ProviderDTO dto = (ProviderDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("id cannot be null");
-        Provider provider = (Provider) providerDao.getById(id);
+        Provider provider = (Provider) dao.getById(id);
         if (provider == null) throw new InvalidDtoException("invalid id");
         if (dto.getFirstName() != null) {
             provider.setFirstName(dto.getFirstName().toUpperCase());
@@ -113,7 +115,7 @@ public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements
         Search search2 = new Search("lastName", "=", dto.getLastName().toUpperCase());
         searchList.add(search1);
         searchList.add(search2);
-        List<Provider> providers = providerDao.getByCriteria(searchList);
+        List<Provider> providers = dao.getByCriteria(searchList);
         if (!providers.isEmpty())
             throw new InvalidDtoException("that client already exist: " + dto.getFirstName() + " " + dto.getLastName());
 

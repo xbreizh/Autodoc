@@ -4,7 +4,7 @@ import com.autodoc.business.contract.person.employee.EmployeeManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
-import com.autodoc.dao.impl.person.employee.EmployeeDaoImpl;
+import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
@@ -26,16 +26,12 @@ import java.util.List;
 public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements EmployeeManager {
     private final static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
-    private EmployeeDaoImpl dao;
+    private EmployeeDao dao;
 
-    /*  public EmployeeManagerImpl(EmployeeDaoImpl employeeDao) {
-          //super(employeeDao);
-          this.mapper = new ModelMapper();
-          this.employeeDao = employeeDao;
-      }*/
     @Override
     public IGenericDao getDao() {
-        LOGGER.info("getting dao");
+        LOGGER.info("getting dao: ");
+
         return dao;
     }
 
@@ -110,7 +106,7 @@ public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements
     }
 
 
-    public Employee transferInsert(Object obj) throws Exception {
+    public Employee transferInsert(Object obj) {
         EmployeeDTO dto = (EmployeeDTO) obj;
         Employee employee1 = dao.getByLogin(dto.getLogin().toUpperCase());
         LOGGER.info("employee1: " + employee1);

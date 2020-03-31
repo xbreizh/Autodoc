@@ -2,10 +2,12 @@ package com.autodoc.business.impl.person.client;
 
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.impl.person.client.ClientDaoImpl;
+import com.autodoc.dao.contract.global.IGenericDao;
+import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.search.Search;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -16,19 +18,18 @@ import java.util.List;
 
 @Transactional
 @Component
+@Builder
 public class ClientManagerImpl<T, D> extends AbstractGenericManager implements ClientManager {
     private static final Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
-    private ClientDaoImpl clientDao;
-    private ModelMapper mapper;
+    private static final ModelMapper mapper = new ModelMapper();
+    private ClientDao dao;
 
-    public ClientManagerImpl(ClientDaoImpl clientDao) {
-        //super(clientDao);
-        this.mapper = new ModelMapper();
-        this.clientDao = clientDao;
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao: ");
 
+        return dao;
     }
-
-
 
 
     @Override
@@ -60,7 +61,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         String firstName = dto.getFirstName().toUpperCase();
         String lastName = dto.getLastName().toUpperCase();
         String phoneNumber = dto.getPhoneNumber().toUpperCase();
-        Client client = (Client) clientDao.getById(id);
+        Client client = (Client) dao.getById(id);
         if (client == null) throw new Exception("invalid id");
         if (firstName != null) client.setFirstName(firstName.toUpperCase());
         if (lastName != null) client.setLastName(lastName.toUpperCase());
@@ -81,7 +82,7 @@ public class ClientManagerImpl<T, D> extends AbstractGenericManager implements C
         searchList.add(search1);
         searchList.add(search2);
         searchList.add(search3);
-        List<Client> clients = clientDao.getByCriteria(searchList);
+        List<Client> clients = dao.getByCriteria(searchList);
         LOGGER.info("clients: " + clients);
         if (!clients.isEmpty()) {
             int id = clients.get(0).getId();

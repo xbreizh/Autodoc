@@ -2,12 +2,14 @@ package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.AddressManager;
 import com.autodoc.business.impl.AbstractGenericManager;
+import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.model.dtos.person.provider.AddressDTO;
 import com.autodoc.model.models.person.provider.Address;
 import com.autodoc.model.models.person.provider.Country;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -15,22 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Component
+@Builder
 public class AddressManagerImpl<T, D> extends AbstractGenericManager implements AddressManager {
-    // @Inject
     CountryDao countryDao;
     private static final Logger LOGGER = Logger.getLogger(AddressManagerImpl.class);
-    private ModelMapper mapper;
-    //@Inject
+    private static final ModelMapper mapper = new ModelMapper();
     ProviderDao providerDao;
-    private AddressDao addressDao;
+    private AddressDao dao;
 
 
-    public AddressManagerImpl(AddressDao addressDao, CountryDao countryDao, ProviderDao providerDao) {
-        //super(addressDao);
-        this.addressDao = addressDao;
-        this.mapper = new ModelMapper();
-        this.countryDao = countryDao;
-        this.providerDao = providerDao;
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao: ");
+
+        return dao;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class AddressManagerImpl<T, D> extends AbstractGenericManager implements 
         LOGGER.info("dto received: " + dto);
         String countryName = dto.getCountryName();
         int id = dto.getId();
-        Address address = (Address) addressDao.getById(id);
+        Address address = (Address) dao.getById(id);
         if (address == null) throw new Exception("invalid address id: " + id);
         if (countryName != null) {
             Country country = (Country) countryDao.getByName(dto.getCountryName().toUpperCase());

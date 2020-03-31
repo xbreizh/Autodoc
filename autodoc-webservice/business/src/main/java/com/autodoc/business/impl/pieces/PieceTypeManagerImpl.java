@@ -3,9 +3,11 @@ package com.autodoc.business.impl.pieces;
 import com.autodoc.business.contract.pieces.PieceTypeManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.impl.pieces.PieceTypeDaoImpl;
+import com.autodoc.dao.contract.global.IGenericDao;
+import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.models.pieces.PieceType;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -13,15 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Component
+@Builder
 public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implements PieceTypeManager {
     private static final Logger LOGGER = Logger.getLogger(PieceTypeManagerImpl.class);
-    private PieceTypeDaoImpl<PieceType> pieceTypeDao;
-    private ModelMapper mapper;
+    private static final ModelMapper mapper = new ModelMapper();
+    private PieceTypeDao dao;
 
-    public PieceTypeManagerImpl(PieceTypeDaoImpl<PieceType> pieceTypeDao) {
-        //super(pieceTypeDao);
-        this.mapper = new ModelMapper();
-        this.pieceTypeDao = pieceTypeDao;
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao: ");
+
+        return dao;
     }
 
 
@@ -44,7 +48,7 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
         String name = dto.getName().toUpperCase();
         PieceType pieceType = new PieceType();
         pieceType.setName(name.toUpperCase());
-        PieceType pieceTypeCheck = pieceTypeDao.getByName(name);
+        PieceType pieceTypeCheck = (PieceType) dao.getByName(name);
         if (pieceTypeCheck != null) throw new InvalidDtoException("that pieceType already exist");
         return pieceType;
     }
@@ -58,7 +62,7 @@ public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implement
     public PieceType transferUpdate(Object obj) throws InvalidDtoException {
         PieceTypeDTO dto = (PieceTypeDTO) obj;
         int id = dto.getId();
-        PieceType pieceType = (PieceType) pieceTypeDao.getById(dto.getId());
+        PieceType pieceType = (PieceType) dao.getById(dto.getId());
         if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + id);
         pieceType.setName(dto.getName().toUpperCase());
         return pieceType;

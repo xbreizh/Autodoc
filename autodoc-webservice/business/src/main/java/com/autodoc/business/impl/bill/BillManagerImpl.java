@@ -20,6 +20,7 @@ import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,7 @@ import java.util.List;
 
 @Transactional
 @Component
+@Builder
 public class BillManagerImpl extends AbstractGenericManager implements BillManager {
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
@@ -43,19 +45,9 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private PieceManager pieceManager;
     private TaskDao taskDao;
     private TaskManager taskManager;
-    private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-    public BillManagerImpl(BillDao dao, CarDao carDao, ClientDao clientDao, EmployeeDao employeeDao, TaskDao taskDao, PieceDao pieceDao, TaskManager taskManager, PieceManager pieceManager) {
-        //super(billDao);
-        // this.mapper = new ModelMapper();
-        this.taskManager = taskManager;
-        this.dao = dao;
-        this.carDao = carDao;
-        this.clientDao = clientDao;
-        this.employeeDao = employeeDao;
-        this.taskDao = taskDao;
-        this.pieceDao = pieceDao;
-        this.pieceManager = pieceManager;
+    protected SimpleDateFormat getDateFormat() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm");
     }
 
     @Override
@@ -79,7 +71,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setTotal((bill).getTotal());
         dto.setStatus((bill).getStatus().toString());
         Date dateRepa = (bill).getDateReparation();
-        dto.setDateReparation(mdyFormat.format(dateRepa));
+        dto.setDateReparation(getDateFormat().format(dateRepa));
         dto.setComments((bill).getComments());
         List<Integer> taskList = new ArrayList<>();
         List<Task> tasks = (bill).getTasks();
@@ -116,7 +108,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         Bill bill = (Bill) dao.getById(dto.getId());
         if (bill == null) throw new Exception("no bill found with that reference: " + dto.getId());
         if (dto.getDateReparation() != null) {
-            bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
+            bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
         }
         LOGGER.info("updating car");
         if (dto.getRegistration() != null && !dto.getRegistration().isEmpty()) {
@@ -134,13 +126,6 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 Task task = (Task) taskDao.getById(i);
                 if (task == null) throw new InvalidDtoException("invalid task");
                 taskList.add(task);
-                /*if (task.isTemplate()) {
-                    Task duplicateFromTemplate = taskManager.createFromTemplate(task.getId());
-                    taskList.add(duplicateFromTemplate);
-                    LOGGER.info("created duplicate from template");
-                } else {
-                    taskList.add(task);
-                }*/
             }
             bill.setTasks(taskList);
         }
@@ -203,7 +188,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setId(id);
         // if (dto.getDateReparation()==null && bill.getDateReparation()==null)throw new InvalidDtoException("no valid date provided: "+dto.getDateReparation());
         LOGGER.info("dto date: " + dto.getDateReparation());
-        bill.setDateReparation(mdyFormat.parse(dto.getDateReparation()));
+        bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
         LOGGER.info("entity date: " + bill.getDateReparation());
         Car car = (Car) carDao.getCarByRegistration(dto.getRegistration());
         if (car == null) throw new InvalidDtoException("car cannot be null");
@@ -216,13 +201,6 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             for (Integer i : dto.getTasks()) {
                 Task task = (Task) taskDao.getById(i);
                 if (task == null) throw new InvalidDtoException("invalid task");
-               /* if (task.isTemplate()) {
-                    Task duplicateFromTemplate = taskManager.createFromTemplate(task.getId());
-                    taskList.add(duplicateFromTemplate);
-                    LOGGER.info("created duplicate from template");
-                } else {
-                    taskList.add(task);
-                }*/
                 taskList.add(task);
             }
             bill.setTasks(taskList);

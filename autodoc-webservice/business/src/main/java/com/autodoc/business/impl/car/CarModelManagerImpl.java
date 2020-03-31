@@ -20,12 +20,6 @@ public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements
     private static final ModelMapper mapper = new ModelMapper();
     private CarModelDao dao;
 
-   /* public CarModelManagerImpl(CarModelDao dao) {
-        //super(carModelDao);
-        this.mapper = new ModelMapper();
-        this.dao = dao;
-
-    }*/
 
     @Override
     public IGenericDao getDao() {

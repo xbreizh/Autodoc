@@ -37,7 +37,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
 
-    public boolean deleteById(int entityId) throws Exception {
+    public boolean deleteById(int entityId) {
         return dao.deleteById(entityId);
 
 
