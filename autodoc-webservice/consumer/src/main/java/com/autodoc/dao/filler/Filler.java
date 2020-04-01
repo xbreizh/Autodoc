@@ -43,7 +43,7 @@ import java.util.List;
 public class Filler {
 
     static final Logger LOGGER = Logger.getLogger(Filler.class);
-
+//useless comm
     @Inject
     private ManufacturerDao manufacturerDao;
     @Inject
