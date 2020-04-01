@@ -4,14 +4,12 @@ import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
-import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +22,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
@@ -41,14 +38,14 @@ class CarManagerImplTest {
     private Car car;
 
 
-    @BeforeEach
+   /* @BeforeEach
     void init() {
         dao = mock(CarDaoImpl.class);
         carModelDao = mock(CarModelDao.class);
         clientDao = mock(ClientDao.class);
         carManager = new CarManagerImpl(clientDao, dao, carModelDao);
         car = new Car();
-    }
+    }*/
 
     @Test
     @DisplayName("should return null if registration not found")

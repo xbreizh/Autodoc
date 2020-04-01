@@ -71,7 +71,7 @@ class FillerTest {
         Thread.sleep(2);
         filler.fillSkill();*/
         filler.fillProvider();
-        filler.fillAddresses();
+        //filler.fillAddresses();
         Thread.sleep(2);
         filler.fillPieceTypes();
         Thread.sleep(2);

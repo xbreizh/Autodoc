@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers;
 
 import org.apache.log4j.Logger;
@@ -29,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class HomeControllerTest {
 
     @Inject
-    private HomeController homeController;
+   // private HomeController homeController;
     private MockMvc mockMvc;
     private static Logger LOGGER = Logger.getLogger(HomeControllerTest.class);
 
@@ -56,9 +57,11 @@ class HomeControllerTest {
     void home() throws Exception {
         this.mockMvc.perform(get("/").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                /*.andDo(document("index", links(
+                */
+/*.andDo(document("index", links(
                         linkWithRel("alpha").description("Link to the alpha resource"),
                         linkWithRel("bravo").description("Link to the bravo resource")
-                )))*/;
+                )))*//*
+;
     }
-}
+}*/

@@ -4,7 +4,6 @@ import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.filler.Filler;
-import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.person.provider.Provider;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
@@ -58,14 +56,14 @@ class ProviderDaoImplTest {
     }
 
 
-    @Test
+  /*  @Test
     void getById() {
         Country country = new Country("ALASKA");
         countryDao.create(country);
         Country country1 = (Country) countryDao.getAll().get(0);
         assertNotNull(countryDao.getById(country1.getId()));
     }
-
+*/
 
     @Test
     void getAll() {

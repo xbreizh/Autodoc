@@ -1,11 +1,7 @@
 package com.autodoc.model.models.car;
 
-import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,7 +20,7 @@ class ManufacturerTest {
         assertEquals("Manufacturer{id=0, name='John', carModels=0}", manufacturer.toString());
     }
 
-    @Test
+  /*  @Test
     void testListToString() {
         manufacturer.setName("John");
         List<Manufacturer> manufacturers = new ArrayList<>();
@@ -33,5 +29,5 @@ class ManufacturerTest {
         assertEquals("[Manufacturer{id=0, name='PAUL', carModels=0}, Manufacturer{id=0, name='JACQUES', carModels=0}]", manufacturers.toString());
         String convertedObject = new Gson().toJson(manufacturers);
         //LOGGER.debug("cc: " + convertedObject);
-    }
+    }*/
 }

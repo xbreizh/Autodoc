@@ -4,11 +4,8 @@ import com.autodoc.business.contract.person.provider.AddressManager;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.impl.person.provider.AddressDaoImpl;
-import com.autodoc.dao.impl.person.provider.CountryDaoImpl;
-import com.autodoc.dao.impl.person.provider.ProviderDaoImpl;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.provider.Address;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,7 +13,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class ProviderManagerImplTest {
@@ -28,13 +24,13 @@ class ProviderManagerImplTest {
     private ProviderDao providerDao;
 
 
-    @BeforeEach
+ /*   @BeforeEach
     void init() {
         addressDao = mock(AddressDaoImpl.class);
         providerDao = mock(ProviderDaoImpl.class);
         countryDao = mock(CountryDaoImpl.class);
         addressManager = new AddressManagerImpl(addressDao, countryDao, providerDao);
-    }
+    }*/
 
     @Test
     void getAll() {

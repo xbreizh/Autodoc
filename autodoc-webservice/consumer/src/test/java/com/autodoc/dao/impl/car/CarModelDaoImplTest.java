@@ -2,9 +2,6 @@ package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.filler.Filler;
-import com.autodoc.model.enums.FuelType;
-import com.autodoc.model.enums.GearBox;
-import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
@@ -49,7 +46,7 @@ class CarModelDaoImplTest {
 
     }
 
-    @Test
+  /*  @Test
     void create() {
         String name = "BALOO";
         assertNull(carModelDao.getByName(name));
@@ -66,7 +63,7 @@ class CarModelDaoImplTest {
         assertNotNull(carModelDao.getByName(name));
         carModelDao.delete(cm);
         assertNull(carModelDao.getByName(name));
-    }
+    }*/
 
     /*    @Test
         void update() {
@@ -90,7 +87,7 @@ class CarModelDaoImplTest {
             assertNull(carModelDao.getById(id));
         }
     */
-    @Test
+   /* @Test
     void findByName() {
         String name = "BALOO";
         CarModel cm = new CarModel(man, name, "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL);
@@ -98,5 +95,5 @@ class CarModelDaoImplTest {
         CarModel carModel = carModelDao.getByName(name);
         int id = carModelDao.getByName(name).getId();
         assertNotNull(carModelDao.getByName(name));
-    }
+    }*/
 }

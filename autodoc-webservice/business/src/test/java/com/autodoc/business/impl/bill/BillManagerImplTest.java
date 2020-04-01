@@ -15,7 +15,6 @@ import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.tasks.Task;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +29,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
@@ -51,7 +49,7 @@ class BillManagerImplTest {
     Bill bill;
     BillDTO dto;
 
-    @BeforeEach
+  /*  @BeforeEach
     void init() {
         billDao = mock(BillDao.class);
         carDao = mock(CarDao.class);
@@ -62,7 +60,7 @@ class BillManagerImplTest {
         pieceManager = mock(PieceManager.class);
         pieceDao = mock(PieceDao.class);
         billManager = new BillManagerImpl(billDao, carDao, clientDao, employeeDao, taskDao, pieceDao, taskManager, pieceManager);
-    }
+    }*/
 
     @Test
     void getAll() {

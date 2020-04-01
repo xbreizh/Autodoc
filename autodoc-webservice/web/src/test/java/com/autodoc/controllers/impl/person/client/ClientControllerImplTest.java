@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.person.client;
 
 import com.autodoc.business.contract.person.client.ClientManager;
@@ -66,10 +67,12 @@ class ClientControllerImplTest {
                       RestDocumentationContextProvider restDocumentation) {
         clientManager = mock(ClientManagerImpl.class);
         clientController = new ClientControllerImpl(clientManager);
-        /*this.mockMvc = MockMvcBuilders
+        */
+/*this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
-                .build();*/
+                .build();*//*
+
         clients.add(clientDTO);
         converter = new GsonConverter();
         // using standalone
@@ -99,7 +102,8 @@ class ClientControllerImplTest {
     }
 
 
-  /*  @Test
+  */
+/*  @Test
     void addClient() throws Exception {
         ResponseEntity response = ResponseEntity.ok("client added");
         when(clientManager.save(any(Client.class))).thenReturn("client added");
@@ -113,7 +117,8 @@ class ClientControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}"));
 
     }
-*/
+*//*
+
 
     @Test
     void getByName() throws Exception {
@@ -153,7 +158,8 @@ class ClientControllerImplTest {
         assertEquals(response, clientController.getById(id));
     }
 
-  /*  @Test
+  */
+/*  @Test
     void add() throws Exception {
         Client client = new Client();
         when(clientManager.save(any(Client.class))).thenReturn("client added");
@@ -170,9 +176,11 @@ class ClientControllerImplTest {
 
         ResponseEntity response = ResponseEntity.ok("client added");
         assertEquals(response, clientController.add(client));
-    }*/
+    }*//*
 
-   /* @Test
+
+ */
+/* @Test
     void update() throws Exception {
         ClientDTO client = new ClientDTO("Doe", "John", "12121212");
         when(clientManager.update(any(Client.class))).thenReturn(true);
@@ -189,7 +197,8 @@ class ClientControllerImplTest {
 
         ResponseEntity response = ResponseEntity.ok("client updated");
         assertEquals(response, clientController.update(client));
-    }*/
+    }*//*
 
 
-}
+
+}*/

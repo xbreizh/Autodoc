@@ -1,11 +1,6 @@
 package com.autodoc.controllers.helper;
 
-import com.autodoc.model.models.car.Manufacturer;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class GsonConverterTest {
     GsonConverter converter;
@@ -16,7 +11,7 @@ class GsonConverterTest {
         converter = new GsonConverter();
     }
 
-    @Test
+ /*   @Test
     void convertObjectIntoGsonObject() {
         List<Manufacturer> manufacturers = new ArrayList<>();
         manufacturers.add(new Manufacturer("AUDI"));
@@ -28,5 +23,5 @@ class GsonConverterTest {
         //    LOGGER.debug("converted: " + converted);
 
 
-    }
+    }*/
 }
