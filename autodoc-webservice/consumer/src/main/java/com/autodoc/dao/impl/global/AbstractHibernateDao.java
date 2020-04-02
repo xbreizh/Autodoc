@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+
 public abstract class AbstractHibernateDao<T> {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
     @Inject

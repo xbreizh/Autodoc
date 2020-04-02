@@ -6,7 +6,6 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
-import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
@@ -27,10 +26,10 @@ import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import com.autodoc.model.models.tasks.Task;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,40 +39,23 @@ import java.util.List;
 
 @Transactional
 @Named
+@Builder
 public class Filler {
 
     static final Logger LOGGER = Logger.getLogger(Filler.class);
-//useless comm
-    @Inject
     private ManufacturerDao manufacturerDao;
-    @Inject
     private CarModelDao carModelDao;
-    @Inject
     private EmployeeDao employeeDao;
-    @Inject
     private ClientDao clientDao;
-    @Inject
     private CarDao carDao;
-    @Inject
     private CountryDao countryDao;
-    @Inject
     private ProviderDao providerDao;
-
-    @Inject
     private PieceDao pieceDao;
-    @Inject
     private PieceTypeDao pieceTypeDao;
-    @Inject
     private TaskDao taskDao;
-
-    @Inject
-    private AddressDao addressDao;
-    @Inject
     private BillDao billDao;
 
-    public Filler() {
 
-    }
 
 
     public void fill() throws Exception {
@@ -89,7 +71,6 @@ public class Filler {
             fillPieceTypes();
             fillPieces();
             fillTasks();
-            // fillAddresses();
             fillBills();
         }
     }
@@ -112,17 +93,6 @@ public class Filler {
     }
 
 
-  /*  void fillAddresses() {
-        LOGGER.debug("filling addresses");
-        Country country1 = (Country) countryDao.getAll().get(0);
-        Country country2 = (Country) countryDao.getAll().get(1);
-        LOGGER.info("country1: " + country1);
-        Address address1 = Address.builder().country(country1).streetName("21, Corry street").city("Biarritz").build();
-        Address address2 = Address.builder().country(country2).streetName("12, serenity street upper").city("Portmarnok").build();
-        addressDao.create(address1);
-        addressDao.create(address2);
-    }
-*/
 
     void fillTasks() {
         LOGGER.debug("filling Tasks");

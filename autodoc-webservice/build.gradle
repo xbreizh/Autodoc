@@ -9,7 +9,6 @@ repositories {
 
 }
 task jacocoTestReport {
-  //  dependsOn "testDebugUnitTest"
 
 }
 

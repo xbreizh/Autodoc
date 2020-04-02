@@ -13,53 +13,35 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
 @Transactional
 @Named
+@Builder
 public class Remover {
 
     static final Logger LOGGER = Logger.getLogger(Remover.class);
 
-    @Inject
     private ManufacturerDao manufacturerDao;
-    @Inject
     private CarModelDao carModelDao;
-    @Inject
     private EmployeeDao employeeDao;
-    @Inject
     private ClientDao clientDao;
-    @Inject
     private CarDao carDao;
-    @Inject
     private CountryDao countryDao;
-    @Inject
     private ProviderDao providerDao;
-
-    @Inject
     private PieceDao pieceDao;
-    @Inject
     private PieceTypeDao pieceTypeDao;
-    @Inject
     private TaskDao taskDao;
-
-    @Inject
     private AddressDao addressDao;
-    @Inject
     private BillDao billDao;
-
-    public Remover() {
-
-    }
 
 
     public void remover() {
-        //, employeeDao, clientDao, carDao, carModelDao, providerDao, addressDao
         IGenericDao[] daos = {billDao, pieceDao, pieceTypeDao, taskDao, countryDao, manufacturerDao, carDao, addressDao, providerDao, clientDao, employeeDao};
 
         for (int i = 0; i < daos.length; i++) {

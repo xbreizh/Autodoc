@@ -17,6 +17,7 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
     testCompile group: 'org.springframework', name: 'spring-test', version: '5.1.9.RELEASE'
 
+    //Lombok
     compileOnly 'org.projectlombok:lombok:1.18.8'
     testCompileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'

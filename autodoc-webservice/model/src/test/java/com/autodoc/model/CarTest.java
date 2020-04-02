@@ -1,4 +1,3 @@
-/*
 package com.autodoc.model;
 
 import com.autodoc.model.models.car.Car;
@@ -21,7 +20,7 @@ class CarTest {
         car.setRegistration("ploc");
         car.setId(122);
         //LOGGER.debug(car);
-        assertEquals("Car{id=122, registration='ploc', carModel=null, client=null}", car.toString());
+        assertEquals("Car{id=122, registration='PLOC', carModel=null, client=null}", car.toString());
 
     }
-}*/
+}

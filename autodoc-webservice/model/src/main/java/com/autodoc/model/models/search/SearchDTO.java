@@ -1,5 +1,6 @@
 package com.autodoc.model.models.search;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@Builder
 public class SearchDTO {
 
 
@@ -20,12 +22,6 @@ public class SearchDTO {
     String value;
 
 
-    public SearchDTO(String fieldName, String compare, String value) {
-        this.fieldName = fieldName;
-        this.compare = compare;
-        this.value = value;
-    }
-
     @Override
     public String toString() {
         return "Search{" +
@@ -35,6 +31,5 @@ public class SearchDTO {
                 '}';
     }
 
-    public SearchDTO() {
-    }
+
 }

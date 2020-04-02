@@ -1,6 +1,11 @@
+/*
 package com.autodoc.dao.impl.global;
 
-/*import org.apache.log4j.Logger;
+import com.autodoc.dao.filler.Filler;
+import com.autodoc.dao.filler.Remover;
+import com.autodoc.model.enums.SearchType;
+import com.autodoc.model.models.car.Car;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,22 +18,20 @@ import javax.inject.Inject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
-@ExtendWith(SpringExtension.class)*/
+@ExtendWith(SpringExtension.class)
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
-/*
 @Transactional
 class AbstractHibernateDaoTest {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDaoTest.class);
     @Inject
     GenericHibernateDao genericHibernateDao;
 
-    @Inject
+    private Remover remover;
     private Filler filler;
-
 
     @BeforeEach
     void init() throws Exception {
-        filler.fill();
+        remover.remover();
 
     }
 
@@ -39,9 +42,6 @@ class AbstractHibernateDaoTest {
     }
 
 
-    @Test
-    void findAll() {
-    }
 
     @Test
     void create() {
@@ -63,27 +63,6 @@ class AbstractHibernateDaoTest {
     }
 
 
-    @Test
-    void isCompare() {
 
-
-    }
-
-    @Test
-    void delete() {
-    }
-
-    @Test
-    void update() {
-
-    }
-
-    @Test
-    void deleteById() {
-    }
-
-    @Test
-    void getCurrentSession() {
-    }
 }
 */

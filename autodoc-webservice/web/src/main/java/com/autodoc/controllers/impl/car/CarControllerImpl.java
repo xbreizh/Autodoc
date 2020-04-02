@@ -30,14 +30,6 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     }
 
 
-
-/*    public CarControllerImpl(CarManager carManager) {
-        super(carManager);
-        if (converter == null) converter = new GsonConverter();
-        this.carManager = carManager;
-    }*/
-
-
     @Override
     @GetMapping(value = "/registration",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,9 +65,9 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) throws Exception {
         LOGGER.debug("car id: " + carId + " / client id: " + clientId);
         CarDTO response = carManager.updateClient(carId, clientId);
-        if (response.equals("car updated")) {
+       /* if (response.equals("car updated")) {
             return ResponseEntity.ok(response);
-        }
+        }*/
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);

@@ -100,16 +100,17 @@ public class PieceManagerImpl<T, D> extends AbstractGenericManager implements Pi
             }
         }
 
-        // removes all items from db quantity according to bill
+      /*  // removes all items from db quantity according to bill
         for (Piece piece : pieces) {
             LOGGER.info("removing an item: " + piece.getId());
             Piece pieceFromStock = (Piece) dao.getById(piece.getId());
             piece = updateQuantity(pieceFromStock, "-");
         }
         LOGGER.info("billPieceList: " + pieces);
-        if (pieces != null || pieces.isEmpty()) {
-            return pieceFromDb;
-        }
+        if (pieces != null) return pieceFromDb;
+        if (pieces.isEmpty()) return pieceFromDb;*/
+
+
         return pieces;
 
     }

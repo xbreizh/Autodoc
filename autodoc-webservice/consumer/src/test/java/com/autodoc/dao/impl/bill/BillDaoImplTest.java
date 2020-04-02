@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
-@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class)*/
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
-@Transactional
+/*@Transactional
 class BillDaoImplTest {
 
 

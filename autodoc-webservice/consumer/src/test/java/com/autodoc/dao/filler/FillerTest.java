@@ -1,4 +1,3 @@
-/*
 package com.autodoc.dao.filler;
 
 import com.autodoc.dao.contract.bill.BillDao;
@@ -7,7 +6,6 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
-import com.autodoc.dao.contract.person.provider.AddressDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
@@ -52,9 +50,6 @@ class FillerTest {
     private PieceTypeDao pieceTypeDao;
     @Inject
     private TaskDao taskDao;
-
-    @Inject
-    private AddressDao addressDao;
     @Inject
     private BillDao billDao;
 
@@ -67,14 +62,10 @@ class FillerTest {
         filler.fillClient();
         Thread.sleep(2);
         filler.fillCar();
-        filler.fillCountry();*/
-/*
-        filler.fillSkillCategory();
         Thread.sleep(2);
-        filler.fillSkill();*//*
-
+        filler.fillCountry();
+        Thread.sleep(2);
         filler.fillProvider();
-        //filler.fillAddresses();
         Thread.sleep(2);
         filler.fillPieceTypes();
         Thread.sleep(2);
@@ -86,23 +77,12 @@ class FillerTest {
         Thread.sleep(2); // quick pause between fill up if required
     }
 
-    @Test
-    void fill() throws Exception {
-
-        //()-> assertEquals(2, addressDao.getAll().size()),
-        //()-> assertEquals(2, billDao.getAll().size())
-
-    }
 
     @Test
     void fillBills() {
         assertEquals(3, billDao.getAll().size());
     }
 
-    @Test
-    void fillAddresses() {
-        assertEquals(2, addressDao.getAll().size());
-    }
 
     @Test
     void fillTasks() {
@@ -125,17 +105,6 @@ class FillerTest {
     void fillProvider() {
         assertEquals(2, providerDao.getAll().size());
     }
-
-  */
-/*  @Test
-    void fillSkill() {
-        assertEquals(3, skillDao.getAll().size());
-    }
-
-    @Test
-    void fillSkillCategory() {
-        assertEquals(5, skillCategoryDao.getAll().size());
-    }*//*
 
 
     @Test
@@ -167,4 +136,4 @@ class FillerTest {
     void fillEmployee() {
         assertEquals(2, employeeDao.getAll().size());
     }
-}*/
+}
