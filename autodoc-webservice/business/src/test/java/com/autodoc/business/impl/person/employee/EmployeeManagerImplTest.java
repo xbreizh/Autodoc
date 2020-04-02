@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.employee;
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;
@@ -37,7 +38,8 @@ class EmployeeManagerImplTest {
         assertNotNull(employeeManager.getAll());
     }
 
-  /*  @Test
+  */
+/*  @Test
     void update() {
         EmployeeDTO dto = new EmployeeDTO();
         int id = 2;
@@ -46,9 +48,11 @@ class EmployeeManagerImplTest {
         employeeDao.update(employee);
         when(employeeDao.getAll()).thenReturn(list);
         assertNotNull(employeeManager.getAll());
-    }*/
+    }*//*
 
 
+
+ */
 /*    @Test
     @DisplayName("should not return exception if valid roles")
     void checkRoleValuesValid() {
@@ -67,7 +71,8 @@ class EmployeeManagerImplTest {
         assertThrows(Exception.class,
                 ()->employeeManager.checkRoleValuesValid(rolesToCheck));
 
-    }*/
+    }*//*
+
 
     @Test
     @DisplayName("should return true if dao returns true")
@@ -145,4 +150,4 @@ class EmployeeManagerImplTest {
         when(employeeDao.getByLogin(anyString())).thenReturn(employee);
         assertEquals(login, employeeManager.getEmployeeByLogin(login).getLogin());
     }
-}
+}*/

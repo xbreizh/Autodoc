@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
@@ -38,14 +39,16 @@ class CarManagerImplTest {
     private Car car;
 
 
-   /* @BeforeEach
+   */
+/* @BeforeEach
     void init() {
         dao = mock(CarDaoImpl.class);
         carModelDao = mock(CarModelDao.class);
         clientDao = mock(ClientDao.class);
         carManager = new CarManagerImpl(clientDao, dao, carModelDao);
         car = new Car();
-    }*/
+    }*//*
+
 
     @Test
     @DisplayName("should return null if registration not found")
@@ -196,15 +199,18 @@ class CarManagerImplTest {
         when(dao.deleteById(anyInt())).thenReturn(true);
         assertTrue(carManager.deleteById(2));
     }
+*/
 /*
     @Test
     @DisplayName("should return no client found")
     void updateClient() {
         when(clientManager.getById(anyInt())).thenReturn(null);
         assertEquals("no client found", carManager.updateClient(2, 3));
-    }*/
+    }*//*
 
-  /*  @Test
+
+ */
+/*  @Test
     @DisplayName("should return no car found")
     void updateClient1() {
         Client client = new Client();
@@ -221,5 +227,7 @@ class CarManagerImplTest {
         when(clientManager.getById(anyInt())).thenReturn(client);
         when(carDao.getById(anyInt())).thenReturn(car);
         assertEquals("car updated", carManager.updateClient(2, 3));
-    }*/
+    }*//*
+
 }
+*/

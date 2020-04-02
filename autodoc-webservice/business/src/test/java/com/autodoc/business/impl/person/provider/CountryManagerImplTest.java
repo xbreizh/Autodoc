@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.CountryManager;
@@ -22,7 +23,8 @@ class CountryManagerImplTest {
     private CountryDaoImpl countryDao;
 
 
-  /*  @BeforeEach
+  */
+/*  @BeforeEach
     void init() {
         countryDao = mock(CountryDaoImpl.class);
         countryManager = new CountryManagerImpl(countryDao);
@@ -48,7 +50,8 @@ class CountryManagerImplTest {
         countryList.add(country1);
         when(countryDao.getByCriteria(anyList())).thenReturn(searchList);
         assertNotNull(countryManager.searchByCriteria(searchList));
-    }*/
+    }*//*
+
 
     @Test
     @DisplayName("raise exception when invalid name")
@@ -136,3 +139,4 @@ class CountryManagerImplTest {
     void dtoToEntity() {
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.AddressManager;
@@ -24,13 +25,15 @@ class ProviderManagerImplTest {
     private ProviderDao providerDao;
 
 
- /*   @BeforeEach
+ */
+/*   @BeforeEach
     void init() {
         addressDao = mock(AddressDaoImpl.class);
         providerDao = mock(ProviderDaoImpl.class);
         countryDao = mock(CountryDaoImpl.class);
         addressManager = new AddressManagerImpl(addressDao, countryDao, providerDao);
-    }*/
+    }*//*
+
 
     @Test
     void getAll() {
@@ -44,13 +47,15 @@ class ProviderManagerImplTest {
     void resetException() {
     }
 
-  /*  @Test
+  */
+/*  @Test
     void save() throws Exception {
         Provider provider = new Provider();
         when(addressDao.create(any(Address.class))).thenReturn(id);
         when(countryDao.getByName(anyString())).thenReturn(country);
         assertEquals(Integer.toString(id), addressManager.save(addressDTO));
-    }*/
+    }*//*
+
 
     @Test
     void checkDataInsert() {
@@ -89,3 +94,4 @@ class ProviderManagerImplTest {
     void dtoToEntity() {
     }
 }
+*/

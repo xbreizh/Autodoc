@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.bill;
 
 import com.autodoc.business.contract.bill.BillManager;
@@ -49,7 +50,8 @@ class BillManagerImplTest {
     Bill bill;
     BillDTO dto;
 
-  /*  @BeforeEach
+  */
+/*  @BeforeEach
     void init() {
         billDao = mock(BillDao.class);
         carDao = mock(CarDao.class);
@@ -60,7 +62,8 @@ class BillManagerImplTest {
         pieceManager = mock(PieceManager.class);
         pieceDao = mock(PieceDao.class);
         billManager = new BillManagerImpl(billDao, carDao, clientDao, employeeDao, taskDao, pieceDao, taskManager, pieceManager);
-    }*/
+    }*//*
+
 
     @Test
     void getAll() {
@@ -99,10 +102,12 @@ class BillManagerImplTest {
 
     }
 
-   /* @Test
+   */
+/* @Test
     @Disabled
     void dtoToEntity() {
         dto = new BillDTO();
         dto.setDateReparation(new Date());
-    }*/
-}
+    }*//*
+
+}*/

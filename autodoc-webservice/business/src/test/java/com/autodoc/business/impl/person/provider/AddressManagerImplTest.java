@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.AddressManager;
@@ -27,13 +28,15 @@ class AddressManagerImplTest {
     private ProviderDao providerDao;
 
 
- /*   @BeforeEach
+ */
+/*   @BeforeEach
     void init() {
         addressDao = mock(AddressDaoImpl.class);
         providerDao = mock(ProviderDaoImpl.class);
         countryDao = mock(CountryDaoImpl.class);
         addressManager = new AddressManagerImpl(addressDao, countryDao, providerDao);
-    }*/
+    }*//*
+
 
     @Test
     void getAll() {
@@ -99,3 +102,4 @@ class AddressManagerImplTest {
     void dtoToEntity() {
     }
 }
+*/
