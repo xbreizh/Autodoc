@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.bill;
 
 import com.autodoc.dao.contract.bill.BillDao;
@@ -49,7 +50,8 @@ class BillDaoImplTest {
     }
 
 
-  /*  @Test
+  */
+/*  @Test
     @DisplayName("should add bill")
     void create() {
         assertEquals(3, dao.getAll().size());
@@ -66,7 +68,8 @@ class BillDaoImplTest {
         Bill bill = new Bill(date, status, car, employee, car.getClient(), tasks, total, vat, discount);
         dao.create(bill);
         assertEquals(4, dao.getAll().size());
-    }*/
+    }*//*
+
 
     @Test
     void getAll() {
@@ -82,4 +85,4 @@ class BillDaoImplTest {
 
         assertTrue(dao.deleteById(2));
     }
-}
+}*/

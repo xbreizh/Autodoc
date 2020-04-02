@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.filler;
 
 import com.autodoc.dao.contract.bill.BillDao;
@@ -66,10 +67,12 @@ class FillerTest {
         filler.fillClient();
         Thread.sleep(2);
         filler.fillCar();
-        filler.fillCountry();/*
+        filler.fillCountry();*/
+/*
         filler.fillSkillCategory();
         Thread.sleep(2);
-        filler.fillSkill();*/
+        filler.fillSkill();*//*
+
         filler.fillProvider();
         //filler.fillAddresses();
         Thread.sleep(2);
@@ -123,7 +126,8 @@ class FillerTest {
         assertEquals(2, providerDao.getAll().size());
     }
 
-  /*  @Test
+  */
+/*  @Test
     void fillSkill() {
         assertEquals(3, skillDao.getAll().size());
     }
@@ -131,7 +135,8 @@ class FillerTest {
     @Test
     void fillSkillCategory() {
         assertEquals(5, skillCategoryDao.getAll().size());
-    }*/
+    }*//*
+
 
     @Test
     void fillCountry() {
@@ -162,4 +167,4 @@ class FillerTest {
     void fillEmployee() {
         assertEquals(2, employeeDao.getAll().size());
     }
-}
+}*/

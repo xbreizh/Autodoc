@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.person.provider.CountryDao;
@@ -61,4 +62,4 @@ class CountryDaoImplTest {
         LOGGER.info(dao.getSearchField());
         assertNotNull(dao.getSearchField());
     }
-}
+}*/

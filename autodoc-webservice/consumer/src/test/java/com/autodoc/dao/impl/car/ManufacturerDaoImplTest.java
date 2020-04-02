@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.car.ManufacturerDao;
@@ -45,4 +46,4 @@ class ManufacturerDaoImplTest {
         String name = "TOYOTA";
         assertNotNull(manufacturerDao.getByName(name));
     }
-}
+}*/

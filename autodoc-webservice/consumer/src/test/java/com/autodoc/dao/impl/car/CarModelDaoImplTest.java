@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.car.ManufacturerDao;
@@ -46,7 +47,8 @@ class CarModelDaoImplTest {
 
     }
 
-  /*  @Test
+  */
+/*  @Test
     void create() {
         String name = "BALOO";
         assertNull(carModelDao.getByName(name));
@@ -63,9 +65,11 @@ class CarModelDaoImplTest {
         assertNotNull(carModelDao.getByName(name));
         carModelDao.delete(cm);
         assertNull(carModelDao.getByName(name));
-    }*/
+    }*//*
 
-    /*    @Test
+
+ */
+/*    @Test
         void update() {
             String name = "BALOO";
             String description = "new description";
@@ -86,8 +90,10 @@ class CarModelDaoImplTest {
             carModelDao.deleteById(id);
             assertNull(carModelDao.getById(id));
         }
-    */
-   /* @Test
+    *//*
+
+ */
+/* @Test
     void findByName() {
         String name = "BALOO";
         CarModel cm = new CarModel(man, name, "VISIA DCI", GearBox.AUTOMATIC, "1528", FuelType.DIESEL);
@@ -95,5 +101,6 @@ class CarModelDaoImplTest {
         CarModel carModel = carModelDao.getByName(name);
         int id = carModelDao.getByName(name).getId();
         assertNotNull(carModelDao.getByName(name));
-    }*/
-}
+    }*//*
+
+}*/

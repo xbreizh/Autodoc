@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.pieces;
 
 import com.autodoc.dao.contract.car.CarModelDao;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+*//*
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -107,4 +108,4 @@ class PieceDaoImplTest {
     @Test
     void getSearchField() {
     }
-}
+}*/

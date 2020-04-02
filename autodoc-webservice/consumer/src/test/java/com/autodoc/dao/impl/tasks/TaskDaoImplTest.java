@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.tasks;
 
 import com.autodoc.dao.contract.pieces.PieceDao;
@@ -17,7 +18,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+*//*
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -108,4 +109,4 @@ class TaskDaoImplTest {
         task = (Task) dao.getById(1);
         dao.deleteById(2);
     }
-}
+}*/

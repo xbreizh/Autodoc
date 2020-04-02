@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.client;
 
 import com.autodoc.dao.contract.person.client.ClientDao;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+*/
+/*
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
@@ -139,4 +141,4 @@ class ClientDaoImplTest {
     }
 
 
-}
+}*/

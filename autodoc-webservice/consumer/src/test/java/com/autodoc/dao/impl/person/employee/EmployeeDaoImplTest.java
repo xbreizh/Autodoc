@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.employee;
 
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+*//*
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -108,4 +109,4 @@ class EmployeeDaoImplTest {
     }
 
 
-}
+}*/

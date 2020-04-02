@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.pieces;
 
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+*//*
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -71,4 +72,4 @@ class PieceTypeDaoImplTest {
         assertNull(dao.getById(2));
 
     }
-}
+}*/

@@ -1,9 +1,6 @@
 package com.autodoc.dao.impl.global;
 
-import com.autodoc.dao.filler.Filler;
-import com.autodoc.model.enums.SearchType;
-import com.autodoc.model.models.car.Car;
-import org.apache.log4j.Logger;
+/*import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +13,9 @@ import javax.inject.Inject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
-@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class)*/
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
+/*
 @Transactional
 class AbstractHibernateDaoTest {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDaoTest.class);
@@ -88,3 +86,4 @@ class AbstractHibernateDaoTest {
     void getCurrentSession() {
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.provider;
 
 import com.autodoc.dao.contract.person.provider.CountryDao;
@@ -19,7 +20,8 @@ class CountryDaoImplTest {
     private CountryDao countryDao;
 
 
-  /*  @Test
+  */
+/*  @Test
     void save() {
         Country country = new Country("ALASKA");
         countryDao.create(country);
@@ -33,5 +35,6 @@ class CountryDaoImplTest {
         countryDao.create(country);
         Country country1 = (Country) countryDao.getAll().get(0);
         assertNotNull(countryDao.getById(country1.getId()));
-    }*/
-}
+    }*//*
+
+}*/

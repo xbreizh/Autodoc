@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.filler;
 
 import com.autodoc.dao.contract.bill.BillDao;
@@ -62,7 +63,8 @@ class RemoverTest {
 
     @BeforeEach()
     void init() throws InterruptedException, ParseException {
-       /* filler.fillEmployee();
+       */
+/* filler.fillEmployee();
         filler.fillManufacturer();
         Thread.sleep(2);
         filler.fillCarModel();
@@ -70,9 +72,13 @@ class RemoverTest {
         Thread.sleep(2);
         filler.fillCar();
         filler.fillCountry();*//*
+ */
+/*
         filler.fillSkillCategory();
         Thread.sleep(2);
         filler.fillSkill();*//*
+ */
+/*
         filler.fillProvider();
         filler.fillAddresses();
         Thread.sleep(2);
@@ -83,7 +89,8 @@ class RemoverTest {
         filler.fillTasks();
         Thread.sleep(2);
         filler.fillBills();
-        Thread.sleep(2); // quick pause between fill up if required*/
+        Thread.sleep(2); // quick pause between fill up if required*//*
+
     }
 
     @Test
@@ -126,7 +133,8 @@ class RemoverTest {
         assertEquals(2, providerDao.getAll().size());
     }
 
-  /*  @Test
+  */
+/*  @Test
     void fillSkill() {
         assertEquals(3, skillDao.getAll().size());
     }
@@ -134,7 +142,8 @@ class RemoverTest {
     @Test
     void fillSkillCategory() {
         assertEquals(5, skillCategoryDao.getAll().size());
-    }*/
+    }*//*
+
 
     @Test
     void fillCountry() {
@@ -165,4 +174,4 @@ class RemoverTest {
     void fillEmployee() {
         assertEquals(2, employeeDao.getAll().size());
     }
-}
+}*/
