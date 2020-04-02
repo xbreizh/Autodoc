@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.person.employee.EmployeeManager;
@@ -16,6 +17,7 @@ class EmployeeManagerImplTest {
 
     private EmployeeManager employeeManager;
     private EmployeeDaoImpl employeeDao;
+*/
 /*
 
     @BeforeEach
@@ -23,7 +25,8 @@ class EmployeeManagerImplTest {
         employeeDao = mock(EmployeeDaoImpl.class);
         employeeManager = new EmployeeManagerImpl(employeeDao);
     }
-*/
+*//*
+
 
 
     @Test
@@ -39,4 +42,4 @@ class EmployeeManagerImplTest {
         when(employeeDao.getByLogin(anyString())).thenReturn(new Employee());
         assertTrue(employeeManager.exist("ploc"));
     }
-}
+}*/
