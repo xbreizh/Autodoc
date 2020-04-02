@@ -1,9 +1,5 @@
 apply plugin: 'base'
 apply plugin: 'jacoco'
-plugins {
-    id "org.sonarqube" version "2.7"
-}
-
 
 group 'com.autodoc-webservice'
 version '1.0-SNAPSHOT'
@@ -15,6 +11,17 @@ repositories {
 task jacocoTestReport {
     dependsOn "testDebugUnitTest"
 
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.8"
+    }
 }
 
 subprojects {
@@ -66,6 +73,7 @@ subprojects {
 }
 
 
+apply plugin: "org.sonarqube"
 
 
 apply from: rootProject.file('gradle/profiles.gradle')
