@@ -32,7 +32,7 @@ public class Bill {
         return SEARCH_FIELD;
     }
 
-    public static final Map<String, SearchType> SEARCH_FIELD = createMap();
+    protected static final Map<String, SearchType> SEARCH_FIELD = createMap();
 
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();

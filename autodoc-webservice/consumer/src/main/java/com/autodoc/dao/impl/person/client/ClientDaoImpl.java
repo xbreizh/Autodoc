@@ -25,7 +25,7 @@ public class ClientDaoImpl<T> extends AbstractHibernateDao implements ClientDao 
 
     public Map<String, SearchType> getSearchField() {
 
-        return Client.SEARCH_FIELD;
+        return Client.getSearchField();
     }
 
 

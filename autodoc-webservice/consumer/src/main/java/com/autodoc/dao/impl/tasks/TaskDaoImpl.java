@@ -25,7 +25,7 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
 
     public Map<String, SearchType> getSearchField() {
 
-        return Task.SEARCH_FIELD;
+        return Task.getSearchField();
     }
 
 

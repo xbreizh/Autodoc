@@ -24,7 +24,7 @@ public class PieceDaoImpl<T> extends AbstractHibernateDao implements PieceDao {
 
     public Map<String, SearchType> getSearchField() {
 
-        return Piece.SEARCH_FIELD;
+        return Piece.getSearchField();
     }
 
 

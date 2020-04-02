@@ -22,6 +22,6 @@ public class BillDaoImpl<T> extends AbstractHibernateDao implements BillDao {
 
     public Map<String, SearchType> getSearchField() {
 
-        return Bill.SEARCH_FIELD;
+        return Bill.getSearchField();
     }
 }

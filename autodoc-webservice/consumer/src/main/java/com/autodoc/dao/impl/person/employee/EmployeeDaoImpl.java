@@ -27,7 +27,7 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
 
     public Map<String, SearchType> getSearchField() {
 
-        return Employee.SEARCH_FIELD;
+        return Employee.getSearchField();
     }
 
     @Override

@@ -23,7 +23,7 @@ import java.util.*;
 public class Employee extends Person {
 
 
-    public static final Map<String, SearchType> SEARCH_FIELD = createMap();
+    protected static final Map<String, SearchType> SEARCH_FIELD = createMap();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private List<Bill> bills;
     @NotNull

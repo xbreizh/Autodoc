@@ -23,7 +23,7 @@ import java.util.Map;
 public class Task {
 
 
-    public static final Map<String, SearchType> SEARCH_FIELD = createMap();
+    protected static final Map<String, SearchType> SEARCH_FIELD = createMap();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

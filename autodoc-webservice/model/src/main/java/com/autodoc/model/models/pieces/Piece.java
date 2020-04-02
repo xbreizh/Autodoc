@@ -20,7 +20,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class Piece {
 
-    public static final Map<String, SearchType> SEARCH_FIELD = createMap();
+    protected static final Map<String, SearchType> SEARCH_FIELD = createMap();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
