@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.car;
 
 import com.autodoc.business.contract.car.CarModelManager;
@@ -58,13 +59,18 @@ class CarModelControllerImplTest {
     };
 
 
-  /*  @BeforeEach
+  */
+/*  @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
                       RestDocumentationContextProvider restDocumentation) {
-        *//*this.mockMvc = MockMvcBuilders
+        *//*
+ */
+/*this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .build();*//*
+ */
+/*
         carModel = new CarModelDTO(2, name, "joli", GearBox.MANUAL, "2.0", FuelType.DIESEL);
         converter = new GsonConverter();
         carModels.add(carModel);
@@ -73,7 +79,8 @@ class CarModelControllerImplTest {
         // using standalone
         this.mockMvc = MockMvcBuilders.standaloneSetup(carModelControllerImpl).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
     }
-*/
+*//*
+
 
     @Test
     public void getAll() throws Exception {
@@ -138,4 +145,4 @@ class CarModelControllerImplTest {
     }
 
 
-}
+}*/

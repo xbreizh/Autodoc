@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.helper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,8 @@ class GsonConverterTest {
         converter = new GsonConverter();
     }
 
- /*   @Test
+ */
+/*   @Test
     void convertObjectIntoGsonObject() {
         List<Manufacturer> manufacturers = new ArrayList<>();
         manufacturers.add(new Manufacturer("AUDI"));
@@ -23,5 +25,6 @@ class GsonConverterTest {
         //    LOGGER.debug("converted: " + converted);
 
 
-    }*/
-}
+    }*//*
+
+}*/

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.bill;
 
 import org.junit.jupiter.api.Test;
@@ -28,4 +29,4 @@ class BillControllerImplTest {
     @Test
     void deleteById() {
     }
-}
+}*/

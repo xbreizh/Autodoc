@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.car;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
@@ -64,10 +65,12 @@ class ManufacturerControllerImplTest {
                RestDocumentationContextProvider restDocumentation) throws Exception {
         manufacturerManager = mock(ManufacturerManager.class);
         manufacturerController = new ManufacturerControllerImpl(manufacturerManager);
-        /*this.mockMvc = MockMvcBuilders
+        */
+/*this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
-                .build();*/
+                .build();*//*
+
         manufacturers.add(manufacturerDTO);
         converter = new GsonConverter();
         // using standalone
@@ -139,7 +142,9 @@ class ManufacturerControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}",
                         responseFields(descriptor)
                 ));
-      /*  ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(manufacturerDTO));
-        assertEquals(response, manufacturerController.getByName("sdsdsdsd"));*/
+      */
+/*  ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(manufacturerDTO));
+        assertEquals(response, manufacturerController.getByName("sdsdsdsd"));*//*
+
     }
-}
+}*/

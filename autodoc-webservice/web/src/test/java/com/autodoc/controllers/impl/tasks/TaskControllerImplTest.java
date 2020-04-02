@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.tasks;
 
 import org.junit.jupiter.api.Test;
@@ -22,4 +23,4 @@ class TaskControllerImplTest {
     @Test
     void deleteTemplateById() {
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl;
 
 import com.autodoc.business.contract.IGenericManager;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+*//*
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @ContextConfiguration(locations = "classpath:mvc-dispatcher-servlet.xml")
 @WebAppConfiguration
@@ -66,4 +67,4 @@ class GlobalControllerImplTest {
     @Test
     void getByName() {
     }
-}
+}*/

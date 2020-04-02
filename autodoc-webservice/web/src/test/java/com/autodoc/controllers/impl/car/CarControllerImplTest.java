@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
@@ -65,7 +66,8 @@ class CarControllerImplTest {
             fieldWithPath("clientId").description("Id of the carModel")
     };
 
-  /*  @BeforeEach
+  */
+/*  @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
                       RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders
@@ -79,7 +81,8 @@ class CarControllerImplTest {
         carController = new CarControllerImpl(carManager);
         // using standalone
         this.mockMvc = MockMvcBuilders.standaloneSetup(carController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
-    }*/
+    }*//*
+
 
 
     @Test
@@ -102,8 +105,10 @@ class CarControllerImplTest {
                 .andExpect(status().isOk())
                 .andDo(document("{ClassName}/{methodName}"));
         //ResponseEntity response = ResponseEntity.notFound().build();
-        /* response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
-         assertEquals(response, carControllerImpl.getCarByRegistration(registration));*/
+        */
+/* response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
+         assertEquals(response, carControllerImpl.getCarByRegistration(registration));*//*
+
 
     }
 
@@ -126,8 +131,10 @@ class CarControllerImplTest {
                 .andExpect(status().isNotFound())
                 .andDo(document("{ClassName}/{methodName}"));
         //ResponseEntity response = ResponseEntity.notFound().build();
-        /* response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
-         assertEquals(response, carControllerImpl.getCarByRegistration(registration));*/
+        */
+/* response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(car));
+         assertEquals(response, carControllerImpl.getCarByRegistration(registration));*//*
+
 
     }
 
@@ -150,9 +157,11 @@ class CarControllerImplTest {
                 .andDo(document("{ClassName}/{methodName}"));
         // .andExpect(jsonPath("$.name").value(name))
         // .andExpect(jsonPath("$.id").value(id))
-            /*    .andDo(document("{ClassName}/{methodName}",
+            */
+/*    .andDo(document("{ClassName}/{methodName}",
                         responseFields(descriptor)
-                ));*/
+                ));*//*
+
 
     }
 
@@ -221,4 +230,4 @@ class CarControllerImplTest {
                 .andExpect(content().contentType(encoding))
                 .andDo(document("{ClassName}/{methodName}"));
     }
-}
+}*/
