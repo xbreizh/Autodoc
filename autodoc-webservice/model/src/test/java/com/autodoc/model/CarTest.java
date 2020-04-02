@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model;
 
 import com.autodoc.model.models.car.Car;
@@ -23,4 +24,4 @@ class CarTest {
         assertEquals("Car{id=122, registration='ploc', carModel=null, client=null}", car.toString());
 
     }
-}
+}*/
