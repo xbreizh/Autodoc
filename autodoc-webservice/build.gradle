@@ -47,6 +47,12 @@ subprojects {
 
 
     }
+    jacocoTestReport {
+        reports {
+            xml.enabled = true
+            html.enabled = true
+        }
+    }
 }
 
 apply from: rootProject.file('gradle/profiles.gradle')

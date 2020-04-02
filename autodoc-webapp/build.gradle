@@ -39,10 +39,5 @@ subprojects {
         testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '2.1'
     }
 
-    jacocoTestReport {
-        reports {
-            xml.enabled = true
-            html.enabled = true
-        }
-    }
+
 }
