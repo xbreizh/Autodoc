@@ -7,8 +7,15 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-}
 
+}
+task jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
 
 subprojects {
     apply plugin: 'java'
@@ -48,22 +55,17 @@ subprojects {
         }
 
 
+
+    }
+    jacoco {
+        toolVersion = "0.8.5"
+        reportsDir = file("$buildDir/customJacocoReportDir")
     }
 
+
 }
 
-jacoco {
-    toolVersion = "0.7.6.201602180812"
-    reportsDir = file("$buildDir/reports/jacoco")
-}
 
-jacocoTestReport {
-    group = "Reporting"
-    reports {
-        xml.enabled true
-        csv.enabled false
-        html.destination "${buildDir}/reports/coverage"
-    }
-}
+
 
 apply from: rootProject.file('gradle/profiles.gradle')
