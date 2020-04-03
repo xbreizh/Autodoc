@@ -121,10 +121,10 @@ public class Filler {
         Provider provider = (Provider) providerDao.getById(1);
         PieceType pieceType1 = (PieceType) pieceTypeDao.getById(1);
         PieceType pieceType2 = (PieceType) pieceTypeDao.getById(2);
-        Piece piece1 = Piece.builder().provider(provider).pieceType(pieceType1).name("BRAKE PAD DE4").brand("DEVO").buyingPrice(10).sellPrice(14).quantity(2).build();
-        Piece piece2 = Piece.builder().provider(provider).pieceType(pieceType2).name("GAZOL FILTER 1/454").brand("MAKO").buyingPrice(20).sellPrice(84).quantity(22).build();
-        Piece piece3 = Piece.builder().provider(provider).pieceType(pieceType1).name("WINTER TYRE 15/4587").brand("PLOUGHLY").buyingPrice(300).sellPrice(314).quantity(33).build();
-        Piece piece4 = Piece.builder().provider(provider).pieceType(pieceType2).name("CLUTCH PEDAL CARBON").brand("MANIET").buyingPrice(40).sellPrice(88).quantity(2).build();
+        Piece piece1 = Piece.builder().pieceType(pieceType1).name("BRAKE PAD DE4").brand("DEVO").buyingPrice(10).sellPrice(14).quantity(2).build();
+        Piece piece2 = Piece.builder().pieceType(pieceType2).name("GAZOL FILTER 1/454").brand("MAKO").buyingPrice(20).sellPrice(84).quantity(22).build();
+        Piece piece3 = Piece.builder().pieceType(pieceType1).name("WINTER TYRE 15/4587").brand("PLOUGHLY").buyingPrice(300).sellPrice(314).quantity(33).build();
+        Piece piece4 = Piece.builder().pieceType(pieceType2).name("CLUTCH PEDAL CARBON").brand("MANIET").buyingPrice(40).sellPrice(88).quantity(2).build();
         pieceDao.create(piece1);
         pieceDao.create(piece2);
         pieceDao.create(piece3);
