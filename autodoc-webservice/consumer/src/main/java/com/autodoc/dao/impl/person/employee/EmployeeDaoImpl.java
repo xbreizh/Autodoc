@@ -18,7 +18,7 @@ import java.util.Map;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @SuppressWarnings("unchecked")
-public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements EmployeeDao {
+public class EmployeeDaoImpl extends AbstractHibernateDao implements EmployeeDao {
     private static final Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
     private Class<?> cl = Employee.class;
 
@@ -57,7 +57,7 @@ public class EmployeeDaoImpl<T> extends AbstractHibernateDao implements Employee
     @Override
     public List<Employee> getByRole(List<Role> roles) {
         LOGGER.info("roles received: " + roles);
-        if (roles == null) return null;
+        if (roles == null) return new ArrayList<>();
         String init = "select * from employee where  ";
         StringBuilder sb = new StringBuilder(init);
         for (Role role : roles) {

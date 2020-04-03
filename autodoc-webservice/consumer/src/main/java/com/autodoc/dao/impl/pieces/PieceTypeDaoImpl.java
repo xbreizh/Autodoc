@@ -15,7 +15,7 @@ import java.util.Map;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @SuppressWarnings("unchecked")
-public class PieceTypeDaoImpl<T> extends AbstractHibernateDao implements PieceTypeDao {
+public class PieceTypeDaoImpl extends AbstractHibernateDao implements PieceTypeDao {
     private static final Logger LOGGER = Logger.getLogger(PieceTypeDaoImpl.class);
 
 

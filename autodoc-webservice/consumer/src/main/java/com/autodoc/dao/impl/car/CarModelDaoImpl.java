@@ -16,7 +16,7 @@ import java.util.Map;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @SuppressWarnings("unchecked")
-public class CarModelDaoImpl<T> extends AbstractHibernateDao implements CarModelDao {
+public class CarModelDaoImpl extends AbstractHibernateDao implements CarModelDao {
     private static final Logger LOGGER = Logger.getLogger(CarModelDaoImpl.class);
     private Class<?> cl = CarModel.class;
 

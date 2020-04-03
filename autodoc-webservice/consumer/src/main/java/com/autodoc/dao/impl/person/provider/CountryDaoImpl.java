@@ -15,7 +15,7 @@ import java.util.Map;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @SuppressWarnings("unchecked")
-public class CountryDaoImpl<T> extends AbstractHibernateDao implements CountryDao {
+public class CountryDaoImpl extends AbstractHibernateDao implements CountryDao {
     private static final Logger LOGGER = Logger.getLogger(CountryDaoImpl.class);
     private Class<?> cl = Country.class;
 

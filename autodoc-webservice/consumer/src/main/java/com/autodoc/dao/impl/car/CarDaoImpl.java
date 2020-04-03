@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @SuppressWarnings("unchecked")
-public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
+public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
     private static final Logger LOGGER = Logger.getLogger(CarDaoImpl.class);
     private Class<?> cl = Car.class;
 
@@ -36,7 +36,7 @@ public class CarDaoImpl<T> extends AbstractHibernateDao implements CarDao {
         TypedQuery<Car> query = getCurrentSession().createQuery("From Car where registration = :registration");
         query.setParameter("registration", registration);
         List<Car> cars = query.getResultList();
-        if (cars.size() > 0) return cars.get(0);
+        if (cars.isEmpty()) return cars.get(0);
         LOGGER.debug("no car found");
         return null;
     }

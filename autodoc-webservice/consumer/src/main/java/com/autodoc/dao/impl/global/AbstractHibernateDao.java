@@ -25,7 +25,7 @@ public abstract class AbstractHibernateDao<T> {
     }
 
 
-    public T getById(int id) throws ObjectNotFoundException {
+    public T getById(int id) {
         final Serializable entityId = id;
         LOGGER.info("getting object by id: " + id);
         Object obj;
@@ -99,7 +99,7 @@ public abstract class AbstractHibernateDao<T> {
         return query.getResultList();
     }
 
-    protected String buildCriteriaRequest(List<Search> searchList) throws Exception {
+    protected String buildCriteriaRequest(List<Search> searchList) {
 
         StringBuilder sb = new StringBuilder();
         String init = FROM + getClazz().getSimpleName();
