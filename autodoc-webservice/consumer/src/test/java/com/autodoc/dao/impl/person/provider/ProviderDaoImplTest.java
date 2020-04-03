@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.provider;
 
 import com.autodoc.dao.contract.person.provider.AddressDao;
@@ -64,3 +65,4 @@ class ProviderDaoImplTest {
         assertEquals(2, countryDao.getAll().size());
     }
 }
+*/

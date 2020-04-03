@@ -36,7 +36,7 @@ public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
         TypedQuery<Car> query = getCurrentSession().createQuery("From Car where registration = :registration");
         query.setParameter("registration", registration);
         List<Car> cars = query.getResultList();
-        if (cars.isEmpty()) return cars.get(0);
+        if (!cars.isEmpty()) return cars.get(0);
         LOGGER.debug("no car found");
         return null;
     }
@@ -45,6 +45,7 @@ public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
     public List<Car> getCarByClient(String lastName) {
         lastName = lastName.toUpperCase();
         LOGGER.info("Last:" + lastName);
+        System.out.println("last: " + lastName);
         TypedQuery<Car> query = getCurrentSession().createQuery("From Car where client.lastName= :lastName");
         query.setParameter("lastName", lastName);
         if (query.getResultList() == null) return new ArrayList<>();

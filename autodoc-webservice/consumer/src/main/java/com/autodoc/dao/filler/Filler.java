@@ -171,7 +171,7 @@ public class Filler {
 
     void fillClient() {
         LOGGER.debug("filling client");
-        Client client = Client.builder().firstName("angela").lastName("bauer").phoneNumber("03938937837").build();
+        Client client = Client.builder().firstName("ANGELA").lastName("BAUER").phoneNumber("03938937837").build();
         Client client1 = Client.builder().firstName("ROGER").lastName("MOORE").phoneNumber("0584759852").build();
         clientDao.create(client);
         clientDao.create(client1);

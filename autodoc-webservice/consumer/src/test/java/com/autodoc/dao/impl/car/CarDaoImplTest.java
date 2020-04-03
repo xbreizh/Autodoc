@@ -4,7 +4,10 @@ import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.dao.filler.Remover;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,8 +30,7 @@ class CarDaoImplTest {
 
     private static final Logger LOGGER = Logger.getLogger(CarDaoImplTest.class);
 
-    String clientName;
-    String registration;
+    String registration = "05D121487";
     int id;
     Car car;
     @Inject
@@ -40,13 +42,12 @@ class CarDaoImplTest {
 
     @BeforeEach
     void init() throws Exception {
-        remover.remover();
         filler.fill();
-        car = (Car) dao.getAll().get(0);
-        id = car.getId();
-        registration = car.getRegistration();
-        clientName = car.getClient().getLastName();
+    }
 
+    @AfterEach
+    void remove() {
+        remover.remover();
     }
 
 
@@ -64,13 +65,13 @@ class CarDaoImplTest {
         );
     }
 
-  /*  @Test
+    @Test
     void deleteById() {
         int id = 2;
-        assertNotNull(dao.getById(id));
         dao.deleteById(id);
         assertNull(dao.getById(id));
-    }*/
+    }
+
 
     @Test
     @DisplayName("should return null")
@@ -80,21 +81,20 @@ class CarDaoImplTest {
     }
 
 
-/*
     @Test
     @DisplayName("should return null")
     void getById() {
 
         assertNotNull(dao.getById(1));
     }
-*/
 
-   /* @Test
+
+    @Test
     @DisplayName("should add car")
     void add() {
         assertEquals(2, dao.getAll().size());
         Car car = new Car();
-        CarModel carModel = new CarModel();
+        CarModel carModel = CarModel.builder().build();
         carModel.setId(1);
         Client client = new Client();
         client.setId(1);
@@ -103,7 +103,8 @@ class CarDaoImplTest {
         car.setRegistration("abc123");
         LOGGER.info(dao.create(car));
         assertEquals(3, dao.getAll().size());
-    }*/
+    }
+
 
     @Test
     @DisplayName("should return null")
@@ -112,13 +113,12 @@ class CarDaoImplTest {
         assertTrue(dao.getCarByClient("toto").isEmpty());
     }
 
-  /*  @Test
+ /* @Test
     @DisplayName("should return list of car for a client")
     void getByClient1() {
         assertAll(
-                () -> assertFalse(dao.getCarByClient(clientName).isEmpty()),
-                () -> assertThat(dao.getCarByClient(clientName), instanceOf(ArrayList.class))
+                () -> assertFalse(dao.getCarByClient("BAUER").isEmpty())
+             //   () -> assertThat(dao.getCarByClient("bauer"), instanceOf(ArrayList.class))
         );
-
     }*/
 }

@@ -15,10 +15,14 @@ import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractHibernateDao<T> {
-    private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
     protected static final String FROM = "from ";
+    protected static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
     @Inject
     SessionFactory sessionFactory;
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     public Class<?> getClazz() {
         return null;
@@ -28,18 +32,18 @@ public abstract class AbstractHibernateDao<T> {
     public T getById(int id) {
         final Serializable entityId = id;
         LOGGER.info("getting object by id: " + id);
-        Object obj;
+        LOGGER.info("clazz: " + getClazz());
         try {
-            obj = getCurrentSession().load(getClazz(), entityId);
+            return (T) getCurrentSession().load(getClazz(), entityId);
         } catch (ObjectNotFoundException nf) {
             return null;
         }
-        return (T) obj;
     }
 
 
     public T getByName(String name) {
-        TypedQuery<T> query = getCurrentSession().createQuery(FROM + getClazz().getName() + "where name = :name");
+        String request = FROM + getClazz().getName() + "where name = :name";
+        TypedQuery<T> query = getCurrentSession().createQuery(request);
         query.setParameter(name, name);
         List<T> list = query.getResultList();
         if (list.isEmpty()) return null;
@@ -86,8 +90,11 @@ public abstract class AbstractHibernateDao<T> {
         return true;
     }
 
-    protected Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
+    public Session getCurrentSession() {
+        Session session = sessionFactory.getCurrentSession();
+        LOGGER.info("getting session: " + session);
+
+        return session;
     }
 
     public List<T> getByCriteria(List<Search> search) throws Exception {
