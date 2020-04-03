@@ -23,7 +23,7 @@ import java.util.List;
 @Transactional
 @Component
 @Builder
-public class EmployeeManagerImpl<T, D> extends AbstractGenericManager implements EmployeeManager {
+public class EmployeeManagerImpl extends AbstractGenericManager implements EmployeeManager {
     private final static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private EmployeeDao dao;

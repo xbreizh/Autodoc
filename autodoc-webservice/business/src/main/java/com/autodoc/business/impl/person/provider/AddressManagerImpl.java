@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 @Builder
-public class AddressManagerImpl<T, D> extends AbstractGenericManager implements AddressManager {
+public class AddressManagerImpl extends AbstractGenericManager implements AddressManager {
     CountryDao countryDao;
     private static final Logger LOGGER = Logger.getLogger(AddressManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();

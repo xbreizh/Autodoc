@@ -8,6 +8,7 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.search.Search;
+import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,8 @@ import java.util.List;
 
 @Transactional
 @Component
-public class ProviderManagerImpl<T, D> extends AbstractGenericManager implements ProviderManager {
+@Builder
+public class ProviderManagerImpl extends AbstractGenericManager implements ProviderManager {
     private static final ModelMapper mapper = new ModelMapper();
     private static final Logger LOGGER = Logger.getLogger(ProviderManagerImpl.class);
     private ProviderDao dao;

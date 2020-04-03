@@ -19,7 +19,7 @@ import java.util.List;
 @Transactional
 @Component
 @Builder
-public class TaskManagerImpl<T, D> extends AbstractGenericManager implements TaskManager {
+public class TaskManagerImpl extends AbstractGenericManager implements TaskManager {
     private static final Logger LOGGER = Logger.getLogger(TaskManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private TaskDao dao;

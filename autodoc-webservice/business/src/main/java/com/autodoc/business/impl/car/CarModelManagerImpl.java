@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 @Builder
-public class CarModelManagerImpl<D, T> extends AbstractGenericManager implements CarModelManager {
+public class CarModelManagerImpl extends AbstractGenericManager implements CarModelManager {
     private final static Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private CarModelDao dao;

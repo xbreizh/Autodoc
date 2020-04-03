@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 @Builder
-public class PieceTypeManagerImpl<T, D> extends AbstractGenericManager implements PieceTypeManager {
+public class PieceTypeManagerImpl extends AbstractGenericManager implements PieceTypeManager {
     private static final Logger LOGGER = Logger.getLogger(PieceTypeManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private PieceTypeDao dao;

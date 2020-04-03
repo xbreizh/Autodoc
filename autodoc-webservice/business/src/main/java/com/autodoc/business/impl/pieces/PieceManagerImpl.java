@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional
 @Component
 @Builder
-public class PieceManagerImpl<T, D> extends AbstractGenericManager implements PieceManager {
+public class PieceManagerImpl extends AbstractGenericManager implements PieceManager {
     private static final Logger LOGGER = Logger.getLogger(PieceManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private PieceDao dao;

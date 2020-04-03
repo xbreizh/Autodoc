@@ -5,22 +5,23 @@ import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+@SuppressWarnings("unchecked")
 public class ClientDaoImpl<T> extends AbstractHibernateDao implements ClientDao {
     private static final Logger LOGGER = Logger.getLogger(ClientDaoImpl.class);
-    private Class cl = Client.class;
+    private Class<?> cl = Client.class;
 
-    public ClientDaoImpl() {
-        this.setClazz(Client.class);
+    public Class<?> getClazz() {
+        return cl;
     }
 
     public Map<String, SearchType> getSearchField() {
@@ -31,7 +32,7 @@ public class ClientDaoImpl<T> extends AbstractHibernateDao implements ClientDao 
 
     @Override
     public Client getByName(String lastName) {
-        Query query = getCurrentSession().createQuery("From Client where lastName= :lastName", cl);
+        TypedQuery<Client> query = getCurrentSession().createQuery(FROM + "Client where lastName= :lastName");
         query.setParameter("lastName", lastName.toUpperCase());
         List<Client> clients = query.getResultList();
         LOGGER.debug("found: " + clients.size());

@@ -5,22 +5,24 @@ import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
 import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+@SuppressWarnings("unchecked")
 public class PieceTypeDaoImpl<T> extends AbstractHibernateDao implements PieceTypeDao {
     private static final Logger LOGGER = Logger.getLogger(PieceTypeDaoImpl.class);
 
 
-    public PieceTypeDaoImpl() {
-        LOGGER.debug("creating manuf dao");
-        this.setClazz(PieceType.class);
+    private Class<?> cl = PieceType.class;
+
+    public Class<?> getClazz() {
+        return cl;
     }
 
     public Map<String, SearchType> getSearchField() {
@@ -32,10 +34,10 @@ public class PieceTypeDaoImpl<T> extends AbstractHibernateDao implements PieceTy
     @Override
     public PieceType getByName(String name) {
         LOGGER.info("get pieceType by name: " + name);
-        Query query = getCurrentSession().createQuery("From PieceType where name= :name");
+        TypedQuery<PieceType> query = getCurrentSession().createQuery("From PieceType where name= :name");
         query.setParameter("name", name.toUpperCase());
         if (query.getResultList().isEmpty()) return null;
-        return (PieceType) query.getResultList().get(0);
+        return query.getResultList().get(0);
     }
 
 }

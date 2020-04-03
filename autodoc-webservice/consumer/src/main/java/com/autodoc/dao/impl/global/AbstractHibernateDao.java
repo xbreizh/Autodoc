@@ -6,36 +6,31 @@ import org.apache.log4j.Logger;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-
+@SuppressWarnings("unchecked")
 public abstract class AbstractHibernateDao<T> {
     private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
+    protected static final String FROM = "from ";
     @Inject
     SessionFactory sessionFactory;
-    private Class<T> clazz;
-    public Class<T> getClazz() {
-        return clazz;
-    }
 
-    public void setClazz(Class clazzToSet) {
-        this.clazz = clazzToSet;
-
+    public Class<?> getClazz() {
+        return null;
     }
 
 
     public T getById(int id) throws ObjectNotFoundException {
         final Serializable entityId = id;
-        LOGGER.info("trying to get object by id: " + id);
+        LOGGER.info("getting object by id: " + id);
         Object obj;
         try {
-            obj = getCurrentSession().load(clazz, entityId);
-            System.out.println(obj);
+            obj = getCurrentSession().load(getClazz(), entityId);
         } catch (ObjectNotFoundException nf) {
             return null;
         }
@@ -44,17 +39,16 @@ public abstract class AbstractHibernateDao<T> {
 
 
     public T getByName(String name) {
-        Query query = getCurrentSession().createQuery("from " + clazz.getName() + "where name = :name");
+        TypedQuery<T> query = getCurrentSession().createQuery(FROM + getClazz().getName() + "where name = :name");
         query.setParameter(name, name);
-        if (query.getResultList().isEmpty()) return null;
-        return (T) query.getResultList().get(0);
+        List<T> list = query.getResultList();
+        if (list.isEmpty()) return null;
+        return query.getResultList().get(0);
     }
 
     public List<T> getAll() {
-        LOGGER.info("in the dao: " + clazz.getName());
-        LOGGER.debug("class: " + clazz.getName());
         LOGGER.debug("getting all");
-        return getCurrentSession().createQuery("from " + clazz.getName()).getResultList();
+        return getCurrentSession().createQuery(FROM + getClazz().getName()).getResultList();
     }
 
     public int create(T entity) {
@@ -81,8 +75,8 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public boolean deleteById(int entityId) {
-        LOGGER.info("trying to delete " + clazz + " with id: " + entityId);
-        T entity = getCurrentSession().get(clazz, entityId);
+        LOGGER.info("trying to delete " + getClazz() + " with id: " + entityId);
+        T entity = (T) getCurrentSession().get(getClazz(), entityId);
         LOGGER.info(entity);
         if (entity == null) {
             LOGGER.info("entity not found");
@@ -93,7 +87,6 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     protected Session getCurrentSession() {
-        LOGGER.debug("session: " + sessionFactory.getCurrentSession());
         return sessionFactory.getCurrentSession();
     }
 
@@ -102,14 +95,14 @@ public abstract class AbstractHibernateDao<T> {
         if (getSearchField() == null) throw new Exception("no search criteria available for that entity");
         String request = buildCriteriaRequest(search);
         LOGGER.info("req: " + request);
-        Query query = sessionFactory.getCurrentSession().createQuery(request);
+        TypedQuery<T> query = sessionFactory.getCurrentSession().createQuery(request);
         return query.getResultList();
     }
 
     protected String buildCriteriaRequest(List<Search> searchList) throws Exception {
 
         StringBuilder sb = new StringBuilder();
-        String init = "from " + clazz.getSimpleName();
+        String init = FROM + getClazz().getSimpleName();
         sb.append(init);
         for (Search search : searchList) {
             if (sb.toString().equals(init)) {
@@ -117,14 +110,17 @@ public abstract class AbstractHibernateDao<T> {
             } else {
                 sb.append(" and ");
             }
-            sb.append(search.getFieldName() + " " + search.getCompare() + " '" + search.getValue() + "'");
+            sb.append(search.getFieldName());
+            sb.append(" ");
+            sb.append(search.getCompare());
+            sb.append(" '");
+            sb.append(search.getValue() + "'");
 
         }
         return sb.toString();
 
 
     }
-
 
 
     public Map<String, SearchType> getSearchField() {

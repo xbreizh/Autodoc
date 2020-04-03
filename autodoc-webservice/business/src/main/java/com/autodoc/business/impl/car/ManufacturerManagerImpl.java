@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component
 @Builder
-public class ManufacturerManagerImpl<D, T> extends AbstractGenericManager implements ManufacturerManager {
+public class ManufacturerManagerImpl extends AbstractGenericManager implements ManufacturerManager {
     private static final ModelMapper mapper = new ModelMapper();
     private static final Logger LOGGER = Logger.getLogger(ManufacturerManagerImpl.class);
     private ManufacturerDao dao;

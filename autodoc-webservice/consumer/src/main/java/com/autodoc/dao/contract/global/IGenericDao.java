@@ -8,7 +8,9 @@ import java.util.Map;
 
 public interface IGenericDao<T> {
 
-    void setClazz(Class<T> clazzToSet);
+    // void setClazz(Class<T> clazzToSet);
+
+    Class<?> getClazz();
 
     T getById(final int id);
 

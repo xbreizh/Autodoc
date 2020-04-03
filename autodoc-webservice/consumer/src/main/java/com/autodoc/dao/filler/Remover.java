@@ -44,12 +44,12 @@ public class Remover {
     public void remover() {
         IGenericDao[] daos = {billDao, pieceDao, pieceTypeDao, taskDao, countryDao, manufacturerDao, carDao, addressDao, providerDao, clientDao, employeeDao};
 
-        for (int i = 0; i < daos.length; i++) {
-            IGenericDao dao = daos[i];
-            List list = dao.getAll();
+        for (IGenericDao dao : daos) {
+            LOGGER.info("removing: " + dao.getClass());
+            List<?> list = dao.getAll();
             if (!list.isEmpty()) {
                 for (Object obj : list) {
-                    billDao.delete(obj);
+                    dao.delete(obj);
                 }
             }
         }

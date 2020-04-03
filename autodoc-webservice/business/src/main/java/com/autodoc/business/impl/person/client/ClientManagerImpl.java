@@ -19,7 +19,7 @@ import java.util.List;
 @Transactional
 @Component
 @Builder
-public class ClientManagerImpl<T, D> extends AbstractGenericManager implements ClientManager {
+public class ClientManagerImpl extends AbstractGenericManager implements ClientManager {
     private static final Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private ClientDao dao;

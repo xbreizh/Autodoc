@@ -13,11 +13,13 @@ import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+@SuppressWarnings("unchecked")
 public class ProviderDaoImpl<T> extends AbstractHibernateDao implements ProviderDao {
     private static final Logger LOGGER = Logger.getLogger(ProviderDaoImpl.class);
+    private Class<?> cl = Provider.class;
 
-    public ProviderDaoImpl() {
-        this.setClazz(Provider.class);
+    public Class<?> getClazz() {
+        return cl;
     }
 
     public Map<String, SearchType> getSearchField() {

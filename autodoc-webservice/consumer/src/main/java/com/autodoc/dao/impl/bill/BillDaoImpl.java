@@ -13,12 +13,15 @@ import java.util.Map;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+@SuppressWarnings("unchecked")
 public class BillDaoImpl<T> extends AbstractHibernateDao implements BillDao {
     private static final Logger LOGGER = Logger.getLogger(BillDaoImpl.class);
+    private Class<?> cl = Bill.class;
 
-    public BillDaoImpl() {
-        this.setClazz(Bill.class);
+    public Class<?> getClazz() {
+        return cl;
     }
+
 
     public Map<String, SearchType> getSearchField() {
 
