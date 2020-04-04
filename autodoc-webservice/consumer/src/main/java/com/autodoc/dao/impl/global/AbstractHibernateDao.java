@@ -32,10 +32,10 @@ public abstract class AbstractHibernateDao<T> {
     public T getById(int id) {
         final Serializable entityId = id;
         LOGGER.info("getting object by id: " + id);
-        LOGGER.info("clazz: " + getClazz());
         try {
-            return (T) getCurrentSession().load(getClazz(), entityId);
+            return (T) getCurrentSession().get(getClazz(), entityId);
         } catch (ObjectNotFoundException nf) {
+            System.out.println("paf exception");
             return null;
         }
     }
@@ -76,6 +76,7 @@ public abstract class AbstractHibernateDao<T> {
         LOGGER.info("updating from dao: " + entity);
         T obj = (T) getCurrentSession().merge(entity);
         return obj != null;
+
     }
 
     public boolean deleteById(int entityId) {

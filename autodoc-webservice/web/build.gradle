@@ -18,6 +18,9 @@ jar {
     }
 }
 
+
+
+
 asciidoctor {
     sourceDir = snippetsDir
     sources {
@@ -31,6 +34,9 @@ buildscript {
         jcenter()
     }
 
+    war{
+
+    }
 
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.10'

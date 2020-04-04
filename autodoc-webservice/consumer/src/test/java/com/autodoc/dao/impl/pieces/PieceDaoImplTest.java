@@ -1,4 +1,3 @@
-/*
 package com.autodoc.dao.impl.pieces;
 
 import com.autodoc.dao.contract.car.CarModelDao;
@@ -6,7 +5,6 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.filler.Filler;
-import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
@@ -21,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.*;
-*//*
+
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -45,7 +43,6 @@ class PieceDaoImplTest {
     void init() throws Exception {
         filler.fill();
         LOGGER.info("here");
-        CarModel carModel = (CarModel) carModelDao.getAll().get(0);
         Provider provider = (Provider) providerDao.getAll().get(0);
         PieceType pieceType = (PieceType) pieceTypeDao.getAll().get(0);
         piece = new Piece();
@@ -108,4 +105,4 @@ class PieceDaoImplTest {
     @Test
     void getSearchField() {
     }
-}*/
+}

@@ -1,4 +1,3 @@
-/*
 package com.autodoc.dao.filler;
 
 import com.autodoc.dao.contract.bill.BillDao;
@@ -20,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,27 +53,8 @@ class FillerTest {
     private BillDao billDao;
 
     @BeforeEach()
-    void init() throws InterruptedException, ParseException {
-        filler.fillEmployee();
-        filler.fillManufacturer();
-        Thread.sleep(2);
-        filler.fillCarModel();
-        filler.fillClient();
-        Thread.sleep(2);
-        filler.fillCar();
-        Thread.sleep(2);
-        filler.fillCountry();
-        Thread.sleep(2);
-        filler.fillProvider();
-        Thread.sleep(2);
-        filler.fillPieceTypes();
-        Thread.sleep(2);
-        filler.fillPieces();
-        Thread.sleep(2);
-        filler.fillTasks();
-        Thread.sleep(2);
-        filler.fillBills();
-        Thread.sleep(2); // quick pause between fill up if required
+    void init() throws Exception {
+        filler.fill();
     }
 
 
@@ -137,4 +116,4 @@ class FillerTest {
     void fillEmployee() {
         assertEquals(2, employeeDao.getAll().size());
     }
-}*/
+}

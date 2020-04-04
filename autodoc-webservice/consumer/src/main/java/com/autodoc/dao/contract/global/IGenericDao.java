@@ -8,8 +8,6 @@ import java.util.Map;
 
 public interface IGenericDao<T> {
 
-    // void setClazz(Class<T> clazzToSet);
-
     Class<?> getClazz();
 
     T getById(final int id);
@@ -23,7 +21,6 @@ public interface IGenericDao<T> {
     boolean delete(final T entity);
 
     boolean deleteById(final int entityId);
-
 
     T getByName(String name);
 
