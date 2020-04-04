@@ -34,11 +34,12 @@ class CarDaoImplTest {
 
     String registration = "05D121487";
     Car obj;
-    int id = 2;
+    int id;
     Class clazz = Car.class;
     int allSize = 2;
     Client client;
     CarModel carModel;
+    Car objFromDb;
     @Inject
     private CarDao dao;
     @Inject
@@ -52,15 +53,18 @@ class CarDaoImplTest {
 
     @BeforeEach
     void init() throws Exception {
+        remover.remover();
         filler.fill();
         client = (Client) clientDao.getAll().get(0);
         carModel = (CarModel) carModelDao.getAll().get(0);
         obj = Car.builder().registration("abc123").client(client).carModel(carModel).build();
+        objFromDb = (Car) dao.getAll().get(0);
+        id = objFromDb.getId();
     }
 
     @AfterEach
     void remove() {
-        remover.remover();
+
     }
 
 
@@ -82,7 +86,7 @@ class CarDaoImplTest {
     @Test
     @DisplayName("should return object if valid id")
     void getById1() {
-        assertNotNull(dao.getById(1));
+        assertNotNull(dao.getById(id));
     }
 
     @Test
@@ -104,29 +108,37 @@ class CarDaoImplTest {
     @DisplayName("should return true when deleting object")
     void deleteById() {
         id = obj.getId();
-        dao.delete(obj);
+        assertTrue(dao.delete(obj));
         assertNull(dao.getById(id));
     }
 
 
     @Test
-    @DisplayName("should return true when deleting object by id")
-    void deleteById1() {
-        dao.deleteById(id);
-        assertNull(dao.getById(id));
+    @DisplayName("should return false when trying to delete with invalid id")
+    void deleteById2() {
+        assertFalse(dao.deleteById(233));
     }
 
 
     ///////////  SPECIFIC /////////////////////////////////
+
     @Test
     @DisplayName("should update and return true")
     void update() {
         String newReg = "plakopin";
-        obj = (Car) dao.getAll().get(1);
+        obj = (Car) dao.getAll().get(0);
         obj.setRegistration(newReg);
         dao.update(obj);
         Car updatedObj = (Car) dao.getById(obj.getId());
         assertTrue(updatedObj.getRegistration().equalsIgnoreCase(newReg));
+    }
+
+    @Test
+    @DisplayName("should return true when deleting object by id")
+    void deleteById1() {
+        Car car = (Car) dao.getAll().get(0);
+        System.out.println(car.getId());
+        assertTrue(dao.deleteById(car.getId()));
     }
 
 

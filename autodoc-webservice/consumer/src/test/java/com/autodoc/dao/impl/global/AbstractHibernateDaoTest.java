@@ -1,4 +1,3 @@
-/*
 package com.autodoc.dao.impl.global;
 
 import com.autodoc.dao.filler.Filler;
@@ -21,8 +20,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -36,6 +34,8 @@ class AbstractHibernateDaoTest {
     private AbstractHibernateDao<Car> dao;
     private SessionFactory sessionFactory;
     private Session session;
+    private Remover remover;
+    private Filler filler;
 
     private static void setFinalStaticField(Class<?> clazz, String fieldName, Object value)
             throws ReflectiveOperationException {
@@ -46,9 +46,6 @@ class AbstractHibernateDaoTest {
         modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         field.set(null, value);
     }
-
-    private Remover remover;
-    private Filler filler;
 
     @BeforeEach
     void init() {
@@ -75,15 +72,10 @@ class AbstractHibernateDaoTest {
     void getById() {
         Car obj = new Car();
         obj.setRegistration("abc123");
-       */
-/* when(dao.getCurrentSession()).thenReturn(session);
+        when(dao.getCurrentSession()).thenReturn(session);
         when(session.load(Car.class, 3)).thenReturn(obj);
-     //   System.out.println(session.load(Car.class, 3));
-        System.out.println(dao.getCurrentSession().load(Car.class, 3));
-        System.out.println(dao.getById(3));*//*
 
-        assertEquals(null, dao.getById(33));
-        //assertEquals(obj, dao.getById(3));
+        assertNull(dao.getById(33));
     }
 
 
@@ -98,29 +90,6 @@ class AbstractHibernateDaoTest {
         assertEquals(list, dao.getAll());
 
     }
-*/
-/*
-    @Test
-    void create() {
-        String typo = "STRING";
-        String compare = "EQUALs";
-
-        for (SearchType type : SearchType.values()) {
-            if (type.name().equals(typo)) {
-                for (String[] str : type.getValues()) {
-                    if (str[0].equalsIgnoreCase(compare)) {
-                        LOGGER.info("found it");
-                        LOGGER.info(type + " " + str[0] + " / " + str[1]);
-                    }
-                }
-            }
-        }
-
-
-    }*//*
-
-
 
 
 }
-*/

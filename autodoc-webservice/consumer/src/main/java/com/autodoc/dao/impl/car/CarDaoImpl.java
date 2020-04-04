@@ -26,7 +26,6 @@ public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
     }
 
     public Map<String, SearchType> getSearchField() {
-
         return Car.getSearchField();
     }
 

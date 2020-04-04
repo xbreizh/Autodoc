@@ -80,7 +80,6 @@ public abstract class AbstractHibernateDao<T> {
     }
 
     public boolean deleteById(int entityId) {
-        LOGGER.info("trying to delete " + getClazz() + " with id: " + entityId);
         T entity = (T) getCurrentSession().get(getClazz(), entityId);
         LOGGER.info(entity);
         if (entity == null) {
@@ -132,7 +131,6 @@ public abstract class AbstractHibernateDao<T> {
 
 
     public Map<String, SearchType> getSearchField() {
-
         return null;
     }
 

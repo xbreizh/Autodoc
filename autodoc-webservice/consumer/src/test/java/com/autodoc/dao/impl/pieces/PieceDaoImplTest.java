@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.pieces;
 
 import com.autodoc.dao.contract.car.CarModelDao;
@@ -38,8 +39,8 @@ class PieceDaoImplTest {
     @Inject
     private CarModelDao carModelDao;
     private Piece piece;
-
-    @BeforeEach
+*//*
+    @BeforeEach*//*
     void init() throws Exception {
         filler.fill();
         LOGGER.info("here");
@@ -53,7 +54,6 @@ class PieceDaoImplTest {
         //piece.setCarModel(carModel);
         piece.setProvider(provider);
         piece.setPieceType(pieceType);
-        filler.fill();
     }
 
     @Test
@@ -65,7 +65,7 @@ class PieceDaoImplTest {
 
     @Test
     void getById() {
-        assertNotNull(dao.getById(94));
+        assertNotNull(dao.getById(1));
     }
 
     @Test
@@ -106,3 +106,4 @@ class PieceDaoImplTest {
     void getSearchField() {
     }
 }
+*/
