@@ -23,23 +23,4 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
 
-    /*compile 'org.springframework.data:spring-data-jpa:2.1.10.RELEASE'*/
-
-    /* // to recognize webapp folder
-     compile 'org.springframework:spring-core:4.1.2.RELEASE',
-             'org.springframework:spring-web:4.1.2.RELEASE',
-             'org.springframework:spring-webmvc:4.1.2.RELEASE',
-             'org.springframework:spring-orm:4.1.2.RELEASE',
-             'org.springframework:spring-context:4.1.2.RELEASE',
-             'org.springframework:spring-tx:4.1.2.RELEASE',
-             'commons-dbcp:commons-dbcp:1.4',
-             'org.postgresql:postgresql:42.2.8',
-             'org.hibernate:hibernate-core:5.4.5.Final',
-             'com.google.code.gson:gson:1.7.2'
-
-     test {
-         useJUnitPlatform()
-     }*/
 }
-
-
