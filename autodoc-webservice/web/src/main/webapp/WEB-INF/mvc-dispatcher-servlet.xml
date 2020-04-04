@@ -24,7 +24,7 @@
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           id="dataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5132/autodoc"/>
+        <property name="url" value="jdbc:postgresql://autodoc-db-dev:5432/autodoc"/>
         <property name="username" value="ocp"/>
         <property name="password" value="123"/>
     </bean>
