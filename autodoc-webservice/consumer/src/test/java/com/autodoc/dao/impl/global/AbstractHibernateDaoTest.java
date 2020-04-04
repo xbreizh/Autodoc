@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.global;
 
 import com.autodoc.dao.filler.Filler;
@@ -74,11 +75,13 @@ class AbstractHibernateDaoTest {
     void getById() {
         Car obj = new Car();
         obj.setRegistration("abc123");
-       /* when(dao.getCurrentSession()).thenReturn(session);
+       */
+/* when(dao.getCurrentSession()).thenReturn(session);
         when(session.load(Car.class, 3)).thenReturn(obj);
      //   System.out.println(session.load(Car.class, 3));
         System.out.println(dao.getCurrentSession().load(Car.class, 3));
-        System.out.println(dao.getById(3));*/
+        System.out.println(dao.getById(3));*//*
+
         assertEquals(null, dao.getById(33));
         //assertEquals(obj, dao.getById(3));
     }
@@ -95,6 +98,7 @@ class AbstractHibernateDaoTest {
         assertEquals(list, dao.getAll());
 
     }
+*/
 /*
     @Test
     void create() {
@@ -113,8 +117,10 @@ class AbstractHibernateDaoTest {
         }
 
 
-    }*/
+    }*//*
+
 
 
 
 }
+*/

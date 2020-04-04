@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.filler;
 
 import com.autodoc.dao.contract.bill.BillDao;
@@ -39,3 +40,4 @@ class RemoverTest {
 
 
 }
+*/
