@@ -1,4 +1,3 @@
-/*
 package com.autodoc.dao.impl.pieces;
 
 import com.autodoc.dao.contract.car.CarModelDao;
@@ -11,6 +10,7 @@ import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -38,72 +38,41 @@ class PieceDaoImplTest {
     private ProviderDao providerDao;
     @Inject
     private CarModelDao carModelDao;
-    private Piece piece;
-*//*
-    @BeforeEach*//*
+    private Piece obj;
+
+    @BeforeEach
     void init() throws Exception {
         filler.fill();
         LOGGER.info("here");
         Provider provider = (Provider) providerDao.getAll().get(0);
         PieceType pieceType = (PieceType) pieceTypeDao.getAll().get(0);
-        piece = new Piece();
-        piece.setName("paltoquet");
-        piece.setBrand(name);
-        piece.setBuyingPrice(12);
-        piece.setSellPrice(24);
+        obj = new Piece();
+        obj.setName("paltoquet");
+        obj.setBrand(name);
+        obj.setBuyingPrice(12);
+        obj.setSellPrice(24);
         //piece.setCarModel(carModel);
-        piece.setProvider(provider);
-        piece.setPieceType(pieceType);
+        obj.setProvider(provider);
+        obj.setPieceType(pieceType);
     }
 
     @Test
-    void getAll() {
-        LOGGER.info("emp[l" + dao);
-        assertEquals(4, dao.getAll().size());
-    }
-
-
-    @Test
-    void getById() {
-        assertNotNull(dao.getById(1));
-    }
-
-    @Test
+    @DisplayName("should return null if not existing")
     void getByName() {
+        assertNull(dao.getByName(obj.getName()));
     }
 
 
     @Test
-    void create() {
-        assertNotEquals(0, dao.create(piece));
+    @DisplayName("should return obj if existing")
+    void getByName1() {
+        assertNotNull(dao.getByName("BRAKE PAD DE4"));
     }
 
-    @Test
-    void delete() {
-    }
 
     @Test
-    void update() {
-    }
-
-    @Test
-    void deleteById() {
-    }
-
-    @Test
-    void getByCriteria() {
-    }
-
-    @Test
-    void buildCriteriaRequest() {
-    }
-
-    @Test
-    void isValidDate() {
-    }
-
-    @Test
+    @DisplayName("should return searchFields from Model")
     void getSearchField() {
+        assertEquals(Piece.getSearchField(), dao.getSearchField());
     }
 }
-*/
