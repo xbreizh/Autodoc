@@ -58,7 +58,7 @@ public class Filler {
 
 
 
-    public void fill() throws Exception {
+    public void fill() throws ParseException {
         if (manufacturerDao.getAll().isEmpty()) {
             LOGGER.debug("getting here");
             fillEmployee();
@@ -118,7 +118,6 @@ public class Filler {
 
     void fillPieces() {
         LOGGER.debug("filling pieces");
-        Provider provider = (Provider) providerDao.getById(1);
         PieceType pieceType1 = (PieceType) pieceTypeDao.getById(1);
         PieceType pieceType2 = (PieceType) pieceTypeDao.getById(2);
         Piece piece1 = Piece.builder().pieceType(pieceType1).name("BRAKE PAD DE4").brand("DEVO").buyingPrice(10).sellPrice(14).quantity(2).build();
