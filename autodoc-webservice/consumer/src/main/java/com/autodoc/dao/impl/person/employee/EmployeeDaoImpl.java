@@ -58,10 +58,11 @@ public class EmployeeDaoImpl extends AbstractHibernateDao implements EmployeeDao
     public List<Employee> getByRole(List<Role> roles) {
         LOGGER.info("roles received: " + roles);
         if (roles == null) return new ArrayList<>();
+        if (roles.isEmpty()) return new ArrayList<>();
         String init = "select * from employee where  ";
         StringBuilder sb = new StringBuilder(init);
         for (Role role : roles) {
-            String condition = "id in (select employee_id from employee_roles where roles like '%" + role + "%')";
+            String condition = "id in (select employee_id from employee_roles where roles like '%" + role.toString().toUpperCase() + "%')";
             if (!sb.toString().equals(init)) {
                 sb.append(" and ");
             }
