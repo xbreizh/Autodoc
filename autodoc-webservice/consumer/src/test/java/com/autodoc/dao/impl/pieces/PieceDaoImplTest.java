@@ -5,9 +5,7 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.filler.Filler;
-import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
-import com.autodoc.model.models.pieces.PieceType;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,30 +41,20 @@ class PieceDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         filler.fill();
-        LOGGER.info("here");
-        Provider provider = (Provider) providerDao.getAll().get(0);
-        PieceType pieceType = (PieceType) pieceTypeDao.getAll().get(0);
-        obj = new Piece();
-        obj.setName("paltoquet");
-        obj.setBrand(name);
-        obj.setBuyingPrice(12);
-        obj.setSellPrice(24);
-        //piece.setCarModel(carModel);
-        obj.setProvider(provider);
-        obj.setPieceType(pieceType);
+        obj = (Piece) dao.getAll().get(0);
     }
 
     @Test
     @DisplayName("should return null if not existing")
     void getByName() {
-        assertNull(dao.getByName(obj.getName()));
+        assertNull(dao.getByName("invalidName"));
     }
 
 
     @Test
     @DisplayName("should return obj if existing")
     void getByName1() {
-        assertNotNull(dao.getByName("BRAKE PAD DE4"));
+        assertNotNull(dao.getByName(obj.getName()));
     }
 
 

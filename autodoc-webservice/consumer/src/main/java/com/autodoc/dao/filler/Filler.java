@@ -143,16 +143,16 @@ public class Filler {
     void fillCountry() {
         LOGGER.debug("filling countries");
         String[] list = {"SPAIN", "IRELAND", "MEXICO", "JAPAN", "NEW-ZEALAND", "BELGIUM"};
-        for (int i = 0; i < list.length; i++) {
-            countryDao.create(Country.builder().name(list[i]).build());
+        for (String country : list) {
+            countryDao.create(Country.builder().name(country).build());
         }
     }
 
     void fillManufacturer() {
         LOGGER.debug("filling manufacturer");
         String[] list = {"AUDI", "BMW", "RENAULT", "OPEL", "NISSAN", "TOYOTA"};
-        for (int i = 0; i < list.length; i++) {
-            manufacturerDao.create(Manufacturer.builder().name(list[i]).build());
+        for (String man : list) {
+            manufacturerDao.create(Manufacturer.builder().name(man).build());
         }
     }
 
