@@ -1,12 +1,12 @@
 package com.autodoc.dao.impl.global;
 
+import com.autodoc.dao.exceptions.DaoException;
 import com.autodoc.dao.filler.Filler;
-import com.autodoc.dao.filler.Remover;
+import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.models.car.Car;
-import org.apache.log4j.Logger;
+import com.autodoc.model.models.search.Search;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,13 +15,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import javax.inject.Inject;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,30 +30,93 @@ import static org.mockito.Mockito.when;
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class AbstractHibernateDaoTest {
-    private static final Logger LOGGER = Logger.getLogger(AbstractHibernateDaoTest.class);
-    private AbstractHibernateDao<Car> dao;
-    private SessionFactory sessionFactory;
-    private Session session;
-    private Remover remover;
-    private Filler filler;
 
-    private static void setFinalStaticField(Class<?> clazz, String fieldName, Object value)
-            throws ReflectiveOperationException {
-        Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        Field modifiers = Field.class.getDeclaredField("modifiers");
-        modifiers.setAccessible(true);
-        modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-        field.set(null, value);
-    }
+
+    SessionFactory sessionFactory = mock(SessionFactory.class);
+    Session session = mock(Session.class);
+    @Inject
+    private TestAbstractDaoImpl dao;
+    @Inject
+    private CarDaoImpl carDao;
+    @Inject
+    private Filler filler;
+    // @Inject
+    private AbstractHibernateDao mockDao;
 
     @BeforeEach
-    void init() {
-        dao = mock(AbstractHibernateDao.class);
-        sessionFactory = mock(SessionFactory.class);
-        session = mock(Session.class);
-        dao.setSessionFactory(sessionFactory);
+    void init() throws ParseException {
+        filler.fill();
+        mockDao = mock(AbstractHibernateDao.class);
+        mockDao.setSessionFactory(sessionFactory);
+        when(sessionFactory.getCurrentSession()).thenReturn(session);
 
+
+    }
+
+
+    @Test
+    void getSessionFactory() {
+        dao.setSessionFactory(sessionFactory);
+        assertEquals(sessionFactory, dao.getSessionFactory());
+    }
+
+    @Test
+    void setSessionFactory() {
+        dao.setSessionFactory(sessionFactory);
+        assertEquals(sessionFactory, dao.getSessionFactory());
+    }
+
+    @Test
+    void create() {
+        when(session.save(any())).thenThrow(new NumberFormatException());
+        assertEquals(0, mockDao.create(new Car()));
+    }
+
+    @Test
+    @DisplayName("should return an exception")
+    void create1() {
+        assertEquals(0, mockDao.create(new Car()));
+
+    }
+
+
+    @Test
+    void update() {
+        dao.setSessionFactory(sessionFactory);
+        when(session.merge(any())).thenReturn(null);
+        assertFalse(dao.update(new Car()));
+    }
+
+
+    @Test
+    void update1() {
+        dao.setSessionFactory(sessionFactory);
+        when(session.merge(any())).thenReturn(new Car());
+        assertTrue(dao.update(new Car()));
+    }
+
+    @Test
+    @DisplayName("should throw an exception if search null")
+    void getByCriteria() {
+        assertThrows(DaoException.class, () -> dao.getByCriteria(null));
+    }
+
+    @Test
+    @DisplayName("should throw an exception if no search criteria available for an entity")
+    void getByCriteria1() {
+        List<Search> searchList = new ArrayList<>();
+        assertThrows(DaoException.class, () -> dao.getByCriteria(searchList));
+    }
+
+    @Test
+    @DisplayName("should return list if valid search")
+    void getByCriteria2() {
+        String superRequest = "superRequest";
+        List<Car> list = new ArrayList<>();
+        List<Search> searchList = new ArrayList<>();
+        searchList.add(new Search("crit", "compare", "value"));
+        when(mockDao.getSearchField()).thenReturn(Car.getSearchField());
+        assertEquals(list, mockDao.getByCriteria(searchList));
     }
 
     @Test
@@ -68,27 +131,31 @@ class AbstractHibernateDaoTest {
     }
 
     @Test
-    @DisplayName("checks that Logger is info enabled")
-    void getById() {
-        Car obj = new Car();
-        obj.setRegistration("abc123");
-        when(dao.getCurrentSession()).thenReturn(session);
-        when(session.load(Car.class, 3)).thenReturn(obj);
-
-        assertNull(dao.getById(33));
+    @DisplayName("should return null for any name passed")
+    void getByName() {
+        assertNull(dao.getByName("plok"));
     }
 
+    @Test
+    @DisplayName("should return null for any name passed")
+    void getById() {
+        assertNull(dao.getById(32));
+    }
 
     @Test
-    @DisplayName("should return them all")
-    void getAll() {
-        when(dao.getCurrentSession()).thenReturn(session);
-        Query query = mock(Query.class);
-        when(session.createQuery(anyString())).thenReturn(query);
-        List<Car> list = new ArrayList<>();
-        when(session.createQuery(anyString()).getResultList()).thenReturn(list);
-        assertEquals(list, dao.getAll());
+    @DisplayName("should return null when getting search Fields")
+    void getSearchField() {
+        assertNull(dao.getSearchField());
+    }
 
+    @Test
+    @DisplayName("should return criteria request")
+    void buildCriteriaRequest() {
+
+        List<Search> searchList = new ArrayList<>();
+        searchList.add(new Search("fieldName", "compare", "value"));
+        searchList.add(new Search("fieldName1", "compare1", "value1"));
+        assertEquals("from Car where fieldName compare 'value' and fieldName1 compare1 'value1'", carDao.buildCriteriaRequest(searchList));
     }
 
 

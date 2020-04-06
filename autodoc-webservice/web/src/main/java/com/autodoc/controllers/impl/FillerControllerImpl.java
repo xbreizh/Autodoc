@@ -43,7 +43,7 @@ public class FillerControllerImpl {
         LOGGER.info("testing LOGGER");
         LOGGER.debug("trying to remove");
         filler.fill();
-        remover.remover();
+        remover.cleanup();
         filler.fill();
 
 

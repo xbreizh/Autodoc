@@ -33,7 +33,7 @@ class RemoverTest {
 
     @Test
     void checkRemover() {
-        remover.remover();
+        remover.cleanup();
         assertTrue(billDao.getAll().isEmpty());
     }
 

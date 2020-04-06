@@ -41,7 +41,7 @@ public class Remover {
     private BillDao billDao;
 
 
-    public void remover() {
+    public void cleanup() {
         IGenericDao[] daos = {billDao, pieceDao, pieceTypeDao, taskDao, countryDao, manufacturerDao, carDao, addressDao, providerDao, clientDao, employeeDao};
 
         for (IGenericDao dao : daos) {

@@ -1,11 +1,12 @@
 package com.autodoc.dao.impl.global;
 
+import com.autodoc.dao.exceptions.DaoException;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
 import org.apache.log4j.Logger;
-import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
@@ -17,52 +18,44 @@ import java.util.Map;
 public abstract class AbstractHibernateDao<T> {
     protected static final String FROM = "from ";
     protected static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
-    @Inject
-    SessionFactory sessionFactory;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
+    @Inject
+    SessionFactory sessionFactory;
+
+
     public Class<?> getClazz() {
         return null;
     }
 
-
     public T getById(int id) {
         final Serializable entityId = id;
         LOGGER.info("getting object by id: " + id);
-        try {
-            return (T) getCurrentSession().get(getClazz(), entityId);
-        } catch (ObjectNotFoundException nf) {
-            System.out.println("paf exception");
-            return null;
-        }
+        if (getClazz() == null) return null;
+        return (T) getCurrentSession().get(getClazz(), entityId);
     }
 
 
     public T getByName(String name) {
-        String request = FROM + getClazz().getName() + "where name = :name";
-        TypedQuery<T> query = getCurrentSession().createQuery(request);
-        query.setParameter(name, name);
-        List<T> list = query.getResultList();
-        if (list.isEmpty()) return null;
-        return query.getResultList().get(0);
+        return null;
     }
 
     public List<T> getAll() {
         LOGGER.debug("getting all");
-        return getCurrentSession().createQuery(FROM + getClazz().getName()).getResultList();
+        TypedQuery<T> query = getCurrentSession().createQuery(FROM + getClazz().getName());
+        return query.getResultList();
     }
 
     public int create(T entity) {
         LOGGER.info("trying to create: " + entity);
-        try {
-            return (Integer) getCurrentSession().save(entity);
-        } catch (Exception e) {
-            LOGGER.error("error while creating");
-            return 0;
-        }
+        return (Integer) getCurrentSession().save(entity);
     }
 
     public boolean delete(T entity) {
@@ -97,19 +90,19 @@ public abstract class AbstractHibernateDao<T> {
         return session;
     }
 
-    public List<T> getByCriteria(List<Search> search) throws Exception {
-        if (search == null) throw new Exception("no search criteria provided");
-        if (getSearchField() == null) throw new Exception("no search criteria available for that entity");
+    public List<T> getByCriteria(List<Search> search) throws DaoException {
+        if (search == null) throw new DaoException("no search criteria provided");
+        if (getSearchField() == null) throw new DaoException("no search criteria available for that entity");
         String request = buildCriteriaRequest(search);
         LOGGER.info("req: " + request);
-        TypedQuery<T> query = sessionFactory.getCurrentSession().createQuery(request);
+        Query query = sessionFactory.getCurrentSession().createQuery(request);
         return query.getResultList();
     }
 
     protected String buildCriteriaRequest(List<Search> searchList) {
-
         StringBuilder sb = new StringBuilder();
         String init = FROM + getClazz().getSimpleName();
+        LOGGER.info("init: " + init);
         sb.append(init);
         for (Search search : searchList) {
             if (sb.toString().equals(init)) {

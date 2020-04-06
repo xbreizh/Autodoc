@@ -1,14 +1,16 @@
 package com.autodoc.model.models.search;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
-@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Generated
 public class SearchDTO {
 
 

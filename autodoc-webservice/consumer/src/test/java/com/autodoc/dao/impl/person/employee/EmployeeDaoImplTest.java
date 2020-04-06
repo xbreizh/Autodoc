@@ -2,10 +2,10 @@ package com.autodoc.dao.impl.person.employee;
 
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.filler.Filler;
-import com.autodoc.dao.filler.Remover;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,17 +24,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class EmployeeDaoImplTest {
 
+
     Employee obj;
     @Inject
     private EmployeeDao dao;
     @Inject
     private Filler filler;
-    @Inject
-    private Remover remover;
 
     @BeforeEach
     void init() throws Exception {
-        remover.remover();
         filler.fill();
         obj = (Employee) dao.getAll().get(0);
     }
@@ -43,13 +41,27 @@ class EmployeeDaoImplTest {
     @DisplayName("should return search fields")
     void getSearchField() {
 
-        assertEquals(dao.getSearchField(), Employee.getSearchField());
+        assertEquals(Employee.getSearchField(), dao.getSearchField());
     }
 
     @Test
     @DisplayName("should return obj if valid login")
     void getByLogin() {
         assertNotNull(dao.getByLogin(obj.getLogin()));
+
+    }
+
+    @Test
+    @DisplayName("should return obj if valid id")
+    void getById() {
+        assertNotNull(dao.getById(obj.getId()));
+
+    }
+
+    @Test
+    @DisplayName("should return obj if valid id")
+    void getById1() {
+        assertNull(dao.getById(9999));
 
     }
 
@@ -79,6 +91,7 @@ class EmployeeDaoImplTest {
 
     @Test
     @DisplayName("should return list if valid role and existing result")
+    @Disabled
     void getByRole() {
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MECANIC);

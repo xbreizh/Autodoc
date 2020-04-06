@@ -2,10 +2,7 @@ package com.autodoc.model.models.car;
 
 
 import com.autodoc.model.enums.SearchType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
@@ -23,6 +20,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Manufacturer {
 
     public static Map<String, SearchType> getSearchField() {

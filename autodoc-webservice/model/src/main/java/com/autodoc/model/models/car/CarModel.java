@@ -3,10 +3,7 @@ package com.autodoc.model.models.car;
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.enums.SearchType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,6 +19,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Cacheable
+@Generated
 public class CarModel {
 
     public static Map<String, SearchType> getSearchField() {

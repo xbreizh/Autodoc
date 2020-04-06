@@ -40,19 +40,6 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
     }
 
 
-    public boolean deleteById(int id) {
-        LOGGER.info("deleting task by id: " + id);
-        TypedQuery<Boolean> query = getCurrentSession().createQuery("delete From Task where id= :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-        return true;
-    }
 
-    @Override
-    public boolean update(Object entity) {
-        LOGGER.info("updating from dao: " + entity);
-        T obj = (T) getCurrentSession().merge(entity);
-        return obj != null;
-    }
 
 }

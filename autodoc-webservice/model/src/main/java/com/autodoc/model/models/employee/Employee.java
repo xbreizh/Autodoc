@@ -7,6 +7,7 @@ import com.autodoc.model.models.person.Person;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -20,6 +21,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Generated
 public class Employee extends Person {
 
 
@@ -61,18 +63,20 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
+        int billSize = 0;
+        if (bills != null) billSize = bills.size();
+        int roleSize = 0;
+        if (roles != null) roleSize = roles.size();
         return "Employee{" +
-                ", id=" + id +
+                "bills=" + billSize +
+                ", roles=" + roleSize +
+                ", startDate=" + startDate +
                 ", login='" + login + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", token='" + token + '\'' +
-                ", startDate=" + startDate +
                 ", lastConnection=" + lastConnection +
                 ", tokenExpiration=" + tokenExpiration +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+                "} " + super.toString();
     }
 
     public void setLogin(String login) {

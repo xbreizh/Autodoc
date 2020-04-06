@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.person.provider;
 import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.person.provider.Country;
+import com.autodoc.model.models.search.Search;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,6 +35,14 @@ class CountryDaoImplTest {
     void init() throws ParseException {
         filler.fill();
         obj = (Country) dao.getAll().get(0);
+    }
+
+    @Test
+    void getByCriteria() throws Exception {
+        List<Search> searchList = new ArrayList<>();
+        Search search = new Search("name", "like", "d");
+        searchList.add(search);
+        assertNotNull(dao.getByCriteria(searchList));
     }
 
 
