@@ -150,12 +150,10 @@ class CarDaoImplTest {
     }
 
     @Test
-    @DisplayName("should return an object")
-    void getByRegistration() {
-        assertAll(
-                () -> assertNotNull(dao.getCarByRegistration(registration)),
-                () -> assertThat((dao.getCarByRegistration(registration)), instanceOf(clazz))
-        );
+    @DisplayName("should return null")
+    void getByClient2() {
+
+        assertTrue(dao.getCarByClient("toto").isEmpty());
     }
 
     @Test
@@ -164,6 +162,15 @@ class CarDaoImplTest {
         assertAll(
                 () -> assertFalse(dao.getCarByClient("BAUER").isEmpty())
                 //   () -> assertThat(dao.getCarByClient("bauer"), instanceOf(ArrayList.class))
+        );
+    }
+
+    @Test
+    @DisplayName("should return an object")
+    void getByRegistration() {
+        assertAll(
+                () -> assertNotNull(dao.getCarByRegistration(registration)),
+                () -> assertThat((dao.getCarByRegistration(registration)), instanceOf(clazz))
         );
     }
 

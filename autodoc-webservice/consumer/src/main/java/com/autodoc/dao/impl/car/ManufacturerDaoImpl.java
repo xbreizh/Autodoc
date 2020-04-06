@@ -28,7 +28,7 @@ public class ManufacturerDaoImpl extends AbstractHibernateDao implements Manufac
     public Manufacturer getByName(String name) {
         LOGGER.info("get manufacturer by name: " + name);
         TypedQuery<Manufacturer> query = getCurrentSession().createQuery("From Manufacturer where name= :name");
-        query.setParameter("name", name);
+        query.setParameter("name", name.toUpperCase());
         List<Manufacturer> result = query.getResultList();
         if (!result.isEmpty()) {
             LOGGER.info("result: " + result.get(0).toString());

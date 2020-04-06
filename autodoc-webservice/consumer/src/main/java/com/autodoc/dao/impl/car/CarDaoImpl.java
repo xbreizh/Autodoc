@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
     public Car getCarByRegistration(String registration) {
         LOGGER.debug("getting car by Registration: " + registration);
         TypedQuery<Car> query = getCurrentSession().createQuery("From Car where registration = :registration");
-        query.setParameter("registration", registration);
+        query.setParameter("registration", registration.toUpperCase());
         List<Car> cars = query.getResultList();
         if (!cars.isEmpty()) return cars.get(0);
         LOGGER.debug("no car found");
@@ -44,10 +43,8 @@ public class CarDaoImpl extends AbstractHibernateDao implements CarDao {
     public List<Car> getCarByClient(String lastName) {
         lastName = lastName.toUpperCase();
         LOGGER.info("Last:" + lastName);
-        System.out.println("last: " + lastName);
         TypedQuery<Car> query = getCurrentSession().createQuery("From Car where client.lastName= :lastName");
-        query.setParameter("lastName", lastName);
-        if (query.getResultList() == null) return new ArrayList<>();
+        query.setParameter("lastName", lastName.toUpperCase());
         return query.getResultList();
 
     }

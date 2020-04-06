@@ -1,9 +1,10 @@
-/*
 package com.autodoc.dao.impl.car;
 
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.filler.Filler;
+import com.autodoc.model.models.car.Manufacturer;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,16 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-//@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
 @Transactional
 class ManufacturerDaoImplTest {
 
     @Inject
-    ManufacturerDao manufacturerDao;
+    ManufacturerDao dao;
 
     @Inject
     private Filler filler;
@@ -34,16 +34,24 @@ class ManufacturerDaoImplTest {
 
     }
 
-
     @Test
-    void getAll() {
-        assertEquals(6, manufacturerDao.getAll().size());
-    }
-
-
-    @Test
+    @DisplayName("should return object from name")
     void getByName() {
-        String name = "TOYOTA";
-        assertNotNull(manufacturerDao.getByName(name));
+        Manufacturer manufacturer = (Manufacturer) dao.getAll().get(0);
+        String name = manufacturer.getName().toLowerCase();
+        assertEquals(manufacturer, dao.getByName(name));
     }
-}*/
+
+    @Test
+    @DisplayName("should return null if invalid name")
+    void getByName1() {
+        assertNull(dao.getByName("coremon"));
+    }
+
+
+    @Test
+    @DisplayName("should return searchFields from Model")
+    void getSearchField() {
+        assertEquals(Manufacturer.getSearchField(), dao.getSearchField());
+    }
+}
