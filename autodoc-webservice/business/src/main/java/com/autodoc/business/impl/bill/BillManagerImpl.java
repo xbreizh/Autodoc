@@ -26,6 +26,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -99,15 +100,19 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     }
 
     @Override
-    public Bill transferUpdate(Object obj) throws Exception {
+    public Bill transferUpdate(Object obj) throws InvalidDtoException {
         resetException();
         BillDTO dto = (BillDTO) obj;
         int id = dto.getId();
-        if (id == 0) throw new Exception("no id provided");
+        if (id == 0) throw new InvalidDtoException("no id provided");
         Bill bill = (Bill) dao.getById(dto.getId());
-        if (bill == null) throw new Exception("no bill found with that reference: " + dto.getId());
+        if (bill == null) throw new InvalidDtoException("no bill found with that reference: " + dto.getId());
         if (dto.getDateReparation() != null) {
-            bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
+            try {
+                bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
+            } catch (ParseException e) {
+                throw new InvalidDtoException("invalid date format: " + dto.getDateReparation());
+            }
         }
         LOGGER.info("updating car");
         if (dto.getRegistration() != null && !dto.getRegistration().isEmpty()) {
@@ -177,7 +182,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     }
 
     @Override
-    public Bill dtoToEntity(Object entity) throws Exception {
+    public Bill dtoToEntity(Object entity) throws InvalidDtoException {
         resetException();
         BillDTO dto = (BillDTO) entity;
         LOGGER.info("dto found: " + dto);
@@ -187,7 +192,11 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setId(id);
         // if (dto.getDateReparation()==null && bill.getDateReparation()==null)throw new InvalidDtoException("no valid date provided: "+dto.getDateReparation());
         LOGGER.info("dto date: " + dto.getDateReparation());
-        bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
+        try {
+            bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
+        } catch (ParseException e) {
+            throw new InvalidDtoException("invalid date format: " + dto.getDateReparation());
+        }
         LOGGER.info("entity date: " + bill.getDateReparation());
         Car car = carDao.getCarByRegistration(dto.getRegistration());
         if (car == null) throw new InvalidDtoException("car cannot be null");

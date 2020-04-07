@@ -11,7 +11,6 @@ import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
-import javassist.NotFoundException;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -52,9 +51,9 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
 
     @Override
-    public CarDTO updateClient(int carId, int clientId) throws Exception {
+    public CarDTO updateClient(int carId, int clientId) throws InvalidDtoException {
         Client client = (Client) clientDao.getById(clientId);
-        if (client == null) throw new NotFoundException("client not found");
+        if (client == null) throw new InvalidDtoException("client not found");
         Car car = (Car) dao.getById(carId);
         car.setClient(client);
         dao.update(car);

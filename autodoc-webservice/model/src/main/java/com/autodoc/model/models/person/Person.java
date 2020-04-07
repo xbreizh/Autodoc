@@ -1,9 +1,6 @@
 package com.autodoc.model.models.person;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.GeneratedValue;
@@ -16,6 +13,7 @@ import javax.persistence.MappedSuperclass;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Generated
 public abstract class Person {
 
 

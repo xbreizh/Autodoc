@@ -43,7 +43,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
     @Override
-    public Piece dtoToEntity(Object entity) throws Exception {
+    public Piece dtoToEntity(Object entity) throws InvalidDtoException {
         PieceDTO dto = (PieceDTO) entity;
         Piece piece = mapper.map(entity, Piece.class);
         checkIfDuplicate(dto);

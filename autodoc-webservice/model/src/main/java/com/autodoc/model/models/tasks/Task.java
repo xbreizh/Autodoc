@@ -2,10 +2,7 @@ package com.autodoc.model.models.tasks;
 
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,6 +17,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Task {
 
 

@@ -9,10 +9,7 @@ import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -26,6 +23,7 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Bill {
 
     public static Map<String, SearchType> getSearchField() {

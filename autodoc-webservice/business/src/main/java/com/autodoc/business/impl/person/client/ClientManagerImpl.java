@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.person.client;
 
 import com.autodoc.business.contract.person.client.ClientManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
@@ -40,7 +41,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     }
 
     @Override
-    public Client dtoToEntity(Object entity) throws Exception {
+    public Client dtoToEntity(Object entity) throws InvalidDtoException {
         LOGGER.info("converting into entity: " + entity);
         ClientDTO dto = (ClientDTO) entity;
         checkIfDuplicate(dto);
@@ -53,16 +54,16 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     }
 
 
-    public Client transferUpdate(Object obj) throws Exception {
+    public Client transferUpdate(Object obj) throws InvalidDtoException {
         LOGGER.info("updating");
         ClientDTO dto = (ClientDTO) obj;
         int id = dto.getId();
-        if (id == 0) throw new Exception("id cannot be null");
+        if (id == 0) throw new InvalidDtoException("id cannot be null");
         String firstName = dto.getFirstName().toUpperCase();
         String lastName = dto.getLastName().toUpperCase();
         String phoneNumber = dto.getPhoneNumber().toUpperCase();
         Client client = (Client) dao.getById(id);
-        if (client == null) throw new Exception("invalid id");
+        if (client == null) throw new InvalidDtoException("invalid id");
         if (firstName != null) client.setFirstName(firstName.toUpperCase());
         if (lastName != null) client.setLastName(lastName.toUpperCase());
         if (phoneNumber != null) client.setPhoneNumber(phoneNumber.toUpperCase());
@@ -72,7 +73,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
 
     }
 
-    public void checkIfDuplicate(Object entity) throws Exception {
+    public void checkIfDuplicate(Object entity) throws InvalidDtoException {
         LOGGER.info("checking for duplicates");
         List<Search> searchList = new ArrayList<>();
         ClientDTO dto = (ClientDTO) entity;
@@ -88,7 +89,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
             int id = clients.get(0).getId();
             LOGGER.info("id: " + id + " / " + dto.getId());
             if (id != dto.getId())
-                throw new Exception("that client already exist: " + dto.getFirstName() + " " + dto.getLastName() + " " + dto.getPhoneNumber());
+                throw new InvalidDtoException("that client already exist: " + dto.getFirstName() + " " + dto.getLastName() + " " + dto.getPhoneNumber());
 
         }
 

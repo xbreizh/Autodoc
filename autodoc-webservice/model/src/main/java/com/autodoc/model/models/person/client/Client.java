@@ -7,6 +7,7 @@ import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Generated
 public class Client extends Person {
 
     public static Map<String, SearchType> getSearchField() {

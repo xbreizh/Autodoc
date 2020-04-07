@@ -1,5 +1,6 @@
 package com.autodoc.dao.contract.global;
 
+import com.autodoc.dao.exceptions.DaoException;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
 
@@ -24,7 +25,7 @@ public interface IGenericDao<T> {
 
     T getByName(String name);
 
-    List<T> getByCriteria(List<Search> search) throws Exception;
+    List<T> getByCriteria(List<Search> search) throws DaoException;
 
     Map<String, SearchType> getSearchField();
 }

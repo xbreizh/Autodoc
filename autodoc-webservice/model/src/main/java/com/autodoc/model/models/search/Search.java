@@ -1,12 +1,14 @@
 package com.autodoc.model.models.search;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Generated;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Data
+@Builder
+@Generated
 public class Search {
 
 

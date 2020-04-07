@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
@@ -11,7 +12,6 @@ import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
-import javassist.NotFoundException;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -85,7 +85,7 @@ class CarManagerImplTest {
 
     @Test
     @DisplayName("should update the client")
-    void updateClient() throws Exception {
+    void updateClient() {
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(dao.getById(anyInt())).thenReturn(car);
         assertEquals(client.getId(), manager.updateClient(2, 4).getClientId());
@@ -94,14 +94,14 @@ class CarManagerImplTest {
 
     @Test
     @DisplayName("should throw an exception if no client found")
-    void updateClient1() throws Exception {
+    void updateClient1() {
         when(clientDao.getById(anyInt())).thenReturn(null);
-        assertThrows(NotFoundException.class, () -> manager.updateClient(2, 3));
+        assertThrows(InvalidDtoException.class, () -> manager.updateClient(2, 3));
     }
 
     @Test
     @DisplayName("should update the car")
-    void transferUpdate() throws Exception {
+    void transferUpdate() {
         int id = 4;
         int carModelId = 4;
         int clientId = 5;

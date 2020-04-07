@@ -41,14 +41,14 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
     }
 
     @Override
-    public Provider dtoToEntity(Object entity) throws Exception {
+    public Provider dtoToEntity(Object entity) throws InvalidDtoException {
         ProviderDTO dto = (ProviderDTO) entity;
         Provider provider = mapper.map(entity, Provider.class);
         checkIfDuplicate(dto);
         return provider;
     }
 
-    public Provider transferInsert(Object obj) throws Exception {
+    public Provider transferInsert(Object obj) throws InvalidDtoException {
         ProviderDTO dto = (ProviderDTO) obj;
         checkIfDuplicate(dto);
         Provider provider = new Provider();
@@ -110,7 +110,7 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
     }
 
 
-    public void checkIfDuplicate(Object entity) throws Exception {
+    public void checkIfDuplicate(Object entity) throws InvalidDtoException {
         List<Search> searchList = new ArrayList<>();
         ProviderDTO dto = (ProviderDTO) entity;
         Search search1 = new Search("firstName", "=", dto.getFirstName().toUpperCase());

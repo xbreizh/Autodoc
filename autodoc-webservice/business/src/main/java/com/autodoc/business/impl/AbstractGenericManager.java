@@ -7,6 +7,7 @@ import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
 import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -58,38 +59,58 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     }
 
-    public T transferInsert(D obj) throws Exception {
+    public T transferInsert(D obj) throws InvalidDtoException {
         LOGGER.info("here now");
         return dtoToEntity(obj);
     }
 
+
+    public T dtoToEntity(D entity) throws InvalidDtoException {
+        return (T) new ModelMapper().map(entity, getEntityClass());
+
+    }
+
+    public D entityToDto(T entity) {
+        return (D) new ModelMapper().map(entity, getDtoClass());
+    }
+
+    public Class getEntityClass() {
+        return null;
+    }
+
+    public Class getDtoClass() {
+        return null;
+    }
+
+
     @Override
-    public boolean update(Object entity) throws Exception {
+    public boolean update(Object entity) throws InvalidDtoException {
 
         T obj = transferUpdate((D) entity);
         return getDao().update(obj);
 
     }
 
-    public T transferUpdate(D obj) throws Exception {
+    public T transferUpdate(D obj) throws InvalidDtoException {
         LOGGER.info("transfer update generic");
         return dtoToEntity(obj);
     }
 
 
     @Override
-    public void checkIfDuplicate(Object dto) throws Exception {
-        LOGGER.info("checking insert data: " + dto);
+    public void checkIfDuplicate(D obj) throws InvalidDtoException {
+        System.out.println("ddfefrfr");
+        LOGGER.info("checking insert data: " + obj);
     }
 
     @Override
-    public void checkDataUpdate(Object dto) throws InvalidDtoException {
+    public void checkDataUpdate(D dto) throws InvalidDtoException {
         LOGGER.info("checking update data");
     }
 
 
     @Override
-    public D getById(int id) throws Exception {
+    public D getById(int id) throws InvalidDtoException {
         if (getDao().getById(id) == null) {
             exception = "no record found by id: " + id;
             return null;
@@ -98,7 +119,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     @Override
-    public D getByName(String name) throws Exception {
+    public D getByName(String name) throws InvalidDtoException {
         if (getDao().getByName(name) == null) {
             exception = "no record found by name: " + name;
             return null;
@@ -127,7 +148,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     @Override
-    public boolean delete(Object entity) throws Exception {
+    public boolean delete(Object entity) throws InvalidDtoException {
         LOGGER.info("trying to delete " + entity.toString());
         T obj = dtoToEntity((D) entity);
         return getDao().delete(entity);
@@ -135,22 +156,22 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     }
 
     @Override
-    public boolean deleteById(int entityId) throws Exception {
+    public boolean deleteById(int entityId) throws InvalidDtoException {
         T entity = (T) getDao().getById(entityId);
-        if (entity == null) throw new Exception("id is invalid: " + entityId);
+        if (entity == null) throw new InvalidDtoException("id is invalid: " + entityId);
         LOGGER.info("deleting by uid manager");
 
         return getDao().deleteById(entityId);
     }
 
-    public List<D> searchByCriteria(List<SearchDTO> dtoList) throws Exception {
+    public List<D> searchByCriteria(List<SearchDTO> dtoList) throws InvalidDtoException {
         List<Search> search = convertDtoIntoSearch(dtoList);
         return convertList(getDao().getByCriteria(search));
     }
 
-    private List<Search> convertDtoIntoSearch(List<SearchDTO> dtoList) throws Exception {
+    private List<Search> convertDtoIntoSearch(List<SearchDTO> dtoList) throws InvalidDtoException {
         Map<String, SearchType> authorizedList = getDao().getSearchField();
-        if (authorizedList == null) throw new Exception("no criteria available");
+        if (authorizedList == null) throw new InvalidDtoException("no criteria available");
         List<Search> searchList = new ArrayList<>();
         for (SearchDTO dto : dtoList) {
             boolean found = false;
@@ -171,12 +192,12 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
                     found = true;
                 }
             }
-            if (!found) throw new Exception(field + " is an invalid search criteria");
+            if (!found) throw new InvalidDtoException(field + " is an invalid search criteria");
             String type = authorizedList.get(field).toString();
             if (!isCompareCriteria(type, dto))
-                throw new Exception(compare + " is invalid or can't be used with " + field);
+                throw new InvalidDtoException(compare + " is invalid or can't be used with " + field);
             if (type.equals("INTEGER")) {
-                if (!IsValidNumber(value)) throw new Exception(value + " is not a valid number");
+                if (!IsValidNumber(value)) throw new InvalidDtoException(value + " is not a valid number");
             }
             if (type.equals("DATE")) checkDateValue(value);
             if (type.equals("STRING")) value = checkAndAdaptValue(compare, value);
@@ -188,15 +209,15 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         return searchList;
     }
 
-    private String checkAndAdaptValue(String compare, String value) throws Exception {
-        if (value == null || value.isEmpty()) throw new Exception("value cannot be null");
+    private String checkAndAdaptValue(String compare, String value) throws InvalidDtoException {
+        if (value == null || value.isEmpty()) throw new InvalidDtoException("value cannot be null");
         String[] containsValues = {"CONTAINS", "DOESNOTCONTAIN"};
         if (Arrays.asList(containsValues).contains(compare)) value = "%" + value + "%";
         return value;
 
     }
 
-    private String replaceCompareValueWithSqlCompare(String type, String compare) throws Exception {
+    private String replaceCompareValueWithSqlCompare(String type, String compare) throws InvalidDtoException {
         LOGGER.info("compare: " + compare);
         for (SearchType searchType : SearchType.values()) {
             if (searchType.name().equals(type)) {
@@ -207,7 +228,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
                 }
             }
         }
-        throw new Exception("something went wrong with replacing the compare");
+        throw new InvalidDtoException("something went wrong with replacing the compare");
     }
 
     boolean isCompareCriteria(String type, SearchDTO dto) {

@@ -5,6 +5,7 @@ import com.autodoc.model.models.person.Person;
 import com.autodoc.model.models.pieces.Piece;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -24,6 +25,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Generated
 public class Provider extends Person {
 
     public static Map<String, SearchType> getSearchField() {

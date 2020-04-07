@@ -13,16 +13,22 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Transactional
 @Component
 @Builder
+@SuppressWarnings("unchecked")
 public class TaskManagerImpl extends AbstractGenericManager implements TaskManager {
     private static final Logger LOGGER = Logger.getLogger(TaskManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private TaskDao dao;
+
+    public Class getEntityClass() {
+        return Task.class;
+    }
+
+    public Class getDtoClass() {
+        return TaskDTO.class;
+    }
 
     @Override
     public IGenericDao getDao() {
@@ -32,74 +38,30 @@ public class TaskManagerImpl extends AbstractGenericManager implements TaskManag
     }
 
 
-    @Override
-    public TaskDTO entityToDto(Object entity) {
-        Task task = (Task) entity;
-        TaskDTO dto = new TaskDTO();
-        LOGGER.info("converted into dto: " + dto);
-        LOGGER.info("entity to transfer: " + task);
-        dto.setId(task.getId());
-        dto.setName(task.getName());
-        dto.setDescription(task.getDescription());
-        dto.setEstimatedTime(task.getEstimatedTime());
-        List<Integer> pieceIds = new ArrayList<>();
-        LOGGER.info("converting pieces");
-        LOGGER.info("converted into dto: " + dto);
-        return dto;
-    }
-
-    @Override
-    public Task dtoToEntity(Object entity) throws InvalidDtoException {
-        LOGGER.info("trying to convert into entity");
-        TaskDTO dto = (TaskDTO) entity;
-        Task task = Task.builder().build();
-        return task;
-    }
-
-    @Override
-    public boolean deleteById(int id) throws Exception {
-        LOGGER.info("trying to delete by id");
-        Task task = (Task) dao.getById(id);
-        if (task == null) throw new Exception("id is invalid: " + id);
-        return dao.deleteById(id);
-    }
-
-
-    public Task transferInsert(Object obj) throws InvalidDtoException {
-        LOGGER.info("trying to convert into entity");
+    public Task transferInsert(Object obj) {
         TaskDTO dto = (TaskDTO) obj;
-        String name = dto.getName();
-        double estimatedTime = dto.getEstimatedTime();
-        Task task = (Task) dao.getByName(name);
-        if (task != null) throw new InvalidDtoException("there is already a task with that name");
-        task = Task.builder().build();
-        if (estimatedTime == 0) throw new InvalidDtoException("there should be an estimated time");
-        task.setName(dto.getName().toUpperCase());
-        task.setDescription(dto.getDescription());
-        task.setEstimatedTime(dto.getEstimatedTime());
+        Task task = (Task) dtoToEntity(dto);
+        checkIfDuplicate(dto);
+        if (task.getEstimatedTime() == 0) throw new InvalidDtoException("there should be " +
+                "an estimated time");
         LOGGER.info("task so far: " + task);
         return task;
     }
 
-
-    public Task transferUpdate(Object obj) throws InvalidDtoException {
+    public void checkIfDuplicate(Object obj) {
         TaskDTO dto = (TaskDTO) obj;
-        LOGGER.info("trying to convert into entity: " + dto);
-        String name = dto.getName();
-        double estimatedTime = dto.getEstimatedTime();
-        String description = dto.getDescription();
+        if (dao.getByName(dto.getName()) != null)
+            throw new InvalidDtoException("there is already a task with that name");
+    }
 
+
+    public Task transferUpdate(Object obj) {
+        TaskDTO dto = (TaskDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("no id provided");
-        Task task = (Task) dao.getById(id);
-        if (task == null) throw new InvalidDtoException("invalid id " + id);
-        LOGGER.info("task to update: " + task);
-        if (name != null) task.setName(name.toUpperCase());
-        if (estimatedTime != 0) task.setEstimatedTime(estimatedTime);
-        if (description != null) task.setDescription(description);
-        LOGGER.info("here: " + task);
+        if (dao.getById(id) == null) throw new InvalidDtoException("invalid id " + id);
 
-        return task;
+        return (Task) dtoToEntity(dto);
     }
 
 

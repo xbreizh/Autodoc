@@ -15,6 +15,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class PieceType {
 
 

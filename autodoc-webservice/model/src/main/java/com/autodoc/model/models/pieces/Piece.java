@@ -18,6 +18,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Piece {
 
     protected static final Map<String, SearchType> SEARCH_FIELD = createMap();

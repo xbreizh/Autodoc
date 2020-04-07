@@ -1,11 +1,11 @@
-/*
 package com.autodoc.business.impl.tasks;
 
 import com.autodoc.business.contract.tasks.TaskManager;
-import com.autodoc.dao.contract.pieces.PieceDao;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.models.tasks.Task;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,11 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
@@ -27,80 +26,124 @@ class TaskManagerImplTest {
 
     private TaskManager manager;
     private TaskDao dao;
-    private Task task;
-    private PieceDao pieceDao;
+    private static final String NAME = "taskName";
+    private static final String DTO_NAME = "taskDTo";
+    private static final String DESCRIPTION = "descriere";
+    private static final double ESTIMATED_TIME = 1.5;
+    private Task obj;
+    private TaskDTO dto;
+    private int id = 32;
 
-
-  */
-/*  @BeforeEach
+    @BeforeEach
     void setUp() {
         dao = mock(TaskDao.class);
-        pieceDao = mock(PieceDao.class);
-        manager = new TaskManagerImpl(dao, pieceDao);
-        task = new Task();
-    }*//*
+        manager = TaskManagerImpl.builder().dao(dao).build();
+        obj = Task.builder().id(id).name(NAME).description(DESCRIPTION).estimatedTime(ESTIMATED_TIME).build();
+        dto = TaskDTO.builder().id(24).name(DTO_NAME).description("descrierr").estimatedTime(ESTIMATED_TIME).build();
+    }
 
 
     @Test
-    void resetException() {
+    @DisplayName("should return obj if existing")
+    void getDao() {
+        assertEquals(dao, manager.getDao());
+
     }
 
     @Test
-    void save() throws Exception {
-        TaskDTO dto = new TaskDTO();
-        String name = "tache";
-        int id = 34;
-        dto.setName(name);
-        double price = 12345678910L;
-        //    dto.setPrice(price);
-        List<Integer> subTaskList = new ArrayList<>();
-        subTaskList.add(id);
-        when(dao.create(any(Task.class))).thenReturn(id);
-        manager.save(dto);
-        assertEquals(Integer.toString(id), manager.save(dto));
+    @DisplayName("returns entity class")
+    void getEntityClass() {
+        assertEquals(Task.class, manager.getEntityClass());
     }
-
-    @Test
-    void transferInsert() {
-    }
-
-    @Test
-    void update() throws Exception {
-        TaskDTO dto = new TaskDTO();
-        String name = "tache";
-        int id = 34;
-        dto.setName(name);
-        double price = 12345678910L;
-        //    dto.setPrice(price);
-        List<Integer> subTaskList = new ArrayList<>();
-        subTaskList.add(id);
-        when(dao.update(any(Task.class))).thenReturn(true);
-        manager.update(dto);
-        assertEquals(true, manager.update(dto));
-    }
-
-  */
-/*  @Test
-    void updateTemplate() throws Exception {
-        TaskDTO dto = new TaskDTO();
-        String name = "tache";
-        int id = 34;
-        dto.setName(name);
-        dto.setId(id);
-        double price = 12345678910L;
-//        dto.setPrice(price);
-        List<Integer> subTaskList = new ArrayList<>();
-        subTaskList.add(id);
-        when(dao.getById(anyInt())).thenReturn(task);
-        when(pieceDao.getById(anyInt())).thenReturn(null);
-        assertEquals(true, manager.updateTemplate(dto));
-    }*//*
-
 
 
     @Test
+    @DisplayName("returns dto class")
+    void getDtoClass() {
+        assertEquals(TaskDTO.class, manager.getDtoClass());
+    }
+
+
+    @Test
+    @DisplayName("should convert dto into entity")
+    void dtoToEntity() throws Exception {
+        obj = (Task) manager.dtoToEntity(dto);
+        assertAll(
+                () -> assertEquals(obj.getName(), dto.getName().toUpperCase()),
+                () -> assertEquals(obj.getDescription(), dto.getDescription().toUpperCase()),
+                () -> assertEquals(obj.getEstimatedTime(), dto.getEstimatedTime()),
+                () -> assertEquals(obj.getId(), dto.getId())
+        );
+
+    }
+
+    @Test
+    @DisplayName("should convert entity to dto")
+    void entityToDto() {
+        dto = (TaskDTO) manager.entityToDto(obj);
+        assertAll(
+                () -> assertEquals(obj.getName(), dto.getName()),
+                () -> assertEquals(obj.getDescription(), dto.getDescription()),
+                () -> assertEquals(obj.getEstimatedTime(), dto.getEstimatedTime()),
+                () -> assertEquals(obj.getId(), dto.getId())
+        );
+
+    }
+
+    @Test
+    @DisplayName("should not throw error")
+    void transferInsert() throws Exception {
+        obj = (Task) manager.transferInsert(dto);
+        assertAll(
+                () -> assertEquals(obj.getName(), dto.getName().toUpperCase()),
+                () -> assertEquals(obj.getDescription(), dto.getDescription().toUpperCase()),
+                () -> assertEquals(obj.getEstimatedTime(), dto.getEstimatedTime()),
+                () -> assertEquals(obj.getId(), dto.getId())
+        );
+    }
+
+    @Test
+    @DisplayName("should throw an error if estimated time is < 0")
+    void transferInsert1() {
+        dto.setEstimatedTime(0);
+        assertThrows(InvalidDtoException.class, () -> manager.transferInsert(dto));
+    }
+
+    @Test
+    @DisplayName("should throw an error if name is a duplicate")
+    void checkIfDuplicate() throws Exception {
+        when(dao.getByName(anyString())).thenReturn(obj);
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
+    }
+
+    @Test
+    @DisplayName("should not throw error")
     void transferUpdate() {
+        dto.setId(id);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        obj = (Task) manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(obj.getName(), dto.getName().toUpperCase()),
+                () -> assertEquals(obj.getDescription(), dto.getDescription().toUpperCase()),
+                () -> assertEquals(obj.getEstimatedTime(), dto.getEstimatedTime()),
+                () -> assertEquals(obj.getId(), dto.getId())
+        );
     }
+
+    @Test
+    @DisplayName("should throw an error if no id passed")
+    void transferUpdate1() {
+        dto.setId(0);
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
+    }
+
+    @Test
+    @DisplayName("should throw an error if id invalid")
+    void transferUpdate2() {
+        when(dao.getById(anyInt())).thenReturn(null);
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
+    }
+
 
     @Test
     void checkDataInsert() {
@@ -133,63 +176,5 @@ class TaskManagerImplTest {
         assertNull(manager.getByName("name"));
     }
 
-    @Test
-    void getAll() {
-        List<Task> taskList = new ArrayList<>();
-        taskList.add(new Task());
-        taskList.add(new Task());
-        when(dao.getAll()).thenReturn(taskList);
-        assertAll(
-                () -> assertNotNull(manager.getAll()),
-                () -> assertEquals(2, manager.getAll().size())
-        );
-    }
 
-    @Test
-    void convertList() {
-    }
-
-    @Test
-    void delete() {
-    }
-
- */
-/*   @Test
-    void deleteById() throws Exception {
-        List<Piece> pieceList = new ArrayList<>();
-        pieceList.add(new Piece());
-        //  task.setPieces(pieceList);
-        task.setTemplate(false);
-        when(dao.deleteById(anyInt())).thenReturn(true);
-        when(dao.getById(anyInt())).thenReturn(task);
-        assertTrue(manager.deleteById(2));
-    }
-
-    @Test
-    void deleteTemplateById() throws Exception {
-        List<Piece> pieceList = new ArrayList<>();
-        pieceList.add(new Piece());
-        //  task.setPieces(pieceList);
-        task.setTemplate(true);
-        when(dao.deleteById(anyInt())).thenReturn(true);
-        when(dao.getById(anyInt())).thenReturn(task);
-        assertTrue(manager.deleteTemplateById(2));
-    }*//*
-
-
-    @Test
-    void searchByCriteria() {
-    }
-
-    @Test
-    void isCompareCriteria() {
-    }
-
-    @Test
-    void entityToDto() {
-    }
-
-    @Test
-    void dtoToEntity() {
-    }
-}*/
+}

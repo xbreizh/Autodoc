@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Address {
 
 

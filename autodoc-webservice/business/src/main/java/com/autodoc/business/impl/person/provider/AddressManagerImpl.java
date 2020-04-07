@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.AddressManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.provider.AddressDao;
@@ -41,42 +42,42 @@ public class AddressManagerImpl extends AbstractGenericManager implements Addres
     }
 
     @Override
-    public Address dtoToEntity(Object entity) throws Exception {
+    public Address dtoToEntity(Object entity) throws InvalidDtoException {
         AddressDTO dto = (AddressDTO) entity;
         Address address = new Address();
         //checkDataInsert(dto);
         return address;
     }
 
-    public Address transferInsert(Object obj) throws Exception {
+    public Address transferInsert(Object obj) throws InvalidDtoException {
         LOGGER.info("transferring data for insertion");
         AddressDTO dto = (AddressDTO) obj;
         LOGGER.info("dto received: " + dto);
         Address address = new Address();
         String countryName = dto.getCountryName();
-        if (countryName == null) throw new Exception("country name shouldn t be empty");
+        if (countryName == null) throw new InvalidDtoException("country name shouldn t be empty");
         Country country = (Country) countryDao.getByName(countryName.toUpperCase());
-        if (country == null) throw new Exception("country is invalid");
+        if (country == null) throw new InvalidDtoException("country is invalid");
         address.setCountry(country);
-        if (dto.getCity().isEmpty()) throw new Exception("city shouldn t be empty");
+        if (dto.getCity().isEmpty()) throw new InvalidDtoException("city shouldn t be empty");
         address.setCity(dto.getCity().toUpperCase());
-        if (dto.getStreetName().isEmpty()) throw new Exception("streetName shouldn t be empty");
+        if (dto.getStreetName().isEmpty()) throw new InvalidDtoException("streetName shouldn t be empty");
         address.setStreetName(dto.getStreetName().toUpperCase());
         if (dto.getPostcode() != null) address.setPostcode(dto.getPostcode().toUpperCase());
         return address;
     }
 
-    public Address transferUpdate(Object obj) throws Exception {
+    public Address transferUpdate(Object obj) throws InvalidDtoException {
         LOGGER.info("transferring data for update");
         AddressDTO dto = (AddressDTO) obj;
         LOGGER.info("dto received: " + dto);
         String countryName = dto.getCountryName();
         int id = dto.getId();
         Address address = (Address) dao.getById(id);
-        if (address == null) throw new Exception("invalid address id: " + id);
+        if (address == null) throw new InvalidDtoException("invalid address id: " + id);
         if (countryName != null) {
             Country country = (Country) countryDao.getByName(dto.getCountryName().toUpperCase());
-            if (country == null) throw new Exception("country is invalid");
+            if (country == null) throw new InvalidDtoException("country is invalid");
             address.setCountry(country);
         }
         if (dto.getCity() != null) address.setCity(dto.getCity().toUpperCase());

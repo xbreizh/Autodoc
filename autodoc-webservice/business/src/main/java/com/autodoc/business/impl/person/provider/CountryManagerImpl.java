@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.CountryManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
@@ -36,7 +37,7 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
     }
 
     @Override
-    public Country dtoToEntity(Object entity) throws Exception {
+    public Country dtoToEntity(Object entity) throws InvalidDtoException {
         if (entity == null) return null;
         CountryDTO dto = (CountryDTO) entity;
         Country country = mapper.map(entity, Country.class);
