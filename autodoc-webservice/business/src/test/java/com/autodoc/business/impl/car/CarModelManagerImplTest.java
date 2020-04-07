@@ -1,6 +1,26 @@
 package com.autodoc.business.impl.car;
 
-/*
+
+import com.autodoc.business.contract.car.CarModelManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
+import com.autodoc.dao.contract.car.CarModelDao;
+import com.autodoc.dao.impl.car.CarModelDaoImpl;
+import com.autodoc.model.dtos.car.CarModelDTO;
+import com.autodoc.model.enums.FuelType;
+import com.autodoc.model.models.car.CarModel;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
@@ -8,68 +28,108 @@ package com.autodoc.business.impl.car;
 @Transactional
 class CarModelManagerImplTest {
 
-    // @Inject
-    private CarModelManager carModelManager;
-    private CarManager carManager;
-    //@Inject
-    private CarModelDao carModelDao;
-    private CarDao carDao1;
-    private ClientDao clientDao;
-    //@Inject
-    private ClientManager clientManager;
-    // @Inject
-    // private CarModelManager carModelManager;
-    private Car car;
+    private CarModelManager manager;
+    private CarModelDao dao;
+    private String name = "Bob";
+    private CarModel obj;
+    private CarModelDTO dto;
+    private int id = 22;
+    private String nameDto = "niamo";
+    private String description = "descriere";
+    private String engine = "12324AS";
 
 
     @BeforeEach
     void init() {
-        carModelDao = mock(CarModelDaoImpl.class);
-        carModelManager = new CarModelManagerImpl(carModelDao);
+        dao = mock(CarModelDaoImpl.class);
+        manager = CarModelManagerImpl.builder().dao(dao).build();
+        obj = CarModel.builder().id(id).name(name).build();
+        dto = CarModelDTO.builder().name(nameDto).description(description).fuelType(FuelType.PETROL).engine(engine).build();
     }
 
 
     @Test
+    @DisplayName("should return obj if existing")
+    void getDao() {
+        assertEquals(dao, manager.getDao());
+
+    }
+
+    @Test
+    @DisplayName("should convert dto into entity")
+    void dtoToEntity() throws Exception {
+        obj = (CarModel) manager.dtoToEntity(dto);
+        assertAll(
+                () -> assertEquals(dto.getName().toUpperCase(), obj.getName()),
+                () -> assertEquals(dto.getDescription().toUpperCase(), obj.getDescription()),
+                () -> assertEquals(dto.getFuelType(), obj.getFuelType()),
+                () -> assertEquals(dto.getEngine().toUpperCase(), obj.getEngine()),
+                () -> assertEquals(dto.getId(), obj.getId())
+        );
+
+    }
+
+
+    @Test
+    @DisplayName("should return null if entity is null")
+    void dtoToEntity1() throws Exception {
+        assertNull(manager.dtoToEntity(null));
+
+    }
+
+    @Test
+    @DisplayName("should return obj if existing")
     void getByName() {
-        String name = "bob";
-        CarModel carModel = new CarModel();
-        carModel.setManufacturer(new Manufacturer());
-        carModel.setEngine("diesel");
-        carModel.setName(name);
+        when(dao.getByName(anyString())).thenReturn(obj);
+        assertAll(
+                () -> assertEquals(name.toUpperCase(), manager.getByName(name).getName()),
+                () -> assertEquals(id, manager.getByName(name).getId())
+        );
 
-        when(carModelDao.getByName(anyString())).thenReturn(carModel);
-        // CarModelDTO carModelDTO = (CarModelDTO) carModelManager.entityToDto(carModel);
-        assertEquals(name, carModelManager.getByName(name).getName());
     }
 
     @Test
-    void getById() throws Exception {
-        int id = 2;
-        String name = "bob";
-        CarModel carModel = new CarModel();
-        carModel.setManufacturer(new Manufacturer());
-        carModel.setEngine("diesel");
-        carModel.setId(2);
-        carModel.setName(name);
+    @DisplayName("should return null if name is null")
+    void getByName1() {
+        assertNull(manager.getByName(null));
 
-        when(carModelDao.getById(anyInt())).thenReturn(carModel);
-        // CarModelDTO carModelDTO = (CarModelDTO) carModelManager.entityToDto(carModel);
-        CarModelDTO dto = (CarModelDTO) carModelManager.getById(id);
-        assertEquals(name, dto.getName());
     }
 
     @Test
-    void getAll() throws Exception {
-        List<CarModel> list = new ArrayList<>();
-        list.add(new CarModel());
-        list.add(new CarModel());
-        list.add(new CarModel());
+    @DisplayName("should return null if name is empty")
+    void getByName2() {
+        assertNull(manager.getByName(""));
 
-        when(carModelDao.getAll()).thenReturn(list);
+    }
 
-        assertEquals(list, carModelDao.getAll());
+
+    @Test
+    @DisplayName("should throw an exception if name null")
+    void checkIfDuplicate1() {
+        dto.setName(null);
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
+    }
+
+    @Test
+    @DisplayName("should throw an exception if name empty")
+    void checkIfDuplicate4() {
+        dto.setName("");
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
+    }
+
+    @Test
+    @DisplayName("should throw an exception if existing name")
+    void checkIfDuplicate2() {
+        when(dao.getByName(anyString())).thenReturn(obj);
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
+    }
+
+    @Test
+    @DisplayName("should not throw an exception if name ok")
+    void checkIfDuplicate3() {
+        dto.setName("djabukie");
+        assertDoesNotThrow(() -> manager.checkIfDuplicate(dto));
     }
 
 
 }
-*/

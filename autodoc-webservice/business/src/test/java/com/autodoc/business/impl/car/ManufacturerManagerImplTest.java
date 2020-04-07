@@ -1,100 +1,106 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.ManufacturerManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
+import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.models.car.Manufacturer;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class ManufacturerManagerImplTest {
 
-    private ManufacturerManager manufacturerManager;
-    private ManufacturerDaoImpl manufacturerDao;
-
+    private ManufacturerManager manager;
+    private ManufacturerDaoImpl dao;
+    private String name = "Bob";
+    private Manufacturer obj;
+    private ManufacturerDTO dto;
+    private int id = 22;
 
     @BeforeEach
     void init() {
-        manufacturerDao = mock(ManufacturerDaoImpl.class);
-        manufacturerManager = new ManufacturerManagerImpl(manufacturerDao);
+        dao = mock(ManufacturerDaoImpl.class);
+        manager = ManufacturerManagerImpl.builder().dao(dao).build();
+        obj = Manufacturer.builder().id(id).name(name).build();
+        dto = ManufacturerDTO.builder().name("niamo").build();
     }
 
     @Test
-    void getAll() {
-        List<Manufacturer> list = new ArrayList<>();
-        when(manufacturerDao.getAll()).thenReturn(list);
-        assertNotNull(manufacturerManager.getAll());
+    @DisplayName("should return obj if existing")
+    void getDao() {
+        assertEquals(dao, manager.getDao());
+
     }
 
-  /*  @Test
+
+    @Test
+    @DisplayName("should convert dto into entity")
+    void dtoToEntity() throws Exception {
+        obj = (Manufacturer) manager.dtoToEntity(dto);
+        assertAll(
+                () -> assertEquals(dto.getName().toUpperCase(), obj.getName()),
+                () -> assertEquals(dto.getId(), obj.getId())
+        );
+
+    }
+
+    @Test
+    @DisplayName("should return null if entity is null")
+    void dtoToEntity1() throws Exception {
+        assertNull(manager.dtoToEntity(null));
+
+    }
+
+    @Test
+    @DisplayName("should return obj if existing")
     void getByName() {
-        String name = "bob";
-        Manufacturer manufacturer1 = new Manufacturer(name);
-        when(manufacturerDao.getByName(anyString())).thenReturn(manufacturer1);
-        ManufacturerDTO manufacturer = (ManufacturerDTO) manufacturerManager.entityToDto(manufacturer1);
+        when(dao.getByName(anyString())).thenReturn(obj);
         assertAll(
-                () -> assertEquals(name, manufacturerManager.getByName(name).getName()),
-                () -> assertEquals(name, manufacturerManager.getByName(name).getName())
-        );
-    }*/
-
-
-    @Test
-    @Disabled
-    void resetException() {
-        fail();
-    }
-
-
-  /*  @Test
-    void getById() throws Exception {
-        String name = "Paul";
-        Manufacturer manufacturer = new Manufacturer(name);
-        when(manufacturerDao.getById(anyInt())).thenReturn(manufacturer);
-        ManufacturerDTO dto = (ManufacturerDTO) manufacturerManager.getById(3);
-        assertAll(
-                () -> assertEquals(ManufacturerDTO.class.getSimpleName(), manufacturerManager.getById(3).getClass().getSimpleName()),
-                () -> assertEquals(name, dto.getName())
+                () -> assertEquals(name.toUpperCase(), manager.getByName(name).getName()),
+                () -> assertEquals(id, manager.getByName(name).getId())
         );
 
     }
 
     @Test
-    void testGetAll() {
-        List<Manufacturer> list = new ArrayList<>();
-        Manufacturer manufacturer = new Manufacturer("One");
-        Manufacturer manufacturer1 = new Manufacturer("Two");
-        list.add(manufacturer);
-        list.add(manufacturer1);
-        when(manufacturerDao.getAll()).thenReturn(list);
-        assertEquals(2, manufacturerManager.getAll().size());
-    }
-*/
+    @DisplayName("should return null if not existing")
+    void getByName1() {
+        assertNull(manager.getByName(""));
 
-    @Test
-    @DisplayName("return false when dao returns false")
-    void deleteById() throws Exception {
-        int id = 3;
-        when(manufacturerDao.getById(id)).thenReturn(false);
-        assertFalse(manufacturerManager.deleteById(id));
     }
 
     @Test
-    @DisplayName("return true when dao returns true")
-    void deleteById1() throws Exception {
-        int id = 3;
-        when(manufacturerDao.deleteById(anyInt())).thenReturn(true);
-        when(manufacturerDao.getById(id)).thenReturn(new Manufacturer());
-        assertTrue(manufacturerManager.deleteById(id));
+    @DisplayName("should throw an exception if name empty")
+    void checkIfDuplicate() {
+        dto.setName("");
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
+    }
+
+    @Test
+    @DisplayName("should throw an exception if name null")
+    void checkIfDuplicate1() {
+        dto.setName(null);
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
+    }
+
+    @Test
+    @DisplayName("should throw an exception if existing name")
+    void checkIfDuplicate2() {
+        when(dao.getByName(anyString())).thenReturn(obj);
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
+    }
+
+    @Test
+    @DisplayName("should not throw an exception if name ok")
+    void checkIfDuplicate3() {
+        dto.setName("djabukie");
+        assertDoesNotThrow(() -> manager.checkIfDuplicate(dto));
     }
 
 

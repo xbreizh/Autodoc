@@ -65,9 +65,6 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) throws Exception {
         LOGGER.debug("car id: " + carId + " / client id: " + clientId);
         CarDTO response = carManager.updateClient(carId, clientId);
-       /* if (response.equals("car updated")) {
-            return ResponseEntity.ok(response);
-        }*/
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);

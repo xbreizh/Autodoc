@@ -1,6 +1,7 @@
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarModelManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.global.IGenericDao;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Builder
 public class CarModelManagerImpl extends AbstractGenericManager implements CarModelManager {
-    private final static Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private CarModelDao dao;
 
@@ -30,24 +31,33 @@ public class CarModelManagerImpl extends AbstractGenericManager implements CarMo
 
     @Override
     public CarModelDTO entityToDto(Object entity) {
-        CarModelDTO dto = mapper.map(entity, CarModelDTO.class);
-        return dto;
+        return mapper.map(entity, CarModelDTO.class);
     }
 
     @Override
-    public CarModel dtoToEntity(Object entity) throws Exception {
-        CarModelDTO dto = (CarModelDTO) entity;
-        CarModel carModel = mapper.map(entity, CarModel.class);
-        checkIfDuplicate(dto);
-        return carModel;
+    public CarModel dtoToEntity(Object entity) {
+        if (entity == null) return null;
+        checkIfDuplicate(entity);
+        return mapper.map(entity, CarModel.class);
     }
 
     @Override
     public CarModelDTO getByName(String name) {
         LOGGER.info("trying to get by name: " + name);
-        CarModel carModel = (CarModel) dao.getByName(name);
-        if (carModel == null) return null;
-        return entityToDto(carModel);
+        if (name == null || name.isEmpty()) return null;
+        return entityToDto(dao.getByName(name));
+    }
+
+    @Override
+    public void checkIfDuplicate(Object dtoToCheck) {
+        CarModelDTO dto = (CarModelDTO) dtoToCheck;
+        if (dto.getName() == null || dto.getName().isEmpty()) {
+            throw new InvalidDtoException("there should be a name");
+        }
+        if (dao.getByName(dto.getName()) != null) {
+            throw new InvalidDtoException("CarModel already exist with that name");
+        }
+        LOGGER.info("all good");
     }
 
 

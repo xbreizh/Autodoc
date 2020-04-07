@@ -1,12 +1,14 @@
 package com.autodoc.business.contract;
 
 import com.autodoc.business.exceptions.InvalidDtoException;
+import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.models.search.SearchDTO;
 
 import java.util.List;
 
 public interface IGenericManager<T, D> {
 
+    IGenericDao getDao();
 
     D getById(final int id) throws Exception;
 

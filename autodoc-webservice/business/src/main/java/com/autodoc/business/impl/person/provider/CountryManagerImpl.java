@@ -29,6 +29,7 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
 
     @Override
     public CountryDTO entityToDto(Object entity) {
+        if (entity == null) return null;
         CountryDTO dto = mapper.map(entity, CountryDTO.class);
         LOGGER.info("converted into dto");
         return dto;
@@ -36,6 +37,7 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
 
     @Override
     public Country dtoToEntity(Object entity) throws Exception {
+        if (entity == null) return null;
         CountryDTO dto = (CountryDTO) entity;
         Country country = mapper.map(entity, Country.class);
         checkIfDuplicate(dto);

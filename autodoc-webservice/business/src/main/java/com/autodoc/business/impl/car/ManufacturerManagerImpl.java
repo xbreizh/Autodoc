@@ -39,7 +39,8 @@ public class ManufacturerManagerImpl extends AbstractGenericManager implements M
     }
 
     @Override
-    public Manufacturer dtoToEntity(Object entity) throws InvalidDtoException {
+    public Manufacturer dtoToEntity(Object entity) {
+        if (entity == null) return null;
         LOGGER.info("converted into ");
         ManufacturerDTO dto = (ManufacturerDTO) entity;
         Manufacturer manufacturer = mapper.map(entity, Manufacturer.class);
@@ -50,17 +51,14 @@ public class ManufacturerManagerImpl extends AbstractGenericManager implements M
 
     @Override
     public ManufacturerDTO getByName(String name) {
-        LOGGER.debug("trying to get: " + name);
-        LOGGER.info("trying to get " + name);
-        name = name.toUpperCase();
-        LOGGER.info("name now: " + name);
+        LOGGER.info("trying to get: " + name);
         if (name.isEmpty()) return null;
         return entityToDto(dao.getByName(name));
     }
 
 
     @Override
-    public void checkIfDuplicate(Object dtoToCheck) throws InvalidDtoException {
+    public void checkIfDuplicate(Object dtoToCheck) {
         ManufacturerDTO dto = (ManufacturerDTO) dtoToCheck;
         if (dto.getName() == null || dto.getName().isEmpty()) {
             throw new InvalidDtoException("there should be a name");

@@ -1,16 +1,19 @@
-/*
 package com.autodoc.business.impl.car;
 
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.dao.contract.car.CarDao;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
+import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.dtos.car.CarDTO;
+import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
+import javassist.NotFoundException;
 import org.apache.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +21,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
@@ -32,99 +36,67 @@ class CarManagerImplTest {
 
     private static final Logger LOGGER = Logger.getLogger(CarManagerImplTest.class);
 
-    private CarManager carManager;
+    private CarManager manager;
     private CarDao dao;
     private ClientDao clientDao;
     private CarModelDao carModelDao;
     private Car car;
+    private int id = 323;
+    private String registration = "abc23";
+    private Client client;
+    private CarModel carModel;
+    private List<Bill> bills;
 
 
-   */
-/* @BeforeEach
+    @BeforeEach
     void init() {
         dao = mock(CarDaoImpl.class);
         carModelDao = mock(CarModelDao.class);
         clientDao = mock(ClientDao.class);
-        carManager = new CarManagerImpl(clientDao, dao, carModelDao);
-        car = new Car();
-    }*//*
+        manager = CarManagerImpl.builder().carModelDao(carModelDao).clientDao(clientDao).dao(dao).build();
+        client = Client.builder().firstName("jean").lastName("rocamor").phoneNumber("abc1233").build();
+        carModel = CarModel.builder().id(id).name("niamo").build();
+        car = Car.builder().id(id).registration(registration).client(client).carModel(carModel).bills(bills).build();
+    }
+
+
+    @Test
+    @DisplayName("should return obj if existing")
+    void getDao() {
+        assertEquals(dao, manager.getDao());
+
+    }
 
 
     @Test
     @DisplayName("should return null if registration not found")
     void getByRegistration() {
-        String reg = "dede";
-        when(dao.getCarByRegistration(reg)).thenReturn(null);
-        assertNull(carManager.getByRegistration(reg));
+        when(dao.getCarByRegistration(anyString())).thenReturn(null);
+        assertNull(manager.getByRegistration("blop"));
     }
 
 
     @Test
     @DisplayName("should return car if registration found")
     void getByRegistration1() {
-        LOGGER.info("dao: " + dao);
-        String reg = "DEDE";
-        when(dao.getCarByRegistration(reg)).thenReturn(new Car());
-        assertNotNull(carManager.getByRegistration("dede"));
-    }
-
-
-    @Test
-    void save() throws Exception {
-        String registration = "abc123";
-        int id = 111;
-        CarDTO dto = new CarDTO();
-        dto.setRegistration(registration);
-        dto.setClientId(2);
-        dto.setId(3);
-        dto.setCarModelId(3);
-        when(clientDao.getById(anyInt())).thenReturn(new Client());
-        when(carModelDao.getById(anyInt())).thenReturn(new CarModel());
-        when(dao.create(any(Car.class))).thenReturn(id);
-        assertEquals(Integer.toString(id), carManager.save(dto));
+        when(dao.getCarByRegistration(anyString())).thenReturn(car);
+        assertNotNull(manager.getByRegistration("dede"));
     }
 
     @Test
-    void getAll() {
-        List<Car> carList = new ArrayList<>();
-        carList.add(new Car());
-        carList.add(new Car());
-        when(dao.getAll()).thenReturn(carList);
-        assertAll(
-                () -> assertNotNull(carManager.getAll()),
-                () -> assertEquals(2, carManager.getAll().size())
-        );
-    }
-
-
-    @Test
-    void update() throws Exception {
-        String registration = "abc123";
-        int id = 5;
-        car.setId(id);
-        car.setRegistration(registration);
-        CarDTO dto = new CarDTO();
-        dto.setRegistration(registration);
-        dto.setClientId(2);
-        dto.setId(3);
-        dto.setCarModelId(3);
+    @DisplayName("should update the client")
+    void updateClient() throws Exception {
+        when(clientDao.getById(anyInt())).thenReturn(client);
         when(dao.getById(anyInt())).thenReturn(car);
-        when(dao.update(any(Car.class))).thenReturn(true);
-        when(clientDao.getById(anyInt())).thenReturn(new Client());
-        when(carModelDao.getById(anyInt())).thenReturn(new CarModel());
-        assertTrue(carManager.update(dto));
+        assertEquals(client.getId(), manager.updateClient(2, 4).getClientId());
     }
 
-    @Test
-    void updateClient() {
-    }
 
     @Test
-    void entityToDto() {
-    }
-
-    @Test
-    void dtoToEntity() {
+    @DisplayName("should throw an exception if no client found")
+    void updateClient1() throws Exception {
+        when(clientDao.getById(anyInt())).thenReturn(null);
+        assertThrows(NotFoundException.class, () -> manager.updateClient(2, 3));
     }
 
     @Test
@@ -149,7 +121,7 @@ class CarManagerImplTest {
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(dao.getCarByRegistration(anyString())).thenReturn(car);
-        carManager.transferUpdate(dto);
+        manager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(registration, car.getRegistration()),
                 () -> assertEquals(carModelId, car.getCarModel().getId()),
@@ -180,7 +152,7 @@ class CarManagerImplTest {
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(dao.getCarByRegistration(anyString())).thenReturn(car);
-        carManager.transferUpdate(dto);
+        manager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(registration, car.getRegistration()),
                 () -> assertEquals(carModelId, car.getCarModel().getId()),
@@ -197,37 +169,8 @@ class CarManagerImplTest {
     void deleteById() throws Exception {
         when(dao.getById(anyInt())).thenReturn(new Manufacturer());
         when(dao.deleteById(anyInt())).thenReturn(true);
-        assertTrue(carManager.deleteById(2));
-    }
-*/
-/*
-    @Test
-    @DisplayName("should return no client found")
-    void updateClient() {
-        when(clientManager.getById(anyInt())).thenReturn(null);
-        assertEquals("no client found", carManager.updateClient(2, 3));
-    }*//*
-
-
- */
-/*  @Test
-    @DisplayName("should return no car found")
-    void updateClient1() {
-        Client client = new Client();
-        int clientId = 4;
-        when(clientManager.getById(anyInt())).thenReturn(client);
-        assertEquals("no car found", carManager.updateClient(2, clientId));
+        assertTrue(manager.deleteById(2));
     }
 
-    @Test
-    @DisplayName("should return no car found")
-    void updateClient2() {
-        Client client = new Client();
-        Car car = new Car();
-        when(clientManager.getById(anyInt())).thenReturn(client);
-        when(carDao.getById(anyInt())).thenReturn(car);
-        assertEquals("car updated", carManager.updateClient(2, 3));
-    }*//*
 
 }
-*/

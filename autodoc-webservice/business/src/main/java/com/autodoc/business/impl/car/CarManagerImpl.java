@@ -37,16 +37,11 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
 
-    public boolean deleteById(int entityId) {
-        return dao.deleteById(entityId);
-
-
-    }
 
     @Override
     public CarDTO getByRegistration(String registration) {
         LOGGER.info("reg: " + registration);
-        Car car = (Car) dao.getCarByRegistration(registration.toUpperCase());
+        Car car = dao.getCarByRegistration(registration.toUpperCase());
         LOGGER.info(car);
         if (car == null) {
             LOGGER.info("car is null");
@@ -60,7 +55,10 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     public CarDTO updateClient(int carId, int clientId) throws Exception {
         Client client = (Client) clientDao.getById(clientId);
         if (client == null) throw new NotFoundException("client not found");
-        return null;
+        Car car = (Car) dao.getById(carId);
+        car.setClient(client);
+        dao.update(car);
+        return entityToDto(mapper.map(dao.getById(carId), CarDTO.class));
     }
 
 
@@ -106,7 +104,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             car = (Car) dao.getById(id);
             if (car == null) throw new InvalidDtoException("invalid car id: " + id);
         } else if (!registration.isEmpty()) {
-            car = (Car) dao.getCarByRegistration(registration);
+            car = dao.getCarByRegistration(registration);
             if (car == null) throw new InvalidDtoException("invalid registration: " + registration);
         }
 
@@ -128,7 +126,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         }
 
         if (registration != null && !registration.isEmpty() && id != 0) {
-            Car carCheck = (Car) dao.getCarByRegistration(registration);
+            Car carCheck = dao.getCarByRegistration(registration);
             if (carCheck != null && carCheck.getId() != id)
                 throw new InvalidDtoException("there is another existing car with that registration");
 
@@ -140,7 +138,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
     private boolean checkRegistrationNotInUse(int id, String registration) {
         LOGGER.info("checking that the registration is not used for another car");
-        Car car = (Car) dao.getCarByRegistration(registration);
+        Car car = dao.getCarByRegistration(registration);
         if (car == null) return false;
         return car.getId() == id;
     }
