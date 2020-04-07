@@ -57,7 +57,7 @@ class CarModelManagerImplTest {
 
     @Test
     @DisplayName("should convert dto into entity")
-    void dtoToEntity() throws Exception {
+    void dtoToEntity() {
         obj = (CarModel) manager.dtoToEntity(dto);
         assertAll(
                 () -> assertEquals(dto.getName().toUpperCase(), obj.getName()),
@@ -72,7 +72,7 @@ class CarModelManagerImplTest {
 
     @Test
     @DisplayName("should return null if entity is null")
-    void dtoToEntity1() throws Exception {
+    void dtoToEntity1() {
         assertNull(manager.dtoToEntity(null));
 
     }

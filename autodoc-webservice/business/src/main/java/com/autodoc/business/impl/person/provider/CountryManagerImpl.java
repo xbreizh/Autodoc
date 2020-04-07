@@ -1,7 +1,6 @@
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.CountryManager;
-import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.provider.CountryDao;
@@ -21,6 +20,14 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
     private static final ModelMapper mapper = new ModelMapper();
     private CountryDao dao;
 
+    public Class getEntityClass() {
+        return Country.class;
+    }
+
+    public Class getDtoClass() {
+        return CountryDTO.class;
+    }
+
     @Override
     public IGenericDao getDao() {
         LOGGER.info("getting dao: ");
@@ -28,7 +35,7 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
         return dao;
     }
 
-    @Override
+   /* @Override
     public CountryDTO entityToDto(Object entity) {
         if (entity == null) return null;
         CountryDTO dto = mapper.map(entity, CountryDTO.class);
@@ -43,5 +50,5 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
         Country country = mapper.map(entity, Country.class);
         checkIfDuplicate(dto);
         return country;
-    }
+    }*/
 }

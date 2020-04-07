@@ -72,6 +72,10 @@ public class Manufacturer {
                 '}';
     }
 
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
 
     @JsonIgnore
     public List<CarModel> getCarModels() {

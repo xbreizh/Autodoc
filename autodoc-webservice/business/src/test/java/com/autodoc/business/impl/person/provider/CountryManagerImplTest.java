@@ -41,7 +41,7 @@ class CountryManagerImplTest {
 
     @Test
     @DisplayName("should convert dto into entity")
-    void dtoToEntity() throws Exception {
+    void dtoToEntity() {
         obj = (Country) manager.dtoToEntity(dto);
         assertAll(
                 () -> assertEquals(dto.getName().toUpperCase(), obj.getName()),

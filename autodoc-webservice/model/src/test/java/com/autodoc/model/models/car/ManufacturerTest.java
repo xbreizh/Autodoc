@@ -17,7 +17,7 @@ class ManufacturerTest {
     @Test
     void testToString() {
         manufacturer.setName("John");
-        assertEquals("Manufacturer{id=0, name='John', carModels=0}", manufacturer.toString());
+        assertEquals("Manufacturer{id=0, name='JOHN', carModels=0}", manufacturer.toString());
     }
 
   /*  @Test

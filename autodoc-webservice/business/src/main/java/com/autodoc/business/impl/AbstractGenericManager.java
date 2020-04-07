@@ -66,11 +66,13 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     public T dtoToEntity(D entity) throws InvalidDtoException {
+        if (entity == null) return null;
         return (T) new ModelMapper().map(entity, getEntityClass());
 
     }
 
     public D entityToDto(T entity) {
+        if (entity == null) return null;
         return (D) new ModelMapper().map(entity, getDtoClass());
     }
 

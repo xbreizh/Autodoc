@@ -21,12 +21,20 @@ public class ManufacturerManagerImpl extends AbstractGenericManager implements M
     private static final Logger LOGGER = Logger.getLogger(ManufacturerManagerImpl.class);
     private ManufacturerDao dao;
 
+    public Class getEntityClass() {
+        return Manufacturer.class;
+    }
+
+    public Class getDtoClass() {
+        return ManufacturerDTO.class;
+    }
+
     @Override
     public IGenericDao getDao() {
         LOGGER.info("getting dao: ");
 
         return dao;
-    }
+    }/*
 
     @Override
     public ManufacturerDTO entityToDto(Object entity) {
@@ -47,13 +55,13 @@ public class ManufacturerManagerImpl extends AbstractGenericManager implements M
         manufacturer.setName(((ManufacturerDTO) entity).getName().toUpperCase());
         checkIfDuplicate(dto);
         return manufacturer;
-    }
+    }*/
 
     @Override
     public ManufacturerDTO getByName(String name) {
         LOGGER.info("trying to get: " + name);
         if (name.isEmpty()) return null;
-        return entityToDto(dao.getByName(name));
+        return (ManufacturerDTO) entityToDto(dao.getByName(name));
     }
 
 

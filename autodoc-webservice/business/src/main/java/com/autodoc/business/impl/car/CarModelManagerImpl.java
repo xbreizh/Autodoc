@@ -22,7 +22,7 @@ public class CarModelManagerImpl extends AbstractGenericManager implements CarMo
     private CarModelDao dao;
 
 
-    @Override
+   /* @Override
     public IGenericDao getDao() {
         LOGGER.info("getting dao");
         return dao;
@@ -39,13 +39,27 @@ public class CarModelManagerImpl extends AbstractGenericManager implements CarMo
         if (entity == null) return null;
         checkIfDuplicate(entity);
         return mapper.map(entity, CarModel.class);
+    }*/
+   public Class getEntityClass() {
+       return CarModel.class;
+   }
+
+    public Class getDtoClass() {
+        return CarModelDTO.class;
+    }
+
+    @Override
+    public IGenericDao getDao() {
+        LOGGER.info("getting dao: ");
+
+        return dao;
     }
 
     @Override
     public CarModelDTO getByName(String name) {
         LOGGER.info("trying to get by name: " + name);
         if (name == null || name.isEmpty()) return null;
-        return entityToDto(dao.getByName(name));
+        return (CarModelDTO) entityToDto(dao.getByName(name));
     }
 
     @Override
