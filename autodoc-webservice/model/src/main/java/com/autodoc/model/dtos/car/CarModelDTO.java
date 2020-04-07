@@ -2,10 +2,7 @@ package com.autodoc.model.dtos.car;
 
 import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.enums.GearBox;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class CarModelDTO {
 
 

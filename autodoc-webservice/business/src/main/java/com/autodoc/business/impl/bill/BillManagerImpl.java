@@ -66,7 +66,6 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setRegistration((bill).getCar().getRegistration());
         dto.setClientId((bill).getClient().getId());
         dto.setEmployeeId((bill).getEmployee().getId());
-        dto.setVat((bill).getVat());
         dto.setDiscount((bill).getDiscount());
         dto.setTotal((bill).getTotal());
         dto.setStatus((bill).getStatus().toString());
@@ -112,7 +111,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         }
         LOGGER.info("updating car");
         if (dto.getRegistration() != null && !dto.getRegistration().isEmpty()) {
-            Car car = (Car) carDao.getCarByRegistration(dto.getRegistration());
+            Car car = carDao.getCarByRegistration(dto.getRegistration());
             if (car == null) throw new InvalidDtoException("car cannot be null");
             LOGGER.info("car found: " + car);
             bill.setCar(car);
@@ -156,7 +155,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         LOGGER.info("updating total");
         if (dto.getTotal() != 0) bill.setTotal(dto.getTotal());
         LOGGER.info("updating vat");
-        if (dto.getVat() != 0) bill.setVat(dto.getVat());
+        if (BillDTO.VAT != 0) bill.setVat(BillDTO.VAT);
         LOGGER.info("updating employee");
         if (dto.getEmployeeId() != 0) {
             Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
@@ -190,7 +189,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         LOGGER.info("dto date: " + dto.getDateReparation());
         bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
         LOGGER.info("entity date: " + bill.getDateReparation());
-        Car car = (Car) carDao.getCarByRegistration(dto.getRegistration());
+        Car car = carDao.getCarByRegistration(dto.getRegistration());
         if (car == null) throw new InvalidDtoException("car cannot be null");
         LOGGER.info("car found: " + car);
         bill.setCar(car);
@@ -221,7 +220,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         LOGGER.info("client found: " + client);
         bill.setClient(client);
         bill.setTotal(dto.getTotal());
-        bill.setVat(dto.getVat());
+        bill.setVat(BillDTO.VAT);
         Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
         if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
         bill.setComments(dto.getComments());

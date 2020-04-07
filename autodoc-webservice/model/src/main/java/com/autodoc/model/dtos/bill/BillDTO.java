@@ -14,7 +14,7 @@ import java.util.List;
 @Generated
 public class BillDTO {
 
-    private static final double VAT = 00.195;
+    public static final double VAT = 00.195;
     private int id;
 
     private String dateReparation;
@@ -37,8 +37,6 @@ public class BillDTO {
     @Min(value = 1, message = "employeeId cannot be null")
     private int employeeId;
 
-    @NotNull
-    private double vat;
 
     @Min(value = 1, message = "total cannot be null")
     private double total;

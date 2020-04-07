@@ -4,6 +4,7 @@ import com.autodoc.model.dtos.person.PersonDTO;
 import com.autodoc.model.enums.Rate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Generated
 public class ProviderDTO extends PersonDTO {
 
     private String website;
