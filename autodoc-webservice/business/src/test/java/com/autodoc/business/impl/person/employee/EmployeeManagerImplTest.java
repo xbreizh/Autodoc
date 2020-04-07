@@ -38,8 +38,7 @@ class EmployeeManagerImplTest {
         assertNotNull(employeeManager.getAll());
     }
 
-  */
-/*  @Test
+  @Test
     void update() {
         EmployeeDTO dto = new EmployeeDTO();
         int id = 2;
@@ -48,12 +47,11 @@ class EmployeeManagerImplTest {
         employeeDao.update(employee);
         when(employeeDao.getAll()).thenReturn(list);
         assertNotNull(employeeManager.getAll());
-    }*//*
+    }
 
 
 
- */
-/*    @Test
+    @Test
     @DisplayName("should not return exception if valid roles")
     void checkRoleValuesValid() {
         String[] rolesArray = {"MANAGER", "Mecanic"};
@@ -71,7 +69,7 @@ class EmployeeManagerImplTest {
         assertThrows(Exception.class,
                 ()->employeeManager.checkRoleValuesValid(rolesToCheck));
 
-    }*//*
+    }
 
 
     @Test
@@ -150,4 +148,5 @@ class EmployeeManagerImplTest {
         when(employeeDao.getByLogin(anyString())).thenReturn(employee);
         assertEquals(login, employeeManager.getEmployeeByLogin(login).getLogin());
     }
-}*/
+}
+*/

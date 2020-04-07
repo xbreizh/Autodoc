@@ -49,7 +49,10 @@ public abstract class AbstractHibernateDao<T> {
 
     public List<T> getAll() {
         LOGGER.debug("getting all");
-        TypedQuery<T> query = getCurrentSession().createQuery(FROM + getClazz().getName());
+        StringBuilder request = new StringBuilder();
+        request.append(FROM);
+        request.append(getClazz().getName());
+        TypedQuery<T> query = getCurrentSession().createQuery(request.toString());
         return query.getResultList();
     }
 
