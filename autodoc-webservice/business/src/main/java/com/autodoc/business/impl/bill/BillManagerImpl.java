@@ -146,7 +146,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             bill.setPieces(newPieceList);
             LOGGER.info("old list: " + oldPieceList);
             LOGGER.info("new list: " + newPieceList);
-            pieceManager.updateStockAndAddPieces(newPieceList, oldPieceList);
+            updateStockAndAddPieces(newPieceList, oldPieceList);
             updateBillStatusIfMissingPiece(bill);
         }
         LOGGER.info("pieces list: " + bill.getPieces());
@@ -221,7 +221,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 if (piece == null) throw new InvalidDtoException("invalid piece");
                 pieceList.add(piece);
             }
-            pieceManager.updateStockAndAddPieces(pieceList, bill.getPieces());
+            updateStockAndAddPieces(pieceList, bill.getPieces());
             bill.setPieces(pieceList);
         }
         Client client = (Client) clientDao.getById(dto.getClientId());
@@ -240,4 +240,37 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         return bill;
     }
 
+
+    public void updateStockAndAddPieces(List<Piece> billPieces, List<Piece> billDbPieces) {
+
+        LOGGER.info("updating stock");
+        LOGGER.info(billPieces);
+        LOGGER.info(billDbPieces);
+
+        if (billDbPieces != null) {
+
+            // raises db quantity if removing a new item from the bill
+            for (Piece p : billDbPieces) {
+                if (!billPieces.contains(p)) {
+                    LOGGER.info("adding an item");
+                    pieceManager.updateQuantity(p, "+");
+                }
+                dao.update(p);
+            }
+        }
+
+
+        if (billPieces != null) {
+
+            // lowers db quantity if adding a new item from the bill
+            for (Piece p : billPieces) {
+                if (!billDbPieces.contains(p)) {
+                    LOGGER.info("adding an item");
+                    pieceManager.updateQuantity(p, "-");
+                }
+                dao.update(p);
+            }
+        }
+
+    }
 }

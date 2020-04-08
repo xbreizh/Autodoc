@@ -15,8 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 @Component
 @Builder
@@ -66,57 +64,11 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
     @Override
-    public void checkIfDuplicate(Object dtoToCheck)  {
+    public void checkIfDuplicate(Object dtoToCheck) {
         PieceDTO dto = (PieceDTO) dtoToCheck;
         if (dao.getByName(dto.getName()) != null) throw new InvalidDtoException("that piece already exist");
     }
 
-    public List<Piece> updateStockAndAddPieces(List<Piece> pieces, List<Piece> pieceFromDb) {
-
-        LOGGER.info("updating stock");
-        LOGGER.info(pieces);
-        LOGGER.info(pieceFromDb);
-
-        if (pieceFromDb != null) {
-
-            // raises db quantity if removing a new item from the bill
-            for (Piece p : pieceFromDb) {
-                if (!pieces.contains(p)) {
-                    LOGGER.info("adding an item");
-                    updateQuantity(p, "+");
-                }
-                dao.update(p);
-            }
-        }
-
-
-        if (pieces != null) {
-
-            // raises db quantity if removing a new item from the bill
-            for (Piece p : pieces) {
-                if (!pieces.contains(p)) {
-                    LOGGER.info("adding an item");
-                    updateQuantity(p, "+");
-                    //  billPieceList.add(p);
-                }
-                dao.update(p);
-            }
-        }
-
-      /*  // removes all items from db quantity according to bill
-        for (Piece piece : pieces) {
-            LOGGER.info("removing an item: " + piece.getId());
-            Piece pieceFromStock = (Piece) dao.getById(piece.getId());
-            piece = updateQuantity(pieceFromStock, "-");
-        }
-        LOGGER.info("billPieceList: " + pieces);
-        if (pieces != null) return pieceFromDb;
-        if (pieces.isEmpty()) return pieceFromDb;*/
-
-
-        return pieces;
-
-    }
 
     public Piece updateQuantity(Piece piece, String sign) {
         LOGGER.info("updating quantity: " + piece);
@@ -129,7 +81,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
             piece.setQuantity(actualQuantity - 1);
         }
         LOGGER.info("piece now: " + piece);
-        dao.update(piece);
+
         piece.setName(updateNameAccordingToStock(piece.getId()));
 
         return piece;
@@ -142,8 +94,8 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         String outOfStock = "OOS ";
         String currentName = piece.getName();
         if (quantity <= 0 && !piece.getName().startsWith(outOfStock)) {
-                return outOfStock + currentName;
-            }
+            return outOfStock + currentName;
+        }
 
         if (quantity > 0 && currentName.startsWith(outOfStock)) {
             return currentName.substring(4);
@@ -171,18 +123,8 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         PieceDTO dto = (PieceDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("no id passed");
-        Piece piece = (Piece) dao.getById(id);
-        if (piece == null) throw new InvalidDtoException("invalid id: " + id);
-        String name = dto.getName();
-        String brand = dto.getBrand();
-        double buyingPrice = dto.getBuyingPrice();
-        double sellPrice = dto.getSellPrice();
-        int quantity = dto.getQuantity();
-        if (name != null) piece.setName(name.toUpperCase());
-        if (brand != null) piece.setBrand(brand);
-        if (buyingPrice != 0) piece.setBuyingPrice(buyingPrice);
-        if (sellPrice != 0) piece.setSellPrice(sellPrice);
-        if (quantity != 0) piece.setQuantity(quantity);
+        if (dao.getById(id) == null) throw new InvalidDtoException("invalid id: " + id);
+        Piece piece = mapper.map(dto, Piece.class);
         checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
         transferPieceType(dto, piece);
         LOGGER.info("piece to update: " + piece);

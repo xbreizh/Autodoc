@@ -148,7 +148,7 @@ class PieceManagerImplTest {
         String name = obj.getName();
         obj.setName("OOS " + name);
         when(dao.getById(anyInt())).thenReturn(obj);
-        assertEquals( obj.getName().toUpperCase(), manager.updateNameAccordingToStock(3));
+        assertEquals(obj.getName().toUpperCase(), manager.updateNameAccordingToStock(3));
 
     }
 
@@ -156,13 +156,10 @@ class PieceManagerImplTest {
     @DisplayName("should return normal name if quantity > 0 name has OOS")
     void updateNameAccordingToStock2() {
         Piece p = obj;
-        String name = p.getName();
-        System.out.println(obj);
-        p.setName("OOS "+name );
-        System.out.println(p.getName());
+        name = p.getName();
+        p.setName("OOS " + name);
         p.setQuantity(2);
         when(dao.getById(anyInt())).thenReturn(p);
-        System.out.println(dao.getById(2));
         assertEquals(name.toUpperCase(), manager.updateNameAccordingToStock(3));
 
     }
@@ -217,66 +214,67 @@ class PieceManagerImplTest {
         piece.setSellPrice(12.5);
         assertDoesNotThrow(() -> manager.checkSellingPriceIsEqualOrHigherBuyingPrice(piece));
     }
-/*
-    @Test
-    @DisplayName("should add OOS if quantity lower or equals 0")
-    void updateNameAccordingToStock() {
-        String oos = "OOS ";
-        String name = "PLAQUETTE DE FREINS";
-        Piece piece = new Piece();
-        piece.setName(name);
-        piece.setQuantity(-2);
-        manager.updateNameAccordingToStock(piece);
-        assertEquals(oos + name, piece.getName());
-
-    }
 
     @Test
-    @DisplayName("should keep OOS if quantity lower or equals 0")
-    void updateNameAccordingToStock3() {
-        String oos = "OOS ";
-        String name = "PLAQUETTE DE FREINS";
-        Piece piece = new Piece();
-        piece.setName(oos + name);
-        piece.setQuantity(-2);
-        manager.updateNameAccordingToStock(piece);
-        assertEquals(oos + name, piece.getName());
-
-    }
-
-    @Test
-    @DisplayName("should remove OOS if quantity was low and is not anymore")
-    void updateNameAccordingToStock1() {
-        String oos = "OOS ";
-        String name = "OOS PLAQUETTE DE FREINS";
-        Piece piece = new Piece();
-        piece.setName(oos + name);
-        piece.setQuantity(2);
-        manager.updateNameAccordingToStock(piece);
-        assertEquals(name, piece.getName());
-
-    }
-
-    @Test
-    @DisplayName("should not update name if stock was and remains above 0")
-    void updateNameAccordingToStock2() {
-        String name = "PLAQUETTE DE FREINS";
-        Piece piece = new Piece();
-        piece.setName(name);
-        piece.setQuantity(2);
-        manager.updateNameAccordingToStock(piece);
-        assertEquals(name, piece.getName());
-
-    }
-
-
-
-    @Test
+    @DisplayName("should add if sign is +")
     void updateQuantity() {
-        Piece piece = new Piece();
-        piece.setQuantity(2);
-        System.out.println(manager.updateQuantity(piece, "-"));
+        int quantity = 2;
+        obj.setQuantity(quantity);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertEquals(quantity + 1, manager.updateQuantity(obj, "+").getQuantity());
+    }
+
+    @Test
+    @DisplayName("should lower if sign is -")
+    void updateQuantity1() {
+        int quantity = 2;
+        obj.setQuantity(quantity);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertEquals(quantity - 1, manager.updateQuantity(obj, "-").getQuantity());
+    }
+
+    @Test
+    @DisplayName("should lower if sign is differente from - and +")
+    void updateQuantity2() {
+        int quantity = 2;
+        obj.setQuantity(quantity);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertEquals(quantity, manager.updateQuantity(obj, "=").getQuantity());
+    }
 
 
-    }*/
+    @Test
+    @DisplayName("should throw an exception if id equals 0")
+    void update() {
+        dto.setId(0);
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
+
+    }
+
+    @Test
+    @DisplayName("should throw an exception if invalid id")
+    void update1() {
+        when(dao.getById(anyInt())).thenReturn(null);
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
+
+    }
+
+
+    @Test
+    @DisplayName("should update")
+    void update2() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        when(pieceTypedao.getById(anyInt())).thenReturn(pieceType);
+        obj = (Piece) manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(dto.getName().toUpperCase(), obj.getName()),
+                () -> assertEquals(dto.getBrand().toUpperCase(), obj.getBrand()),
+                () -> assertEquals(dto.getBuyingPrice(), obj.getBuyingPrice()),
+                () -> assertEquals(dto.getSellPrice(), obj.getSellPrice()),
+                () -> assertEquals(dto.getQuantity(), obj.getQuantity()),
+                () -> assertDoesNotThrow(() -> manager.transferUpdate(dto))
+        );
+
+    }
+
 }
