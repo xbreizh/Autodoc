@@ -23,8 +23,8 @@ import java.util.List;
 public class PieceManagerImpl extends AbstractGenericManager implements PieceManager {
     private static final Logger LOGGER = Logger.getLogger(PieceManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
-    private PieceDao dao;
-    private PieceTypeDao pieceTypeDao;
+    private final PieceDao dao;
+    private final PieceTypeDao pieceTypeDao;
 
     @Override
     public IGenericDao getDao() {
@@ -43,7 +43,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
     @Override
-    public Piece dtoToEntity(Object entity) throws InvalidDtoException {
+    public Piece dtoToEntity(Object entity) {
         PieceDTO dto = (PieceDTO) entity;
         Piece piece = mapper.map(entity, Piece.class);
         checkIfDuplicate(dto);
@@ -51,21 +51,25 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
     @Override
-    public Piece transferInsert(Object obj) throws InvalidDtoException {
+    public Piece transferInsert(Object obj) {
         PieceDTO dto = (PieceDTO) obj;
-        String name = dto.getName().toUpperCase();
-        if (dao.getByName(name) != null) throw new InvalidDtoException("that piece already exist");
-        Piece piece = new Piece();
-        piece.setName(name.toUpperCase());
-        piece.setBrand(dto.getBrand().toUpperCase());
-        piece.setBuyingPrice(dto.getBuyingPrice());
-        piece.setSellPrice(dto.getSellPrice());
+        Piece piece = dtoToEntity(obj);
+        checkThatPieceIdIsNotNull(dto);
         checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
         piece.setQuantity(dto.getQuantity());
-        transferPieceType(dto, piece);
         LOGGER.info("piece to transfer: " + piece);
         return piece;
 
+    }
+
+    public void checkThatPieceIdIsNotNull(PieceDTO dto) {
+        if (dto.getPieceTypeId() == 0) throw new InvalidDtoException("pieceId cannot be null");
+    }
+
+    @Override
+    public void checkIfDuplicate(Object dtoToCheck) throws InvalidDtoException {
+        PieceDTO dto = (PieceDTO) dtoToCheck;
+        if (dao.getByName(dto.getName()) != null) throw new InvalidDtoException("that piece already exist");
     }
 
     public List<Piece> updateStockAndAddPieces(List<Piece> pieces, List<Piece> pieceFromDb) {
@@ -164,7 +168,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
 
-    public Piece transferUpdate(Object obj) throws InvalidDtoException {
+    public Piece transferUpdate(Object obj) {
         PieceDTO dto = (PieceDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("no id passed");
