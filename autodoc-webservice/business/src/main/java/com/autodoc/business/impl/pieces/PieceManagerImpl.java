@@ -37,29 +37,28 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     @Override
     public PieceDTO entityToDto(Object entity) {
         LOGGER.info("entity received: " + entity);
-        PieceDTO dto = mapper.map(entity, PieceDTO.class);
-        LOGGER.info("converted into dto " + dto);
-        return dto;
+        return mapper.map(entity, PieceDTO.class);
     }
 
     @Override
     public Piece dtoToEntity(Object entity) {
-        PieceDTO dto = (PieceDTO) entity;
-        Piece piece = mapper.map(entity, Piece.class);
-        checkIfDuplicate(dto);
-        return piece;
+        return mapper.map(entity, Piece.class);
     }
 
     @Override
     public Piece transferInsert(Object obj) {
         PieceDTO dto = (PieceDTO) obj;
         Piece piece = dtoToEntity(obj);
-        checkThatPieceIdIsNotNull(dto);
-        checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
-        piece.setQuantity(dto.getQuantity());
+        checkInsert(dto, piece);
         LOGGER.info("piece to transfer: " + piece);
         return piece;
 
+    }
+
+    private void checkInsert(PieceDTO dto, Piece piece) {
+        checkIfDuplicate(dto);
+        checkThatPieceIdIsNotNull(dto);
+        checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
     }
 
     public void checkThatPieceIdIsNotNull(PieceDTO dto) {
@@ -67,7 +66,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
     @Override
-    public void checkIfDuplicate(Object dtoToCheck) throws InvalidDtoException {
+    public void checkIfDuplicate(Object dtoToCheck)  {
         PieceDTO dto = (PieceDTO) dtoToCheck;
         if (dao.getByName(dto.getName()) != null) throw new InvalidDtoException("that piece already exist");
     }
@@ -123,6 +122,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         LOGGER.info("updating quantity: " + piece);
         int actualQuantity = piece.getQuantity();
         if (sign.equalsIgnoreCase("+")) {
+            LOGGER.info("adding");
             piece.setQuantity(actualQuantity + 1);
         } else if (sign.equalsIgnoreCase("-")) {
             LOGGER.info("removing");
@@ -130,27 +130,26 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         }
         LOGGER.info("piece now: " + piece);
         dao.update(piece);
-        updateNameAccordingToStock(piece.getId());
+        piece.setName(updateNameAccordingToStock(piece.getId()));
 
         return piece;
     }
 
-    public void updateNameAccordingToStock(int id) {
+    public String updateNameAccordingToStock(int id) {
         Piece piece = (Piece) dao.getById(id);
         int quantity = piece.getQuantity();
         LOGGER.info("updating name according to stock: " + quantity);
         String outOfStock = "OOS ";
         String currentName = piece.getName();
-        if (quantity <= 0) {
-            if (!piece.getName().startsWith(outOfStock)) {
-                piece.setName(outOfStock + currentName);
+        if (quantity <= 0 && !piece.getName().startsWith(outOfStock)) {
+                return outOfStock + currentName;
             }
-        }
+
         if (quantity > 0 && currentName.startsWith(outOfStock)) {
-            piece.setName(currentName.substring(4));
+            return currentName.substring(4);
         }
         LOGGER.info("new name: " + piece.getName());
-        dao.update(piece);
+        return currentName;
     }
 
     public void checkSellingPriceIsEqualOrHigherBuyingPrice(Piece piece) {
@@ -159,7 +158,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
 
-    private void transferPieceType(PieceDTO dto, Piece piece) throws InvalidDtoException {
+    public void transferPieceType(PieceDTO dto, Piece piece) {
         if (dto.getPieceTypeId() != 0) {
             PieceType pieceType = (PieceType) pieceTypeDao.getById(dto.getPieceTypeId());
             if (pieceType == null) throw new InvalidDtoException("invalid pieceType id: " + dto.getPieceTypeId());

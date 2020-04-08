@@ -12,10 +12,12 @@ public interface PieceManager extends IGenericManager {
 
     List<Piece> updateStockAndAddPieces(List<Piece> pieces, List<Piece> pieceFromDb);
 
-    void updateNameAccordingToStock(int id);
+    String updateNameAccordingToStock(int id);
 
     Piece updateQuantity(Piece piece, String sign);
 
     void checkThatPieceIdIsNotNull(PieceDTO dto);
+
+    void transferPieceType(PieceDTO dto, Piece piece);
 
 }

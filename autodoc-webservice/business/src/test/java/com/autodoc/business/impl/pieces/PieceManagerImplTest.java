@@ -15,6 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -33,6 +34,7 @@ class PieceManagerImplTest {
     double sellPrice = 123;
     double buyingPrice = 22;
     Provider provider;
+    PieceType pieceType;
 
     @BeforeEach
     void init() {
@@ -42,6 +44,7 @@ class PieceManagerImplTest {
         provider = Provider.builder().firstName("john").lastName("bonham").website("jbonham.com").phoneNumber("abc1232434").build();
         obj = Piece.builder().name(name).brand(brand).id(id).quantity(quantity).buyingPrice(buyingPrice).sellPrice(sellPrice).provider(provider).build();
         dto = PieceDTO.builder().name(name).pieceTypeId(23).brand(brand).id(id).quantity(quantity).buyingPrice(buyingPrice).sellPrice(sellPrice).build();
+        pieceType = PieceType.builder().name("pieceTypeStuff").id(2).build();
     }
 
 
@@ -121,7 +124,83 @@ class PieceManagerImplTest {
         assertThrows(InvalidDtoException.class, () -> manager.checkThatPieceIdIsNotNull(dto));
     }
 
- /*   @Test
+    @Test
+    @DisplayName("should return normal name if quantity > 0")
+    void updateNameAccordingToStock() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertEquals(obj.getName().toUpperCase(), manager.updateNameAccordingToStock(3));
+
+    }
+
+    @Test
+    @DisplayName("should return OOS + normal name if quantity <= 0 and name wasn't OOS")
+    void updateNameAccordingToStock1() {
+        obj.setQuantity(0);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertEquals("OOS " + obj.getName().toUpperCase(), manager.updateNameAccordingToStock(3));
+
+    }
+
+    @Test
+    @DisplayName("should return OOS + normal name if quantity <= 0 and name was OOS")
+    void updateNameAccordingToStock4() {
+        obj.setQuantity(0);
+        String name = obj.getName();
+        obj.setName("OOS " + name);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertEquals( obj.getName().toUpperCase(), manager.updateNameAccordingToStock(3));
+
+    }
+
+    @Test
+    @DisplayName("should return normal name if quantity > 0 name has OOS")
+    void updateNameAccordingToStock2() {
+        Piece p = obj;
+        String name = p.getName();
+        System.out.println(obj);
+        p.setName("OOS "+name );
+        System.out.println(p.getName());
+        p.setQuantity(2);
+        when(dao.getById(anyInt())).thenReturn(p);
+        System.out.println(dao.getById(2));
+        assertEquals(name.toUpperCase(), manager.updateNameAccordingToStock(3));
+
+    }
+
+    @Test
+    @DisplayName("should return normal name if quantity > 0 name has not OOS")
+    void updateNameAccordingToStock3() {
+        obj.setQuantity(2);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertEquals(name.toUpperCase(), manager.updateNameAccordingToStock(3));
+
+    }
+
+    @Test
+    @DisplayName("should throw an exception if invalid pieceType")
+    void transferPieceType() {
+        when(pieceTypedao.getById(anyInt())).thenReturn(null);
+        assertThrows(InvalidDtoException.class, () -> manager.transferPieceType(dto, obj));
+    }
+
+    @Test
+    @DisplayName("should transfer pieceType")
+    void transferPieceType1() {
+        when(pieceTypedao.getById(anyInt())).thenReturn(pieceType);
+        manager.transferPieceType(dto, obj);
+        assertEquals(pieceType, obj.getPieceType());
+    }
+
+    @Test
+    @DisplayName("should not transfer pieceType if pieceTypeId = 0")
+    void transferPieceType2() {
+        PieceType pieceType = obj.getPieceType();
+        dto.setPieceTypeId(0);
+        manager.transferPieceType(dto, obj);
+        assertEquals(pieceType, obj.getPieceType());
+    }
+
+    @Test
     @DisplayName("should throw an exception if selling price is lower than buying price")
     void checkPrices() {
         Piece piece = new Piece();
@@ -138,7 +217,7 @@ class PieceManagerImplTest {
         piece.setSellPrice(12.5);
         assertDoesNotThrow(() -> manager.checkSellingPriceIsEqualOrHigherBuyingPrice(piece));
     }
-
+/*
     @Test
     @DisplayName("should add OOS if quantity lower or equals 0")
     void updateNameAccordingToStock() {
