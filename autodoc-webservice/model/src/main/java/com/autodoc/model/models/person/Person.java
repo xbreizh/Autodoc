@@ -1,5 +1,6 @@
 package com.autodoc.model.models.person;
 
+import com.autodoc.model.models.pieces.Piece;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -12,7 +13,6 @@ import javax.persistence.MappedSuperclass;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @Generated
 public abstract class Person {
 

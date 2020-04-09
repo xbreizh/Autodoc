@@ -3,10 +3,7 @@ package com.autodoc.model.models.person.provider;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.person.Person;
 import com.autodoc.model.models.pieces.Piece;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
@@ -24,15 +21,26 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @Generated
 public class Provider extends Person {
+
+    protected static final Map<String, SearchType> SEARCH_FIELD = createMap();
+    private String address="";
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
+    private List<Piece> pieces;
+
+
+  /*  @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
+    private List<Address> addresses;*/
+    private String website="";
+    private String email1="";
+    private String email2="";
+    @NotNull
+    private String company="";
 
     public static Map<String, SearchType> getSearchField() {
         return SEARCH_FIELD;
     }
-
-    protected static final Map<String, SearchType> SEARCH_FIELD = createMap();
 
     private static Map<String, SearchType> createMap() {
         Map<String, SearchType> result = new HashMap<>();
@@ -40,20 +48,6 @@ public class Provider extends Person {
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }
-
-
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
-    private List<Address> addresses;
-
-
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
-    private List<Piece> pieces;
-    private String website;
-    private String email1;
-    private String email2;
-    @NotNull
-    private String company;
-
 
     public void setWebsite(String website) {
         this.website = website.toUpperCase();
@@ -74,7 +68,7 @@ public class Provider extends Person {
     @Override
     public String toString() {
         return "Provider{" +
-                "addresses=" + addresses +
+                 "addresses=" + address +
                 ", website='" + website + '\'' +
                 ", email1='" + email1 + '\'' +
                 ", email2='" + email2 + '\'' +
@@ -86,4 +80,15 @@ public class Provider extends Person {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 "} " + super.toString();
     }
+    @Builder
+    public Provider(int id, @NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, String email1, String email2, String website, String company, String address) {
+        super(id, firstName.toUpperCase(), lastName.toUpperCase(), phoneNumber.toUpperCase());
+        if(email1!=null) this.email1 = email1.toUpperCase();
+        if(email2!=null)this.email2 = email2.toUpperCase();
+        if(company!=null)this.company = company.toUpperCase();
+        if(website!=null)this.website = website.toUpperCase();
+        if(address!=null)this.address = address.toUpperCase();
+    }
+
+
 }

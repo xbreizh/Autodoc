@@ -5,10 +5,7 @@ import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.Person;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -22,7 +19,6 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @Generated
 public class Client extends Person {
 
@@ -57,6 +53,12 @@ public class Client extends Person {
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    @Builder
+    public Client(int id, @NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber) {
+        super(id, firstName.toUpperCase(), lastName.toUpperCase(), phoneNumber.toUpperCase());
+
     }
 
 

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.models.person.provider;
 
 import com.autodoc.model.enums.SearchType;
@@ -10,7 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+*//*
 @Entity
 @Table(name = "country")
 @Builder
@@ -69,3 +70,4 @@ public class Country {
 
     }
 }
+*/

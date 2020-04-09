@@ -1,3 +1,4 @@
+/*
 package com.autodoc.model.models.person.provider;
 
 import lombok.*;
@@ -5,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+*//*
 @Entity
 @Table(name = "address")
 @Builder
@@ -84,3 +85,4 @@ public class Address {
 }
 
 
+*/

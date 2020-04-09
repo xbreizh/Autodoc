@@ -5,10 +5,7 @@ import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -20,7 +17,6 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @Generated
 public class Employee extends Person {
 
@@ -83,5 +79,16 @@ public class Employee extends Person {
         this.login = login.toUpperCase();
     }
 
+    @Builder
+    public Employee(int id, @NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, List<Role> roles, String login, String password, Date startDate, Date lastConnection, Date tokenExpiration) {
+        super(id, firstName.toUpperCase(), lastName.toUpperCase(), phoneNumber.toUpperCase());
+        this.login = login.toUpperCase();
+        this.password = password;
+        this.lastConnection = lastConnection;
+        this.startDate = startDate;
+        this.tokenExpiration = tokenExpiration;
+        this.roles = roles;
+
+    }
 
 }

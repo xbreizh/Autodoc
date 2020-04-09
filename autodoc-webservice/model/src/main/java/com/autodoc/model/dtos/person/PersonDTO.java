@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @Generated
 public abstract class PersonDTO {
     private int id;

@@ -1,11 +1,9 @@
 package com.autodoc.model.dtos.person.employee;
 
 import com.autodoc.model.dtos.person.PersonDTO;
+import com.autodoc.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.EnumType;
@@ -18,7 +16,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @Generated
 public class EmployeeDTO extends PersonDTO {
 
@@ -55,5 +52,16 @@ public class EmployeeDTO extends PersonDTO {
 
     public void setLogin(String login) {
         this.login = login.toUpperCase();
+    }
+
+    @Builder
+    public EmployeeDTO(int id, @NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, List<String> roles, String login, String password, Date startDate, Date lastConnection) {
+        super(id, firstName.toUpperCase(), lastName.toUpperCase(), phoneNumber.toUpperCase());
+        this.login = login.toUpperCase();
+        this.password = password;
+        this.lastConnection = lastConnection;
+        this.startDate = startDate;
+        this.roles = roles;
+
     }
 }

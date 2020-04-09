@@ -35,42 +35,18 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
 
     @Override
     public ProviderDTO entityToDto(Object entity) {
-        ProviderDTO dto = mapper.map(entity, ProviderDTO.class);
-        LOGGER.info("converted into dto");
-        return dto;
+        return mapper.map(entity, ProviderDTO.class);
     }
 
     @Override
-    public Provider dtoToEntity(Object entity) throws InvalidDtoException {
-        ProviderDTO dto = (ProviderDTO) entity;
-        Provider provider = mapper.map(entity, Provider.class);
-        checkIfDuplicate(dto);
-        return provider;
+    public Provider dtoToEntity(Object entity)  {
+        return mapper.map(entity, Provider.class);
     }
 
-    public Provider transferInsert(Object obj) throws InvalidDtoException {
+    public Provider transferInsert(Object obj)  {
         ProviderDTO dto = (ProviderDTO) obj;
         checkIfDuplicate(dto);
-        Provider provider = new Provider();
-        provider.setFirstName(dto.getFirstName().toUpperCase());
-        provider.setLastName(dto.getLastName().toUpperCase());
-        provider.setPhoneNumber(dto.getPhoneNumber().toUpperCase());
-        if (dto.getEmail1() != null) {
-            provider.setEmail1(dto.getEmail1());
-        }
-        if (dto.getEmail2() != null) {
-            provider.setEmail2(dto.getEmail2());
-        }
-        if (dto.getCompany() != null) {
-            provider.setCompany(dto.getCompany());
-        }
-       /* if (dto.getRate() != null) {
-            provider.setRate(dto.getRate());
-        }*/
-        if (dto.getWebsite() != null) {
-            provider.setWebsite(dto.getWebsite());
-        }
-
+        Provider provider = dtoToEntity(dto);
         return provider;
 
 
@@ -79,7 +55,7 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
     public Provider transferUpdate(Object obj) throws InvalidDtoException {
         LOGGER.info("transferring update data");
         ProviderDTO dto = (ProviderDTO) obj;
-        int id = dto.getId();
+        /*int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("id cannot be null");
         Provider provider = (Provider) dao.getById(id);
         if (provider == null) throw new InvalidDtoException("invalid id");
@@ -104,9 +80,9 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
 
         if (dto.getWebsite() != null) {
             provider.setWebsite(dto.getWebsite());
-        }
+        }*/
 
-        return provider;
+        return dtoToEntity(dto);
     }
 
 

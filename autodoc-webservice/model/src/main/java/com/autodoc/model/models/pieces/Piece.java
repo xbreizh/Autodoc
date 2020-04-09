@@ -92,12 +92,16 @@ public class Piece {
 
     public static class PieceBuilder {
         public PieceBuilder name(String name) {
-            this.name = name.toUpperCase();
+            if(name!=null) {
+                this.name = name.toUpperCase();
+            }
             return this;
         }
 
         public PieceBuilder brand(String brand) {
-            this.brand = brand.toUpperCase();
+            if(brand!=null) {
+                this.brand = brand.toUpperCase();
+            }
             return this;
         }
 
