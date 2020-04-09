@@ -6,9 +6,11 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.model.dtos.RoleListDTO;
+import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
+import com.autodoc.model.models.person.client.Client;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -28,6 +30,14 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
     private static final ModelMapper mapper = new ModelMapper();
     private EmployeeDao dao;
 
+    public Class getEntityClass() {
+        return Employee.class;
+    }
+
+    public Class getDtoClass() {
+        return EmployeeDTO.class;
+    }
+
     @Override
     public IGenericDao getDao() {
         LOGGER.info("getting dao: ");
@@ -41,7 +51,7 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
     }
 
 
-    @Override
+  /*  @Override
     public EmployeeDTO entityToDto(Object entity) {
         LOGGER.info("converting: " + entity);
         EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
@@ -53,6 +63,14 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         LOGGER.info("dto: " + dto);
         return dto;
     }
+*/
+    @Override
+    public Employee dtoToEntity(Object entity) throws InvalidDtoException {
+        Employee employee = mapper.map(entity, Employee.class);
+        EmployeeDTO dto = (EmployeeDTO) entity;
+        employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
+        return employee;
+    }
 
     private List<String> convertRoleFromEntityToDto(List<Role> roles) {
         List<String> roleString = new ArrayList<>();
@@ -63,14 +81,6 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         }
         return roleString;
 
-    }
-
-    @Override
-    public Employee dtoToEntity(Object entity) throws InvalidDtoException {
-        EmployeeDTO dto = (EmployeeDTO) entity;
-        checkIfDuplicate(dto);
-        Employee employee = mapper.map(entity, Employee.class);
-        return employee;
     }
 
 
@@ -148,12 +158,12 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         LOGGER.info("getting by login: " + login);
         Employee employee = dao.getByLogin(login);
         if (employee == null) return null;
-        return entityToDto(dao.getByLogin(login));
+        return (EmployeeDTO) entityToDto(dao.getByLogin(login));
     }
 
     @Override
     public EmployeeDTO getEmployeeByToken(String token) {
-        return entityToDto(dao.getByToken(token));
+        return (EmployeeDTO) entityToDto(dao.getByToken(token));
     }
 
     @Override
@@ -180,7 +190,7 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         List<EmployeeDTO> employeeDTOList = new ArrayList<>();
         for (Employee employee : employeeList) {
             // Employee employee = (Employee)obj;
-            EmployeeDTO dto = entityToDto(employee);
+            EmployeeDTO dto = (EmployeeDTO) entityToDto(employee);
             employeeDTOList.add(dto);
         }
         LOGGER.info("size found: " + employeeDTOList.size());

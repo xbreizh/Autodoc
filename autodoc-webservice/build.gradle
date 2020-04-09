@@ -27,10 +27,17 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
     apply plugin: 'war'
-
+    apply plugin: "org.sonarqube"
     war {
 
     }
+
+    test.finalizedBy jacocoTestReport
+    check.dependsOn jacocoTestCoverageVerification
+    test {
+        useJUnitPlatform()
+    }
+
 
     jacocoTestReport {
         reports {
@@ -38,6 +45,27 @@ subprojects {
             csv.enabled false
             html.destination file("${buildDir}/jacocoHtml")
         }
+
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.exclusions", "**/dtos/**"
+            property "sonar.coveragePlugin", "jacoco"
+            property "sonar.host.url", "http://localhost:9000"
+        }
+    }
+
+    task combo{
+        println("starting combo")
+        dependsOn 'clean'
+        dependsOn 'build'
+        dependsOn 'test'
+        dependsOn 'jacocoTestReport'
+        dependsOn 'sonarqube'
+
+        println("combo is over or is it?")
+
     }
 
     sourceCompatibility = 1.8
@@ -72,16 +100,12 @@ subprojects {
 
     }
 
-    test.finalizedBy jacocoTestReport
-    check.dependsOn jacocoTestCoverageVerification
-    test {
-        useJUnitPlatform()
-    }
+
 
 }
 
 
-apply plugin: "org.sonarqube"
+
 
 
 apply from: rootProject.file('gradle/profiles.gradle')

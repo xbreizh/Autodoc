@@ -3,9 +3,12 @@ package com.autodoc.business.impl.person.client;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
+import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
+import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.dtos.person.client.ClientDTO;
+import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.search.Search;
 import lombok.Builder;
@@ -25,6 +28,14 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     private static final ModelMapper mapper = new ModelMapper();
     private ClientDao dao;
 
+    public Class getEntityClass() {
+        return Client.class;
+    }
+
+    public Class getDtoClass() {
+        return ClientDTO.class;
+    }
+
     @Override
     public IGenericDao getDao() {
         LOGGER.info("getting dao: ");
@@ -33,7 +44,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     }
 
 
-    @Override
+  /*  @Override
     public ClientDTO entityToDto(Object client1) {
         LOGGER.info("converting into dto");
         return mapper.map(client1, ClientDTO.class);
@@ -45,7 +56,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
         ClientDTO dto = (ClientDTO) entity;
         checkIfDuplicate(dto);
         return mapper.map(dto, Client.class);
-    }
+    }*/
 
 
     public Client transferUpdate(Object obj)  {
