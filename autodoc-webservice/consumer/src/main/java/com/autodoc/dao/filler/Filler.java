@@ -6,7 +6,6 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
-import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
@@ -21,7 +20,6 @@ import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
-import com.autodoc.model.models.person.provider.Country;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
@@ -48,14 +46,12 @@ public class Filler {
     private EmployeeDao employeeDao;
     private ClientDao clientDao;
     private CarDao carDao;
-    private CountryDao countryDao;
+    //  private CountryDao countryDao;
     private ProviderDao providerDao;
     private PieceDao pieceDao;
     private PieceTypeDao pieceTypeDao;
     private TaskDao taskDao;
     private BillDao billDao;
-
-
 
 
     public void fill() throws ParseException {
@@ -66,7 +62,7 @@ public class Filler {
             fillCarModel();
             fillClient();
             fillCar();
-            fillCountry();
+            // fillCountry();
             fillProvider();
             fillPieceTypes();
             fillPieces();
@@ -91,7 +87,6 @@ public class Filler {
         billDao.create(bill3);
 
     }
-
 
 
     void fillTasks() {
@@ -140,13 +135,13 @@ public class Filler {
     }
 
 
-    void fillCountry() {
+ /*   void fillCountry() {
         LOGGER.debug("filling countries");
         String[] list = {"SPAIN", "IRELAND", "MEXICO", "JAPAN", "NEW-ZEALAND", "BELGIUM"};
         for (String country : list) {
             countryDao.create(Country.builder().name(country).build());
         }
-    }
+    }*/
 
     void fillManufacturer() {
         LOGGER.debug("filling manufacturer");

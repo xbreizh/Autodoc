@@ -6,7 +6,6 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
-import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
@@ -39,8 +38,8 @@ class FillerTest {
     private ClientDao clientDao;
     @Inject
     private CarDao carDao;
-    @Inject
-    private CountryDao countryDao;
+ /*   @Inject
+    private CountryDao countryDao;*/
     @Inject
     private ProviderDao providerDao;
     @Inject
@@ -87,10 +86,10 @@ class FillerTest {
     }
 
 
-    @Test
+   /* @Test
     void fillCountry() {
         assertEquals(6, countryDao.getAll().size());
-    }
+    }*/
 
     @Test
     void fillManufacturer() {

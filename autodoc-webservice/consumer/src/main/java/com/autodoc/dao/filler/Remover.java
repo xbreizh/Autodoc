@@ -7,8 +7,6 @@ import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
-import com.autodoc.dao.contract.person.provider.AddressDao;
-import com.autodoc.dao.contract.person.provider.CountryDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
@@ -32,17 +30,17 @@ public class Remover {
     private EmployeeDao employeeDao;
     private ClientDao clientDao;
     private CarDao carDao;
-    private CountryDao countryDao;
+    //  private CountryDao countryDao;
     private ProviderDao providerDao;
     private PieceDao pieceDao;
     private PieceTypeDao pieceTypeDao;
     private TaskDao taskDao;
-    private AddressDao addressDao;
+    //  private AddressDao addressDao;
     private BillDao billDao;
 
 
     public void cleanup() {
-        IGenericDao[] daos = {billDao, pieceDao, pieceTypeDao, taskDao, countryDao, manufacturerDao, carDao, addressDao, providerDao, clientDao, employeeDao};
+        IGenericDao[] daos = {billDao, pieceDao, pieceTypeDao, taskDao, manufacturerDao, carDao, providerDao, clientDao, employeeDao};
 
         for (IGenericDao dao : daos) {
             LOGGER.info("removing: " + dao.getClass());

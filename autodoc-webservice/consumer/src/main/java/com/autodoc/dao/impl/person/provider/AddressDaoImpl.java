@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.provider;
 
 import com.autodoc.dao.contract.person.provider.AddressDao;
@@ -19,3 +20,4 @@ public class AddressDaoImpl extends AbstractHibernateDao implements AddressDao {
 
 
 }
+*/

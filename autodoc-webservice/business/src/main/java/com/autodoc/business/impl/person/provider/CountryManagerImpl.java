@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.CountryManager;
@@ -35,7 +36,8 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
         return dao;
     }
 
-   /* @Override
+   */
+/* @Override
     public CountryDTO entityToDto(Object entity) {
         if (entity == null) return null;
         CountryDTO dto = mapper.map(entity, CountryDTO.class);
@@ -50,5 +52,7 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
         Country country = mapper.map(entity, Country.class);
         checkIfDuplicate(dto);
         return country;
-    }*/
+    }*//*
+
 }
+*/

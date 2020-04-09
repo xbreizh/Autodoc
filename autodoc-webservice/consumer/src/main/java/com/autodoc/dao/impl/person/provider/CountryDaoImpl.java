@@ -1,3 +1,4 @@
+/*
 package com.autodoc.dao.impl.person.provider;
 
 import com.autodoc.dao.contract.person.provider.CountryDao;
@@ -40,3 +41,4 @@ public class CountryDaoImpl extends AbstractHibernateDao implements CountryDao {
 
 
 }
+*/

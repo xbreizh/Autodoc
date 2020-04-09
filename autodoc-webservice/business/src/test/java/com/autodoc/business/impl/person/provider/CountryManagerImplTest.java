@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.CountryManager;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-
+*//*
 class CountryManagerImplTest {
 
     private static final Logger LOGGER = Logger.getLogger(CountryManagerImplTest.class);
@@ -79,3 +80,4 @@ class CountryManagerImplTest {
 
 
 }
+*/

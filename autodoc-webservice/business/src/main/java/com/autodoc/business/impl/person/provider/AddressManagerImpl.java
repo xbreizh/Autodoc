@@ -1,3 +1,4 @@
+/*
 package com.autodoc.business.impl.person.provider;
 
 import com.autodoc.business.contract.person.provider.AddressManager;
@@ -36,20 +37,15 @@ public class AddressManagerImpl extends AbstractGenericManager implements Addres
 
     @Override
     public AddressDTO entityToDto(Object entity) {
-        AddressDTO dto = mapper.map(entity, AddressDTO.class);
-        LOGGER.info("converted into dto");
-        return dto;
+        return mapper.map(entity, AddressDTO.class);
     }
 
     @Override
-    public Address dtoToEntity(Object entity) throws InvalidDtoException {
-        AddressDTO dto = (AddressDTO) entity;
-        Address address = new Address();
-        //checkDataInsert(dto);
-        return address;
+    public Address dtoToEntity(Object entity) {
+        return mapper.map(entity, Address.class);
     }
 
-    public Address transferInsert(Object obj) throws InvalidDtoException {
+    public Address transferInsert(Object obj)  {
         LOGGER.info("transferring data for insertion");
         AddressDTO dto = (AddressDTO) obj;
         LOGGER.info("dto received: " + dto);
@@ -76,8 +72,7 @@ public class AddressManagerImpl extends AbstractGenericManager implements Addres
         Address address = (Address) dao.getById(id);
         if (address == null) throw new InvalidDtoException("invalid address id: " + id);
         if (countryName != null) {
-            Country country = (Country) countryDao.getByName(dto.getCountryName().toUpperCase());
-            if (country == null) throw new InvalidDtoException("country is invalid");
+            Country country = checkIfCountryExist(dto);
             address.setCountry(country);
         }
         if (dto.getCity() != null) address.setCity(dto.getCity().toUpperCase());
@@ -87,4 +82,11 @@ public class AddressManagerImpl extends AbstractGenericManager implements Addres
         return address;
 
     }
+
+    private Country checkIfCountryExist(AddressDTO dto) {
+        Country country = (Country) countryDao.getByName(dto.getCountryName().toUpperCase());
+        if (country == null) throw new InvalidDtoException("country is invalid");
+        return country;
+    }
 }
+*/
