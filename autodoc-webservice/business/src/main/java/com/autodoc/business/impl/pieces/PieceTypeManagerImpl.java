@@ -21,6 +21,14 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
     private static final ModelMapper mapper = new ModelMapper();
     private PieceTypeDao dao;
 
+    public Class getEntityClass() {
+        return PieceType.class;
+    }
+
+    public Class getDtoClass() {
+        return PieceTypeDTO.class;
+    }
+
     @Override
     public IGenericDao getDao() {
         LOGGER.info("getting dao: ");
@@ -30,41 +38,28 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
 
 
     @Override
-    public PieceTypeDTO entityToDto(Object entity) {
-        PieceTypeDTO dto = mapper.map(entity, PieceTypeDTO.class);
-        LOGGER.info("converted into dto");
-        return dto;
+    public PieceType transferInsert(Object obj)  {
+        checkIfDuplicate(obj);
+        return (PieceType) dtoToEntity(obj);
     }
+
 
     @Override
-    public Object dtoToEntity(Object entity) throws InvalidDtoException {
-        throw new InvalidDtoException("error");
+    public void checkIfDuplicate(Object dtoToCheck)  {
+        PieceTypeDTO dto = (PieceTypeDTO) dtoToCheck;
+        if (dao.getByName(dto.getName()) != null) throw new InvalidDtoException("that pieceType already exist");
 
     }
 
-    @Override
-    public PieceType transferInsert(Object obj) throws InvalidDtoException {
-        PieceTypeDTO dto = (PieceTypeDTO) obj;
-        String name = dto.getName().toUpperCase();
-        PieceType pieceType = new PieceType();
-        pieceType.setName(name.toUpperCase());
-        PieceType pieceTypeCheck = (PieceType) dao.getByName(name);
-        if (pieceTypeCheck != null) throw new InvalidDtoException("that pieceType already exist");
-        return pieceType;
+    public PieceType transferUpdate(Object obj)  {
+        PieceTypeDTO dto = (PieceTypeDTO)obj;
+        checkIfExistingPieceType(dto);
+        return (PieceType) dtoToEntity(dto);
     }
 
-    @Override
-    public void checkIfDuplicate(Object obj) throws InvalidDtoException {
-        LOGGER.info("just passing");
-
-    }
-
-    public PieceType transferUpdate(Object obj) throws InvalidDtoException {
-        PieceTypeDTO dto = (PieceTypeDTO) obj;
-        int id = dto.getId();
+    public PieceType checkIfExistingPieceType(PieceTypeDTO dto) {
         PieceType pieceType = (PieceType) dao.getById(dto.getId());
-        if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + id);
-        pieceType.setName(dto.getName().toUpperCase());
+        if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + dto.getId());
         return pieceType;
     }
 
