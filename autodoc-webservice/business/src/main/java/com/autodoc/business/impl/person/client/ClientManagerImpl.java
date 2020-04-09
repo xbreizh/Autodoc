@@ -36,44 +36,37 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     @Override
     public ClientDTO entityToDto(Object client1) {
         LOGGER.info("converting into dto");
-        ClientDTO dto = mapper.map(client1, ClientDTO.class);
-        return dto;
+        return mapper.map(client1, ClientDTO.class);
     }
 
     @Override
-    public Client dtoToEntity(Object entity) throws InvalidDtoException {
+    public Client dtoToEntity(Object entity)  {
         LOGGER.info("converting into entity: " + entity);
         ClientDTO dto = (ClientDTO) entity;
         checkIfDuplicate(dto);
-        Client client = new Client();
-        client.setFirstName(dto.getFirstName().toUpperCase());
-        client.setLastName(dto.getLastName().toUpperCase());
-        client.setPhoneNumber(dto.getPhoneNumber().toUpperCase());
-
-        return client;
+        return mapper.map(dto, Client.class);
     }
 
 
-    public Client transferUpdate(Object obj) throws InvalidDtoException {
+    public Client transferUpdate(Object obj)  {
         LOGGER.info("updating");
         ClientDTO dto = (ClientDTO) obj;
-        int id = dto.getId();
-        if (id == 0) throw new InvalidDtoException("id cannot be null");
-        String firstName = dto.getFirstName().toUpperCase();
-        String lastName = dto.getLastName().toUpperCase();
-        String phoneNumber = dto.getPhoneNumber().toUpperCase();
-        Client client = (Client) dao.getById(id);
-        if (client == null) throw new InvalidDtoException("invalid id");
-        if (firstName != null) client.setFirstName(firstName.toUpperCase());
-        if (lastName != null) client.setLastName(lastName.toUpperCase());
-        if (phoneNumber != null) client.setPhoneNumber(phoneNumber.toUpperCase());
+        Client client = checkIfIdIsValid(dto.getId());
+
         checkIfDuplicate(dto);
         return client;
 
 
     }
 
-    public void checkIfDuplicate(Object entity) throws InvalidDtoException {
+    public Client checkIfIdIsValid(int id) {
+        if (id == 0) throw new InvalidDtoException("id cannot be null");
+        Client client = (Client) dao.getById(id);
+        if (client == null) throw new InvalidDtoException("invalid id");
+        return client;
+    }
+
+    public void checkIfDuplicate(Object entity)  {
         LOGGER.info("checking for duplicates");
         List<Search> searchList = new ArrayList<>();
         ClientDTO dto = (ClientDTO) entity;

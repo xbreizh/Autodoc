@@ -1,70 +1,136 @@
-/*
 package com.autodoc.business.impl.person.client;
 
 
 import com.autodoc.business.contract.person.client.ClientManager;
+import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;*/
-/*
+import static org.mockito.Mockito.when;
 
-@ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
+/*@ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
-@Transactional
+@Transactional*/
 class ClientManagerImplTest {
 
-    ClientDaoImpl clientDao;
-
-    ClientManager clientManager;
-
-    Client client;
-    ClientDTO dto;
+    private ClientDaoImpl dao;
+    private ClientManager manager;
+    private Client obj;
+    private ClientDTO dto;
+    private int id = 34;
+    private String firstName = "John";
+    private String lastName = "bonham";
+    private String phoneNumber = "038488474747";
+    private String firstNameDto = "John";
+    private String lastNameDto = "bonham";
+    private String phoneNumberDto = "038488474747";
 
     @BeforeEach
     void init() {
-        clientDao = mock(ClientDaoImpl.class);
-        clientManager = new ClientManagerImpl(clientDao);
-        // clientDao = mock(ClientDao.class);
-        client = new Client();
-        dto = new ClientDTO();
+        dao = mock(ClientDaoImpl.class);
+        manager = ClientManagerImpl.builder().dao(dao).build();
+        obj = Client.builder().id(id).firstName(firstName).lastName(lastName).phoneNumber(phoneNumber).build();
+        dto = ClientDTO.builder().id(id).firstName(firstNameDto).lastName(lastNameDto).phoneNumber(phoneNumberDto).build();
     }
 
 
     @Test
-    @Disabled
+    @DisplayName("should return obj if existing")
+    void getDao() {
+        assertEquals(dao, manager.getDao());
+
+    }
+
+    @Test
     void entityToDto() {
-
-        clientManager.entityToDto(client);
+        dto = (ClientDTO) manager.entityToDto(obj);
+        assertAll(
+                () -> assertEquals(obj.getFirstName().toUpperCase(), dto.getFirstName()),
+                () -> assertEquals(obj.getLastName().toUpperCase(), dto.getLastName()),
+                () -> assertEquals(obj.getPhoneNumber().toUpperCase(), dto.getPhoneNumber())
+        );
     }
-
 
     @Test
-    void save() throws Exception {
-        int id = 9;
-        dto.setFirstName("mo");
-        dto.setLastName("ma");
-        dto.setPhoneNumber("yok");
-        when(clientDao.create(any(Client.class))).thenReturn(id);
-        assertEquals(Integer.toString(id), clientManager.save(dto));
+    void dtoToEntity() {
+        obj = (Client) manager.dtoToEntity(dto);
+        assertAll(
+                () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),
+                () -> assertEquals(dto.getLastName().toUpperCase(), obj.getLastName()),
+                () -> assertEquals(dto.getPhoneNumber().toUpperCase(), obj.getPhoneNumber())
+        );
     }
-
+    @Test
+    @DisplayName("should throw an exception if invalid id")
+    void checkIfIdIsValid(){
+        when(dao.getById(anyInt())).thenReturn(null);
+        assertThrows(InvalidDtoException.class, ()-> manager.checkIfIdIsValid(3));
+    }
 
     @Test
-    @Disabled
-    void dtoToEntity(Object entity) {
+    @DisplayName("should throw an exception if id =0")
+    void checkIfIdIsValid1(){
+        assertThrows(InvalidDtoException.class, ()-> manager.checkIfIdIsValid(0));
+    }
+
+    @Test
+    @DisplayName("should not throw an exception if id valid")
+    void checkIfIdIsValid2(){
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertDoesNotThrow( ()-> manager.checkIfIdIsValid(20));
+    }
+
+    @Test
+    @DisplayName("should return an exception if obj already exists")
+    void checkIfDuplicate(){
+        List<Client> clients = new ArrayList<>();
+        obj.setId(31);
+        clients.add(obj);
+        when(dao.getByCriteria(anyList())).thenReturn(clients);
+        assertThrows(InvalidDtoException.class, ()-> manager.checkIfDuplicate(dto));
 
     }
 
-}*/
+    @Test
+    @DisplayName("should not return an exception if obj doesn't already exists")
+    void checkIfDuplicate1(){
+        when(dao.getByCriteria(anyList())).thenReturn(new ArrayList());
+        assertDoesNotThrow( ()-> manager.checkIfDuplicate(dto));
+
+    }
+
+    @Test
+    @DisplayName("should not return an exception if obj already exists and has the same id")
+    void checkIfDuplicate2(){
+        List<Client> clients = new ArrayList<>();
+        clients.add(obj);
+        when(dao.getByCriteria(anyList())).thenReturn(clients);
+        assertDoesNotThrow( ()-> manager.checkIfDuplicate(dto));
+
+    }
+
+    @Test
+    @DisplayName("should update")
+    void transferUpdate(){
+        when(dao.getByCriteria(anyList())).thenReturn(new ArrayList());
+        when(dao.getById(anyInt())).thenReturn(obj);
+        obj = (Client) manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),
+                () -> assertEquals(dto.getLastName().toUpperCase(), obj.getLastName()),
+                () -> assertEquals(dto.getPhoneNumber().toUpperCase(), obj.getPhoneNumber())
+        );
+    }
+
+}
