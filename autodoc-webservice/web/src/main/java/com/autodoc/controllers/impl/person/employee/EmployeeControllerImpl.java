@@ -35,9 +35,9 @@ public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, Emplo
     @ResponseBody
     public ResponseEntity getByName(@RequestParam(value = "name") String name) {
         LOGGER.info("getting employee by name: " + name);
-        Object received = manager.getEmployeeByLogin(name);
+        Object received = manager.getEmployeeDtoByLogin(name);
         if (received == null) return notFoundResponse;
-        EmployeeDTO employee = manager.getEmployeeByLogin(name);
+        EmployeeDTO employee = manager.getEmployeeDtoByLogin(name);
         String response = converter.convertObjectIntoGsonObject(employee);
         LOGGER.info("response: " + response);
         return ResponseEntity.ok(response);

@@ -27,7 +27,7 @@ public class JwtConnect implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
         //User authentication management
-        Employee employee = employeeManager.getByLogin(login);
+        Employee employee = employeeManager.getEmployeeByLogin(login);
         LOGGER.debug("");
         if (employee != null) {
             LOGGER.debug("found: " + login);
@@ -52,7 +52,7 @@ public class JwtConnect implements UserDetailsService {
     }
 
     private void updatingEmployeeConnectionDetails(Employee employee) throws Exception {
-        EmployeeDTO dto = employeeManager.getEmployeeByLogin(employee.getLogin());
+        EmployeeDTO dto = employeeManager.getEmployeeDtoByLogin(employee.getLogin());
         dto.setLastConnection(new Date());
         LOGGER.info("adding last connection");
         employeeManager.update(dto);

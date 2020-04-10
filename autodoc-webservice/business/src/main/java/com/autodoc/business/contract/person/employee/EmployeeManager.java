@@ -13,16 +13,22 @@ public interface EmployeeManager extends IGenericManager {
     boolean exist(String login);
 
 
-    EmployeeDTO getEmployeeByLogin(String login);
+    EmployeeDTO getEmployeeDtoByLogin(String login);
 
-    EmployeeDTO getEmployeeByToken(String token);
+    EmployeeDTO getEmployeeDtoByToken(String token);
 
-    Employee getByLogin(String login);
+    Employee getEmployeeByLogin(String login);
 
     Employee getByToken(String token);
 
     List<EmployeeDTO> getByRoles(List<RoleListDTO> roles) throws Exception;
 
     List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws Exception;
+
+    List<Role> convertRoleFromDtoToEntity(List<String> roles);
+
+    List<String> convertRoleFromEntityToDto(List<Role> roles);
+
+    void checkAndPassLogin(Employee employee, String login);
 
 }

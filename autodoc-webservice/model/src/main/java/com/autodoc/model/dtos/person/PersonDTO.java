@@ -16,12 +16,12 @@ import javax.validation.constraints.Size;
 public abstract class PersonDTO {
     private int id;
 
-    @NotNull(message = "lastName cannot be null")
-    @Size(min = 3, max = 20, message = "the size for lastName should be between {min} and {max}")
-    private String lastName;
     @Size(min = 3, max = 20, message = "the size for firstName should be between {min} and {max}")
     @NotNull(message = "firstName cannot be null")
     private String firstName;
+    @NotNull(message = "lastName cannot be null")
+    @Size(min = 3, max = 20, message = "the size for lastName should be between {min} and {max}")
+    private String lastName;
     @Size(min = 8, max = 12, message = "the size for phoneNumber should be between {min} and {max}")
     @NotNull(message = "phoneNumber cannot be null")
     private String phoneNumber;

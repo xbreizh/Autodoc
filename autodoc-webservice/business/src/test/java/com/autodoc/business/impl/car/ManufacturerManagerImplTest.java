@@ -43,8 +43,6 @@ class ManufacturerManagerImplTest {
     @DisplayName("should convert dto into entity")
     void dtoToEntity() {
         obj = (Manufacturer) manager.dtoToEntity(dto);
-        System.out.println(obj);
-        System.out.println(dto);
         assertAll(
                 () -> assertEquals(obj.getName(), dto.getName().toUpperCase()),
                 () -> assertEquals(dto.getId(), obj.getId())

@@ -42,6 +42,8 @@ class ClientManagerImplTest {
         manager = ClientManagerImpl.builder().dao(dao).build();
         obj = Client.builder().id(id).firstName(firstName).lastName(lastName).phoneNumber(phoneNumber).build();
         dto = ClientDTO.builder().id(id).firstName(firstNameDto).lastName(lastNameDto).phoneNumber(phoneNumberDto).build();
+        System.out.println(firstNameDto);
+        System.out.println("dto: "+dto.getFirstName());
     }
 
 
@@ -125,6 +127,7 @@ class ClientManagerImplTest {
     void transferUpdate(){
         when(dao.getByCriteria(anyList())).thenReturn(new ArrayList());
         when(dao.getById(anyInt())).thenReturn(obj);
+        System.out.println(dto);
         obj = (Client) manager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),

@@ -63,7 +63,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
         LOGGER.info("updating");
         ClientDTO dto = (ClientDTO) obj;
         Client client = checkIfIdIsValid(dto.getId());
-
+        System.out.println(dto);
         checkIfDuplicate(dto);
         return client;
 

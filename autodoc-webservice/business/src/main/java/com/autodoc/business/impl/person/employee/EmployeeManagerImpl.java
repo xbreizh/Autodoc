@@ -6,11 +6,9 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.model.dtos.RoleListDTO;
-import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
-import com.autodoc.model.models.person.client.Client;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -26,7 +24,7 @@ import java.util.List;
 @Component
 @Builder
 public class EmployeeManagerImpl extends AbstractGenericManager implements EmployeeManager {
-    private final static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
+    private  static final Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private EmployeeDao dao;
 
@@ -51,33 +49,29 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
     }
 
 
-  /*  @Override
+    @Override
     public EmployeeDTO entityToDto(Object entity) {
         LOGGER.info("converting: " + entity);
         EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
-        dto.setFirstName(((Employee) entity).getFirstName().toUpperCase());
         dto.setRoles(convertRoleFromEntityToDto(((Employee) entity).getRoles()));
-        dto.setLastName(((Employee) entity).getLastName().toUpperCase());
-        dto.setPhoneNumber(((Employee) entity).getPhoneNumber().toUpperCase());
-        dto.setLastConnection(((Employee) entity).getLastConnection());
         LOGGER.info("dto: " + dto);
         return dto;
     }
-*/
+
     @Override
-    public Employee dtoToEntity(Object entity) throws InvalidDtoException {
+    public Employee dtoToEntity(Object entity) {
         Employee employee = mapper.map(entity, Employee.class);
         EmployeeDTO dto = (EmployeeDTO) entity;
-        employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
+        if(dto.getRoles()!=null) {
+            employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
+        }
         return employee;
     }
 
-    private List<String> convertRoleFromEntityToDto(List<Role> roles) {
+    public List<String> convertRoleFromEntityToDto(List<Role> roles) {
         List<String> roleString = new ArrayList<>();
-        if (!roles.isEmpty()) {
-        }
         for (Role role : roles) {
-            roleString.add(role.toString());
+            roleString.add(role.toString().toUpperCase());
         }
         return roleString;
 
@@ -85,22 +79,18 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
 
 
     @Override
-    public Employee transferUpdate(Object obj) throws InvalidDtoException {
+    public Employee transferUpdate(Object obj) {
         LOGGER.info("transfer update: " + obj);
         EmployeeDTO dto = (EmployeeDTO) obj;
         if (dto.getId() == 0) throw new InvalidDtoException("invalid id: " + 0);
-        Employee employee = (Employee) dao.getById(dto.getId());
-        if (employee == null) return null;
-        if (dto.getLogin() != null) checkAndPassLogin(employee, dto.getLogin().toUpperCase());
-        if (dto.getFirstName() != null) employee.setFirstName(dto.getFirstName().toUpperCase());
-        if (dto.getLastName() != null) employee.setLastName(dto.getLastName().toUpperCase());
-        if (dto.getPhoneNumber() != null) employee.setPhoneNumber(dto.getPhoneNumber().toUpperCase());
+        if(dao.getById(dto.getId())==null)return null;
+        Employee employee = dtoToEntity(dto);
+        checkAndPassLogin(employee, dto.getLogin().toUpperCase());
         if (dto.getRoles() != null) employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
-        if (dto.getLastConnection() != null) employee.setLastConnection(dto.getLastConnection());
-        return employee;
+        return dtoToEntity(dto);
     }
 
-    private List<Role> convertRoleFromDtoToEntity(List<String> roles) throws InvalidDtoException {
+    public List<Role> convertRoleFromDtoToEntity(List<String> roles) {
         LOGGER.info("converting role to entity");
         List<Role> roleList = new ArrayList<>();
         for (String role : roles) {
@@ -124,12 +114,12 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
             throw new InvalidDtoException("That login is already used: " + dto.getLogin());
         }
         LOGGER.info("transferring data: " + dto);
-        Employee employee = new Employee();
+        Employee employee = dtoToEntity(dto);
         checkAndPassLogin(employee, dto.getLogin().toUpperCase());
-        employee.setFirstName(dto.getFirstName().toUpperCase());
-        employee.setLastName(dto.getLastName().toUpperCase());
+
         employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
         employee.setPassword(new BCryptPasswordEncoder().encode(dto.getPassword()));
+
         if (dto.getStartDate() == null) {
             employee.setStartDate(new Date());
         } else {
@@ -140,34 +130,35 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
 
     }
 
-    private void checkAndPassLogin(Employee employee, String login) throws InvalidDtoException {
+    public void checkAndPassLogin(Employee employee, String login) {
         Employee employee1 = dao.getByLogin(login.toUpperCase());
         LOGGER.info(employee);
-        if (employee1 != null && employee.getId() != 0) {
-            if (employee1.getId() != employee.getId()) {
-                String error = "Login " + login.toUpperCase() + "already exists";
-                LOGGER.error(error);
-                throw new InvalidDtoException(error);
-            }
+        if (employee1 != null && employee.getId() != 0 && (employee1.getId() != employee.getId())) {
+            String error = "Login " + login.toUpperCase() + "already exists";
+            LOGGER.error(error);
+            throw new InvalidDtoException(error);
         }
+
         employee.setLogin(login);
     }
 
     @Override
-    public EmployeeDTO getEmployeeByLogin(String login) {
+    public EmployeeDTO getEmployeeDtoByLogin(String login) {
         LOGGER.info("getting by login: " + login);
         Employee employee = dao.getByLogin(login);
         if (employee == null) return null;
-        return (EmployeeDTO) entityToDto(dao.getByLogin(login));
+        return entityToDto(dao.getByLogin(login));
     }
 
     @Override
-    public EmployeeDTO getEmployeeByToken(String token) {
-        return (EmployeeDTO) entityToDto(dao.getByToken(token));
+    public EmployeeDTO getEmployeeDtoByToken(String token) {
+        Employee employee = dao.getByToken(token);
+        if (employee == null) return null;
+        return entityToDto(employee);
     }
 
     @Override
-    public Employee getByLogin(String login) {
+    public Employee getEmployeeByLogin(String login) {
         LOGGER.info("login to find: " + login);
         return dao.getByLogin(login.toUpperCase());
     }
@@ -178,35 +169,30 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
     }
 
     @Override
-    public List<EmployeeDTO> getByRoles(List<RoleListDTO> roles) throws InvalidDtoException {
+    public List<EmployeeDTO> getByRoles(List<RoleListDTO> roles) {
         LOGGER.info("trying to get by role manager");
-        checkRoleValuesValid(roles);
         List<Role> roleList = checkRoleValuesValid(roles);
-        /*for (RoleListDTO role: roles){
-            roleList.add(role.getRole());
-        }*/
+
         List<Employee> employeeList = dao.getByRole(roleList);
-        LOGGER.info("role: " + roleList.get(0));
+
         List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+
         for (Employee employee : employeeList) {
-            // Employee employee = (Employee)obj;
-            EmployeeDTO dto = (EmployeeDTO) entityToDto(employee);
+            EmployeeDTO dto = entityToDto(employee);
             employeeDTOList.add(dto);
         }
-        LOGGER.info("size found: " + employeeDTOList.size());
-        LOGGER.info(employeeDTOList.get(0));
 
         return employeeDTOList;
     }
 
-    public List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws InvalidDtoException {
+    public List<Role> checkRoleValuesValid(List<RoleListDTO> roles) {
         LOGGER.info("trying to validate roles: " + roles.size());
         if (roles.isEmpty()) throw new InvalidDtoException("no role provided");
         List<Role> roleList = new ArrayList<>();
         for (RoleListDTO role : roles) {
             boolean found = false;
+            if (role == null) throw new InvalidDtoException("there shouldn't be any empty role");
             for (Role role1 : Role.values()) {
-                if (role.getRole() == null) throw new InvalidDtoException("there shouldn't be any empty role");
                 if (role.getRole().equalsIgnoreCase(role1.name())) {
                     found = true;
                     LOGGER.info("found: " + role);

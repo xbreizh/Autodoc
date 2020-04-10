@@ -34,28 +34,7 @@ public class ManufacturerManagerImpl extends AbstractGenericManager implements M
         LOGGER.info("getting dao: ");
 
         return dao;
-    }/*
-
-    @Override
-    public ManufacturerDTO entityToDto(Object entity) {
-        ManufacturerDTO dto = mapper.map(entity, ManufacturerDTO.class);
-
-        Manufacturer manufacturer = (Manufacturer) entity;
-        dto.setId(manufacturer.getId());
-        LOGGER.info("converted into dto");
-        return dto;
     }
-
-    @Override
-    public Manufacturer dtoToEntity(Object entity) {
-        if (entity == null) return null;
-        LOGGER.info("converted into ");
-        ManufacturerDTO dto = (ManufacturerDTO) entity;
-        Manufacturer manufacturer = mapper.map(entity, Manufacturer.class);
-        manufacturer.setName(((ManufacturerDTO) entity).getName().toUpperCase());
-        checkIfDuplicate(dto);
-        return manufacturer;
-    }*/
 
     @Override
     public ManufacturerDTO getByName(String name) {
