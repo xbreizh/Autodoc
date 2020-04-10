@@ -51,7 +51,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
 
 
     @Override
-    public CarDTO updateClient(int carId, int clientId) throws InvalidDtoException {
+    public CarDTO updateClient(int carId, int clientId) {
         Client client = (Client) clientDao.getById(clientId);
         if (client == null) throw new InvalidDtoException("client not found");
         Car car = (Car) dao.getById(carId);
@@ -71,100 +71,93 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
     @Override
-    public Car dtoToEntity(Object obj) throws InvalidDtoException {
+    public Car dtoToEntity(Object obj)  {
         LOGGER.info("converting into entity");
         resetException();
         CarDTO dto = (CarDTO) obj;
-        String registration = dto.getRegistration();
-        if (registration.isEmpty()) throw new InvalidDtoException("registration cannot be empty");
-        dto.setRegistration(registration.toUpperCase());
-        if (checkIfExistingCar(registration)) throw new InvalidDtoException("car already exist");
-        Car car = mapper.map(dto, Car.class);
-        checkData(dto);
-        checkCarModelExist(dto.getCarModelId());
-        LOGGER.info("car: " + car);
-        return car;
+
+        return mapper.map(dto, Car.class);
     }
 
     @Override
-    public Car transferUpdate(Object obj) throws InvalidDtoException {
+    public Car transferInsert(Object obj)  {
+        CarDTO dto = (CarDTO) obj;
+        checkIfExistingCar(dto.getRegistration());
+        checkClientExist(dto.getClientId());
+        checkCarModelExist(dto.getCarModelId());
+        return dtoToEntity(dto);
+    }
+
+    @Override
+    public Car transferUpdate(Object obj)  {
         LOGGER.info("transfer update");
         CarDTO dto = (CarDTO) obj;
-        LOGGER.info("dto: " + dto);
         int id = dto.getId();
+        String registration = dto.getRegistration();
+        checkIfCarInDb(id, registration);
+        Car car = dtoToEntity(dto);
+
         int clientId = dto.getClientId();
         int carModelId = dto.getCarModelId();
-        String registration = dto.getRegistration();
-        LOGGER.info("registration: " + registration);
-        if (clientId == 0 && carModelId == 0)
+        if (clientId == 0 && carModelId == 0) {
+
             throw new InvalidDtoException("no update parameters provided");
-        Car car = null;
-        if (id != 0) {
-            car = (Car) dao.getById(id);
-            if (car == null) throw new InvalidDtoException("invalid car id: " + id);
-        } else if (!registration.isEmpty()) {
-            car = dao.getCarByRegistration(registration);
-            if (car == null) throw new InvalidDtoException("invalid registration: " + registration);
         }
-
-        LOGGER.info("car found: " + car);
-        if (car == null) throw new InvalidDtoException("invalid car id: " + id);
-
-        Client client = (Client) clientDao.getById(clientId);
-        if (clientId != 0) {
-            if (client == null) throw new InvalidDtoException("invalid client id: " + clientId);
-            car.setClient(client);
-            LOGGER.info("client set");
-        }
-        CarModel carModel = (CarModel) carModelDao.getById(carModelId);
-        if (carModelId != 0) {
-            if (carModel == null) throw new InvalidDtoException("invalid carModel id: " + carModelId);
-            LOGGER.info("getting carModel");
+        LOGGER.info("dto: " + dto);
+        if(carModelId!=0){
+            checkCarModelExist(carModelId);
+            CarModel carModel = (CarModel) carModelDao.getById(carModelId);
             car.setCarModel(carModel);
-            LOGGER.info("carModel set");
+        }
+        if(clientId!=0){
+            checkClientExist(clientId);
+            Client client = (Client) clientDao.getById(clientId);
+            car.setClient(client);
         }
 
-        if (registration != null && !registration.isEmpty() && id != 0) {
-            Car carCheck = dao.getCarByRegistration(registration);
-            if (carCheck != null && carCheck.getId() != id)
-                throw new InvalidDtoException("there is another existing car with that registration");
+        LOGGER.info("registration: " + registration);
 
-            car.setRegistration(registration);
-        }
         LOGGER.info("car: " + car);
         return car;
     }
 
-    private boolean checkRegistrationNotInUse(int id, String registration) {
+    public void checkIfCarInDb(int id, String registration) {
+        if(id==0 && (registration==null || registration.isEmpty()))throw new InvalidDtoException("you need to pass a registration or a car id");
+        if (id != 0) {
+            if (dao.getById(id) == null) throw new InvalidDtoException("invalid car id: " + id);
+        } else {
+            if (dao.getCarByRegistration(registration) == null) throw new InvalidDtoException("invalid registration: " + registration);
+        }
+    }
+
+    @Override
+    public boolean checkRegistrationNotInUse(int id, String registration) {
         LOGGER.info("checking that the registration is not used for another car");
         Car car = dao.getCarByRegistration(registration);
         if (car == null) return false;
         return car.getId() == id;
     }
 
-    boolean checkIfExistingCar(String registration) {
+    @Override
+    public void checkIfExistingCar(String registration) {
         LOGGER.info("checking if car already in the db");
-        return dao.getCarByRegistration(registration.toUpperCase()) != null;
+        if (dao.getCarByRegistration(registration.toUpperCase()) != null)
+            throw new InvalidDtoException("car already exist");
     }
 
-    private void checkData(CarDTO dto) throws InvalidDtoException {
-        checkRegistrationValid(dto.getRegistration());
-        checkClientExist(dto.getClientId());
-    }
 
-    private boolean checkRegistrationValid(String registration) {
-        // TODO
-        return true;
-    }
 
-    private void checkClientExist(int clientId) throws InvalidDtoException {
+
+
+
+    public void checkClientExist(int clientId)  {
         if (clientDao.getById(clientId) == null) {
             throw new EntityNotFoundException("invalid clientId: " + clientId);
 
         }
     }
 
-    private void checkCarModelExist(int carModelId) throws InvalidDtoException {
+    public void checkCarModelExist(int carModelId)  {
         if (carModelDao.getById(carModelId) == null) {
             throw new EntityNotFoundException("invalid carModelId: " + carModelId);
 

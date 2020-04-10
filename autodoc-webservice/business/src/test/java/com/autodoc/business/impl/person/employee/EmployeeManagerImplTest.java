@@ -323,7 +323,7 @@ class EmployeeManagerImplTest {
     }
 
     @Test
-    @DisplayName("should throw an exception if id = 0")
+    @DisplayName("should throw an exception if id = 0 and registration empty")
     void transferUpdate() {
         dto.setId(0);
         assertThrows(InvalidDtoException.class, ()-> manager.transferUpdate(dto));
@@ -370,5 +370,7 @@ class EmployeeManagerImplTest {
                 () -> assertNull(obj.getRoles())
         );
     }
+
+
 
 }

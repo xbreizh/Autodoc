@@ -1,7 +1,6 @@
 package com.autodoc.business.contract.car;
 
 import com.autodoc.business.contract.IGenericManager;
-import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
 
@@ -12,8 +11,20 @@ public interface CarManager extends IGenericManager {
     CarDTO getByRegistration(String registration);
 
 
-    CarDTO updateClient(int carId, int clientId) throws InvalidDtoException;
+    CarDTO updateClient(int carId, int clientId);
 
-    Car transferUpdate(Object obj) throws InvalidDtoException;
+    Car transferUpdate(Object obj);
+
+    void checkClientExist(int clientId);
+
+    void checkCarModelExist(int carModelId);
+
+    boolean checkRegistrationNotInUse(int id, String registration);
+
+    void checkIfExistingCar(String registration);
+
+    void checkIfCarInDb(int id, String registration);
+
 
 }
+
