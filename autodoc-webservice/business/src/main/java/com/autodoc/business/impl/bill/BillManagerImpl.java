@@ -47,8 +47,16 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     private TaskDao taskDao;
     private TaskManager taskManager;
 
-    protected SimpleDateFormat getDateFormat() {
+    public SimpleDateFormat getDateFormat() {
         return new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    }
+
+    public Class getEntityClass() {
+        return Bill.class;
+    }
+
+    public Class getDtoClass() {
+        return BillDTO.class;
     }
 
     @Override
@@ -61,8 +69,8 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     @Override
     public BillDTO entityToDto(Object entity) {
         LOGGER.info("convert to dto");
-        BillDTO dto = new BillDTO();
         Bill bill = (Bill) entity;
+        BillDTO dto = new BillDTO();
         dto.setId(bill.getId());
         dto.setRegistration((bill).getCar().getRegistration());
         dto.setClientId((bill).getClient().getId());
@@ -76,37 +84,86 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         List<Integer> taskList = new ArrayList<>();
         List<Task> tasks = (bill).getTasks();
 
-
-        for (Task task : tasks) {
-            taskList.add(task.getId());
+        if (tasks != null) {
+            for (Task task : tasks) {
+                taskList.add(task.getId());
+            }
+            dto.setTasks(taskList);
         }
-        dto.setTasks(taskList);
 
         List<Integer> pieceList = new ArrayList<>();
         List<Piece> pieces = bill.getPieces();
-        for (Piece piece : pieces) {
-            pieceList.add(piece.getId());
+        if (pieces != null) {
+            for (Piece piece : pieces) {
+                pieceList.add(piece.getId());
+            }
         }
-
         dto.setPieces(pieceList);
         LOGGER.info("bill dto: " + dto);
         return dto;
     }
 
-    private void updateBillStatusIfMissingPiece(Bill bill) {
+    public void updateBillStatusIfMissingPiece(Bill bill) {
         for (Piece piece : bill.getPieces()) {
             if (piece.getName().startsWith("OOS")) bill.setStatus(Status.PENDING_PIECES);
         }
     }
 
     @Override
-    public Bill transferUpdate(Object obj) throws InvalidDtoException {
+    public Bill transferUpdate(Object obj) {
         resetException();
         BillDTO dto = (BillDTO) obj;
-        int id = dto.getId();
-        if (id == 0) throw new InvalidDtoException("no id provided");
-        Bill bill = (Bill) dao.getById(dto.getId());
-        if (bill == null) throw new InvalidDtoException("no bill found with that reference: " + dto.getId());
+        if (dto.getId() == 0) throw new InvalidDtoException("no id provided");
+        Bill bill = dtoToEntity(dto);
+        updateBillStatusIfMissingPiece(bill);
+        LOGGER.info("bill transferred: " + bill);
+        return bill;
+    }
+
+    @Override
+    public Bill dtoToEntity(Object entity) {
+        resetException();
+        BillDTO dto = (BillDTO) entity;
+        Bill bill = new Bill();
+        bill.setId(dto.getId());
+        bill.setDiscount(dto.getDiscount());
+        bill.setStatus(Status.valueOf(dto.getStatus()));
+        bill.setTotal(dto.getTotal());
+        bill.setVat(BillDTO.VAT);
+        bill.setComments(dto.getComments());
+
+        transferDateReparation(dto, bill);
+        transferCar(dto, bill);
+
+        transferTasks(dto, bill);
+        transferPieces(dto, bill);
+
+        transferClient(dto, bill);
+        transferEmployee(dto, bill);
+        LOGGER.info("bill transferred: " + bill);
+        return bill;
+    }
+
+    public void transferEmployee(BillDTO dto, Bill bill) {
+        Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
+        if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
+        bill.setEmployee(employee);
+    }
+
+    public void transferClient(BillDTO dto, Bill bill) {
+        Client client = (Client) clientDao.getById(dto.getClientId());
+        if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
+
+        bill.setClient(client);
+    }
+
+    public void transferCar(BillDTO dto, Bill bill) {
+        Car car = carDao.getCarByRegistration(dto.getRegistration());
+        if (car == null) throw new InvalidDtoException("car cannot be null");
+        bill.setCar(car);
+    }
+
+    public void transferDateReparation(BillDTO dto, Bill bill) {
         if (dto.getDateReparation() != null) {
             try {
                 bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
@@ -114,106 +171,9 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 throw new InvalidDtoException("invalid date format: " + dto.getDateReparation());
             }
         }
-        LOGGER.info("updating car");
-        if (dto.getRegistration() != null && !dto.getRegistration().isEmpty()) {
-            Car car = carDao.getCarByRegistration(dto.getRegistration());
-            if (car == null) throw new InvalidDtoException("car cannot be null");
-            LOGGER.info("car found: " + car);
-            bill.setCar(car);
-        }
-        LOGGER.info("updating discount");
-        if (dto.getDiscount() != 0) bill.setDiscount(dto.getDiscount());
-        LOGGER.info("updating tasks");
-        if (dto.getTasks() != null) {
-            List<Task> taskList = new ArrayList<>();
-            for (Integer i : dto.getTasks()) {
-                Task task = (Task) taskDao.getById(i);
-                if (task == null) throw new InvalidDtoException("invalid task");
-                taskList.add(task);
-            }
-            bill.setTasks(taskList);
-        }
-        LOGGER.info("tasks set: " + bill.getTasks());
-        LOGGER.info("updating pieces: " + bill.getPieces());
-        List<Piece> oldPieceList = bill.getPieces();
-        if (dto.getPieces() != null) {
-            List<Piece> newPieceList = new ArrayList<>();
-            for (Integer i : dto.getPieces()) {
-                Piece piece = (Piece) pieceDao.getById(i);
-                if (piece == null) throw new InvalidDtoException("invalid piece");
-                newPieceList.add(piece);
-            }
-            bill.setPieces(newPieceList);
-            LOGGER.info("old list: " + oldPieceList);
-            LOGGER.info("new list: " + newPieceList);
-            updateStockAndAddPieces(newPieceList, oldPieceList);
-            updateBillStatusIfMissingPiece(bill);
-        }
-        LOGGER.info("pieces list: " + bill.getPieces());
-        LOGGER.info("updating client");
-        if (dto.getClientId() != 0) {
-            Client client = (Client) clientDao.getById(dto.getClientId());
-            if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
-            LOGGER.info("client found: " + client);
-            bill.setClient(client);
-        }
-        LOGGER.info("updating total");
-        if (dto.getTotal() != 0) bill.setTotal(dto.getTotal());
-        LOGGER.info("updating vat");
-        if (BillDTO.VAT != 0) bill.setVat(BillDTO.VAT);
-        LOGGER.info("updating employee");
-        if (dto.getEmployeeId() != 0) {
-            Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
-            if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
-            bill.setEmployee(employee);
-            LOGGER.info("employee found: " + employee);
-        }
-        LOGGER.info("updating comments");
-        if (dto.getComments() != null && !dto.getComments().isEmpty()) {
-            bill.setComments(dto.getComments());
-        }
-        LOGGER.info("updating status");
-
-        if (dto.getStatus() != null && !dto.getStatus().isEmpty() && bill.getStatus() == null) {
-            bill.setStatus(Status.valueOf(dto.getStatus()));
-        }
-        LOGGER.info("bill transferred: " + bill);
-        return bill;
     }
 
-    @Override
-    public Bill dtoToEntity(Object entity) throws InvalidDtoException {
-        resetException();
-        BillDTO dto = (BillDTO) entity;
-        LOGGER.info("dto found: " + dto);
-        Bill bill = new Bill();
-        int id = dto.getId();
-        LOGGER.info("id: " + id);
-        bill.setId(id);
-        // if (dto.getDateReparation()==null && bill.getDateReparation()==null)throw new InvalidDtoException("no valid date provided: "+dto.getDateReparation());
-        LOGGER.info("dto date: " + dto.getDateReparation());
-        try {
-            bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
-        } catch (ParseException e) {
-            throw new InvalidDtoException("invalid date format: " + dto.getDateReparation());
-        }
-        LOGGER.info("entity date: " + bill.getDateReparation());
-        Car car = carDao.getCarByRegistration(dto.getRegistration());
-        if (car == null) throw new InvalidDtoException("car cannot be null");
-        LOGGER.info("car found: " + car);
-        bill.setCar(car);
-        bill.setDiscount(dto.getDiscount());
-        bill.setStatus(Status.valueOf(dto.getStatus()));
-        if (dto.getTasks() != null) {
-            List<Task> taskList = new ArrayList<>();
-            for (Integer i : dto.getTasks()) {
-                Task task = (Task) taskDao.getById(i);
-                if (task == null) throw new InvalidDtoException("invalid task");
-                taskList.add(task);
-            }
-            bill.setTasks(taskList);
-        }
-        LOGGER.info("tasks set: " + bill.getTasks());
+    public void transferPieces(BillDTO dto, Bill bill) {
         if (dto.getPieces() != null) {
             List<Piece> pieceList = new ArrayList<>();
             for (Integer i : dto.getPieces()) {
@@ -224,20 +184,18 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             updateStockAndAddPieces(pieceList, bill.getPieces());
             bill.setPieces(pieceList);
         }
-        Client client = (Client) clientDao.getById(dto.getClientId());
-        if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
-        LOGGER.info("client found: " + client);
-        bill.setClient(client);
-        bill.setTotal(dto.getTotal());
-        bill.setVat(BillDTO.VAT);
-        Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
-        if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
-        bill.setComments(dto.getComments());
-        LOGGER.info("employee found: " + employee);
-        bill.setEmployee(employee);
-        LOGGER.info("bill transferred: " + bill);
-        checkIfDuplicate(dto);
-        return bill;
+    }
+
+    public void transferTasks(BillDTO dto, Bill bill) {
+        if (dto.getTasks() != null) {
+            List<Task> taskList = new ArrayList<>();
+            for (Integer i : dto.getTasks()) {
+                Task task = (Task) taskDao.getById(i);
+                if (task == null) throw new InvalidDtoException("invalid task");
+                taskList.add(task);
+            }
+            bill.setTasks(taskList);
+        }
     }
 
 
@@ -247,7 +205,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         LOGGER.info(billPieces);
         LOGGER.info(billDbPieces);
 
-        if (billDbPieces != null) {
+        if (billDbPieces != null && !billDbPieces.isEmpty()) {
 
             // raises db quantity if removing a new item from the bill
             for (Piece p : billDbPieces) {
@@ -260,13 +218,15 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         }
 
 
-        if (billPieces != null) {
+        if (billPieces != null && !billPieces.isEmpty()) {
 
             // lowers db quantity if adding a new item from the bill
             for (Piece p : billPieces) {
-                if (!billDbPieces.contains(p)) {
-                    LOGGER.info("adding an item");
-                    pieceManager.updateQuantity(p, "-");
+                if (billDbPieces != null && !billDbPieces.isEmpty()) {
+                    if (!billDbPieces.contains(p)) {
+                        LOGGER.info("adding an item");
+                        pieceManager.updateQuantity(p, "-");
+                    }
                 }
                 dao.update(p);
             }

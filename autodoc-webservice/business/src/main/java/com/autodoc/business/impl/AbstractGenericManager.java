@@ -101,7 +101,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
     @Override
     public void checkIfDuplicate(D obj) throws InvalidDtoException {
-        System.out.println("ddfefrfr");
         LOGGER.info("checking insert data: " + obj);
     }
 
