@@ -8,9 +8,5 @@ import org.springframework.stereotype.Service;
 public interface CarModelManager extends IGenericManager {
 
 
-    //List<CarModelDTO> getAll();
-
-    //CarModelDTO getById(int id);
-
     CarModelDTO getByName(String name);
 }

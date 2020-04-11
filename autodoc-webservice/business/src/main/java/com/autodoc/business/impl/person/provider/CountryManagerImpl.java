@@ -46,7 +46,7 @@ public class CountryManagerImpl extends AbstractGenericManager implements Countr
     }
 
     @Override
-    public Country dtoToEntity(Object entity) throws InvalidDtoException {
+    public Country dtoToEntity(Object entity)  {
         if (entity == null) return null;
         CountryDTO dto = (CountryDTO) entity;
         Country country = mapper.map(entity, Country.class);

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public interface ManufacturerManager extends IGenericManager {
 
 
-    // List<ManufacturerDTO> getAll();
 
     ManufacturerDTO getByName(String anyString);
 }

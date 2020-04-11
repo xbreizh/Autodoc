@@ -1,18 +1,11 @@
 package com.autodoc.business.contract.bill;
 
 import com.autodoc.business.contract.IGenericManager;
-import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.models.bill.Bill;
-import com.autodoc.model.models.car.Car;
-import com.autodoc.model.models.employee.Employee;
-import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.pieces.Piece;
-import com.autodoc.model.models.tasks.Task;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /*@Service*/

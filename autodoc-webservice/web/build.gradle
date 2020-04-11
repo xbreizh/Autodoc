@@ -19,8 +19,6 @@ jar {
 }
 
 
-
-
 asciidoctor {
     sourceDir = snippetsDir
     sources {
@@ -34,7 +32,7 @@ buildscript {
         jcenter()
     }
 
-    war{
+    war {
 
     }
 

@@ -10,7 +10,6 @@ import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
-import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,7 +98,7 @@ class CarManagerImplTest {
     @DisplayName("should return false if car not in db ")
     void checkRegistrationNotInUse() {
         when(dao.getCarByRegistration(anyString())).thenReturn(null);
-       assertFalse(manager.checkRegistrationNotInUse(id, registration));
+        assertFalse(manager.checkRegistrationNotInUse(id, registration));
     }
 
     @Test
@@ -118,17 +117,17 @@ class CarManagerImplTest {
 
     @Test
     @DisplayName("should return true if existing car")
-    void checkIfExistingCar(){
+    void checkIfExistingCar() {
         when(dao.getCarByRegistration(anyString())).thenReturn(obj);
-        assertThrows(InvalidDtoException.class, ()->manager.checkIfExistingCar(registration));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfExistingCar(registration));
 
     }
 
     @Test
     @DisplayName("should return true if existing car")
-    void checkIfExistingCar1(){
+    void checkIfExistingCar1() {
         when(dao.getCarByRegistration(anyString())).thenReturn(null);
-        assertDoesNotThrow(()->manager.checkIfExistingCar(registration));
+        assertDoesNotThrow(() -> manager.checkIfExistingCar(registration));
 
     }
 
@@ -195,7 +194,7 @@ class CarManagerImplTest {
 
     @Test
     @DisplayName("should insert car")
-    void transferInsert(){
+    void transferInsert() {
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         obj = (Car) manager.transferInsert(dto);
@@ -215,7 +214,7 @@ class CarManagerImplTest {
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(dao.getById(anyInt())).thenReturn(obj);
-        obj =  manager.transferUpdate(dto);
+        obj = manager.transferUpdate(dto);
         System.out.println(dto);
         assertAll(
                 () -> assertEquals(dto.getRegistration().toUpperCase(), obj.getRegistration()),
@@ -230,7 +229,7 @@ class CarManagerImplTest {
     void transferUpdate1() {
         dto.setId(0);
         dto.setRegistration("");
-        assertThrows(InvalidDtoException.class, ()->manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
 
     }
 
@@ -239,7 +238,7 @@ class CarManagerImplTest {
     void transferUpdate5() {
         dto.setId(0);
         dto.setRegistration(null);
-        assertThrows(InvalidDtoException.class, ()->manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
 
     }
 
@@ -248,7 +247,7 @@ class CarManagerImplTest {
     void transferUpdate2() {
         dto.setCarModelId(0);
         dto.setClientId(0);
-        assertThrows(InvalidDtoException.class, ()->manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
 
     }
 
@@ -256,7 +255,7 @@ class CarManagerImplTest {
     @DisplayName("should throw an exception if no valid car id provided")
     void transferUpdate3() {
         when(dao.getById(anyInt())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, ()->manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
 
     }
 
@@ -265,7 +264,7 @@ class CarManagerImplTest {
     void transferUpdate4() {
         dto.setId(0);
         when(dao.getCarByRegistration(anyString())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, ()->manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
 
     }
 
@@ -277,7 +276,7 @@ class CarManagerImplTest {
         dto.setCarModelId(0);
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(dao.getById(anyInt())).thenReturn(obj);
-        obj =  manager.transferUpdate(dto);
+        obj = manager.transferUpdate(dto);
         System.out.println(dto);
         assertAll(
                 () -> assertEquals(dto.getRegistration().toUpperCase(), obj.getRegistration()),
@@ -295,7 +294,7 @@ class CarManagerImplTest {
         dto.setCarModelId(32);
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(dao.getById(anyInt())).thenReturn(obj);
-        obj =  manager.transferUpdate(dto);
+        obj = manager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(dto.getRegistration().toUpperCase(), obj.getRegistration()),
                 () -> assertEquals(dto.getCarModelId(), obj.getCarModel().getId()),
@@ -311,7 +310,7 @@ class CarManagerImplTest {
         dto.setCarModelId(0);
         when(dao.getById(anyInt())).thenReturn(obj);
 
-        assertThrows(InvalidDtoException.class, ()->manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
 
 
     }
@@ -319,37 +318,37 @@ class CarManagerImplTest {
 
     @Test
     @DisplayName("should throw an error if car id not in db")
-    void checkIfCarInDb(){
+    void checkIfCarInDb() {
         when(dao.getById(anyInt())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfCarInDb(3, "dedsd"));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(3, "dedsd"));
     }
 
     @Test
     @DisplayName("should throw an error if car registration not in db")
-    void checkIfCarInDb1(){
+    void checkIfCarInDb1() {
         when(dao.getCarByRegistration(anyString())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfCarInDb(3, "dedsd"));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(3, "dedsd"));
     }
 
     @Test
     @DisplayName("should not throw an error if car registration in db")
-    void checkIfCarInDb2(){
+    void checkIfCarInDb2() {
         when(dao.getCarByRegistration(anyString())).thenReturn(obj);
-        assertDoesNotThrow( ()-> manager.checkIfCarInDb(0, "dedsd"));
+        assertDoesNotThrow(() -> manager.checkIfCarInDb(0, "dedsd"));
     }
 
     @Test
     @DisplayName("should not throw an error if car id in db")
-    void checkIfCarInDb3(){
+    void checkIfCarInDb3() {
         when(dao.getById(anyInt())).thenReturn(obj);
-        assertDoesNotThrow( ()-> manager.checkIfCarInDb(3, "dedsd"));
+        assertDoesNotThrow(() -> manager.checkIfCarInDb(3, "dedsd"));
     }
 
     @Test
     @DisplayName("should not throw an error if car id in db")
-    void checkIfCarInDb4(){
+    void checkIfCarInDb4() {
         when(dao.getById(anyInt())).thenReturn(obj);
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfCarInDb(0, ""));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(0, ""));
     }
 
 

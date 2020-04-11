@@ -40,6 +40,4 @@ public class TaskDaoImpl<T> extends AbstractHibernateDao implements TaskDao {
     }
 
 
-
-
 }

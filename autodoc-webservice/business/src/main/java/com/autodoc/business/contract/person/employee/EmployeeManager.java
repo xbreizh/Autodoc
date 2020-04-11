@@ -21,9 +21,9 @@ public interface EmployeeManager extends IGenericManager {
 
     Employee getByToken(String token);
 
-    List<EmployeeDTO> getByRoles(List<RoleListDTO> roles) throws Exception;
+    List<EmployeeDTO> getByRoles(List<RoleListDTO> roles);
 
-    List<Role> checkRoleValuesValid(List<RoleListDTO> roles) throws Exception;
+    List<Role> checkRoleValuesValid(List<RoleListDTO> roles);
 
     List<Role> convertRoleFromDtoToEntity(List<String> roles);
 

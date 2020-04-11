@@ -38,21 +38,21 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
 
 
     @Override
-    public PieceType transferInsert(Object obj)  {
+    public PieceType transferInsert(Object obj) {
         checkIfDuplicate(obj);
         return (PieceType) dtoToEntity(obj);
     }
 
 
     @Override
-    public void checkIfDuplicate(Object dtoToCheck)  {
+    public void checkIfDuplicate(Object dtoToCheck) {
         PieceTypeDTO dto = (PieceTypeDTO) dtoToCheck;
         if (dao.getByName(dto.getName()) != null) throw new InvalidDtoException("that pieceType already exist");
 
     }
 
-    public PieceType transferUpdate(Object obj)  {
-        PieceTypeDTO dto = (PieceTypeDTO)obj;
+    public PieceType transferUpdate(Object obj) {
+        PieceTypeDTO dto = (PieceTypeDTO) obj;
         checkIfExistingPieceType(dto);
         return (PieceType) dtoToEntity(dto);
     }

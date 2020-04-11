@@ -70,20 +70,21 @@ class PieceTypeManagerImplTest {
 
     @Test
     @DisplayName("should throw an error if duplicate")
-    void checkIfDuplicate(){
+    void checkIfDuplicate() {
         when(dao.getByName(dto.getName())).thenReturn(obj);
-        assertThrows(InvalidDtoException.class, ()->manager.checkIfDuplicate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
     }
 
     @Test
     @DisplayName("should not throw an error if no duplicate")
-    void checkIfDuplicate1(){
+    void checkIfDuplicate1() {
         when(dao.getByName(dto.getName())).thenReturn(null);
-        assertDoesNotThrow( ()->manager.checkIfDuplicate(dto));
+        assertDoesNotThrow(() -> manager.checkIfDuplicate(dto));
     }
+
     @Test
     @DisplayName("should transfer object")
-    void transferInsert(){
+    void transferInsert() {
         obj = (PieceType) manager.transferInsert(dto);
         when(dao.getByName(dto.getName())).thenReturn(null);
         assertAll(
@@ -94,20 +95,21 @@ class PieceTypeManagerImplTest {
 
     @Test
     @DisplayName("should throw an exception if pieceType not existing")
-    void checkIfExistingPieceType(){
+    void checkIfExistingPieceType() {
         when(dao.getById(anyInt())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfExistingPieceType(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfExistingPieceType(dto));
     }
 
     @Test
     @DisplayName("should not throw an exception if pieceType  existing")
-    void checkIfExistingPieceType1(){
+    void checkIfExistingPieceType1() {
         when(dao.getById(anyInt())).thenReturn(obj);
-        assertDoesNotThrow(()-> manager.checkIfExistingPieceType(dto));
+        assertDoesNotThrow(() -> manager.checkIfExistingPieceType(dto));
     }
+
     @Test
     @DisplayName("should update object")
-    void transferUpdate(){
+    void transferUpdate() {
         when(dao.getById(anyInt())).thenReturn(obj);
         obj = (PieceType) manager.transferUpdate(dto);
         assertAll(

@@ -3,12 +3,9 @@ package com.autodoc.business.impl.person.client;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
-import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
-import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.dtos.person.client.ClientDTO;
-import com.autodoc.model.models.car.Manufacturer;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.search.Search;
 import lombok.Builder;
@@ -44,26 +41,10 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     }
 
 
-  /*  @Override
-    public ClientDTO entityToDto(Object client1) {
-        LOGGER.info("converting into dto");
-        return mapper.map(client1, ClientDTO.class);
-    }
-
-    @Override
-    public Client dtoToEntity(Object entity)  {
-        LOGGER.info("converting into entity: " + entity);
-        ClientDTO dto = (ClientDTO) entity;
-        checkIfDuplicate(dto);
-        return mapper.map(dto, Client.class);
-    }*/
-
-
-    public Client transferUpdate(Object obj)  {
+    public Client transferUpdate(Object obj) {
         LOGGER.info("updating");
         ClientDTO dto = (ClientDTO) obj;
         Client client = checkIfIdIsValid(dto.getId());
-        System.out.println(dto);
         checkIfDuplicate(dto);
         return client;
 
@@ -77,7 +58,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
         return client;
     }
 
-    public void checkIfDuplicate(Object entity)  {
+    public void checkIfDuplicate(Object entity) {
         LOGGER.info("checking for duplicates");
         List<Search> searchList = new ArrayList<>();
         ClientDTO dto = (ClientDTO) entity;

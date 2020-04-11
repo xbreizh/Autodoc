@@ -23,7 +23,6 @@ import com.autodoc.model.models.tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -199,7 +198,7 @@ class BillManagerImplTest {
     @DisplayName("should throw an exception id id==0")
     void transferUpdate1() {
         dto.setId(0);
-        assertThrows(InvalidDtoException.class, ()-> manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
 
     }
 
@@ -307,7 +306,7 @@ class BillManagerImplTest {
     @DisplayName("should do nothing when DateReparation invalid")
     void transferDateReparation2() {
         dto.setDateReparation(null);
-        assertDoesNotThrow( () -> manager.transferDateReparation(dto, obj));
+        assertDoesNotThrow(() -> manager.transferDateReparation(dto, obj));
     }
 
 
@@ -332,6 +331,7 @@ class BillManagerImplTest {
         dto.setPieces(null);
         assertDoesNotThrow(() -> manager.transferPieces(dto, obj));
     }
+
     @Test
     @DisplayName("should do nothing if pieces empty")
     void transferPieces3() {
@@ -367,9 +367,10 @@ class BillManagerImplTest {
         dto.setTasks(new ArrayList<>());
         assertDoesNotThrow(() -> manager.transferTasks(dto, obj));
     }
+
     @Test
     @DisplayName("should update Stock")
-    void updateStockAndAddPieces(){
+    void updateStockAndAddPieces() {
 
 
     }

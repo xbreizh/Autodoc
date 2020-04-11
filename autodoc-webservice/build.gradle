@@ -56,7 +56,7 @@ subprojects {
         }
     }
 
-    task combo{
+    task combo {
         println("starting combo")
         dependsOn 'clean'
         dependsOn 'build'
@@ -101,11 +101,7 @@ subprojects {
     }
 
 
-
 }
-
-
-
 
 
 apply from: rootProject.file('gradle/profiles.gradle')

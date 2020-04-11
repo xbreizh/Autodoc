@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 @Builder
 public class EmployeeManagerImpl extends AbstractGenericManager implements EmployeeManager {
-    private  static final Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private EmployeeDao dao;
 
@@ -62,7 +62,7 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
     public Employee dtoToEntity(Object entity) {
         Employee employee = mapper.map(entity, Employee.class);
         EmployeeDTO dto = (EmployeeDTO) entity;
-        if(dto.getRoles()!=null) {
+        if (dto.getRoles() != null) {
             employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
         }
         return employee;
@@ -83,7 +83,7 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         LOGGER.info("transfer update: " + obj);
         EmployeeDTO dto = (EmployeeDTO) obj;
         if (dto.getId() == 0) throw new InvalidDtoException("invalid id: " + 0);
-        if(dao.getById(dto.getId())==null)return null;
+        if (dao.getById(dto.getId()) == null) return null;
         Employee employee = dtoToEntity(dto);
         checkAndPassLogin(employee, dto.getLogin().toUpperCase());
         if (dto.getRoles() != null) employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));

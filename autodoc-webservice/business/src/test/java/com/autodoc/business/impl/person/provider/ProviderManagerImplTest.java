@@ -78,24 +78,25 @@ class ProviderManagerImplTest {
 
     @Test
     @DisplayName("should return an exception if obj already exists")
-    void checkIfDuplicate(){
+    void checkIfDuplicate() {
         List<Provider> providers = new ArrayList<>();
         providers.add(new Provider());
         when(dao.getByCriteria(anyList())).thenReturn(providers);
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfDuplicate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
 
     }
 
     @Test
     @DisplayName("should not return an exception if obj doesn't already exists")
-    void checkIfDuplicate1(){
+    void checkIfDuplicate1() {
         when(dao.getByCriteria(anyList())).thenReturn(new ArrayList());
-        assertDoesNotThrow(()-> manager.checkIfDuplicate(dto));
+        assertDoesNotThrow(() -> manager.checkIfDuplicate(dto));
 
     }
+
     @Test
     @DisplayName("should transfert")
-    void transferInsert(){
+    void transferInsert() {
         obj = (Provider) manager.transferInsert(dto);
         assertAll(
                 () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),
@@ -110,7 +111,7 @@ class ProviderManagerImplTest {
 
     @Test
     @DisplayName("should update")
-    void transferUpdate(){
+    void transferUpdate() {
         obj = (Provider) manager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),

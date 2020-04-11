@@ -127,8 +127,8 @@ class EmployeeManagerImplTest {
     @DisplayName("should convert entity to dto")
     void convertRoleFromEntityToDto1() {
         List<Role> roles = new ArrayList<>();
-        manager.convertRoleFromEntityToDto(roles);
-        //assertEquals("MANAGER", manager.convertRoleFromEntityToDto(roles).get(0).toString());
+        roles.add(Role.MANAGER);
+        assertEquals("MANAGER", manager.convertRoleFromEntityToDto(roles).get(0));
     }
 
     @Test
@@ -326,7 +326,7 @@ class EmployeeManagerImplTest {
     @DisplayName("should throw an exception if id = 0 and registration empty")
     void transferUpdate() {
         dto.setId(0);
-        assertThrows(InvalidDtoException.class, ()-> manager.transferUpdate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
     }
 
     @Test
@@ -370,7 +370,6 @@ class EmployeeManagerImplTest {
                 () -> assertNull(obj.getRoles())
         );
     }
-
 
 
 }

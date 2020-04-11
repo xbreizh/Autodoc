@@ -43,7 +43,7 @@ class ClientManagerImplTest {
         obj = Client.builder().id(id).firstName(firstName).lastName(lastName).phoneNumber(phoneNumber).build();
         dto = ClientDTO.builder().id(id).firstName(firstNameDto).lastName(lastNameDto).phoneNumber(phoneNumberDto).build();
         System.out.println(firstNameDto);
-        System.out.println("dto: "+dto.getFirstName());
+        System.out.println("dto: " + dto.getFirstName());
     }
 
 
@@ -73,58 +73,59 @@ class ClientManagerImplTest {
                 () -> assertEquals(dto.getPhoneNumber().toUpperCase(), obj.getPhoneNumber())
         );
     }
+
     @Test
     @DisplayName("should throw an exception if invalid id")
-    void checkIfIdIsValid(){
+    void checkIfIdIsValid() {
         when(dao.getById(anyInt())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfIdIsValid(3));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfIdIsValid(3));
     }
 
     @Test
     @DisplayName("should throw an exception if id =0")
-    void checkIfIdIsValid1(){
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfIdIsValid(0));
+    void checkIfIdIsValid1() {
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfIdIsValid(0));
     }
 
     @Test
     @DisplayName("should not throw an exception if id valid")
-    void checkIfIdIsValid2(){
+    void checkIfIdIsValid2() {
         when(dao.getById(anyInt())).thenReturn(obj);
-        assertDoesNotThrow( ()-> manager.checkIfIdIsValid(20));
+        assertDoesNotThrow(() -> manager.checkIfIdIsValid(20));
     }
 
     @Test
     @DisplayName("should return an exception if obj already exists")
-    void checkIfDuplicate(){
+    void checkIfDuplicate() {
         List<Client> clients = new ArrayList<>();
         obj.setId(31);
         clients.add(obj);
         when(dao.getByCriteria(anyList())).thenReturn(clients);
-        assertThrows(InvalidDtoException.class, ()-> manager.checkIfDuplicate(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
 
     }
 
     @Test
     @DisplayName("should not return an exception if obj doesn't already exists")
-    void checkIfDuplicate1(){
+    void checkIfDuplicate1() {
         when(dao.getByCriteria(anyList())).thenReturn(new ArrayList());
-        assertDoesNotThrow( ()-> manager.checkIfDuplicate(dto));
+        assertDoesNotThrow(() -> manager.checkIfDuplicate(dto));
 
     }
 
     @Test
     @DisplayName("should not return an exception if obj already exists and has the same id")
-    void checkIfDuplicate2(){
+    void checkIfDuplicate2() {
         List<Client> clients = new ArrayList<>();
         clients.add(obj);
         when(dao.getByCriteria(anyList())).thenReturn(clients);
-        assertDoesNotThrow( ()-> manager.checkIfDuplicate(dto));
+        assertDoesNotThrow(() -> manager.checkIfDuplicate(dto));
 
     }
 
     @Test
     @DisplayName("should update")
-    void transferUpdate(){
+    void transferUpdate() {
         when(dao.getByCriteria(anyList())).thenReturn(new ArrayList());
         when(dao.getById(anyInt())).thenReturn(obj);
         System.out.println(dto);

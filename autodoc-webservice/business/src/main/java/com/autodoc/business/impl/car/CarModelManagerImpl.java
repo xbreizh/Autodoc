@@ -21,28 +21,9 @@ public class CarModelManagerImpl extends AbstractGenericManager implements CarMo
     private static final ModelMapper mapper = new ModelMapper();
     private CarModelDao dao;
 
-
-   /* @Override
-    public IGenericDao getDao() {
-        LOGGER.info("getting dao");
-        return dao;
+    public Class getEntityClass() {
+        return CarModel.class;
     }
-
-
-    @Override
-    public CarModelDTO entityToDto(Object entity) {
-        return mapper.map(entity, CarModelDTO.class);
-    }
-
-    @Override
-    public CarModel dtoToEntity(Object entity) {
-        if (entity == null) return null;
-        checkIfDuplicate(entity);
-        return mapper.map(entity, CarModel.class);
-    }*/
-   public Class getEntityClass() {
-       return CarModel.class;
-   }
 
     public Class getDtoClass() {
         return CarModelDTO.class;

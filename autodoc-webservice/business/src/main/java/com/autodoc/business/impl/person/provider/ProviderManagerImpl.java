@@ -39,54 +39,26 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
     }
 
     @Override
-    public Provider dtoToEntity(Object entity)  {
+    public Provider dtoToEntity(Object entity) {
         return mapper.map(entity, Provider.class);
     }
 
-    public Provider transferInsert(Object obj)  {
+    public Provider transferInsert(Object obj) {
         ProviderDTO dto = (ProviderDTO) obj;
         checkIfDuplicate(dto);
-        Provider provider = dtoToEntity(dto);
-        return provider;
+        return dtoToEntity(dto);
 
 
     }
 
-    public Provider transferUpdate(Object obj) throws InvalidDtoException {
+    public Provider transferUpdate(Object obj) {
         LOGGER.info("transferring update data");
         ProviderDTO dto = (ProviderDTO) obj;
-        /*int id = dto.getId();
-        if (id == 0) throw new InvalidDtoException("id cannot be null");
-        Provider provider = (Provider) dao.getById(id);
-        if (provider == null) throw new InvalidDtoException("invalid id");
-        if (dto.getFirstName() != null) {
-            provider.setFirstName(dto.getFirstName().toUpperCase());
-        }
-        if (dto.getLastName() != null) {
-            provider.setLastName(dto.getLastName().toUpperCase());
-        }
-        if (dto.getPhoneNumber() != null) {
-            provider.setPhoneNumber(dto.getPhoneNumber().toUpperCase());
-        }
-        if (dto.getEmail1() != null) {
-            provider.setEmail1(dto.getEmail1());
-        }
-        if (dto.getEmail2() != null) {
-            provider.setEmail2(dto.getEmail2());
-        }
-        if (dto.getCompany() != null) {
-            provider.setCompany(dto.getCompany());
-        }
-
-        if (dto.getWebsite() != null) {
-            provider.setWebsite(dto.getWebsite());
-        }*/
-
         return dtoToEntity(dto);
     }
 
 
-    public void checkIfDuplicate(Object entity) throws InvalidDtoException {
+    public void checkIfDuplicate(Object entity) {
         List<Search> searchList = new ArrayList<>();
         ProviderDTO dto = (ProviderDTO) entity;
         Search search1 = new Search("firstName", "=", dto.getFirstName().toUpperCase());

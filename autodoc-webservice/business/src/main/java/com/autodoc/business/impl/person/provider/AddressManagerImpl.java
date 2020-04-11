@@ -63,7 +63,7 @@ public class AddressManagerImpl extends AbstractGenericManager implements Addres
         return address;
     }
 
-    public Address transferUpdate(Object obj) throws InvalidDtoException {
+    public Address transferUpdate(Object obj)  {
         LOGGER.info("transferring data for update");
         AddressDTO dto = (AddressDTO) obj;
         LOGGER.info("dto received: " + dto);

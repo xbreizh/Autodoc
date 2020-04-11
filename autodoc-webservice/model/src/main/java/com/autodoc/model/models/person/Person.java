@@ -1,8 +1,6 @@
 package com.autodoc.model.models.person;
 
-import com.autodoc.model.models.pieces.Piece;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

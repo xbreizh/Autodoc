@@ -36,7 +36,6 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
 
-
     @Override
     public CarDTO getByRegistration(String registration) {
         LOGGER.info("reg: " + registration);
@@ -71,7 +70,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
     @Override
-    public Car dtoToEntity(Object obj)  {
+    public Car dtoToEntity(Object obj) {
         LOGGER.info("converting into entity");
         resetException();
         CarDTO dto = (CarDTO) obj;
@@ -80,7 +79,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
     @Override
-    public Car transferInsert(Object obj)  {
+    public Car transferInsert(Object obj) {
         CarDTO dto = (CarDTO) obj;
         checkIfExistingCar(dto.getRegistration());
         checkClientExist(dto.getClientId());
@@ -89,7 +88,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
     @Override
-    public Car transferUpdate(Object obj)  {
+    public Car transferUpdate(Object obj) {
         LOGGER.info("transfer update");
         CarDTO dto = (CarDTO) obj;
         int id = dto.getId();
@@ -104,12 +103,12 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             throw new InvalidDtoException("no update parameters provided");
         }
         LOGGER.info("dto: " + dto);
-        if(carModelId!=0){
+        if (carModelId != 0) {
             checkCarModelExist(carModelId);
             CarModel carModel = (CarModel) carModelDao.getById(carModelId);
             car.setCarModel(carModel);
         }
-        if(clientId!=0){
+        if (clientId != 0) {
             checkClientExist(clientId);
             Client client = (Client) clientDao.getById(clientId);
             car.setClient(client);
@@ -122,11 +121,13 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
     public void checkIfCarInDb(int id, String registration) {
-        if(id==0 && (registration==null || registration.isEmpty()))throw new InvalidDtoException("you need to pass a registration or a car id");
+        if (id == 0 && (registration == null || registration.isEmpty()))
+            throw new InvalidDtoException("you need to pass a registration or a car id");
         if (id != 0) {
             if (dao.getById(id) == null) throw new InvalidDtoException("invalid car id: " + id);
         } else {
-            if (dao.getCarByRegistration(registration) == null) throw new InvalidDtoException("invalid registration: " + registration);
+            if (dao.getCarByRegistration(registration) == null)
+                throw new InvalidDtoException("invalid registration: " + registration);
         }
     }
 
@@ -146,18 +147,14 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     }
 
 
-
-
-
-
-    public void checkClientExist(int clientId)  {
+    public void checkClientExist(int clientId) {
         if (clientDao.getById(clientId) == null) {
             throw new EntityNotFoundException("invalid clientId: " + clientId);
 
         }
     }
 
-    public void checkCarModelExist(int carModelId)  {
+    public void checkCarModelExist(int carModelId) {
         if (carModelDao.getById(carModelId) == null) {
             throw new EntityNotFoundException("invalid carModelId: " + carModelId);
 

@@ -1,6 +1,5 @@
 package com.autodoc.business.contract;
 
-import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.models.search.SearchDTO;
 
@@ -10,33 +9,33 @@ public interface IGenericManager<T, D> {
 
     IGenericDao getDao();
 
-    D getById(final int id) throws InvalidDtoException;
+    D getById(final int id);
 
     List<D> getAll();
 
-    String save(final D entity) throws InvalidDtoException;
+    String save(final D entity);
 
-    boolean update(final D entity) throws InvalidDtoException;
+    boolean update(final D entity);
 
-    boolean delete(final D entity) throws InvalidDtoException;
+    boolean delete(final D entity);
 
-    boolean deleteById(final int entityId) throws InvalidDtoException;
+    boolean deleteById(final int entityId);
 
     D entityToDto(final T entity);
 
-    T dtoToEntity(final D entity) throws InvalidDtoException;
+    T dtoToEntity(final D entity);
 
-    void checkIfDuplicate(D dto) throws InvalidDtoException;
+    void checkIfDuplicate(D dto);
 
-    void checkDataUpdate(D dto) throws InvalidDtoException;
+    void checkDataUpdate(D dto);
 
-    D getByName(String name) throws InvalidDtoException;
+    D getByName(String name);
 
-    List<D> searchByCriteria(List<SearchDTO> search) throws InvalidDtoException;
+    List<D> searchByCriteria(List<SearchDTO> search);
 
-    T transferInsert(D obj) throws InvalidDtoException;
+    T transferInsert(D obj);
 
-    T transferUpdate(D obj) throws InvalidDtoException;
+    T transferUpdate(D obj);
 
     Class getEntityClass();
 

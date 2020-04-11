@@ -145,13 +145,7 @@ class TaskManagerImplTest {
     }
 
 
-    @Test
-    void checkDataInsert() {
-    }
 
-    @Test
-    void checkDataUpdate() {
-    }
 
     @Test
     void getById() throws Exception {

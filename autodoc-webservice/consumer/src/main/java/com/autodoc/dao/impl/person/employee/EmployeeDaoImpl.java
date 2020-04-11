@@ -72,7 +72,7 @@ public class EmployeeDaoImpl extends AbstractHibernateDao implements EmployeeDao
         TypedQuery<Employee> query = getCurrentSession().createNativeQuery(sb.toString(), Employee.class);
 
 
-       return query.getResultList();
+        return query.getResultList();
     }
 
 

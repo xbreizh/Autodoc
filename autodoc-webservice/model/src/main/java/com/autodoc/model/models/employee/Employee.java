@@ -6,7 +6,6 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.person.Person;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
