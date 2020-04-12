@@ -20,11 +20,11 @@ import java.util.*;
 @Component
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
-    protected String exception = "";
-
+   // protected String exception = "";
+/*
     protected void resetException() {
         exception = "";
-    }
+    }*/
 
     public IGenericDao getDao() {
         return null;
@@ -34,13 +34,12 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public String save(D object) {
         LOGGER.info("trying to save: " + object.getClass());
         IGenericDao dao = getDao();
-        try {
             T objectToSave = transferInsert(object);
             LOGGER.info("object to save: " + objectToSave);
-            if (!exception.isEmpty()) {
+          /*  if (!exception.isEmpty()) {
                 LOGGER.error(exception);
                 return exception;
-            }
+            }*/
             String feedback = Integer.toString(dao.create(objectToSave));
             LOGGER.info("feedback: " + feedback);
             if (!feedback.equals("0")) {
@@ -49,18 +48,13 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             }
             LOGGER.info("issue while saving");
             return "issue while saving";
-        } catch (InvalidDtoException e) {
-            LOGGER.error(e.getMessage());
-            return e.getMessage();
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            return e.getMessage();
-        }
+
 
     }
 
     public T transferInsert(D obj) {
         LOGGER.info("here now");
+        checkIfDuplicate(obj);
         return dtoToEntity(obj);
     }
 
@@ -113,8 +107,8 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     @Override
     public D getById(int id) {
         if (getDao().getById(id) == null) {
-            exception = "no record found by id: " + id;
-            return null;
+            throw new InvalidDtoException("invalid id: "+id);
+
         }
         return entityToDto((T) getDao().getById(id));
     }
@@ -122,8 +116,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     @Override
     public D getByName(String name) {
         if (getDao().getByName(name) == null) {
-            exception = "no record found by name: " + name;
-            return null;
+            throw new InvalidDtoException("no record found by name: " + name);
         }
         LOGGER.info("record found!! ");
         return entityToDto((T) getDao().getByName(name));
@@ -195,7 +188,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             if (!isCompareCriteria(type, dto))
                 throw new InvalidDtoException(compare + " is invalid or can't be used with " + field);
             if (type.equals("INTEGER")) {
-                if (!IsValidNumber(value)) throw new InvalidDtoException(value + " is not a valid number");
+                if (!isValidNumber(value)) throw new InvalidDtoException(value + " is not a valid number");
             }
             if (type.equals("DATE")) checkDateValue(value);
             if (type.equals("STRING")) value = checkAndAdaptValue(compare, value);
@@ -258,12 +251,11 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         return true;
     }
 
-    private boolean IsValidNumber(String value) {
-        LOGGER.info("test");
+    private boolean isValidNumber(String value) {
+        LOGGER.debug("checking if a valid number");
         try {
             Double.parseDouble(value);
         } catch (NumberFormatException | NullPointerException nfe) {
-            LOGGER.info("oh");
             return false;
         }
         return true;

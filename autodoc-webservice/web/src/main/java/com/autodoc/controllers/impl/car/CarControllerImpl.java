@@ -62,7 +62,7 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @Override
     @PatchMapping(value = "/updateClient/{carId}/{clientId}",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) throws Exception {
+    public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) {
         LOGGER.debug("car id: " + carId + " / client id: " + clientId);
         CarDTO response = carManager.updateClient(carId, clientId);
         return ResponseEntity

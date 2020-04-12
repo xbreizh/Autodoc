@@ -11,5 +11,5 @@ public interface CarController extends GlobalController {
 
     ResponseEntity getByClient(String clientLastName, String clientFirstName);
 
-    ResponseEntity updateCarClient(Integer carId, Integer clientId) throws Exception;
+    ResponseEntity updateCarClient(Integer carId, Integer clientId);
 }

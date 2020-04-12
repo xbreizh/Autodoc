@@ -2,7 +2,7 @@ package com.autodoc.controllers.contract;
 
 import org.springframework.http.ResponseEntity;
 
-public interface GlobalController<T, D> {
+public interface GlobalController {
 
     ResponseEntity getAll();
 

@@ -1,3 +1,4 @@
+/*
 package com.autodoc.controllers.impl.exceptions;
 
 import org.springframework.core.Ordered;
@@ -23,4 +24,4 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
-}
+}*/

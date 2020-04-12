@@ -51,6 +51,8 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
 
     }
 
+
+
     public Client checkIfIdIsValid(int id) {
         if (id == 0) throw new InvalidDtoException("id cannot be null");
         Client client = (Client) dao.getById(id);

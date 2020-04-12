@@ -23,7 +23,6 @@ import java.util.List;
 public class EmployeeControllerImpl extends GlobalControllerImpl<Employee, EmployeeDTO> implements EmployeeController {
     private static final Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
     private EmployeeManager manager;
-    //   private GsonConverter converter;
 
     public IGenericManager getManager() {
         return manager;

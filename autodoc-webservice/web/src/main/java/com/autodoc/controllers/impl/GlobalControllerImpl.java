@@ -4,8 +4,10 @@ import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.controllers.contract.GlobalController;
 import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.model.models.search.Search;
 import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,22 +25,22 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     private static final Logger LOGGER = Logger.getLogger(GlobalControllerImpl.class);
     protected final GsonConverter converter = new GsonConverter();
 
-    protected ResponseEntity notFoundResponse = ResponseEntity
+    protected ResponseEntity<String> notFoundResponse = ResponseEntity
             .status(HttpStatus.NOT_FOUND).body("");
 
 
-    public IGenericManager getManager() {
+    public IGenericManager<T, D> getManager() {
         return null;
     }
 
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public String home() {
         return "index";
     }
 
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    @GetMapping(value = "/admin")
     public String privateHome() {
         return "privatePage";
     }
@@ -47,43 +49,39 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getAll() {
-        IGenericManager manager = getManager();
-        LOGGER.info("trying to get list of ");
-        String response = converter.convertObjectIntoGsonObject(manager.getAll());
+    public ResponseEntity<String> getAll() {
+        String response = converter.convertObjectIntoGsonObject(getManager().getAll());
         LOGGER.info("response " + response);
 
-        ResponseEntity entity = ResponseEntity.ok()
+        return ResponseEntity.ok()
                 .headers(responseHeaders)
                 .body(response);
-        return entity;
     }
 
     @PostMapping(value = "",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity add(@RequestBody @Valid D obj) throws Exception {
-        IGenericManager manager = getManager();
-        getClassName(obj);
-        LOGGER.info("trying to add a " + type);
-        System.out.println("trying to add: " + obj);
-        LOGGER.info("object received: " + obj);
-        String response = manager.save(obj);
-        LOGGER.info("response: " + response);
+    public ResponseEntity<String> add(@RequestBody @Valid D obj)  {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(Integer.parseInt(response));
-        } catch (InvalidDtoException e) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(response);
+            System.out.println("trying to add: " + obj);
+            IGenericManager<T, D> manager = getManager();
+            getClassName(obj);
+            LOGGER.info("trying to add a " + type);
+            LOGGER.info("object received: " + obj);
+            String response = manager.save(obj);
+            LOGGER.info("response: " + response);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
-
+        catch (ConstraintViolationException exception){
+            LOGGER.error("error dude");
+            return ResponseEntity.status(HttpStatus.CREATED).body("paf error");
+        }
 
     }
 
     @PostMapping(value = "/criteria",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity searchByCriteria(@RequestBody @Valid List<SearchDTO> searchDTO) throws Exception {
-        IGenericManager manager = getManager();
+    public ResponseEntity<String> searchByCriteria(@RequestBody @Valid List<SearchDTO> searchDTO)  {
+        IGenericManager<T,D> manager = getManager();
 
         LOGGER.info("getting by criteria: " + searchDTO.get(0));
         String response = converter.convertObjectIntoGsonObject(manager.searchByCriteria(searchDTO));
@@ -93,8 +91,8 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
     @PutMapping(
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody D obj) throws Exception {
-        IGenericManager manager = getManager();
+    public ResponseEntity<Boolean> update(@RequestBody D obj)  {
+        IGenericManager<T,D> manager = getManager();
         getClassName(obj);
         LOGGER.info("trying to update: " + obj);
         boolean response = manager.update(obj);
@@ -103,7 +101,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
         }
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(response);
+                .body(false);
     }
 
 
@@ -111,24 +109,22 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @GetMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getById(@PathVariable Integer id) throws Exception {
-        IGenericManager manager = getManager();
+    public ResponseEntity<String> getById(@PathVariable Integer id)  {
+        IGenericManager<T,D> manager = getManager();
         Object received = manager.getById(id);
         if (received == null) return notFoundResponse;
         LOGGER.info("reaced ");
         String response = converter.convertObjectIntoGsonObject(received);
         LOGGER.info("returned: " + manager.getById(id));
-        ResponseEntity entity = ResponseEntity.ok(response);
-        LOGGER.info("entity: " + entity);
-        return entity;
+        return ResponseEntity.ok(response);
     }
 
     @Override
     @GetMapping(value = "/name",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getByName(@RequestParam(value = "name") String name) throws Exception {
-        IGenericManager manager = getManager();
+    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
+        IGenericManager<T,D> manager = getManager();
         LOGGER.debug("trying to get: " + name);
         Object received = manager.getByName(name);
         if (received == null) return notFoundResponse;
@@ -142,8 +138,8 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @Override
     @DeleteMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteById(@PathVariable Integer id) throws Exception {
-        IGenericManager manager = getManager();
+    public ResponseEntity deleteById(@PathVariable Integer id)  {
+        IGenericManager<T,D> manager = getManager();
         LOGGER.info("trying to delete: " + id);
         boolean response = manager.deleteById(id);
         if (!response) return ResponseEntity

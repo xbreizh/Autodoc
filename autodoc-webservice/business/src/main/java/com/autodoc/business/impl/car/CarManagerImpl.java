@@ -72,7 +72,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     @Override
     public Car dtoToEntity(Object obj) {
         LOGGER.info("converting into entity");
-        resetException();
+  /*      resetException();*/
         CarDTO dto = (CarDTO) obj;
 
         return mapper.map(dto, Car.class);

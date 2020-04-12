@@ -111,7 +111,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public Bill transferUpdate(Object obj) {
-        resetException();
+        //resetException();
         BillDTO dto = (BillDTO) obj;
         if (dto.getId() == 0) throw new InvalidDtoException("no id provided");
         Bill bill = dtoToEntity(dto);
@@ -122,7 +122,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public Bill dtoToEntity(Object entity) {
-        resetException();
+        //resetException();
         BillDTO dto = (BillDTO) entity;
         Bill bill = new Bill();
         bill.setId(dto.getId());

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 
 @MappedSuperclass
 @Data
@@ -18,11 +20,11 @@ public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
-    @NonNull
+    @NotBlank
     protected String firstName;
-    @NonNull
+    @NotBlank
     protected String lastName;
-    @NonNull
+    @NotBlank
     protected String phoneNumber;
 
     public void setFirstName(String firstName) {
