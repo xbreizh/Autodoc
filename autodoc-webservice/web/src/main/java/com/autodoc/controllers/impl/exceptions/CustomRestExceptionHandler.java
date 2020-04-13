@@ -74,13 +74,15 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<Object> handleConstraintViolation(
             ConstraintViolationException ex, WebRequest request) {
-        LOGGER.info("capturing constraint violation error");
-        List<String> errors = new ArrayList<String>();
-        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            errors.add(violation.getRootBeanClass().getName() + " " +
-                    violation.getPropertyPath() + ": " + violation.getMessage());
-        }
+        LOGGER.info("capturing constraint violation error: "+ex.getConstraintViolations());
 
+        List<String> errors = new ArrayList<String>();
+        if(ex.getConstraintViolations()!=null) {
+            for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+                errors.add(violation.getRootBeanClass().getName() + " " +
+                        violation.getPropertyPath() + ": " + violation.getMessage());
+            }
+        }
         ApiError apiError =
                 new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
         return new ResponseEntity<Object>(

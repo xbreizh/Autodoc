@@ -65,7 +65,7 @@ class BillManagerImplTest {
     List<Task> tasks = new ArrayList<>();
     Provider provider;
     CarModel carModel;
-    String registration = "absce22";
+    String registration = "12";
 
     @BeforeEach
     void init() {

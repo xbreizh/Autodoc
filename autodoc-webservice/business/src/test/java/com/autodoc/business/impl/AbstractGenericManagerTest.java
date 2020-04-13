@@ -53,11 +53,7 @@ class AbstractGenericManagerTest {
         assertNull(manager.getDtoClass());
     }
 
-    @Test
-    void resetException() {
-        manager.resetException();
-        assertTrue(manager.exception.isEmpty());
-    }
+
 
     @Test
     void dtoToEntity() {

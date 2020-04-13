@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Named;
+import javax.validation.ConstraintViolationException;
 
 @Named
 @Controller
@@ -34,10 +35,14 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @GetMapping(value = "/registration",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getByRegistration(@RequestParam(value = "registration") String registration) {
+    public ResponseEntity<String> getByRegistration(@RequestParam(value = "registration") String registration) {
+        if (!registration.matches("^[a-zA-Z0-9]{8,10}$")) throw new ConstraintViolationException
+                (registration + " : invalid registration (letters, numbers, between 8 and 10)", null);
+        System.out.println("after");
         CarDTO car = carManager.getByRegistration(registration);
         if (car == null) return notFoundResponse;
         LOGGER.info("reaching herer");
+        System.out.println("here");
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);
@@ -47,14 +52,14 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @GetMapping(value = "/name",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getByName(@RequestParam(value = "name") String name) throws Exception {
+    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
         LOGGER.error("trying to use a not yet implemented method");
         throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
 
 
     @Override
-    public ResponseEntity getByClient(String clientLastName, String clientFirstName) {
+    public ResponseEntity<String> getByClient(String clientLastName, String clientFirstName) {
         return null;
     }
 
