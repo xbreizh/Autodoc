@@ -30,8 +30,8 @@ public class Bill {
     @NotNull
     private Employee employee;
     @NotNull
-    private  List<Task> tasks;
-    private  List<Piece> pieces;
+    private List<Task> tasks;
+    private List<Piece> pieces;
     @NotNull
     private double total;
     @NotNull

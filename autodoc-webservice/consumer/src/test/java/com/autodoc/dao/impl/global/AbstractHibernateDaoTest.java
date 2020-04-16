@@ -1,9 +1,12 @@
 package com.autodoc.dao.impl.global;
 
+import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.exceptions.DaoException;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.dao.impl.car.CarDaoImpl;
+import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.models.car.Car;
+import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.search.Search;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,9 +42,14 @@ class AbstractHibernateDaoTest {
     @Inject
     private CarDaoImpl carDao;
     @Inject
+    private ClientDao clientDao;
+    @Inject
     private Filler filler;
     // @Inject
     private AbstractHibernateDao mockDao;
+
+    @Inject
+    SessionFactory factory;
 
     @BeforeEach
     void init() throws ParseException {
@@ -80,11 +88,12 @@ class AbstractHibernateDaoTest {
     }
 
 
+
     @Test
     void update() {
         dao.setSessionFactory(sessionFactory);
         when(session.merge(any())).thenReturn(null);
-        assertFalse(dao.update(new Car()));
+        assertTrue(dao.update(new Car()));
     }
 
 
@@ -93,6 +102,17 @@ class AbstractHibernateDaoTest {
         dao.setSessionFactory(sessionFactory);
         when(session.merge(any())).thenReturn(new Car());
         assertTrue(dao.update(new Car()));
+    }
+    @Test
+    void update2() {
+        Car car = (Car) carDao.getAll().get(0);
+        int id = car.getId();
+        System.out.println(car);
+
+        Client client = (Client) clientDao.getById(2);
+        car.setClient(client);
+        carDao.update(car);
+        assertEquals(client, ((Car) carDao.getById(id)).getClient());
     }
 
     @Test

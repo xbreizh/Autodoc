@@ -44,13 +44,20 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     public Client transferUpdate(Object obj) {
         LOGGER.info("updating");
         ClientDTO dto = (ClientDTO) obj;
-        Client client = checkIfIdIsValid(dto.getId());
+        checkAllRequiredValuesArePassed(dto);
+        checkIfIdIsValid(dto.getId());
         checkIfDuplicate(dto);
-        return client;
+        return (Client) dtoToEntity(dto);
 
 
     }
 
+    public void checkAllRequiredValuesArePassed(ClientDTO dto) {
+        if (dto.getFirstName()==null || dto.getFirstName().isEmpty())
+            throw new InvalidDtoException("You must provide a firstName");
+        if (dto.getLastName()==null || dto.getLastName().isEmpty())
+            throw new InvalidDtoException("You must provide a lastName");
+    }
 
 
     public Client checkIfIdIsValid(int id) {
@@ -66,10 +73,8 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
         ClientDTO dto = (ClientDTO) entity;
         Search search1 = new Search("firstName", "=", dto.getFirstName().toUpperCase());
         Search search2 = new Search("lastName", "=", dto.getLastName().toUpperCase());
-        Search search3 = new Search("phoneNumber", "=", dto.getPhoneNumber().toUpperCase());
         searchList.add(search1);
         searchList.add(search2);
-        searchList.add(search3);
         List<Client> clients = dao.getByCriteria(searchList);
         LOGGER.info("clients: " + clients);
         if (!clients.isEmpty()) {

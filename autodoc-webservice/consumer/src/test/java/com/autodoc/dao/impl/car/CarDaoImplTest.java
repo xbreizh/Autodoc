@@ -53,7 +53,7 @@ class CarDaoImplTest {
 
     @BeforeEach
     void init() throws Exception {
-        // remover.remove();
+        remover.cleanup();
         filler.fill();
         client = (Client) clientDao.getAll().get(0);
         carModel = (CarModel) carModelDao.getAll().get(0);

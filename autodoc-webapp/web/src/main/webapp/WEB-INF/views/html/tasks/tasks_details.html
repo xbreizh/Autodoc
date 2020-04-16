@@ -49,10 +49,10 @@
                 <td>Estimated Time ( heure )</td>
                 <td th:text="${obj.estimatedTime}">Estimated Time</td>
             </tr>
-           <!-- <tr>
-                <td>Template</td>
-                <td th:text="${obj.template}">Template</td>
-            </tr>-->
+            <!-- <tr>
+                 <td>Template</td>
+                 <td th:text="${obj.template}">Template</td>
+             </tr>-->
         </table>
         <a th:href="@{'/tasks/delete/' + ${obj.id}}">
             <button class="btn btn-danger" type="button">Delete</button>

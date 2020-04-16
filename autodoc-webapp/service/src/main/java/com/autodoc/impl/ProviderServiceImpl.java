@@ -13,6 +13,7 @@ public class ProviderServiceImpl extends GlobalServiceImpl<ProviderDTO> implemen
     Class getObjectClass() {
         return ProviderDTO.class;
     }
+
     Class getListClass() {
         return ProviderDTO[].class;
     }

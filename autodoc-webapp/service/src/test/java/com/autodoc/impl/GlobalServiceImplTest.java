@@ -22,6 +22,7 @@ class GlobalServiceImplTest extends HelperTest {
     @BeforeEach
     void init() {
         this.token = getToken();
+        System.out.println("token: "+token);
 
     }
 
@@ -85,7 +86,7 @@ class GlobalServiceImplTest extends HelperTest {
     @DisplayName("should return a client object")
     void getClientById() {
         service = new ClientServiceImpl();
-        int id=1;
+        int id = 1;
         ClientDTO client = (ClientDTO) service.getById(token, id);
         LOGGER.info(client);
         assertNotNull(service.getById(token, id));

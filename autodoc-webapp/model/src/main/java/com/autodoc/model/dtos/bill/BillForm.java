@@ -45,7 +45,7 @@ public class BillForm {
     @Min(value = 1, message = "VAT cannot be null")
     private double vat;
 
-   // @Min(value = 1, message = "total cannot be null")
+    // @Min(value = 1, message = "total cannot be null")
     private double total;
 
     @Max(100)

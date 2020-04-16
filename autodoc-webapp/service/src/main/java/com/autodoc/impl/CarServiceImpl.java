@@ -16,6 +16,7 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
     Class getObjectClass() {
         return CarDTO.class;
     }
+
     Class getListClass() {
         return CarDTO[].class;
     }
@@ -44,7 +45,6 @@ public class CarServiceImpl extends GlobalServiceImpl<CarDTO> implements CarServ
                     BadCredentialsException("External system authentication failed");
         }
     }
-
 
 
 }

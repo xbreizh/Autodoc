@@ -1,7 +1,6 @@
 package com.autodoc.impl;
 
 import com.autodoc.contract.ManufacturerService;
-import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
 import org.apache.log4j.Logger;
 
@@ -14,6 +13,7 @@ public class ManufacturerServiceImpl extends GlobalServiceImpl<ManufacturerDTO> 
     Class getObjectClass() {
         return ManufacturerDTO.class;
     }
+
     Class getListClass() {
         return ManufacturerDTO[].class;
     }

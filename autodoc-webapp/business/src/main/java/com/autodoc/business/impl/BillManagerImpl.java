@@ -131,7 +131,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
                 taskIdList.add(taskId);
         }
         List<Integer> pieceIdList = new ArrayList<>();
-        if(form.getPieces()!=null) {
+        if (form.getPieces() != null) {
             for (Integer pieceId : form.getPieces().getList()) {
                 if (pieceId != null)
                     pieceIdList.add(pieceId);

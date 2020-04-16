@@ -211,6 +211,7 @@ class CarManagerImplTest {
     void transferUpdate() {
         dto.setClientId(client.getId());
         dto.setCarModelId(carModel.getId());
+        dto.setRegistration(obj.getRegistration());
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(dao.getById(anyInt())).thenReturn(obj);
@@ -274,10 +275,10 @@ class CarManagerImplTest {
         client.setId(32);
         dto.setClientId(32);
         dto.setCarModelId(0);
+        dto.setRegistration(obj.getRegistration());
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(dao.getById(anyInt())).thenReturn(obj);
         obj = manager.transferUpdate(dto);
-        System.out.println(dto);
         assertAll(
                 () -> assertEquals(dto.getRegistration().toUpperCase(), obj.getRegistration()),
                 () -> assertEquals(dto.getCarModelId(), obj.getCarModel().getId()),
@@ -292,6 +293,7 @@ class CarManagerImplTest {
         carModel.setId(32);
         dto.setClientId(0);
         dto.setCarModelId(32);
+        dto.setRegistration(obj.getRegistration());
         when(carModelDao.getById(anyInt())).thenReturn(carModel);
         when(dao.getById(anyInt())).thenReturn(obj);
         obj = manager.transferUpdate(dto);
@@ -320,36 +322,56 @@ class CarManagerImplTest {
     @DisplayName("should throw an error if car id not in db")
     void checkIfCarInDb() {
         when(dao.getById(anyInt())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(3, "dedsd"));
+        dto.setId(3);
+        dto.setRegistration("desdsd");
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(dto));
     }
 
     @Test
     @DisplayName("should throw an error if car registration not in db")
     void checkIfCarInDb1() {
         when(dao.getCarByRegistration(anyString())).thenReturn(null);
-        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(3, "dedsd"));
+        dto.setId(3);
+        dto.setRegistration("desdsd");
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(dto));
     }
 
     @Test
     @DisplayName("should not throw an error if car registration in db")
     void checkIfCarInDb2() {
         when(dao.getCarByRegistration(anyString())).thenReturn(obj);
-        assertDoesNotThrow(() -> manager.checkIfCarInDb(0, "dedsd"));
+        dto.setId(0);
+        dto.setRegistration("desdsd");
+        assertDoesNotThrow(() -> manager.checkIfCarInDb(dto));
     }
 
     @Test
-    @DisplayName("should not throw an error if car id in db")
+    @DisplayName("should not throw an error if car registration in db with same id")
     void checkIfCarInDb3() {
         when(dao.getById(anyInt())).thenReturn(obj);
-        assertDoesNotThrow(() -> manager.checkIfCarInDb(3, "dedsd"));
+        dto.setId(obj.getId());
+        dto.setRegistration(obj.getRegistration());
+        assertDoesNotThrow(() -> manager.checkIfCarInDb(dto));
     }
+
 
     @Test
     @DisplayName("should not throw an error if car id in db")
     void checkIfCarInDb4() {
         when(dao.getById(anyInt())).thenReturn(obj);
-        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(0, ""));
+        dto.setId(0);
+        dto.setRegistration("desdsd");
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(dto));
     }
 
+
+    @Test
+    @DisplayName("should throw an error if car registration in db with different id")
+    void checkIfCarInDb5() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        dto.setId(12);
+        dto.setRegistration("abddeertt");
+        assertThrows(InvalidDtoException.class, () -> manager.checkIfCarInDb(dto));
+    }
 
 }

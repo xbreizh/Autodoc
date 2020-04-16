@@ -8,10 +8,6 @@ import com.autodoc.model.models.tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -19,17 +15,15 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
-@ExtendWith(SpringExtension.class)
-@Transactional
+
 class TaskManagerImplTest {
 
-    private TaskManager manager;
-    private TaskDao dao;
     private static final String NAME = "taskName";
     private static final String DTO_NAME = "taskDTo";
     private static final String DESCRIPTION = "descriere";
     private static final double ESTIMATED_TIME = 1.5;
+    private TaskManager manager;
+    private TaskDao dao;
     private Task obj;
     private TaskDTO dto;
     private int id = 32;
@@ -66,7 +60,7 @@ class TaskManagerImplTest {
 
     @Test
     @DisplayName("should convert dto into entity")
-    void dtoToEntity() throws Exception {
+    void dtoToEntity() {
         obj = (Task) manager.dtoToEntity(dto);
         assertAll(
                 () -> assertEquals(obj.getName(), dto.getName().toUpperCase()),
@@ -92,7 +86,7 @@ class TaskManagerImplTest {
 
     @Test
     @DisplayName("should not throw error")
-    void transferInsert() throws Exception {
+    void transferInsert() {
         obj = (Task) manager.transferInsert(dto);
         assertAll(
                 () -> assertEquals(obj.getName(), dto.getName().toUpperCase()),
@@ -111,7 +105,7 @@ class TaskManagerImplTest {
 
     @Test
     @DisplayName("should throw an error if name is a duplicate")
-    void checkIfDuplicate() throws Exception {
+    void checkIfDuplicate() {
         when(dao.getByName(anyString())).thenReturn(obj);
         assertThrows(InvalidDtoException.class, () -> manager.checkIfDuplicate(dto));
     }
@@ -145,10 +139,8 @@ class TaskManagerImplTest {
     }
 
 
-
-
     @Test
-    void getById() throws Exception {
+    void getById() {
         Task task = new Task();
         when(dao.getById(anyInt())).thenReturn(task);
         assertNotNull(manager.getById(2));
@@ -156,7 +148,7 @@ class TaskManagerImplTest {
 
     @Test
     @DisplayName("should return task if name valid")
-    void getByName() throws Exception {
+    void getByName() {
         Task task = new Task();
         when(dao.getByName(anyString())).thenReturn(task);
         assertNotNull(manager.getByName("name"));
@@ -164,10 +156,10 @@ class TaskManagerImplTest {
 
     @Test
     @DisplayName("should return task if name valid")
-    void getByName1() throws Exception {
-        Task task = new Task();
+    void getByName1() {
+
         when(dao.getByName(anyString())).thenReturn(null);
-        assertNull(manager.getByName("name"));
+        assertThrows(InvalidDtoException.class, () -> manager.getByName("name"));
     }
 
 

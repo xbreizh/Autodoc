@@ -17,7 +17,7 @@
 
                 <tbody th:each="loan : ${#lists.sort(member.loanList)}">
 
-                    <tr th:style="((${loan.status == 'OVERDUE'}) ? 'background-color:#ff9999' : ((${loan.status == 'PLANNED'}) ? 'background-color:#e6e6ff' : 'background-color:#e6f7ff')) " >
+                <tr th:style="((${loan.status == 'OVERDUE'}) ? 'background-color:#ff9999' : ((${loan.status == 'PLANNED'}) ? 'background-color:#e6e6ff' : 'background-color:#e6f7ff')) ">
 
                     <td data-th-text="${loan.id}">loanId</td>
                     <td data-th-text="${loan.startDate} ? ${#dates.format(loan.startDate, 'dd-MM-yyyy')}:'N/A' ">

@@ -33,10 +33,14 @@ public class OAuth2Client {
 
     */
 /**
-     *
-     * get all Customers
-     *
-     *//*
+ * get all Customers
+ * <p>
+ * <p>
+ * <p>
+ * OAuth2 Rest template
+ *
+ * @return
+ *//*
 
     private void getCars() {
         Car[] cars = oauth2RestTemplate.getForObject(CRM_OAUTH2_URI, Car[].class);
@@ -47,10 +51,10 @@ public class OAuth2Client {
 
     */
 /**
-     *
-     * OAuth2 Rest template
-     * @return
-     *//*
+ *
+ * OAuth2 Rest template
+ * @return
+ *//*
 
     private OAuth2RestTemplate restTemplate() {
         LOGGER.info("getting OAuth2RestTemplate ...");

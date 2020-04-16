@@ -41,10 +41,10 @@ public class Car {
 
     @Override
     public String toString() {
-        String modelName ="";
+        String modelName = "";
         String clientName = "";
-        if(model!=null)modelName = model.getName();
-        if(client!=null)clientName = client.getLastName();
+        if (model != null) modelName = model.getName();
+        if (client != null) clientName = client.getLastName();
 
         return "Car{" +
                 "id=" + id +

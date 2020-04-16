@@ -13,6 +13,7 @@ public class PieceServiceImpl extends GlobalServiceImpl<PieceDTO> implements Pie
     Class getObjectClass() {
         return PieceDTO.class;
     }
+
     Class getListClass() {
         return PieceDTO[].class;
     }

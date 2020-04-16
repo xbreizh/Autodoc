@@ -70,8 +70,9 @@ public abstract class AbstractHibernateDao<T> {
 
     public boolean update(T entity) {
         LOGGER.info("updating from dao: " + entity);
-        T obj = (T) getCurrentSession().merge(entity);
-        return obj != null;
+        getCurrentSession().merge(entity);
+        System.out.println("updating stuff: "+entity);
+        return true;
 
     }
 

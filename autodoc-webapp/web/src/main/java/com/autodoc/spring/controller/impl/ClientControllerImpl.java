@@ -41,8 +41,6 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
     }
 
 
-
-
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView clientById(@PathVariable Integer id) throws Exception {

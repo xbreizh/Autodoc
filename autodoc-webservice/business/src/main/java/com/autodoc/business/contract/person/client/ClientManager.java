@@ -1,6 +1,7 @@
 package com.autodoc.business.contract.person.client;
 
 import com.autodoc.business.contract.IGenericManager;
+import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
 import org.springframework.stereotype.Service;
 
@@ -9,4 +10,6 @@ public interface ClientManager extends IGenericManager {
 
 
     Client checkIfIdIsValid(int id);
+
+    void checkAllRequiredValuesArePassed(ClientDTO dto);
 }

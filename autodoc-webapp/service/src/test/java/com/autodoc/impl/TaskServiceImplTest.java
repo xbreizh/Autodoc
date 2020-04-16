@@ -19,7 +19,7 @@ class TaskServiceImplTest extends HelperTest {
     private TaskService service;
 
     private TaskDTO dto;
-    private Class clazz = TaskDTO.class;
+    private final Class clazz = TaskDTO.class;
     private static final Logger LOGGER = Logger.getLogger(TaskServiceImplTest.class);
 
     @BeforeEach
@@ -28,10 +28,9 @@ class TaskServiceImplTest extends HelperTest {
         service = new TaskServiceImpl();
         dto = new TaskDTO();
         dto.setName(name);
-       // dto.setPrice(60);
+        // dto.setPrice(60);
         dto.setEstimatedTime(123);
         dto.setDescription("BATTERY CHANGE");
-        dto.setTemplate("false");
     }
 
 
@@ -72,8 +71,6 @@ class TaskServiceImplTest extends HelperTest {
         dto.setName(name);
         dto.setEstimatedTime(123);
         dto.setDescription("plouf");
-        //dto.setPrice(2);
-        dto.setTemplate("false");
         LOGGER.info(dto);
         service.update(token, dto);
         assertEquals(name.toUpperCase(), ((TaskDTO) service.getById(token, id)).getName());

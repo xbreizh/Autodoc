@@ -3,8 +3,10 @@
     <td th:text="${employee.firstName}">firstName</td>
     <td th:text="${employee.lastName}">lastName</td>
     <td th:text="${employee.PhoneNumber1}">PhoneNumber1</td>
-    <td th:text="${employee.lastConnection} ? ${#dates.format(employee.lastConnection, 'dd-MM-yyyy')}">lastConnection</td>
+    <td th:text="${employee.lastConnection} ? ${#dates.format(employee.lastConnection, 'dd-MM-yyyy')}">lastConnection
+    </td>
     <td th:each="role : ${employee.roles}"
-        th:text="${role}">role</td>
+        th:text="${role}">role
+    </td>
 </tr>
 

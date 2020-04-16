@@ -15,9 +15,11 @@ public class RestTemplateFactory
     public RestTemplate getObject() {
         return restTemplate;
     }
+
     public Class<RestTemplate> getObjectType() {
         return RestTemplate.class;
     }
+
     public boolean isSingleton() {
         return true;
     }

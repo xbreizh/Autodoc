@@ -13,6 +13,7 @@ public class PieceTypeServiceImpl extends GlobalServiceImpl<PieceTypeDTO> implem
     Class getObjectClass() {
         return PieceTypeDTO.class;
     }
+
     Class getListClass() {
         return PieceTypeDTO[].class;
     }
@@ -21,7 +22,6 @@ public class PieceTypeServiceImpl extends GlobalServiceImpl<PieceTypeDTO> implem
     public String getClassName() {
         return "pieceTypes";
     }
-
 
 
 }

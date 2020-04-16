@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -107,7 +108,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     @Override
     public D getById(int id) {
         if (getDao().getById(id) == null) {
-            throw new InvalidDtoException("invalid id: "+id);
+            throw new EntityNotFoundException("invalid id: "+id);
 
         }
         return entityToDto((T) getDao().getById(id));

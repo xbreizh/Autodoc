@@ -43,4 +43,11 @@ class ClientManagerImplTest {
         ClientForm form = new ClientForm();
         assertEquals("that client already exist: ROGER MOORE", clientManager.add(token, form));
     }
+
+    @Test
+    void add1() throws Exception {
+        when(service.create(anyString(), any(ClientDTO.class))).thenReturn("400 / For input string: \"that client already exist: ROGER MOORE\"");
+        ClientForm form = new ClientForm();
+        assertEquals("that client already exist: ROGER MOORE", clientManager.add(token, form));
+    }
 }

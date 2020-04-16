@@ -3,13 +3,13 @@ package com.autodoc.helper;
 import javax.inject.Named;
 
 @Named
-public class PasswordCheckerImpl implements PasswordChecker{
+public class PasswordCheckerImpl implements PasswordChecker {
 
     private int minLength = 3;
     private int maxLength = 12;
 
     @Override
-    public String checkValidity(String password, String confirmPassword){
+    public String checkValidity(String password, String confirmPassword) {
         String specialChars = "~`!@#$%^&*()-_=+\\|[{]};:'\",<.>/?";
 
         boolean upperCasePresent = false;
@@ -17,7 +17,7 @@ public class PasswordCheckerImpl implements PasswordChecker{
         boolean numberPresent = false;
         boolean specialCharacterPresent = false;
         // check Equals
-        if(!password.equals(confirmPassword)) {
+        if (!password.equals(confirmPassword)) {
             return "password mismatch";
         }
 

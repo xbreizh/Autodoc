@@ -43,7 +43,8 @@
             </form>
 
         </div>
-        <div class="col-6 my-auto " style="background-color: #fff2e6" >For better performance, the system currently limits the search result to <strong>30</strong> items.<br>
+        <div class="col-6 my-auto " style="background-color: #fff2e6">For better performance, the system currently
+            limits the search result to <strong>30</strong> items.<br>
             If you can't find what you're looking for, please refine the search or get in touch with our team. Thanks
         </div>
 
@@ -56,7 +57,7 @@
             <h2 style="background-color: #ff9999">No Result found!</h2>
         </div>
         <div th:unless="${#lists.isEmpty(books)}">
-    <div th:replace="fragments/search_result :: search_result"></div>
+            <div th:replace="fragments/search_result :: search_result"></div>
         </div>
     </div>
 </div>

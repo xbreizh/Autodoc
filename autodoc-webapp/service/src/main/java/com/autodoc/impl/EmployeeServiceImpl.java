@@ -13,6 +13,7 @@ public class EmployeeServiceImpl extends GlobalServiceImpl<EmployeeDTO> implemen
     Class getObjectClass() {
         return EmployeeDTO.class;
     }
+
     Class getListClass() {
         return EmployeeDTO[].class;
     }

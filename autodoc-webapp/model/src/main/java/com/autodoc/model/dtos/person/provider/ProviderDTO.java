@@ -25,6 +25,8 @@ public class ProviderDTO extends PersonDTO {
 
     private String rate;
 
+    private String address;
+
     public ProviderDTO(@NotNull(message = "lastName cannot be null") String lastName, @NotNull(message = "firstName cannot be null") String firstName, @NotNull(message = "phoneNumber cannot be null") String phoneNumber) {
         super(lastName, firstName, phoneNumber);
     }

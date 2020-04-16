@@ -40,8 +40,6 @@ public class GlobalServiceImpl<D> implements GlobalService {
     }
 
 
-
-
     @Override
     public D getById(String token, int id) {
         LOGGER.info("trying to get object by id");
@@ -50,6 +48,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
             String className = getClassName();
             String url = BASE_URL + className + "/" + id;
             ResponseEntity<D> response = restTemplate.exchange(url, HttpMethod.GET, request, getObjectClass());
+            System.out.println("response: "+response);
             if (response.getStatusCodeValue() == 404) return null;
             return response.getBody();
         } catch (HttpClientErrorException.NotFound exception) {
@@ -57,6 +56,8 @@ public class GlobalServiceImpl<D> implements GlobalService {
             LOGGER.info(exception.getClass().getCanonicalName());
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            System.out.println(e.getClass());
+            System.out.println("wot: "+e.getMessage());
             throw new
                     BadCredentialsException("External system authentication failed");
         }
@@ -99,7 +100,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
     @Override
     public List<D> getByCriteria(String token, SearchDto searchDto) {
-        HttpHeaders headers =setupHeader(token);
+        HttpHeaders headers = setupHeader(token);
         try {
             String className = getClassName();
             String url = BASE_URL + className + "/criteria";
@@ -125,7 +126,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
 
     private String globalCall(String token, Object object, HttpMethod method) {
-        HttpHeaders headers =setupHeader(token);
+        HttpHeaders headers = setupHeader(token);
         String url = BASE_URL + getClassName();
         LOGGER.info("obj: " + object);
 
@@ -149,7 +150,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
         this.restTemplate = new RestTemplate();
 
         this.request = new HttpEntity<>(headers);
-         return headers;
+        return headers;
     }
 
     @Override
@@ -159,7 +160,7 @@ public class GlobalServiceImpl<D> implements GlobalService {
 
     @Override
     public int delete(String token, int id) {
-        HttpHeaders headers =setupHeader(token);
+        HttpHeaders headers = setupHeader(token);
         LOGGER.info("trying to delete object by id");
 
         String className = getClassName();

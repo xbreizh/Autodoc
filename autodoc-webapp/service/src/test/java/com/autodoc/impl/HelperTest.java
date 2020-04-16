@@ -33,9 +33,9 @@ public abstract class HelperTest {
     }
 
     @BeforeEach
-    void resetDBTest(){
+    void resetDBTest() {
         globalService = new GlobalServiceImpl();
-        globalService.reset();
+        //globalService.reset();
         LOGGER.info("db has been reset!");
 
     }

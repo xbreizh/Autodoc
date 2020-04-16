@@ -5,11 +5,13 @@ import com.autodoc.controllers.contract.car.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.model.dtos.car.CarDTO;
 import org.apache.log4j.Logger;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.ManualRestDocumentation;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -32,6 +34,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +55,7 @@ class CarControllerImplTest {
     };
     String encoding = "application/json;charset=ISO-8859-1";
     int id = 3;
-    String registration = "abc123";
+    String registration = "abc123ZZ";
     String feedback = "";
     List<CarDTO> carDTOS = new ArrayList<>();
     //Client client = new Client("Jean", "Mako", "03938937837");
@@ -65,6 +68,7 @@ class CarControllerImplTest {
     private CarManager carManager;
     private MockMvc mockMvc;
     private GsonConverter converter;
+    private ManualRestDocumentation restDocumentation = new ManualRestDocumentation();
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
@@ -72,8 +76,12 @@ class CarControllerImplTest {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
+                .alwaysDo(document("{method-name}",
+                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
                 .build();
-        dto = CarDTO.builder().registration("ABC123").clientId(1).carModelId(2).build();
+
+
+        dto = CarDTO.builder().registration(registration).clientId(1).carModelId(2).build();
         carDTOS.add(dto);
         converter = new GsonConverter();
         carManager = mock(CarManager.class);
@@ -82,13 +90,17 @@ class CarControllerImplTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(carController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
     }
 
+    @AfterEach
+    public void tearDown() {
+        this.restDocumentation.afterTest();
+    }
 
     @Test
     @DisplayName("should return object if registration is valid")
     void getByRegistration() throws Exception {
         when(carManager.getByRegistration(anyString())).thenReturn(dto);
         assertNotNull(carController.getByRegistration(registration));
-        assertEquals(200, carController.getByRegistration("mmo").getStatusCodeValue());
+        assertEquals(200, carController.getByRegistration(registration).getStatusCodeValue());
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get(urlItem + "/registration?registration=" + registration)
@@ -110,7 +122,7 @@ class CarControllerImplTest {
     void getByRegistration1() throws Exception {
         when(carManager.getByRegistration(anyString())).thenReturn(null);
         assertNotNull(carController.getByRegistration(registration));
-        assertEquals(404, carController.getByRegistration("mmo").getStatusCodeValue());
+        assertEquals(404, carController.getByRegistration(registration).getStatusCodeValue());
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get(urlItem + "/registration?registration=" + registration)

@@ -93,7 +93,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         CarDTO dto = (CarDTO) obj;
         int id = dto.getId();
         String registration = dto.getRegistration();
-        checkIfCarInDb(id, registration);
+        checkIfCarInDb(dto);
         Car car = dtoToEntity(dto);
 
         int clientId = dto.getClientId();
@@ -120,14 +120,24 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         return car;
     }
 
-    public void checkIfCarInDb(int id, String registration) {
+    public void checkIfCarInDb(CarDTO dto) {
+        int id = dto.getId();
+        String registration = dto.getRegistration();
+        LOGGER.info("checking if car is in DB");
         if (id == 0 && (registration == null || registration.isEmpty()))
             throw new InvalidDtoException("you need to pass a registration or a car id");
         if (id != 0) {
-            if (dao.getById(id) == null) throw new InvalidDtoException("invalid car id: " + id);
+            Car carFromDb = (Car) dao.getById(id);
+            if (carFromDb == null) throw new InvalidDtoException("invalid car id: " + id);
+            if (registration!=null && !registration.isEmpty() && registration!=carFromDb.getRegistration())
+                throw new InvalidDtoException("invalid car registration: " +registration+". There is a different registration in db for that Id: "+id);
         } else {
-            if (dao.getCarByRegistration(registration) == null)
+            LOGGER.info("checking registration is not already in use");
+            Car carFromDb = dao.getCarByRegistration(registration);
+            LOGGER.info("carFrom DB: "+carFromDb);
+            if (carFromDb == null)
                 throw new InvalidDtoException("invalid registration: " + registration);
+            dto.setId(carFromDb.getId());
         }
     }
 

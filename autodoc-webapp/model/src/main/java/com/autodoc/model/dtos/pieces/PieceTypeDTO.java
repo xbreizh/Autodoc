@@ -1,17 +1,14 @@
 package com.autodoc.model.dtos.pieces;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 
 @Getter
 @Setter
 public class PieceTypeDTO {
-
 
 
     private int id;

@@ -42,8 +42,6 @@ class ClientManagerImplTest {
         manager = ClientManagerImpl.builder().dao(dao).build();
         obj = Client.builder().id(id).firstName(firstName).lastName(lastName).phoneNumber(phoneNumber).build();
         dto = ClientDTO.builder().id(id).firstName(firstNameDto).lastName(lastNameDto).phoneNumber(phoneNumberDto).build();
-        System.out.println(firstNameDto);
-        System.out.println("dto: " + dto.getFirstName());
     }
 
 
@@ -52,6 +50,26 @@ class ClientManagerImplTest {
     void getDao() {
         assertEquals(dao, manager.getDao());
 
+    }
+
+
+    @Test
+    @DisplayName("should return exception if missing firstName")
+    void checkAllRequiredValuesArePassed1(){
+        dto.setFirstName(null);
+        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
+        dto.setFirstName("");
+        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
+    }
+
+
+    @Test
+    @DisplayName("should return exception if missing lastName")
+    void checkAllRequiredValuesArePassed2(){
+        dto.setLastName(null);
+        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
+        dto.setLastName("");
+        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
     }
 
     @Test
