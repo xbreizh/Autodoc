@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,8 +54,36 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
 
     @GetMapping("")
     public ModelAndView bills() throws Exception {
-        return getList();
+        ModelAndView mv = getList();
+        getBillsInProgress(mv);
+        return mv;
+    }
 
+    @GetMapping("/old")
+    public ModelAndView oldBills() throws Exception {
+        ModelAndView mv = getList();
+        getClosedBills(mv);
+        return mv;
+    }
+
+    private void getBillsInProgress(ModelAndView mv) {
+        List<Bill> list = (List<Bill>) mv.getModel().get(KEY_WORD);
+        List<Bill> billsInProgress = new ArrayList<>();
+        for (Bill bill : list) {
+            if (bill.getStatus().equalsIgnoreCase("PENDING_PIECES") || bill.getStatus().equalsIgnoreCase("PENDING_PAYMENT"))
+                billsInProgress.add(bill);
+        }
+        mv.addObject("billsInProgress", billsInProgress);
+    }
+
+    private void getClosedBills(ModelAndView mv) {
+        List<Bill> list = (List<Bill>) mv.getModel().get(KEY_WORD);
+        List<Bill> closedBills = new ArrayList<>();
+        for (Bill bill : list) {
+            if (bill.getStatus().equalsIgnoreCase("cancelled") || bill.getStatus().equalsIgnoreCase("COMPLETED"))
+                closedBills.add(bill);
+        }
+        mv.addObject("closedBills", closedBills);
     }
 
 

@@ -12,7 +12,7 @@
     <td th:text="${error}"></td>
     </td>
 
-    <h2>Bills</h2>
+    <h2>Bills in Progress</h2>
 
 
     <a th:href="@{'/operations'}">
@@ -21,7 +21,7 @@
 
 
     <div th:fragment="bill_table" xmlns:th="http:/www.w3.org/1999/xhtml">
-        <div th:if="${not #lists.isEmpty(bills)}">
+        <div th:if="${not #lists.isEmpty(billsInProgress)}">
 
 
             <table class="table table-striped">
@@ -38,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="data-link" th:each="bill : ${bills}"
+                <tr class="data-link" th:each="bill : ${billsInProgress}"
                     th:onclick="'javascript:rowClicked(\'' +@{'/bills/' + ${bill.id}}+ '\');'">
                     <td th:text="${bill.id}">id</td>
                     <td><span th:text="${bill.client.firstName+' '+bill.client.lastName+' '+bill.client.phoneNumber}">phoneNumber</span>
