@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
-    protected static final double pricePerHour = 15;
-    private static Logger LOGGER = Logger.getLogger(GlobalManagerImpl.class);
+    protected static final double PRICE_PER_HOUR = 15;
+    protected static final double VAT = 19.5;
+    private static final Logger LOGGER = Logger.getLogger(GlobalManagerImpl.class);
     //  GlobalService service;
     EnumService enumService = new EnumServiceImpl();
 
@@ -28,7 +29,11 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }*/
 
     public double getPricePerHour() {
-        return pricePerHour;
+        return PRICE_PER_HOUR;
+    }
+
+    public double getVat() {
+        return VAT;
     }
 
     public T getById(String token, int id) throws Exception {

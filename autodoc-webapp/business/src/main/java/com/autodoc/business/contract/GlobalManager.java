@@ -18,5 +18,7 @@ public interface GlobalManager<T, D> {
 
     double getPricePerHour();
 
+    double getVat();
+
 
 }

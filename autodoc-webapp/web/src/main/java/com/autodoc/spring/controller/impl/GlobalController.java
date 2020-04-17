@@ -11,6 +11,7 @@ import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,7 +29,7 @@ public class GlobalController<T, D, F> {
     private static final String LOGIN = "login";
     private static final String HOME = "home";
     private static final String REDIRECT_HOME = "redirect:/";
-    private static Logger LOGGER = Logger.getLogger(GlobalController.class);
+    private static final Logger LOGGER = Logger.getLogger(GlobalController.class);
     LibraryHelper helper;
     @Inject
     BillManager billManager;
@@ -78,11 +80,18 @@ public class GlobalController<T, D, F> {
         String keyWord = getKeyWord();
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
+            LOGGER.error("binding has " + bindingResult.getAllErrors().size() + " error(s)");
+            List<String> errors = new ArrayList<>();
+            for (ObjectError obj : bindingResult.getAllErrors()) {
+                errors.add(obj.getDefaultMessage());
+                LOGGER.error("error found:" + obj.getDefaultMessage());
+                LOGGER.error("code found:" + obj.getCode());
+                LOGGER.error("object found:" + obj.getObjectName());
+            }
+            mv.addObject("errors", errors);
             resettingUpdateViewElements(form, id, mv);
             return mv;
         }
-        LOGGER.info("carrying on");
         LOGGER.info("client retrieved: " + form);
         try {
             manager.update(helper.getConnectedToken(), form);
@@ -105,6 +114,7 @@ public class GlobalController<T, D, F> {
 
 
     protected void getPricePerHour(ModelAndView mv) {
+        LOGGER.info("getting price per hour");
         mv.addObject("pricePerHour", billManager.getPricePerHour());
     }
 

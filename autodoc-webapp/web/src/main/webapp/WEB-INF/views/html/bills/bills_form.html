@@ -67,7 +67,7 @@
             <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
         </div>
 
-        <input required="required" th:field="*{vat}" type="hidden"/>
+        <input id="vat" name="vat" required="required" th:value="${vat}" type="text"/>
 
         <div class="form-group" id="tasks">
             <label>Tasks</label>

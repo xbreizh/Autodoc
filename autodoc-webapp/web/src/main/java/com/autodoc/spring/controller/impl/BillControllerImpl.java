@@ -92,15 +92,39 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
         String token = helper.getConnectedToken();
         ModelAndView mv = getById(id);
-
+        addingCalculation(mv);
         addCars(token, mv);
         addClients(token, mv);
         addEmployees(token, mv);
         addPieces(token, mv);
         addTasks(token, mv);
         getPricePerHour(mv);
-
         return mv;
+    }
+
+    private void addingCalculation(ModelAndView mv) {
+        LOGGER.info("adding calculation");
+        mv.addObject("vat", billManager.getVat());
+        try {
+            Bill bill = (Bill) mv.getModel().get("obj");
+            double totalPieces = 0;
+            if (bill.getPieces() != null && !bill.getPieces().isEmpty()) {
+                for (Piece p : bill.getPieces()) {
+                    totalPieces += p.getSellPrice();
+                }
+            }
+            mv.addObject("totalPieces", totalPieces);
+            double totalTasks = 0;
+            if (bill.getTasks() != null && !bill.getTasks().isEmpty()) {
+                for (Task t : bill.getTasks()) {
+                    totalTasks += (t.getEstimatedTime() * billManager.getPricePerHour());
+                }
+            }
+            mv.addObject("totalTasks", totalTasks);
+            mv.addObject("grandTotal", totalPieces + totalTasks);
+        } catch (NullPointerException e) {
+            LOGGER.info("nothing to be added");
+        }
     }
 
 
@@ -118,6 +142,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         addPieces(token, mv);
         addTasks(token, mv);
         getPricePerHour(mv);
+        addingCalculation(mv);
         return mv;
 
     }

@@ -26,12 +26,12 @@ import java.util.List;
 public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements BillManager {
 
     private static final Logger LOGGER = Logger.getLogger(BillManagerImpl.class);
-    private BillService service;
-    private CarManager carManager;
-    private TaskManager taskManager;
-    private ClientManager clientManager;
-    private EmployeeManager employeeManager;
-    private PieceManager pieceManager;
+    private final BillService service;
+    private final CarManager carManager;
+    private final TaskManager taskManager;
+    private final ClientManager clientManager;
+    private final EmployeeManager employeeManager;
+    private final PieceManager pieceManager;
     //private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
     protected SimpleDateFormat getDateFormat() {
@@ -89,10 +89,12 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
 
     private List<Task> getTasks(String token, List<Integer> tasks) throws Exception {
         List<Task> taskList = new ArrayList<>();
-        for (Integer i : tasks) {
-            Task task = (Task) taskManager.getById(token, i);
-            if (task == null) throw new Exception("invalid task reference: " + i);
-            taskList.add(task);
+        if (tasks != null && !tasks.isEmpty()) {
+            for (Integer i : tasks) {
+                Task task = (Task) taskManager.getById(token, i);
+                if (task == null) throw new Exception("invalid task reference: " + i);
+                taskList.add(task);
+            }
         }
         return taskList;
     }
@@ -100,10 +102,12 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
 
     private List<Piece> gerPieces(String token, List<Integer> pieces) throws Exception {
         List<Piece> pieceList = new ArrayList<>();
-        for (Integer i : pieces) {
-            Piece piece = (Piece) pieceManager.getById(token, i);
-            if (piece == null) throw new Exception("invalid task reference: " + i);
-            pieceList.add(piece);
+        if (pieces != null && !pieces.isEmpty()) {
+            for (Integer i : pieces) {
+                Piece piece = (Piece) pieceManager.getById(token, i);
+                if (piece == null) throw new Exception("invalid task reference: " + i);
+                pieceList.add(piece);
+            }
         }
         return pieceList;
     }
@@ -150,7 +154,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         double total = 0;
         for (int taskId : taskIds) {
             Task task = (Task) taskManager.getById(token, taskId);
-            if (task != null) total += (task.getEstimatedTime() * pricePerHour);
+            if (task != null) total += (task.getEstimatedTime() * PRICE_PER_HOUR);
         }
         return total;
     }
