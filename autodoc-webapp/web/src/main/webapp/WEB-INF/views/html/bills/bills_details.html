@@ -60,7 +60,7 @@
                 <tr>
                     <td> Employee</td>
                     <td th:onclick="'javascript:rowClicked(\'' +@{'/employees/' + ${obj.employee.id}}+ '\');'"
-                        th:text="${obj.employee.login}">Employee
+                        th:text="${obj.employee.login} ">Employee
                     </td>
                 </tr>
                 <tr>
@@ -84,8 +84,8 @@
                     <td th:text="${obj.status}">Comments</td>
                 </tr>
             </table>
-            <h2>Tasks</h2>
             <div th:if="${not #lists.isEmpty(obj.tasks)}">
+                <h2>Tasks</h2>
 
 
                 <table class="table table-striped">
@@ -116,8 +116,8 @@
                     </tr>
                     </tbody>
                 </table>
-                <h2>Pieces</h2>
                 <div th:if="${not #lists.isEmpty(obj.pieces)}">
+                    <h2>Pieces</h2>
 
 
                     <table class="table table-striped">

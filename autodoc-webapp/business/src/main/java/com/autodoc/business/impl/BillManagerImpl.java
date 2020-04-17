@@ -70,7 +70,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         bill.setDiscount(dto.getDiscount());
         bill.setStatus(dto.getStatus());
         bill.setTasks(getTasks(token, dto.getTasks()));
-        bill.setPieces(gerPieces(token, dto.getPieces()));
+        bill.setPieces(getPieces(token, dto.getPieces()));
         Client client = (Client) clientManager.getById(token, dto.getClientId());
         if (client == null) throw new Exception("invalid client reference: " + dto.getClientId());
         LOGGER.info("client found: " + client);
@@ -100,7 +100,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     }
 
 
-    private List<Piece> gerPieces(String token, List<Integer> pieces) throws Exception {
+    private List<Piece> getPieces(String token, List<Integer> pieces) throws Exception {
         List<Piece> pieceList = new ArrayList<>();
         if (pieces != null && !pieces.isEmpty()) {
             for (Integer i : pieces) {

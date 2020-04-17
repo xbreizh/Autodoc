@@ -29,6 +29,7 @@
             <select id="clientId" name="clientId">
                 <option th:each="client : ${clients}"
                         th:utext="${client.firstName+' '+client.lastName+' /'+client.phoneNumber}"
+                        th:selected="${client.firstName+' '+client.lastName+' /'+client.phoneNumber}"
                         th:value="${client.id}"/>
             </select>
         </div>
@@ -36,7 +37,7 @@
             <label for="employeeLogin">Employee</label>
             <select id="employeeLogin" name="employeeLogin">
                 <option th:each="employee : ${employees}"
-                        th:utext="${employee.firstName}"
+                        th:selected="${employee.login}" th:utext="${employee.login}"
                         th:value="${employee.login}"/>
             </select>
         </div>
