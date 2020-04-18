@@ -42,6 +42,7 @@ public class BillDTO {
     private double total;
     private double discount;
 
+
     private String comments;
 
 

@@ -21,6 +21,7 @@ public class CarDTO {
     private String registration;
     @Min(value = 1, message = "clientId cannot be null")
     private int clientId;
+    private String fuelType;
 
 
 }

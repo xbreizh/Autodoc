@@ -114,7 +114,22 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         //resetException();
         BillDTO dto = (BillDTO) obj;
         if (dto.getId() == 0) throw new InvalidDtoException("no id provided");
-        Bill bill = dtoToEntity(dto);
+        Bill bill = (Bill) dao.getById(dto.getId());
+        if(dto.getDiscount()!=0)bill.setDiscount(dto.getDiscount());
+        if(dto.getStatus()!=null)bill.setStatus(Status.valueOf(dto.getStatus()));
+        if(dto.getTotal()!=0)bill.setTotal(dto.getTotal());
+        bill.setVat(BillDTO.VAT);
+        if(dto.getComments()!=null)bill.setComments(dto.getComments());
+
+        transferDateReparation(dto, bill);
+        transferCar(dto, bill);
+
+        transferTasks(dto, bill);
+        transferPieces(dto, bill);
+
+        transferClient(dto, bill);
+        transferEmployee(dto, bill);
+
         updateBillStatusIfMissingPiece(bill);
         LOGGER.info("bill transferred: " + bill);
         return bill;

@@ -4,9 +4,15 @@ import com.autodoc.business.contract.car.CarModelManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.car.CarModelDao;
+import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.model.dtos.car.CarModelDTO;
+import com.autodoc.model.dtos.tasks.TaskDTO;
+import com.autodoc.model.enums.FuelType;
+import com.autodoc.model.enums.GearBox;
 import com.autodoc.model.models.car.CarModel;
+import com.autodoc.model.models.car.Manufacturer;
+import com.autodoc.model.models.tasks.Task;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
@@ -20,6 +26,7 @@ public class CarModelManagerImpl extends AbstractGenericManager implements CarMo
     private static final Logger LOGGER = Logger.getLogger(CarModelManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private CarModelDao dao;
+    private ManufacturerDao manufacturerDao;
 
     public Class getEntityClass() {
         return CarModel.class;
@@ -53,6 +60,44 @@ public class CarModelManagerImpl extends AbstractGenericManager implements CarMo
             throw new InvalidDtoException("CarModel already exist with that name");
         }
         LOGGER.info("all good");
+    }
+
+    public CarModel transferUpdate(Object obj) {
+        LOGGER.info("transfer Update");
+        CarModelDTO dto = (CarModelDTO) obj;
+        int id = dto.getId();
+        if (id == 0) throw new InvalidDtoException("no id provided");
+        CarModel carModel = (CarModel) dao.getById(id);
+        if (carModel == null) throw new InvalidDtoException("invalid id " + id);
+        if(dto.getName()!=null)carModel.setName(dto.getName());
+        if(dto.getDescription()!=null)carModel.setDescription(dto.getDescription());
+        if(dto.getEngine()!=null)carModel.setEngine(dto.getEngine());
+        passingGearBox(dto, carModel);
+        passingFuelType(dto, carModel);
+        if(dto.getManufacturerId()!=0){
+            Manufacturer manufacturer = (Manufacturer) manufacturerDao.getById(id);
+            if (manufacturer==null)throw new InvalidDtoException("invalid manufacturer if: "+dto.getManufacturerId());
+            carModel.setManufacturer(manufacturer);
+        }
+        return carModel;
+    }
+
+    private void passingFuelType(CarModelDTO dto, CarModel carModel) {
+        try{
+        if(dto.getFuelType()!=null)carModel.setFuelType(FuelType.valueOf(dto.getFuelType()));
+        }catch (Exception e){
+            LOGGER.error("invalid fueltype");
+            throw new InvalidDtoException("invalid fuelType: "+dto.getFuelType().toUpperCase());
+        }
+    }
+
+    private void passingGearBox(CarModelDTO dto, CarModel carModel) {
+        try {
+            if (dto.getGearbox() != null) carModel.setGearbox(GearBox.valueOf(dto.getGearbox()));
+        }catch (Exception e){
+            LOGGER.error("invalid gearbox");
+            throw new InvalidDtoException("invalid gearbox: "+dto.getGearbox().toUpperCase());
+        }
     }
 
 

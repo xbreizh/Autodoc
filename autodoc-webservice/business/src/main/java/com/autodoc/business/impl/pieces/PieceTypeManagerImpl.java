@@ -53,8 +53,9 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
 
     public PieceType transferUpdate(Object obj) {
         PieceTypeDTO dto = (PieceTypeDTO) obj;
-        checkIfExistingPieceType(dto);
-        return (PieceType) dtoToEntity(dto);
+        PieceType pieceType = checkIfExistingPieceType(dto);
+        if (dto.getName()!=null)pieceType.setName(dto.getName());
+        return pieceType;
     }
 
     public PieceType checkIfExistingPieceType(PieceTypeDTO dto) {

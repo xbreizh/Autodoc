@@ -29,16 +29,15 @@ public class CarModelDTO {
     @NotNull(message = "registration cannot be null")
     private String description;
 
-    @NotNull(message = "gearbox cannot be null")
-    @Enumerated(EnumType.STRING)
-    private GearBox gearbox;
+   // @NotNull(message = "gearbox cannot be null")
+    private String gearbox;
 
-    @NotNull(message = "engine cannot be null")
+   // @NotNull(message = "engine cannot be null")
     private String engine;
 
     @NotNull(message = "fuelType cannot be null")
     @Enumerated(EnumType.STRING)
-    private FuelType fuelType;
+    private String fuelType;
 
 
 }

@@ -44,10 +44,15 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     public Client transferUpdate(Object obj) {
         LOGGER.info("updating");
         ClientDTO dto = (ClientDTO) obj;
+        Client client = (Client) dao.getById(dto.getId());
         checkAllRequiredValuesArePassed(dto);
         checkIfIdIsValid(dto.getId());
         checkIfDuplicate(dto);
-        return (Client) dtoToEntity(dto);
+        if(dto.getFirstName()!=null)client.setFirstName(dto.getFirstName());
+        if(dto.getLastName()!=null)client.setLastName(dto.getLastName());
+        if(dto.getPhoneNumber()!=null)client.setPhoneNumber(dto.getPhoneNumber());
+        LOGGER.info("client updated: "+client);
+        return client;
 
 
     }

@@ -23,7 +23,7 @@ public interface CarManager extends IGenericManager {
 
     void checkIfExistingCar(String registration);
 
-    void checkIfCarInDb(CarDTO dto);
+    Car checkIfCarInDb(CarDTO dto);
 
 
 }

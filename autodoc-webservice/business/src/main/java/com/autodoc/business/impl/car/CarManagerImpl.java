@@ -72,7 +72,6 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     @Override
     public Car dtoToEntity(Object obj) {
         LOGGER.info("converting into entity");
-  /*      resetException();*/
         CarDTO dto = (CarDTO) obj;
 
         return mapper.map(dto, Car.class);
@@ -91,10 +90,8 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
     public Car transferUpdate(Object obj) {
         LOGGER.info("transfer update");
         CarDTO dto = (CarDTO) obj;
-        int id = dto.getId();
-        String registration = dto.getRegistration();
-        checkIfCarInDb(dto);
-        Car car = dtoToEntity(dto);
+        Car car = checkIfCarInDb(dto);
+
 
         int clientId = dto.getClientId();
         int carModelId = dto.getCarModelId();
@@ -114,13 +111,12 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             car.setClient(client);
         }
 
-        LOGGER.info("registration: " + registration);
 
         LOGGER.info("car: " + car);
         return car;
     }
 
-    public void checkIfCarInDb(CarDTO dto) {
+    public Car checkIfCarInDb(CarDTO dto) {
         int id = dto.getId();
         String registration = dto.getRegistration();
         LOGGER.info("checking if car is in DB");
@@ -142,7 +138,7 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             dto.setId(carFromDb.getId());
         }
         transfertcarModel(dto, carFromDb);
-
+return carFromDb;
     }
 
     private void transfertcarModel(CarDTO dto, Car carFromDb) {

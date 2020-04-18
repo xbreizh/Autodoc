@@ -123,8 +123,13 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         PieceDTO dto = (PieceDTO) obj;
         int id = dto.getId();
         if (id == 0) throw new InvalidDtoException("no id passed");
-        if (dao.getById(id) == null) throw new InvalidDtoException("invalid id: " + id);
-        Piece piece = mapper.map(dto, Piece.class);
+        Piece piece = (Piece) dao.getById(id);
+        if (piece == null) throw new InvalidDtoException("invalid id: " + id);
+        if(dto.getName()!=null)piece.setName(dto.getName());
+        if(dto.getBrand()!=null)piece.setBrand(dto.getBrand());
+        if(dto.getBuyingPrice()!=0)piece.setBuyingPrice(dto.getBuyingPrice());
+        if(dto.getSellPrice()!=0)piece.setSellPrice(dto.getSellPrice());
+        if(dto.getQuantity()!=0)piece.setQuantity(dto.getQuantity());
         checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
         transferPieceType(dto, piece);
         LOGGER.info("piece to update: " + piece);
