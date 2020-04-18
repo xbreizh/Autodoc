@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +29,7 @@ public class EmployeeDTO extends PersonDTO {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date lastConnection;
 
-    @NotNull
+    //@NotNull
     private String password;
 
     public EmployeeDTO(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {

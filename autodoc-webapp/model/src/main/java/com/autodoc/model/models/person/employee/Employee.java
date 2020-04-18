@@ -22,6 +22,8 @@ public class Employee extends Person {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date lastConnection;
 
+    private String password;
+
 
     public Employee(int id, String firstName, String lastName, String phoneNumber, List<String> roles, Date startDate, String login, Date lastConnection) {
         super(id, firstName, lastName, phoneNumber);

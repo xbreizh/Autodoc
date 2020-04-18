@@ -141,11 +141,15 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
                 throw new InvalidDtoException("invalid registration: " + registration);
             dto.setId(carFromDb.getId());
         }
+        transfertcarModel(dto, carFromDb);
+
+    }
+
+    private void transfertcarModel(CarDTO dto, Car carFromDb) {
         LOGGER.info("updating carModel id");
         if (dto.getCarModelId()==0){
             dto.setCarModelId(carFromDb.getCarModel().getId());
         }
-
     }
 
     @Override

@@ -1,6 +1,6 @@
 <div th:fragment="errors" xmlns:th="http:/www.w3.org/1999/xhtml">
 
-
+errors
 <div th:if="${not #lists.isEmpty(errors)}">
     <tr style="color: #bb322a" th:each="error: ${errors}">
         <td th:text="${error}"/>

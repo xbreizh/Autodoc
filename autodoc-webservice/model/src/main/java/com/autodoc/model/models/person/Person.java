@@ -24,7 +24,7 @@ public abstract class Person {
     protected String firstName;
     @NotBlank
     protected String lastName;
-    @NotBlank
+    //@NotBlank
     protected String phoneNumber;
 
     public void setFirstName(String firstName) {

@@ -83,11 +83,18 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         LOGGER.info("transfer update: " + obj);
         EmployeeDTO dto = (EmployeeDTO) obj;
         if (dto.getId() == 0) throw new InvalidDtoException("invalid id: " + 0);
-        if (dao.getById(dto.getId()) == null) return null;
-        Employee employee = dtoToEntity(dto);
+        Employee employee = (Employee) dao.getById(dto.getId());
+        if (employee == null) return null;
+        LOGGER.info("employee: "+employee);
+        if(dto.getPhoneNumber()!=null)employee.setPhoneNumber(dto.getPhoneNumber());
+        if(dto.getLogin()!=null)employee.setLogin(dto.getLogin());
+        if(dto.getFirstName()!=null)employee.setFirstName(dto.getFirstName());
+        if(dto.getLastName()!=null)employee.setLastName(dto.getLastName());
+        if(dto.getPassword()!=null)employee.setPassword(dto.getPassword());
+       // if(dto.getStartDate()!=null)employee.setStartDate(dto.getStartDate());
         checkAndPassLogin(employee, dto.getLogin().toUpperCase());
         if (dto.getRoles() != null) employee.setRoles(convertRoleFromDtoToEntity(dto.getRoles()));
-        return dtoToEntity(dto);
+        return employee;
     }
 
     public List<Role> convertRoleFromDtoToEntity(List<String> roles) {

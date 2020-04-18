@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeDTO, EmployeeForm> implements EmployeeController {
 
     private static final String KEY_WORD = "employees";
-    private static Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
 
     public EmployeeControllerImpl(LibraryHelper helper, EmployeeManager manager) {
         super(helper);
@@ -61,6 +61,12 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
         if (form == null) form = new EmployeeForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
         addingRoleList(mv);
+        if (bindingResult.hasErrors()) {
+            LOGGER.error("binding has errors");
+            addingErrorsToView(bindingResult, mv);
+            mv.addObject("showForm", 1);
+            return mv;
+        }
         return mv;
     }
 

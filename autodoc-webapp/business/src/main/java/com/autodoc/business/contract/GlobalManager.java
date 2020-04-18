@@ -12,7 +12,7 @@ public interface GlobalManager<T, D> {
 
     String add(String token, T obj) throws Exception;
 
-    void update(String token, T obj) throws Exception;
+    String update(String token, T obj) throws Exception;
 
     void delete(String token, int id);
 

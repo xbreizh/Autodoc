@@ -18,7 +18,7 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
 
     private static final Logger LOGGER = Logger.getLogger(TaskManagerImpl.class);
     //private Task task;
-    private TaskService service;
+    private final TaskService service;
 
     GlobalService getService() {
         return service;
@@ -40,11 +40,11 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         return task;
     }
 
-    public void update(String token, Object obj) {
+    public String update(String token, Object obj) {
         LOGGER.info("updating task: " + obj);
         TaskDTO taskDto = formToDto(obj, token);
         LOGGER.info("regular update: " + taskDto);
-        service.update(token, taskDto);
+        return service.update(token, taskDto);
     }
 
 

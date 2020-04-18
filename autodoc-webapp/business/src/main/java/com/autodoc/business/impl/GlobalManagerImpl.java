@@ -70,19 +70,21 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         GlobalService service = getService();
         D objToInsert = formToDto(obj, token);
         String feedBack = "";
+        int code = 0;
         try {
             feedBack = service.create(token, objToInsert);
             LOGGER.info("feedback: " + feedBack);
+            code = getRequestCode(feedBack);
         } catch (Exception e) {
             LOGGER.error("exception found: " + e.getMessage());
             HttpStatus status = HttpStatus.valueOf(getRequestCode(feedBack));
             throw new HttpClientErrorException(status, getFeedbackDetails(feedBack));
         }
-
-        if (feedBack.startsWith("400 /")) {
+        LOGGER.info("code: " + code);
+        if (code != 201) {
             throw new ObjectFormattingException(getFeedbackDetails(feedBack));
         }
-        return feedBack;
+        return getFeedbackDetails(feedBack);
     }
 
    /* private String returnFeedback(int codeExpected, String feedback) {
@@ -93,7 +95,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     protected String getFeedbackDetails(String feedback) {
         LOGGER.info("feedback: " + feedback);
         try {
-            int start = feedback.indexOf("\"");
+            int start = feedback.indexOf("/ ");
             String details = feedback.substring(start + 1, feedback.length() - 1);
             LOGGER.info("details: " + details);
             return details;
@@ -104,17 +106,27 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         return "an error occurred. Please check the logs";
     }
 
-    public void update(String token, Object obj) throws Exception {
+    public String update(String token, Object obj) throws Exception {
         LOGGER.info("stuff to update: " + obj);
         GlobalService service = getService();
         D objToUpdate = formToDto(obj, token);
         String feedBack = "";
+        int code = 0;
         try {
             feedBack = service.update(token, objToUpdate);
+            LOGGER.info("feedback: " + feedBack);
+            code = getRequestCode(feedBack);
         } catch (Exception e) {
+            LOGGER.error("exception found: " + e.getMessage());
             HttpStatus status = HttpStatus.valueOf(getRequestCode(feedBack));
             throw new HttpClientErrorException(status, getFeedbackDetails(feedBack));
         }
+        LOGGER.info("code: " + code);
+        if (code != 200) {
+            LOGGER.error("exception: " + feedBack);
+            throw new ObjectFormattingException(getFeedbackDetails(feedBack));
+        }
+        return getFeedbackDetails(feedBack);
 
     }
 
@@ -146,7 +158,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     int getRequestCode(String feedback) {
         LOGGER.info("feedback: " + feedback);
-        String code = feedback.substring(0, 2);
+        String code = feedback.substring(0, 3);
         try {
             return Integer.parseInt(code);
 

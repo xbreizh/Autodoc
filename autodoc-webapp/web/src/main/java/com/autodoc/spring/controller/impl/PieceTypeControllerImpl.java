@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTypeDTO, PieceTypeForm> implements PieceTypeController {
 
     private static final String KEY_WORD = "pieceTypes";
-    private static Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
 
     public PieceTypeControllerImpl(LibraryHelper helper, PieceTypeManager manager) {
         super(helper);
@@ -89,8 +89,8 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
             return mv;
         }
         LOGGER.info("pieceType retrieved: " + pieceTypeForm);
-        manager.add(helper.getConnectedToken(), pieceTypeForm);
-        return new ModelAndView("redirect:/pieceTypes");
+        System.out.println("unbelievable: " + manager.add(helper.getConnectedToken(), pieceTypeForm));
+        return getList();
     }
 
 

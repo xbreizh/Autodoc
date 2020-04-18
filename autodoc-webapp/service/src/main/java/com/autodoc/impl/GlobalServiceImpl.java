@@ -141,9 +141,9 @@ public class GlobalServiceImpl<D> implements GlobalService {
         } catch (HttpClientErrorException error) {
             String errorDetails = error.getRawStatusCode() + " / " + error.getResponseBodyAsString();
             LOGGER.info(errorDetails);
-            if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
-                LOGGER.info("bam");
-            }
+           /* if (error.getClass().getSimpleName().equalsIgnoreCase("BadRequest")) {
+               return
+            }*/
             return errorDetails;
         }
     }

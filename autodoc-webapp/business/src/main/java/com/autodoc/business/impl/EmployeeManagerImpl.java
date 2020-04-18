@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO> implements EmployeeManager {
 
-    private static Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EmployeeManagerImpl.class);
 
     EmployeeService service;
 
@@ -67,7 +67,10 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         employee.setLastName(dto.getLastName());
         employee.setRoles(dto.getRoles());
         employee.setPhoneNumber(dto.getPhoneNumber());
-        if (dto.getPassword() != null) employee.setPassword(dto.getPassword());
+        LOGGER.info("employee rfom db: " + employee.getPassword());
+        if (dto.getPassword() != null) {
+            employee.setPassword(dto.getPassword());
+        }
         LOGGER.info("entity transferred: " + employee);
         return employee;
     }
