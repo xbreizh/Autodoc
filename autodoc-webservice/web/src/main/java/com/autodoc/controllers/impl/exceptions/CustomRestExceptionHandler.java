@@ -77,7 +77,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         LOGGER.info("handling dto exception: " + e.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("yokaopo");
+                .body(e.getMessage());
     }
 
 

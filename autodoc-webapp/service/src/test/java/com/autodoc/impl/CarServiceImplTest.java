@@ -66,6 +66,23 @@ class CarServiceImplTest extends HelperTest {
     }
 
     @Test
+    @DisplayName("should return 200 if all valid")
+    void update() {
+        CarDTO car = (CarDTO) service.getAll(token).get(0);
+        car.setClientId(2);
+        assertEquals("200", service.update(token, car));
+    }
+
+    @Test
+    @DisplayName("should return 404 if invalid clientId")
+    void update1() {
+        int clientId=23;
+        CarDTO car = (CarDTO) service.getAll(token).get(0);
+        car.setClientId(clientId);
+        assertEquals("404 / invalid clientId: "+clientId, service.update(token, car));
+    }
+
+    @Test
     void testGetObjectClass() {
     }
 

@@ -95,6 +95,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
         LOGGER.info("empl: " + taskForm);
         mv.addObject("taskForm", new TaskForm());
         if (bindingResult.hasErrors()) {
+            addingErrorsToView(bindingResult, mv);
             LOGGER.error("binding has errors");
             mv.addObject("taskForm", taskForm);
             mv.addObject("showForm", 1);

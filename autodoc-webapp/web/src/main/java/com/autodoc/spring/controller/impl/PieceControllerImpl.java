@@ -117,7 +117,7 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
         LOGGER.info("tasks: " + pieceTypeList);
         mv.addObject("pieceTypeList", pieceTypeList);
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
+            addingErrorsToView(bindingResult, mv);
             mv.addObject("pieceForm", pieceForm);
             mv.addObject("showForm", 1);
             return new ModelAndView("redirect:/pieces");

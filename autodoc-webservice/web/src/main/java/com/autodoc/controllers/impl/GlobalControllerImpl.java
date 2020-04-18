@@ -91,17 +91,20 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
 
     @PutMapping(
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> update(@RequestBody D obj)  {
+    public ResponseEntity<String> update(@RequestBody D obj)  {
         IGenericManager<T,D> manager = getManager();
         getClassName(obj);
         LOGGER.info("trying to update: " + obj);
         boolean response = manager.update(obj);
+        LOGGER.info("dede"+response);
         if (response) {
-            return ResponseEntity.ok().build();
+            LOGGER.info("here now");
+            return ResponseEntity.status(200).body("updated");
         }
+        LOGGER.info("bad request: "+response);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(false);
+                .body("not updated");
     }
 
 

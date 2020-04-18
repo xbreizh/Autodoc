@@ -85,6 +85,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
         mv.addObject("form", new ClientForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
+            addingErrorsToView(bindingResult, mv);
             mv.addObject("form", form);
             mv.addObject("showForm", 1);
             return mv;

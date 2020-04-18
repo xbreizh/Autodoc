@@ -131,7 +131,13 @@ public class GlobalServiceImpl<D> implements GlobalService {
         LOGGER.info("obj: " + object);
 
         try {
-            return restTemplate.exchange(url, method, new HttpEntity<>((D) object, headers), String.class).getBody();
+            ResponseEntity responseEntity = restTemplate.exchange(url, method, new HttpEntity<>((D) object, headers), String.class);
+
+            String feedback = Integer.toString(responseEntity.getStatusCodeValue());
+            LOGGER.info(feedback);
+            if (responseEntity.getBody()!=null)feedback+=" / "+responseEntity.getBody();
+            LOGGER.info(feedback);
+            return feedback;
         } catch (HttpClientErrorException error) {
             String errorDetails = error.getRawStatusCode() + " / " + error.getResponseBodyAsString();
             LOGGER.info(errorDetails);

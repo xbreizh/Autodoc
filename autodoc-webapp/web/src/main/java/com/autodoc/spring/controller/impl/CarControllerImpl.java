@@ -55,6 +55,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         String registration = searchForm.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         if (bindingResult.hasErrors()) {
+            addingErrorsToView(bindingResult, mv);
             LOGGER.error(bindingResult.getFieldError().getRejectedValue());
             mv.addObject("registration", registration);
             return mv;

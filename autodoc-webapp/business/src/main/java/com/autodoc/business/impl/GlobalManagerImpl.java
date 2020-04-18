@@ -146,7 +146,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     int getRequestCode(String feedback) {
         LOGGER.info("feedback: " + feedback);
-        String code = feedback.substring(0, 3);
+        String code = feedback.substring(0, 2);
         try {
             return Integer.parseInt(code);
 

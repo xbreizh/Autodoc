@@ -94,6 +94,7 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
         EmployeeManager employeeManager = (EmployeeManager) manager;
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
+            addingErrorsToView(bindingResult, mv);
             addingRoleList(mv);
             mv.addObject("employeeForm", employeeForm);
             mv.addObject("showForm", 1);

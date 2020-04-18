@@ -21,12 +21,9 @@
         <span class="slider round"></span>
     </label>
     <h3>Edit</h3>
+    <h4 onclick="saveAsPdf();">save as pdf</h4>
 
-    <div th:if="${not #lists.isEmpty(errors)}">
-        <tr style="color: #bb322a" th:each="error: ${errors}">
-            <td th:text="${error}"/>
-        </tr>
-    </div>
+
 
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
@@ -412,6 +409,22 @@
                 document.getElementById("myTasks").appendChild(r);
                 y.selectedIndex = taskId - 1;
             }
+
+            function saveAsPdf () {
+                alert('saving as pdf');
+                var specialElementHandlers = {
+                    '#editor': function (element,renderer) {
+                        return true;
+                    }
+                };
+                $('#cmd').click(function () {
+                    var doc = new jsPDF();
+                    doc.fromHTML($('#target').html(), 15, 15, {
+                        'width': 170,'elementHandlers': specialElementHandlers
+                    });
+                    doc.save('sample-file.pdf');
+                });
+            });
 
 
         </script>

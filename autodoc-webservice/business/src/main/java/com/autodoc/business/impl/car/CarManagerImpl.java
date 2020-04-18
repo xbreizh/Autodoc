@@ -124,21 +124,28 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         int id = dto.getId();
         String registration = dto.getRegistration();
         LOGGER.info("checking if car is in DB");
+        Car carFromDb;
         if (id == 0 && (registration == null || registration.isEmpty()))
             throw new InvalidDtoException("you need to pass a registration or a car id");
         if (id != 0) {
-            Car carFromDb = (Car) dao.getById(id);
+            carFromDb = (Car) dao.getById(id);
             if (carFromDb == null) throw new InvalidDtoException("invalid car id: " + id);
-            if (registration!=null && !registration.isEmpty() && registration!=carFromDb.getRegistration())
+            LOGGER.info("carFrom DB: "+carFromDb);
+            if (registration!=null && !registration.isEmpty() && !registration.equalsIgnoreCase(carFromDb.getRegistration()))
                 throw new InvalidDtoException("invalid car registration: " +registration+". There is a different registration in db for that Id: "+id);
         } else {
             LOGGER.info("checking registration is not already in use");
-            Car carFromDb = dao.getCarByRegistration(registration);
+            carFromDb = dao.getCarByRegistration(registration);
             LOGGER.info("carFrom DB: "+carFromDb);
             if (carFromDb == null)
                 throw new InvalidDtoException("invalid registration: " + registration);
             dto.setId(carFromDb.getId());
         }
+        LOGGER.info("updating carModel id");
+        if (dto.getCarModelId()==0){
+            dto.setCarModelId(carFromDb.getCarModel().getId());
+        }
+
     }
 
     @Override

@@ -83,6 +83,7 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
         mv.addObject("pieceTypeForm", new PieceTypeForm());
         if (bindingResult.hasErrors()) {
             LOGGER.error("binding has errors");
+            addingErrorsToView(bindingResult, mv);
             mv.addObject("pieceTypeForm", pieceTypeForm);
             mv.addObject("showForm", 1);
             return mv;

@@ -84,7 +84,9 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public boolean update(Object entity) {
 
         T obj = transferUpdate((D) entity);
-        return getDao().update(obj);
+        boolean feedback = getDao().update(obj);
+        LOGGER.info("feedback: "+feedback);
+        return feedback;
 
     }
 

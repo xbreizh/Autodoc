@@ -80,15 +80,7 @@ public class GlobalController<T, D, F> {
         String keyWord = getKeyWord();
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has " + bindingResult.getAllErrors().size() + " error(s)");
-            List<String> errors = new ArrayList<>();
-            for (ObjectError obj : bindingResult.getAllErrors()) {
-                errors.add(obj.getDefaultMessage());
-                LOGGER.error("error found:" + obj.getDefaultMessage());
-                LOGGER.error("code found:" + obj.getCode());
-                LOGGER.error("object found:" + obj.getObjectName());
-            }
-            mv.addObject("errors", errors);
+            addingErrorsToView(bindingResult, mv);
             resettingUpdateViewElements(form, id, mv);
             return mv;
         }
@@ -103,6 +95,18 @@ public class GlobalController<T, D, F> {
             return mv;
         }
         return new ModelAndView("redirect:" + "/" + keyWord + "/" + id);
+    }
+
+    void addingErrorsToView(BindingResult bindingResult, ModelAndView mv) {
+        LOGGER.error("binding has " + bindingResult.getAllErrors().size() + " error(s)");
+        List<String> errors = new ArrayList<>();
+        for (ObjectError obj : bindingResult.getAllErrors()) {
+            errors.add(obj.getDefaultMessage());
+            LOGGER.error("error found:" + obj.getDefaultMessage());
+            LOGGER.error("code found:" + obj.getCode());
+            LOGGER.error("object found:" + obj.getObjectName());
+        }
+        mv.addObject("errors", errors);
     }
 
     private void resettingUpdateViewElements(F form, int id, ModelAndView mv) throws Exception {

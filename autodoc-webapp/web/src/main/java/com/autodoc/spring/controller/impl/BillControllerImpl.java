@@ -201,10 +201,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         addTasks(token, mv);
         addPieces(token, mv);
         if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors: " + bindingResult.getGlobalError());
-            mv.addObject("form", form);
-            mv.addObject("showForm", 1);
-            mv.addObject("error", bindingResult.getGlobalError());
+            addingErrorsToView(bindingResult, mv);
             return mv;
         }
         if (form == null) form = new BillForm();
