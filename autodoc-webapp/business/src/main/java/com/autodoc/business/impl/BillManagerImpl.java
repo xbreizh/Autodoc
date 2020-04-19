@@ -67,7 +67,11 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         if (car == null) throw new Exception("car cannot be null");
         LOGGER.info("car found: " + car);
         bill.setCar(car);
-        bill.setDiscount(dto.getDiscount());
+        LOGGER.info("discount: " + dto.getDiscount());
+        int d = (int) dto.getDiscount();
+        LOGGER.info("d: " + d);
+        bill.setDiscount((int) dto.getDiscount());
+        LOGGER.info(bill.getDiscount());
         bill.setStatus(dto.getStatus());
         bill.setPaymentType(dto.getPaymentType());
         bill.setTasks(getTasks(token, dto.getTasks()));
@@ -124,12 +128,12 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         String mdy = getDateFormat().format(form.getDateReparation());
         dto.setDateReparation(mdy);
         LOGGER.info("date passed: " + dto.getDateReparation());
-        dto.setDiscount(form.getDiscount());
+        dto.setDiscount(Double.valueOf(form.getDiscount()));
         Employee employee = employeeManager.getByLogin(token, form.getEmployeeLogin());
         dto.setEmployeeId(employee.getId());
         dto.setRegistration(form.getCarRegistration());
         dto.setStatus(form.getStatus());
-        if (!form.getPaymentType().isEmpty()) dto.setPaymentType(form.getPaymentType());
+        if (form.getPaymentType() == null || !form.getPaymentType().isEmpty()) dto.setPaymentType("CASH");
         List<Integer> taskIdList = new ArrayList<>();
         if (form.getTasks() != null) {
             for (Integer taskId : form.getTasks().getList()) {

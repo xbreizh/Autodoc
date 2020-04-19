@@ -37,7 +37,7 @@ public class Bill {
     private double total;
     @NotNull
     private double vat;
-    @NotNull
+    //@NotNull
     private double discount;
 
     private String comments;

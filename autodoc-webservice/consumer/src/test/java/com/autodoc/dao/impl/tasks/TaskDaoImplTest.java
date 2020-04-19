@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +34,17 @@ class TaskDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         //remover.remove();
-        filler.fill();
-        obj = (Task) dao.getAll().get(0);
+        /*filler.fill();
+        obj = (Task) dao.getAll().get(0);*/
     }
 
+
+    @Test
+    void trrr(){
+        int i = 5;
+        double h = Double.valueOf(i);
+        System.out.println("h:"+h);
+    }
 
     @Test
     @DisplayName("should return null if invalid name")

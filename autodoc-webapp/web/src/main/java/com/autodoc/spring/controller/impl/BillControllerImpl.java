@@ -214,6 +214,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         form.setEmployeeLogin(login);
         form.setStatus("PENDING_PAYMENT");
         form.setVat(19.6);
+        form.setDiscount(0);
         mv.addObject("form", form);
         mv.addObject("showForm", 1);
 

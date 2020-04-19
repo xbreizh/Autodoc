@@ -50,7 +50,7 @@ public class BillForm {
     private double total;
 
     @Max(100)
-    private int discount;
+    private int discount = 0;
 
     private String comments;
 
