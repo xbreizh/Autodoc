@@ -98,6 +98,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         addEmployees(token, mv);
         addPieces(token, mv);
         addTasks(token, mv);
+        addPaymentType(token, mv);
+        addStatus(token, mv);
+        Bill bill = (Bill) billManager.getById(token, id);
+        if (bill.getStatus() == null) bill.setStatus("PENDING_PAYMENT");
         getPricePerHour(mv);
         return mv;
     }
@@ -121,7 +125,16 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
                 }
             }
             mv.addObject("totalTasks", totalTasks);
-            mv.addObject("grandTotal", totalPieces + totalTasks);
+            double grandTotalBeforeTaxAndDiscount = totalPieces + totalTasks;
+            mv.addObject("grandTotalBeforeTaxAndDiscount", grandTotalBeforeTaxAndDiscount);
+         /*   (grandTotal)-
+                    ((grandTotalBeforeTaxAndDiscount)*(obj.discount/100))+
+                    ((grandTotal)*(vat/100))*/
+            double grandTotal = grandTotalBeforeTaxAndDiscount -
+                    (grandTotalBeforeTaxAndDiscount) * (bill.getDiscount() / 100) +
+                    (grandTotalBeforeTaxAndDiscount) * (bill.getVat() / 100);
+
+            mv.addObject("grandTotal", grandTotal);
         } catch (NullPointerException e) {
             LOGGER.info("nothing to be added");
         }
@@ -136,6 +149,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         if (form == null) form = new BillForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
         mv.addObject("form", form);
+        addPaymentType(token, mv);
+        addStatus(token, mv);
         addCars(token, mv);
         addClients(token, mv);
         addEmployees(token, mv);
@@ -145,6 +160,14 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         addingCalculation(mv);
         return mv;
 
+    }
+
+    private void addStatus(String token, ModelAndView mv) {
+        mv.addObject("statuses", billManager.getStatus(token));
+    }
+
+    private void addPaymentType(String token, ModelAndView mv) {
+        mv.addObject("paymentTypes", billManager.getPaymentType(token));
     }
 
     @GetMapping(value = "/delete/{id}")

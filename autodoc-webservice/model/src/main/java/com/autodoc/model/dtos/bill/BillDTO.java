@@ -22,6 +22,8 @@ public class BillDTO {
     @NotNull
     private String status;
 
+    private String paymentType;
+
     @NotNull
     private List<Integer> tasks;
 

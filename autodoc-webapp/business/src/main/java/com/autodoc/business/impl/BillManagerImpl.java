@@ -169,4 +169,9 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     public List<String> getStatus(String token) {
         return enumService.getAll(token, "status");
     }
+
+    @Override
+    public List<String> getPaymentType(String token) {
+        return enumService.getAll(token, "paymentTypes");
+    }
 }

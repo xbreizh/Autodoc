@@ -26,10 +26,10 @@ import java.util.List;
 public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements CarManager {
 
     private static final Logger LOGGER = Logger.getLogger(CarManagerImpl.class);
-    private CarService service;
-    private CarModelManager carModelManager;
-    private ClientManager clientManager;
-    private BillService billService;
+    private final CarService service;
+    private final CarModelManager carModelManager;
+    private final ClientManager clientManager;
+    private final BillService billService;
 
     GlobalService getService() {
         return service;
@@ -57,6 +57,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         String feedbackFromClientAdd = "";
         try {
             feedbackFromClientAdd = clientManager.add(token, form.getClient());
+            LOGGER.info("feedbackFromClientAdd: " + feedbackFromClientAdd);
             int clientId = Integer.parseInt(feedbackFromClientAdd);
             dto.setClientId(clientId);
         } catch (NumberFormatException e) {
@@ -64,7 +65,7 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
             return getFeedbackDetails(feedbackFromClientAdd);
         }
         LOGGER.info("new car to be added: " + dto);
-        return service.create(token, dto);
+        return getFeedbackDetails(service.create(token, dto));
 
     }
 

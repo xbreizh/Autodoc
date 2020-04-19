@@ -13,6 +13,7 @@ import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.bill.BillDTO;
+import com.autodoc.model.enums.PaymentType;
 import com.autodoc.model.enums.Status;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
@@ -120,6 +121,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         if(dto.getTotal()!=0)bill.setTotal(dto.getTotal());
         bill.setVat(BillDTO.VAT);
         if(dto.getComments()!=null)bill.setComments(dto.getComments());
+        if(dto.getPaymentType()!=null)bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
 
         transferDateReparation(dto, bill);
         transferCar(dto, bill);
@@ -146,6 +148,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setTotal(dto.getTotal());
         bill.setVat(BillDTO.VAT);
         bill.setComments(dto.getComments());
+        bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
 
         transferDateReparation(dto, bill);
         transferCar(dto, bill);

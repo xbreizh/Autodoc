@@ -12,5 +12,7 @@ public interface BillManager extends GlobalManager {
 
     List<String> getStatus(String token);
 
+    List<String> getPaymentType(String token);
+
 
 }

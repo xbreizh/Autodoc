@@ -1,6 +1,7 @@
 package com.autodoc.model.models.bill;
 
 
+import com.autodoc.model.enums.PaymentType;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.enums.Status;
 import com.autodoc.model.models.car.Car;
@@ -54,6 +55,8 @@ public class Bill {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    private PaymentType paymentType;
+
     @NotNull
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -100,6 +103,7 @@ public class Bill {
                 ", employee=" + employee +
                 ", tasks=" + tasks +
                 ", total=" + total +
+                ", paymentType=" + paymentType +
                 ", vat=" + vat +
                 ", discount=" + discount +
                 ", comments='" + comments + '\'' +

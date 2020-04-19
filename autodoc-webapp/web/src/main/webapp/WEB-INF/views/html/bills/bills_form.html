@@ -6,6 +6,10 @@
     <td th:text="${error}">error</td>
     <button class="btn btn btn-info" onclick="pieceFunction(getPieces())">Add Piece</button>
     <button class="btn btn btn-info" onclick="taskFunction(getTasks())">Add Task</button>
+    <tr>
+        <td>Payment Type</td>
+        <td th:text="${form.paymentType}">paymentType</td>
+    </tr>
     <br>
     <form action="#" method="post" th:action="@{'/bills/update/' + ${obj.id}}" th:object="${form}">
 
@@ -53,13 +57,30 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="discount">Discount</label>
+            <label for="discount">Discount( % )</label>
             <input class="form-control" id="discount" name="discount" placeholder="Enter Discount"
                    type="number"
                    value="0"/>
             <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
         </div>
-        <input required="required" th:field="*{status}" type="hidden"/>
+
+        <div class="form-group">
+            <label for="paymentType">paymentType</label>
+            <select id="paymentType" name="paymentType">
+                <option value="">chose paymentType</option>
+                <option th:each="paymentType : ${paymentTypes}"
+                        th:selected="${form.paymentType}" th:utext="${paymentType}"
+                        th:value="${paymentType}"/>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="paymentType">status</label>
+            <select id="status" name="status">
+                <option th:each="status : ${statuses}"
+                        th:selected="${form.status}" th:utext="${status}"
+                        th:value="${status}"/>
+            </select>
+        </div>
         <div class="form-group">
             <label for="comments">Comments</label>
             <input class="form-control" id="comments" name="comments"
@@ -68,7 +89,7 @@
             <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
         </div>
 
-        <input id="vat" name="vat" required="required" th:value="${vat}" type="text"/>
+        <input id="vat" name="vat" required="required" th:value="${vat}" type="hidden"/>
 
         <div class="form-group" id="tasks">
             <label>Tasks</label>

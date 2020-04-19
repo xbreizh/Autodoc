@@ -96,7 +96,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         LOGGER.info("feedback: " + feedback);
         try {
             int start = feedback.indexOf("/ ");
-            String details = feedback.substring(start + 1, feedback.length() - 1);
+            String details = feedback.substring(start + 2);
             LOGGER.info("details: " + details);
             return details;
         } catch (Exception e) {

@@ -23,6 +23,7 @@ public class Bill {
     private Date dateReparation;
     @NotNull
     private String status;
+    private String paymentType;
     @NotNull
     private Car car;
     @NotNull
@@ -70,6 +71,7 @@ public class Bill {
                 ", total=" + total +
                 ", vat=" + vat +
                 ", discount=" + discount +
+                ", paymentType=" + paymentType +
                 ", comments='" + comments + '\'' +
                 '}';
     }

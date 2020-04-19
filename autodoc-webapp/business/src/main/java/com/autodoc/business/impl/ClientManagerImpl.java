@@ -15,7 +15,7 @@ import javax.inject.Named;
 @Builder
 public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> implements ClientManager {
 
-    private static Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
     ClientService service;
 
     GlobalService getService() {
@@ -51,5 +51,6 @@ public class ClientManagerImpl extends GlobalManagerImpl<Client, ClientDTO> impl
         LOGGER.info("entity transferred: " + client);
         return client;
     }
+
 
 }

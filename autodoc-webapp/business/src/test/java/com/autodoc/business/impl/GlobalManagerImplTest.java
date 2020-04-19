@@ -29,6 +29,12 @@ class GlobalManagerImplTest {
     }
 
     @Test
+    void getFeedbackDetails1() {
+        //  assertEquals("that client already exist: ROGER MOORE", manager.getFeedbackDetails(feedback));
+        assertEquals("8", manager.getFeedbackDetails("201 / 8"));
+    }
+
+    @Test
     void getRequestCode() {
 
         assertEquals(400, manager.getRequestCode(feedback));

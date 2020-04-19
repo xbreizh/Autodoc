@@ -1,7 +1,5 @@
 package com.autodoc.model.dtos.car;
 
-import com.autodoc.model.enums.FuelType;
-import com.autodoc.model.enums.GearBox;
 import lombok.*;
 
 import javax.persistence.EnumType;
@@ -29,10 +27,10 @@ public class CarModelDTO {
     @NotNull(message = "registration cannot be null")
     private String description;
 
-   // @NotNull(message = "gearbox cannot be null")
+    // @NotNull(message = "gearbox cannot be null")
     private String gearbox;
 
-   // @NotNull(message = "engine cannot be null")
+    // @NotNull(message = "engine cannot be null")
     private String engine;
 
     @NotNull(message = "fuelType cannot be null")
