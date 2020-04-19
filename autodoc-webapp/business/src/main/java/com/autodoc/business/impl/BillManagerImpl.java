@@ -69,6 +69,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         bill.setCar(car);
         bill.setDiscount(dto.getDiscount());
         bill.setStatus(dto.getStatus());
+        bill.setPaymentType(dto.getPaymentType());
         bill.setTasks(getTasks(token, dto.getTasks()));
         bill.setPieces(getPieces(token, dto.getPieces()));
         Client client = (Client) clientManager.getById(token, dto.getClientId());
@@ -113,7 +114,6 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     }
 
     public BillDTO formToDto(Object obj, String token) throws Exception {
-        LOGGER.info("form to dto: " + obj);
         BillForm form = (BillForm) obj;
         LOGGER.info("dto: " + form);
         BillDTO dto = new BillDTO();
@@ -129,10 +129,13 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         dto.setEmployeeId(employee.getId());
         dto.setRegistration(form.getCarRegistration());
         dto.setStatus(form.getStatus());
+        if (!form.getPaymentType().isEmpty()) dto.setPaymentType(form.getPaymentType());
         List<Integer> taskIdList = new ArrayList<>();
-        for (Integer taskId : form.getTasks().getList()) {
-            if (taskId != null)
-                taskIdList.add(taskId);
+        if (form.getTasks() != null) {
+            for (Integer taskId : form.getTasks().getList()) {
+                if (taskId != null)
+                    taskIdList.add(taskId);
+            }
         }
         List<Integer> pieceIdList = new ArrayList<>();
         if (form.getPieces() != null) {

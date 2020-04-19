@@ -19,6 +19,8 @@ public class BillDTO {
     @NotNull
     private String status;
 
+    private String paymentType;
+
     @NotNull
     private List<Integer> tasks;
 
@@ -50,6 +52,7 @@ public class BillDTO {
                 "id=" + id +
                 ", dateReparation='" + dateReparation + '\'' +
                 ", status='" + status + '\'' +
+                ", paymentType='" + paymentType + '\'' +
                 ", tasks=" + tasks +
                 ", pieces=" + pieces +
                 ", registration='" + registration + '\'' +

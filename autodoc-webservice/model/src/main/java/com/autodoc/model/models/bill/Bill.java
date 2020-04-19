@@ -39,6 +39,7 @@ public class Bill {
         result.put("car.registration", SearchType.STRING);
         result.put("total", SearchType.INTEGER);
         result.put("status", SearchType.STRING);
+        result.put("paymentType", SearchType.STRING);
         result.put("ID", SearchType.INTEGER);
         return Collections.unmodifiableMap(result);
     }

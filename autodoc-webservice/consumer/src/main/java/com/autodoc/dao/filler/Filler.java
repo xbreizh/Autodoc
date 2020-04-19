@@ -10,10 +10,7 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
-import com.autodoc.model.enums.FuelType;
-import com.autodoc.model.enums.GearBox;
-import com.autodoc.model.enums.Role;
-import com.autodoc.model.enums.Status;
+import com.autodoc.model.enums.*;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
@@ -82,9 +79,11 @@ public class Filler {
         Bill bill1 = Bill.builder().dateReparation(new Date()).status(Status.PENDING_PAYMENT).car(car).employee(employee).client(client).tasks(tasks).total(125.44).vat(19).discount(20).pieces(pieces).comments("plouf").build();
         Bill bill2 = Bill.builder().dateReparation(new Date()).status(Status.PENDING_PIECES).car(car2).employee(employee).client(client).tasks(tasks).total(84.44).vat(19).discount(0).pieces(pieces).build();
         Bill bill3 = Bill.builder().dateReparation(new Date()).status(Status.CANCELLED).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
+        Bill bill4 = Bill.builder().dateReparation(new Date()).status(Status.COMPLETED).paymentType(PaymentType.CASH).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
         billDao.create(bill1);
         billDao.create(bill2);
         billDao.create(bill3);
+        billDao.create(bill4);
 
     }
 

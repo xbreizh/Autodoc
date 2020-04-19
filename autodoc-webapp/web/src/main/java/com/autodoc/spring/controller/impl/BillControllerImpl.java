@@ -162,6 +162,23 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
 
     }
 
+    @Override
+    public void resettingSpecificElements(ModelAndView mv) throws Exception {
+        LOGGER.info("adding the specifics");
+        String token = helper.getConnectedToken();
+        addingCalculation(mv);
+        addCars(token, mv);
+        addClients(token, mv);
+        addEmployees(token, mv);
+        addPieces(token, mv);
+        addTasks(token, mv);
+        addPaymentType(token, mv);
+        addStatus(token, mv);
+        getPricePerHour(mv);
+        mv.getModel().forEach((k, v) -> System.out.println("Key : " + k + " Value : " + v));
+        LOGGER.info("printing the map");
+    }
+
     private void addStatus(String token, ModelAndView mv) {
         mv.addObject("statuses", billManager.getStatus(token));
     }

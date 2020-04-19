@@ -27,6 +27,7 @@ public class BillForm {
     @NotEmpty
     private String status;
 
+    private String paymentType;
 
     private TaskList tasks;
 
@@ -49,7 +50,7 @@ public class BillForm {
     private double total;
 
     @Max(100)
-    private double discount;
+    private int discount;
 
     private String comments;
 
@@ -60,6 +61,7 @@ public class BillForm {
                 "id=" + id +
                 ", dateReparation=" + dateReparation +
                 ", status='" + status + '\'' +
+                ", paymentType='" + paymentType + '\'' +
                 ", tasks=" + tasks +
                 ", pieceList=" + pieces +
                 ", carRegistration='" + carRegistration + '\'' +

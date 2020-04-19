@@ -16,6 +16,7 @@
             <label for="pieceTypeId">Piece Type</label>
             <select id="pieceTypeId" th:id="pieceTypeId" th:name="pieceTypeId">
                 <option th:each="pieceType : ${pieceTypes}"
+                        th:selected="${pieceType.name==obj.pieceType.name}"
                         th:utext="${pieceType.name}"
                         th:value="${pieceType.id}"/>
             </select>

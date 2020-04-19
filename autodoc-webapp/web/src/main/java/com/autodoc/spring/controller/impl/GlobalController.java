@@ -84,7 +84,7 @@ public class GlobalController<T, D, F> {
             resettingUpdateViewElements(form, id, mv);
             return mv;
         }
-        LOGGER.info("client retrieved: " + form);
+       // LOGGER.info(form.getClass().toString()+" retrieved: " + form);
         try {
             manager.update(helper.getConnectedToken(), form);
         } catch (ObjectFormattingException e) {
@@ -102,6 +102,9 @@ public class GlobalController<T, D, F> {
         List<String> errors = new ArrayList<>();
         for (ObjectError obj : bindingResult.getAllErrors()) {
             errors.add(obj.getDefaultMessage());
+           /* for (Object objd: obj.getArguments()){
+                LOGGER.error(objd.toString());
+            }*/
             LOGGER.error("error found:" + obj.getDefaultMessage());
             LOGGER.error("code found:" + obj.getCode());
             LOGGER.error("object found:" + obj.getObjectName());
@@ -109,11 +112,17 @@ public class GlobalController<T, D, F> {
         mv.addObject("errors", errors);
     }
 
-    private void resettingUpdateViewElements(F form, int id, ModelAndView mv) throws Exception {
+    public void resettingUpdateViewElements(F form, int id, ModelAndView mv) throws Exception {
         T obj = (T) manager.getById(helper.getConnectedToken(), id);
+        LOGGER.info("resetting update view elements: " + obj);
         mv.addObject("obj", obj);
         mv.addObject("form", form);
         mv.addObject("showForm", 0);
+        resettingSpecificElements(mv);
+    }
+
+    protected void resettingSpecificElements(ModelAndView mv) throws Exception {
+        LOGGER.info("nothing specific to add");
     }
 
 

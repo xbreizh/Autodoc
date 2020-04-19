@@ -79,6 +79,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setDiscount((bill).getDiscount());
         dto.setTotal((bill).getTotal());
         dto.setStatus((bill).getStatus().toString());
+        if(bill.getPaymentType()!=null)dto.setPaymentType(bill.getPaymentType().toString());
         Date dateRepa = (bill).getDateReparation();
         dto.setDateReparation(getDateFormat().format(dateRepa));
         dto.setComments((bill).getComments());
@@ -106,14 +107,18 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     public void updateBillStatusIfMissingPiece(Bill bill) {
         for (Piece piece : bill.getPieces()) {
-            if (piece.getName().startsWith("OOS")) bill.setStatus(Status.PENDING_PIECES);
+
+            if (piece.getName().startsWith("OOS")){
+                LOGGER.info("there are pieces missing: "+piece.getName());
+                bill.setStatus(Status.PENDING_PIECES);
+            }
         }
     }
 
     @Override
     public Bill transferUpdate(Object obj) {
-        //resetException();
         BillDTO dto = (BillDTO) obj;
+        LOGGER.info("object received: "+dto);
         if (dto.getId() == 0) throw new InvalidDtoException("no id provided");
         Bill bill = (Bill) dao.getById(dto.getId());
         if(dto.getDiscount()!=0)bill.setDiscount(dto.getDiscount());
@@ -163,22 +168,28 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     }
 
     public void transferEmployee(BillDTO dto, Bill bill) {
-        Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
-        if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
-        bill.setEmployee(employee);
+        if(dto.getEmployeeId()!=-0) {
+            Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
+            if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
+            bill.setEmployee(employee);
+        }
     }
 
     public void transferClient(BillDTO dto, Bill bill) {
-        Client client = (Client) clientDao.getById(dto.getClientId());
-        if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
+        if(dto.getClientId()!=-0) {
+            Client client = (Client) clientDao.getById(dto.getClientId());
+            if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
 
-        bill.setClient(client);
+            bill.setClient(client);
+        }
     }
 
     public void transferCar(BillDTO dto, Bill bill) {
-        Car car = carDao.getCarByRegistration(dto.getRegistration());
-        if (car == null) throw new InvalidDtoException("car cannot be null");
-        bill.setCar(car);
+        if(dto.getRegistration()!=null && !dto.getRegistration().isEmpty()) {
+            Car car = carDao.getCarByRegistration(dto.getRegistration());
+            if (car == null) throw new InvalidDtoException("car cannot be null");
+            bill.setCar(car);
+        }
     }
 
     public void transferDateReparation(BillDTO dto, Bill bill) {
