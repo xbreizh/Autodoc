@@ -8,7 +8,8 @@
                     <label for="registration">Registration</label>
                     <input class="form-control" id="registration" name="registration" placeholder="Enter Registration"
                            required="required" th:value="${registration}" type="text"/>
-                    <div th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error
+                    <div style="color: #bb211c" th:errors="*{registration}"
+                         th:if="${#fields.hasErrors('registration')}">Registration Error
                     </div>
                 </div>
 

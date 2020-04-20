@@ -27,7 +27,7 @@ import java.util.List;
 public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarForm> implements CarController {
 
     private static final String KEY_WORD = "cars";
-    private static Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(CarControllerImpl.class);
 
     ClientManager clientManager;
     CarManager carManager;
@@ -55,7 +55,6 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         String registration = searchForm.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         if (bindingResult.hasErrors()) {
-            addingErrorsToView(bindingResult, mv);
             LOGGER.error(bindingResult.getFieldError().getRejectedValue());
             mv.addObject("registration", registration);
             return mv;
@@ -73,6 +72,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
             mv.addObject("models", carModelManager.getAll(token));
             List<Client> clients = clientManager.getAll(token);
             mv.addObject("clients", clients);
+
             return mv;
         }
 

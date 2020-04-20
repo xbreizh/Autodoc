@@ -1,13 +1,15 @@
 package com.autodoc.model.dtos.car;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class SearchCarForm {
 
     private int id;
@@ -17,11 +19,9 @@ public class SearchCarForm {
     private int modelId;
 
     @NotNull
-    @Size(min = 5, max = 12, message = "{registration.size}")
+    @Pattern(regexp = "^[a-zA-Z0-9]{8,10}$", message = "invalid registration (letters, numbers, between 8 and 10)")
     private String registration;
 
-    public SearchCarForm() {
-    }
 
     @Override
     public String toString() {

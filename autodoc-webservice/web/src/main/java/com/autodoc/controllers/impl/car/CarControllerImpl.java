@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Named;
-import javax.validation.ConstraintViolationException;
 
 @Named
 @Controller
@@ -36,13 +35,9 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> getByRegistration(@RequestParam(value = "registration") String registration) {
-        if (!registration.matches("^[a-zA-Z0-9]{8,10}$")) throw new ConstraintViolationException
-                (registration + " : invalid registration (letters, numbers, between 8 and 10)", null);
-        System.out.println("after");
+        LOGGER.info("receiving registration: "+registration);
         CarDTO car = carManager.getByRegistration(registration);
         if (car == null) return notFoundResponse;
-        LOGGER.info("reaching herer");
-        System.out.println("here");
         String response = converter.convertObjectIntoGsonObject(car);
 
         return ResponseEntity.ok(response);

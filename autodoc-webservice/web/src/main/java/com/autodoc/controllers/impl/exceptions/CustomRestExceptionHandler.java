@@ -83,7 +83,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
 
-    @ExceptionHandler({ ConstraintViolationException.class })
+    @ExceptionHandler(ConstraintViolationException.class )
     public ResponseEntity<Object> handleConstraintViolation(
             ConstraintViolationException ex, WebRequest request) {
         LOGGER.info("capturing constraint violation error: "+ex.getConstraintViolations());
@@ -95,10 +95,14 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                         violation.getPropertyPath() + ": " + violation.getMessage());
             }
         }
-        ApiError apiError =
+        /*ApiError apiError =
                 new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
         return new ResponseEntity<Object>(
-                apiError, new HttpHeaders(), apiError.getStatus());
+                apiError, new HttpHeaders(), apiError.getStatus());*/
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
     }
 
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
