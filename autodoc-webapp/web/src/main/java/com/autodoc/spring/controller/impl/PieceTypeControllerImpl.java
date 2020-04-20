@@ -1,7 +1,7 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.PieceTypeManager;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.dtos.pieces.PieceTypeForm;
 import com.autodoc.model.models.pieces.PieceType;
@@ -22,7 +22,7 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
     private static final String KEY_WORD = "pieceTypes";
     private static final Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
 
-    public PieceTypeControllerImpl(LibraryHelper helper, PieceTypeManager manager) {
+    public PieceTypeControllerImpl(Helper helper, PieceTypeManager manager) {
         super(helper);
         this.manager = manager;
     }

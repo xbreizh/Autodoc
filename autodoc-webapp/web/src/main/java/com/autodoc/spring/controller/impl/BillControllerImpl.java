@@ -1,7 +1,7 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.*;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
 import com.autodoc.model.models.bill.Bill;
@@ -37,7 +37,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     TaskManager taskManager;
     PieceManager pieceManager;
 
-    public BillControllerImpl(LibraryHelper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager) {
+    public BillControllerImpl(Helper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager) {
         super(helper);
         this.manager = manager;
         this.pieceManager = pieceManager;
@@ -57,6 +57,13 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         ModelAndView mv = getList();
         getBillsInProgress(mv);
         return mv;
+    }
+
+    @GetMapping("/pdf")
+    public ModelAndView createPDF() throws Exception {
+        helper.saveAsPdf(new Bill());
+        return new ModelAndView("pdf");
+
     }
 
     @GetMapping("/old")

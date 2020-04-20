@@ -4,7 +4,7 @@ import com.autodoc.business.contract.BillManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.business.exceptions.ObjectFormattingException;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.RegistrationForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
 import com.autodoc.model.models.person.employee.Employee;
@@ -30,7 +30,7 @@ public class GlobalController<T, D, F> {
     private static final String HOME = "home";
     private static final String REDIRECT_HOME = "redirect:/";
     private static final Logger LOGGER = Logger.getLogger(GlobalController.class);
-    LibraryHelper helper;
+    Helper helper;
     @Inject
     BillManager billManager;
     GlobalManager manager;
@@ -39,7 +39,7 @@ public class GlobalController<T, D, F> {
 
 
     @Inject
-    public GlobalController(LibraryHelper helper) {
+    public GlobalController(Helper helper) {
         this.helper = helper;
     }
 
@@ -131,7 +131,7 @@ public class GlobalController<T, D, F> {
         mv.addObject("pricePerHour", billManager.getPricePerHour());
     }
 
-    public void setHelper(LibraryHelper helper) {
+    public void setHelper(Helper helper) {
         this.helper = helper;
     }
 

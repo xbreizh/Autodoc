@@ -1,7 +1,7 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
@@ -22,7 +22,7 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
     private static final String KEY_WORD = "employees";
     private static final Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
 
-    public EmployeeControllerImpl(LibraryHelper helper, EmployeeManager manager) {
+    public EmployeeControllerImpl(Helper helper, EmployeeManager manager) {
         super(helper);
         this.manager = manager;
     }

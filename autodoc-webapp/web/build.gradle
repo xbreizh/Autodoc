@@ -33,6 +33,17 @@ dependencies {
     compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.7.RELEASE'
 
+    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+    compile group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.19'
+    // https://mvnrepository.com/artifact/net.sf.cssbox/pdf2dom
+    compile group: 'net.sf.cssbox', name: 'pdf2dom', version: '1.9'
+    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.1'
+    // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
+    compile group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.5.13.1'
+
+
+
 
     compileOnly 'org.projectlombok:lombok:1.18.8'
     testCompileOnly 'org.projectlombok:lombok:1.18.8'

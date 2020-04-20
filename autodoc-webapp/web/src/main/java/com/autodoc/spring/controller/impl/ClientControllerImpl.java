@@ -1,7 +1,7 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.ClientManager;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.person.client.Client;
@@ -22,7 +22,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
     private static final Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
     private static final String KEY_WORD = "clients";
 
-    public ClientControllerImpl(LibraryHelper helper, ClientManager manager) {
+    public ClientControllerImpl(Helper helper, ClientManager manager) {
         super(helper);
         this.manager = manager;
     }

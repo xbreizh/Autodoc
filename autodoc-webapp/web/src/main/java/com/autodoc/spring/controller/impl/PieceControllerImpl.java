@@ -4,7 +4,7 @@ import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.PieceTypeManager;
 import com.autodoc.business.contract.ProviderManager;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
 import com.autodoc.model.models.car.CarModel;
@@ -26,13 +26,13 @@ import java.util.List;
 public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, PieceForm> implements PieceController {
 
     private static final String KEY_WORD = "pieces";
-    private static Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
 
     PieceTypeManager pieceTypeManager;
     CarModelManager carModelManager;
     ProviderManager providerManager;
 
-    public PieceControllerImpl(LibraryHelper helper, PieceManager manager, PieceTypeManager pieceTypeManager, CarModelManager carModelManager, ProviderManager providerManager) {
+    public PieceControllerImpl(Helper helper, PieceManager manager, PieceTypeManager pieceTypeManager, CarModelManager carModelManager, ProviderManager providerManager) {
         super(helper);
         this.manager = manager;
         this.providerManager = providerManager;

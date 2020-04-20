@@ -4,7 +4,7 @@ import com.autodoc.business.contract.CarManager;
 import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
@@ -34,7 +34,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
     EmployeeManager employeeManager;
     CarModelManager carModelManager;
 
-    public CarControllerImpl(LibraryHelper helper, CarManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, CarModelManager carModelManager) {
+    public CarControllerImpl(Helper helper, CarManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, CarModelManager carModelManager) {
         super(helper);
         this.manager = manager;
         this.clientManager = clientManager;

@@ -2,7 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.TaskManager;
-import com.autodoc.helper.LibraryHelper;
+import com.autodoc.helper.Helper;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.dtos.tasks.TaskForm;
 import com.autodoc.model.models.tasks.Task;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RequestMapping("/tasks")
 public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm> implements TaskController {
 
-    private static Logger LOGGER = Logger.getLogger(TaskControllerImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(TaskControllerImpl.class);
     private static final String KEY_WORD = "tasks";
 
     PieceManager pieceManager;
@@ -31,7 +31,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
     }
 
 
-    public TaskControllerImpl(LibraryHelper helper, TaskManager manager, PieceManager pieceManager) {
+    public TaskControllerImpl(Helper helper, TaskManager manager, PieceManager pieceManager) {
         super(helper);
         this.manager = manager;
         this.pieceManager = pieceManager;
