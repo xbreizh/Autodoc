@@ -1,7 +1,7 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.ClientManager;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.person.client.Client;
@@ -22,8 +22,8 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
     private static final Logger LOGGER = Logger.getLogger(ClientControllerImpl.class);
     private static final String KEY_WORD = "clients";
 
-    public ClientControllerImpl(Helper helper, ClientManager manager) {
-        super(helper);
+    public ClientControllerImpl(AuthenticationHelper authenticationHelper, ClientManager manager) {
+        super(authenticationHelper);
         this.manager = manager;
     }
 
@@ -62,7 +62,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        manager.delete(helper.getConnectedToken(), id);
+        manager.delete(authenticationHelper.getConnectedToken(), id);
         return allClients();
     }
 
@@ -90,7 +90,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
             mv.addObject("showForm", 1);
             return mv;
         }
-        String feedback = manager.add(helper.getConnectedToken(), form);
+        String feedback = manager.add(authenticationHelper.getConnectedToken(), form);
         try {
             int id = Integer.parseInt(feedback);
             return new ModelAndView("redirect:" + "/" + KEY_WORD + "/" + id);

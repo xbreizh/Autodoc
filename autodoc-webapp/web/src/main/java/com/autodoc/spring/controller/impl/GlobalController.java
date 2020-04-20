@@ -4,7 +4,7 @@ import com.autodoc.business.contract.BillManager;
 import com.autodoc.business.contract.EmployeeManager;
 import com.autodoc.business.contract.GlobalManager;
 import com.autodoc.business.exceptions.ObjectFormattingException;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
 import com.autodoc.model.dtos.RegistrationForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
 import com.autodoc.model.models.person.employee.Employee;
@@ -30,7 +30,7 @@ public class GlobalController<T, D, F> {
     private static final String HOME = "home";
     private static final String REDIRECT_HOME = "redirect:/";
     private static final Logger LOGGER = Logger.getLogger(GlobalController.class);
-    Helper helper;
+    AuthenticationHelper authenticationHelper;
     @Inject
     BillManager billManager;
     GlobalManager manager;
@@ -39,8 +39,8 @@ public class GlobalController<T, D, F> {
 
 
     @Inject
-    public GlobalController(Helper helper) {
-        this.helper = helper;
+    public GlobalController(AuthenticationHelper authenticationHelper) {
+        this.authenticationHelper = authenticationHelper;
     }
 
     String getKeyWord() {
@@ -51,7 +51,7 @@ public class GlobalController<T, D, F> {
         String keyWord = getKeyWord();
         LOGGER.info("trying to get " + keyWord + " with id " + id);
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord + "_details");
-        T obj = (T) manager.getById(helper.getConnectedToken(), id);
+        T obj = (T) manager.getById(authenticationHelper.getConnectedToken(), id);
         mv.addObject("form", obj);
         mv.addObject("showForm", 1);
         mv.addObject("obj", obj);
@@ -64,7 +64,7 @@ public class GlobalController<T, D, F> {
         LOGGER.info("retrieving " + keyWord);
         ModelAndView mv = checkAndAddConnectedDetails(keyWord + "/" + keyWord);
 
-        List<T> all = (List<T>) manager.getAll(helper.getConnectedToken());
+        List<T> all = (List<T>) manager.getAll(authenticationHelper.getConnectedToken());
 
         if (all.isEmpty()) {
             LOGGER.error("nothing to return");
@@ -86,7 +86,7 @@ public class GlobalController<T, D, F> {
         }
        // LOGGER.info(form.getClass().toString()+" retrieved: " + form);
         try {
-            manager.update(helper.getConnectedToken(), form);
+            manager.update(authenticationHelper.getConnectedToken(), form);
         } catch (ObjectFormattingException e) {
             String error = e.getMessage();
             LOGGER.error("error found: " + error);
@@ -113,7 +113,7 @@ public class GlobalController<T, D, F> {
     }
 
     public void resettingUpdateViewElements(F form, int id, ModelAndView mv) throws Exception {
-        T obj = (T) manager.getById(helper.getConnectedToken(), id);
+        T obj = (T) manager.getById(authenticationHelper.getConnectedToken(), id);
         LOGGER.info("resetting update view elements: " + obj);
         mv.addObject("obj", obj);
         mv.addObject("form", form);
@@ -131,8 +131,8 @@ public class GlobalController<T, D, F> {
         mv.addObject("pricePerHour", billManager.getPricePerHour());
     }
 
-    public void setHelper(Helper helper) {
-        this.helper = helper;
+    public void setAuthenticationHelper(AuthenticationHelper authenticationHelper) {
+        this.authenticationHelper = authenticationHelper;
     }
 
     public void setEmployeeManager(EmployeeManager employeeManager) {
@@ -152,7 +152,7 @@ public class GlobalController<T, D, F> {
 
     @GetMapping("/login")
     public ModelAndView login() {
-        String login = helper.getConnectedLogin();
+        String login = authenticationHelper.getConnectedLogin();
         ModelAndView mv = new ModelAndView(LOGIN);
 
         // check if user already logged in
@@ -178,7 +178,7 @@ public class GlobalController<T, D, F> {
 
     public ModelAndView checkAndAddConnectedDetails(String viewName) {
         ModelAndView mv = new ModelAndView(viewName);
-        Employee connected = employeeManager.getByLogin(helper.getConnectedToken(), helper.getConnectedLogin());
+        Employee connected = employeeManager.getByLogin(authenticationHelper.getConnectedToken(), authenticationHelper.getConnectedLogin());
         LOGGER.info("connected found: " + connected);
         if (connected == null) mv = new ModelAndView(LOGIN);
         mv.addObject("connected", connected);

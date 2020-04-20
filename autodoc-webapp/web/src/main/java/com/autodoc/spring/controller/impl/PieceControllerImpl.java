@@ -4,7 +4,7 @@ import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.PieceTypeManager;
 import com.autodoc.business.contract.ProviderManager;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.dtos.pieces.PieceForm;
 import com.autodoc.model.models.car.CarModel;
@@ -32,8 +32,8 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
     CarModelManager carModelManager;
     ProviderManager providerManager;
 
-    public PieceControllerImpl(Helper helper, PieceManager manager, PieceTypeManager pieceTypeManager, CarModelManager carModelManager, ProviderManager providerManager) {
-        super(helper);
+    public PieceControllerImpl(AuthenticationHelper authenticationHelper, PieceManager manager, PieceTypeManager pieceTypeManager, CarModelManager carModelManager, ProviderManager providerManager) {
+        super(authenticationHelper);
         this.manager = manager;
         this.providerManager = providerManager;
         this.carModelManager = carModelManager;
@@ -57,8 +57,8 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
     public ModelAndView pieceById(@PathVariable Integer id) throws Exception {
 
         ModelAndView mv = getById(id);
-        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
-        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        List<CarModel> carModels = carModelManager.getAll(authenticationHelper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(authenticationHelper.getConnectedToken());
         mv.addObject("carModels", carModels);
         mv.addObject("pieceTypes", pieceTypes);
         return mv;
@@ -73,8 +73,8 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
         if (form == null) form = new PieceForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
 
-        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
-        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        List<CarModel> carModels = carModelManager.getAll(authenticationHelper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(authenticationHelper.getConnectedToken());
         mv.addObject("carModels", carModels);
         mv.addObject("pieceTypes", pieceTypes);
         return mv;
@@ -84,7 +84,7 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        manager.delete(helper.getConnectedToken(), id);
+        manager.delete(authenticationHelper.getConnectedToken(), id);
         return pieces();
     }
 
@@ -92,8 +92,8 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
     public ModelAndView getCreate() throws Exception {
         LOGGER.info("getting create form");
         ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_new");
-        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
-        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        List<CarModel> carModels = carModelManager.getAll(authenticationHelper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(authenticationHelper.getConnectedToken());
         mv.addObject("carModels", carModels);
         mv.addObject("pieceTypes", pieceTypes);
         mv.addObject("pieceForm", new PieceForm());
@@ -109,11 +109,11 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
         ModelAndView mv = checkAndAddConnectedDetails("pieces/pieces_new");
         LOGGER.info("pieceForm: " + pieceForm);
         mv.addObject("pieceForm", new PieceForm());
-        List<CarModel> carModels = carModelManager.getAll(helper.getConnectedToken());
-        List<PieceType> pieceTypes = pieceTypeManager.getAll(helper.getConnectedToken());
+        List<CarModel> carModels = carModelManager.getAll(authenticationHelper.getConnectedToken());
+        List<PieceType> pieceTypes = pieceTypeManager.getAll(authenticationHelper.getConnectedToken());
         mv.addObject("carModels", carModels);
         mv.addObject("pieceTypes", pieceTypes);
-        List<PieceType> pieceTypeList = pieceTypeManager.getAll(helper.getConnectedToken());
+        List<PieceType> pieceTypeList = pieceTypeManager.getAll(authenticationHelper.getConnectedToken());
         LOGGER.info("tasks: " + pieceTypeList);
         mv.addObject("pieceTypeList", pieceTypeList);
         if (bindingResult.hasErrors()) {
@@ -123,7 +123,7 @@ public class PieceControllerImpl extends GlobalController<Piece, PieceDTO, Piece
             return new ModelAndView("redirect:/pieces");
         }
         LOGGER.info("piece retrieved: " + pieceForm);
-        manager.add(helper.getConnectedToken(), pieceForm);
+        manager.add(authenticationHelper.getConnectedToken(), pieceForm);
         return pieces();
     }
 

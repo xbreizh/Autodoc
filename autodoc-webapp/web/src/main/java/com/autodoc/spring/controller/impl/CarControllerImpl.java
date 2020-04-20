@@ -4,7 +4,7 @@ import com.autodoc.business.contract.CarManager;
 import com.autodoc.business.contract.CarModelManager;
 import com.autodoc.business.contract.ClientManager;
 import com.autodoc.business.contract.EmployeeManager;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
@@ -34,8 +34,8 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
     EmployeeManager employeeManager;
     CarModelManager carModelManager;
 
-    public CarControllerImpl(Helper helper, CarManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, CarModelManager carModelManager) {
-        super(helper);
+    public CarControllerImpl(AuthenticationHelper authenticationHelper, CarManager manager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, CarModelManager carModelManager) {
+        super(authenticationHelper);
         this.manager = manager;
         this.clientManager = clientManager;
         this.carManager = carManager;
@@ -50,7 +50,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
 
     @PostMapping("/searchCar")
     public ModelAndView searchCar(@Valid SearchCarForm searchForm, BindingResult bindingResult) throws Exception {
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         LOGGER.info("getting here: " + searchForm);
         String registration = searchForm.getRegistration().toUpperCase();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
@@ -61,7 +61,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
         }
 
 
-        Car car = carManager.getByRegistration(helper.getConnectedToken(), registration);
+        Car car = carManager.getByRegistration(authenticationHelper.getConnectedToken(), registration);
         if (car == null) {
             mv.addObject("message", "Registration not found in the system: ");
             CarForm carForm = new CarForm();
@@ -94,7 +94,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
     @ResponseBody
     public ModelAndView carById(@PathVariable Integer id) throws Exception {
         ModelAndView mv = getById(id);
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         mv.addObject("clients", clientManager.getAll(token));
         return mv;
     }
@@ -104,7 +104,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
     @ResponseBody
     public ModelAndView update(@Valid SearchCarForm form, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update car with id " + form.getId());
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         if (form == null) form = new SearchCarForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
 
@@ -120,7 +120,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        manager.delete(helper.getConnectedToken(), id);
+        manager.delete(authenticationHelper.getConnectedToken(), id);
         return cars();
     }
 
@@ -134,7 +134,7 @@ public class CarControllerImpl extends GlobalController<Car, CarDTO, SearchCarFo
     @ResponseBody
     public ModelAndView createNew(@Valid CarForm carForm, BindingResult bindingResult) throws Exception {
         LOGGER.info("carForm received: " + carForm);
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         if (carForm == null) carForm = new CarForm();
         ModelAndView mv = checkAndAddConnectedDetails("operations/operations");
         mv.addObject("registration", carForm.getRegistration());

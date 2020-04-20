@@ -1,7 +1,7 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.PieceTypeManager;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.dtos.pieces.PieceTypeForm;
 import com.autodoc.model.models.pieces.PieceType;
@@ -22,8 +22,8 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
     private static final String KEY_WORD = "pieceTypes";
     private static final Logger LOGGER = Logger.getLogger(PieceTypeControllerImpl.class);
 
-    public PieceTypeControllerImpl(Helper helper, PieceTypeManager manager) {
-        super(helper);
+    public PieceTypeControllerImpl(AuthenticationHelper authenticationHelper, PieceTypeManager manager) {
+        super(authenticationHelper);
         this.manager = manager;
     }
 
@@ -59,7 +59,7 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete pieceType with id " + id);
-        manager.delete(helper.getConnectedToken(), id);
+        manager.delete(authenticationHelper.getConnectedToken(), id);
         LOGGER.info("pieceType must have been deleted");
         return pieceTypes();
     }
@@ -89,7 +89,7 @@ public class PieceTypeControllerImpl extends GlobalController<PieceType, PieceTy
             return mv;
         }
         LOGGER.info("pieceType retrieved: " + pieceTypeForm);
-        System.out.println("unbelievable: " + manager.add(helper.getConnectedToken(), pieceTypeForm));
+        System.out.println("unbelievable: " + manager.add(authenticationHelper.getConnectedToken(), pieceTypeForm));
         return getList();
     }
 

@@ -2,7 +2,7 @@ package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.PieceManager;
 import com.autodoc.business.contract.TaskManager;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
 import com.autodoc.model.dtos.tasks.TaskDTO;
 import com.autodoc.model.dtos.tasks.TaskForm;
 import com.autodoc.model.models.tasks.Task;
@@ -31,8 +31,8 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
     }
 
 
-    public TaskControllerImpl(Helper helper, TaskManager manager, PieceManager pieceManager) {
-        super(helper);
+    public TaskControllerImpl(AuthenticationHelper authenticationHelper, TaskManager manager, PieceManager pieceManager) {
+        super(authenticationHelper);
         this.manager = manager;
         this.pieceManager = pieceManager;
     }
@@ -59,7 +59,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public ModelAndView update(@Valid TaskForm form, BindingResult bindingResult) throws Exception {
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         if (form == null) form = new TaskForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
         mv.addObject("pieceList", pieceManager.getAll(token));
@@ -73,7 +73,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        manager.delete(helper.getConnectedToken(), id);
+        manager.delete(authenticationHelper.getConnectedToken(), id);
         return tasks();
     }
 
@@ -102,7 +102,7 @@ public class TaskControllerImpl extends GlobalController<TaskDTO, Task, TaskForm
             return mv;
         }
         LOGGER.info("task retrieved: " + taskForm);
-        manager.add(helper.getConnectedToken(), taskForm);
+        manager.add(authenticationHelper.getConnectedToken(), taskForm);
         return new ModelAndView("redirect:/tasks");
     }
 

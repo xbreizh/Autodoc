@@ -1,7 +1,8 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.*;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
+import com.autodoc.helper.contract.BillPdfCreator;
 import com.autodoc.model.dtos.bill.BillDTO;
 import com.autodoc.model.dtos.bill.BillForm;
 import com.autodoc.model.models.bill.Bill;
@@ -36,9 +37,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     EmployeeManager employeeManager;
     TaskManager taskManager;
     PieceManager pieceManager;
+    BillPdfCreator pdfCreator;
 
-    public BillControllerImpl(Helper helper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager) {
-        super(helper);
+    public BillControllerImpl(AuthenticationHelper authenticationHelper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager) {
+        super(authenticationHelper);
         this.manager = manager;
         this.pieceManager = pieceManager;
         this.clientManager = clientManager;
@@ -61,7 +63,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
 
     @GetMapping("/pdf")
     public ModelAndView createPDF() throws Exception {
-        helper.saveAsPdf(new Bill());
+        pdfCreator.saveAsPdf(new Bill());
         return new ModelAndView("pdf");
 
     }
@@ -97,7 +99,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         ModelAndView mv = getById(id);
         addingCalculation(mv);
         addCars(token, mv);
@@ -152,7 +154,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @ResponseBody
     public ModelAndView update(@Valid BillForm form, BindingResult bindingResult) throws Exception {
         LOGGER.info("trying to update bill " + form);
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         if (form == null) form = new BillForm();
         ModelAndView mv = updateObject(form, form.getId(), bindingResult);
         mv.addObject("form", form);
@@ -172,7 +174,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @Override
     public void resettingSpecificElements(ModelAndView mv) throws Exception {
         LOGGER.info("adding the specifics");
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         addingCalculation(mv);
         addCars(token, mv);
         addClients(token, mv);
@@ -198,7 +200,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        manager.delete(helper.getConnectedToken(), id);
+        manager.delete(authenticationHelper.getConnectedToken(), id);
         return bills();
     }
 
@@ -206,8 +208,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @GetMapping(value = "/new")
     public ModelAndView getCreateForm(@RequestParam(required = false) int id) throws Exception {
 
-        String token = helper.getConnectedToken();
-        String login = helper.getConnectedLogin();
+        String token = authenticationHelper.getConnectedToken();
+        String login = authenticationHelper.getConnectedLogin();
         LOGGER.info("getting create newForm");
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
         BillForm form = new BillForm();
@@ -235,7 +237,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @ResponseBody
     public ModelAndView create(@Valid BillForm form, BindingResult bindingResult, Model model) throws Exception {
         LOGGER.info("trying to create bill " + form);
-        String token = helper.getConnectedToken();
+        String token = authenticationHelper.getConnectedToken();
         if (form.getDateReparation() == null) LOGGER.error("date shouldn't be null");
         if (form.getPieces() == null && form.getTasks() == null) {
             String error = "there should be at least one piece or one task";

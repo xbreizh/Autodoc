@@ -1,7 +1,7 @@
 package com.autodoc.spring.controller.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
-import com.autodoc.helper.Helper;
+import com.autodoc.helper.contract.AuthenticationHelper;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeForm;
 import com.autodoc.model.models.person.employee.Employee;
@@ -22,8 +22,8 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
     private static final String KEY_WORD = "employees";
     private static final Logger LOGGER = Logger.getLogger(EmployeeControllerImpl.class);
 
-    public EmployeeControllerImpl(Helper helper, EmployeeManager manager) {
-        super(helper);
+    public EmployeeControllerImpl(AuthenticationHelper authenticationHelper, EmployeeManager manager) {
+        super(authenticationHelper);
         this.manager = manager;
     }
 
@@ -51,7 +51,7 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
     private void addingRoleList(ModelAndView mv) {
         LOGGER.info("adding roleList");
         EmployeeManager employeeManager = (EmployeeManager) manager;
-        mv.addObject("roleList", employeeManager.getRoles(helper.getConnectedToken()));
+        mv.addObject("roleList", employeeManager.getRoles(authenticationHelper.getConnectedToken()));
     }
 
 
@@ -74,7 +74,7 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
     @ResponseBody
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
-        manager.delete(helper.getConnectedToken(), id);
+        manager.delete(authenticationHelper.getConnectedToken(), id);
         return employees();
     }
 
@@ -104,11 +104,11 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
             addingRoleList(mv);
             mv.addObject("employeeForm", employeeForm);
             mv.addObject("showForm", 1);
-            mv.addObject("roles", employeeManager.getRoles(helper.getConnectedToken()));
+            mv.addObject("roles", employeeManager.getRoles(authenticationHelper.getConnectedToken()));
             return mv;
         }
         LOGGER.info("employee retrieved: " + employeeForm);
-        employeeManager.add(helper.getConnectedToken(), employeeForm);
+        employeeManager.add(authenticationHelper.getConnectedToken(), employeeForm);
         addingRoleList(mv);
         return new ModelAndView("redirect:/employees");
     }
