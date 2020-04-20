@@ -241,10 +241,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         // LOGGER.info("tasks: " + taskList);
         addTasks(token, mv);
         addPieces(token, mv);
-        if (bindingResult.hasErrors()) {
-            addingErrorsToView(bindingResult, mv);
-            return mv;
-        }
         if (form == null) form = new BillForm();
         mv.addObject("form", form);
         addCars(token, mv);
@@ -256,6 +252,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         getPricePerHour(mv);
         LOGGER.info("bill retrieved: " + form);
 
+        if (bindingResult.hasErrors()) {
+            addingErrorsToView(bindingResult, mv);
+            return mv;
+        }
         String feedback = manager.add(token, form);
         try {
             int id = Integer.parseInt(feedback);

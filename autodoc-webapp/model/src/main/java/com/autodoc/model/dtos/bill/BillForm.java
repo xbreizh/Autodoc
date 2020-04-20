@@ -49,8 +49,9 @@ public class BillForm {
     // @Min(value = 1, message = "total cannot be null")
     private double total;
 
-    @Max(100)
-    private int discount = 0;
+    @Min(value = 0, message = "invalid value for discount")
+    @Max(value = 100, message = "discount max is 100")
+    private double discount;
 
     private String comments;
 

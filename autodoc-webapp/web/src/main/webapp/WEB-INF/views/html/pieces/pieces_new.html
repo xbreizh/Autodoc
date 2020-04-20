@@ -31,13 +31,13 @@
         <div class="form-group">
             <label for="buyingPrice">Buying Price</label>
             <input class="form-control" id="buyingPrice" name="buyingPrice" required="required"
-                   th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}" th:value="${buyingPrice}"/>
+                   th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}" th:value="${buyingPrice}" type="number"/>
             <div th:errors="*{buyingPrice}" th:if="${#fields.hasErrors('buyingPrice')}">Buying Price Error</div>
         </div>
         <div class="form-group">
             <label for="sellPrice">Sell Price</label>
             <input class="form-control" id="sellPrice" name="sellPrice" required="required"
-                   th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}" th:value="${sellPrice}"/>
+                   th:text="${#numbers.formatDecimal(num,2,3,'COMMA')}" th:value="${sellPrice}" type="number"/>
             <div th:errors="*{sellPrice}" th:if="${#fields.hasErrors('sellPrice')}">Sell Price Error</div>
         </div>
 

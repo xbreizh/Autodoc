@@ -3,6 +3,7 @@ package com.autodoc.model.dtos.bill;
 
 import lombok.Data;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -40,6 +41,8 @@ public class BillDTO {
 
     @Min(value = 1, message = "total cannot be null")
     private double total;
+    @Min(value = 0, message = "invalid value for discount")
+    @Max(value = 100, message = "discount max is 100")
     private double discount;
     private String comments;
 
