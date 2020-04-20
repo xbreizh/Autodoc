@@ -3,6 +3,8 @@ package com.autodoc.model.dtos.tasks;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.DecimalMin;
+
 
 @Getter
 @Setter
@@ -17,6 +19,7 @@ public class TaskDTO {
 
     private String description;
 
+    @DecimalMin(value = "0.5", message = "estimatedTime cannot be null")
     private double estimatedTime;
 
 

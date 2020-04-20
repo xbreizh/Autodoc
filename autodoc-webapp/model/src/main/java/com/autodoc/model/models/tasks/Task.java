@@ -3,6 +3,7 @@ package com.autodoc.model.models.tasks;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -19,7 +20,7 @@ public class Task {
 
     private String description;
 
-    @NotNull
+    @DecimalMin(value = "0.5", message = "estimatedTime cannot be null")
     private double estimatedTime;
 
 
@@ -27,11 +28,10 @@ public class Task {
     private boolean template;
 
 
-    public Task(String name, String description, double estimatedTime/*, boolean template*/) {
+    public Task(String name, String description, double estimatedTime) {
         this.name = name;
         this.description = description;
         this.estimatedTime = estimatedTime;
-        //   this.template = template;
     }
 
     public Task() {
@@ -46,6 +46,7 @@ public class Task {
         this.description = description.toUpperCase();
     }
 
+
     @Override
     public String toString() {
         return "Task{" +
@@ -53,7 +54,6 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", estimatedTime=" + estimatedTime +
-                // ", template=" + template +
                 '}';
     }
 

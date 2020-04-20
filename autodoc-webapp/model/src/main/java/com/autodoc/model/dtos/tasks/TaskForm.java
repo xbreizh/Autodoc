@@ -3,7 +3,7 @@ package com.autodoc.model.dtos.tasks;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -22,7 +22,7 @@ public class TaskForm {
     @NotEmpty(message = "description cannot be empty")
     private String description;
 
-    @Min(value = 1, message = "estimatedTime cannot be null")
+    @DecimalMin(value = "0.5", message = "estimatedTime cannot be null")
     private double estimatedTime;
 
    /* @NotEmpty(message = "template must be true or false")

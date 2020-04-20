@@ -1,5 +1,6 @@
 package com.autodoc.model.dtos.person.employee;
 
+import com.autodoc.model.ContactNumberConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,7 +28,7 @@ public class EmployeeForm {
     @Size(min = 3, max = 12, message = "{lastName.size}")
     private String lastName;
 
-    @Size(min = 8, max = 12, message = "{phoneNumber.size}")
+    @ContactNumberConstraint(message = "invalid phoneNumber")
     private String phoneNumber;
 
     @Size(min = 1, max = 3, message = "{roles.size}")

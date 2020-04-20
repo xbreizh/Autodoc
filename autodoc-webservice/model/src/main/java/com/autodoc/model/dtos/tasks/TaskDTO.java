@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.DecimalMin;
 
 
 @Builder
@@ -23,7 +23,7 @@ public class TaskDTO {
     private int id;
     private String name;
     private String description;
-    @Positive(message = "there should be an estimated time")
+    @DecimalMin(value = "0.5", message = "estimatedTime cannot be null")
     private double estimatedTime;
 
 

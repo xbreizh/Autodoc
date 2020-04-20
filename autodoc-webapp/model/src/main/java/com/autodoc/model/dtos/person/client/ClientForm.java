@@ -1,5 +1,6 @@
 package com.autodoc.model.dtos.person.client;
 
+import com.autodoc.model.ContactNumberConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,7 @@ public class ClientForm {
 
     private int id;
     //@NotNull
-    @Size(min = 8, max = 12, message = "should be between 8 and 12")
+    @ContactNumberConstraint(message = "invalid phoneNumber")
     private String phoneNumber;
 
 
