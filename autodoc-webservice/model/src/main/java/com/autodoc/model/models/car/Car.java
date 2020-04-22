@@ -50,6 +50,10 @@ public class Car {
     @Pattern(regexp = "^[a-zA-Z0-9]{8,10}$", message = "invalid registration (letters, numbers, between 8 and 10)")
     private String registration;
 
+    private double mileage;
+
+    private String color;
+
     @NotNull(message = "carModel missing or invalid")
     @ManyToOne
     private CarModel carModel;
@@ -76,9 +80,17 @@ public class Car {
         this.registration = registration.toUpperCase();
     }
 
+    public void setColor(String color) {
+        this.color = color.toUpperCase();
+    }
+
     public static class CarBuilder {
         public CarBuilder registration(String registration) {
             this.registration = registration.toUpperCase();
+            return this;
+        }
+        public CarBuilder color(String color) {
+            this.color = color.toUpperCase();
             return this;
         }
 
