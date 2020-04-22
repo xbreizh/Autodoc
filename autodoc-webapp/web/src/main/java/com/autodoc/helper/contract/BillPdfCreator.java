@@ -13,4 +13,6 @@ public interface BillPdfCreator {
 
 
     void writeContent(String copiedHtmlFile, Bill bill) throws IOException;
+
+    String cleanup(String str);
 }

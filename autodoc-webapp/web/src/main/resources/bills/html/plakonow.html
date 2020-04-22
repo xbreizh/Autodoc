@@ -1,15 +1,244 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Spring Static Page</title>
+    <style>
+        #container {
+            width: 100%;
+            margin: auto;
+        }
+
+        table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table:not(.filling) th {
+            width: 100%;
+            border: none;
+        }
+
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .contact th {
+            text-align: center;
+
+        }
+
+        .infos {
+            background-color: #dee6f5;
+        }
+
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+        }
+
+        hr {
+            height: 12px;
+            border-width: 0;
+            color: #0066cc;
+            background-color: #0066cc;
+        }
+    </style>
 </head>
-
 <body>
-<h2>Hello FIRSTNAME LASTNAME</h2>
+<div id="container">
+    <table class="company">
+        <tr>
+            <th style="width: 80%; text-align: left;font-size: 40px; color: #bb322a">AUTODOCTOR</th>
+            <th style="width: 20%;text-align: right;font-size: 30px">FACTURE</th>
+        </tr>
+        <tr>
+            <th style="font-size: 20px">Le meilleur docteur pour votre auto</th>
+        </tr>
+    </table>
+    <hr/>
 
-one
-bar
-three
-bar
-five
+    <table class="date">
+        <tr>
+            <th style="width: 30%;">Date</th>
+            <th>[DATE]</th>
+            <th>Invoice</th>
+            <th>[BILLID]</th>
+        </tr>
+        <tr>
+            <th>Employee</th>
+            <th>[EMPLOYEE]</th>
+        </tr>
+    </table>
+    <table class="title">
+        <tr>
+            <th style="width: 50%;">Informations client</th>
+            <th style="width: 50%;">Informations Vehicule</th>
+        </tr>
+    </table>
+    <table class="infos">
+        <tr>
+            <th style="width: 20%;">Name</th>
+            <th style="width: 50%;">[FIRSTNAME] [LASTNAME]</th>
+            <th style="width: 15%;">Marque</th>
+            <th style="width: 15%;">[MANUFACTURER]</th>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>[PHONENUMBER]</td>
+            <td>Modele</td>
+            <td>[MODEL]</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Annee</td>
+            <td>[ENGINE]</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Carburant</td>
+            <td>[FUELTYPE]</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Immatriculation</td>
+            <td>[REGISTRATION]</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Kilometrage</td>
+            <td>[KILOMETER]</td>
+        </tr>
+    </table>
+    <table class="filling">
+        <tr style="background-color: #0066cc; color: white">
+            <th style="width: 60%;">Travail effectue</th>
+            <th style="width: 10%;">Heures</th>
+            <th style="width: 15%;">Taux</th>
+            <th style="width: 15%;">Montant</th>
+        </tr>
+        <tr>
+            <td>[WORK1]</td>
+            <td style="text-align:center">[HOURS1]</td>
+            <td style="text-align:center">[RATE1]</td>
+            <td style="text-align:center">[AMOUNTWORK1]</td>
+        </tr>
+        <tr>
+            <td>[WORK2]</td>
+            <td style="text-align:center">[HOURS2]</td>
+            <td style="text-align:center">[RATE2]</td>
+            <td style="text-align:center">[AMOUNTWORK2]</td>
+        </tr>
+        <tr>
+            <td>[WORK3]</td>
+            <td style="text-align:center">[HOURS3]</td>
+            <td style="text-align:center">[RATE3]</td>
+            <td style="text-align:center">[AMOUNTWORK3]</td>
+        </tr>
+    </table>
+    <hr/>
+    <table class="total">
+        <tr>
+            <th class="empty" style="width: 65%;"></th>
+            <th style="width: 15%;text-align:center">TUBTOTAL MO</th>
+            <th style="width: 5%;text-align:center">€</th>
+            <th style="width: 15%;text-align:center">[SUBTOTALWORK]</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th style="text-align:center">TVA</th>
+            <th style="text-align:center">%</th>
+            <th style="text-align:center">19.50</th>
+        </tr>
+    </table>
+    <table class="filling">
+        <tr style="background-color: #0066cc; color: white">
+            <th style="width: 20%;">PIECE</th>
+            <th style="width: 50%;">NOM DE LA PIECE</th>
+            <th style="width: 15%;text-align:center;">MONTANT</th>
+        </tr>
+        <tr>
+            <td>[PIECETYPE1]</td>
+            <td>[PIECE1]</td>
+            <td style="text-align:center">[AMOUNTPIECE1]</td>
+        </tr>
+        <tr>
+            <td>[PIECETYPE2]</td>
+            <td>[PIECE2]</td>
+            <td style="text-align:center">[AMOUNTPIECE2]</td>
+        </tr>
+        <tr>
+            <td>[PIECETYPE3]</td>
+            <td>[PIECE3]</td>
+            <td style="text-align:center">[AMOUNTPIECE3]</td>
+        </tr>
+    </table>
+    <hr/>
+    <table class="total">
+        <tr>
+            <th class="empty" style="width: 65%;"></th>
+            <th style="width: 15%;text-align:center;">SUBTOTAL</th>
+            <th style="width: 5%;text-align:center;">€</th>
+            <th style="width: 15%;text-align:center;">[SUBTOTALPIECE]</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th style="text-align:center">TVA</th>
+            <th style="text-align:center">%</th>
+            <th style="text-align:center">[TVA]</th>
+        </tr>
+    </table>
+    <table class="total">
+        <tr>
+            <th class="empty" style="width: 65%; background-color: #0066cc; color: white">COMMENTS</th>
+            <th style="width: 15%;text-align:center;">TOTAL MO</th>
+            <th style="width: 5%;text-align:center;">€</th>
+            <th style="width: 15%;text-align:center;">[SUBTOTALWORK]</th>
+        </tr>
+        <tr>
+            <th rowspan="4">[COMMENTS]</th>
+            <th style="text-align:center">TOTAL P</th>
+            <th style="text-align:center">%</th>
+            <th style="text-align:center">[SUBTOTALPIECE]</th>
+        </tr>
+        <tr>
+            <th style="text-align:center">TOTAL</th>
+            <th style="text-align:center">€</th>
+            <th style="text-align:center">[TOTALBEFOREDISCOUNT]</th>
+        </tr>
+        <tr>
+            <th style="text-align:center">REMISE</th>
+            <th style="text-align:center">%</th>
+            <th style="text-align:center">[DISCOUNT]</th>
+        </tr>
+        <tr>
+            <th style="text-align:center">TOTAL</th>
+            <th style="text-align:center">€</th>
+            <th style="text-align:center">[TOTAL]</th>
+        </tr>
+    </table>
+    <table class="contact" style="background-color: #0066cc; color: white">
+        <tr>
+            <th class="colette" colspan="3" style="width: 100%;">En cas de probleme, veuillez contacter Colette au
+                068451212
+            </th>
+        </tr>
+        <tr>
+            <th colspan="3" style="width: 100%;">25, rue des scients 56670 RIANTEC
+            </th>
+        </tr>
+        <tr>
+            <th style="width: 33%;">Tel: 0297334518</th>
+            <th style="width: 33%;">Email: autodoctor@doc.com</th>
+            <th style="width: 33%;">site web: autodoctor.bzh</th>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

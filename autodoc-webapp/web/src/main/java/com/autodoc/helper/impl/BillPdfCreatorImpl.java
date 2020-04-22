@@ -2,6 +2,8 @@ package com.autodoc.helper.impl;
 
 import com.autodoc.helper.contract.BillPdfCreator;
 import com.autodoc.model.models.bill.Bill;
+import com.autodoc.model.models.pieces.Piece;
+import com.autodoc.model.models.tasks.Task;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -81,8 +83,55 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
 
     public String fillTemplate(String filePath, Bill bill) {
         Map<String, String> input = new HashMap<>();
-        input.put("FIRSTNAME", bill.getClient().getFirstName().toUpperCase());
-        input.put("LASTNAME", bill.getClient().getLastName().toUpperCase());
+        input.put("[FIRSTNAME]", bill.getClient().getFirstName().toUpperCase());
+        input.put("[LASTNAME]", bill.getClient().getLastName().toUpperCase());
+        input.put("[EMPLOYEE]", bill.getEmployee().getLogin());
+        input.put("[DATE]", bill.getDateReparation().toString());
+        input.put("[BILLID]", String.valueOf(bill.getId()));
+        input.put("[PHONENUMBER]", bill.getClient().getPhoneNumber());
+        input.put("[MANUFACTURER]", bill.getCar().getModel().getManufacturer().getName());
+        input.put("[MODEL]", bill.getCar().getModel().getName());
+        input.put("[ENGINE]", bill.getCar().getModel().getEngine());
+        input.put("[FUELTYPE]", bill.getCar().getModel().getFuelType());
+        input.put("[REGISTRATION]", bill.getCar().getRegistration());
+        input.put("[KILOMETER]", "tobeFilled");
+
+        double totalTask = 0;
+        if (!bill.getTasks().isEmpty()) {
+            int i = 1;
+            for (Task task : bill.getTasks()) {
+                double rate = 17.5;
+                double total = task.getEstimatedTime() * rate;
+                input.put("[WORK" + i + "]", task.getName());
+                input.put("[HOURS" + i + "]", String.valueOf(task.getEstimatedTime()));
+                input.put("[RATE" + i + "]", String.valueOf(rate));
+                input.put("[AMOUNTWORK" + i + "]", String.valueOf(total));
+                i++;
+                totalTask += total;
+            }
+        }
+        input.put("[SUBTOTALWORK]", String.valueOf(totalTask));
+
+        double totalPieces = 0;
+
+        if (!bill.getPieces().isEmpty()) {
+            int i = 1;
+            for (Piece piece : bill.getPieces()) {
+                input.put("[PIECETYPE" + i + "]", piece.getPieceType().getName());
+                input.put("[PIECE" + i + "]", String.valueOf(piece.getName()));
+                input.put("[AMOUNTPIECE" + i + "]", String.valueOf(piece.getSellPrice()));
+                i++;
+                totalPieces += piece.getSellPrice();
+            }
+        }
+        input.put("[COMMENTS]", bill.getComments());
+        input.put("[SUBTOTALPIECE]", String.valueOf(totalPieces));
+        input.put("[TVA]", String.valueOf(bill.getVat()));
+        input.put("[TOTALBEFOREDISCOUNT]", String.valueOf(totalTask + totalPieces));
+        input.put("[DISCOUNT]", String.valueOf(bill.getDiscount()));
+        double total = (totalTask + totalPieces) - (totalTask + totalPieces) * (bill.getDiscount() / 100);
+        input.put("[TOTAL]", String.valueOf(total));
+
         File file = new File(filePath);
         LOGGER.info("replacing values for keys");
         String msg = null;
@@ -101,8 +150,15 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //cleanup(msg);
 
-        return msg;
+        return cleanup(msg);
+    }
+
+    public String cleanup(String str) {
+        //str = str.replaceAll("\\[.*\\]", "");
+        // removing parenthesis and everything inside them, works for (),[] and {}
+        return str.replaceAll("\\s*\\[[^\\]]*\\]\\s*", " ");
     }
 
     public void writeContent(String copiedHtmlFile, Bill bill) {
