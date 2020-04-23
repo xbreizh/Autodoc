@@ -22,9 +22,6 @@ public class CarDTO {
     @Min(value = 1, message = "clientId cannot be null")
     private int clientId;
     private String fuelType;
-    private double mileage;
-
-    private String color;
 
 
 }

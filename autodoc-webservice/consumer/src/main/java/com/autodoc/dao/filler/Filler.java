@@ -175,8 +175,8 @@ public class Filler {
         CarModel carModel = (CarModel) carModelDao.getByName("AURIS");
         CarModel carModel1 = (CarModel) carModelDao.getByName("CLIO");
         Client client = (Client) clientDao.getAll().get(0);
-        Car car = Car.builder().registration("05d121487").color("grey").mileage(152781).carModel(carModel).client(client).build();
-        Car car1 = Car.builder().registration("wD213232f").color("red").mileage(70845).carModel(carModel1).client(client).build();
+        Car car = Car.builder().registration("05d121487").carModel(carModel).client(client).build();
+        Car car1 = Car.builder().registration("wD213232f").carModel(carModel1).client(client).build();
         carDao.create(car);
         carDao.create(car1);
     }

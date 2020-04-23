@@ -91,12 +91,6 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         LOGGER.info("transfer update");
         CarDTO dto = (CarDTO) obj;
         Car car = checkIfCarInDb(dto);
-        if(dto.getColor()!=null && !dto.getColor().isEmpty()){
-            car.setColor(dto.getColor());
-        }
-        if(dto.getMileage()!=0){
-            car.setMileage(dto.getMileage());
-        }
 
 
         int clientId = dto.getClientId();

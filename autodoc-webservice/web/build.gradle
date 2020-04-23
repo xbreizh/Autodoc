@@ -18,10 +18,22 @@ jar {
     }
 }
 
-
-asciidoctor {
-    inputs.dir snippetsDir
+/*asciidoctor {
+    //inputs.dir snippetsDir
+    sourceDir = snippetsDir
+    sources {
+        include 'api-guide.adoc'
+    }
     dependsOn test
+    outputDir = file('build/generated-docs')
+}*/
+asciidoctor {
+    sourceDir = snippetsDir
+    sources {
+        include '/*/*/*.adoc'
+    }
+    dependsOn test
+    outputDir = file('build/generated-docs')
 }
 
 buildscript {
@@ -35,7 +47,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.10'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
     }
 }
 
@@ -71,13 +83,14 @@ dependencies {
 
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
+    testCompile group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.0'
 
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.4.RELEASE',
             'org.junit.jupiter:junit-jupiter-api:5.5.2',
             'org.mockito:mockito-core:3.1.0'
     testCompile 'com.jayway.jsonpath:json-path:2.2.0'
 
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.6.RELEASE'
+    /*asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.6.RELEASE'*/
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.2.6.RELEASE'
 
 
