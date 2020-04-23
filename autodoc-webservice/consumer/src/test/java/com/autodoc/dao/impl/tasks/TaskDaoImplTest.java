@@ -34,8 +34,8 @@ class TaskDaoImplTest {
     @BeforeEach
     void init() throws Exception {
         //remover.remove();
-        /*filler.fill();
-        obj = (Task) dao.getAll().get(0);*/
+        filler.fill();
+        obj = (Task) dao.getAll().get(0);
     }
 
 

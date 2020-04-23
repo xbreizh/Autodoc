@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
@@ -42,12 +43,9 @@ class BillDaoImplTest {
     @Test
     @DisplayName("should return bill")
     void getById(){
-        Bill bill = (Bill) dao.getById(1);
-        bill.setPaymentType(PaymentType.CASH);
-        dao.update(bill);
-        Bill bill2 = (Bill) dao.getById(1);
-        System.out.println(bill2.getPaymentType());
-        System.out.println(bill2.getStatus());
+        Bill bill = (Bill) dao.getAll().get(0);
+        int id = bill.getId();
+        assertNotNull(dao.getById(id));
     }
 
 

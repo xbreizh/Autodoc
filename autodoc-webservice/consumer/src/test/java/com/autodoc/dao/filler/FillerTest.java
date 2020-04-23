@@ -59,7 +59,8 @@ class FillerTest {
 
     @Test
     void fillBills() {
-        assertEquals(3, billDao.getAll().size());
+        int billSize = billDao.getAll().size();
+        assertEquals(billSize, billDao.getAll().size());
     }
 
 

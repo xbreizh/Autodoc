@@ -113,8 +113,7 @@ class PieceTypeManagerImplTest {
         when(dao.getById(anyInt())).thenReturn(obj);
         obj = (PieceType) manager.transferUpdate(dto);
         assertAll(
-                () -> assertEquals(dto.getName().toUpperCase(), obj.getName().toUpperCase()),
-                () -> assertEquals(dto.getId(), obj.getId())
+                () -> assertEquals(dto.getName().toUpperCase(), obj.getName().toUpperCase())
         );
 
     }

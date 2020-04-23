@@ -44,7 +44,7 @@ class CarModelManagerImplTest {
         dao = mock(CarModelDaoImpl.class);
         manager = CarModelManagerImpl.builder().dao(dao).build();
         obj = CarModel.builder().id(id).name(name).build();
-        dto = CarModelDTO.builder().name(nameDto).description(description).fuelType(FuelType.PETROL).engine(engine).build();
+        dto = CarModelDTO.builder().name(nameDto).description(description).fuelType("PETROL").engine(engine).build();
     }
 
 
@@ -62,7 +62,7 @@ class CarModelManagerImplTest {
         assertAll(
                 () -> assertEquals(dto.getName().toUpperCase(), obj.getName()),
                 () -> assertEquals(dto.getDescription().toUpperCase(), obj.getDescription()),
-                () -> assertEquals(dto.getFuelType(), obj.getFuelType()),
+                () -> assertEquals(dto.getFuelType(), obj.getFuelType().toString()),
                 () -> assertEquals(dto.getEngine().toUpperCase(), obj.getEngine()),
                 () -> assertEquals(dto.getId(), obj.getId())
         );

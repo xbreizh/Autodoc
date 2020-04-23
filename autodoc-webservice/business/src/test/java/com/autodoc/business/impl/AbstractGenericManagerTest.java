@@ -31,7 +31,7 @@ class AbstractGenericManagerTest {
         dao = mock(CarModelDaoImpl.class);
         manager = AbstractGenericManagerPojo.builder().dao(dao).build();
         obj = CarModel.builder().id(id).name(name).build();
-        dto = CarModelDTO.builder().name(nameDto).description(description).fuelType(FuelType.PETROL).engine(engine).build();
+        dto = CarModelDTO.builder().name(nameDto).description(description).fuelType("PETROL").engine(engine).build();
     }
 
     @Test

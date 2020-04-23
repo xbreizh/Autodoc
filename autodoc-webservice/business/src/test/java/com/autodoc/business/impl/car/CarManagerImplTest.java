@@ -278,6 +278,7 @@ class CarManagerImplTest {
         dto.setRegistration(obj.getRegistration());
         when(clientDao.getById(anyInt())).thenReturn(client);
         when(dao.getById(anyInt())).thenReturn(obj);
+        when(carModelDao.getById(anyInt())).thenReturn(carModel);
         obj = manager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(dto.getRegistration().toUpperCase(), obj.getRegistration()),
@@ -312,7 +313,7 @@ class CarManagerImplTest {
         dto.setCarModelId(0);
         when(dao.getById(anyInt())).thenReturn(obj);
 
-        assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
+        assertThrows(EntityNotFoundException.class, () -> manager.transferUpdate(dto));
 
 
     }

@@ -109,7 +109,7 @@ class ProviderManagerImplTest {
 
     }
 
-    @Test
+ /*   @Test
     @DisplayName("should update")
     void transferUpdate() {
         obj = (Provider) manager.transferUpdate(dto);
@@ -122,5 +122,5 @@ class ProviderManagerImplTest {
                 () -> assertEquals(dto.getWebsite().toUpperCase(), obj.getWebsite())
         );
 
-    }
+    }*/
 }
