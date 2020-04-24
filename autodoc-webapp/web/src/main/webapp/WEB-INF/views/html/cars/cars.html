@@ -24,6 +24,8 @@
                 <th th:text="Registration">Registration</th>
                 <th th:text="Brand">Brand</th>
                 <th th:text="Model">Model</th>
+                <th th:text="Color">Color</th>
+                <th th:text="Mileage">Mileage</th>
                 <th th:text="Client">Client</th>
                 <th></th>
             </tr>
@@ -36,6 +38,8 @@
                 <td th:text="${car.registration}">registration</td>
                 <td th:text="${car.model.manufacturer.name}">brand</td>
                 <td th:text="${car.model.name}">model</td>
+                <td th:text="${car.color}">color</td>
+                <td th:text="${#numbers.formatDecimal(car.mileage, 0, 'DEFAULT', 0, 'POINT')}">mileage</td>
                 <td th:text="${car.client.lastName}">client</td>
                 <td>
                     <a th:href="@{'/cars/delete/' + ${car.id}}">

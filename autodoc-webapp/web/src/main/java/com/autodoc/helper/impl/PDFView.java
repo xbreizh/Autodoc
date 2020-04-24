@@ -1,3 +1,4 @@
+/*
 package com.autodoc.helper.impl;
 
 import java.util.Map;
@@ -29,8 +30,10 @@ public class PDFView extends AbstractPdfView {
         document.add(by);
     }
 
-    @Override
+*/
+/*    @Override
     protected void buildPdfDocument(Map<String, Object> map, com.lowagie.text.Document document, com.lowagie.text.pdf.PdfWriter pdfWriter, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
-    }
-}
+    }*//*
+
+}*/

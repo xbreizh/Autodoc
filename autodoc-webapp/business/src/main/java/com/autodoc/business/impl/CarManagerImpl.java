@@ -77,6 +77,8 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         CarDTO carDTO = new CarDTO();
         if (form.getId() != 0) carDTO.setId(form.getId());
         carDTO.setClientId(form.getClientId());
+        carDTO.setColor(form.getColor());
+        carDTO.setMileage(form.getMileage());
         carDTO.setCarModelId(form.getModelId());
         carDTO.setRegistration(form.getRegistration());
         LOGGER.info("entity transferred: " + carDTO);
@@ -89,6 +91,8 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         Car car = new Car();
         car.setId(dto.getId());
         car.setRegistration(dto.getRegistration());
+        car.setColor(dto.getColor());
+        car.setMileage(dto.getMileage());
         car.setClient(setClient(token, dto.getClientId()));
         car.setModel(setModel(token, dto.getCarModelId()));
         car.setBills(setBills(token, dto.getRegistration()));

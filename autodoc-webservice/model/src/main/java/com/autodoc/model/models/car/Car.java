@@ -90,9 +90,18 @@ public class Car {
         this.registration = registration.toUpperCase();
     }
 
+    public void setColor(String color) {
+        this.color = color.toUpperCase();
+    }
+
     public static class CarBuilder {
         public CarBuilder registration(String registration) {
             this.registration = registration.toUpperCase();
+            return this;
+        }
+
+        public CarBuilder color(String color) {
+            this.color = color.toUpperCase();
             return this;
         }
 

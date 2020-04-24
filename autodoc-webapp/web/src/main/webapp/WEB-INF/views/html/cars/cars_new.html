@@ -13,6 +13,20 @@
         </div>
 
         <div class="form-group">
+            <label for="mileage">Mileage</label>
+            <input class="form-control" id="mileage" name="mileage" placeholder="Enter Mileage"
+                   required="required" step="100" th:value="${carForm.mileage}" type="number"/>
+            <div th:errors="*{mileage}" th:if="${#fields.hasErrors('mileage')}">Mileage Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="color">Color</label>
+            <input class="form-control" id="color" name="color" placeholder="Enter Color"
+                   required="required" th:value="${carForm.color}" type="text"/>
+            <div th:errors="*{color}" th:if="${#fields.hasErrors('color')}">Color Error</div>
+        </div>
+
+        <div class="form-group">
             <label for="modelId">Model</label>
             <select id="modelId" name="modelId">
                 <option th:each="model : ${models}"

@@ -18,6 +18,10 @@ public class SearchCarForm {
 
     private int modelId;
 
+    private String color;
+
+    private double mileage;
+
     @NotNull
     @Pattern(regexp = "^[a-zA-Z0-9]{8,10}$", message = "invalid registration (letters, numbers, between 8 and 10)")
     private String registration;

@@ -15,6 +15,9 @@ public class CarDTO {
 
     private int clientId;
 
+    private double mileage;
+    private String color;
+
 
     public CarDTO() {
     }
@@ -34,10 +37,16 @@ public class CarDTO {
                 ", carModelId=" + carModelId +
                 ", registration='" + registration + '\'' +
                 ", clientId=" + clientId +
+                ", mileage=" + mileage +
+                ", color='" + color + '\'' +
                 '}';
     }
 
     public void setRegistration(String registration) {
         this.registration = registration.toUpperCase();
+    }
+
+    public void setColor(String color) {
+        this.color = color.toUpperCase();
     }
 }

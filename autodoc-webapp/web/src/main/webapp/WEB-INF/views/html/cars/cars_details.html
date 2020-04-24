@@ -30,10 +30,19 @@
             <td>Model</td>
             <td th:text="${obj.model.name}">Model</td>
         </tr>
+
     </table>
 
     <div style="display: block; " th:id="'mic' + ${obj.id}">
         <table>
+            <tr>
+                <td>Color</td>
+                <td th:text="${obj.color}">Color</td>
+            </tr>
+            <tr>
+                <td>Mileage</td>
+                <td th:text="${#numbers.formatDecimal(obj.mileage, 0, 'DEFAULT', 0, 'POINT')}">Mileage</td>
+            </tr>
             <tr>
                 <td>Client</td>
                 <td th:onclick="'javascript:rowClicked(\'' +@{'/clients/' + ${obj.client.id}}+ '\');'"
@@ -52,7 +61,7 @@
     <a th:href="@{'/cars/delete/' + ${obj.id}}">
         <button class="btn btn-danger" type="button">Delete</button>
     </a>
-    <button class="btn-outline-warning" onclick="toggle_displays();" type="button">Update Client</button>
+    <button class="btn-outline-warning" id="updateButton" onclick="toggle_displays();" type="button">Update</button>
     <br><br>
     <a th:href="@{'/bills/new?id='+${obj.id}}">
         <button class="btn btn-info" type="button">New Bill</button>
@@ -106,6 +115,13 @@
 
     function toggle_displays() {
         var divs = document.getElementsByTagName("div");
+        var updateButton = document.getElementById("updateButton");
+
+        if (updateButton.innerText === 'Update') {
+            updateButton.innerText = 'Cancel';
+        } else {
+            updateButton.innerText = 'Update';
+        }
 
         for (var i = divs.length; i;) {
             var div = divs[--i];

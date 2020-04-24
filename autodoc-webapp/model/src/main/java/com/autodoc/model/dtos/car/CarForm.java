@@ -23,6 +23,10 @@ public class CarForm {
     @NotNull
     private ClientForm client;
 
+    private String color;
+
+    private double mileage;
+
     public CarForm() {
     }
 
@@ -33,6 +37,8 @@ public class CarForm {
                 "registration='" + registration + '\'' +
                 ", modelId=" + modelId +
                 ", client=" + client +
+                ", color='" + color + '\'' +
+                ", mileage=" + mileage +
                 '}';
     }
 }
