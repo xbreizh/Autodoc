@@ -18,23 +18,27 @@ jar {
     }
 }
 
-/*asciidoctor {
+asciidoctor {
     //inputs.dir snippetsDir
     sourceDir = snippetsDir
+   // sourceDir = file('src/main/asciidoc/html5')
     sources {
-        include 'api-guide.adoc'
+        include '/*//*/*.adoc'
+    }
+    dependsOn test
+    //outputDir = file('build/generated-docs')
+    outputDir = file('src/main/asciidoc/html5')
+}
+/*
+asciidoctor {
+    sourceDir = snippetsDir
+    //sourceDir = file('src/asciidoc/html5')
+    sources {
+        include '/*//*/*.adoc'
     }
     dependsOn test
     outputDir = file('build/generated-docs')
 }*/
-asciidoctor {
-    sourceDir = snippetsDir
-    sources {
-        include '/*/*/*.adoc'
-    }
-  //  dependsOn test
-    outputDir = file('build/generated-docs')
-}
 
 buildscript {
 

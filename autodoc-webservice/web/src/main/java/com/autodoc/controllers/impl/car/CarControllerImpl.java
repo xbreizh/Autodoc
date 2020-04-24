@@ -34,6 +34,10 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @GetMapping(value = "/registration",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
+    /**
+     * @param descMatch Lookup on description field.
+     * @param lang Lookup on language.
+     */
     public ResponseEntity<String> getByRegistration(@RequestParam(value = "registration") String registration) {
         LOGGER.info("receiving registration: "+registration);
         CarDTO car = carManager.getByRegistration(registration);
@@ -48,7 +52,7 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
-        LOGGER.error("trying to use a not yet implemented method");
+        
         throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
 
@@ -60,13 +64,13 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
 
 
     @Override
-    @PatchMapping(value = "/updateClient/{carId}/{clientId}",
+    @PutMapping(value = "/updateClient/{carId}/{clientId}",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateCarClient(@PathVariable Integer carId, @PathVariable Integer clientId) {
         LOGGER.info("car id: " + carId + " / client id: " + clientId);
         CarDTO response = carManager.updateClient(carId, clientId);
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.OK)
                 .body(response);
     }
 

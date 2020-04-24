@@ -12,7 +12,7 @@
         <div class="form-group">
             <label for="mileage">Mileage</label>
             <input class="form-control" id="mileage" name="mileage" placeholder="Enter Mileage"
-                   required="required" step="100" th:value="${obj.mileage}" type="number"/>
+                   required="required" step="1" th:value="${obj.mileage}" type="number"/>
             <div th:errors="*{mileage}" th:if="${#fields.hasErrors('mileage')}">Mileage Error</div>
         </div>
 

@@ -39,10 +39,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -71,7 +69,7 @@ class CarControllerImplTest {
     int id = 3;
     String registration = "05D121487";
     String feedback = "";
-    List<CarDTO> carDTOS = new ArrayList<>();
+    List<CarDTO> carDTOs = new ArrayList<>();
     //Client client = new Client("Jean", "Mako", "03938937837");
     //Manufacturer manufacturer = new Manufacturer("Mazda");
     String urlItem = "/cars";
@@ -91,17 +89,17 @@ class CarControllerImplTest {
     public void setUp(WebApplicationContext webApplicationContext,
                       RestDocumentationContextProvider restDocumentation)  {
         dto = CarDTO.builder().id(1).registration(registration).clientId(1).carModelId(3).color("yellow").mileage(457845).build();
-        carDTOS.add(dto);
+        carDTOs.add(dto);
         converter = new GsonConverter();
         carManager = mock(CarManager.class);
         carController = new CarControllerImpl(carManager);
-
+/*
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .alwaysDo(document("{method-name}",
                         preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
-                .build();
+                .build();*/
         this.mockMvc = MockMvcBuilders
                 .standaloneSetup(carController)
                 //.webAppContextSetup(webApplicationContext)
@@ -139,21 +137,68 @@ class CarControllerImplTest {
         this.restDocumentation.afterTest();
     }
 
-
-  /*  @Test
-    @DisplayName("should return object if registration is valid")
-    void test() throws Exception {
-       // when(carManager.getByRegistration(anyString())).thenReturn(dto);
+    @Test
+    @DisplayName("should return list of items")
+    void getAll() throws Exception {
+        when(carManager.getAll()).thenReturn(carDTOs);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get(urlItem + "/test?registration=" + registration)
+                        .get(urlItem )
                         .header("Authorization", "Bearer test")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(converter.convertObjectIntoGsonObject(carDTOs))
+                );
+    }
 
 
-    }*/
+    @Test
+    @DisplayName("should add object if valid")
+    void create() throws Exception {
+        dto.setId(0);
+        when(carManager.getByRegistration(anyString())).thenReturn(dto);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .post(urlItem )
+                        .header("Authorization", "Bearer test")
+                        .content(converter.convertObjectIntoGsonObject(dto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isCreated())
+                ;
+    }
 
+    @Test
+    @DisplayName("should update object if valid")
+    void update() throws Exception {
+        when(carManager.update(any())).thenReturn(true);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .put(urlItem )
+                        .header("Authorization", "Bearer test")
+                        .content(converter.convertObjectIntoGsonObject(dto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk())
+        ;
+    }
+
+    @Test
+    @DisplayName("should delete object if valid")
+    void delete() throws Exception {
+        when(carManager.deleteById(anyInt())).thenReturn(true);
+
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .delete(urlItem+"/"+id )
+                        .header("Authorization", "Bearer test")
+                        .content(converter.convertObjectIntoGsonObject(dto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isNoContent())
+        ;
+    }
 
 
     @Test
@@ -178,8 +223,6 @@ class CarControllerImplTest {
     @DisplayName("should return 404 if registration is invalid")
     void getByRegistration1() throws Exception {
         when(carManager.getByRegistration(anyString())).thenReturn(null);
-       /* assertNotNull(carController.getByRegistration(registration));
-        assertEquals(404, carController.getByRegistration(registration).getStatusCodeValue());*/
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get(urlItem + "/registration?registration=" + "21212")
@@ -192,12 +235,10 @@ class CarControllerImplTest {
 
 
     }
-/*
     @Test
     @DisplayName("should return 200 if id is invalid")
     void getById() throws Exception {
         when(carManager.getById(anyInt())).thenReturn(dto);
-        assertEquals(200, carController.getById(12).getStatusCodeValue());
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
                         .get(urlItem + "/" + id)
@@ -207,12 +248,43 @@ class CarControllerImplTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(converter.convertObjectIntoGsonObject(dto))
                 );
+    }
 
-
-    }*/
-    /*
 
     @Test
+    @DisplayName("should update car client")
+    void updateCarClient() throws Exception {
+        when(carManager.updateClient(anyInt(), anyInt())).thenReturn(dto);
+        int carId = 3;
+        int clientId = 5;
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .put(urlItem + "/updateClient/"+carId+"/" + clientId)
+                        .header("Authorization", "Bearer test")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(converter.convertObjectIntoGsonObject(dto))
+                );
+
+
+    }
+
+    @Test
+    @DisplayName("should return an exception")
+    void getByName() {
+        assertThrows(Exception.class, ()-> carController.getByName("name"));
+    }
+
+    @Test
+    @DisplayName("should return an exception")
+    void getByClient() {
+        assertNull(carController.getByClient("firstName", "lastName"));
+    }
+
+
+
+/*    @Test
     @DisplayName("should return 404 if registration is invalid")
     void getByRegistration1() throws Exception {
         //when(carManager.getByRegistration(anyString())).thenReturn(null);
