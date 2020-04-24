@@ -13,7 +13,7 @@ ext {
 
 jar {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}/html5") {
+    from("${asciidoctor.outputDir}/html5") {
         into 'static/docs'
     }
 }
@@ -32,7 +32,7 @@ asciidoctor {
     sources {
         include '/*/*/*.adoc'
     }
-    dependsOn test
+  //  dependsOn test
     outputDir = file('build/generated-docs')
 }
 
@@ -92,6 +92,10 @@ dependencies {
 
     /*asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.6.RELEASE'*/
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.2.6.RELEASE'
+    testCompile group: 'capital.scalable', name: 'spring-auto-restdocs-core', version: '2.0.8'
+// https://mvnrepository.com/artifact/org.glassfish/javax.el
+    compile group: 'org.glassfish', name: 'javax.el', version: '3.0.1-b11'
+
 
 
     test {

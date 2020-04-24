@@ -1,9 +1,14 @@
 package com.autodoc.controllers.impl.car;
 
+import capital.scalable.restdocs.AutoDocumentation;
+import capital.scalable.restdocs.jackson.JacksonResultHandlers;
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.contract.car.CarController;
 import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.dao.filler.Filler;
+import com.autodoc.dao.filler.Remover;
 import com.autodoc.model.dtos.car.CarDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +19,13 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.ManualRestDocumentation;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.cli.CliDocumentation;
+import org.springframework.restdocs.http.HttpDocumentation;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +34,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.inject.Inject;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +69,7 @@ class CarControllerImplTest {
     };
     String encoding = "application/json;charset=ISO-8859-1";
     int id = 3;
-    String registration = "abc123ZZ";
+    String registration = "05D121487";
     String feedback = "";
     List<CarDTO> carDTOS = new ArrayList<>();
     //Client client = new Client("Jean", "Mako", "03938937837");
@@ -73,34 +84,77 @@ class CarControllerImplTest {
     private GsonConverter converter;
     private ManualRestDocumentation restDocumentation = new ManualRestDocumentation();
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
-                      RestDocumentationContextProvider restDocumentation) {
-      /*  this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
-                .alwaysDo(document("{method-name}",
-                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
-                .build();*/
-
-
-        dto = CarDTO.builder().registration(registration).clientId(1).carModelId(2).build();
+                      RestDocumentationContextProvider restDocumentation)  {
+        dto = CarDTO.builder().id(1).registration(registration).clientId(1).carModelId(3).color("yellow").mileage(457845).build();
         carDTOS.add(dto);
         converter = new GsonConverter();
         carManager = mock(CarManager.class);
         carController = new CarControllerImpl(carManager);
+
+        this.mockMvc = MockMvcBuilders
+                .webAppContextSetup(webApplicationContext)
+                .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
+                .alwaysDo(document("{method-name}",
+                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                .build();
+        this.mockMvc = MockMvcBuilders
+                .standaloneSetup(carController)
+                //.webAppContextSetup(webApplicationContext)
+                .alwaysDo(JacksonResultHandlers.prepareJackson(objectMapper))
+                .apply(documentationConfiguration(restDocumentation)
+                        .uris()
+                        .withScheme("http")
+                        .withHost("localhost")
+                        .withPort(8087)
+                        .and().snippets()
+                        .withDefaults(CliDocumentation.curlRequest(),
+                                HttpDocumentation.httpRequest(),
+                                HttpDocumentation.httpResponse(),
+                                AutoDocumentation.requestFields(),
+                                AutoDocumentation.responseFields(),
+                                AutoDocumentation.pathParameters(),
+                                AutoDocumentation.requestParameters(),
+                                AutoDocumentation.description(),
+                                AutoDocumentation.methodAndPath(),
+                                AutoDocumentation.section()))
+                .alwaysDo(document("{class-name}/{method-name}",
+                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                .build();
+
         // using standalone
-        this.mockMvc = MockMvcBuilders.standaloneSetup(carController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
+       /* this.mockMvc = MockMvcBuilders.standaloneSetup(carController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
                 .alwaysDo(document("{ClassName}/{methodName}",
                         preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
                   .alwaysDo(print())
-                .build();
+                .build();*/
     }
 
     @AfterEach
     public void tearDown() {
         this.restDocumentation.afterTest();
     }
+
+
+  /*  @Test
+    @DisplayName("should return object if registration is valid")
+    void test() throws Exception {
+       // when(carManager.getByRegistration(anyString())).thenReturn(dto);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .get(urlItem + "/test?registration=" + registration)
+                        .header("Authorization", "Bearer test")
+        )
+                .andExpect(status().isOk());
+
+
+    }*/
+
+
 
     @Test
     @DisplayName("should return object if registration is valid")
@@ -122,13 +176,13 @@ class CarControllerImplTest {
 
     @Test
     @DisplayName("should return 404 if registration is invalid")
-    void getByRegistration1() throws Exception {/*
+    void getByRegistration1() throws Exception {
         when(carManager.getByRegistration(anyString())).thenReturn(null);
-        assertNotNull(carController.getByRegistration(registration));
+       /* assertNotNull(carController.getByRegistration(registration));
         assertEquals(404, carController.getByRegistration(registration).getStatusCodeValue());*/
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get(urlItem + "/registration?registration=" + registration)
+                        .get(urlItem + "/registration?registration=" + "21212")
                         .header("Authorization", "Bearer test")
                         .content(converter.convertObjectIntoGsonObject(registration))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -138,7 +192,7 @@ class CarControllerImplTest {
 
 
     }
-
+/*
     @Test
     @DisplayName("should return 200 if id is invalid")
     void getById() throws Exception {
@@ -155,7 +209,7 @@ class CarControllerImplTest {
                 );
 
 
-    }
+    }*/
     /*
 
     @Test

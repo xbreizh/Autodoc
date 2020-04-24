@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -45,18 +46,31 @@ public class Car {
     @Column(name = "ID")
     private int id;
 
+
+    /**
+     * Acar registration
+     */
     @Column(name = "registration", unique = true)
     @NotBlank(message = "registration cannot be null")
     @Pattern(regexp = "^[a-zA-Z0-9]{8,10}$", message = "invalid registration (letters, numbers, between 8 and 10)")
     private String registration;
 
+
     @NotNull(message = "carModel missing or invalid")
     @ManyToOne
     private CarModel carModel;
 
+
     @NotNull(message = "client missing or invalid")
     @ManyToOne
     private Client client;
+
+
+    private String color;
+
+    @Positive
+    private double mileage;
+
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
     private List<Bill> bills;

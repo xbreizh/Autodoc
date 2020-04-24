@@ -29,41 +29,12 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
         return carModelManager;
     }
 
-  /*  public CarModelControllerImpl(CarModelManager carModelManager) {
-        super(carModelManager);
-        converter = new GsonConverter();
-        this.carModelManager = carModelManager;
-    }*/
-
-  /*  @GetMapping(value = "/getAll",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getAll() {
-
-        List<CarModel> list = carModelManager.getAll();
-        LOGGER.debug("Loaded |" + list + "|");
-        String response = converter.convertObjectIntoGsonObject(list);
-        LOGGER.debug("Returning |" + response + "|");
-
-
-        return ResponseEntity.ok(response);
-    }*/
 
     @Override
     public ResponseEntity getCarModelsByManufacturer(String manufacturer) {
         return null;
     }
 
-  /*  @GetMapping(value = "/getById/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getById(@PathVariable int id) {
-        CarModel carModel = carModelManager.getById(id);
-        //return converter.convertObjectIntoGsonObject(carModel);
-        String response = converter.convertObjectIntoGsonObject(carModel);
-
-        return ResponseEntity.ok(response);
-    }*/
 
     @Override
     @DeleteMapping(value = "/deleteById/{id}",
@@ -80,26 +51,4 @@ public class CarModelControllerImpl extends GlobalControllerImpl<CarModel, CarMo
     }
 
 
-
-
-/*    @GetMapping(value = "/getByName",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getByName(@RequestBody String name) {
-        LOGGER.debug("getting: " + name);
-        CarModelDTO carModel = carModelManager.getByName(name);
-        String response = converter.convertObjectIntoGsonObject(carModel);
-        return ResponseEntity.ok(response);
-    }*/
-/*
-    @Override
-    @GetMapping(value = "/getByName",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity getCarByRegistration(@RequestBody String registration) {
-        Car car = carManager.getByRegistration(registration);
-        String response = converter.convertObjectIntoGsonObject(car);
-
-        return ResponseEntity.ok(response);
-    }*/
 }

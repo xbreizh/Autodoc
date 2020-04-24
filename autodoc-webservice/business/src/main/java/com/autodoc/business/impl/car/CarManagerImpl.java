@@ -110,6 +110,14 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             Client client = (Client) clientDao.getById(clientId);
             car.setClient(client);
         }
+        if(dto.getMileage() < 0){
+            throw new InvalidDtoException("mileage cannot be negative");
+        }else if(dto.getMileage() > 0){
+            car.setMileage(dto.getMileage());
+        }
+        if(dto.getColor()!=null && !dto.getColor().isEmpty()){
+            car.setColor(dto.getColor());
+        }
 
 
         LOGGER.info("car: " + car);
