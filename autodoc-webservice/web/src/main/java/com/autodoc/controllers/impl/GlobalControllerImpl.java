@@ -57,8 +57,8 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @PostMapping(value = "",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> add(@RequestBody @Valid D obj) {
+        System.out.println("trying to add: " + obj);
         try {
-            System.out.println("trying to add: " + obj);
             IGenericManager<T, D> manager = getManager();
             getClassName(obj);
             LOGGER.info("trying to add a " + type);
@@ -121,7 +121,6 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
-        System.out.println("dsfdf");
         IGenericManager<T, D> manager = getManager();
         LOGGER.debug("trying to get: " + name);
         Object received = manager.getByName(name);

@@ -1,6 +1,8 @@
 package com.autodoc.controllers.contract.bill;
 
-public interface BillController {
+import com.autodoc.controllers.contract.GlobalController;
+
+public interface BillController extends GlobalController {
 
 
 }
