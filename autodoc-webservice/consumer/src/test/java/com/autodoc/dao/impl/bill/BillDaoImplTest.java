@@ -3,10 +3,8 @@ package com.autodoc.dao.impl.bill;
 import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.dao.filler.Remover;
-import com.autodoc.model.enums.PaymentType;
 import com.autodoc.model.models.bill.Bill;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,9 +38,10 @@ class BillDaoImplTest {
         filler.fill();
 
     }
+
     @Test
     @DisplayName("should return bill")
-    void getById(){
+    void getById() {
         Bill bill = (Bill) dao.getAll().get(0);
         int id = bill.getId();
         assertNotNull(dao.getById(id));

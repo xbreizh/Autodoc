@@ -81,15 +81,13 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-
-
-    @ExceptionHandler(ConstraintViolationException.class )
+    @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(
             ConstraintViolationException ex, WebRequest request) {
-        LOGGER.info("capturing constraint violation error: "+ex.getConstraintViolations());
+        LOGGER.info("capturing constraint violation error: " + ex.getConstraintViolations());
 
         List<String> errors = new ArrayList<String>();
-        if(ex.getConstraintViolations()!=null) {
+        if (ex.getConstraintViolations() != null) {
             for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
                 errors.add(violation.getRootBeanClass().getName() + " " +
                         violation.getPropertyPath() + ": " + violation.getMessage());
@@ -105,7 +103,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(ex.getMessage());
     }
 
-    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException ex, WebRequest request) {
         LOGGER.info("capturing argument not valid error");

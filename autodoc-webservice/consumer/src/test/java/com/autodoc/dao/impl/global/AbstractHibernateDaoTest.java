@@ -4,7 +4,6 @@ import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.exceptions.DaoException;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.dao.impl.car.CarDaoImpl;
-import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.search.Search;
@@ -88,7 +87,6 @@ class AbstractHibernateDaoTest {
     }
 
 
-
     @Test
     void update() {
         dao.setSessionFactory(sessionFactory);
@@ -103,6 +101,7 @@ class AbstractHibernateDaoTest {
         when(session.merge(any())).thenReturn(new Car());
         assertTrue(dao.update(new Car()));
     }
+
     @Test
     void update2() {
         Car car = (Car) carDao.getAll().get(0);

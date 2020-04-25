@@ -48,19 +48,19 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
         checkAllRequiredValuesArePassed(dto);
         checkIfIdIsValid(dto.getId());
         checkIfDuplicate(dto);
-        if(dto.getFirstName()!=null)client.setFirstName(dto.getFirstName());
-        if(dto.getLastName()!=null)client.setLastName(dto.getLastName());
-        if(dto.getPhoneNumber()!=null)client.setPhoneNumber(dto.getPhoneNumber());
-        LOGGER.info("client updated: "+client);
+        if (dto.getFirstName() != null) client.setFirstName(dto.getFirstName());
+        if (dto.getLastName() != null) client.setLastName(dto.getLastName());
+        if (dto.getPhoneNumber() != null) client.setPhoneNumber(dto.getPhoneNumber());
+        LOGGER.info("client updated: " + client);
         return client;
 
 
     }
 
     public void checkAllRequiredValuesArePassed(ClientDTO dto) {
-        if (dto.getFirstName()==null || dto.getFirstName().isEmpty())
+        if (dto.getFirstName() == null || dto.getFirstName().isEmpty())
             throw new InvalidDtoException("You must provide a firstName");
-        if (dto.getLastName()==null || dto.getLastName().isEmpty())
+        if (dto.getLastName() == null || dto.getLastName().isEmpty())
             throw new InvalidDtoException("You must provide a lastName");
     }
 

@@ -110,12 +110,12 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
             Client client = (Client) clientDao.getById(clientId);
             car.setClient(client);
         }
-        if(dto.getMileage() < 0){
+        if (dto.getMileage() < 0) {
             throw new InvalidDtoException("mileage cannot be negative");
-        }else if(dto.getMileage() > 0){
+        } else if (dto.getMileage() > 0) {
             car.setMileage(dto.getMileage());
         }
-        if(dto.getColor()!=null && !dto.getColor().isEmpty()){
+        if (dto.getColor() != null && !dto.getColor().isEmpty()) {
             car.setColor(dto.getColor());
         }
 
@@ -134,24 +134,24 @@ public class CarManagerImpl extends AbstractGenericManager implements CarManager
         if (id != 0) {
             carFromDb = (Car) dao.getById(id);
             if (carFromDb == null) throw new InvalidDtoException("invalid car id: " + id);
-            LOGGER.info("carFrom DB: "+carFromDb);
-            if (registration!=null && !registration.isEmpty() && !registration.equalsIgnoreCase(carFromDb.getRegistration()))
-                throw new InvalidDtoException("invalid car registration: " +registration+". There is a different registration in db for that Id: "+id);
+            LOGGER.info("carFrom DB: " + carFromDb);
+            if (registration != null && !registration.isEmpty() && !registration.equalsIgnoreCase(carFromDb.getRegistration()))
+                throw new InvalidDtoException("invalid car registration: " + registration + ". There is a different registration in db for that Id: " + id);
         } else {
             LOGGER.info("checking registration is not already in use");
             carFromDb = dao.getCarByRegistration(registration);
-            LOGGER.info("carFrom DB: "+carFromDb);
+            LOGGER.info("carFrom DB: " + carFromDb);
             if (carFromDb == null)
                 throw new InvalidDtoException("invalid registration: " + registration);
             dto.setId(carFromDb.getId());
         }
         transfertcarModel(dto, carFromDb);
-return carFromDb;
+        return carFromDb;
     }
 
     private void transfertcarModel(CarDTO dto, Car carFromDb) {
         LOGGER.info("updating carModel id");
-        if (dto.getCarModelId()==0){
+        if (dto.getCarModelId() == 0) {
             dto.setCarModelId(carFromDb.getCarModel().getId());
         }
     }

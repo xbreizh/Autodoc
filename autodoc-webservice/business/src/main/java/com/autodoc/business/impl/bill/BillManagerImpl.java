@@ -79,7 +79,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setDiscount((bill).getDiscount());
         dto.setTotal((bill).getTotal());
         dto.setStatus((bill).getStatus().toString());
-        if(bill.getPaymentType()!=null)dto.setPaymentType(bill.getPaymentType().toString());
+        if (bill.getPaymentType() != null) dto.setPaymentType(bill.getPaymentType().toString());
         Date dateRepa = (bill).getDateReparation();
         dto.setDateReparation(getDateFormat().format(dateRepa));
         dto.setComments((bill).getComments());
@@ -108,8 +108,8 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     public void updateBillStatusIfMissingPiece(Bill bill) {
         for (Piece piece : bill.getPieces()) {
 
-            if (piece.getName().startsWith("OOS")){
-                LOGGER.info("there are pieces missing: "+piece.getName());
+            if (piece.getName().startsWith("OOS")) {
+                LOGGER.info("there are pieces missing: " + piece.getName());
                 bill.setStatus(Status.PENDING_PIECES);
             }
         }
@@ -118,15 +118,15 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     @Override
     public Bill transferUpdate(Object obj) {
         BillDTO dto = (BillDTO) obj;
-        LOGGER.info("object received: "+dto);
+        LOGGER.info("object received: " + dto);
         if (dto.getId() == 0) throw new InvalidDtoException("no id provided");
         Bill bill = (Bill) dao.getById(dto.getId());
         bill.setDiscount(dto.getDiscount());
-        if(dto.getStatus()!=null)bill.setStatus(Status.valueOf(dto.getStatus()));
-        if(dto.getTotal()!=0)bill.setTotal(dto.getTotal());
+        if (dto.getStatus() != null) bill.setStatus(Status.valueOf(dto.getStatus()));
+        if (dto.getTotal() != 0) bill.setTotal(dto.getTotal());
         bill.setVat(BillDTO.VAT);
-        if(dto.getComments()!=null)bill.setComments(dto.getComments());
-        if(dto.getPaymentType()!=null)bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
+        if (dto.getComments() != null) bill.setComments(dto.getComments());
+        if (dto.getPaymentType() != null) bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
 
         transferDateReparation(dto, bill);
         transferCar(dto, bill);
@@ -168,7 +168,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     }
 
     public void transferEmployee(BillDTO dto, Bill bill) {
-        if(dto.getEmployeeId()!=-0) {
+        if (dto.getEmployeeId() != -0) {
             Employee employee = (Employee) employeeDao.getById(dto.getEmployeeId());
             if (employee == null) throw new InvalidDtoException("invalid employee reference: " + dto.getEmployeeId());
             bill.setEmployee(employee);
@@ -176,7 +176,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     }
 
     public void transferClient(BillDTO dto, Bill bill) {
-        if(dto.getClientId()!=-0) {
+        if (dto.getClientId() != -0) {
             Client client = (Client) clientDao.getById(dto.getClientId());
             if (client == null) throw new InvalidDtoException("invalid client reference: " + dto.getClientId());
 
@@ -185,7 +185,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     }
 
     public void transferCar(BillDTO dto, Bill bill) {
-        if(dto.getRegistration()!=null && !dto.getRegistration().isEmpty()) {
+        if (dto.getRegistration() != null && !dto.getRegistration().isEmpty()) {
             Car car = carDao.getCarByRegistration(dto.getRegistration());
             if (car == null) throw new InvalidDtoException("car cannot be null");
             bill.setCar(car);

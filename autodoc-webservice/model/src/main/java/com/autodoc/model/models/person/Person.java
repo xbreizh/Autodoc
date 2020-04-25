@@ -1,12 +1,14 @@
 package com.autodoc.model.models.person;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 @MappedSuperclass

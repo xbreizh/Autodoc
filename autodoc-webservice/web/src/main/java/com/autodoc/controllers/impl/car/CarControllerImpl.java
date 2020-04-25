@@ -39,7 +39,7 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
      * @param lang Lookup on language.
      */
     public ResponseEntity<String> getByRegistration(@RequestParam(value = "registration") String registration) {
-        LOGGER.info("receiving registration: "+registration);
+        LOGGER.info("receiving registration: " + registration);
         CarDTO car = carManager.getByRegistration(registration);
         if (car == null) return notFoundResponse;
         String response = converter.convertObjectIntoGsonObject(car);
@@ -52,16 +52,18 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
-        
+
         throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
 
 
     @Override
-    public ResponseEntity<String> getByClient(String clientLastName, String clientFirstName) {
-        return null;
+    @GetMapping(value = "/byClient}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> getByClient(String clientLastName, String clientFirstName) throws Exception {
+        throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
-
 
     @Override
     @PutMapping(value = "/updateClient/{carId}/{clientId}",

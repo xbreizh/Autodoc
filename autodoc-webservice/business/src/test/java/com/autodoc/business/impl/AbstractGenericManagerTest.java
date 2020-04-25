@@ -3,14 +3,12 @@ package com.autodoc.business.impl;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.model.dtos.car.CarModelDTO;
-import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.models.car.CarModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 class AbstractGenericManagerTest {
@@ -52,7 +50,6 @@ class AbstractGenericManagerTest {
     void getDtoClass() {
         assertNull(manager.getDtoClass());
     }
-
 
 
     @Test

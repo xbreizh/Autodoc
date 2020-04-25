@@ -55,21 +55,21 @@ class ClientManagerImplTest {
 
     @Test
     @DisplayName("should return exception if missing firstName")
-    void checkAllRequiredValuesArePassed1(){
+    void checkAllRequiredValuesArePassed1() {
         dto.setFirstName(null);
-        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkAllRequiredValuesArePassed(dto));
         dto.setFirstName("");
-        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkAllRequiredValuesArePassed(dto));
     }
 
 
     @Test
     @DisplayName("should return exception if missing lastName")
-    void checkAllRequiredValuesArePassed2(){
+    void checkAllRequiredValuesArePassed2() {
         dto.setLastName(null);
-        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkAllRequiredValuesArePassed(dto));
         dto.setLastName("");
-        assertThrows(InvalidDtoException.class, ()->manager.checkAllRequiredValuesArePassed(dto));
+        assertThrows(InvalidDtoException.class, () -> manager.checkAllRequiredValuesArePassed(dto));
     }
 
     @Test

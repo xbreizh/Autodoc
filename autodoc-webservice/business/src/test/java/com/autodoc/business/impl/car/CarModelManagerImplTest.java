@@ -6,7 +6,6 @@ import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.model.dtos.car.CarModelDTO;
-import com.autodoc.model.enums.FuelType;
 import com.autodoc.model.models.car.CarModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

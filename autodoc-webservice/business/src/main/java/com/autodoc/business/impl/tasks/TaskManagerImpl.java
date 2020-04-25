@@ -61,9 +61,9 @@ public class TaskManagerImpl extends AbstractGenericManager implements TaskManag
         if (id == 0) throw new InvalidDtoException("no id provided");
         Task task = (Task) dao.getById(id);
         if (task == null) throw new InvalidDtoException("invalid id " + id);
-        if(dto.getName()!=null)task.setName(dto.getName());
-        if(dto.getDescription()!=null)task.setDescription(dto.getDescription());
-        if(dto.getEstimatedTime()!=0)task.setEstimatedTime(dto.getEstimatedTime());
+        if (dto.getName() != null) task.setName(dto.getName());
+        if (dto.getDescription() != null) task.setDescription(dto.getDescription());
+        if (dto.getEstimatedTime() != 0) task.setEstimatedTime(dto.getEstimatedTime());
         return task;
     }
 

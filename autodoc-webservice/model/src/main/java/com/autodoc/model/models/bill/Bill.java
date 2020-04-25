@@ -92,7 +92,7 @@ public class Bill {
 
     @Min(value = 0, message = "invalid value for discount")
     @Max(value = 100, message = "discount max is 100")
-    private double discount ;
+    private double discount;
 
     private String comments;
 

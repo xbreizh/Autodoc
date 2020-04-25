@@ -15,6 +15,7 @@ public class GsonConverter {
 
 
     public String convertObjectIntoGsonObject(Object list) {
+        if (list == null) return null;
         LOGGER.debug("list to convert: " + list);
         LOGGER.info("to convert: " + list);
         Gson gsonBuilder = new GsonBuilder()

@@ -2,7 +2,6 @@ package com.autodoc.model.models.tasks;
 
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.bill.Bill;
-import com.autodoc.model.validation.ContactNumberConstraint;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,7 +37,7 @@ public class Task {
 
     private String description;
 
-    @DecimalMin( value = "0.5", message = "estimatedTime cannot be null")
+    @DecimalMin(value = "0.5", message = "estimatedTime cannot be null")
     private double estimatedTime;
 
     public static Map<String, SearchType> getSearchField() {

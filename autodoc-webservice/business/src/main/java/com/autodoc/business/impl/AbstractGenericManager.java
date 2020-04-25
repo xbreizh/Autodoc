@@ -21,7 +21,7 @@ import java.util.*;
 @Component
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
-   // protected String exception = "";
+    // protected String exception = "";
 /*
     protected void resetException() {
         exception = "";
@@ -35,20 +35,20 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     public String save(D object) {
         LOGGER.info("trying to save: " + object.getClass());
         IGenericDao dao = getDao();
-            T objectToSave = transferInsert(object);
-            LOGGER.info("object to save: " + objectToSave);
+        T objectToSave = transferInsert(object);
+        LOGGER.info("object to save: " + objectToSave);
           /*  if (!exception.isEmpty()) {
                 LOGGER.error(exception);
                 return exception;
             }*/
-            String feedback = Integer.toString(dao.create(objectToSave));
+        String feedback = Integer.toString(dao.create(objectToSave));
+        LOGGER.info("feedback: " + feedback);
+        if (!feedback.equals("0")) {
             LOGGER.info("feedback: " + feedback);
-            if (!feedback.equals("0")) {
-                LOGGER.info("feedback: " + feedback);
-                return feedback;
-            }
-            LOGGER.info("issue while saving");
-            return "issue while saving";
+            return feedback;
+        }
+        LOGGER.info("issue while saving");
+        return "issue while saving";
 
 
     }
@@ -85,7 +85,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
         T obj = transferUpdate((D) entity);
         boolean feedback = getDao().update(obj);
-        LOGGER.info("feedback: "+feedback);
+        LOGGER.info("feedback: " + feedback);
         return feedback;
 
     }
@@ -110,7 +110,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     @Override
     public D getById(int id) {
         if (getDao().getById(id) == null) {
-            throw new EntityNotFoundException("invalid id: "+id);
+            throw new EntityNotFoundException("invalid id: " + id);
 
         }
         return entityToDto((T) getDao().getById(id));

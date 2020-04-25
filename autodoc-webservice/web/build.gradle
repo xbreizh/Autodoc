@@ -21,7 +21,7 @@ jar {
 asciidoctor {
     //inputs.dir snippetsDir
     sourceDir = snippetsDir
-   // sourceDir = file('src/main/asciidoc/html5')
+    // sourceDir = file('src/main/asciidoc/html5')
     sources {
         include '/*//*/*.adoc'
     }
@@ -99,7 +99,6 @@ dependencies {
     testCompile group: 'capital.scalable', name: 'spring-auto-restdocs-core', version: '2.0.8'
 // https://mvnrepository.com/artifact/org.glassfish/javax.el
     compile group: 'org.glassfish', name: 'javax.el', version: '3.0.1-b11'
-
 
 
     test {

@@ -55,14 +55,14 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
         LOGGER.info("transferring update data");
         ProviderDTO dto = (ProviderDTO) obj;
         Provider provider = (Provider) dao.getById(dto.getId());
-        if(dto.getFirstName()!=null)provider.setFirstName(dto.getFirstName());
-        if(dto.getLastName()!=null)provider.setLastName(dto.getLastName());
-        if(dto.getPhoneNumber()!=null)provider.setPhoneNumber(dto.getPhoneNumber());
-        if(dto.getCompany()!=null)provider.setCompany(dto.getCompany());
-        if(dto.getAddress()!=null)provider.setAddress(dto.getAddress());
-        if(dto.getEmail1()!=null)provider.setEmail1(dto.getEmail1());
-        if(dto.getEmail2()!=null)provider.setEmail2(dto.getEmail2());
-        if(dto.getWebsite()!=null)provider.setWebsite(dto.getWebsite());
+        if (dto.getFirstName() != null) provider.setFirstName(dto.getFirstName());
+        if (dto.getLastName() != null) provider.setLastName(dto.getLastName());
+        if (dto.getPhoneNumber() != null) provider.setPhoneNumber(dto.getPhoneNumber());
+        if (dto.getCompany() != null) provider.setCompany(dto.getCompany());
+        if (dto.getAddress() != null) provider.setAddress(dto.getAddress());
+        if (dto.getEmail1() != null) provider.setEmail1(dto.getEmail1());
+        if (dto.getEmail2() != null) provider.setEmail2(dto.getEmail2());
+        if (dto.getWebsite() != null) provider.setWebsite(dto.getWebsite());
         return provider;
     }
 

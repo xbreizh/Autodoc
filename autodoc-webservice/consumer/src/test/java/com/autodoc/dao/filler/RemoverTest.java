@@ -1,7 +1,6 @@
 package com.autodoc.dao.filler;
 
 import com.autodoc.dao.contract.bill.BillDao;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -9,8 +8,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-
-import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +32,7 @@ class RemoverTest {
     }
 
     @Test
-    void checkRemover()  {
+    void checkRemover() {
         remover.cleanup();
         assertTrue(billDao.getAll().isEmpty());
     }

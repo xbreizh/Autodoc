@@ -25,42 +25,42 @@ public class EnumController extends GlobalControllerImpl {
 
     @GetMapping(value = "/roles",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getRoles()  {
+    public ResponseEntity getRoles() {
         LOGGER.error("getting the roles");
         return returnEnums(Role.class);
     }
 
     @GetMapping(value = "/compares",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getCompares()  {
+    public ResponseEntity getCompares() {
         LOGGER.error("getting the compares");
         return returnEnums(Compare.class);
     }
 
     @GetMapping(value = "/fuelTypes",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getFuelTypes()  {
+    public ResponseEntity getFuelTypes() {
         LOGGER.error("getting the fuelTypes");
         return returnEnums(FuelType.class);
     }
 
     @GetMapping(value = "/gearBoxes",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getGearBoxes()  {
+    public ResponseEntity getGearBoxes() {
         LOGGER.error("getting the gearBoxes");
         return returnEnums(GearBox.class);
     }
 
     @GetMapping(value = "/status",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getStatus()  {
+    public ResponseEntity getStatus() {
         LOGGER.error("getting the status");
         return returnEnums(Status.class);
     }
 
     @GetMapping(value = "/paymentTypes",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getPaymentTypes()  {
+    public ResponseEntity getPaymentTypes() {
         LOGGER.error("getting the paymentTypes");
         return returnEnums(PaymentType.class);
     }
