@@ -50,6 +50,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 class CarModelControllerImplTest {
 
+    FieldDescriptor id = fieldWithPath("id").description("Id of the carModel");
+    FieldDescriptor manufacturerId = fieldWithPath("manufacturerId").description("Id of the manufacturer");
+    FieldDescriptor name = fieldWithPath("name").description("Name of the carModel");
+    FieldDescriptor description = fieldWithPath("description").description("description of the carModel");
+    FieldDescriptor gearbox = fieldWithPath("gearbox").description("Gearbox of the carModel");
+    FieldDescriptor engine = fieldWithPath("engine").description("Engine of the carModel");
+    FieldDescriptor fuelType = fieldWithPath("fuelType").description("FuelType of the carModel");
+    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
+            id, manufacturerId, name, description, gearbox, engine, fuelType
+    };
+    private final FieldDescriptor[] descriptorInsert = new FieldDescriptor[]{
+            id, manufacturerId, name, description, gearbox, engine, fuelType
+    };
+    private final FieldDescriptor[] descriptorUpdate = new FieldDescriptor[]{
+            id, manufacturerId.optional(), name.optional(), description.optional(), gearbox.optional(), engine.optional(), fuelType.optional()
+    };
     private static final Logger LOGGER = Logger.getLogger(CarModelControllerImplTest.class);
     private static final String ENCODING = "application/json;charset=ISO-8859-1";
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -58,24 +74,8 @@ class CarModelControllerImplTest {
     private static final String NAME = "Quattro";
     private static final GsonConverter CONVERTER = new GsonConverter();
     private static final ManualRestDocumentation REST_DOCUMENTATION = new ManualRestDocumentation();
-    FieldDescriptor id = fieldWithPath("id").description("Id of the carModel");
-    FieldDescriptor manufacturerId = fieldWithPath("manufacturerId").description("Id of the manufacturer");
-    FieldDescriptor name = fieldWithPath("name").description("Name of the carModel");
-    FieldDescriptor description = fieldWithPath("description").description("description of the carModel");
-    FieldDescriptor gearbox = fieldWithPath("gearbox").description("Gearbox of the carModel");
-    FieldDescriptor engine = fieldWithPath("engine").description("Engine of the carModel");
-    FieldDescriptor fuelType = fieldWithPath("fuelType").description("FuelType of the carModel");
-    private final FieldDescriptor[] descriptorInsert = new FieldDescriptor[]{
-            id, manufacturerId, name, description, gearbox, engine, fuelType
-    };
-    private final FieldDescriptor[] descriptorUpdate = new FieldDescriptor[]{
-            id, manufacturerId.optional(), name.optional(), description.optional(), gearbox.optional(), engine.optional(), fuelType.optional()
-    };
     List<CarModelDTO> objList = new ArrayList<>();
     CarModelDTO dto;
-    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
-            id, manufacturerId, name, description, gearbox, engine, fuelType
-    };
     private CarModelController controller;
     private CarModelManager manager;
     private MockMvc mockMvc;
