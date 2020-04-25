@@ -1,18 +1,26 @@
-/*
 package com.autodoc.controllers.impl.person.client;
 
+import capital.scalable.restdocs.AutoDocumentation;
+import capital.scalable.restdocs.jackson.JacksonResultHandlers;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.impl.person.client.ClientManagerImpl;
 import com.autodoc.controllers.contract.person.client.ClientController;
 import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.controllers.impl.exceptions.CustomRestExceptionHandler;
 import com.autodoc.model.dtos.person.client.ClientDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.restdocs.ManualRestDocumentation;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.cli.CliDocumentation;
+import org.springframework.restdocs.http.HttpDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,14 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,160 +52,211 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Sql(scripts = "classpath:resetDb.sql")
 @Transactional
 class ClientControllerImplTest {
-    String urlItem = "/clients";
-    private ClientManager clientManager;
-    private MockMvc mockMvc;
-    private GsonConverter converter;
-    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
-            fieldWithPath("id").description("Id of the car"),
-            fieldWithPath("firstName").description("FirstName of the carModel"),
-            fieldWithPath("lastName").description("LastName of the carModel"),
-            fieldWithPath("phoneNumber").description("PhoneNumber of the carModel")
+    private static final String URL_ITEM = "/clients";
+    private static final Logger LOGGER = Logger.getLogger(ClientControllerImplTest.class);
+    private static final String ENCODING = "application/json;charset=ISO-8859-1";
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final int ID = 72;
+    private static final String NAME = "toyota";
+    private static final GsonConverter CONVERTER = new GsonConverter();
+    private static final ManualRestDocumentation REST_DOCUMENTATION = new ManualRestDocumentation();
+    FieldDescriptor id = fieldWithPath("id").description("Id of the client");
+    FieldDescriptor firstName = fieldWithPath("firstName").description("FirstName of the client");
+    FieldDescriptor lastName = fieldWithPath("lastName").description("LastName of the client");
+    FieldDescriptor phoneNumber = fieldWithPath("phoneNumber").description("PhoneNumber of the client");
+    private final FieldDescriptor[] descriptorInsert = new FieldDescriptor[]{
+            id, firstName, lastName, phoneNumber
     };
-    private List<ClientDTO> clients = new ArrayList<>();
-    //private static final Logger LOGGER = Logger.getLogger(ClientControllerImplTest.class);
-    private ClientController clientController;
-    private String name = "lmolo";
-    private int id = 72;
-    private ClientDTO clientDTO = new ClientDTO("Jean", name, "03938937837");
+    private final FieldDescriptor[] descriptorUpdate = new FieldDescriptor[]{
+            id, id, firstName.optional(), lastName.optional(), phoneNumber.optional()
+    };
+    List<ClientDTO> objList = new ArrayList<>();
+    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
+            id, firstName, lastName, phoneNumber
+    };
+    private String FIRSTNAME = "Raymond";
+    private String LASTNAME = "FORCAT";
+    ClientDTO dto = ClientDTO.builder().firstName(FIRSTNAME).lastName(LASTNAME).phoneNumber("03938937837").build();
+    private ClientController controller;
+    private ClientManager manager;
+    private MockMvc mockMvc;
+    private MockMvc mockMvcException;
+
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
                       RestDocumentationContextProvider restDocumentation) {
-        clientManager = mock(ClientManagerImpl.class);
-        clientController = new ClientControllerImpl(clientManager);
-        */
-/*this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
-                .build();*//*
-
-        clients.add(clientDTO);
-        converter = new GsonConverter();
-        // using standalone
-        this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).apply(documentationConfiguration(restDocumentation).uris().withPort(8087)).build();
-        // LOGGER.debug("context: " + webApplicationContext);
+        manager = mock(ClientManagerImpl.class);
+        controller = new ClientControllerImpl(manager);
+        objList.add(dto);
+        this.mockMvc = this.mockMvcException = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new CustomRestExceptionHandler())
+                .alwaysDo(JacksonResultHandlers.prepareJackson(MAPPER))
+                .apply(documentationConfiguration(restDocumentation)
+                        .uris()
+                        .withScheme("http")
+                        .withHost("localhost")
+                        .withPort(8087)
+                        .and().snippets()
+                        .withDefaults(CliDocumentation.curlRequest(),
+                                HttpDocumentation.httpRequest(),
+                                HttpDocumentation.httpResponse(),
+                                AutoDocumentation.requestFields(),
+                                AutoDocumentation.responseFields(),
+                                AutoDocumentation.pathParameters(),
+                                AutoDocumentation.requestParameters(),
+                                AutoDocumentation.description(),
+                                AutoDocumentation.methodAndPath(),
+                                AutoDocumentation.section()))
+                .alwaysDo(document("{class-name}/{method-name}",
+                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                .build();
+        this.mockMvc = MockMvcBuilders
+                .standaloneSetup(controller)
+                //.webAppContextSetup(webApplicationContext)  // to be used for integration testing
+                .alwaysDo(JacksonResultHandlers.prepareJackson(MAPPER))
+                .apply(documentationConfiguration(restDocumentation)
+                        .uris()
+                        .withScheme("http")
+                        .withHost("localhost")
+                        .withPort(8087)
+                        .and().snippets()
+                        .withDefaults(CliDocumentation.curlRequest(),
+                                HttpDocumentation.httpRequest(),
+                                HttpDocumentation.httpResponse(),
+                                AutoDocumentation.requestFields(),
+                                AutoDocumentation.responseFields(),
+                                AutoDocumentation.pathParameters(),
+                                AutoDocumentation.requestParameters(),
+                                AutoDocumentation.description(),
+                                AutoDocumentation.methodAndPath(),
+                                AutoDocumentation.section()))
+                .alwaysDo(document("{class-name}/{method-name}",
+                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                .build();
     }
 
 
     @Test
     public void getAll() throws Exception {
-
-        when(clientManager.getAll()).thenReturn(clients);
+        when(manager.getAll()).thenReturn(objList);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get(urlItem)
+                        .get(URL_ITEM)
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andExpect(content().contentType(ENCODING))
                 .andDo(document("{ClassName}/{methodName}",
                         responseFields(
                                 fieldWithPath("[]").description("An array of manufacturers"))
                                 .andWithPrefix(".[]", descriptor)
                 ));
-
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(clients));
-        assertEquals(response, clientController.getAll());
+        LOGGER.info("carModels: " + objList);
+        ResponseEntity response = ResponseEntity.ok(CONVERTER.convertObjectIntoGsonObject(objList));
+        assertEquals(response, controller.getAll());
     }
 
-
-  */
-/*  @Test
-    void addClient() throws Exception {
-        ResponseEntity response = ResponseEntity.ok("client added");
-        when(clientManager.save(any(Client.class))).thenReturn("client added");
-        assertEquals(response, clientController.getAll());
-        String client = new Gson().toJson(new Client());
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get("/client/add").content(client))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
-
-    }
-*//*
-
-
-    @Test
-    void getByName() throws Exception {
-        when(clientManager.getByName(anyString())).thenReturn(clientDTO);
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .get(urlItem + "/name?name=" + name)
-                        .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(name))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}",
-                        responseFields(descriptor)
-                ));
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(clientDTO));
-        assertEquals(response, clientController.getByName(name));
-    }
 
     @Test
     void getById() throws Exception {
-        when(clientManager.getById(anyInt())).thenReturn(clientDTO);
+        when(manager.getById(anyInt())).thenReturn(dto);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get(urlItem + "/" + id)
+                        .get(URL_ITEM + "/{carModelId}", ID)
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(id))
+                        .content(CONVERTER.convertObjectIntoGsonObject(ID))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
+                .andExpect(content().contentType(ENCODING))
                 .andDo(document("{ClassName}/{methodName}",
                         responseFields(descriptor)
                 ));
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(clientDTO));
-        assertEquals(response, clientController.getById(id));
+        ResponseEntity response = ResponseEntity.ok(CONVERTER.convertObjectIntoGsonObject(dto));
+        assertEquals(response, controller.getById(ID));
+
     }
 
-  */
-/*  @Test
-    void add() throws Exception {
-        Client client = new Client();
-        when(clientManager.save(any(Client.class))).thenReturn("client added");
+    @Test
+    @DisplayName("should return 404 if id is invalid")
+    void getByIdError() throws Exception {
+        when(manager.getById(anyInt())).thenReturn(null);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .post("/client/add")
+                        .get(URL_ITEM + "/" + ID)
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(client))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andExpect(status().isNotFound())
+        ;
+    }
 
-        ResponseEntity response = ResponseEntity.ok("client added");
-        assertEquals(response, clientController.add(client));
-    }*//*
+    @Test
+    public void getByName() throws Exception {
+
+        when(manager.getByName(anyString())).thenReturn(dto);
+
+        this.mockMvcException.perform(
+                RestDocumentationRequestBuilders
+                        .put(URL_ITEM + "/name")
+                        .header("Authorization", "Bearer test")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isMethodNotAllowed());
 
 
- */
-/* @Test
+    }
+
+
+    @Test
+    @DisplayName("should add object if valid")
+    void create() throws Exception {
+        dto.setId(0);
+        when(manager.getById(anyInt())).thenReturn(dto);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .post(URL_ITEM)
+                        .header("Authorization", "Bearer test")
+                        .content(CONVERTER.convertObjectIntoGsonObject(dto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isCreated())
+                .andDo(document("{ClassName}/{methodName}",
+                        requestFields(descriptorInsert)
+                ));
+
+    }
+
+    @Test
+    @DisplayName("should update object if valid")
     void update() throws Exception {
-        ClientDTO client = new ClientDTO("Doe", "John", "12121212");
-        when(clientManager.update(any(Client.class))).thenReturn(true);
+        when(manager.update(any())).thenReturn(true);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .put("/client/update")
+                        .put(URL_ITEM)
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(client))
+                        .content(CONVERTER.convertObjectIntoGsonObject(dto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=ISO-8859-1"))
-                .andDo(document("{ClassName}/{methodName}"));
+                .andExpect(status().isOk()).andDo(document("{ClassName}/{methodName}",
+                requestFields(descriptorUpdate)
+        ));
+    }
 
-        ResponseEntity response = ResponseEntity.ok("client updated");
-        assertEquals(response, clientController.update(client));
-    }*//*
+    @Test
+    @DisplayName("should delete object if valid")
+    void delete() throws Exception {
+        when(manager.deleteById(anyInt())).thenReturn(true);
 
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .delete(URL_ITEM + "/" + ID)
+                        .header("Authorization", "Bearer test")
+                        .content(CONVERTER.convertObjectIntoGsonObject(dto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isNoContent())
+        ;
+    }
 
-
-}*/
+}

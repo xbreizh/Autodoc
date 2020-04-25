@@ -1,12 +1,13 @@
-package com.autodoc.controllers.impl.car;
+package com.autodoc.controllers.impl.person.employee;
 
 import capital.scalable.restdocs.AutoDocumentation;
 import capital.scalable.restdocs.jackson.JacksonResultHandlers;
-import com.autodoc.business.contract.car.ManufacturerManager;
-import com.autodoc.controllers.contract.car.ManufacturerController;
+import com.autodoc.business.contract.person.employee.EmployeeManager;
+import com.autodoc.business.impl.person.employee.EmployeeManagerImpl;
+import com.autodoc.controllers.contract.person.employee.EmployeeController;
 import com.autodoc.controllers.helper.GsonConverter;
 import com.autodoc.controllers.impl.exceptions.CustomRestExceptionHandler;
-import com.autodoc.model.dtos.car.ManufacturerDTO;
+import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,66 +28,81 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @ContextConfiguration(locations = "classpath:mvc-dispatcher-servlet.xml")
 @WebAppConfiguration
-class ManufacturerControllerImplTest {
-    FieldDescriptor id = fieldWithPath("id").description("Id of the manufacturer");
-    FieldDescriptor name = fieldWithPath("name").description("Name of the manufacturer");
-    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
-            id,  name
-    };
-    private final FieldDescriptor[] descriptorInsert = new FieldDescriptor[]{
-            id, name
-    };
-    private final FieldDescriptor[] descriptorUpdate = new FieldDescriptor[]{
-            id, name
-    };
-    private static final Logger LOGGER = Logger.getLogger(CarModelControllerImplTest.class);
+//@Sql(scripts = "classpath:resetDb.sql")
+@Transactional
+class EmployeeControllerImplTest {
+    private static final String URL_ITEM = "/employees";
+    private static final Logger LOGGER = Logger.getLogger(EmployeeControllerImplTest.class);
     private static final String ENCODING = "application/json;charset=ISO-8859-1";
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String URL_ITEM = "/manufacturers";
-    private static final int ID = 2;
+    private static final int ID = 72;
     private static final String NAME = "toyota";
     private static final GsonConverter CONVERTER = new GsonConverter();
     private static final ManualRestDocumentation REST_DOCUMENTATION = new ManualRestDocumentation();
-    List<ManufacturerDTO> objList = new ArrayList<>();
-    ManufacturerDTO dto;
-    private ManufacturerController controller;
-    private ManufacturerManager manager;
+    FieldDescriptor id = fieldWithPath("id").description("Id of the employee");
+    FieldDescriptor firstName = fieldWithPath("firstName").description("FirstName of the employee");
+    FieldDescriptor lastName = fieldWithPath("lastName").description("LastName of the employee");
+    FieldDescriptor phoneNumber = fieldWithPath("phoneNumber").description("PhoneNumber of the employee");
+    FieldDescriptor login = fieldWithPath("login").description("Login of the employee");
+    FieldDescriptor password = fieldWithPath("password").description("Password of the employee");
+    FieldDescriptor startDate = fieldWithPath("startDate").description("Starting Date of the employee");
+    FieldDescriptor lastConnection = fieldWithPath("lastConnection").description("Last Employee's connection");
+    FieldDescriptor roles = fieldWithPath("roles").description("roles of the Employee");
+    private FieldDescriptor[] descriptor = new FieldDescriptor[]{
+            id, firstName, lastName, phoneNumber, login, password, startDate, lastConnection, roles
+    };
+    private final FieldDescriptor[] descriptorInsert = new FieldDescriptor[]{
+            id, firstName, lastName, phoneNumber, login, password, startDate.optional(), lastConnection.optional(), roles
+    };
+    private final FieldDescriptor[] descriptorUpdate = new FieldDescriptor[]{
+            id, id, firstName.optional(), lastName.optional(), phoneNumber.optional(), login.optional(), password.optional(), startDate.optional(), lastConnection.optional(), roles.optional()
+    };
+    List<EmployeeDTO> objList = new ArrayList<>();
+    private String FIRSTNAME = "Raymond";
+    private String LASTNAME = "FORCAT";
+    private String LOGIN = "RForcat";
+    private Date START_DATE = new Date();
+    private Date LAST_CONNECTION = new Date();
+    private List<String> ROLES = Arrays.asList("mecanic", "palefrenier");
+    EmployeeDTO dto = EmployeeDTO.builder().firstName(FIRSTNAME).lastName(LASTNAME).phoneNumber("03938937837").login(LOGIN).password("abc123").startDate(START_DATE).roles(ROLES).lastConnection(LAST_CONNECTION).build();
+    private EmployeeController controller;
+    private EmployeeManager manager;
     private MockMvc mockMvc;
     private MockMvc mockMvcException;
 
 
     @BeforeEach
-    void setUp(WebApplicationContext webApplicationContext,
-               RestDocumentationContextProvider restDocumentation) throws Exception {
-        manager = mock(ManufacturerManager.class);
-        controller = new ManufacturerControllerImpl(manager);
-        /*this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(documentationConfiguration(restDocumentation).uris().withPort(8087))
-                .build();*/
-        dto = ManufacturerDTO.builder().id(2).name(NAME).build();
+    public void setUp(WebApplicationContext webApplicationContext,
+                      RestDocumentationContextProvider restDocumentation) {
+        manager = mock(EmployeeManagerImpl.class);
+        controller = new EmployeeControllerImpl(manager);
         objList.add(dto);
-        // using standalone
         this.mockMvc = this.mockMvcException = MockMvcBuilders.standaloneSetup(controller)
                 .setControllerAdvice(new CustomRestExceptionHandler())
                 .alwaysDo(JacksonResultHandlers.prepareJackson(MAPPER))
@@ -132,7 +148,6 @@ class ManufacturerControllerImplTest {
                 .alwaysDo(document("{class-name}/{method-name}",
                         preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
                 .build();
-
     }
 
 
@@ -195,36 +210,17 @@ class ManufacturerControllerImplTest {
 
         when(manager.getByName(anyString())).thenReturn(dto);
 
-        this.mockMvc.perform(
-                get(URL_ITEM + "/name?name=" + NAME)
-                        .header("Authorization", "Bearer token")
-                        .content(CONVERTER.convertObjectIntoGsonObject(NAME))
+        this.mockMvcException.perform(
+                RestDocumentationRequestBuilders
+                        .put(URL_ITEM + "/name")
+                        .header("Authorization", "Bearer test")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(ENCODING))
-                .andExpect(jsonPath("$.name").value(NAME))
-                .andDo(document("{ClassName}/{methodName}",
-                        responseFields(descriptor)
-                ));
-        ResponseEntity response = ResponseEntity.ok(CONVERTER.convertObjectIntoGsonObject(dto));
-        assertEquals(response, controller.getByName(NAME));
+                .andExpect(status().isMethodNotAllowed());
+
 
     }
 
-    @Test
-    public void getByNameError() throws Exception {
-
-        when(manager.getByName(anyString())).thenReturn(null);
-
-        this.mockMvc.perform(
-                get(URL_ITEM + "/name?name=" + NAME)
-                        .header("Authorization", "Bearer token")
-                        .content(CONVERTER.convertObjectIntoGsonObject(NAME))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        )
-                .andExpect(status().isNotFound());
-    }
 
     @Test
     @DisplayName("should add object if valid")
@@ -273,7 +269,8 @@ class ManufacturerControllerImplTest {
                         .content(CONVERTER.convertObjectIntoGsonObject(dto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isMethodNotAllowed())
+                .andExpect(status().isNoContent())
         ;
     }
+
 }

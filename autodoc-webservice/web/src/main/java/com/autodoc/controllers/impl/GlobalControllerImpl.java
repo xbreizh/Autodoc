@@ -121,6 +121,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
+        System.out.println("dsfdf");
         IGenericManager<T, D> manager = getManager();
         LOGGER.debug("trying to get: " + name);
         Object received = manager.getByName(name);

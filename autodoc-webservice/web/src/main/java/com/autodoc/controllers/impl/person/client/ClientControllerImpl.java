@@ -33,8 +33,9 @@ public class ClientControllerImpl extends GlobalControllerImpl<Client, ClientDTO
     @GetMapping(value = "/name",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity getByName(@RequestParam(value = "name") String name) throws Exception {
+    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception{
         LOGGER.error("trying to use a not yet implemented method");
+        System.out.println("efre");
         throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
 
