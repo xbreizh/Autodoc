@@ -55,6 +55,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Transactional
 class CarControllerImplTest {
     private static final Logger LOGGER = Logger.getLogger(CarControllerImplTest.class);
+    private static final String ENCODING = "application/json;charset=ISO-8859-1";
     FieldDescriptor id = fieldWithPath("id").description("Id of the car");
     FieldDescriptor registration = fieldWithPath("registration").description("Id of the car");
     FieldDescriptor carModelId = fieldWithPath("carModelId").description("Id of the carModel");
@@ -71,24 +72,25 @@ class CarControllerImplTest {
     private final FieldDescriptor[] descriptorUpdate = new FieldDescriptor[]{
             id.description("Id or registration required").optional(),
             registration.description("Id or registration required").optional(),
-            carModelId.description("Id of the carModel").optional(),
-            clientId.description("Id of the carModel").optional(),
-            mileage.description("number of kilometers").optional(),
-            color.description("color of the car").optional()
+            carModelId.optional(),
+            clientId.optional(),
+            mileage.optional(),
+            color.optional()
     };
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String URL_ITEM = "/cars";
     private static final int ID = 2;
     private static final String REGISTRATION = "ABC12345";
-    List<CarDTO> objList = new ArrayList<>();
-    CarDTO dto;
-    String encoding = "application/json;charset=ISO-8859-1";
+    private static final GsonConverter CONVERTER = new GsonConverter();
+    private static final ManualRestDocumentation REST_DOCUMENTATION = new ManualRestDocumentation();
+
     private CarController controller;
     private CarManager manager;
     private MockMvc mockMvc;
     private MockMvc mockMvcException;
-    private GsonConverter converter = new GsonConverter();
-    private ManualRestDocumentation restDocumentation = new ManualRestDocumentation();
-    private ObjectMapper objectMapper = new ObjectMapper();
+
+    List<CarDTO> objList = new ArrayList<>();
+    CarDTO dto;
 
 
     @BeforeEach
@@ -100,7 +102,7 @@ class CarControllerImplTest {
         controller = new CarControllerImpl(manager);
         this.mockMvcException = MockMvcBuilders.standaloneSetup(controller)
                 .setControllerAdvice(new CustomRestExceptionHandler())
-                .alwaysDo(JacksonResultHandlers.prepareJackson(objectMapper))
+                .alwaysDo(JacksonResultHandlers.prepareJackson(MAPPER))
                 .apply(documentationConfiguration(restDocumentation)
                         .uris()
                         .withScheme("http")
@@ -123,7 +125,7 @@ class CarControllerImplTest {
         this.mockMvc = MockMvcBuilders
                 .standaloneSetup(controller)
                 //.webAppContextSetup(webApplicationContext)  // to be used for integration testing
-                .alwaysDo(JacksonResultHandlers.prepareJackson(objectMapper))
+                .alwaysDo(JacksonResultHandlers.prepareJackson(MAPPER))
                 .apply(documentationConfiguration(restDocumentation)
                         .uris()
                         .withScheme("http")
@@ -148,7 +150,7 @@ class CarControllerImplTest {
 
     @AfterEach
     public void tearDown() {
-        this.restDocumentation.afterTest();
+        this.REST_DOCUMENTATION.afterTest();
     }
 
     @Test
@@ -160,67 +162,42 @@ class CarControllerImplTest {
                         .get(URL_ITEM)
                         .header("Authorization", "Bearer test"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(encoding))
+                .andExpect(content().contentType(ENCODING))
                 .andDo(document("{ClassName}/{methodName}",
                         responseFields(
                                 fieldWithPath("[]").description("An array of manufacturers"))
                                 .andWithPrefix(".[]", descriptor)
                 ));
         LOGGER.info("carModels: " + objList);
-        ResponseEntity response = ResponseEntity.ok(converter.convertObjectIntoGsonObject(objList));
+        ResponseEntity response = ResponseEntity.ok(CONVERTER.convertObjectIntoGsonObject(objList));
         assertEquals(response, controller.getAll());
     }
 
 
     @Test
-    @DisplayName("should add object if valid")
-    void create() throws Exception {
-        dto.setId(0);
-        when(manager.getByRegistration(anyString())).thenReturn(dto);
-        this.mockMvc.perform(
+    @DisplayName("should return 405")
+    void getByName() throws Exception {
+        assertThrows(Exception.class, () -> controller.getByName("name"));
+        this.mockMvcException.perform(
                 RestDocumentationRequestBuilders
-                        .post(URL_ITEM)
+                        .put(URL_ITEM + "/name")
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(dto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isCreated())
-                .andDo(document("{ClassName}/{methodName}",
-                        requestFields(descriptorInsert)
-                ));
-
+                .andExpect(status().isMethodNotAllowed());
     }
 
     @Test
-    @DisplayName("should update object if valid")
-    void update() throws Exception {
-        when(manager.update(any())).thenReturn(true);
+    @DisplayName("should return 405")
+    void getByClient() throws Exception {
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .put(URL_ITEM)
+                        .put(URL_ITEM + "/byClient/")
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(dto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isOk()).andDo(document("{ClassName}/{methodName}",
-                requestFields(descriptorUpdate)
-        ));
-    }
-
-    @Test
-    @DisplayName("should delete object if valid")
-    void delete() throws Exception {
-        when(manager.deleteById(anyInt())).thenReturn(true);
-
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders
-                        .delete(URL_ITEM + "/" + ID)
-                        .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(dto))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        )
-                .andExpect(status().isNoContent())
-        ;
+                .andExpect(status().isMethodNotAllowed()
+                );
     }
 
 
@@ -230,13 +207,13 @@ class CarControllerImplTest {
         when(manager.getByRegistration(anyString())).thenReturn(dto);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get(URL_ITEM + "/registration?registration=" + registration)
+                        .get(URL_ITEM + "/registration?registration=" + REGISTRATION)
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(registration))
+                        .content(CONVERTER.convertObjectIntoGsonObject(registration))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(converter.convertObjectIntoGsonObject(dto)))
+                .andExpect(MockMvcResultMatchers.content().json(CONVERTER.convertObjectIntoGsonObject(dto)))
                 .andDo(document("{ClassName}/{methodName}",
                         responseFields(descriptor)
                 ));
@@ -251,9 +228,9 @@ class CarControllerImplTest {
         when(manager.getByRegistration(anyString())).thenReturn(null);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .get(URL_ITEM + "/registration?registration=" + "21212")
+                        .get(URL_ITEM + "/registration?registration=" + REGISTRATION)
                         .header("Authorization", "Bearer test")
-                        .content(converter.convertObjectIntoGsonObject(registration))
+                        .content(CONVERTER.convertObjectIntoGsonObject(registration))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isNotFound())
@@ -273,7 +250,7 @@ class CarControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(converter.convertObjectIntoGsonObject(dto)))
+                .andExpect(MockMvcResultMatchers.content().json(CONVERTER.convertObjectIntoGsonObject(dto)))
                 .andDo(document("{ClassName}/{methodName}",
                         responseFields(descriptor)
                 ));
@@ -307,7 +284,7 @@ class CarControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(converter.convertObjectIntoGsonObject(dto))
+                .andExpect(MockMvcResultMatchers.content().json(CONVERTER.convertObjectIntoGsonObject(dto))
                 );
     }
 
@@ -328,31 +305,57 @@ class CarControllerImplTest {
         ;
     }
 
-    @Test
-    @DisplayName("should return 405")
-    void getByName() throws Exception {
-        assertThrows(Exception.class, () -> controller.getByName("name"));
-        this.mockMvcException.perform(
-                RestDocumentationRequestBuilders
-                        .put(URL_ITEM + "/name")
-                        .header("Authorization", "Bearer test")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        )
-                .andExpect(status().isMethodNotAllowed());
-    }
+
+
 
     @Test
-    @DisplayName("should return 405")
-    void getByClient() throws Exception {
-        int clientId = 5;
+    @DisplayName("should add object if valid")
+    void create() throws Exception {
+        dto.setId(0);
+        when(manager.getByRegistration(anyString())).thenReturn(dto);
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders
-                        .put(URL_ITEM + "/byClient/")
+                        .post(URL_ITEM)
                         .header("Authorization", "Bearer test")
+                        .content(CONVERTER.convertObjectIntoGsonObject(dto))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
-                .andExpect(status().isMethodNotAllowed()
-                );
+                .andExpect(status().isCreated())
+                .andDo(document("{ClassName}/{methodName}",
+                        requestFields(descriptorInsert)
+                ));
+
     }
 
+    @Test
+    @DisplayName("should update object if valid")
+    void update() throws Exception {
+        when(manager.update(any())).thenReturn(true);
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .put(URL_ITEM)
+                        .header("Authorization", "Bearer test")
+                        .content(CONVERTER.convertObjectIntoGsonObject(dto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk()).andDo(document("{ClassName}/{methodName}",
+                requestFields(descriptorUpdate)
+        ));
+    }
+
+    @Test
+    @DisplayName("should delete object if valid")
+    void delete() throws Exception {
+        when(manager.deleteById(anyInt())).thenReturn(true);
+
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .delete(URL_ITEM + "/" + ID)
+                        .header("Authorization", "Bearer test")
+                        .content(CONVERTER.convertObjectIntoGsonObject(dto))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isNoContent())
+        ;
+    }
 }
