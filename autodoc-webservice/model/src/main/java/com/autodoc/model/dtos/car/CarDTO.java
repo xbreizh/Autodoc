@@ -34,7 +34,7 @@ public class CarDTO {
     private int clientId;
 
 
-    private String fuelType;
+
 
 
 }
