@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PieceControllerImpl extends GlobalControllerImpl<Piece, PieceDTO> implements PieceController {
     private final static Logger LOGGER = Logger.getLogger(PieceControllerImpl.class);
     private PieceManager manager;
-    //  private GsonConverter converter;
 
     public IGenericManager getManager() {
         return manager;

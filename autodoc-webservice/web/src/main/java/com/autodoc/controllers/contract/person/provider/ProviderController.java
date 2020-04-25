@@ -1,6 +1,8 @@
 package com.autodoc.controllers.contract.person.provider;
 
-public interface ProviderController {
+import com.autodoc.controllers.contract.GlobalController;
+
+public interface ProviderController  extends GlobalController {
 
 
 }
