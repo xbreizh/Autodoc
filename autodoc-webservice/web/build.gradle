@@ -7,38 +7,38 @@ war {
 apply plugin: 'org.asciidoctor.convert'
 
 
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
 
 jar {
     dependsOn asciidoctor
-    from("${asciidoctor.outputDir}/html5") {
+    from ("${asciidoctor.outputDir}/html") {
         into 'static/docs'
     }
 }
 
-asciidoctor {
-    //inputs.dir snippetsDir
-    sourceDir = snippetsDir
-    // sourceDir = file('src/main/asciidoc/html5')
-    sources {
-        include '/*//*/*.adoc'
-    }
-    dependsOn test
-    //outputDir = file('build/generated-docs')
-    outputDir = file('src/main/asciidoc/html5')
+ext {
+    snippetsDir = file('build/generated-snippets')
 }
-/*
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
 asciidoctor {
-    sourceDir = snippetsDir
-    //sourceDir = file('src/asciidoc/html5')
-    sources {
-        include '/*//*/*.adoc'
-    }
+    attributes 'snippets': snippetsDir
+    inputs.dir snippetsDir
+    outputDir "build/asciidoc"
     dependsOn test
-    outputDir = file('build/generated-docs')
-}*/
+    sourceDir 'src/main/asciidoc'
+}
+
+asciidoctor.doLast {
+    copy {
+        from "build/asciidoc/html5"
+        into "src/main/webapp/WEB-INF/view/html"
+        include 'index.html'
+    }
+}
 
 buildscript {
 
@@ -51,7 +51,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.6.1'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.7'
     }
 }
 
@@ -94,16 +94,12 @@ dependencies {
             'org.mockito:mockito-core:3.1.0'
     testCompile 'com.jayway.jsonpath:json-path:2.2.0'
 
-    /*asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.6.RELEASE'*/
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.2.6.RELEASE'
     testCompile group: 'capital.scalable', name: 'spring-auto-restdocs-core', version: '2.0.8'
 // https://mvnrepository.com/artifact/org.glassfish/javax.el
     compile group: 'org.glassfish', name: 'javax.el', version: '3.0.1-b11'
 
 
-    test {
-        outputs.dir snippetsDir
-        useJUnitPlatform()
-    }
+
 }
 
