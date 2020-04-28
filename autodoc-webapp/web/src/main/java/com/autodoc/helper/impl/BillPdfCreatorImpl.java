@@ -10,48 +10,64 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import javax.inject.Named;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Named
 public class BillPdfCreatorImpl implements BillPdfCreator {
     private static final Logger LOGGER = Logger.getLogger(BillPdfCreatorImpl.class);
-    private static final String ORIGIN = "/src/main/resources/bills/";
+    private static final String ORIGIN = "/opt/tomcat/apache-tomcat-9.0.24/webapps/autodoctor/WEB-INF/views/html/bills/pdf/";
     String htmlFileName = "";
     String pdfFileName = "";
-    String copiedHtmlFile = "";
+    String newHtmlFile = "";
 
     private static void copyFile(File source, File dest) throws IOException {
+        LOGGER.info("copying files");
+        LOGGER.info(source.exists());
+        LOGGER.info(dest.exists());
         FileUtils.copyFile(source, dest);
     }
 
-    public void generatePDFFromHTML(Bill bill) throws IOException {
+    public String generatePDFFromHTML(Bill bill) throws IOException {
+        LOGGER.info("initiate name");
         initPathAndFileNames(bill);
-
-        copyFile(new File(htmlFileName), new File(copiedHtmlFile));
-        writeContent(copiedHtmlFile, bill);
-        convertIntoPdf(copiedHtmlFile, pdfFileName);
-        removeHtmlCopy(copiedHtmlFile);
-
+        LOGGER.info("copy files");
+        LOGGER.info("htmlFileName: " + htmlFileName);
+        LOGGER.info("pdfFileName: " + pdfFileName);
+        LOGGER.info("copiedHtmlFile: " + newHtmlFile);
+        copyFile(new File(htmlFileName), new File(newHtmlFile));
+        LOGGER.info("write content");
+        writeContent(newHtmlFile, bill);
+        LOGGER.info("convert");
+        convertIntoPdf(newHtmlFile, pdfFileName);
+        // LOGGER.info("remove");
+        //removeHtmlCopy(newHtmlFile);
+        int index = newHtmlFile.lastIndexOf("/");
+        String fileName = newHtmlFile.substring(index + 1);
+        LOGGER.info("filename: " + fileName);
+        String fileToReturn = fileName.substring(0, fileName.lastIndexOf('.'));
+        LOGGER.info("file to return: " + fileToReturn);
+        return fileToReturn;
     }
 
     private void initPathAndFileNames(Bill bill) throws IOException {
         String fileName = generateFileName(bill);
         StringBuilder mainPath = new StringBuilder();
-        mainPath.append(new File(".").getCanonicalPath());
+
         mainPath.append(ORIGIN);
 
-        htmlFileName = mainPath + "html/" + fileName + ".html";
-        pdfFileName = mainPath + "pdf/" + fileName + ".pdf";
-        copiedHtmlFile = mainPath + "html/" + fileName + "Copy.html";
+        // mainPath.append(getClass().getClassLoader().getResource("/bills/"));
+
+        htmlFileName = mainPath + fileName + ".html";
+        pdfFileName = mainPath + fileName + ".pdf";
+        newHtmlFile = mainPath + fileName + "Copy.html";
     }
 
     private void removeHtmlCopy(String copiedHtmlFile) {
@@ -184,8 +200,18 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
         return contents.toString();
     }
 
-    @Override
+    public boolean checkIfFileExists(String path) throws URISyntaxException, IOException {
+        StringBuilder sb = new StringBuilder();
+        File file = new File("$$$");
+        sb.append(file.getAbsolutePath().replace("$$$", ""));
+        sb.append("src/main/resources/");
+        System.out.println("path: " + sb);
+        return Files.exists(Paths.get(sb + "abc.txt"));
+    }
+
+/*    @Override
     public void saveAsPdf(Bill bill) throws IOException {
+        LOGGER.info("trying to save as pdf");
         StringBuilder path = new StringBuilder();
         path.append(new File(".").getCanonicalPath());
         path.append("/src/main/resources/pdf/");
@@ -214,7 +240,7 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
         }
 
 
-    }
+    }*/
 
     private String generateFileName(Bill bill) {
         return "plakonow";

@@ -15,7 +15,9 @@ import com.autodoc.model.models.tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -95,19 +97,38 @@ class GlobalControllerTest {
 
 
     @Test
-    void saveAsPdf() throws IOException {
-        System.out.println(bill);
-        System.out.println(bill.getCar());
-        System.out.println(bill.getClient());
-        System.out.println(bill.getTasks());
-        System.out.println(bill.getPieces());
+    void generatePDFFromHTML() throws IOException {
+        System.out.println("ddd");
         pdfCreator.generatePDFFromHTML(bill);
 
     }
 
     @Test
     void copyFile() throws IOException {
-        pdfCreator.generatePDFFromHTML(bill);
+        /*System.out.println("bills: "+ FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString());
+        String userDirectory = new File("").getAbsolutePath();
+        System.out.println(userDirectory);*/
+        //  Thread.currentThread().getContextClassLoader().get
+
+        System.out.println();
+
+    }
+
+    @Test
+    void checkIfFileExist() throws IOException, URISyntaxException {
+        System.out.println(new File("test").getCanonicalPath());
+        System.out.println(new File("test").getAbsolutePath());
+        System.out.println("verdict: " + pdfCreator.checkIfFileExists("ter.txt"));
+    }
+
+    @Test
+    void trim() {
+        String str = "newFile.html";
+        String str2 = str.substring(0, str.lastIndexOf('.'));
+        System.out.println(str2);
 
     }
 

@@ -39,7 +39,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     PieceManager pieceManager;
     BillPdfCreator pdfCreator;
 
-    public BillControllerImpl(AuthenticationHelper authenticationHelper, BillManager manager, PieceManager pieceManager, ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager) {
+    public BillControllerImpl(AuthenticationHelper authenticationHelper, BillManager manager, PieceManager pieceManager,
+                              ClientManager clientManager, CarManager carManager, EmployeeManager employeeManager, TaskManager taskManager, BillPdfCreator pdfCreator) {
         super(authenticationHelper);
         this.manager = manager;
         this.pieceManager = pieceManager;
@@ -47,6 +48,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         this.carManager = carManager;
         this.employeeManager = employeeManager;
         this.taskManager = taskManager;
+        this.pdfCreator = pdfCreator;
     }
 
     @Override
@@ -61,10 +63,18 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         return mv;
     }
 
-    @GetMapping("/pdf")
-    public ModelAndView createPDF() throws Exception {
-        pdfCreator.saveAsPdf(new Bill());
-        return new ModelAndView("pdf");
+    @GetMapping("/pdf/{id}")
+    public ModelAndView createPDF(@PathVariable Integer id) throws Exception {
+        LOGGER.info("trying to get pdf");
+        Bill bill = (Bill) manager.getById(authenticationHelper.getConnectedToken(), id);
+        LOGGER.info("bill found: " + bill);
+        String newFile = "";
+        if (bill == null) {
+            LOGGER.error("couldn't find the bill: " + id);
+            return new ModelAndView("home");
+        }
+        newFile = pdfCreator.generatePDFFromHTML(bill);
+        return new ModelAndView("bills/pdf/" + newFile);
 
     }
 

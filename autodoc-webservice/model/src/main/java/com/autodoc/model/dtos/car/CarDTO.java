@@ -33,8 +33,15 @@ public class CarDTO {
     @Min(value = 1, message = "clientId cannot be null")
     private int clientId;
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "CarDTO{" +
+                "id=" + id +
+                ", carModelId=" + carModelId +
+                ", registration='" + registration + '\'' +
+                ", color='" + color + '\'' +
+                ", mileage=" + mileage +
+                ", clientId=" + clientId +
+                '}';
+    }
 }
