@@ -11,6 +11,7 @@ import com.autodoc.model.dtos.SearchDto;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.dtos.car.SearchCarForm;
+import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
@@ -53,12 +54,17 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         CarDTO dto = new CarDTO();
         dto.setRegistration(form.getRegistration());
         dto.setCarModelId(form.getModelId());
+        dto.setColor(form.getColor());
+        dto.setMileage(form.getMileage());
         //adding client
         String feedbackFromClientAdd = "";
         try {
-            feedbackFromClientAdd = clientManager.add(token, form.getClient());
-            LOGGER.info("feedbackFromClientAdd: " + feedbackFromClientAdd);
-            int clientId = Integer.parseInt(feedbackFromClientAdd);
+            int clientId = getIdIfExistingClient(token, form.getClient());
+            if (clientId == 0) {
+                feedbackFromClientAdd = clientManager.add(token, form.getClient());
+                LOGGER.info("feedbackFromClientAdd: " + feedbackFromClientAdd);
+                clientId = Integer.parseInt(feedbackFromClientAdd);
+            }
             dto.setClientId(clientId);
         } catch (NumberFormatException e) {
             LOGGER.error("error while creating the client");
@@ -67,6 +73,19 @@ public class CarManagerImpl extends GlobalManagerImpl<Car, CarDTO> implements Ca
         LOGGER.info("new car to be added: " + dto);
         return getFeedbackDetails(service.create(token, dto));
 
+    }
+
+    private int getIdIfExistingClient(String token, ClientForm client) throws Exception {
+
+        List<Client> clients = clientManager.getAll(token);
+        for (Client cl : clients) {
+            if (cl.getFirstName().equalsIgnoreCase(client.getFirstName()) &&
+                    cl.getLastName().equalsIgnoreCase(client.getLastName())) {
+                LOGGER.info("client already exists, returning its id: " + cl.getId());
+                return cl.getId();
+            }
+        }
+        return 0;
     }
 
     public CarDTO formToDto(Object obj, String token) {
