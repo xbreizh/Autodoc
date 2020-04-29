@@ -3,7 +3,6 @@ package com.autodoc.helper.contract;
 import com.autodoc.model.models.bill.Bill;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public interface BillPdfCreator {
 
@@ -17,5 +16,5 @@ public interface BillPdfCreator {
 
     String cleanup(String str);
 
-    boolean checkIfFileExists(String path) throws URISyntaxException, IOException;
+   // boolean checkIfFileExists(String path) throws URISyntaxException, IOException;
 }

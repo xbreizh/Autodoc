@@ -157,8 +157,8 @@ public class Filler {
         Manufacturer man1 = (Manufacturer) manufacturerDao.getByName("TOYOTA");
         Manufacturer man2 = (Manufacturer) manufacturerDao.getByName("RENAULT");
         carModelDao.create(CarModel.builder().manufacturer(man).name("QASHQAI").description("VISIA DCI").gearbox(GearBox.AUTOMATIC).engine("1528").fuelType(FuelType.DIESEL).build());
-        carModelDao.create(CarModel.builder().manufacturer(man1).name("CLIO").description("BEBOP").gearbox(GearBox.MANUAL).engine("1528").fuelType(FuelType.PETROL).build());
-        carModelDao.create(CarModel.builder().manufacturer(man2).name("AURIS").description("T SPIRIT D4D").gearbox(GearBox.MANUAL).engine("84545").fuelType(FuelType.HYBRID).build());
+        carModelDao.create(CarModel.builder().manufacturer(man2).name("CLIO").description("BEBOP").gearbox(GearBox.MANUAL).engine("1528").fuelType(FuelType.PETROL).build());
+        carModelDao.create(CarModel.builder().manufacturer(man1).name("AURIS").description("T SPIRIT D4D").gearbox(GearBox.MANUAL).engine("84545").fuelType(FuelType.HYBRID).build());
 
     }
 

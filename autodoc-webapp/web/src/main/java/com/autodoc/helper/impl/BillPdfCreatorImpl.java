@@ -13,10 +13,11 @@ import org.apache.log4j.Logger;
 
 import javax.inject.Named;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -98,19 +99,26 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
     }
 
     public String fillTemplate(String filePath, Bill bill) {
+        LOGGER.info("car to fill: " + bill.getCar());
         Map<String, String> input = new HashMap<>();
         input.put("[FIRSTNAME]", bill.getClient().getFirstName().toUpperCase());
         input.put("[LASTNAME]", bill.getClient().getLastName().toUpperCase());
         input.put("[EMPLOYEE]", bill.getEmployee().getLogin());
-        input.put("[DATE]", bill.getDateReparation().toString());
+        String pattern = "EEEEE dd MMMMM yyyy HH:mm";
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat(pattern, new Locale("fr", "FR"));
+
+        String date = simpleDateFormat.format(bill.getDateReparation());
+        input.put("[DATE]", date);
         input.put("[BILLID]", String.valueOf(bill.getId()));
         input.put("[PHONENUMBER]", bill.getClient().getPhoneNumber());
         input.put("[MANUFACTURER]", bill.getCar().getModel().getManufacturer().getName());
         input.put("[MODEL]", bill.getCar().getModel().getName());
         input.put("[ENGINE]", bill.getCar().getModel().getEngine());
         input.put("[FUELTYPE]", bill.getCar().getModel().getFuelType());
+        input.put("[COLOR]", bill.getCar().getColor());
         input.put("[REGISTRATION]", bill.getCar().getRegistration());
-        input.put("[KILOMETER]", "tobeFilled");
+        input.put("[KILOMETER]", String.valueOf(bill.getCar().getMileage()));
 
         double totalTask = 0;
         if (!bill.getTasks().isEmpty()) {
@@ -156,28 +164,30 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
 
 
             Set<Map.Entry<String, String>> entries = input.entrySet();
+            LOGGER.info("replacing");
             for (Map.Entry<String, String> entry : entries) {
+                LOGGER.info("key: " + entry.getKey() + " value: " + entry.getValue());
                 msg = msg.replace(entry.getKey().trim(), entry.getValue().trim());
             }
-            System.out.println("msg: " + msg);
+            LOGGER.info("msg: " + msg);
 
         } catch (NullPointerException e) {
             LOGGER.error("Issue while getting file");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //cleanup(msg);
 
         return cleanup(msg);
     }
 
+    // removing all template items with []
     public String cleanup(String str) {
-        //str = str.replaceAll("\\[.*\\]", "");
-        // removing parenthesis and everything inside them, works for (),[] and {}
+        LOGGER.info("cleaning message");
         return str.replaceAll("\\s*\\[[^\\]]*\\]\\s*", " ");
     }
 
     public void writeContent(String copiedHtmlFile, Bill bill) {
+        LOGGER.info("writing content");
         String msg = fillTemplate(copiedHtmlFile, bill);
         try {
             Files.write(Paths.get(copiedHtmlFile), msg.getBytes());
@@ -200,14 +210,14 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
         return contents.toString();
     }
 
-    public boolean checkIfFileExists(String path) throws URISyntaxException, IOException {
+  /*  public boolean checkIfFileExists(String path) throws URISyntaxException, IOException {
         StringBuilder sb = new StringBuilder();
         File file = new File("$$$");
         sb.append(file.getAbsolutePath().replace("$$$", ""));
         sb.append("src/main/resources/");
         System.out.println("path: " + sb);
         return Files.exists(Paths.get(sb + "abc.txt"));
-    }
+    }*/
 
 /*    @Override
     public void saveAsPdf(Bill bill) throws IOException {

@@ -18,9 +18,11 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -137,6 +139,21 @@ class GlobalControllerTest {
         String str = "[je ] ne participe [pas] au tele[thon]";
         assertEquals(" ne participe au tele ", pdfCreator.cleanup(str));
 
+    }
+
+    @Test
+    void formatDate() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        String dateString = format.format(new Date());
+        System.out.println(dateString);
+
+        String pattern = "EEEEE dd MMMMM yyyy HH:mm";
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat(pattern, new Locale("fr", "FR"));
+
+        String date = simpleDateFormat.format(new Date());
+        System.out.println(date);
     }
 
 }
