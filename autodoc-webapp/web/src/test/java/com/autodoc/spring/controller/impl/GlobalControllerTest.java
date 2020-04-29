@@ -123,7 +123,7 @@ class GlobalControllerTest {
     void checkIfFileExist() throws IOException, URISyntaxException {
         System.out.println(new File("test").getCanonicalPath());
         System.out.println(new File("test").getAbsolutePath());
-        System.out.println("verdict: " + pdfCreator.checkIfFileExists("ter.txt"));
+     //   System.out.println("verdict: " + pdfCreator.checkIfFileExists("ter.txt"));
     }
 
     @Test

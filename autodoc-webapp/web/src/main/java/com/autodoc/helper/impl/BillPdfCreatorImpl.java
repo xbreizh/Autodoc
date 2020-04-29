@@ -16,10 +16,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Named
 public class BillPdfCreatorImpl implements BillPdfCreator {
@@ -34,6 +31,7 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
         LOGGER.info(source.exists());
         LOGGER.info(dest.exists());
         FileUtils.copyFile(source, dest);
+        LOGGER.info(dest.exists());
     }
 
     public String generatePDFFromHTML(Bill bill) throws IOException {
@@ -66,9 +64,13 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
 
         // mainPath.append(getClass().getClassLoader().getResource("/bills/"));
 
-        htmlFileName = mainPath + fileName + ".html";
+        htmlFileName = mainPath + "template.html";
         pdfFileName = mainPath + fileName + ".pdf";
-        newHtmlFile = mainPath + fileName + "Copy.html";
+        newHtmlFile = mainPath + fileName + ".html";
+        LOGGER.info("htmlFileName: "+htmlFileName);
+        LOGGER.info("pdfFileName: "+pdfFileName);
+        LOGGER.info("newHtmlFile: "+newHtmlFile);
+
     }
 
     private void removeHtmlCopy(String copiedHtmlFile) {
@@ -119,6 +121,9 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
         input.put("[COLOR]", bill.getCar().getColor());
         input.put("[REGISTRATION]", bill.getCar().getRegistration());
         input.put("[KILOMETER]", String.valueOf(bill.getCar().getMileage()));
+        input.put("[PAYMENT_TYPE]", bill.getPaymentType());
+        input.put("[STATUS]", bill.getStatus());
+
 
         double totalTask = 0;
         if (!bill.getTasks().isEmpty()) {
@@ -253,7 +258,15 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
     }*/
 
     private String generateFileName(Bill bill) {
-        return "plakonow";
+        SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy");
+
+        String dateString = format.format(new Date());
+        StringBuilder sb = new StringBuilder();
+        sb.append(bill.getCar().getRegistration());
+        sb.append("_");
+        sb.append(dateString);
+        LOGGER.info("newFileName: "+sb.toString());
+        return sb.toString();
     }
 
 }

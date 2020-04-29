@@ -73,7 +73,11 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         bill.setDiscount((int) dto.getDiscount());
         LOGGER.info(bill.getDiscount());
         bill.setStatus(dto.getStatus());
-        bill.setPaymentType(dto.getPaymentType());
+        if (dto.getPaymentType()==null){
+            bill.setPaymentType("CASH");
+        }else {
+            bill.setPaymentType(dto.getPaymentType());
+        }
         bill.setTasks(getTasks(token, dto.getTasks()));
         bill.setPieces(getPieces(token, dto.getPieces()));
         Client client = (Client) clientManager.getById(token, dto.getClientId());
@@ -87,7 +91,11 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         LOGGER.info("employee found: " + employee);
         bill.setEmployee(employee);
         LOGGER.info("bill transferred: " + bill);
-        bill.setComments(dto.getComments());
+        if(dto.getComments()!=null) {
+            bill.setComments(dto.getComments());
+        }else {
+            bill.setComments("");
+        }
         return bill;
     }
 
@@ -133,7 +141,11 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         dto.setEmployeeId(employee.getId());
         dto.setRegistration(form.getCarRegistration());
         dto.setStatus(form.getStatus());
-        if (form.getPaymentType() == null || !form.getPaymentType().isEmpty()) dto.setPaymentType("CASH");
+        if (form.getPaymentType() == null || !form.getPaymentType().isEmpty()) {
+            dto.setPaymentType("CASH");
+        }else{
+            dto.setPaymentType(form.getPaymentType());
+        }
         List<Integer> taskIdList = new ArrayList<>();
         if (form.getTasks() != null) {
             for (Integer taskId : form.getTasks().getList()) {
@@ -149,7 +161,12 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
             }
         }
         dto.setPieces(pieceIdList);
-        dto.setComments(form.getComments());
+        if(form.getComments()!=null){
+            dto.setComments(form.getComments());
+        }else{
+            dto.setComments("");
+        }
+
         dto.setTasks(taskIdList);
         dto.setTotal(calculateTotal(token, taskIdList));
         dto.setVat(form.getVat());

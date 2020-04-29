@@ -14,7 +14,7 @@
         }
 
         table:not(.filling) th {
-            width: 100%;
+            /*width: 100%;*/
             border: none;
         }
 
@@ -49,8 +49,6 @@
 </head>
 <body>
 <div id="container">
-    <button onclick="window.print()">Imprimer</button>
-    <br/>
     <table class="company">
         <tr>
             <th style="width: 80%; text-align: left;font-size: 40px; color: #bb322a">AUTODOCTOR</th>
@@ -65,29 +63,30 @@
     <table class="date">
         <tr>
             <th style="width: 30%;">Date [DATE]</th>
-            <th>Invoice</th>
-            <th>[BILLID]</th>
+            <th style="width: 55%;"></th>
+            <th style="width: 15%;">Invoice [BILLID]</th>
         </tr>
         <tr>
-            <th>Employee [EMPLOYEE]</th>
+            <th>Employee  [EMPLOYEE]</th>
+            <th></th>
         </tr>
     </table>
     <table class="title">
-        <tr>
-            <th style="width: 50%;">Informations client</th>
-            <th style="width: 50%;">Informations Vehicule</th>
+        <tr style="background-color: #0066cc; color: white">
+            <th style="width: 70%;">Informations client</th>
+            <th style="width: 30%;">Informations Vehicule</th>
         </tr>
     </table>
     <table class="infos">
         <tr>
-            <th style="width: 20%;">Name [FIRSTNAME] [LASTNAME]</th>
-            <td style="width: 50%;"></td>
+            <th style="width: 20%;">Name</th>
+            <td style="width: 50%;">[FIRSTNAME] [LASTNAME]</td>
             <th style="width: 15%;">Marque</th>
             <th style="width: 15%;">[MANUFACTURER]</th>
         </tr>
         <tr>
-            <th>Contact [PHONENUMBER]</th>
-            <td></td>
+            <th>Contact</th>
+            <td>[PHONENUMBER]</td>
             <td>Modele</td>
             <td>[MODEL]</td>
         </tr>
@@ -122,12 +121,12 @@
             <td>[KILOMETER]</td>
         </tr>
     </table>
-    <table class="filling">
+    <table class="filling" >
         <tr style="background-color: #0066cc; color: white">
-            <th style="width: 60%;">Travail effectue</th>
-            <th style="width: 10%;">Heures</th>
-            <th style="width: 15%;">Taux</th>
-            <th style="width: 15%;">Montant</th>
+            <th style="width: 60%;">TRAVAIL EFFECTUE</th>
+            <th style="width: 10%;">HEURES</th>
+            <th style="width: 15%;">TAUX</th>
+            <th style="width: 15%;text-align:center;" >MONTANT</th>
         </tr>
         <tr>
             <td>[WORK1]</td>
@@ -150,23 +149,23 @@
     </table>
     <hr/>
     <table class="total">
-        <tr>
-            <th class="empty" style="width: 65%;"></th>
-            <th style="width: 15%;text-align:center">TUBTOTAL MO</th>
-            <th style="width: 5%;text-align:center">€</th>
+        <tr style="text-align:center">
+            <th class="empty" style="width: 70%;"></th>
+            <th style="width: 10%;text-align:center;background-color: #87b8e8; color: black">SUBTOTAL MO</th>
+            <th style="width: 5%;text-align:center;background-color: #b7d1ea;">euros</th>
             <th style="width: 15%;text-align:center">[SUBTOTALWORK]</th>
         </tr>
-        <tr>
+        <tr style="text-align:center">
             <th></th>
-            <th style="text-align:center">TVA</th>
-            <th style="text-align:center">%</th>
-            <th style="text-align:center">19.50</th>
+            <th style="background-color: #87b8e8; color: black">TVA</th>
+            <th style="text-align:center;background-color: #b7d1ea;">%</th>
+            <th STYLE="text-align:center">19.50</th>
         </tr>
     </table>
     <table class="filling">
         <tr style="background-color: #0066cc; color: white">
             <th style="width: 20%;">PIECE</th>
-            <th style="width: 50%;">NOM DE LA PIECE</th>
+            <th style="width: 65%;">NOM DE LA PIECE</th>
             <th style="width: 15%;text-align:center;">MONTANT</th>
         </tr>
         <tr>
@@ -188,45 +187,56 @@
     <hr/>
     <table class="total">
         <tr>
-            <th class="empty" style="width: 65%;"></th>
-            <th style="width: 15%;text-align:center;">SUBTOTAL</th>
-            <th style="width: 5%;text-align:center;">€</th>
+            <th class="empty" style="width: 70%;"></th>
+            <th style="width: 10%;text-align:center;background-color: #87b8e8; color: black">SUBTOTAL P</th>
+            <th style="width: 5%;text-align:center;background-color: #b7d1ea;">euros</th>
             <th style="width: 15%;text-align:center;">[SUBTOTALPIECE]</th>
         </tr>
         <tr>
             <th></th>
-            <th style="text-align:center">TVA</th>
-            <th style="text-align:center">%</th>
+            <th style="text-align:center;background-color: #87b8e8; color: black">TVA</th>
+            <th style="text-align:center;background-color: #b7d1ea;">%</th>
             <th style="text-align:center">[TVA]</th>
         </tr>
     </table>
+    <hr/>
     <table class="total">
         <tr>
-            <th class="empty" style="width: 65%; background-color: #0066cc; color: white">COMMENTS</th>
-            <th style="width: 15%;text-align:center;">TOTAL MO</th>
-            <th style="width: 5%;text-align:center;">€</th>
+            <th class="empty" style="width: 70%; background-color: #0066cc; color: white">COMMENTS</th>
+            <th style="width: 10%;text-align:center;background-color: #87b8e8; color: black">TOTAL MO</th>
+            <th style="width: 5%;text-align:center;background-color: #b7d1ea;">euros</th>
             <th style="width: 15%;text-align:center;">[SUBTOTALWORK]</th>
         </tr>
         <tr>
-            <th rowspan="4">[COMMENTS]</th>
-            <th style="text-align:center">TOTAL P</th>
-            <th style="text-align:center">%</th>
+            <th rowspan="6">[COMMENTS]</th>
+            <th style="text-align:center;background-color: #87b8e8; color: black">TOTAL P</th>
+            <th style="text-align:center;background-color: #b7d1ea;">%</th>
             <th style="text-align:center">[SUBTOTALPIECE]</th>
         </tr>
         <tr>
-            <th style="text-align:center">TOTAL</th>
-            <th style="text-align:center">€</th>
+            <th style="text-align:center;background-color: #87b8e8; color: black">TOTAL</th>
+            <th style="text-align:center;background-color: #b7d1ea;">euros</th>
             <th style="text-align:center">[TOTALBEFOREDISCOUNT]</th>
         </tr>
         <tr>
-            <th style="text-align:center">REMISE</th>
-            <th style="text-align:center">%</th>
+            <th style="text-align:center;background-color: #87b8e8; color: black">REMISE</th>
+            <th style="text-align:center;background-color: #b7d1ea;">%</th>
             <th style="text-align:center">[DISCOUNT]</th>
         </tr>
         <tr>
-            <th style="text-align:center">TOTAL</th>
-            <th style="text-align:center">€</th>
-            <th style="text-align:center">[TOTAL]</th>
+            <th style="text-align:center;background-color: #87b8e8; color: black">TOTAL</th>
+            <th style="text-align:center;background-color: #b7d1ea;">euros</th>
+            <th style="text-align:center;background-color: #a5243d; color: white">[TOTAL]</th>
+        </tr>
+        <tr>
+            <th style="text-align:center; color: black"></th>
+            <th style="text-align:center;">PAYMENT TYPE</th>
+            <th style="text-align:center; ">[PAYMENT_TYPE]</th>
+        </tr>
+        <tr>
+            <th style="text-align:center; color: black"></th>
+            <th style="text-align:center;">STATUS</th>
+            <th style="text-align:center;">[STATUS]</th>
         </tr>
     </table>
     <table class="contact" style="background-color: #0066cc; color: white">
@@ -248,3 +258,4 @@
 </div>
 </body>
 </html>
+© 2020 Autodoc, Inc.
