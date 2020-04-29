@@ -77,6 +77,7 @@ public class Car {
     }
 
     public void setColor(String color) {
+        if (color==null)color="";
         this.color = color.toUpperCase();
     }
 

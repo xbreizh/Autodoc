@@ -52,8 +52,8 @@ class CarManagerImplTest {
         manager = CarManagerImpl.builder().carModelDao(carModelDao).clientDao(clientDao).dao(dao).build();
         client = Client.builder().firstName("jean").lastName("rocamor").phoneNumber("abc1233").build();
         carModel = CarModel.builder().id(id).name("niamo").build();
-        obj = Car.builder().id(id).registration(registration).client(client).carModel(carModel).bills(bills).build();
-        dto = CarDTO.builder().id(id).registration(registration).clientId(clienttId).carModelId(carModelId).build();
+        obj = Car.builder().id(id).registration(registration).client(client).carModel(carModel).color("blue").mileage(784512).bills(bills).build();
+        dto = CarDTO.builder().id(id).registration(registration).clientId(clienttId).carModelId(carModelId).color("red").mileage(123451).build();
     }
 
 
