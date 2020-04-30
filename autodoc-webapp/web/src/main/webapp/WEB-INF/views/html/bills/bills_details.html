@@ -24,7 +24,10 @@
     <h4><a target="_blank" th:href="@{'/bills/pdf/'+${obj.id}}">
         <button class="alert-primary">Save as PDF</button>
     </a></h4>
-
+    <span th:text="${testDate}">testDate</span><br>
+    <span th:text="${obj.dateReparation}">dateReparation</span><br>
+    <span th:text="${form.dateReparation}">dateReparation</span><br>
+    <span th:text="${#dates.format(obj.dateReparation, 'dd-MM-yyyy HH:mm')}">dateReparation</span><br>
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
@@ -39,7 +42,7 @@
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td th:text="${#dates.format(obj.dateReparation, 'dd-MMM-yyyy hh:mm')}">Date></td>
+                    <td th:text="${#dates.format(obj.dateReparation, 'dd-MM-yyyy HH:mm:ss')}">Date></td>
 
                 </tr>
                 <tr>
@@ -249,6 +252,7 @@
 
         });
     </script>
+
     <script th:inline="javascript">
         function getPieces() {
 
@@ -419,21 +423,6 @@
             y.selectedIndex = taskId - 1;
         }
 
-        function saveAsPdf() {
-            alert('saving as pdf');
-            var specialElementHandlers = {
-                '#editor': function (element, renderer) {
-                    return true;
-                }
-            };
-            $('#cmd').click(function () {
-                var doc = new jsPDF();
-                doc.fromHTML($('#target').html(), 15, 15, {
-                    'width': 170, 'elementHandlers': specialElementHandlers
-                });
-                doc.save('sample-file.pdf');
-            });
-        }
 
 
     </script>

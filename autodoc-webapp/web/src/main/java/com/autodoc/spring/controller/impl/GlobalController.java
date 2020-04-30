@@ -55,6 +55,7 @@ public class GlobalController<T, D, F> {
         mv.addObject("form", obj);
         mv.addObject("showForm", 1);
         mv.addObject("obj", obj);
+        LOGGER.info("obj: " + obj);
         return mv;
     }
 

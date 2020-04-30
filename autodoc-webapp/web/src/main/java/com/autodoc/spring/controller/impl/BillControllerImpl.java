@@ -14,13 +14,13 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -109,6 +109,7 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
+        LOGGER.info("getting bill by id: " + id);
         String token = authenticationHelper.getConnectedToken();
         ModelAndView mv = getById(id);
         addingCalculation(mv);
@@ -122,6 +123,9 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         Bill bill = (Bill) billManager.getById(token, id);
         if (bill.getStatus() == null) bill.setStatus("PENDING_PAYMENT");
         getPricePerHour(mv);
+        mv.addObject("testDate", new Date());
+        LOGGER.info("bill: " + bill);
+
         return mv;
     }
 
@@ -249,15 +253,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         LOGGER.info("trying to create bill " + form);
         String token = authenticationHelper.getConnectedToken();
         if (form.getDateReparation() == null) LOGGER.error("date shouldn't be null");
-        if (form.getPieces() == null && form.getTasks() == null) {
-            String error = "there should be at least one piece or one task";
-            bindingResult.addError(new ObjectError("pieces", error));
-            bindingResult.addError(new ObjectError("tasks", error));
-        }
+
+
+        LOGGER.info("date before: " + form.getDateReparation());
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
 
-        // List<Task> taskList = taskManager.getTemplates(token);
-        // LOGGER.info("tasks: " + taskList);
         addTasks(token, mv);
         addPieces(token, mv);
         if (form == null) form = new BillForm();

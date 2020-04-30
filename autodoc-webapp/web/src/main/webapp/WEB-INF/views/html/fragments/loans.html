@@ -26,8 +26,8 @@
                     <td data-th-text="${loan.plannedEndDate} ? ${#dates.format(loan.plannedEndDate, 'dd-MM-yyyy')}:'N/A'">
                         plannedEndDate
                     </td>
-                    <td data-th-text="${loan.book.isbn}">ISBN</td>
-                    <td data-th-text="${loan.book.title}">title</td>
+                    <td data-th-text="${loan.event.isbn}">ISBN</td>
+                    <td data-th-text="${loan.event.title}">title</td>
                     <td data-th-text="${loan.status}">status</td>
                     <td>
                         <div th:unless="${loan.startDate}">

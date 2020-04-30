@@ -20,7 +20,7 @@ public class BillForm {
     private static final double VAT = 00.195;
     private int id;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+    @DateTimeFormat(pattern = "dd/MM/yyyy h:mm a")
     @NotNull
     private Date dateReparation;
 

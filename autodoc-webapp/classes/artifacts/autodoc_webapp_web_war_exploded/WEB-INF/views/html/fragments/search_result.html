@@ -11,12 +11,12 @@
             </tr>
             </thead>
             <tbody>
-            <th:block data-th-each="book : ${books}">
-                <tr th:style="${book.nbAvailable == 0} ? 'color:red' : 'color:green'">
-                    <td class="col-2" data-th-text="${book.isbn}"></td>
-                    <td class="col-3" data-th-text="${book.title}"></td>
-                    <td class="col-4" data-th-text="${book.author}"></td>
-                    <td class="col-1" data-th-text="${book.nbAvailable}"></td>
+            <th:block data-th-each="event : ${events}">
+                <tr th:style="${event.nbAvailable == 0} ? 'color:red' : 'color:green'">
+                    <td class="col-2" data-th-text="${event.isbn}"></td>
+                    <td class="col-3" data-th-text="${event.title}"></td>
+                    <td class="col-4" data-th-text="${event.author}"></td>
+                    <td class="col-1" data-th-text="${event.nbAvailable}"></td>
 
                     <td class="col-2" th:replace="fragments/reserve :: reserve"></td>
 

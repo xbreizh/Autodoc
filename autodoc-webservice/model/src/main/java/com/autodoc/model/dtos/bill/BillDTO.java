@@ -41,7 +41,7 @@ public class BillDTO {
     private int employeeId;
 
 
-    @Min(value = 1, message = "total cannot be null")
+   // @Min(value = 1, message = "total cannot be null")
     private double total;
     @Min(value = 0, message = "invalid value for discount")
     @Max(value = 100, message = "discount max is 100")
