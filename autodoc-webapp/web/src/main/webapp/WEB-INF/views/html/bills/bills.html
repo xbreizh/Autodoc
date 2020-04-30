@@ -45,7 +45,7 @@
                     </td>
                     <td th:text="${bill.car.registration}">registration</td>
                     <td th:text="${bill.status}">status</td>
-                    <td th:text="${#dates.format(bill.dateReparation, 'dd-MM-yyyy hh:mm')}">dateReparation</td>
+                    <td th:text="${bill.dateReparation}">dateReparation</td>
                     <td th:text="${bill.tasks.size()}">tasks</td>
                     <td th:text="${bill.pieces.size()}">pieces</td>
                     <td th:text="${bill.total}">total</td>

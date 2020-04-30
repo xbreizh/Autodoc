@@ -17,7 +17,6 @@ import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +32,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private final EmployeeManager employeeManager;
     private final PieceManager pieceManager;
 
-    protected SimpleDateFormat getDateFormat() {
-        return new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    }
+
 
     GlobalService getService() {
         return service;
@@ -51,7 +48,8 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         LOGGER.info("id: " + id);
         bill.setId(id);
         LOGGER.info("old date: " + dto.getDateReparation());
-        // bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
+        bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()).toString());
+        // checkIfDateIsValid(bill.getDateReparation());
         bill.setDateReparation(dto.getDateReparation());
         LOGGER.info("new date: " + bill.getDateReparation());
         Car car = carManager.getByRegistration(token, dto.getRegistration());
@@ -125,6 +123,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
 
 
         //String mdy = getDateFormat().format(form.getDateReparation());
+        checkIfDateIsValid(form.getDateReparation());
         dto.setDateReparation(form.getDateReparation());
         LOGGER.info("date passed: " + dto.getDateReparation());
         dto.setDiscount(Double.valueOf(form.getDiscount()));
@@ -189,4 +188,6 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     public List<String> getPaymentType(String token) {
         return enumService.getAll(token, "paymentTypes");
     }
+
+
 }
