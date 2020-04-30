@@ -25,9 +25,7 @@
         <button class="alert-primary">Save as PDF</button>
     </a></h4>
     <span th:text="${testDate}">testDate</span><br>
-    <span th:text="${obj.dateReparation}">dateReparation</span><br>
-    <span th:text="${form.dateReparation}">dateReparation</span><br>
-    <span th:text="${#dates.format(obj.dateReparation, 'dd-MM-yyyy HH:mm')}">dateReparation</span><br>
+
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
@@ -42,7 +40,7 @@
                 </tr>
                 <tr>
                     <td>Date</td>
-                    <td th:text="${#dates.format(obj.dateReparation, 'dd-MM-yyyy HH:mm:ss')}">Date></td>
+                    <td th:text="${obj.dateReparation}">Date></td>
 
                 </tr>
                 <tr>
@@ -241,17 +239,7 @@
 
 
     </script>
-    <script>
-        //var today = new Date();
-        $("#datetimepicker1").datetimepicker({
-            format: 'DD/MM/YYYY hh:mm',
-            autoClose: true,
-            todayBtn: true,
-            minuteStep: 10
 
-
-        });
-    </script>
 
     <script th:inline="javascript">
         function getPieces() {

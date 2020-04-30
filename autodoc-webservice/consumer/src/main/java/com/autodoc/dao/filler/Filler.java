@@ -68,7 +68,7 @@ public class Filler {
         }
     }
 
-    void fillBills() {
+    void fillBills() throws ParseException {
         LOGGER.debug("filling bills");
         Car car = (Car) carDao.getAll().get(1);
         Car car2 = (Car) carDao.getAll().get(1);
@@ -76,10 +76,17 @@ public class Filler {
         Client client = (Client) clientDao.getAll().get(0);
         List<Task> tasks = taskDao.getAll();
         List<Piece> pieces = pieceDao.getAll();
-        Bill bill1 = Bill.builder().dateReparation(new Date()).status(Status.PENDING_PAYMENT).car(car).employee(employee).client(client).tasks(tasks).total(125.44).vat(19).discount(20).pieces(pieces).comments("plouf").build();
-        Bill bill2 = Bill.builder().dateReparation(new Date()).status(Status.PENDING_PIECES).car(car2).employee(employee).client(client).tasks(tasks).total(84.44).vat(19).discount(0).pieces(pieces).build();
-        Bill bill3 = Bill.builder().dateReparation(new Date()).status(Status.CANCELLED).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
-        Bill bill4 = Bill.builder().dateReparation(new Date()).status(Status.COMPLETED).paymentType(PaymentType.CASH).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+        //String dateString = format.format( new Date()   );
+        Date   date       = format.parse ( "05-12-1983 18:20" );
+        Date   date1       = format.parse ( "17-02-1983 05:00" );
+        Date   date2      = format.parse ( "14-07-2020 12:10" );
+        Date   date3      = format.parse ( "24-12-2019 03:33" );
+        Bill bill1 = Bill.builder().dateReparation(date).status(Status.PENDING_PAYMENT).car(car).employee(employee).client(client).tasks(tasks).total(125.44).vat(19).discount(20).pieces(pieces).comments("plouf").build();
+        Bill bill2 = Bill.builder().dateReparation(date1).status(Status.PENDING_PIECES).car(car2).employee(employee).client(client).tasks(tasks).total(84.44).vat(19).discount(0).pieces(pieces).build();
+        Bill bill3 = Bill.builder().dateReparation(date2).status(Status.CANCELLED).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
+        Bill bill4 = Bill.builder().dateReparation(date3).status(Status.COMPLETED).paymentType(PaymentType.CASH).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
         billDao.create(bill1);
         billDao.create(bill2);
         billDao.create(bill3);

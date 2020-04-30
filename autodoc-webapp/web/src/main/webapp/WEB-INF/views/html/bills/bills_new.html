@@ -29,15 +29,23 @@
                required="required" th:value="${form.employeeLogin}" type="hidden"/>
         <input class="form-control" id="carRegistration" name="carRegistration"
                required="required" th:value="${form.carRegistration}" type="hidden"/>
+        <!-- <div class="form-group">
+             <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                 <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
+                        type="text"/>
+                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                      id="dateReparation" name="dateReparation">
+                     <div class="input-group-text"><em class="fa fa-calendar"></em></div>
+                 </div>
+             </div>
+         </div>-->
+
+
         <div class="form-group">
-            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
-                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
-                       type="text"/>
-                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                     id="dateReparation" name="dateReparation">
-                    <div class="input-group-text"><em class="fa fa-calendar"></em></div>
-                </div>
-            </div>
+            <label for="dateReparation">DateReparation(dd-MM-yyyy HH:mm)</label>
+            <input class="form-control" id="dateReparation" name="dateReparation" placeholder="Enter DateReparation"
+                   required="required" th:value="${form.dateReparation}" type="text"/>
+            <div th:errors="*{dateReparation}" th:if="${#fields.hasErrors('dateReparation')}">DateReparation Error</div>
         </div>
         <div class="form-group">
             <label for="discount">Discount( % )</label>
@@ -214,17 +222,17 @@
             document.getElementById('myForm').innerHTML = '';
         }*/
 
+        /*
+                //var today = new Date();
+                $("#datetimepicker1").datetimepicker({
+                    format: 'DD/MM/YYYY hh:mm',
+                    autoClose: true,
+                    todayBtn: true,
+                    defaultDate: moment(),
+                    minuteStep: 10
 
-        //var today = new Date();
-        $("#datetimepicker1").datetimepicker({
-            format: 'DD/MM/YYYY hh:mm',
-            autoClose: true,
-            todayBtn: true,
-            defaultDate: moment(),
-            minuteStep: 10
 
-
-        });
+                });*/
     </script>
 
 </div>

@@ -43,16 +43,22 @@
                         th:value="${employee.login}"/>
             </select>
         </div>
+        <!--  <div class="form-group">
+              <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                  <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
+                         th:value="${form.dateReparation}"
+                         type="text"/>
+                  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                       id="dateReparation" name="dateReparation" th:value="${form.dateReparation}">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>
+          </div>-->
         <div class="form-group">
-            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
-                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
-                       th:value="${form.dateReparation}"
-                       type="text"/>
-                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                     id="dateReparation" name="dateReparation" th:value="${form.dateReparation}">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
-            </div>
+            <label for="dateReparation">DateReparation(dd-MM-yyyy HH:mm)</label>
+            <input class="form-control" id="dateReparation" name="dateReparation" placeholder="Enter DateReparation"
+                   required="required" th:value="${form.dateReparation}" type="text"/>
+            <div th:errors="*{dateReparation}" th:if="${#fields.hasErrors('dateReparation')}">DateReparation Error</div>
         </div>
 
 
@@ -103,10 +109,5 @@
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>
-<script>
-    $('#datetimepicker1').datetimepicker({
-        format: 'YYYY-MM-DD HH:mm:ss'
-    });
-</script>
 
 

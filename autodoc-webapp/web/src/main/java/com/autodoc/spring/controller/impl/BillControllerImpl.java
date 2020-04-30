@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,6 +110,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
         LOGGER.info("getting bill by id: " + id);
         String token = authenticationHelper.getConnectedToken();
+
+
         ModelAndView mv = getById(id);
         addingCalculation(mv);
         addCars(token, mv);
@@ -123,7 +124,6 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         Bill bill = (Bill) billManager.getById(token, id);
         if (bill.getStatus() == null) bill.setStatus("PENDING_PAYMENT");
         getPricePerHour(mv);
-        mv.addObject("testDate", new Date());
         LOGGER.info("bill: " + bill);
 
         return mv;

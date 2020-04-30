@@ -51,7 +51,7 @@ public class Bill {
     @Column(name = "ID")
     private int id;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date dateReparation;
 
     @NotNull

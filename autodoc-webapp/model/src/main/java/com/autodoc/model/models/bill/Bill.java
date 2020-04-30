@@ -12,7 +12,6 @@ import lombok.Setter;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 
@@ -22,7 +21,7 @@ public class Bill {
 
 
     private int id;
-    private Date dateReparation;
+    private String dateReparation;
     @NotNull
     private String status;
     private String paymentType;
@@ -48,7 +47,7 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(@NotNull Date dateReparation, @NotNull String status, @NotNull Car car, @NotNull Employee employee, @NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
+    public Bill(@NotNull String dateReparation, @NotNull String status, @NotNull Car car, @NotNull Employee employee, @NotNull Client client, @NotNull List<Task> tasks, @NotNull double total, @NotNull double vat, @NotNull double discount) {
         this.dateReparation = dateReparation;
         this.status = status;
         this.car = car;
