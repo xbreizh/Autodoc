@@ -49,8 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "classpath:/static/img/",
                         "classpath:/static/css/",
                         "classpath:/static/js/",
-                        "classpath:/bills/html",
-                        "classpath:/bills/pdf");
+                        "classpath:/static/fonts");
     }
 
     /*
