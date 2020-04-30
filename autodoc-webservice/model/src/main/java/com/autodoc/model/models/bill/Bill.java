@@ -76,7 +76,7 @@ public class Bill {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employee;
 
-    @NotNull
+   // @NotNull
     @ManyToMany
     private List<Task> tasks;
 

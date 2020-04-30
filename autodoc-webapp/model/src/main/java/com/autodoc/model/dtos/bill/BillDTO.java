@@ -22,7 +22,7 @@ public class BillDTO {
 
     private String paymentType;
 
-    @NotNull
+   // @NotNull
     private List<Integer> tasks;
 
     private List<Integer> pieces;

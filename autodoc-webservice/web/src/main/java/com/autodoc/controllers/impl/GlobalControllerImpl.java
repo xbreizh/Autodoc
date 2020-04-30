@@ -57,7 +57,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @PostMapping(value = "",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> add(@RequestBody @Valid D obj) {
-        System.out.println("trying to add: " + obj);
+        LOGGER.info("trying to add: " + obj);
         try {
             IGenericManager<T, D> manager = getManager();
             getClassName(obj);

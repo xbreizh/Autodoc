@@ -26,8 +26,6 @@
     </a></h4>
 
 
-
-
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="bills/bills_form :: form"></div>
@@ -119,327 +117,328 @@
                     </tr>
                     </tbody>
                 </table>
-                <div th:if="${not #lists.isEmpty(obj.pieces)}">
-                    <h2>Pieces</h2>
+            </div>
+            <div th:if="${not #lists.isEmpty(obj.pieces)}">
+                <h2>Pieces</h2>
 
 
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th th:text="Name">PieceType</th>
-                            <th th:text="Description">Name</th>
-                            <th th:text="Price">Price</th>
-                            <th th:text="Total">Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="data-link" th:each="piece : ${obj.pieces}"
-                            th:onclick="'javascript:rowClicked(\'' +@{'/pieces/' + ${piece.id}}+ '\');'">
-                            <td th:text="${piece.pieceType.name}">category</td>
-                            <td th:text="${piece.name}">name</td>
-                            <td th:text="${piece.sellPrice}">Price</td>
-                            <td th:text="${piece.sellPrice}">Total</td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th th:text="${#numbers.formatDecimal(totalPieces == null ? 0 : totalPieces, 0, 2)}">Total
-                                Pieces
-                            </th>
-                        </tr>
-
-                        </tbody>
-                    </table>
-
-                </div>
-
-                <h2>Total</h2>
                 <table class="table table-striped">
+                    <thead>
                     <tr>
-                        <th>Total tasks</th>
-                        <td th:text="${totalTasks}">category</td>
-                    </tr>
-                    <tr>
-                        <th>Total pieces</th>
-                        <td th:text="${#numbers.formatDecimal(totalPieces == null ? 0 : totalPieces, 0, 2)}">
-                            totalPieces
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Total brut</th>
-                        <th th:text="${#numbers.formatDecimal(grandTotalBeforeTaxAndDiscount == null ? 0 : grandTotalBeforeTaxAndDiscount, 0, 2)}">
-                            Total_Brut
-                        </th>
-                    </tr>
-                    <tr>
-                        <th th:text="Discount">Discount ( % )</th>
-                        <td th:text="${obj.discount}">Discount</td>
-                    </tr>
-                    <tr>
-                        <th th:text="VAT">VAT ( % )</th>
-                        <td th:text="${vat}">vat</td>
-                    </tr>
-                    <tr style="background-color: #2196F3">
+                        <th th:text="Name">PieceType</th>
+                        <th th:text="Description">Name</th>
+                        <th th:text="Price">Price</th>
                         <th th:text="Total">Total</th>
-                        <th th:text="${#numbers.formatDecimal(grandTotal == null ? 0 : grandTotal, 0, 2)}">Total
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="data-link" th:each="piece : ${obj.pieces}"
+                        th:onclick="'javascript:rowClicked(\'' +@{'/pieces/' + ${piece.id}}+ '\');'">
+                        <td th:text="${piece.pieceType.name}">category</td>
+                        <td th:text="${piece.name}">name</td>
+                        <td th:text="${piece.sellPrice}">Price</td>
+                        <td th:text="${piece.sellPrice}">Total</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th th:text="${#numbers.formatDecimal(totalPieces == null ? 0 : totalPieces, 0, 2)}">Total
+                            Pieces
                         </th>
                     </tr>
+
+                    </tbody>
                 </table>
 
-
             </div>
+
+            <h2>Total</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Total tasks</th>
+                    <td th:text="${totalTasks}">category</td>
+                </tr>
+                <tr>
+                    <th>Total pieces</th>
+                    <td th:text="${#numbers.formatDecimal(totalPieces == null ? 0 : totalPieces, 0, 2)}">
+                        totalPieces
+                    </td>
+                </tr>
+                <tr>
+                    <th>Total brut</th>
+                    <th th:text="${#numbers.formatDecimal(grandTotalBeforeTaxAndDiscount == null ? 0 : grandTotalBeforeTaxAndDiscount, 0, 2)}">
+                        Total_Brut
+                    </th>
+                </tr>
+                <tr>
+                    <th th:text="Discount">Discount ( % )</th>
+                    <td th:text="${obj.discount}">Discount</td>
+                </tr>
+                <tr>
+                    <th th:text="VAT">VAT ( % )</th>
+                    <td th:text="${vat}">vat</td>
+                </tr>
+                <tr style="background-color: #2196F3">
+                    <th th:text="Total">Total</th>
+                    <th th:text="${#numbers.formatDecimal(grandTotal == null ? 0 : grandTotal, 0, 2)}">Total
+                    </th>
+                </tr>
+            </table>
+
+
         </div>
-
-        <script>
-
-            window.onload = checkToggle;
-            let start = 0;
-
-            function checkToggle() {
-
-                let showFormVar = parseInt("[[${showForm}]]");
-                let showForm = start + showFormVar;
-                if (showForm === 0) {
-                    toggle_displays();
-
-                }
-                start++;
-                loadLists();
-            }
-
-
-            function toggle_displays() {
-                var divs = document.getElementsByTagName("div");
-
-                for (var i = divs.length; i;) {
-                    var div = divs[--i];
-
-                    if (div.id.indexOf("fo") > -1) {
-
-                        if (div.style.display === 'block') {
-                            div.style.display = 'none';
-                        } else {
-                            div.style.display = 'block';
-                        }
-                    }
-                    if (div.id.indexOf("mic") > -1) {
-
-                        if (div.style.display === 'block') {
-                            div.style.display = 'none';
-                        } else {
-                            div.style.display = 'block';
-                        }
-                    }
-
-                }
-
-
-            }
-
-
-        </script>
-        <script>
-            //var today = new Date();
-            $("#datetimepicker1").datetimepicker({
-                format: 'DD/MM/YYYY hh:mm',
-                autoClose: true,
-                todayBtn: true,
-                minuteStep: 10
-
-
-            });
-        </script>
-        <script th:inline="javascript">
-            function getPieces() {
-
-
-                /*<![CDATA[*/
-
-                let pieceList = /*[[${pieceList}]]*/ null;
-
-                /*]]>*/
-                return pieceList;
-            }
-
-            function getBillPieces() {
-
-
-                /*<![CDATA[*/
-
-                let billPieces = /*[[${obj.pieces}]]*/ null;
-
-                /*]]>*/
-                return billPieces;
-            }
-
-            function getTasks() {
-
-
-                /*<![CDATA[*/
-
-                let taskList = /*[[${taskList}]]*/ null;
-
-                /*]]>*/
-                return taskList;
-            }
-
-            function getBillTasks() {
-
-
-                /*<![CDATA[*/
-
-                let billTasks = /*[[${obj.tasks}]]*/ null;
-
-                /*]]>*/
-                return billTasks;
-            }
-        </script>
-
-
-        <script>
-            let i = 0; /* Set Global Variable i */
-            function increment() {
-                i += 1; /* Function for automatic increment of field's "Name" attribute. */
-            }
-
-
-            function loadLists() {
-                let taskList = getTasks();
-                let pieceList = getPieces();
-
-                let billTasks = getBillTasks();
-                let billPieces = getBillPieces();
-
-                for (let i = 0; i < billPieces.length; i++) {
-                    pieceFunction(pieceList, billPieces[i].id);
-                }
-                for (let j = 0; j < billTasks.length; j++) {
-                    taskFunction(taskList, billTasks[j].name);
-                }
-
-            }
-
-            /*
-            ---------------------------------------------
-
-            Function to Remove Form Elements Dynamically
-            ---------------------------------------------
-
-            */
-            function removeElement(parentDiv, childDiv) {
-                if (childDiv == parentDiv) {
-                    alert("The parent div cannot be removed.");
-                } else if (document.getElementById(childDiv)) {
-                    let child = document.getElementById(childDiv);
-                    let parent = document.getElementById(parentDiv);
-                    parent.removeChild(child);
-                } else {
-                    alert("Child div has already been removed or does not exist.");
-                    return false;
-                }
-            }
-
-
-            /*
-            ----------------------------------------------------------------------------
-
-            Functions that will be called upon, when user click on the Piece text field.
-
-            ----------------------------------------------------------------------------
-            */
-            function pieceFunction(pieces, pieceId) {
-                //let pieces = getPieces();
-
-
-                let r = document.createElement('div');
-                let y = document.createElement("SELECT");
-                r.className += "form-group";
-                y.className += "form-control";
-                r.setAttribute("id", "pieceList");
-
-
-                for (let k = 0; k < pieces.length; k++) {
-                    let z = document.createElement("option");
-                    z.setAttribute("value", pieces[k].id);
-                    let t = document.createTextNode(pieces[k].name);
-                    z.appendChild(t);
-                    y.appendChild(z);
-                }
-
-
-                let g = document.createElement("button");
-                g.innerHTML = "X";
-                increment();
-                y.setAttribute("id", "pieceList");
-                y.setAttribute("name", "pieces.list[" + i + "]");
-                r.appendChild(y);
-                g.setAttribute("onclick", "removeElement('myPieces','id_" + i + "')");
-                r.appendChild(g);
-                r.setAttribute("id", "id_" + i);
-                document.getElementById("myPieces").appendChild(r);
-                y.selectedIndex = pieceId - 1;
-            }
-
-            /*
-                    Functions that will be called upon, when user click on the Piece text field.
-
-                    ----------------------------------------------------------------------------
-                    */
-            function taskFunction(tasks, taskName) {
-                let r = document.createElement('div');
-                let y = document.createElement("SELECT");
-                r.className += "form-group";
-                y.className += "form-control";
-                r.setAttribute("id", "taskList");
-
-                let taskId;
-                for (let k = 0; k < tasks.length; k++) {
-                    let z = document.createElement("option");
-                    let currentTaskId = tasks[k].id;
-                    let currentTaskName = tasks[k].name;
-
-                    z.setAttribute("value", currentTaskId);
-                    let t = document.createTextNode(currentTaskName);
-                    if (currentTaskName == taskName) taskId = currentTaskId;
-                    z.appendChild(t);
-                    y.appendChild(z);
-                }
-
-
-                let g = document.createElement("button");
-                g.innerHTML = "X";
-                increment();
-                y.setAttribute("id", "taskList");
-                y.setAttribute("name", "tasks.list[" + i + "]");
-                r.appendChild(y);
-                g.setAttribute("onclick", "removeElement('myTasks','id_" + i + "')");
-                r.appendChild(g);
-                r.setAttribute("id", "id_" + i);
-                document.getElementById("myTasks").appendChild(r);
-                y.selectedIndex = taskId - 1;
-            }
-
-            function saveAsPdf () {
-                alert('saving as pdf');
-                var specialElementHandlers = {
-                    '#editor': function (element,renderer) {
-                        return true;
-                    }
-                };
-                $('#cmd').click(function () {
-                    var doc = new jsPDF();
-                    doc.fromHTML($('#target').html(), 15, 15, {
-                        'width': 170,'elementHandlers': specialElementHandlers
-                    });
-                    doc.save('sample-file.pdf');
-                });
-            }
-
-
-        </script>
-
     </div>
+
+    <script>
+
+        window.onload = checkToggle;
+        let start = 0;
+
+        function checkToggle() {
+
+            let showFormVar = parseInt("[[${showForm}]]");
+            let showForm = start + showFormVar;
+            if (showForm === 0) {
+                toggle_displays();
+
+            }
+            start++;
+            loadLists();
+        }
+
+
+        function toggle_displays() {
+            var divs = document.getElementsByTagName("div");
+
+            for (var i = divs.length; i;) {
+                var div = divs[--i];
+
+                if (div.id.indexOf("fo") > -1) {
+
+                    if (div.style.display === 'block') {
+                        div.style.display = 'none';
+                    } else {
+                        div.style.display = 'block';
+                    }
+                }
+                if (div.id.indexOf("mic") > -1) {
+
+                    if (div.style.display === 'block') {
+                        div.style.display = 'none';
+                    } else {
+                        div.style.display = 'block';
+                    }
+                }
+
+            }
+
+
+        }
+
+
+    </script>
+    <script>
+        //var today = new Date();
+        $("#datetimepicker1").datetimepicker({
+            format: 'DD/MM/YYYY hh:mm',
+            autoClose: true,
+            todayBtn: true,
+            minuteStep: 10
+
+
+        });
+    </script>
+    <script th:inline="javascript">
+        function getPieces() {
+
+
+            /*<![CDATA[*/
+
+            let pieceList = /*[[${pieceList}]]*/ null;
+
+            /*]]>*/
+            return pieceList;
+        }
+
+        function getBillPieces() {
+
+
+            /*<![CDATA[*/
+
+            let billPieces = /*[[${obj.pieces}]]*/ null;
+
+            /*]]>*/
+            return billPieces;
+        }
+
+        function getTasks() {
+
+
+            /*<![CDATA[*/
+
+            let taskList = /*[[${taskList}]]*/ null;
+
+            /*]]>*/
+            return taskList;
+        }
+
+        function getBillTasks() {
+
+
+            /*<![CDATA[*/
+
+            let billTasks = /*[[${obj.tasks}]]*/ null;
+
+            /*]]>*/
+            return billTasks;
+        }
+    </script>
+
+
+    <script>
+        let i = 0; /* Set Global Variable i */
+        function increment() {
+            i += 1; /* Function for automatic increment of field's "Name" attribute. */
+        }
+
+
+        function loadLists() {
+            let taskList = getTasks();
+            let pieceList = getPieces();
+
+            let billTasks = getBillTasks();
+            let billPieces = getBillPieces();
+
+            for (let i = 0; i < billPieces.length; i++) {
+                pieceFunction(pieceList, billPieces[i].id);
+            }
+            for (let j = 0; j < billTasks.length; j++) {
+                taskFunction(taskList, billTasks[j].name);
+            }
+
+        }
+
+        /*
+        ---------------------------------------------
+
+        Function to Remove Form Elements Dynamically
+        ---------------------------------------------
+
+        */
+        function removeElement(parentDiv, childDiv) {
+            if (childDiv == parentDiv) {
+                alert("The parent div cannot be removed.");
+            } else if (document.getElementById(childDiv)) {
+                let child = document.getElementById(childDiv);
+                let parent = document.getElementById(parentDiv);
+                parent.removeChild(child);
+            } else {
+                alert("Child div has already been removed or does not exist.");
+                return false;
+            }
+        }
+
+
+        /*
+        ----------------------------------------------------------------------------
+
+        Functions that will be called upon, when user click on the Piece text field.
+
+        ----------------------------------------------------------------------------
+        */
+        function pieceFunction(pieces, pieceId) {
+            //let pieces = getPieces();
+
+
+            let r = document.createElement('div');
+            let y = document.createElement("SELECT");
+            r.className += "form-group";
+            y.className += "form-control";
+            r.setAttribute("id", "pieceList");
+
+
+            for (let k = 0; k < pieces.length; k++) {
+                let z = document.createElement("option");
+                z.setAttribute("value", pieces[k].id);
+                let t = document.createTextNode(pieces[k].name);
+                z.appendChild(t);
+                y.appendChild(z);
+            }
+
+
+            let g = document.createElement("button");
+            g.innerHTML = "X";
+            increment();
+            y.setAttribute("id", "pieceList");
+            y.setAttribute("name", "pieces.list[" + i + "]");
+            r.appendChild(y);
+            g.setAttribute("onclick", "removeElement('myPieces','id_" + i + "')");
+            r.appendChild(g);
+            r.setAttribute("id", "id_" + i);
+            document.getElementById("myPieces").appendChild(r);
+            y.selectedIndex = pieceId - 1;
+        }
+
+        /*
+                Functions that will be called upon, when user click on the Piece text field.
+
+                ----------------------------------------------------------------------------
+                */
+        function taskFunction(tasks, taskName) {
+            let r = document.createElement('div');
+            let y = document.createElement("SELECT");
+            r.className += "form-group";
+            y.className += "form-control";
+            r.setAttribute("id", "taskList");
+
+            let taskId;
+            for (let k = 0; k < tasks.length; k++) {
+                let z = document.createElement("option");
+                let currentTaskId = tasks[k].id;
+                let currentTaskName = tasks[k].name;
+
+                z.setAttribute("value", currentTaskId);
+                let t = document.createTextNode(currentTaskName);
+                if (currentTaskName == taskName) taskId = currentTaskId;
+                z.appendChild(t);
+                y.appendChild(z);
+            }
+
+
+            let g = document.createElement("button");
+            g.innerHTML = "X";
+            increment();
+            y.setAttribute("id", "taskList");
+            y.setAttribute("name", "tasks.list[" + i + "]");
+            r.appendChild(y);
+            g.setAttribute("onclick", "removeElement('myTasks','id_" + i + "')");
+            r.appendChild(g);
+            r.setAttribute("id", "id_" + i);
+            document.getElementById("myTasks").appendChild(r);
+            y.selectedIndex = taskId - 1;
+        }
+
+        function saveAsPdf() {
+            alert('saving as pdf');
+            var specialElementHandlers = {
+                '#editor': function (element, renderer) {
+                    return true;
+                }
+            };
+            $('#cmd').click(function () {
+                var doc = new jsPDF();
+                doc.fromHTML($('#target').html(), 15, 15, {
+                    'width': 170, 'elementHandlers': specialElementHandlers
+                });
+                doc.save('sample-file.pdf');
+            });
+        }
+
+
+    </script>
+
+</div>
 </div>
 </body>
 </html>

@@ -32,7 +32,7 @@ public class Bill {
     private Client client;
     @NotNull
     private Employee employee;
-    @NotNull
+   // @NotNull
     private List<Task> tasks;
     private List<Piece> pieces;
     @NotNull

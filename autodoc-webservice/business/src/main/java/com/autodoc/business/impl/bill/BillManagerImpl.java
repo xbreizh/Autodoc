@@ -23,6 +23,7 @@ import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Builder;
 import org.apache.log4j.Logger;
+import org.checkerframework.checker.units.qual.A;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -153,8 +154,11 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setTotal(dto.getTotal());
         bill.setVat(BillDTO.VAT);
         bill.setComments(dto.getComments());
-        bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
-
+        if (dto.getPaymentType()!=null) {
+            bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
+        }else{
+            bill.setPaymentType(PaymentType.CASH);
+        }
         transferDateReparation(dto, bill);
         transferCar(dto, bill);
 
@@ -187,7 +191,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     public void transferCar(BillDTO dto, Bill bill) {
         if (dto.getRegistration() != null && !dto.getRegistration().isEmpty()) {
             Car car = carDao.getCarByRegistration(dto.getRegistration());
-            if (car == null) throw new InvalidDtoException("car cannot be null");
+            if (car == null) throw new InvalidDtoException("Invalid registration");
             bill.setCar(car);
         }
     }
@@ -212,10 +216,13 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             }
             updateStockAndAddPieces(pieceList, bill.getPieces());
             bill.setPieces(pieceList);
+        }else{
+            bill.setPieces(new ArrayList<>());
         }
     }
 
     public void transferTasks(BillDTO dto, Bill bill) {
+        LOGGER.info("transferring tasks");
         if (dto.getTasks() != null) {
             List<Task> taskList = new ArrayList<>();
             for (Integer i : dto.getTasks()) {
@@ -224,6 +231,8 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 taskList.add(task);
             }
             bill.setTasks(taskList);
+        }else{
+            bill.setTasks(new ArrayList<>());
         }
     }
 

@@ -25,10 +25,10 @@ public class BillDTO {
 
     private String paymentType;
 
-    @NotNull
+    //@NotNull
     private List<Integer> tasks;
 
-    @NotNull
+   // @NotNull
     private List<Integer> pieces;
 
     @NotNull(message = "car Registration cannot be null")
