@@ -118,10 +118,14 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public Bill transferUpdate(Object obj) {
+
         BillDTO dto = (BillDTO) obj;
         LOGGER.info("object received: " + dto);
         if (dto.getId() == 0) throw new InvalidDtoException("no id provided");
         Bill bill = (Bill) dao.getById(dto.getId());
+        if(bill.getStatus().equals(Status.COMPLETED)){
+            throw new InvalidDtoException("A bill with Completed status cannot be updated.");
+        }
         bill.setDiscount(dto.getDiscount());
         if (dto.getStatus() != null) bill.setStatus(Status.valueOf(dto.getStatus()));
         if (dto.getTotal() != 0) bill.setTotal(dto.getTotal());
