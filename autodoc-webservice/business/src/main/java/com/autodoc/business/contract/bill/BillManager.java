@@ -11,7 +11,7 @@ import java.util.List;
 /*@Service*/
 public interface BillManager extends IGenericManager {
 
-    void updateStockAndAddPieces(List<Piece> pieces, List<Piece> pieceFromDb);
+    void updateStockAndAddOrRemovePiecesFromStock(List<Piece> pieces, List<Piece> pieceFromDb);
 
     SimpleDateFormat getDateFormat();
 

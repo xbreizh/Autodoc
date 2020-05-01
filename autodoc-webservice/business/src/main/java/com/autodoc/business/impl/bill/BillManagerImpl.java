@@ -23,7 +23,6 @@ import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Builder;
 import org.apache.log4j.Logger;
-import org.checkerframework.checker.units.qual.A;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -145,7 +145,6 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
 
     @Override
     public Bill dtoToEntity(Object entity) {
-        //resetException();
         BillDTO dto = (BillDTO) entity;
         Bill bill = new Bill();
         bill.setId(dto.getId());
@@ -154,9 +153,9 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setTotal(dto.getTotal());
         bill.setVat(BillDTO.VAT);
         bill.setComments(dto.getComments());
-        if (dto.getPaymentType()!=null) {
+        if (dto.getPaymentType() != null) {
             bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
-        }else{
+        } else {
             bill.setPaymentType(PaymentType.CASH);
         }
         transferDateReparation(dto, bill);
@@ -214,9 +213,10 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 if (piece == null) throw new InvalidDtoException("invalid piece");
                 pieceList.add(piece);
             }
-            updateStockAndAddPieces(pieceList, bill.getPieces());
+            updateStockAndAddOrRemovePiecesFromStock(pieceList, bill.getPieces());
             bill.setPieces(pieceList);
-        }else{
+        } else {
+            updateStockAndAddOrRemovePiecesFromStock(new ArrayList<>(), bill.getPieces());
             bill.setPieces(new ArrayList<>());
         }
     }
@@ -231,20 +231,47 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 taskList.add(task);
             }
             bill.setTasks(taskList);
-        }else{
+        } else {
             bill.setTasks(new ArrayList<>());
         }
     }
 
+    // compares the list of pieces from the db version of the bill to the updated version
+    // for any item in both, do nothing
+    // for an item in db not in new version, add to pieces
+    // for an item in new version not in pieces, remove from pieces
 
-    public void updateStockAndAddPieces(List<Piece> billPieces, List<Piece> billDbPieces) {
+    public void updateStockAndAddOrRemovePiecesFromStock(List<Piece> billPieces, List<Piece> billDbPieces) {
 
         LOGGER.info("updating stock");
-        LOGGER.info(billPieces);
-        LOGGER.info(billDbPieces);
+        System.out.println("newList: "+billPieces);
+        System.out.println("dbPieces: "+billDbPieces);
 
-        if (billDbPieces != null && !billDbPieces.isEmpty()) {
+        // if both lists are empty -> do nothing
+        if(billDbPieces.isEmpty() && billPieces.isEmpty()){
+            LOGGER.info("do nothing");
+            System.out.println("chill");
+        }
 
+
+
+
+        // if new pieceList is not empty and no pieceList in db
+        // simply remove pieces from stock
+        else if (billDbPieces == null || billDbPieces.isEmpty()&& !billPieces.isEmpty()) {
+            System.out.println("boggy");
+            for (Piece p : billPieces) {
+                LOGGER.info("removing an item");
+                pieceManager.updateQuantity(p, "-");
+                dao.update(p);
+            }
+        }
+
+
+        // if a piece is in db and not in new bill version (and new bill has pieces)
+        // re-add piece to stock
+        else if (billDbPieces != null && !billDbPieces.isEmpty() && billPieces.isEmpty()) {
+            System.out.println("bagger");
             // raises db quantity if removing a new item from the bill
             for (Piece p : billDbPieces) {
                 if (!billPieces.contains(p)) {
@@ -255,19 +282,20 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
             }
         }
 
-
-        if (billPieces != null && !billPieces.isEmpty()) {
-
-            // lowers db quantity if adding a new item from the bill
-            for (Piece p : billPieces) {
-                if (billDbPieces != null && !billDbPieces.isEmpty()) {
-                    if (!billDbPieces.contains(p)) {
-                        LOGGER.info("adding an item");
-                        pieceManager.updateQuantity(p, "-");
-                    }
-                }
-                dao.update(p);
+        // if a piece is not db and is in new bill version
+        // remove piece to stock
+        else if (billDbPieces != null && !billDbPieces.isEmpty() && !billPieces.isEmpty()) {
+            // remove all pieces from db
+            for (Piece p: billDbPieces){
+                pieceManager.updateQuantity(p, "+");
+                System.out.println("re-adding all from db :"+p.getId());
             }
+
+            for (Piece p: billPieces){
+                pieceManager.updateQuantity(p, "-");
+                System.out.println("removing from list : "+p.getId());
+            }
+
         }
 
     }
