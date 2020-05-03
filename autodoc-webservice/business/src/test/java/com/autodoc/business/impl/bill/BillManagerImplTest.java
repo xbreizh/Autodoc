@@ -379,6 +379,6 @@ class BillManagerImplTest {
         List<Piece> dbPieces = Arrays.asList(piece1, piece2, piece1, piece3);
         List<Piece> newList = Arrays.asList(piece1,  piece1, piece3);
 
-        manager.updateStockAndAddOrRemovePiecesFromStock(newList, dbPieces);
+        manager.updateStockAndAddOrRemovePiecesFromStock(newList, null);
     }
 }

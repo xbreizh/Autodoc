@@ -151,6 +151,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
             }
         }
         dto.setPieces(pieceIdList);
+
         if (form.getComments() != null) {
             dto.setComments(form.getComments());
         } else {

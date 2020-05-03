@@ -30,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -82,6 +81,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         dto.setStatus((bill).getStatus().toString());
         if (bill.getPaymentType() != null) dto.setPaymentType(bill.getPaymentType().toString());
         Date dateRepa = (bill).getDateReparation();
+        dto.setVAT(bill.getVat());
         dto.setDateReparation(getDateFormat().format(dateRepa));
         dto.setComments((bill).getComments());
         List<Integer> taskList = new ArrayList<>();
@@ -123,13 +123,13 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         LOGGER.info("object received: " + dto);
         if (dto.getId() == 0) throw new InvalidDtoException("no id provided");
         Bill bill = (Bill) dao.getById(dto.getId());
-        if(bill.getStatus().equals(Status.COMPLETED)){
+        if (bill.getStatus().equals(Status.COMPLETED)) {
             throw new InvalidDtoException("A bill with Completed status cannot be updated.");
         }
         bill.setDiscount(dto.getDiscount());
         if (dto.getStatus() != null) bill.setStatus(Status.valueOf(dto.getStatus()));
         if (dto.getTotal() != 0) bill.setTotal(dto.getTotal());
-        bill.setVat(BillDTO.VAT);
+        bill.setVat(dto.getVAT());
         if (dto.getComments() != null) bill.setComments(dto.getComments());
         if (dto.getPaymentType() != null) bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
 
@@ -155,7 +155,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setDiscount(dto.getDiscount());
         bill.setStatus(Status.valueOf(dto.getStatus()));
         bill.setTotal(dto.getTotal());
-        bill.setVat(BillDTO.VAT);
+        bill.setVat(dto.getVAT());
         bill.setComments(dto.getComments());
         if (dto.getPaymentType() != null) {
             bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
@@ -248,21 +248,21 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
     public void updateStockAndAddOrRemovePiecesFromStock(List<Piece> billPieces, List<Piece> billDbPieces) {
 
         LOGGER.info("updating stock");
-        System.out.println("newList: "+billPieces);
-        System.out.println("dbPieces: "+billDbPieces);
+        System.out.println("newList: " + billPieces);
+        if (billDbPieces != null) {
+            System.out.println("dbPieces: " + billDbPieces);
+        }
 
         // if both lists are empty -> do nothing
-        if(billDbPieces.isEmpty() && billPieces.isEmpty()){
+        if (billDbPieces != null && billDbPieces.isEmpty() && billPieces.isEmpty()) {
             LOGGER.info("do nothing");
             System.out.println("chill");
         }
 
 
-
-
         // if new pieceList is not empty and no pieceList in db
         // simply remove pieces from stock
-        else if (billDbPieces == null || billDbPieces.isEmpty()&& !billPieces.isEmpty()) {
+        else if (billDbPieces == null || billDbPieces.isEmpty() && !billPieces.isEmpty()) {
             System.out.println("boggy");
             for (Piece p : billPieces) {
                 LOGGER.info("removing an item");
@@ -290,14 +290,14 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         // remove piece to stock
         else if (billDbPieces != null && !billDbPieces.isEmpty() && !billPieces.isEmpty()) {
             // remove all pieces from db
-            for (Piece p: billDbPieces){
+            for (Piece p : billDbPieces) {
                 pieceManager.updateQuantity(p, "+");
-                System.out.println("re-adding all from db :"+p.getId());
+                System.out.println("re-adding all from db :" + p.getId());
             }
 
-            for (Piece p: billPieces){
+            for (Piece p : billPieces) {
                 pieceManager.updateQuantity(p, "-");
-                System.out.println("removing from list : "+p.getId());
+                System.out.println("removing from list : " + p.getId());
             }
 
         }

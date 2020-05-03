@@ -57,19 +57,19 @@ public class Piece {
         return SEARCH_FIELD;
     }
 
+    private static Map<String, SearchType> createMap() {
+        Map<String, SearchType> result = new HashMap<>();
+        result.put("NAME", SearchType.STRING);
+        result.put("ID", SearchType.INTEGER);
+        return Collections.unmodifiableMap(result);
+    }
+
     public void setBrand(String brand) {
         this.brand = brand.toUpperCase();
     }
 
     public void setName(String name) {
         this.name = name.toUpperCase();
-    }
-
-    private static Map<String, SearchType> createMap() {
-        Map<String, SearchType> result = new HashMap<>();
-        result.put("NAME", SearchType.STRING);
-        result.put("ID", SearchType.INTEGER);
-        return Collections.unmodifiableMap(result);
     }
 
     @Override

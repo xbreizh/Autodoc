@@ -129,7 +129,7 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         if (dto.getBrand() != null) piece.setBrand(dto.getBrand());
         if (dto.getBuyingPrice() != 0) piece.setBuyingPrice(dto.getBuyingPrice());
         if (dto.getSellPrice() != 0) piece.setSellPrice(dto.getSellPrice());
-        if (dto.getQuantity() != 0) piece.setQuantity(dto.getQuantity());
+         piece.setQuantity(dto.getQuantity());
         checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
         transferPieceType(dto, piece);
         LOGGER.info("piece to update: " + piece);

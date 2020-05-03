@@ -15,7 +15,7 @@ import java.util.List;
 @Generated
 public class BillDTO {
 
-    public static final double VAT = 00.195;
+    public double VAT = 00.195;
     private int id;
 
     private String dateReparation;
