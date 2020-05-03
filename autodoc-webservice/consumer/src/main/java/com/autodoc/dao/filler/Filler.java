@@ -74,6 +74,7 @@ public class Filler {
         Car car2 = (Car) carDao.getAll().get(1);
         Employee employee = (Employee) employeeDao.getAll().get(0);
         Client client = (Client) clientDao.getAll().get(0);
+        Client client1 = (Client) clientDao.getAll().get(1);
         List<Task> tasks = taskDao.getAll();
         List<Piece> pieces = pieceDao.getAll();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -84,7 +85,7 @@ public class Filler {
         Date   date2      = format.parse ( "14-07-2020 12:10" );
         Date   date3      = format.parse ( "24-12-2019 03:33" );
         Bill bill1 = Bill.builder().dateReparation(date).status(Status.PENDING_PAYMENT).car(car).employee(employee).client(client).tasks(tasks).total(125.44).vat(19).discount(20).pieces(pieces).comments("plouf").build();
-        Bill bill2 = Bill.builder().dateReparation(date1).status(Status.PENDING_PIECES).car(car2).employee(employee).client(client).tasks(tasks).total(84.44).vat(19).discount(0).pieces(pieces).build();
+        Bill bill2 = Bill.builder().dateReparation(date1).status(Status.PENDING_PIECES).car(car2).employee(employee).client(client1).tasks(tasks).total(84.44).vat(19).discount(0).pieces(pieces).build();
         Bill bill3 = Bill.builder().dateReparation(date2).status(Status.CANCELLED).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
         Bill bill4 = Bill.builder().dateReparation(date3).status(Status.COMPLETED).paymentType(PaymentType.CASH).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
         billDao.create(bill1);
