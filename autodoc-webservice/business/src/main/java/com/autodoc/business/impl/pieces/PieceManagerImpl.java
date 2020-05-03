@@ -135,4 +135,21 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         LOGGER.info("piece to update: " + piece);
         return piece;
     }
+
+    @Override
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting pieceType");
+        Piece piece = (Piece) dao.getById(entityId);
+        if(piece!=null) {
+            piece.setName("deleted Item");
+            dao.update(piece);
+        }
+        boolean deleteResult = dao.deleteById(entityId);
+        LOGGER.info("delete result: "+deleteResult);
+        if(!deleteResult){
+            LOGGER.error("renaming item we can't delete");
+            LOGGER.info(piece);
+        }
+        return true;
+    }
 }

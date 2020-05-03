@@ -6,6 +6,7 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.tasks.TaskDTO;
+import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Builder;
 import org.apache.log4j.Logger;
@@ -65,6 +66,23 @@ public class TaskManagerImpl extends AbstractGenericManager implements TaskManag
         if (dto.getDescription() != null) task.setDescription(dto.getDescription());
         if (dto.getEstimatedTime() != 0) task.setEstimatedTime(dto.getEstimatedTime());
         return task;
+    }
+
+    @Override
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting providerType");
+        Task task = (Task) dao.getById(entityId);
+        if(task!=null) {
+            task.setName("deleted task");
+            dao.update(task);
+        }
+        boolean deleteResult = dao.deleteById(entityId);
+        LOGGER.info("delete result: "+deleteResult);
+        if(!deleteResult){
+            LOGGER.error("renaming item we can't delete");
+            LOGGER.info(task);
+        }
+        return true;
     }
 
 

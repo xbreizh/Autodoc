@@ -75,7 +75,7 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
         }
         boolean deleteResult = dao.deleteById(entityId);
         LOGGER.info("delete result: "+deleteResult);
-        if(deleteResult==false){
+        if(!deleteResult){
             LOGGER.error("renaming item we can't delete");
             LOGGER.info(pieceType);
         }

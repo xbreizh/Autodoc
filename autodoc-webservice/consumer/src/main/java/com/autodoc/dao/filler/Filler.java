@@ -205,6 +205,7 @@ public class Filler {
         Employee employee = Employee.builder().firstName("paul").lastName("MOLO").phoneNumber("03938937837").roles(roleList).startDate(date).login(login).password("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6").build();
         List<Role> roles = new ArrayList<>();
         roles.add(Role.MECANIC);
+        roles.add(Role.SUPERADMIN);
         employee.setRoles(roles);
         String login2 = "MALIK";
         Employee employee2 = Employee.builder().firstName("MALIK").lastName("GAUMONT").phoneNumber("0862547895").roles(roleList).startDate(date).login(login2).password("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6").build();
