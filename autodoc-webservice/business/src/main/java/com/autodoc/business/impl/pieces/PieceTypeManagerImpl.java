@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
+
 @Transactional
 @Component
 @Builder
@@ -66,6 +68,7 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
     }
 
     @Override
+    @Transactional(propagation = REQUIRES_NEW)
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting pieceType");
         PieceType pieceType = (PieceType) dao.getById(entityId);
@@ -79,6 +82,8 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
             LOGGER.error("renaming item we can't delete");
             LOGGER.info(pieceType);
         }
+        PieceType pieceType2 = (PieceType) dao.getById(entityId);
+        LOGGER.info("dede: "+pieceType2);
         return true;
     }
 

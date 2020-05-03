@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
+
 @Transactional
 @Component
 @Builder
@@ -69,6 +71,7 @@ public class TaskManagerImpl extends AbstractGenericManager implements TaskManag
     }
 
     @Override
+    @Transactional(propagation = REQUIRES_NEW)
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting providerType");
         Task task = (Task) dao.getById(entityId);

@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
+
 @Transactional
 @Component
 @Builder
@@ -83,6 +85,7 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
     }
 
     @Override
+    @Transactional(propagation = REQUIRES_NEW)
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting providerType");
         Provider provider = (Provider) dao.getById(entityId);

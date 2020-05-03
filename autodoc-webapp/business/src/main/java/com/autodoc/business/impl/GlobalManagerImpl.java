@@ -69,8 +69,14 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     public List<T> getAll(String token) throws Exception {
         GlobalService service = getService();
-        return convertList(token, service.getAll(token));
+        List<T> list = convertList(token, service.getAll(token));
+
+        return cleanupDeletedItems(list);
     }
+
+   public List<T> cleanupDeletedItems(List<T> list){
+        return list;
+   }
 
     public String add(String token, Object obj) throws Exception {
         LOGGER.info("stuff to insert: " + obj);

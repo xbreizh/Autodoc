@@ -6,14 +6,18 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
+import com.autodoc.dao.impl.global.AbstractHibernateDao;
 import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import lombok.Builder;
 import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 @Transactional
 @Component
@@ -137,19 +141,22 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
     }
 
     @Override
+    @Transactional(propagation = REQUIRES_NEW)
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting pieceType");
         Piece piece = (Piece) dao.getById(entityId);
         if(piece!=null) {
             piece.setName("deleted Item");
-            dao.update(piece);
         }
+
         boolean deleteResult = dao.deleteById(entityId);
         LOGGER.info("delete result: "+deleteResult);
         if(!deleteResult){
             LOGGER.error("renaming item we can't delete");
             LOGGER.info(piece);
+            dao.update(piece);
         }
+
         return true;
     }
 }
