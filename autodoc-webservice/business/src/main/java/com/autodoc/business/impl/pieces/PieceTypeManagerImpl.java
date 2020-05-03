@@ -6,6 +6,7 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import lombok.Builder;
 import org.apache.log4j.Logger;
@@ -62,6 +63,23 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
         PieceType pieceType = (PieceType) dao.getById(dto.getId());
         if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + dto.getId());
         return pieceType;
+    }
+
+    @Override
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting pieceType");
+        PieceType pieceType = (PieceType) dao.getById(entityId);
+        if(pieceType!=null) {
+            pieceType.setName("deleted Item");
+            dao.update(pieceType);
+        }
+        boolean deleteResult = dao.deleteById(entityId);
+        LOGGER.info("delete result: "+deleteResult);
+        if(deleteResult==false){
+            LOGGER.error("renaming item we can't delete");
+            LOGGER.info(pieceType);
+        }
+        return true;
     }
 
 

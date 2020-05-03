@@ -3,12 +3,17 @@ package com.autodoc.dao.impl.global;
 import com.autodoc.dao.exceptions.DaoException;
 import com.autodoc.model.enums.SearchType;
 import com.autodoc.model.models.search.Search;
+import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.SQLGrammarException;
 import org.hibernate.query.Query;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
@@ -63,7 +68,18 @@ public abstract class AbstractHibernateDao<T> {
 
     public boolean delete(T entity) {
         LOGGER.info("I want to delete: " + entity);
-        getCurrentSession().delete(entity);
+        try {
+            getCurrentSession().remove(entity);
+            getCurrentSession().flush();
+        }catch (PersistenceException exception){
+            LOGGER.error(exception.getMessage());
+            LOGGER.error(exception.getClass());
+            LOGGER.error(exception.getLocalizedMessage());
+            LOGGER.error(exception.getCause());
+            LOGGER.error("returning false");
+            getCurrentSession().cancelQuery();
+            return false;
+        }
         return true;
 
     }
@@ -82,8 +98,8 @@ public abstract class AbstractHibernateDao<T> {
             LOGGER.info("entity not found");
             return false;
         }
-        delete(entity);
-        return true;
+
+        return delete(entity);
     }
 
     public Session getCurrentSession() {
