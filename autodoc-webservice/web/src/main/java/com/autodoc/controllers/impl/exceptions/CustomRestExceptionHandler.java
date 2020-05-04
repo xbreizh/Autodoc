@@ -49,6 +49,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 ex, apiError, headers, apiError.getStatus(), request);
     }
 
+
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(
             MissingServletRequestParameterException ex, HttpHeaders headers,
@@ -60,6 +61,15 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
         return new ResponseEntity<Object>(
                 apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(NotImplementedmethodException.class)
+    public ResponseEntity notImplemented(NotImplementedmethodException e) {
+        LOGGER.info("handling unimplemented methods exception: " + e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_IMPLEMENTED)
+                .body(e.getMessage());
     }
 
     @ResponseStatus(INTERNAL_SERVER_ERROR)

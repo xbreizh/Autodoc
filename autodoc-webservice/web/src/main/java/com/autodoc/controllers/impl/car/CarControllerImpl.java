@@ -5,6 +5,7 @@ import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.business.contract.car.CarManager;
 import com.autodoc.controllers.contract.car.CarController;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
+import com.autodoc.controllers.impl.exceptions.NotImplementedmethodException;
 import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.models.car.Car;
 import lombok.Builder;
@@ -51,9 +52,9 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @GetMapping(value = "/name",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
+    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws NotImplementedmethodException {
 
-        throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
+        throw new NotImplementedmethodException(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
 
 
@@ -61,8 +62,8 @@ public class CarControllerImpl extends GlobalControllerImpl<Car, CarDTO> impleme
     @GetMapping(value = "/byClient}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<String> getByClient(String clientLastName, String clientFirstName) throws Exception {
-        throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
+    public ResponseEntity<String> getByClient(String clientLastName, String clientFirstName) throws NotImplementedmethodException {
+        throw new NotImplementedmethodException(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
 
     @Override
