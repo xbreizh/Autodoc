@@ -46,11 +46,17 @@ public class Client extends Person {
 
     @Override
     public String toString() {
+        int billSize = 0;
+        if (bills!=null && !bills.isEmpty())billSize=bills.size();
+        int carSize = 0;
+        if (cars!=null && !cars.isEmpty())carSize=cars.size();
         return "Client{" +
                 ", id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", billSize='" + billSize +
+                ", carSize='" + carSize +
                 '}';
     }
 

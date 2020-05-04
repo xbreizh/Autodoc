@@ -181,8 +181,10 @@ public class Filler {
         LOGGER.debug("filling client");
         Client client = Client.builder().firstName("ANGELA").lastName("BAUER").phoneNumber("03938937837").build();
         Client client1 = Client.builder().firstName("ROGER").lastName("MOORE").phoneNumber("0584759852").build();
+        Client deleted = Client.builder().firstName("DELETED").lastName("DELETED").phoneNumber("0000000000").build();
         clientDao.create(client);
         clientDao.create(client1);
+        clientDao.create(deleted);
     }
 
     void fillCar() {

@@ -6,7 +6,6 @@ import com.autodoc.model.models.search.Search;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,8 +67,6 @@ public abstract class AbstractHibernateDao<T> {
 
     public boolean delete(T entity) {
         LOGGER.info("I want to delete: " + entity);
-      /*  Transaction transaction;
-        transaction = getCurrentSession().beginTransaction();*/
         getCurrentSession().update(entity);
         try {
             getCurrentSession().remove(entity);
@@ -77,10 +74,8 @@ public abstract class AbstractHibernateDao<T> {
 
         } catch (PersistenceException exception) {
             LOGGER.error("returning false");
-           // transaction.rollback();
             return false;
         }
-      //  transaction.commit();
         return true;
 
     }

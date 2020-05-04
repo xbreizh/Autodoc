@@ -3,6 +3,7 @@ package com.autodoc.business.impl.person.client;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.business.impl.AbstractGenericManager;
+import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.model.dtos.person.client.ClientDTO;
@@ -24,6 +25,7 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     private static final Logger LOGGER = Logger.getLogger(ClientManagerImpl.class);
     private static final ModelMapper mapper = new ModelMapper();
     private ClientDao dao;
+    private BillDao billDao;
 
     public Class getEntityClass() {
         return Client.class;
@@ -87,9 +89,17 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
             LOGGER.info("id: " + id + " / " + dto.getId());
             if (id != dto.getId())
                 throw new InvalidDtoException("that client already exist: " + dto.getFirstName() + " " + dto.getLastName() + " " + dto.getPhoneNumber());
-
         }
 
-
     }
+
+    @Override
+    public boolean deleteById(int entityId) {
+        Client client = (Client) dao.getById(entityId);
+        client.setLastName("TBD_" + client.getLastName());
+        dao.update(client);
+        return true;
+    }
+
+
 }

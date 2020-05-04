@@ -21,11 +21,7 @@ import java.util.*;
 @Component
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
-    // protected String exception = "";
-/*
-    protected void resetException() {
-        exception = "";
-    }*/
+
 
     public IGenericDao getDao() {
         return null;
@@ -37,10 +33,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
         IGenericDao dao = getDao();
         T objectToSave = transferInsert(object);
         LOGGER.info("object to save: " + objectToSave);
-          /*  if (!exception.isEmpty()) {
-                LOGGER.error(exception);
-                return exception;
-            }*/
         String feedback = Integer.toString(dao.create(objectToSave));
         LOGGER.info("feedback: " + feedback);
         if (!feedback.equals("0")) {
