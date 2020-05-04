@@ -96,8 +96,11 @@ public class ClientManagerImpl extends AbstractGenericManager implements ClientM
     @Override
     public boolean deleteById(int entityId) {
         Client client = (Client) dao.getById(entityId);
-        client.setLastName("TBD_" + client.getLastName());
-        dao.update(client);
+        String toBeDeletedPrefix = "TBD_";
+        if (!client.getLastName().startsWith(toBeDeletedPrefix)) {
+            client.setLastName(toBeDeletedPrefix + client.getLastName());
+            dao.update(client);
+        }
         return true;
     }
 
