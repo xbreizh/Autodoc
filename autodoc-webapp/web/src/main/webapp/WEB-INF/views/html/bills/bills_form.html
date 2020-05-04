@@ -44,17 +44,6 @@
                         th:value="${employee.login}"/>
             </select>
         </div>
-        <!--  <div class="form-group">
-              <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
-                  <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
-                         th:value="${form.dateReparation}"
-                         type="text"/>
-                  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                       id="dateReparation" name="dateReparation" th:value="${form.dateReparation}">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                  </div>
-              </div>
-          </div>-->
         <div class="form-group">
             <label for="dateReparation">DateReparation(dd-MM-yyyy HH:mm)</label>
             <input class="form-control" id="dateReparation" name="dateReparation" placeholder="Enter DateReparation"
@@ -66,7 +55,7 @@
         <div class="form-group">
             <label for="discount">Discount( % )</label>
             <input id="discount" min="0.00" name="discount" placeholder="Enter Discount" required="required" step="1"
-                   type="number"
+                   th:value="${form.discount}" type="number"
                    value="0.00"/>
             <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
         </div>
