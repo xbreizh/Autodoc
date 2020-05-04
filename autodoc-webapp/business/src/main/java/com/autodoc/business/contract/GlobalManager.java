@@ -20,7 +20,7 @@ public interface GlobalManager<T, D> {
 
     double getVat();
 
-    void checkIfDateIsValid(String stringDate) throws Exception;
+    boolean checkIfDateIsValid(String stringDate) throws Exception;
 
 
 }

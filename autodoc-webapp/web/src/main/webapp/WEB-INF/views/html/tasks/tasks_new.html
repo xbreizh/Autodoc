@@ -12,6 +12,8 @@
 
     <h3>New Task Template</h3>
 
+    <div th:replace="fragments/errors :: errors"></div>
+
     <form action="#" method="post" th:action="@{'/tasks/new/'}" th:object="${taskForm}">
         <div class="form-group">
             <label for="name">Name</label>

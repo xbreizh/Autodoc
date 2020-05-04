@@ -1,6 +1,6 @@
 <div th:fragment="form" xmlns:th="http:/www.w3.org/1999/xhtml">
 
-
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/cars/update/' + ${obj.id}}" th:object="${form}">
 
         <input name="registration" required="required" th:id="registration" th:value="${form.registration}"

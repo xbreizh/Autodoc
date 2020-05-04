@@ -8,7 +8,7 @@
           <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>&ndash;&gt;
           <td th:text="${employee.id}">Id</td>
       </div>-->
-
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/employees/update/' + ${obj.id}}" th:object="${form}">
         <div class="form-group">
             <label for="id">Id</label>

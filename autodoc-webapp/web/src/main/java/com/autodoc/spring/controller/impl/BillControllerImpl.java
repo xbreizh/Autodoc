@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -170,7 +171,16 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         LOGGER.info("trying to update bill " + form);
         String token = authenticationHelper.getConnectedToken();
         if (form == null) form = new BillForm();
-        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+        if (form.getDateReparation() == null) LOGGER.error("date shouldn't be null");
+        ModelAndView mv = null;
+        LOGGER.info("checking date");
+        if (!manager.checkIfDateIsValid(form.getDateReparation())) {
+            addInvalidDateError(bindingResult);
+
+        }
+        mv = updateObject(form, form.getId(), bindingResult);
+
+
         mv.addObject("form", form);
         addPaymentType(token, mv);
         addStatus(token, mv);
@@ -183,6 +193,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         addingCalculation(mv);
         return mv;
 
+    }
+
+    private void addInvalidDateError(BindingResult bindingResult) {
+        FieldError fieldError = new FieldError("billForm", "dateReparation", "invalid dateReparation");
+        bindingResult.addError(fieldError);
     }
 
     @Override
@@ -252,8 +267,13 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     public ModelAndView create(@Valid BillForm form, BindingResult bindingResult, Model model) throws Exception {
         LOGGER.info("trying to create bill " + form);
         String token = authenticationHelper.getConnectedToken();
+        // boolean validDate = true;
         if (form.getDateReparation() == null) LOGGER.error("date shouldn't be null");
 
+        LOGGER.info("checking date");
+        if (!manager.checkIfDateIsValid(form.getDateReparation())) {
+            addInvalidDateError(bindingResult);
+        }
 
         LOGGER.info("date before: " + form.getDateReparation());
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");

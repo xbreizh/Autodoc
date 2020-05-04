@@ -5,6 +5,7 @@
 
 
     <span style="color: #bb322a" th:text="${error}">error</span>
+    <div th:replace="fragments/errors :: errors"></div>
     <button class="btn btn btn-info" onclick="pieceFunction(getPieces())">Add Piece</button>
     <button class="btn btn btn-info" onclick="taskFunction(getTasks())">Add Task</button>
 

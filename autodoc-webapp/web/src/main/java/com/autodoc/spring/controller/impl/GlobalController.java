@@ -11,6 +11,7 @@ import com.autodoc.model.models.person.employee.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -103,11 +104,13 @@ public class GlobalController<T, D, F> {
         List<String> errors = new ArrayList<>();
         for (ObjectError obj : bindingResult.getAllErrors()) {
             errors.add(obj.getDefaultMessage());
-           /* for (Object objd: obj.getArguments()){
-                LOGGER.error(objd.toString());
-            }*/
+            FieldError fError = (FieldError) obj;
+            LOGGER.error(fError.getObjectName());
+            LOGGER.error(fError.getField());
+            LOGGER.error(fError.getDefaultMessage());
             LOGGER.error("error found:" + obj.getDefaultMessage());
             LOGGER.error("code found:" + obj.getCode());
+            LOGGER.error("code found:" + obj.getClass());
             LOGGER.error("object found:" + obj.getObjectName());
         }
         mv.addObject("errors", errors);

@@ -11,7 +11,7 @@
     <div th:replace="fragments/menu :: menu"></div>
 
     <h3>New piece</h3>
-
+    <div th:replace="fragments/errors :: errors"></div>
 
     <form action="#" method="post" th:action="@{'/pieces/new/'}" th:object="${pieceForm}">
         <div class="form-group">

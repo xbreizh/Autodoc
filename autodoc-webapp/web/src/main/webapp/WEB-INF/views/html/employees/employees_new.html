@@ -12,7 +12,7 @@
 
     <h3>New Employee</h3>
 
-
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/employees/new/'}" th:object="${employeeForm}">
         <div class="form-group">
             <label for="login">Login</label>

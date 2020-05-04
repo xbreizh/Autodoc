@@ -182,7 +182,7 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     }
 
     @Override
-    public void checkIfDateIsValid(String stringDate) throws Exception {
+    public boolean checkIfDateIsValid(String stringDate) throws Exception {
         if (stringDate == null) {
             throw new ObjectFormattingException("date shouldn't be null");
         }
@@ -195,10 +195,12 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
             //if not valid, it will throw ParseException
             Date date = sdf.parse(stringDate);
             System.out.println(date);
+            return true;
 
         } catch (ParseException e) {
 
-            throw new ObjectFormattingException("invalid date: " + stringDate);
+            /*throw new ObjectFormattingException("invalid date: " + stringDate);*/
+            return false;
         }
 
     }

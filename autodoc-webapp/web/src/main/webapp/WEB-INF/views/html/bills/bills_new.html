@@ -17,11 +17,13 @@
 
     <div th:text="${error}">error</div>
     <div th:text="${feedback}">feedback</div>
+
     <h3>Employee:</h3>
     <div th:text="${form.employeeLogin}">employee</div>
     <h3>Registration:</h3>
     <div th:text="${form.carRegistration}">registration</div>
     <br><br>
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${form}">
         <span id="myForm"></span>
 
@@ -45,7 +47,7 @@
             <label for="dateReparation">DateReparation(dd-MM-yyyy HH:mm)</label>
             <input class="form-control" id="dateReparation" name="dateReparation" placeholder="Enter DateReparation"
                    required="required" th:value="${form.dateReparation}" type="text"/>
-            <div th:errors="*{dateReparation}" th:if="${#fields.hasErrors('dateReparation')}">DateReparation Error</div>
+            <div style="color: #bb322a" th:text="${invalidDate}">invalidDate</div>
         </div>
         <div class="form-group">
             <label for="discount">Discount( % )</label>

@@ -2,7 +2,7 @@
 
 
     <h2>Task form</h2>
-
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/tasks/update/' + ${obj.id}}" th:object="${form}">
         <div class="form-group">
             <label for="id">Id</label>

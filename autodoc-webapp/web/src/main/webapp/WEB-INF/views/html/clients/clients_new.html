@@ -14,7 +14,7 @@
 
 
     <div th:text="${error}">error</div>
-
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/clients/new/'}" th:object="${clientForm}">
         <div class="form-group">
             <label for="firstName">FirstName</label>

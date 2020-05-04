@@ -3,6 +3,7 @@
     <h3>New Car</h3>
 
     <span th:text="${error}" style="color: #bb211c">error</span>
+    <div th:replace="fragments/errors :: errors"></div>
 
     <form action="#" method="post" th:action="@{'/cars/new/'}" th:object="${carForm}">
         <div class="form-group">

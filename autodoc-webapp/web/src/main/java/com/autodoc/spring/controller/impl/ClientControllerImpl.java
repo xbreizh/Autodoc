@@ -63,7 +63,7 @@ public class ClientControllerImpl extends GlobalController<Client, ClientDTO, Cl
     public ModelAndView delete(@PathVariable Integer id) throws Exception {
         LOGGER.info("trying to delete member with id " + id);
         manager.delete(authenticationHelper.getConnectedToken(), id);
-        return allClients();
+        return new ModelAndView("redirect:" + "/clients");
     }
 
     @GetMapping(value = "/new")
