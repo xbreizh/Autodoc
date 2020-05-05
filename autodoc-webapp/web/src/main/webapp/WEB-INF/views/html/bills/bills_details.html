@@ -15,16 +15,19 @@
 
 
     <h1>Bill Form</h1>
-    <label style="display: block" th:id="'switch' + ${obj.id}">
-        <input onclick="toggle_displays();"
-               type="checkbox">
-        <span class="slider round"></span>
-    </label>
-    <h3>Edit</h3>
+
+    <div th:if="${obj.status!='COMPLETED'}">
+        <label style="display: block" th:id="'switch' + ${obj.id}">
+            <input onclick="toggle_displays();"
+                   type="checkbox">
+            <span class="slider round"></span>
+        </label>
+        <h3>Edit</h3>
+    </div>
     <h4><a target="_blank" th:href="@{'/bills/pdf/'+${obj.id}}">
         <button class="alert-primary">Save as PDF</button>
     </a></h4>
-    <span th:text="${testDate}">testDate</span><br>
+    <span th:text="${obj.status}">status</span><br>
 
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">

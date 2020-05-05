@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -131,6 +132,18 @@ class EmployeeDaoImplTest {
                 () -> assertTrue(dao.deleteById(id)),
                 () -> assertNull(dao.getById(id))
         );
+    }
+
+    @Test
+    void update() {
+       Employee employee = (Employee) dao.getById(1);
+       Date date = new Date();
+       employee.setStartDate(date);
+       dao.update(employee);
+       /*assertEquals(date, ((Employee) dao.getById(1)).getStartDate());*/
+        Employee employee1 = (Employee) dao.getById(1);
+        System.out.println("date: "+employee1.getStartDate());
+
     }
 
 

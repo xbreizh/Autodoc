@@ -48,6 +48,7 @@
                 <value>com.autodoc.model.models.pieces.PieceType</value>
 
 
+
             </list>
         </property>
         <property name="hibernateProperties">
