@@ -48,8 +48,6 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         LOGGER.info("id: " + id);
         bill.setId(id);
         LOGGER.info("old date: " + dto.getDateReparation());
-        bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()).toString());
-        // checkIfDateIsValid(bill.getDateReparation());
         bill.setDateReparation(dto.getDateReparation());
         LOGGER.info("new date: " + bill.getDateReparation());
         Car car = carManager.getByRegistration(token, dto.getRegistration());
@@ -127,8 +125,8 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         dto.setDateReparation(form.getDateReparation());
         LOGGER.info("date passed: " + dto.getDateReparation());
         dto.setDiscount(Double.valueOf(form.getDiscount()));
-        Employee employee = employeeManager.getByLogin(token, form.getEmployeeLogin());
-        dto.setEmployeeId(employee.getId());
+       /* Employee employee = employeeManager.getByLogin(token, form.getEmployeeLogin());
+        dto.setEmployeeId(employee.getId());*/
         dto.setRegistration(form.getCarRegistration());
         dto.setStatus(form.getStatus());
         if (form.getPaymentType() == null || form.getPaymentType().isEmpty()) {
