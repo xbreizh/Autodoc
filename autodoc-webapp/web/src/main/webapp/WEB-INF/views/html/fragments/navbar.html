@@ -16,13 +16,15 @@
         <h2 class="login">
             <td data-th-text="${connected.login}"></td>
         </h2>
-        <a style="text-decoration: none; color: black" th:href="@{'/myProfile'}">
-            <h4>myProfile</h4>
-            Autodoc</a>
+        <h3 style="color: #a5c3ff">
+            <div id="clock"></div>
+        </h3>
+
         <form method="post" th:action="@{/logout}">
             <input class="btn btn-secondary" onClick="sessionStorage.setItem('popState', 'hide')" type="submit"
                    value="Sign Out"/>
         </form>
 
     </div>
+
 </div>
