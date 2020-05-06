@@ -17,7 +17,7 @@
             <input class="form-control" id="id" name="id" readonly required="required"
                    th:value="${obj.id}"
                    type="text"/>
-            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+            <div style="color: red" th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         </div>
         <div class="form-group">
             <label for="carRegistration">Registration</label>
@@ -48,7 +48,9 @@
             <label for="dateReparation">DateReparation(dd-MM-yyyy HH:mm)</label>
             <input class="form-control" id="dateReparation" name="dateReparation" placeholder="Enter DateReparation"
                    required="required" th:value="${form.dateReparation}" type="text"/>
-            <div th:errors="*{dateReparation}" th:if="${#fields.hasErrors('dateReparation')}">DateReparation Error</div>
+            <div style="color: red" th:errors="*{dateReparation}" th:if="${#fields.hasErrors('dateReparation')}">
+                DateReparation Error
+            </div>
         </div>
 
 
@@ -57,7 +59,8 @@
             <input id="discount" min="0.00" name="discount" placeholder="Enter Discount" required="required" step="1"
                    th:value="${form.discount}" type="number"
                    value="0.00"/>
-            <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
+            <div style="color: red" th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error
+            </div>
         </div>
 
         <div class="form-group">
@@ -82,7 +85,8 @@
             <input class="form-control" id="comments" name="comments"
                    th:value="${form.comments}"
                    type="text"/>
-            <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
+            <div style="color: red" th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error
+            </div>
         </div>
 
         <input id="vat" name="vat" required="required" th:value="${vat}" type="hidden"/>

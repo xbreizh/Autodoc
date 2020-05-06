@@ -1,3 +1,4 @@
+/*
 package com.autodoc;
 
 
@@ -37,4 +38,4 @@ public class HttpComponentsClientHttpRequestFactoryBasicAuth
         localcontext.setAttribute(HttpClientContext.AUTH_CACHE, authCache);
         return localcontext;
     }
-}
+}*/

@@ -19,7 +19,7 @@
             <input class="form-control" id="name" name="name" required="required"
                    th:value="${name}"
                    type="text"/>
-            <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
+            <div style="color: red" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>

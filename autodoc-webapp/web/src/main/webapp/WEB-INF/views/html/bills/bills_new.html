@@ -54,7 +54,8 @@
             <input id="discount" min="0.00" name="discount" placeholder="Enter Discount" required="required" step="1"
                    type="number"
                    value="0.00"/>
-            <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
+            <div style="color: red" th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error
+            </div>
         </div>
 
 
@@ -62,7 +63,8 @@
             <label for="comments">Comments:</label>
             <input class="form-control" id="comments" name="comments" placeholder="Enter Comments"
                    type="text"/>
-            <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
+            <div style="color: red" th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error
+            </div>
         </div>
 
         <input required="required" th:field="*{vat}" type="hidden"/>

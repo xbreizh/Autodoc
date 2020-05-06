@@ -9,33 +9,37 @@
             <input class="form-control" id="id" name="id" readonly required="required"
                    th:value="${obj.id}"
                    type="text"/>
-            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+            <div style="color: red" th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         </div>
         <div class="form-group">
             <label for="name">Name</label>
             <input class="form-control" id="name" name="name" required="required"
                    th:value="${obj.name}"
                    type="text"/>
-            <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
+            <div style="color: red" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
         </div>
         <div class="form-group">
             <label for="name">Description</label>
             <input class="form-control" id="description" name="description" required="required"
                    th:value="${obj.description}" type="text"/>
-            <div th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description Error</div>
+            <div style="color: red" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description
+                Error
+            </div>
         </div>
         <div class="form-group">
             <label for="name">Estimated Time( heure ):</label>
             <input min="0.00" required="required" step=".5" th:field="*{estimatedTime}" type="number"
                    value="0.00"/>
-            <div th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated Time Error</div>
+            <div style="color: red" th:errors="*{estimatedTime}" th:if="${#fields.hasErrors('estimatedTime')}">Estimated
+                Time Error
+            </div>
         </div>
 
 
         <!--<div class="form-group">
             <label for="name">Template</label>
             <input th:checked="${obj.template}" th:field="*{template}" type="checkbox"/>
-            <div th:errors="*{template}" th:if="${#fields.hasErrors('template')}">Template Error</div>
+            <div style="color: red" th:errors="*{template}" th:if="${#fields.hasErrors('template')}">Template Error</div>
         </div>-->
 
         <button class="btn btn-primary" type="submit">Submit</button>

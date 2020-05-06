@@ -17,6 +17,17 @@
 
                 <button class="btn btn-primary" type="submit">Submit</button>
             </form>
+            <span th:text="${error}"></span>
+            <span style="color: #bb211c" th:text="${message}">message</span>
+        </div>
+        <div class="col-12" th:if="${car != null}">
+            <div th:replace="cars/searchCar_result :: searchCar_result"></div>
+
+        </div>
+        <div class="col-lg-6 offset-lg-3 text-center">
+            <p th:if="${message != null}">
+                <span th:replace="cars/cars_new :: newForm"></span>
+            </p>
         </div>
     </div>
 </div>

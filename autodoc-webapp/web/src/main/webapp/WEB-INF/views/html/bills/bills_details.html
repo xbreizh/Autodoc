@@ -27,7 +27,7 @@
     <h4><a target="_blank" th:href="@{'/bills/pdf/'+${obj.id}}">
         <button class="alert-primary">Save as PDF</button>
     </a></h4>
-    <span th:text="${obj.status}">status</span><br>
+
 
 
     <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
@@ -98,7 +98,7 @@
                     <tr>
                         <th th:text="Name">Name</th>
                         <th th:text="Description">Description</th>
-                        <th th:text="EstimatedTime">Estimated time</th>
+                        <th th:text="EstimatedTime">Estimated time ( H )</th>
                         <th th:text="Price">Price</th>
                         <th th:text="Total">Total</th>
                     </tr>

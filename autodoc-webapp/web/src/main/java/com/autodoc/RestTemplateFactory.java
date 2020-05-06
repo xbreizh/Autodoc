@@ -1,3 +1,4 @@
+/*
 package com.autodoc;
 
 import org.apache.http.HttpHost;
@@ -29,4 +30,4 @@ public class RestTemplateFactory
         restTemplate = new RestTemplate(
                 new HttpComponentsClientHttpRequestFactoryBasicAuth(host));
     }
-}
+}*/
