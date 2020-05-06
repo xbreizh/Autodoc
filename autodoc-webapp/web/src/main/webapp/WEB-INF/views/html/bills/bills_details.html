@@ -22,7 +22,7 @@
                    type="checkbox">
             <span class="slider round"></span>
         </label>
-        <h3>Edit</h3>
+
     </div>
     <h4><a target="_blank" th:href="@{'/bills/pdf/'+${obj.id}}">
         <button class="alert-primary">Save as PDF</button>
@@ -30,11 +30,11 @@
 
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
+    <div class="form-show" style="display: none; " th:id="'micForm' + ${obj.id}">
 
         <div th:replace="bills/bills_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
+    <div class="details-show" style="display: block; " th:id="'mic' + ${obj.id}">
         <div th:fragment="bill_table" xmlns:th="http:/www.w3.org/1999/xhtml">
             <table>
                 <tr>

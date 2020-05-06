@@ -6,7 +6,7 @@
 
     <span style="color: #bb322a" th:text="${error}">error</span>
     <div th:replace="fragments/errors :: errors"></div>
-    <button class="btn btn btn-info" onclick="pieceFunction(getPieces())">Add Piece</button>
+
     <button class="btn btn btn-info" onclick="taskFunction(getTasks())">Add Task</button>
 
     <br>
@@ -24,6 +24,7 @@
             <select id="carRegistration" name="carRegistration">
                 <option th:each="car : ${cars}"
                         th:utext="${car.registration}"
+                        th:selected="${car.registration == obj.car.registration}"
                         th:value="${car.registration}"/>
             </select>
         </div>
@@ -32,7 +33,8 @@
             <select id="clientId" name="clientId">
                 <option th:each="client : ${clients}"
                         th:utext="${client.firstName+' '+client.lastName+' /'+client.phoneNumber}"
-                        th:selected="${client.firstName+' '+client.lastName+' /'+client.phoneNumber}"
+                        th:selected="${client.firstName+' '+client.lastName+' /'+client.phoneNumber ==
+                        obj.client.firstName+' '+obj.client.lastName+' /'+obj.client.phoneNumber}"
                         th:value="${client.id}"/>
             </select>
         </div>
@@ -92,10 +94,12 @@
         <input id="vat" name="vat" required="required" th:value="${vat}" type="hidden"/>
 
         <div class="form-group" id="tasks">
+            <h2 class="btn btn btn-info" onclick="taskFunction(getTasks())" type="button">Add Task</h2><br>
             <label>Tasks</label>
             <span id="myTasks"></span> <br><br>
         </div>
         <div class="form-group">
+            <h2 class="btn btn btn-info" onclick="pieceFunction(getPieces())" type="button">Add Piece</h2><br>
             <label>Pieces</label>
             <span id="myPieces"></span>
         </div>

@@ -21,14 +21,14 @@
                type="checkbox">
         <span class="slider round"></span>
     </label>
-    <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
+
+    <div style="display: none; " class="form-show" th:id="'micForm' + ${obj.id}">
 
         <div th:replace="providers/providers_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
+    <div style="display: block; " class="details-show" th:id="'mic' + ${obj.id}">
         <table>
             <tr>
                 <td>Id</td>
