@@ -20,6 +20,9 @@ public class EmployeeForm {
     @Size(min = 3, max = 12, message = "{login.size}")
     private String login;
 
+    // ((0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-[12]\d{3})
+    private String startDate;
+
 
     @Size(min = 3, max = 12, message = "{firstName.size}")
     private String firstName;

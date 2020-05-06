@@ -43,7 +43,6 @@ public class Filler {
     private EmployeeDao employeeDao;
     private ClientDao clientDao;
     private CarDao carDao;
-    //  private CountryDao countryDao;
     private ProviderDao providerDao;
     private PieceDao pieceDao;
     private PieceTypeDao pieceTypeDao;
@@ -59,7 +58,6 @@ public class Filler {
             fillCarModel();
             fillClient();
             fillCar();
-            // fillCountry();
             fillProvider();
             fillPieceTypes();
             fillPieces();
@@ -79,11 +77,10 @@ public class Filler {
         List<Piece> pieces = pieceDao.getAll();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-        //String dateString = format.format( new Date()   );
-        Date   date       = format.parse ( "05-12-1983 18:20" );
-        Date   date1       = format.parse ( "17-02-1983 05:00" );
-        Date   date2      = format.parse ( "14-07-2020 12:10" );
-        Date   date3      = format.parse ( "24-12-2019 03:33" );
+        Date date = format.parse("05-12-1983 18:20");
+        Date date1 = format.parse("17-02-1983 05:00");
+        Date date2 = format.parse("14-07-2020 12:10");
+        Date date3 = format.parse("24-12-2019 03:33");
         Bill bill1 = Bill.builder().dateReparation(date).status(Status.PENDING_PAYMENT).car(car).employee(employee).client(client).tasks(tasks).total(125.44).vat(19).discount(20).pieces(pieces).comments("plouf").build();
         Bill bill2 = Bill.builder().dateReparation(date1).status(Status.PENDING_PIECES).car(car2).employee(employee).client(client1).tasks(tasks).total(84.44).vat(19).discount(0).pieces(pieces).build();
         Bill bill3 = Bill.builder().dateReparation(date2).status(Status.CANCELLED).car(car).employee(employee).client(client).tasks(tasks).total(1451.44).vat(19).discount(20).pieces(pieces).build();
@@ -152,14 +149,6 @@ public class Filler {
     }
 
 
- /*   void fillCountry() {
-        LOGGER.debug("filling countries");
-        String[] list = {"SPAIN", "IRELAND", "MEXICO", "JAPAN", "NEW-ZEALAND", "BELGIUM"};
-        for (String country : list) {
-            countryDao.create(Country.builder().name(country).build());
-        }
-    }*/
-
     void fillManufacturer() {
         LOGGER.debug("filling manufacturer");
         String[] list = {"AUDI", "BMW", "RENAULT", "OPEL", "NISSAN", "TOYOTA"};
@@ -195,7 +184,7 @@ public class Filler {
         CarModel carModel = (CarModel) carModelDao.getByName("AURIS");
         CarModel carModel1 = (CarModel) carModelDao.getByName("CLIO");
         Client client = (Client) clientDao.getAll().get(0);
-        Car car = Car.builder().registration("05d121487").carModel(carModel).client(client).mileage(457845).color("red").build();
+        Car car = Car.builder().registration("05d121922").carModel(carModel).client(client).mileage(457845).color("red").build();
         Car car1 = Car.builder().registration("wD213232f").carModel(carModel1).client(client).mileage(75845).color("grey").build();
         carDao.create(car);
         carDao.create(car1);

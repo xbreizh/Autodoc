@@ -18,15 +18,22 @@
             <div style="color: red" th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         </div>
         <div class="form-group">
-            <label for="startDate">startDate:</label>
-            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
-                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
-                       th:value="${obj.startDate}"
-                       type="text"/>
-                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                     id="startDate" name="startDate" th:value="${obj.startDate}">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
+            <!--  <label for="startDate">startDate:</label>
+              <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                  <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
+                         th:value="${obj.startDate}"
+                         type="text"/>
+                  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                       id="startDate" name="startDate" th:value="${obj.startDate}">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>-->
+            <label for="login">StartDate:</label>
+            <input class="form-control" id="startDate" name="startDate" required="required"
+                   th:value="${obj.startDate}"
+                   type="text"/>
+            <div style="color: red" th:errors="*{obj.startDate}" th:if="${#fields.hasErrors('startDate')}">StartDate
+                Error
             </div>
         </div>
         <div class="form-group">
