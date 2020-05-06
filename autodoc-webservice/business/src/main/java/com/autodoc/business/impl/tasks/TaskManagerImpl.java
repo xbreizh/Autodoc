@@ -75,17 +75,10 @@ public class TaskManagerImpl extends AbstractGenericManager implements TaskManag
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting providerType");
         Task task = (Task) dao.getById(entityId);
-        if(task!=null) {
+        if (task == null) throw new InvalidDtoException("task invalid id: " + entityId);
             task.setName("deleted task");
             dao.update(task);
-        }
-        boolean deleteResult = dao.deleteById(entityId);
-        LOGGER.info("delete result: "+deleteResult);
-        if(!deleteResult){
-            LOGGER.error("renaming item we can't delete");
-            LOGGER.info(task);
-        }
-        return true;
+        return dao.deleteById(entityId);
     }
 
 

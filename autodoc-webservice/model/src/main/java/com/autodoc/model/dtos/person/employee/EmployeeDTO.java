@@ -49,6 +49,7 @@ public class EmployeeDTO extends PersonDTO {
     }
 
     public void setLogin(String login) {
+        if(login!=null)
         this.login = login.toUpperCase();
     }
 

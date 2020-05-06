@@ -4,6 +4,7 @@ import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +34,8 @@ class EmployeeDaoImplTest {
     private Filler filler;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         filler.fill();
         obj = (Employee) dao.getAll().get(0);
     }

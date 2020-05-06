@@ -8,6 +8,7 @@ import com.autodoc.dao.filler.Remover;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,7 +53,8 @@ class CarDaoImplTest {
     private Remover remover;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         remover.cleanup();
         filler.fill();
         client = (Client) clientDao.getAll().get(0);

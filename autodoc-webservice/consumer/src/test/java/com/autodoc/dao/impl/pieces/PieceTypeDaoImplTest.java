@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.pieces;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.pieces.PieceType;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,11 +29,13 @@ class PieceTypeDaoImplTest {
     private Filler filler;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         filler.fill();
         obj = (PieceType) dao.getAll().get(0);
 
     }
+
 
     @Test
     @DisplayName("should return null if not existing")

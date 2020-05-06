@@ -72,19 +72,11 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting pieceType");
         PieceType pieceType = (PieceType) dao.getById(entityId);
-        if(pieceType!=null) {
+        if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + entityId);
             pieceType.setName("deleted Item");
             dao.update(pieceType);
-        }
-        boolean deleteResult = dao.deleteById(entityId);
-        LOGGER.info("delete result: "+deleteResult);
-        if(!deleteResult){
-            LOGGER.error("renaming item we can't delete");
-            LOGGER.info(pieceType);
-        }
-        PieceType pieceType2 = (PieceType) dao.getById(entityId);
-        LOGGER.info("dede: "+pieceType2);
-        return true;
+
+        return dao.deleteById(entityId);
     }
 
 

@@ -4,6 +4,7 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ class AbstractGenericManagerTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(CarModelDaoImpl.class);
         manager = AbstractGenericManagerPojo.builder().dao(dao).build();
         obj = CarModel.builder().id(id).name(name).build();

@@ -1,5 +1,6 @@
 package com.autodoc.model.models.car;
 
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ class ManufacturerTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         this.manufacturer = new Manufacturer();
     }
 

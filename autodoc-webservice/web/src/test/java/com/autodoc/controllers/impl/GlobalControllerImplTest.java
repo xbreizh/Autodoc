@@ -39,7 +39,8 @@ class GlobalControllerImplTest {
     Filler filler;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         filler.fill();
     }
 

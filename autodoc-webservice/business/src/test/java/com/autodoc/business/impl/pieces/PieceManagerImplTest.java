@@ -10,6 +10,7 @@ import com.autodoc.model.dtos.pieces.PieceDTO;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,7 @@ class PieceManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(PieceDaoImpl.class);
         pieceTypedao = mock(PieceTypeDaoImpl.class);
         manager = PieceManagerImpl.builder().dao(dao).pieceTypeDao(pieceTypedao).build();

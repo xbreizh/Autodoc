@@ -7,6 +7,7 @@ import com.autodoc.dao.contract.car.CarModelDao;
 import com.autodoc.dao.impl.car.CarModelDaoImpl;
 import com.autodoc.model.dtos.car.CarModelDTO;
 import com.autodoc.model.models.car.CarModel;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,17 +30,18 @@ class CarModelManagerImplTest {
 
     private CarModelManager manager;
     private CarModelDao dao;
-    private String name = "Bob";
+    private final String name = "Bob";
     private CarModel obj;
     private CarModelDTO dto;
-    private int id = 22;
-    private String nameDto = "niamo";
-    private String description = "descriere";
-    private String engine = "12324AS";
+    private final int id = 22;
+    private final String nameDto = "niamo";
+    private final String description = "descriere";
+    private final String engine = "12324AS";
 
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(CarModelDaoImpl.class);
         manager = CarModelManagerImpl.builder().dao(dao).build();
         obj = CarModel.builder().id(id).name(name).build();

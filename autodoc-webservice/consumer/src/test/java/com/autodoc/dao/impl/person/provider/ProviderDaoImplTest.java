@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.person.provider;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.person.provider.Provider;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +31,8 @@ class ProviderDaoImplTest {
 
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         filler.fill();
         LOGGER.info("here");
     }

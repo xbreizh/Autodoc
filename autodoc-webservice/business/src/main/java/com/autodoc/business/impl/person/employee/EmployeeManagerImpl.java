@@ -219,13 +219,14 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting employeeType");
         Employee employee = (Employee) dao.getById(entityId);
+        if (employee == null) throw new InvalidDtoException("employee invalid id: " + entityId);
         if(employee.getRoles().contains(Role.SUPERADMIN)) {
             throw  new InvalidDtoException("SUPER ADMIN can't be deleted this way");
         }
-        if(employee!=null) {
+
             employee.setLogin("deleted Employee");
             dao.update(employee);
-        }
+
 
         return true;
     }

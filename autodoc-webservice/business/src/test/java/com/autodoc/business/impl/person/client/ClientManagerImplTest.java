@@ -6,6 +6,7 @@ import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.impl.person.client.ClientDaoImpl;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,7 @@ class ClientManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(ClientDaoImpl.class);
         manager = ClientManagerImpl.builder().dao(dao).build();
         obj = Client.builder().id(id).firstName(firstName).lastName(lastName).phoneNumber(phoneNumber).build();
@@ -153,6 +155,68 @@ class ClientManagerImplTest {
                 () -> assertEquals(dto.getLastName().toUpperCase(), obj.getLastName()),
                 () -> assertEquals(dto.getPhoneNumber().toUpperCase(), obj.getPhoneNumber())
         );
+    }
+
+
+    @Test
+    @DisplayName("should update")
+    void transferUpdate1() {
+        when(dao.getByCriteria(anyList())).thenReturn(new ArrayList());
+        when(dao.getById(anyInt())).thenReturn(obj);
+        System.out.println(dto);
+        obj = (Client) manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),
+                () -> assertEquals(dto.getLastName().toUpperCase(), obj.getLastName()),
+                () -> assertEquals(dto.getPhoneNumber().toUpperCase(), obj.getPhoneNumber())
+        );
+    }
+
+    @Test
+    @DisplayName("should not update")
+    void transferUpdate2() {
+        dto.setPhoneNumber(null);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(obj.getFirstName(), obj.getFirstName()),
+                () -> assertEquals(obj.getLastName(), obj.getLastName()),
+                () -> assertEquals(obj.getPhoneNumber(), obj.getPhoneNumber())
+        );
+
+    }
+
+    @Test
+    @DisplayName("should throw an exception")
+    void deleteById() {
+        when(dao.getById(anyInt())).thenReturn(null);
+        assertThrows(InvalidDtoException.class, ()-> manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return true")
+    void deleteById1() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertTrue(manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return false")
+    void deleteById2() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertTrue(manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return false")
+    void deleteById3() {
+        obj.setLastName("TBD_john");
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertTrue(manager.deleteById(2));
+
     }
 
 }

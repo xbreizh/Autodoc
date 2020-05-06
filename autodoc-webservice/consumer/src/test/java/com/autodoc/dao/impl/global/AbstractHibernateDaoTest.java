@@ -7,6 +7,7 @@ import com.autodoc.dao.impl.car.CarDaoImpl;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.search.Search;
+import org.apache.log4j.BasicConfigurator;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,6 +53,7 @@ class AbstractHibernateDaoTest {
 
     @BeforeEach
     void init() throws ParseException {
+        BasicConfigurator.configure();
         filler.fill();
         mockDao = mock(AbstractHibernateDao.class);
         mockDao.setSessionFactory(sessionFactory);

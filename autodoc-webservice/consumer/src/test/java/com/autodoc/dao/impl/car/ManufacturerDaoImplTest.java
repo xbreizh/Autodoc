@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.car;
 import com.autodoc.dao.contract.car.ManufacturerDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.car.Manufacturer;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,8 @@ class ManufacturerDaoImplTest {
 
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         filler.fill();
 
     }

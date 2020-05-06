@@ -89,17 +89,11 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
     public boolean deleteById(int entityId) {
         LOGGER.info("deleting providerType");
         Provider provider = (Provider) dao.getById(entityId);
-        if(provider!=null) {
+        if (provider == null) throw new InvalidDtoException("provider invalid id: " + entityId);
             provider.setFirstName("deleted Provider");
             provider.setLastName("deleted Provider");
             dao.update(provider);
-        }
-        boolean deleteResult = dao.deleteById(entityId);
-        LOGGER.info("delete result: "+deleteResult);
-        if(!deleteResult){
-            LOGGER.error("renaming item we can't delete");
-            LOGGER.info(provider);
-        }
-        return true;
+
+        return dao.deleteById(entityId);
     }
 }

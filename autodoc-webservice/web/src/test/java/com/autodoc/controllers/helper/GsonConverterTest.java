@@ -8,6 +8,7 @@ class GsonConverterTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         converter = new GsonConverter();
     }
 

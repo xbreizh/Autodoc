@@ -21,6 +21,7 @@ import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import com.autodoc.model.models.tasks.Task;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -69,6 +70,7 @@ class BillManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(BillDao.class);
         carDao = mock(CarDao.class);
         employeeDao = mock(EmployeeDao.class);
