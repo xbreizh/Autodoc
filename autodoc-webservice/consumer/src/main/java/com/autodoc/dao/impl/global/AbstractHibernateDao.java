@@ -80,10 +80,11 @@ public abstract class AbstractHibernateDao<T> {
 
     }
 
-    @Transactional(propagation = REQUIRES_NEW)
+   // @Transactional(propagation = REQUIRES_NEW)
     public boolean update(T entity) {
         LOGGER.info("updating from dao: " + entity);
         getCurrentSession().merge(entity);
+        //getCurrentSession().close();
         return true;
 
     }

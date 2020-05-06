@@ -139,7 +139,7 @@ class EmployeeDaoImplTest {
        Employee employee = (Employee) dao.getById(1);
        Date date = new Date();
        employee.setStartDate(date);
-       dao.update(employee);
+    //   dao.update(employee);
        /*assertEquals(date, ((Employee) dao.getById(1)).getStartDate());*/
         Employee employee1 = (Employee) dao.getById(1);
         System.out.println("date: "+employee1.getStartDate());
