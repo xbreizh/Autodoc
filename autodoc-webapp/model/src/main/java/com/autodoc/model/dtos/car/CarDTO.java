@@ -47,6 +47,7 @@ public class CarDTO {
     }
 
     public void setColor(String color) {
-        this.color = color.toUpperCase();
+        if (color != null)
+            this.color = color.toUpperCase();
     }
 }

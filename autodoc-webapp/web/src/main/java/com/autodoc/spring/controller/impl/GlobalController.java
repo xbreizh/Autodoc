@@ -86,7 +86,6 @@ public class GlobalController<T, D, F> {
             resettingUpdateViewElements(form, id, mv);
             return mv;
         }
-       // LOGGER.info(form.getClass().toString()+" retrieved: " + form);
         try {
             manager.update(authenticationHelper.getConnectedToken(), form);
         } catch (ObjectFormattingException e) {

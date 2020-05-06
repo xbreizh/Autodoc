@@ -19,7 +19,7 @@ public class Employee extends Person {
 
     private String login;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date lastConnection;
 
     private String password;

@@ -12,7 +12,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
@@ -186,20 +185,17 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
         if (stringDate == null) {
             throw new ObjectFormattingException("date shouldn't be null");
         }
-        System.out.println("reaching: " + stringDate);
-        System.out.println("expected format: " + getDateFormat().toString());
+        LOGGER.info("date received: " + stringDate);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         sdf.setLenient(false);
         try {
 
             //if not valid, it will throw ParseException
-            Date date = sdf.parse(stringDate);
-            System.out.println(date);
+            sdf.parse(stringDate);
             return true;
 
         } catch (ParseException e) {
 
-            /*throw new ObjectFormattingException("invalid date: " + stringDate);*/
             return false;
         }
 
