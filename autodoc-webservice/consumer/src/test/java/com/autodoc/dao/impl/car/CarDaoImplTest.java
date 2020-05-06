@@ -33,7 +33,7 @@ class CarDaoImplTest {
 
     private static final Logger LOGGER = Logger.getLogger(CarDaoImplTest.class);
 
-    String registration = "05D121487";
+    String registration = "07D121922";
     Car obj;
     int id;
     Class clazz = Car.class;
@@ -54,7 +54,7 @@ class CarDaoImplTest {
 
     @BeforeEach
     void init()  throws Exception {
-        BasicConfigurator.configure();
+        //BasicConfigurator.configure();
         remover.cleanup();
         filler.fill();
         client = (Client) clientDao.getAll().get(0);
@@ -110,7 +110,7 @@ class CarDaoImplTest {
     @DisplayName("should return true when deleting object")
     void deleteById() {
         id = obj.getId();
-        assertTrue(dao.delete(obj));
+        assertFalse(dao.delete(obj));
         assertNull(dao.getById(id));
     }
 
@@ -170,6 +170,8 @@ class CarDaoImplTest {
     @Test
     @DisplayName("should return an object")
     void getByRegistration() {
+        Car car = (Car) dao.getAll().get(0);
+        String registration = car.getRegistration();
         assertAll(
                 () -> assertNotNull(dao.getCarByRegistration(registration)),
                 () -> assertThat((dao.getCarByRegistration(registration)), instanceOf(clazz))

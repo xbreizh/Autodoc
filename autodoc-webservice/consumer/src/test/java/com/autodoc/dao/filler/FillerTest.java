@@ -56,7 +56,7 @@ class FillerTest {
 
     @BeforeEach()
     void init() throws ParseException {
-        BasicConfigurator.configure();
+      //  BasicConfigurator.configure();
         filler.fill();
     }
 
@@ -70,18 +70,18 @@ class FillerTest {
 
     @Test
     void fillTasks() {
-        assertEquals(3, taskDao.getAll().size());
+        assertEquals(4, taskDao.getAll().size());
     }
 
 
     @Test
     void fillPieceTypes() {
-        assertEquals(3, pieceTypeDao.getAll().size());
+        assertEquals(5, pieceTypeDao.getAll().size());
     }
 
     @Test
     void fillPieces() {
-        assertEquals(4, pieceDao.getAll().size());
+        assertEquals(5, pieceDao.getAll().size());
     }
 
 
@@ -108,7 +108,7 @@ class FillerTest {
 
     @Test
     void fillClient() {
-        assertEquals(2, clientDao.getAll().size());
+        assertEquals(3, clientDao.getAll().size());
     }
 
     @Test

@@ -9,11 +9,9 @@ import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
-import com.autodoc.model.models.pieces.Piece;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -220,12 +218,12 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         LOGGER.info("deleting employeeType");
         Employee employee = (Employee) dao.getById(entityId);
         if (employee == null) throw new InvalidDtoException("employee invalid id: " + entityId);
-        if(employee.getRoles().contains(Role.SUPERADMIN)) {
-            throw  new InvalidDtoException("SUPER ADMIN can't be deleted this way");
+        if (employee.getRoles().contains(Role.SUPERADMIN)) {
+            throw new InvalidDtoException("SUPER ADMIN can't be deleted this way");
         }
 
-            employee.setLogin("deleted Employee");
-            dao.update(employee);
+        employee.setLogin("deleted Employee");
+        dao.update(employee);
 
 
         return true;

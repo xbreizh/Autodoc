@@ -370,17 +370,5 @@ class BillManagerImplTest {
         assertDoesNotThrow(() -> manager.transferTasks(dto, obj));
     }
 
-    @Test
-    @DisplayName("should update Stock")
-    void updateStockAndAddPieces() {
-        Piece piece1 = Piece.builder().pieceType(new PieceType()).name("BRAKE PAD DE4").brand("DEVO").buyingPrice(10).sellPrice(14).quantity(2).build();
-        Piece piece2 = Piece.builder().pieceType(new PieceType()).name("GAZOL FILTER 1/454").brand("MAKO").buyingPrice(20).sellPrice(84).quantity(22).build();
-        Piece piece3 = Piece.builder().pieceType(new PieceType()).name("WINTER TYRE 15/4587").brand("PLOUGHLY").buyingPrice(300).sellPrice(314).quantity(33).build();
-        Piece piece4 = Piece.builder().pieceType(new PieceType()).name("CLUTCH PEDAL CARBON").brand("MANIET").buyingPrice(40).sellPrice(88).quantity(2).build();
-        Piece piece5 = Piece.builder().pieceType(new PieceType()).name("HUILE SYNTHETIQUE 2V").brand("CASTROL").buyingPrice(10).sellPrice(20).quantity(27).build();
-        List<Piece> dbPieces = Arrays.asList(piece1, piece2, piece1, piece3);
-        List<Piece> newList = Arrays.asList(piece1,  piece1, piece3);
 
-        manager.updateStockAndAddOrRemovePiecesFromStock(newList, null);
-    }
 }

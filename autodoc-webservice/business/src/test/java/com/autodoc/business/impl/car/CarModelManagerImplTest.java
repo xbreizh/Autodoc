@@ -22,10 +22,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
+/*@ContextConfiguration("classpath:/mvc-dispatcher-servlet.xml")
 @ExtendWith(SpringExtension.class)
 //@Sql(scripts = "classpath:resetDb_scripts/resetDbCar.sql")
-@Transactional
+@Transactional*/
 class CarModelManagerImplTest {
 
     private CarModelManager manager;

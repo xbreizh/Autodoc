@@ -35,7 +35,7 @@ class EmployeeDaoImplTest {
 
     @BeforeEach
     void init()  throws Exception {
-        BasicConfigurator.configure();
+       // BasicConfigurator.configure();
         filler.fill();
         obj = (Employee) dao.getAll().get(0);
     }
@@ -136,17 +136,21 @@ class EmployeeDaoImplTest {
         );
     }
 
+/*
     @Test
     void update() {
-       Employee employee = (Employee) dao.getById(1);
+       Employee employee = (Employee) dao.getById(2);
        Date date = new Date();
        employee.setStartDate(date);
     //   dao.update(employee);
-       /*assertEquals(date, ((Employee) dao.getById(1)).getStartDate());*/
-        Employee employee1 = (Employee) dao.getById(1);
+       */
+/*assertEquals(date, ((Employee) dao.getById(1)).getStartDate());*//*
+
+        Employee employee1 = (Employee) dao.getById(2);
         System.out.println("date: "+employee1.getStartDate());
 
     }
+*/
 
 
 }

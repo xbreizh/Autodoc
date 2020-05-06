@@ -9,7 +9,6 @@ import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.text.DateFormat;
@@ -21,6 +20,7 @@ import java.util.*;
 @Component
 public abstract class AbstractGenericManager<T, D> implements IGenericManager<T, D> {
     private static final Logger LOGGER = Logger.getLogger(AbstractGenericManager.class);
+    private static String FEEDBACK = "feedback: ";
 
 
     public IGenericDao getDao() {
@@ -29,14 +29,13 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
 
     public String save(D object) {
-        LOGGER.info("trying to save: " + object.getClass());
         IGenericDao dao = getDao();
         T objectToSave = transferInsert(object);
         LOGGER.info("object to save: " + objectToSave);
         String feedback = Integer.toString(dao.create(objectToSave));
-        LOGGER.info("feedback: " + feedback);
+        LOGGER.info(feedback + feedback);
         if (!feedback.equals("0")) {
-            LOGGER.info("feedback: " + feedback);
+            LOGGER.info(feedback + feedback);
             return feedback;
         }
         LOGGER.info("issue while saving");
@@ -77,7 +76,7 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
 
         T obj = transferUpdate((D) entity);
         boolean feedback = getDao().update(obj);
-        LOGGER.info("feedback: " + feedback);
+        LOGGER.info(FEEDBACK + feedback);
         return feedback;
 
     }
@@ -182,9 +181,8 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
             String type = authorizedList.get(field).toString();
             if (!isCompareCriteria(type, dto))
                 throw new InvalidDtoException(compare + " is invalid or can't be used with " + field);
-            if (type.equals("INTEGER")) {
-                if (!isValidNumber(value)) throw new InvalidDtoException(value + " is not a valid number");
-            }
+            if (type.equals("INTEGER") && !isValidNumber(value)) throw new InvalidDtoException(value + " is not a valid number");
+
             if (type.equals("DATE")) checkDateValue(value);
             if (type.equals("STRING")) value = checkAndAdaptValue(compare, value);
             Search search = new Search(field, compare, value);
@@ -220,7 +218,6 @@ public abstract class AbstractGenericManager<T, D> implements IGenericManager<T,
     boolean isCompareCriteria(String type, SearchDTO dto) {
         LOGGER.info("type: " + type);
         LOGGER.info("dto: " + dto);
-        int found = 0;
         for (SearchType searchType : SearchType.values()) {
             if (searchType.name().equals(type)) {
                 for (String[] str : searchType.getValues()) {
