@@ -59,11 +59,11 @@ services:
   ####################     DATABASES       ####################
   #############################################################
 
-  db:
+  autodoc-db-dev:
     image: postgres:11
-    container_name: library-db
+    container_name: autodoc-db-dev
     ports:
-      - 5532:5432
+      - 5132:5432
     environment:
       POSTGRES_USER: ocp
       POSTGRES_PASSWORD: 123
@@ -72,24 +72,57 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-      #- pg-data:/var/lib/postgresql/data
     networks:
       - autodoc
-  dbtest:
+
+  autodoc-db-QA:
     image: postgres:11
-    container_name: library-dbtest
+    container_name: autodoc-db-QA
+    ports:
+      - 5232:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - autodoc       
+
+
+  autodoc-db-preprod:
+    image: postgres:11
+    container_name: autodoc-db-preprod
+    ports:
+      - 5332:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - autodoc
+
+  autodoc-db-production:
+    image: postgres:11
+    container_name: autodoc-db-production
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: ocp
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: autodoc
-      POSTGRES_INITDB_ARGS: --data-checksums  
+      POSTGRES_INITDB_ARGS: --data-checksums
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - "./db-init/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     networks:
-      - autodoc 
+      - autodoc
 
 
   #############################################################
@@ -99,50 +132,35 @@ services:
   ###########################################
   ###########  webservice ###################
 
- # autodoc-webservice:
- #   image: autodoc_app
- #   container_name: webservice
- #   build: autodoc-webservice/.
- #   ports:
- #    - 8080:8080
- #   #volumes:
-     # - logs:/usr/app/resources
- #   depends_on:
- #     - db
- #   networks:
- #     - autodoc
+  autodoc-webservice:
+    image: autodoc_webservice
+    container_name: webservice-dev
+    build: autodoc-webservice/.
+    ports:
+     - 8080:8080
+    volumes:
+      - logs:/usr/app/resources
+    depends_on:
+      - autodoc-db-dev
+    networks:
+      - autodoc
 
   ###########################################
-  ###########  client_app ###################
+  ###########  wecbapp ###################
 
- # autodoc-client_app:
- #   image: client_app
- #   container_name: client_app
- #   build: client_app/.
- #   ports:
- #       - 8085:8080
- #   volumes:
- #     - logs:/usr/app/resources    
- #   depends_on:
- #     - webservice
- #   networks:
- #     - autodoc
+  autodoc-webapp:
+    image: autodoc_webapp
+    container_name: webapp-dev
+    build: autodoc-webapp/.
+    ports:
+        - 8085:8080
+    volumes:
+      - logs:/usr/app/resources    
+    depends_on:
+      - webservice
+    networks:
+      - autodoc
 
-  ###########################################
-  ###########  office_app ###################
-
- # autodoc-office_app:
- #   image: office_app
- #   container_name: office_app
- #   build: office_app/.
- #   ports:
- #       - 8090:8080
- #   #volumes:
- #    # - logs:/usr/app/resources
- #   depends_on:
- #     - webservice
- #   networks:
- #     - autodoc
 
 ###########################################
 ###########   volumes   ###################
