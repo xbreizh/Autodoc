@@ -442,9 +442,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-bill-controller-impl-test-create">Add</a></li>
 <li><a href="#resources-bill-controller-impl-test-get-all">Get All</a></li>
 <li><a href="#resources-bill-controller-impl-test-get-by-id">Get By Id</a></li>
-<li><a href="#resources-bill-controller-impl-test-get-by-name">{ class - name } / { method - name }</a></li>
 <li><a href="#resources-bill-controller-impl-test-update">Update</a></li>
-<li><a href="#resources-bill-controller-impl-test-delete">Delete By Id</a></li>
 </ul>
 </li>
 <li><a href="#_cars">CARS</a>
@@ -465,7 +463,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-car-model-controller-impl-test-get-by-id">Get By Id</a></li>
 <li><a href="#resources-car-model-controller-impl-test-get-by-name">Get By Name</a></li>
 <li><a href="#resources-car-model-controller-impl-test-update">Update</a></li>
-<li><a href="#resources-car-model-controller-impl-test-delete">{ class - name } / { method - name }</a></li>
 </ul>
 </li>
 <li><a href="#_clients">CLIENTS</a>
@@ -473,7 +470,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-client-controller-impl-test-create">Add</a></li>
 <li><a href="#resources-client-controller-impl-test-get-all">Get All</a></li>
 <li><a href="#resources-client-controller-impl-test-get-by-id">Get By Id</a></li>
-<li><a href="#resources-client-controller-impl-test-get-by-name">{ class - name } / { method - name }</a></li>
 <li><a href="#resources-client-controller-impl-test-update">Update</a></li>
 <li><a href="#resources-client-controller-impl-test-delete">Delete By Id</a></li>
 </ul>
@@ -483,7 +479,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-employee-controller-impl-test-create">Add</a></li>
 <li><a href="#resources-employee-controller-impl-test-get-all">Get All</a></li>
 <li><a href="#resources-employee-controller-impl-test-get-by-id">Get By Id</a></li>
-<li><a href="#resources-employee-controller-impl-test-get-by-name">{ class - name } / { method - name }</a></li>
 <li><a href="#resources-employee-controller-impl-test-update">Update</a></li>
 <li><a href="#resources-employee-controller-impl-test-delete">Delete By Id</a></li>
 </ul>
@@ -495,7 +490,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#resources-manufacturer-controller-impl-test-get-by-id">Get By Id</a></li>
 <li><a href="#resources-manufacturer-controller-impl-test-get-by-name">Get By Name</a></li>
 <li><a href="#resources-manufacturer-controller-impl-test-update">Update</a></li>
-<li><a href="#resources-manufacturer-controller-impl-test-delete">{ class - name } / { method - name }</a></li>
 </ul>
 </li>
 <li><a href="#_pieces">PIECES</a>
@@ -580,6 +574,12 @@ Have fun!!</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
@@ -606,13 +606,13 @@ Have fun!!</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">tasks</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array[Integer]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">pieces</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array[Integer]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -637,7 +637,7 @@ Have fun!!</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">total</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Decimal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 1.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">discount</p></td>
@@ -649,6 +649,12 @@ Must be at most 100.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">comments</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">vat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -669,8 +675,9 @@ Must be at most 100.</p></td>
     -H 'Content-Type: application/json' \
     -H 'Authorization: Bearer test' \
     -d '{
+  "VAT" : 20.0,
   "id" : 0,
-  "dateReparation" : "Wed Apr 29 17:48:38 IST 2020",
+  "dateReparation" : "Thu May 07 10:01:14 IST 2020",
   "status" : "ABC12345",
   "paymentType" : "CASH",
   "tasks" : [ 14, 33, 42 ],
@@ -738,11 +745,12 @@ Must be at most 100.</p></td>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=ISO-8859-1
-Content-Length: 320
+Content-Length: 336
 
 [ {
+  "VAT" : 20.0,
   "id" : 1,
-  "dateReparation" : "Wed Apr 29 17:48:38 IST 2020",
+  "dateReparation" : "Thu May 07 10:01:14 IST 2020",
   "status" : "ABC12345",
   "paymentType" : "CASH",
   "tasks" : [ 14, 33, 42 ],
@@ -825,11 +833,12 @@ Content-Length: 320
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=ISO-8859-1
-Content-Length: 316
+Content-Length: 332
 
 {
+  "VAT" : 20.0,
   "id" : 1,
-  "dateReparation" : "Wed Apr 29 17:48:38 IST 2020",
+  "dateReparation" : "Thu May 07 10:01:14 IST 2020",
   "status" : "ABC12345",
   "paymentType" : "CASH",
   "tasks" : [ 14, 33, 42 ],
@@ -849,12 +858,6 @@ Content-Length: 316
 Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="resources-bill-controller-impl-test-get-by-name"><a class="link" href="#resources-bill-controller-impl-test-get-by-name">{ class - name } / { method - name }</a></h3>
-<div class="paragraph">
-<p><code>+PUT +</code></p>
 </div>
 </div>
 <div class="sect2">
@@ -893,6 +896,12 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
@@ -919,13 +928,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">tasks</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array[Integer]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">pieces</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array[Integer]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -950,7 +959,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">total</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Decimal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 1.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">discount</p></td>
@@ -962,6 +971,12 @@ Must be at most 100.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">comments</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">vat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -982,8 +997,9 @@ Must be at most 100.</p></td>
     -H 'Content-Type: application/json' \
     -H 'Authorization: Bearer test' \
     -d '{
+  "VAT" : 20.0,
   "id" : 1,
-  "dateReparation" : "Wed Apr 29 17:48:38 IST 2020",
+  "dateReparation" : "Thu May 07 10:01:14 IST 2020",
   "status" : "ABC12345",
   "paymentType" : "CASH",
   "tasks" : [ 14, 33, 42 ],
@@ -1011,93 +1027,6 @@ updated</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="resources-bill-controller-impl-test-delete"><a class="link" href="#resources-bill-controller-impl-test-delete">Delete By Id</a></h3>
-<div class="paragraph">
-<p><code>DELETE /bills/{id}</code></p>
-</div>
-<div class="sect3">
-<h4 id="_path_parameters_5"><a class="link" href="#_path_parameters_5">Path parameters</a></h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Optional</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_query_parameters_5"><a class="link" href="#_query_parameters_5">Query parameters</a></h4>
-<div class="paragraph">
-<p>No parameters.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_request_fields_5"><a class="link" href="#_request_fields_5">Request fields</a></h4>
-<div class="paragraph">
-<p>No request body.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_response_fields_5"><a class="link" href="#_response_fields_5">Response fields</a></h4>
-<div class="paragraph">
-<p>No response body.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_request_5"><a class="link" href="#_example_request_5">Example request</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/bills/29' -i -X DELETE \
-    -H 'Content-Type: application/json' \
-    -H 'Authorization: Bearer test' \
-    -d '{
-  "id" : 1,
-  "dateReparation" : "Wed Apr 29 17:48:38 IST 2020",
-  "status" : "ABC12345",
-  "paymentType" : "CASH",
-  "tasks" : [ 14, 33, 42 ],
-  "pieces" : [ 1, 3, 4 ],
-  "registration" : "05D121487",
-  "clientId" : 1,
-  "employeeId" : 2,
-  "total" : 127.25,
-  "discount" : 10.0,
-  "comments" : "I am a comment"
-}'</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_response_5"><a class="link" href="#_example_response_5">Example response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
-Content-Type: application/json;charset=UTF-8
-Content-Length: 4
-
-true</code></pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1109,19 +1038,19 @@ true</code></pre>
 <p><code>POST /cars</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_6"><a class="link" href="#_path_parameters_6">Path parameters</a></h4>
+<h4 id="_path_parameters_5"><a class="link" href="#_path_parameters_5">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_6"><a class="link" href="#_query_parameters_6">Query parameters</a></h4>
+<h4 id="_query_parameters_5"><a class="link" href="#_query_parameters_5">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_6"><a class="link" href="#_request_fields_6">Request fields</a></h4>
+<h4 id="_request_fields_5"><a class="link" href="#_request_fields_5">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1178,13 +1107,13 @@ true</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_6"><a class="link" href="#_response_fields_6">Response fields</a></h4>
+<h4 id="_response_fields_5"><a class="link" href="#_response_fields_5">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_6"><a class="link" href="#_example_request_6">Example request</a></h4>
+<h4 id="_example_request_5"><a class="link" href="#_example_request_5">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/cars' -i -X POST \
@@ -1202,7 +1131,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_6"><a class="link" href="#_example_response_6">Example response</a></h4>
+<h4 id="_example_response_5"><a class="link" href="#_example_response_5">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -1216,31 +1145,31 @@ true</code></pre>
 <p><code>GET /cars</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_7"><a class="link" href="#_path_parameters_7">Path parameters</a></h4>
+<h4 id="_path_parameters_6"><a class="link" href="#_path_parameters_6">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_7"><a class="link" href="#_query_parameters_7">Query parameters</a></h4>
+<h4 id="_query_parameters_6"><a class="link" href="#_query_parameters_6">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_7"><a class="link" href="#_request_fields_7">Request fields</a></h4>
+<h4 id="_request_fields_6"><a class="link" href="#_request_fields_6">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_7"><a class="link" href="#_response_fields_7">Response fields</a></h4>
+<h4 id="_response_fields_6"><a class="link" href="#_response_fields_6">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_7"><a class="link" href="#_example_request_7">Example request</a></h4>
+<h4 id="_example_request_6"><a class="link" href="#_example_request_6">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/cars' -i -X GET \
@@ -1249,7 +1178,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_7"><a class="link" href="#_example_response_7">Example response</a></h4>
+<h4 id="_example_response_6"><a class="link" href="#_example_response_6">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1274,7 +1203,7 @@ Content-Length: 134
 <p><code>GET /cars/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_8"><a class="link" href="#_path_parameters_8">Path parameters</a></h4>
+<h4 id="_path_parameters_7"><a class="link" href="#_path_parameters_7">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1301,25 +1230,25 @@ Content-Length: 134
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_8"><a class="link" href="#_query_parameters_8">Query parameters</a></h4>
+<h4 id="_query_parameters_7"><a class="link" href="#_query_parameters_7">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_8"><a class="link" href="#_request_fields_8">Request fields</a></h4>
+<h4 id="_request_fields_7"><a class="link" href="#_request_fields_7">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_8"><a class="link" href="#_response_fields_8">Response fields</a></h4>
+<h4 id="_response_fields_7"><a class="link" href="#_response_fields_7">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_8"><a class="link" href="#_example_request_8">Example request</a></h4>
+<h4 id="_example_request_7"><a class="link" href="#_example_request_7">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/cars/2' -i -X GET \
@@ -1329,7 +1258,7 @@ Content-Length: 134
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_8"><a class="link" href="#_example_response_8">Example response</a></h4>
+<h4 id="_example_response_7"><a class="link" href="#_example_response_7">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1354,13 +1283,13 @@ Content-Type: application/json;charset=ISO-8859-1
 <p><code>GET /cars/registration</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_9"><a class="link" href="#_path_parameters_9">Path parameters</a></h4>
+<h4 id="_path_parameters_8"><a class="link" href="#_path_parameters_8">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_9"><a class="link" href="#_query_parameters_9">Query parameters</a></h4>
+<h4 id="_query_parameters_8"><a class="link" href="#_query_parameters_8">Query parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1387,19 +1316,19 @@ Content-Type: application/json;charset=ISO-8859-1
 </table>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_9"><a class="link" href="#_request_fields_9">Request fields</a></h4>
+<h4 id="_request_fields_8"><a class="link" href="#_request_fields_8">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_9"><a class="link" href="#_response_fields_9">Response fields</a></h4>
+<h4 id="_response_fields_8"><a class="link" href="#_response_fields_8">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_9"><a class="link" href="#_example_request_9">Example request</a></h4>
+<h4 id="_example_request_8"><a class="link" href="#_example_request_8">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/cars/registration?registration=ABC12345' -i -X GET \
@@ -1416,7 +1345,7 @@ Content-Type: application/json;charset=ISO-8859-1
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_9"><a class="link" href="#_example_response_9">Example response</a></h4>
+<h4 id="_example_response_8"><a class="link" href="#_example_response_8">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1441,19 +1370,19 @@ Content-Type: application/json;charset=ISO-8859-1
 <p><code>PUT /cars</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_10"><a class="link" href="#_path_parameters_10">Path parameters</a></h4>
+<h4 id="_path_parameters_9"><a class="link" href="#_path_parameters_9">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_10"><a class="link" href="#_query_parameters_10">Query parameters</a></h4>
+<h4 id="_query_parameters_9"><a class="link" href="#_query_parameters_9">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_10"><a class="link" href="#_request_fields_10">Request fields</a></h4>
+<h4 id="_request_fields_9"><a class="link" href="#_request_fields_9">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1510,13 +1439,13 @@ Content-Type: application/json;charset=ISO-8859-1
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_10"><a class="link" href="#_response_fields_10">Response fields</a></h4>
+<h4 id="_response_fields_9"><a class="link" href="#_response_fields_9">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_10"><a class="link" href="#_example_request_10">Example request</a></h4>
+<h4 id="_example_request_9"><a class="link" href="#_example_request_9">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/cars' -i -X PUT \
@@ -1534,7 +1463,7 @@ Content-Type: application/json;charset=ISO-8859-1
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_10"><a class="link" href="#_example_response_10">Example response</a></h4>
+<h4 id="_example_response_9"><a class="link" href="#_example_response_9">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1552,7 +1481,7 @@ updated</code></pre>
 <p><code>PUT /cars/updateClient/{carId}/{clientId}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_11"><a class="link" href="#_path_parameters_11">Path parameters</a></h4>
+<h4 id="_path_parameters_10"><a class="link" href="#_path_parameters_10">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1585,25 +1514,25 @@ updated</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_11"><a class="link" href="#_query_parameters_11">Query parameters</a></h4>
+<h4 id="_query_parameters_10"><a class="link" href="#_query_parameters_10">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_11"><a class="link" href="#_request_fields_11">Request fields</a></h4>
+<h4 id="_request_fields_10"><a class="link" href="#_request_fields_10">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_11"><a class="link" href="#_response_fields_11">Response fields</a></h4>
+<h4 id="_response_fields_10"><a class="link" href="#_response_fields_10">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_11"><a class="link" href="#_example_request_11">Example request</a></h4>
+<h4 id="_example_request_10"><a class="link" href="#_example_request_10">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/cars/updateClient/3/5' -i -X PUT \
@@ -1613,7 +1542,7 @@ updated</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_11"><a class="link" href="#_example_response_11">Example response</a></h4>
+<h4 id="_example_response_10"><a class="link" href="#_example_response_10">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1647,7 +1576,7 @@ client not found</code></pre>
 <p><code>DELETE /cars/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_12"><a class="link" href="#_path_parameters_12">Path parameters</a></h4>
+<h4 id="_path_parameters_11"><a class="link" href="#_path_parameters_11">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1674,25 +1603,25 @@ client not found</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_12"><a class="link" href="#_query_parameters_12">Query parameters</a></h4>
+<h4 id="_query_parameters_11"><a class="link" href="#_query_parameters_11">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_12"><a class="link" href="#_request_fields_12">Request fields</a></h4>
+<h4 id="_request_fields_11"><a class="link" href="#_request_fields_11">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_12"><a class="link" href="#_response_fields_12">Response fields</a></h4>
+<h4 id="_response_fields_11"><a class="link" href="#_response_fields_11">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_12"><a class="link" href="#_example_request_12">Example request</a></h4>
+<h4 id="_example_request_11"><a class="link" href="#_example_request_11">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/cars/2' -i -X DELETE \
@@ -1710,7 +1639,7 @@ client not found</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_12"><a class="link" href="#_example_response_12">Example response</a></h4>
+<h4 id="_example_response_11"><a class="link" href="#_example_response_11">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
@@ -1733,19 +1662,19 @@ true</code></pre>
 <p><code>POST /carModels</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_13"><a class="link" href="#_path_parameters_13">Path parameters</a></h4>
+<h4 id="_path_parameters_12"><a class="link" href="#_path_parameters_12">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_13"><a class="link" href="#_query_parameters_13">Query parameters</a></h4>
+<h4 id="_query_parameters_12"><a class="link" href="#_query_parameters_12">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_13"><a class="link" href="#_request_fields_13">Request fields</a></h4>
+<h4 id="_request_fields_12"><a class="link" href="#_request_fields_12">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1808,13 +1737,13 @@ true</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_13"><a class="link" href="#_response_fields_13">Response fields</a></h4>
+<h4 id="_response_fields_12"><a class="link" href="#_response_fields_12">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_13"><a class="link" href="#_example_request_13">Example request</a></h4>
+<h4 id="_example_request_12"><a class="link" href="#_example_request_12">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/carModels' -i -X POST \
@@ -1833,7 +1762,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_13"><a class="link" href="#_example_response_13">Example response</a></h4>
+<h4 id="_example_response_12"><a class="link" href="#_example_response_12">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -1847,31 +1776,31 @@ true</code></pre>
 <p><code>GET /carModels</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_14"><a class="link" href="#_path_parameters_14">Path parameters</a></h4>
+<h4 id="_path_parameters_13"><a class="link" href="#_path_parameters_13">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_14"><a class="link" href="#_query_parameters_14">Query parameters</a></h4>
+<h4 id="_query_parameters_13"><a class="link" href="#_query_parameters_13">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_14"><a class="link" href="#_request_fields_14">Request fields</a></h4>
+<h4 id="_request_fields_13"><a class="link" href="#_request_fields_13">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_14"><a class="link" href="#_response_fields_14">Response fields</a></h4>
+<h4 id="_response_fields_13"><a class="link" href="#_response_fields_13">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_14"><a class="link" href="#_example_request_14">Example request</a></h4>
+<h4 id="_example_request_13"><a class="link" href="#_example_request_13">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/carModels' -i -X GET \
@@ -1880,7 +1809,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_14"><a class="link" href="#_example_response_14">Example response</a></h4>
+<h4 id="_example_response_13"><a class="link" href="#_example_response_13">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1906,7 +1835,7 @@ Content-Length: 159
 <p><code>GET /carModels/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_15"><a class="link" href="#_path_parameters_15">Path parameters</a></h4>
+<h4 id="_path_parameters_14"><a class="link" href="#_path_parameters_14">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -1933,25 +1862,25 @@ Content-Length: 159
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_15"><a class="link" href="#_query_parameters_15">Query parameters</a></h4>
+<h4 id="_query_parameters_14"><a class="link" href="#_query_parameters_14">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_15"><a class="link" href="#_request_fields_15">Request fields</a></h4>
+<h4 id="_request_fields_14"><a class="link" href="#_request_fields_14">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_15"><a class="link" href="#_response_fields_15">Response fields</a></h4>
+<h4 id="_response_fields_14"><a class="link" href="#_response_fields_14">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_15"><a class="link" href="#_example_request_15">Example request</a></h4>
+<h4 id="_example_request_14"><a class="link" href="#_example_request_14">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/carModels/2' -i -X GET \
@@ -1962,7 +1891,7 @@ Content-Length: 159
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_15"><a class="link" href="#_example_response_15">Example response</a></h4>
+<h4 id="_example_response_14"><a class="link" href="#_example_response_14">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1994,13 +1923,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>GET /carModels/name</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_16"><a class="link" href="#_path_parameters_16">Path parameters</a></h4>
+<h4 id="_path_parameters_15"><a class="link" href="#_path_parameters_15">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_16"><a class="link" href="#_query_parameters_16">Query parameters</a></h4>
+<h4 id="_query_parameters_15"><a class="link" href="#_query_parameters_15">Query parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -2027,19 +1956,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_16"><a class="link" href="#_request_fields_16">Request fields</a></h4>
+<h4 id="_request_fields_15"><a class="link" href="#_request_fields_15">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_16"><a class="link" href="#_response_fields_16">Response fields</a></h4>
+<h4 id="_response_fields_15"><a class="link" href="#_response_fields_15">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_16"><a class="link" href="#_example_request_16">Example request</a></h4>
+<h4 id="_example_request_15"><a class="link" href="#_example_request_15">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/carModels/name?name=Quattro' -i -X GET \
@@ -2050,7 +1979,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_16"><a class="link" href="#_example_response_16">Example response</a></h4>
+<h4 id="_example_response_15"><a class="link" href="#_example_response_15">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -2074,6 +2003,138 @@ Content-Length: 155
 <h3 id="resources-car-model-controller-impl-test-update"><a class="link" href="#resources-car-model-controller-impl-test-update">Update</a></h3>
 <div class="paragraph">
 <p><code>PUT /carModels</code></p>
+</div>
+<div class="sect3">
+<h4 id="_path_parameters_16"><a class="link" href="#_path_parameters_16">Path parameters</a></h4>
+<div class="paragraph">
+<p>No parameters.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_query_parameters_16"><a class="link" href="#_query_parameters_16">Query parameters</a></h4>
+<div class="paragraph">
+<p>No parameters.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_request_fields_16"><a class="link" href="#_request_fields_16">Request fields</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manufacturerId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gearbox</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">engine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fuelType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_response_fields_16"><a class="link" href="#_response_fields_16">Response fields</a></h4>
+<div class="paragraph">
+<p>No response body.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_request_16"><a class="link" href="#_example_request_16">Example request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/carModels' -i -X PUT \
+    -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer test' \
+    -d '{
+  "id" : 2,
+  "manufacturerId" : 3,
+  "name" : "Quattro",
+  "description" : "joli",
+  "gearbox" : "MANUAL",
+  "engine" : "2.0",
+  "fuelType" : "DIESEL"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_response_16"><a class="link" href="#_example_response_16">Example response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=ISO-8859-1
+Content-Length: 7
+
+updated</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
+Content-Length: 16
+Content-Type: text/plain;charset=ISO-8859-1
+
+client not found</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clients"><a class="link" href="#_clients">CLIENTS</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="resources-client-controller-impl-test-create"><a class="link" href="#resources-client-controller-impl-test-create">Add</a></h3>
+<div class="paragraph">
+<p><code>POST /clients</code></p>
 </div>
 <div class="sect3">
 <h4 id="_path_parameters_17"><a class="link" href="#_path_parameters_17">Path parameters</a></h4>
@@ -2112,144 +2173,6 @@ Content-Length: 155
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">manufacturerId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gearbox</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">engine</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fuelType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_response_fields_17"><a class="link" href="#_response_fields_17">Response fields</a></h4>
-<div class="paragraph">
-<p>No response body.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_request_17"><a class="link" href="#_example_request_17">Example request</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/carModels' -i -X PUT \
-    -H 'Content-Type: application/json' \
-    -H 'Authorization: Bearer test' \
-    -d '{
-  "id" : 2,
-  "manufacturerId" : 3,
-  "name" : "Quattro",
-  "description" : "joli",
-  "gearbox" : "MANUAL",
-  "engine" : "2.0",
-  "fuelType" : "DIESEL"
-}'</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_response_17"><a class="link" href="#_example_response_17">Example response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=ISO-8859-1
-Content-Length: 7
-
-updated</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
-Content-Length: 16
-Content-Type: text/plain;charset=ISO-8859-1
-
-client not found</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="resources-car-model-controller-impl-test-delete"><a class="link" href="#resources-car-model-controller-impl-test-delete">{ class - name } / { method - name }</a></h3>
-<div class="paragraph">
-<p><code>+DELETE +</code></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_clients"><a class="link" href="#_clients">CLIENTS</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="resources-client-controller-impl-test-create"><a class="link" href="#resources-client-controller-impl-test-create">Add</a></h3>
-<div class="paragraph">
-<p><code>POST /clients</code></p>
-</div>
-<div class="sect3">
-<h4 id="_path_parameters_18"><a class="link" href="#_path_parameters_18">Path parameters</a></h4>
-<div class="paragraph">
-<p>No parameters.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_query_parameters_18"><a class="link" href="#_query_parameters_18">Query parameters</a></h4>
-<div class="paragraph">
-<p>No parameters.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_request_fields_18"><a class="link" href="#_request_fields_18">Request fields</a></h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Optional</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">firstName</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
@@ -2271,13 +2194,13 @@ client not found</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_18"><a class="link" href="#_response_fields_18">Response fields</a></h4>
+<h4 id="_response_fields_17"><a class="link" href="#_response_fields_17">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_18"><a class="link" href="#_example_request_18">Example request</a></h4>
+<h4 id="_example_request_17"><a class="link" href="#_example_request_17">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/clients' -i -X POST \
@@ -2293,7 +2216,7 @@ client not found</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_18"><a class="link" href="#_example_response_18">Example response</a></h4>
+<h4 id="_example_response_17"><a class="link" href="#_example_response_17">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -2307,31 +2230,31 @@ client not found</code></pre>
 <p><code>GET /clients</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_19"><a class="link" href="#_path_parameters_19">Path parameters</a></h4>
+<h4 id="_path_parameters_18"><a class="link" href="#_path_parameters_18">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_19"><a class="link" href="#_query_parameters_19">Query parameters</a></h4>
+<h4 id="_query_parameters_18"><a class="link" href="#_query_parameters_18">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_19"><a class="link" href="#_request_fields_19">Request fields</a></h4>
+<h4 id="_request_fields_18"><a class="link" href="#_request_fields_18">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_19"><a class="link" href="#_response_fields_19">Response fields</a></h4>
+<h4 id="_response_fields_18"><a class="link" href="#_response_fields_18">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_19"><a class="link" href="#_example_request_19">Example request</a></h4>
+<h4 id="_example_request_18"><a class="link" href="#_example_request_18">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/clients' -i -X GET \
@@ -2340,7 +2263,7 @@ client not found</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_19"><a class="link" href="#_example_response_19">Example response</a></h4>
+<h4 id="_example_response_18"><a class="link" href="#_example_response_18">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -2363,7 +2286,7 @@ Content-Length: 103
 <p><code>GET /clients/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_20"><a class="link" href="#_path_parameters_20">Path parameters</a></h4>
+<h4 id="_path_parameters_19"><a class="link" href="#_path_parameters_19">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -2390,25 +2313,25 @@ Content-Length: 103
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_20"><a class="link" href="#_query_parameters_20">Query parameters</a></h4>
+<h4 id="_query_parameters_19"><a class="link" href="#_query_parameters_19">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_20"><a class="link" href="#_request_fields_20">Request fields</a></h4>
+<h4 id="_request_fields_19"><a class="link" href="#_request_fields_19">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_20"><a class="link" href="#_response_fields_20">Response fields</a></h4>
+<h4 id="_response_fields_19"><a class="link" href="#_response_fields_19">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_20"><a class="link" href="#_example_request_20">Example request</a></h4>
+<h4 id="_example_request_19"><a class="link" href="#_example_request_19">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/clients/72' -i -X GET \
@@ -2419,7 +2342,7 @@ Content-Length: 103
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_20"><a class="link" href="#_example_response_20">Example response</a></h4>
+<h4 id="_example_response_19"><a class="link" href="#_example_response_19">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -2443,30 +2366,24 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="resources-client-controller-impl-test-get-by-name"><a class="link" href="#resources-client-controller-impl-test-get-by-name">{ class - name } / { method - name }</a></h3>
-<div class="paragraph">
-<p><code>+PUT +</code></p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="resources-client-controller-impl-test-update"><a class="link" href="#resources-client-controller-impl-test-update">Update</a></h3>
 <div class="paragraph">
 <p><code>PUT /clients</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_21"><a class="link" href="#_path_parameters_21">Path parameters</a></h4>
+<h4 id="_path_parameters_20"><a class="link" href="#_path_parameters_20">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_21"><a class="link" href="#_query_parameters_21">Query parameters</a></h4>
+<h4 id="_query_parameters_20"><a class="link" href="#_query_parameters_20">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_21"><a class="link" href="#_request_fields_21">Request fields</a></h4>
+<h4 id="_request_fields_20"><a class="link" href="#_request_fields_20">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -2511,13 +2428,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_21"><a class="link" href="#_response_fields_21">Response fields</a></h4>
+<h4 id="_response_fields_20"><a class="link" href="#_response_fields_20">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_21"><a class="link" href="#_example_request_21">Example request</a></h4>
+<h4 id="_example_request_20"><a class="link" href="#_example_request_20">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/clients' -i -X PUT \
@@ -2533,7 +2450,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_21"><a class="link" href="#_example_response_21">Example response</a></h4>
+<h4 id="_example_response_20"><a class="link" href="#_example_response_20">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -2560,7 +2477,7 @@ client not found</code></pre>
 <p><code>DELETE /clients/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_22"><a class="link" href="#_path_parameters_22">Path parameters</a></h4>
+<h4 id="_path_parameters_21"><a class="link" href="#_path_parameters_21">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -2587,25 +2504,25 @@ client not found</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_22"><a class="link" href="#_query_parameters_22">Query parameters</a></h4>
+<h4 id="_query_parameters_21"><a class="link" href="#_query_parameters_21">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_22"><a class="link" href="#_request_fields_22">Request fields</a></h4>
+<h4 id="_request_fields_21"><a class="link" href="#_request_fields_21">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_22"><a class="link" href="#_response_fields_22">Response fields</a></h4>
+<h4 id="_response_fields_21"><a class="link" href="#_response_fields_21">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_22"><a class="link" href="#_example_request_22">Example request</a></h4>
+<h4 id="_example_request_21"><a class="link" href="#_example_request_21">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/clients/72' -i -X DELETE \
@@ -2621,7 +2538,7 @@ client not found</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_22"><a class="link" href="#_example_response_22">Example response</a></h4>
+<h4 id="_example_response_21"><a class="link" href="#_example_response_21">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
@@ -2644,19 +2561,19 @@ true</code></pre>
 <p><code>POST /employees</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_23"><a class="link" href="#_path_parameters_23">Path parameters</a></h4>
+<h4 id="_path_parameters_22"><a class="link" href="#_path_parameters_22">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_23"><a class="link" href="#_query_parameters_23">Query parameters</a></h4>
+<h4 id="_query_parameters_22"><a class="link" href="#_query_parameters_22">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_23"><a class="link" href="#_request_fields_23">Request fields</a></h4>
+<h4 id="_request_fields_22"><a class="link" href="#_request_fields_22">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -2731,13 +2648,13 @@ true</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_23"><a class="link" href="#_response_fields_23">Response fields</a></h4>
+<h4 id="_response_fields_22"><a class="link" href="#_response_fields_22">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_23"><a class="link" href="#_example_request_23">Example request</a></h4>
+<h4 id="_example_request_22"><a class="link" href="#_example_request_22">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/employees' -i -X POST \
@@ -2745,10 +2662,10 @@ true</code></pre>
     -H 'Authorization: Bearer test' \
     -d '{
   "roles" : [ "mecanic", "palefrenier" ],
-  "startDate" : "29-04-2020 17:48:40",
+  "startDate" : "07-05-2020 10:01:15",
   "login" : "RFORCAT",
   "password" : "abc123",
-  "lastConnection" : "29-04-2020 17:48:40",
+  "lastConnection" : "07-05-2020 10:01:15",
   "id" : 0,
   "firstName" : "RAYMOND",
   "lastName" : "FORCAT",
@@ -2758,7 +2675,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_23"><a class="link" href="#_example_response_23">Example response</a></h4>
+<h4 id="_example_response_22"><a class="link" href="#_example_response_22">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -2772,10 +2689,92 @@ true</code></pre>
 <p><code>GET /employees</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_24"><a class="link" href="#_path_parameters_24">Path parameters</a></h4>
+<h4 id="_path_parameters_23"><a class="link" href="#_path_parameters_23">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_query_parameters_23"><a class="link" href="#_query_parameters_23">Query parameters</a></h4>
+<div class="paragraph">
+<p>No parameters.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_request_fields_23"><a class="link" href="#_request_fields_23">Request fields</a></h4>
+<div class="paragraph">
+<p>No request body.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_fields_23"><a class="link" href="#_response_fields_23">Response fields</a></h4>
+<div class="paragraph">
+<p>No response body.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_request_23"><a class="link" href="#_example_request_23">Example request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/employees' -i -X GET \
+    -H 'Authorization: Bearer test'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_response_23"><a class="link" href="#_example_response_23">Example response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=ISO-8859-1
+Content-Length: 276
+
+[ {
+  "roles" : [ "mecanic", "palefrenier" ],
+  "startDate" : "07-05-2020 10:01:15",
+  "login" : "RFORCAT",
+  "password" : "abc123",
+  "lastConnection" : "07-05-2020 10:01:15",
+  "id" : 0,
+  "firstName" : "RAYMOND",
+  "lastName" : "FORCAT",
+  "phoneNumber" : "03938937837"
+} ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="resources-employee-controller-impl-test-get-by-id"><a class="link" href="#resources-employee-controller-impl-test-get-by-id">Get By Id</a></h3>
+<div class="paragraph">
+<p><code>GET /employees/{id}</code></p>
+</div>
+<div class="sect3">
+<h4 id="_path_parameters_24"><a class="link" href="#_path_parameters_24">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_query_parameters_24"><a class="link" href="#_query_parameters_24">Query parameters</a></h4>
@@ -2799,88 +2798,6 @@ true</code></pre>
 <h4 id="_example_request_24"><a class="link" href="#_example_request_24">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/employees' -i -X GET \
-    -H 'Authorization: Bearer test'</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_response_24"><a class="link" href="#_example_response_24">Example response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=ISO-8859-1
-Content-Length: 276
-
-[ {
-  "roles" : [ "mecanic", "palefrenier" ],
-  "startDate" : "29-04-2020 17:48:40",
-  "login" : "RFORCAT",
-  "password" : "abc123",
-  "lastConnection" : "29-04-2020 17:48:40",
-  "id" : 0,
-  "firstName" : "RAYMOND",
-  "lastName" : "FORCAT",
-  "phoneNumber" : "03938937837"
-} ]</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="resources-employee-controller-impl-test-get-by-id"><a class="link" href="#resources-employee-controller-impl-test-get-by-id">Get By Id</a></h3>
-<div class="paragraph">
-<p><code>GET /employees/{id}</code></p>
-</div>
-<div class="sect3">
-<h4 id="_path_parameters_25"><a class="link" href="#_path_parameters_25">Path parameters</a></h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Optional</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_query_parameters_25"><a class="link" href="#_query_parameters_25">Query parameters</a></h4>
-<div class="paragraph">
-<p>No parameters.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_request_fields_25"><a class="link" href="#_request_fields_25">Request fields</a></h4>
-<div class="paragraph">
-<p>No request body.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_response_fields_25"><a class="link" href="#_response_fields_25">Response fields</a></h4>
-<div class="paragraph">
-<p>No response body.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_request_25"><a class="link" href="#_example_request_25">Example request</a></h4>
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/employees/72' -i -X GET \
     -H 'Content-Type: application/json' \
     -H 'Authorization: Bearer test' \
@@ -2889,7 +2806,7 @@ Content-Length: 276
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_25"><a class="link" href="#_example_response_25">Example response</a></h4>
+<h4 id="_example_response_24"><a class="link" href="#_example_response_24">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -2898,10 +2815,10 @@ Content-Type: application/json;charset=ISO-8859-1
 
 {
   "roles" : [ "mecanic", "palefrenier" ],
-  "startDate" : "29-04-2020 17:48:40",
+  "startDate" : "07-05-2020 10:01:15",
   "login" : "RFORCAT",
   "password" : "abc123",
-  "lastConnection" : "29-04-2020 17:48:40",
+  "lastConnection" : "07-05-2020 10:01:15",
   "id" : 0,
   "firstName" : "RAYMOND",
   "lastName" : "FORCAT",
@@ -2918,30 +2835,24 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="resources-employee-controller-impl-test-get-by-name"><a class="link" href="#resources-employee-controller-impl-test-get-by-name">{ class - name } / { method - name }</a></h3>
-<div class="paragraph">
-<p><code>+PUT +</code></p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="resources-employee-controller-impl-test-update"><a class="link" href="#resources-employee-controller-impl-test-update">Update</a></h3>
 <div class="paragraph">
 <p><code>PUT /employees</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_26"><a class="link" href="#_path_parameters_26">Path parameters</a></h4>
+<h4 id="_path_parameters_25"><a class="link" href="#_path_parameters_25">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_26"><a class="link" href="#_query_parameters_26">Query parameters</a></h4>
+<h4 id="_query_parameters_25"><a class="link" href="#_query_parameters_25">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_26"><a class="link" href="#_request_fields_26">Request fields</a></h4>
+<h4 id="_request_fields_25"><a class="link" href="#_request_fields_25">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3016,13 +2927,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_26"><a class="link" href="#_response_fields_26">Response fields</a></h4>
+<h4 id="_response_fields_25"><a class="link" href="#_response_fields_25">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_26"><a class="link" href="#_example_request_26">Example request</a></h4>
+<h4 id="_example_request_25"><a class="link" href="#_example_request_25">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/employees' -i -X PUT \
@@ -3030,10 +2941,10 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
     -H 'Authorization: Bearer test' \
     -d '{
   "roles" : [ "mecanic", "palefrenier" ],
-  "startDate" : "29-04-2020 17:48:40",
+  "startDate" : "07-05-2020 10:01:15",
   "login" : "RFORCAT",
   "password" : "abc123",
-  "lastConnection" : "29-04-2020 17:48:40",
+  "lastConnection" : "07-05-2020 10:01:15",
   "id" : 0,
   "firstName" : "RAYMOND",
   "lastName" : "FORCAT",
@@ -3043,7 +2954,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_26"><a class="link" href="#_example_response_26">Example response</a></h4>
+<h4 id="_example_response_25"><a class="link" href="#_example_response_25">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3061,7 +2972,7 @@ updated</code></pre>
 <p><code>DELETE /employees/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_27"><a class="link" href="#_path_parameters_27">Path parameters</a></h4>
+<h4 id="_path_parameters_26"><a class="link" href="#_path_parameters_26">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3088,25 +2999,25 @@ updated</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_27"><a class="link" href="#_query_parameters_27">Query parameters</a></h4>
+<h4 id="_query_parameters_26"><a class="link" href="#_query_parameters_26">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_27"><a class="link" href="#_request_fields_27">Request fields</a></h4>
+<h4 id="_request_fields_26"><a class="link" href="#_request_fields_26">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_27"><a class="link" href="#_response_fields_27">Response fields</a></h4>
+<h4 id="_response_fields_26"><a class="link" href="#_response_fields_26">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_27"><a class="link" href="#_example_request_27">Example request</a></h4>
+<h4 id="_example_request_26"><a class="link" href="#_example_request_26">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/employees/72' -i -X DELETE \
@@ -3114,10 +3025,10 @@ updated</code></pre>
     -H 'Authorization: Bearer test' \
     -d '{
   "roles" : [ "mecanic", "palefrenier" ],
-  "startDate" : "29-04-2020 17:48:40",
+  "startDate" : "07-05-2020 10:01:15",
   "login" : "RFORCAT",
   "password" : "abc123",
-  "lastConnection" : "29-04-2020 17:48:40",
+  "lastConnection" : "07-05-2020 10:01:15",
   "id" : 0,
   "firstName" : "RAYMOND",
   "lastName" : "FORCAT",
@@ -3127,7 +3038,7 @@ updated</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_27"><a class="link" href="#_example_response_27">Example response</a></h4>
+<h4 id="_example_response_26"><a class="link" href="#_example_response_26">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
@@ -3150,19 +3061,19 @@ true</code></pre>
 <p><code>POST /manufacturers</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_28"><a class="link" href="#_path_parameters_28">Path parameters</a></h4>
+<h4 id="_path_parameters_27"><a class="link" href="#_path_parameters_27">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_28"><a class="link" href="#_query_parameters_28">Query parameters</a></h4>
+<h4 id="_query_parameters_27"><a class="link" href="#_query_parameters_27">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_28"><a class="link" href="#_request_fields_28">Request fields</a></h4>
+<h4 id="_request_fields_27"><a class="link" href="#_request_fields_27">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3195,13 +3106,13 @@ true</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_28"><a class="link" href="#_response_fields_28">Response fields</a></h4>
+<h4 id="_response_fields_27"><a class="link" href="#_response_fields_27">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_28"><a class="link" href="#_example_request_28">Example request</a></h4>
+<h4 id="_example_request_27"><a class="link" href="#_example_request_27">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/manufacturers' -i -X POST \
@@ -3215,7 +3126,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_28"><a class="link" href="#_example_response_28">Example response</a></h4>
+<h4 id="_example_response_27"><a class="link" href="#_example_response_27">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -3229,31 +3140,31 @@ true</code></pre>
 <p><code>GET /manufacturers</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_29"><a class="link" href="#_path_parameters_29">Path parameters</a></h4>
+<h4 id="_path_parameters_28"><a class="link" href="#_path_parameters_28">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_29"><a class="link" href="#_query_parameters_29">Query parameters</a></h4>
+<h4 id="_query_parameters_28"><a class="link" href="#_query_parameters_28">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_29"><a class="link" href="#_request_fields_29">Request fields</a></h4>
+<h4 id="_request_fields_28"><a class="link" href="#_request_fields_28">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_29"><a class="link" href="#_response_fields_29">Response fields</a></h4>
+<h4 id="_response_fields_28"><a class="link" href="#_response_fields_28">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_29"><a class="link" href="#_example_request_29">Example request</a></h4>
+<h4 id="_example_request_28"><a class="link" href="#_example_request_28">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/manufacturers' -i -X GET \
@@ -3262,7 +3173,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_29"><a class="link" href="#_example_response_29">Example response</a></h4>
+<h4 id="_example_response_28"><a class="link" href="#_example_response_28">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3283,7 +3194,7 @@ Content-Length: 39
 <p><code>GET /manufacturers/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_30"><a class="link" href="#_path_parameters_30">Path parameters</a></h4>
+<h4 id="_path_parameters_29"><a class="link" href="#_path_parameters_29">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3310,25 +3221,25 @@ Content-Length: 39
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_30"><a class="link" href="#_query_parameters_30">Query parameters</a></h4>
+<h4 id="_query_parameters_29"><a class="link" href="#_query_parameters_29">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_30"><a class="link" href="#_request_fields_30">Request fields</a></h4>
+<h4 id="_request_fields_29"><a class="link" href="#_request_fields_29">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_30"><a class="link" href="#_response_fields_30">Response fields</a></h4>
+<h4 id="_response_fields_29"><a class="link" href="#_response_fields_29">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_30"><a class="link" href="#_example_request_30">Example request</a></h4>
+<h4 id="_example_request_29"><a class="link" href="#_example_request_29">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/manufacturers/2' -i -X GET \
@@ -3339,7 +3250,7 @@ Content-Length: 39
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_30"><a class="link" href="#_example_response_30">Example response</a></h4>
+<h4 id="_example_response_29"><a class="link" href="#_example_response_29">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3366,13 +3277,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>GET /manufacturers/name</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_31"><a class="link" href="#_path_parameters_31">Path parameters</a></h4>
+<h4 id="_path_parameters_30"><a class="link" href="#_path_parameters_30">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_31"><a class="link" href="#_query_parameters_31">Query parameters</a></h4>
+<h4 id="_query_parameters_30"><a class="link" href="#_query_parameters_30">Query parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3399,19 +3310,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_31"><a class="link" href="#_request_fields_31">Request fields</a></h4>
+<h4 id="_request_fields_30"><a class="link" href="#_request_fields_30">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_31"><a class="link" href="#_response_fields_31">Response fields</a></h4>
+<h4 id="_response_fields_30"><a class="link" href="#_response_fields_30">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_31"><a class="link" href="#_example_request_31">Example request</a></h4>
+<h4 id="_example_request_30"><a class="link" href="#_example_request_30">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/manufacturers/name?name=toyota' -i -X GET \
@@ -3422,7 +3333,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_31"><a class="link" href="#_example_response_31">Example response</a></h4>
+<h4 id="_example_response_30"><a class="link" href="#_example_response_30">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3447,6 +3358,94 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <h3 id="resources-manufacturer-controller-impl-test-update"><a class="link" href="#resources-manufacturer-controller-impl-test-update">Update</a></h3>
 <div class="paragraph">
 <p><code>PUT /manufacturers</code></p>
+</div>
+<div class="sect3">
+<h4 id="_path_parameters_31"><a class="link" href="#_path_parameters_31">Path parameters</a></h4>
+<div class="paragraph">
+<p>No parameters.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_query_parameters_31"><a class="link" href="#_query_parameters_31">Query parameters</a></h4>
+<div class="paragraph">
+<p>No parameters.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_request_fields_31"><a class="link" href="#_request_fields_31">Request fields</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Optional</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size must be between 2 and 50 inclusive.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_response_fields_31"><a class="link" href="#_response_fields_31">Response fields</a></h4>
+<div class="paragraph">
+<p>No response body.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_request_31"><a class="link" href="#_example_request_31">Example request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/manufacturers' -i -X PUT \
+    -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer test' \
+    -d '{
+  "id" : 2,
+  "name" : "toyota"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_response_31"><a class="link" href="#_example_response_31">Example response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=ISO-8859-1
+Content-Length: 7
+
+updated</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pieces"><a class="link" href="#_pieces">PIECES</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="resources-piece-controller-impl-test-create"><a class="link" href="#resources-piece-controller-impl-test-create">Add</a></h3>
+<div class="paragraph">
+<p><code>POST /pieces</code></p>
 </div>
 <div class="sect3">
 <h4 id="_path_parameters_32"><a class="link" href="#_path_parameters_32">Path parameters</a></h4>
@@ -3479,100 +3478,6 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Size must be between 2 and 50 inclusive.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_response_fields_32"><a class="link" href="#_response_fields_32">Response fields</a></h4>
-<div class="paragraph">
-<p>No response body.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_request_32"><a class="link" href="#_example_request_32">Example request</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/manufacturers' -i -X PUT \
-    -H 'Content-Type: application/json' \
-    -H 'Authorization: Bearer test' \
-    -d '{
-  "id" : 2,
-  "name" : "toyota"
-}'</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_example_response_32"><a class="link" href="#_example_response_32">Example response</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=ISO-8859-1
-Content-Length: 7
-
-updated</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="resources-manufacturer-controller-impl-test-delete"><a class="link" href="#resources-manufacturer-controller-impl-test-delete">{ class - name } / { method - name }</a></h3>
-<div class="paragraph">
-<p><code>+DELETE +</code></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_pieces"><a class="link" href="#_pieces">PIECES</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="resources-piece-controller-impl-test-create"><a class="link" href="#resources-piece-controller-impl-test-create">Add</a></h3>
-<div class="paragraph">
-<p><code>POST /pieces</code></p>
-</div>
-<div class="sect3">
-<h4 id="_path_parameters_33"><a class="link" href="#_path_parameters_33">Path parameters</a></h4>
-<div class="paragraph">
-<p>No parameters.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_query_parameters_33"><a class="link" href="#_query_parameters_33">Query parameters</a></h4>
-<div class="paragraph">
-<p>No parameters.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_request_fields_33"><a class="link" href="#_request_fields_33">Request fields</a></h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Optional</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">buyingPrice</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Decimal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
@@ -3618,13 +3523,13 @@ updated</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_33"><a class="link" href="#_response_fields_33">Response fields</a></h4>
+<h4 id="_response_fields_32"><a class="link" href="#_response_fields_32">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_33"><a class="link" href="#_example_request_33">Example request</a></h4>
+<h4 id="_example_request_32"><a class="link" href="#_example_request_32">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieces' -i -X POST \
@@ -3643,7 +3548,7 @@ updated</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_33"><a class="link" href="#_example_response_33">Example response</a></h4>
+<h4 id="_example_response_32"><a class="link" href="#_example_response_32">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -3657,31 +3562,31 @@ updated</code></pre>
 <p><code>GET /pieces</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_34"><a class="link" href="#_path_parameters_34">Path parameters</a></h4>
+<h4 id="_path_parameters_33"><a class="link" href="#_path_parameters_33">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_34"><a class="link" href="#_query_parameters_34">Query parameters</a></h4>
+<h4 id="_query_parameters_33"><a class="link" href="#_query_parameters_33">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_34"><a class="link" href="#_request_fields_34">Request fields</a></h4>
+<h4 id="_request_fields_33"><a class="link" href="#_request_fields_33">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_34"><a class="link" href="#_response_fields_34">Response fields</a></h4>
+<h4 id="_response_fields_33"><a class="link" href="#_response_fields_33">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_34"><a class="link" href="#_example_request_34">Example request</a></h4>
+<h4 id="_example_request_33"><a class="link" href="#_example_request_33">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieces' -i -X GET \
@@ -3690,7 +3595,7 @@ updated</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_34"><a class="link" href="#_example_response_34">Example response</a></h4>
+<h4 id="_example_response_33"><a class="link" href="#_example_response_33">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3716,7 +3621,7 @@ Content-Length: 156
 <p><code>GET /pieces/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_35"><a class="link" href="#_path_parameters_35">Path parameters</a></h4>
+<h4 id="_path_parameters_34"><a class="link" href="#_path_parameters_34">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3743,25 +3648,25 @@ Content-Length: 156
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_35"><a class="link" href="#_query_parameters_35">Query parameters</a></h4>
+<h4 id="_query_parameters_34"><a class="link" href="#_query_parameters_34">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_35"><a class="link" href="#_request_fields_35">Request fields</a></h4>
+<h4 id="_request_fields_34"><a class="link" href="#_request_fields_34">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_35"><a class="link" href="#_response_fields_35">Response fields</a></h4>
+<h4 id="_response_fields_34"><a class="link" href="#_response_fields_34">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_35"><a class="link" href="#_example_request_35">Example request</a></h4>
+<h4 id="_example_request_34"><a class="link" href="#_example_request_34">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieces/2' -i -X GET \
@@ -3772,7 +3677,7 @@ Content-Length: 156
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_35"><a class="link" href="#_example_response_35">Example response</a></h4>
+<h4 id="_example_response_34"><a class="link" href="#_example_response_34">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3804,13 +3709,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>GET /pieces/name</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_36"><a class="link" href="#_path_parameters_36">Path parameters</a></h4>
+<h4 id="_path_parameters_35"><a class="link" href="#_path_parameters_35">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_36"><a class="link" href="#_query_parameters_36">Query parameters</a></h4>
+<h4 id="_query_parameters_35"><a class="link" href="#_query_parameters_35">Query parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3837,19 +3742,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_36"><a class="link" href="#_request_fields_36">Request fields</a></h4>
+<h4 id="_request_fields_35"><a class="link" href="#_request_fields_35">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_36"><a class="link" href="#_response_fields_36">Response fields</a></h4>
+<h4 id="_response_fields_35"><a class="link" href="#_response_fields_35">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_36"><a class="link" href="#_example_request_36">Example request</a></h4>
+<h4 id="_example_request_35"><a class="link" href="#_example_request_35">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieces/name?name=MASTEROIL%202.4' -i -X GET \
@@ -3860,7 +3765,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_36"><a class="link" href="#_example_response_36">Example response</a></h4>
+<h4 id="_example_response_35"><a class="link" href="#_example_response_35">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -3892,19 +3797,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>PUT /pieces</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_37"><a class="link" href="#_path_parameters_37">Path parameters</a></h4>
+<h4 id="_path_parameters_36"><a class="link" href="#_path_parameters_36">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_37"><a class="link" href="#_query_parameters_37">Query parameters</a></h4>
+<h4 id="_query_parameters_36"><a class="link" href="#_query_parameters_36">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_37"><a class="link" href="#_request_fields_37">Request fields</a></h4>
+<h4 id="_request_fields_36"><a class="link" href="#_request_fields_36">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -3967,13 +3872,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_37"><a class="link" href="#_response_fields_37">Response fields</a></h4>
+<h4 id="_response_fields_36"><a class="link" href="#_response_fields_36">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_37"><a class="link" href="#_example_request_37">Example request</a></h4>
+<h4 id="_example_request_36"><a class="link" href="#_example_request_36">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieces' -i -X PUT \
@@ -3992,7 +3897,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_37"><a class="link" href="#_example_response_37">Example response</a></h4>
+<h4 id="_example_response_36"><a class="link" href="#_example_response_36">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4010,7 +3915,7 @@ updated</code></pre>
 <p><code>DELETE /pieces/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_38"><a class="link" href="#_path_parameters_38">Path parameters</a></h4>
+<h4 id="_path_parameters_37"><a class="link" href="#_path_parameters_37">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4037,25 +3942,25 @@ updated</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_38"><a class="link" href="#_query_parameters_38">Query parameters</a></h4>
+<h4 id="_query_parameters_37"><a class="link" href="#_query_parameters_37">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_38"><a class="link" href="#_request_fields_38">Request fields</a></h4>
+<h4 id="_request_fields_37"><a class="link" href="#_request_fields_37">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_38"><a class="link" href="#_response_fields_38">Response fields</a></h4>
+<h4 id="_response_fields_37"><a class="link" href="#_response_fields_37">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_38"><a class="link" href="#_example_request_38">Example request</a></h4>
+<h4 id="_example_request_37"><a class="link" href="#_example_request_37">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieces/2' -i -X DELETE \
@@ -4074,7 +3979,7 @@ updated</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_38"><a class="link" href="#_example_response_38">Example response</a></h4>
+<h4 id="_example_response_37"><a class="link" href="#_example_response_37">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
@@ -4097,19 +4002,19 @@ true</code></pre>
 <p><code>POST /pieceTypes</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_39"><a class="link" href="#_path_parameters_39">Path parameters</a></h4>
+<h4 id="_path_parameters_38"><a class="link" href="#_path_parameters_38">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_39"><a class="link" href="#_query_parameters_39">Query parameters</a></h4>
+<h4 id="_query_parameters_38"><a class="link" href="#_query_parameters_38">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_39"><a class="link" href="#_request_fields_39">Request fields</a></h4>
+<h4 id="_request_fields_38"><a class="link" href="#_request_fields_38">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4142,13 +4047,13 @@ true</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_39"><a class="link" href="#_response_fields_39">Response fields</a></h4>
+<h4 id="_response_fields_38"><a class="link" href="#_response_fields_38">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_39"><a class="link" href="#_example_request_39">Example request</a></h4>
+<h4 id="_example_request_38"><a class="link" href="#_example_request_38">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieceTypes' -i -X POST \
@@ -4162,7 +4067,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_39"><a class="link" href="#_example_response_39">Example response</a></h4>
+<h4 id="_example_response_38"><a class="link" href="#_example_response_38">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -4176,31 +4081,31 @@ true</code></pre>
 <p><code>GET /pieceTypes</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_40"><a class="link" href="#_path_parameters_40">Path parameters</a></h4>
+<h4 id="_path_parameters_39"><a class="link" href="#_path_parameters_39">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_40"><a class="link" href="#_query_parameters_40">Query parameters</a></h4>
+<h4 id="_query_parameters_39"><a class="link" href="#_query_parameters_39">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_40"><a class="link" href="#_request_fields_40">Request fields</a></h4>
+<h4 id="_request_fields_39"><a class="link" href="#_request_fields_39">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_40"><a class="link" href="#_response_fields_40">Response fields</a></h4>
+<h4 id="_response_fields_39"><a class="link" href="#_response_fields_39">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_40"><a class="link" href="#_example_request_40">Example request</a></h4>
+<h4 id="_example_request_39"><a class="link" href="#_example_request_39">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieceTypes' -i -X GET \
@@ -4209,7 +4114,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_40"><a class="link" href="#_example_response_40">Example response</a></h4>
+<h4 id="_example_response_39"><a class="link" href="#_example_response_39">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4230,7 +4135,7 @@ Content-Length: 36
 <p><code>GET /pieceTypes/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_41"><a class="link" href="#_path_parameters_41">Path parameters</a></h4>
+<h4 id="_path_parameters_40"><a class="link" href="#_path_parameters_40">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4257,25 +4162,25 @@ Content-Length: 36
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_41"><a class="link" href="#_query_parameters_41">Query parameters</a></h4>
+<h4 id="_query_parameters_40"><a class="link" href="#_query_parameters_40">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_41"><a class="link" href="#_request_fields_41">Request fields</a></h4>
+<h4 id="_request_fields_40"><a class="link" href="#_request_fields_40">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_41"><a class="link" href="#_response_fields_41">Response fields</a></h4>
+<h4 id="_response_fields_40"><a class="link" href="#_response_fields_40">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_41"><a class="link" href="#_example_request_41">Example request</a></h4>
+<h4 id="_example_request_40"><a class="link" href="#_example_request_40">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieceTypes/2' -i -X GET \
@@ -4286,7 +4191,7 @@ Content-Length: 36
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_41"><a class="link" href="#_example_response_41">Example response</a></h4>
+<h4 id="_example_response_40"><a class="link" href="#_example_response_40">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4313,13 +4218,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>GET /pieceTypes/name</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_42"><a class="link" href="#_path_parameters_42">Path parameters</a></h4>
+<h4 id="_path_parameters_41"><a class="link" href="#_path_parameters_41">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_42"><a class="link" href="#_query_parameters_42">Query parameters</a></h4>
+<h4 id="_query_parameters_41"><a class="link" href="#_query_parameters_41">Query parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4346,19 +4251,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_42"><a class="link" href="#_request_fields_42">Request fields</a></h4>
+<h4 id="_request_fields_41"><a class="link" href="#_request_fields_41">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_42"><a class="link" href="#_response_fields_42">Response fields</a></h4>
+<h4 id="_response_fields_41"><a class="link" href="#_response_fields_41">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_42"><a class="link" href="#_example_request_42">Example request</a></h4>
+<h4 id="_example_request_41"><a class="link" href="#_example_request_41">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieceTypes/name?name=OIL' -i -X GET \
@@ -4369,7 +4274,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_42"><a class="link" href="#_example_response_42">Example response</a></h4>
+<h4 id="_example_response_41"><a class="link" href="#_example_response_41">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4396,19 +4301,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>PUT /pieceTypes</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_43"><a class="link" href="#_path_parameters_43">Path parameters</a></h4>
+<h4 id="_path_parameters_42"><a class="link" href="#_path_parameters_42">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_43"><a class="link" href="#_query_parameters_43">Query parameters</a></h4>
+<h4 id="_query_parameters_42"><a class="link" href="#_query_parameters_42">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_43"><a class="link" href="#_request_fields_43">Request fields</a></h4>
+<h4 id="_request_fields_42"><a class="link" href="#_request_fields_42">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4441,13 +4346,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_43"><a class="link" href="#_response_fields_43">Response fields</a></h4>
+<h4 id="_response_fields_42"><a class="link" href="#_response_fields_42">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_43"><a class="link" href="#_example_request_43">Example request</a></h4>
+<h4 id="_example_request_42"><a class="link" href="#_example_request_42">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieceTypes' -i -X PUT \
@@ -4461,7 +4366,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_43"><a class="link" href="#_example_response_43">Example response</a></h4>
+<h4 id="_example_response_42"><a class="link" href="#_example_response_42">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4479,7 +4384,7 @@ updated</code></pre>
 <p><code>DELETE /pieceTypes/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_44"><a class="link" href="#_path_parameters_44">Path parameters</a></h4>
+<h4 id="_path_parameters_43"><a class="link" href="#_path_parameters_43">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4506,25 +4411,25 @@ updated</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_44"><a class="link" href="#_query_parameters_44">Query parameters</a></h4>
+<h4 id="_query_parameters_43"><a class="link" href="#_query_parameters_43">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_44"><a class="link" href="#_request_fields_44">Request fields</a></h4>
+<h4 id="_request_fields_43"><a class="link" href="#_request_fields_43">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_44"><a class="link" href="#_response_fields_44">Response fields</a></h4>
+<h4 id="_response_fields_43"><a class="link" href="#_response_fields_43">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_44"><a class="link" href="#_example_request_44">Example request</a></h4>
+<h4 id="_example_request_43"><a class="link" href="#_example_request_43">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/pieceTypes/2' -i -X DELETE \
@@ -4538,7 +4443,7 @@ updated</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_44"><a class="link" href="#_example_response_44">Example response</a></h4>
+<h4 id="_example_response_43"><a class="link" href="#_example_response_43">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
@@ -4561,19 +4466,19 @@ true</code></pre>
 <p><code>POST /tasks</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_45"><a class="link" href="#_path_parameters_45">Path parameters</a></h4>
+<h4 id="_path_parameters_44"><a class="link" href="#_path_parameters_44">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_45"><a class="link" href="#_query_parameters_45">Query parameters</a></h4>
+<h4 id="_query_parameters_44"><a class="link" href="#_query_parameters_44">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_45"><a class="link" href="#_request_fields_45">Request fields</a></h4>
+<h4 id="_request_fields_44"><a class="link" href="#_request_fields_44">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4618,13 +4523,13 @@ true</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_45"><a class="link" href="#_response_fields_45">Response fields</a></h4>
+<h4 id="_response_fields_44"><a class="link" href="#_response_fields_44">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_45"><a class="link" href="#_example_request_45">Example request</a></h4>
+<h4 id="_example_request_44"><a class="link" href="#_example_request_44">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/tasks' -i -X POST \
@@ -4640,7 +4545,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_45"><a class="link" href="#_example_response_45">Example response</a></h4>
+<h4 id="_example_response_44"><a class="link" href="#_example_response_44">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created</code></pre>
@@ -4654,31 +4559,31 @@ true</code></pre>
 <p><code>GET /tasks</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_46"><a class="link" href="#_path_parameters_46">Path parameters</a></h4>
+<h4 id="_path_parameters_45"><a class="link" href="#_path_parameters_45">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_46"><a class="link" href="#_query_parameters_46">Query parameters</a></h4>
+<h4 id="_query_parameters_45"><a class="link" href="#_query_parameters_45">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_46"><a class="link" href="#_request_fields_46">Request fields</a></h4>
+<h4 id="_request_fields_45"><a class="link" href="#_request_fields_45">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_46"><a class="link" href="#_response_fields_46">Response fields</a></h4>
+<h4 id="_response_fields_45"><a class="link" href="#_response_fields_45">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_46"><a class="link" href="#_example_request_46">Example request</a></h4>
+<h4 id="_example_request_45"><a class="link" href="#_example_request_45">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/tasks' -i -X GET \
@@ -4687,7 +4592,7 @@ true</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_46"><a class="link" href="#_example_response_46">Example response</a></h4>
+<h4 id="_example_response_45"><a class="link" href="#_example_response_45">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4710,7 +4615,7 @@ Content-Length: 138
 <p><code>GET /tasks/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_47"><a class="link" href="#_path_parameters_47">Path parameters</a></h4>
+<h4 id="_path_parameters_46"><a class="link" href="#_path_parameters_46">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4737,25 +4642,25 @@ Content-Length: 138
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_47"><a class="link" href="#_query_parameters_47">Query parameters</a></h4>
+<h4 id="_query_parameters_46"><a class="link" href="#_query_parameters_46">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_47"><a class="link" href="#_request_fields_47">Request fields</a></h4>
+<h4 id="_request_fields_46"><a class="link" href="#_request_fields_46">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_47"><a class="link" href="#_response_fields_47">Response fields</a></h4>
+<h4 id="_response_fields_46"><a class="link" href="#_response_fields_46">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_47"><a class="link" href="#_example_request_47">Example request</a></h4>
+<h4 id="_example_request_46"><a class="link" href="#_example_request_46">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/tasks/2' -i -X GET \
@@ -4766,7 +4671,7 @@ Content-Length: 138
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_47"><a class="link" href="#_example_response_47">Example response</a></h4>
+<h4 id="_example_response_46"><a class="link" href="#_example_response_46">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4795,13 +4700,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>GET /tasks/name</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_48"><a class="link" href="#_path_parameters_48">Path parameters</a></h4>
+<h4 id="_path_parameters_47"><a class="link" href="#_path_parameters_47">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_48"><a class="link" href="#_query_parameters_48">Query parameters</a></h4>
+<h4 id="_query_parameters_47"><a class="link" href="#_query_parameters_47">Query parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4828,19 +4733,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_48"><a class="link" href="#_request_fields_48">Request fields</a></h4>
+<h4 id="_request_fields_47"><a class="link" href="#_request_fields_47">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_48"><a class="link" href="#_response_fields_48">Response fields</a></h4>
+<h4 id="_response_fields_47"><a class="link" href="#_response_fields_47">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_48"><a class="link" href="#_example_request_48">Example request</a></h4>
+<h4 id="_example_request_47"><a class="link" href="#_example_request_47">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/tasks/name?name=oil%20replacement' -i -X GET \
@@ -4851,7 +4756,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_48"><a class="link" href="#_example_response_48">Example response</a></h4>
+<h4 id="_example_response_47"><a class="link" href="#_example_response_47">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4880,19 +4785,19 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 <p><code>PUT /tasks</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_49"><a class="link" href="#_path_parameters_49">Path parameters</a></h4>
+<h4 id="_path_parameters_48"><a class="link" href="#_path_parameters_48">Path parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_49"><a class="link" href="#_query_parameters_49">Query parameters</a></h4>
+<h4 id="_query_parameters_48"><a class="link" href="#_query_parameters_48">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_49"><a class="link" href="#_request_fields_49">Request fields</a></h4>
+<h4 id="_request_fields_48"><a class="link" href="#_request_fields_48">Request fields</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -4937,13 +4842,13 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_49"><a class="link" href="#_response_fields_49">Response fields</a></h4>
+<h4 id="_response_fields_48"><a class="link" href="#_response_fields_48">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_49"><a class="link" href="#_example_request_49">Example request</a></h4>
+<h4 id="_example_request_48"><a class="link" href="#_example_request_48">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/tasks' -i -X PUT \
@@ -4959,7 +4864,7 @@ Content-Type: application/json;charset=ISO-8859-1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_49"><a class="link" href="#_example_response_49">Example response</a></h4>
+<h4 id="_example_response_48"><a class="link" href="#_example_response_48">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -4977,7 +4882,7 @@ updated</code></pre>
 <p><code>DELETE /tasks/{id}</code></p>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters_50"><a class="link" href="#_path_parameters_50">Path parameters</a></h4>
+<h4 id="_path_parameters_49"><a class="link" href="#_path_parameters_49">Path parameters</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 25%;">
@@ -5004,25 +4909,25 @@ updated</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_query_parameters_50"><a class="link" href="#_query_parameters_50">Query parameters</a></h4>
+<h4 id="_query_parameters_49"><a class="link" href="#_query_parameters_49">Query parameters</a></h4>
 <div class="paragraph">
 <p>No parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_request_fields_50"><a class="link" href="#_request_fields_50">Request fields</a></h4>
+<h4 id="_request_fields_49"><a class="link" href="#_request_fields_49">Request fields</a></h4>
 <div class="paragraph">
 <p>No request body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_fields_50"><a class="link" href="#_response_fields_50">Response fields</a></h4>
+<h4 id="_response_fields_49"><a class="link" href="#_response_fields_49">Response fields</a></h4>
 <div class="paragraph">
 <p>No response body.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_request_50"><a class="link" href="#_example_request_50">Example request</a></h4>
+<h4 id="_example_request_49"><a class="link" href="#_example_request_49">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8087/tasks/2' -i -X DELETE \
@@ -5038,7 +4943,7 @@ updated</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_example_response_50"><a class="link" href="#_example_response_50">Example response</a></h4>
+<h4 id="_example_response_49"><a class="link" href="#_example_response_49">Example response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
@@ -5055,7 +4960,7 @@ true</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-29 17:43:58 IST
+Last updated 2020-05-07 10:07:17 IST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
