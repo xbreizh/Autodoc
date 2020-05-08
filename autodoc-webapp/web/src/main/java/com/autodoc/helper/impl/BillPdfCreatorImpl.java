@@ -106,12 +106,12 @@ public class BillPdfCreatorImpl implements BillPdfCreator {
         input.put("[FIRSTNAME]", bill.getClient().getFirstName().toUpperCase());
         input.put("[LASTNAME]", bill.getClient().getLastName().toUpperCase());
         input.put("[EMPLOYEE]", bill.getEmployee().getLogin());
-        String pattern = "EEEEE dd MMMMM yyyy HH:mm";
+       /* String pattern = "EEEEE dd MMMMM yyyy HH:mm";
         SimpleDateFormat simpleDateFormat =
                 new SimpleDateFormat(pattern, new Locale("fr", "FR"));
 
-        String date = simpleDateFormat.format(bill.getDateReparation());
-        input.put("[DATE]", date);
+        String date = simpleDateFormat.format(bill.getDateReparation());*/
+        input.put("[DATE]", bill.getDateReparation());
         input.put("[BILLID]", String.valueOf(bill.getId()));
         input.put("[PHONENUMBER]", bill.getClient().getPhoneNumber());
         input.put("[MANUFACTURER]", bill.getCar().getModel().getManufacturer().getName());

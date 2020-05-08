@@ -4,7 +4,7 @@
 
 
 <div th:replace="fragments/header :: head1"></div>
-<body>
+<body onload="startTime()">
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
@@ -12,21 +12,22 @@
 
     <h3>New Employee</h3>
 
-
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/employees/new/'}" th:object="${employeeForm}">
         <div class="form-group">
             <label for="login">Login</label>
             <input class="form-control" id="login" name="login" required="required"
                    th:value="${login}"
                    type="text"/>
-            <div th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
+            <div style="color: red" th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
         </div>
         <div class="form-group">
             <label for="firstName">Password</label>
             <input class="form-control" id="password" name="password" required="required"
                    th:value="${password}"
                    type="password"/>
-            <div th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password Error</div>
+            <div style="color: red" th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password Error
+            </div>
         </div>
         <div class="form-group">
             <label for="roles">Roles</label>
@@ -42,21 +43,25 @@
             <input class="form-control" id="firstName" name="firstName" required="required"
                    th:value="${firstName}"
                    type="text"/>
-            <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
+            <div style="color: red" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error
+            </div>
         </div>
         <div class="form-group">
             <label for="lastName">LastName</label>
             <input class="form-control" id="lastName" name="lastName" required="required"
                    th:value="${lastName}"
                    type="text"/>
-            <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
+            <div style="color: red" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error
+            </div>
         </div>
         <div class="form-group">
             <label for="phoneNumber">PhoneNumber</label>
             <input class="form-control" id="phoneNumber" name="phoneNumber" required="required"
                    th:value="${phoneNumber}"
                    type="text"/>
-            <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
+            <div style="color: red" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber
+                Error
+            </div>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>

@@ -5,28 +5,35 @@
           <input class="form-control" id="id" name="id" required="required"
                  th:value="${employee.id}"
                  type="text"/>
-          <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>&ndash;&gt;
+          <div style="color: red" th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>&ndash;&gt;
           <td th:text="${employee.id}">Id</td>
       </div>-->
-
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/employees/update/' + ${obj.id}}" th:object="${form}">
         <div class="form-group">
             <label for="id">Id</label>
             <input class="form-control" id="id" name="id" readonly required="required"
                    th:value="${obj.id}"
                    type="text"/>
-            <div th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
+            <div style="color: red" th:errors="*{id}" th:if="${#fields.hasErrors('id')}">Id Error</div>
         </div>
         <div class="form-group">
-            <label for="startDate">startDate:</label>
-            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
-                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
-                       th:value="${obj.startDate}"
-                       type="text"/>
-                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                     id="startDate" name="startDate" th:value="${obj.startDate}">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
+            <!--  <label for="startDate">startDate:</label>
+              <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                  <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="startDate"
+                         th:value="${obj.startDate}"
+                         type="text"/>
+                  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                       id="startDate" name="startDate" th:value="${obj.startDate}">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>-->
+            <label for="startDate">StartDate:</label>
+            <input class="form-control" id="startDate" name="startDate" required="required"
+                   th:value="${obj.startDate}"
+                   type="text"/>
+            <div style="color: red" th:errors="*{obj.startDate}" th:if="${#fields.hasErrors('startDate')}">StartDate
+                Error
             </div>
         </div>
         <div class="form-group">
@@ -34,28 +41,32 @@
             <input class="form-control" id="login" name="login" required="required"
                    th:value="${obj.login}"
                    type="text"/>
-            <div th:errors="*{obj.login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
+            <div style="color: red" th:errors="*{obj.login}" th:if="${#fields.hasErrors('login')}">Login Error</div>
         </div>
         <div class="form-group">
             <label for="firstName">FirstName:</label>
             <input class="form-control" id="firstName" name="firstName" required="required"
                    th:value="${obj.firstName}"
                    type="text"/>
-            <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
+            <div style="color: red" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error
+            </div>
         </div>
         <div class="form-group">
             <label for="lastName">LastName:</label>
             <input class="form-control" id="lastName" name="lastName" required="required"
                    th:value="${obj.lastName}"
                    type="text"/>
-            <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
+            <div style="color: red" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error
+            </div>
         </div>
         <div class="form-group">
             <label for="phoneNumber">PhoneNumber:</label>
             <input class="form-control" id="phoneNumber" name="phoneNumber" required="required"
                    th:value="${obj.phoneNumber}"
                    type="text"/>
-            <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
+            <div style="color: red" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber
+                Error
+            </div>
         </div>
 
         <div class="form-group">

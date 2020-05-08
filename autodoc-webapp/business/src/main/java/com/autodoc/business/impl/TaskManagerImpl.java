@@ -11,6 +11,8 @@ import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @Builder
@@ -59,6 +61,16 @@ public class TaskManagerImpl extends GlobalManagerImpl<Task, TaskDTO> implements
         dto.setEstimatedTime(form.getEstimatedTime());
         LOGGER.info("task transferred: " + dto);
         return dto;
+    }
+
+    public List<Task> cleanupDeletedItems(List<Task> taskList){
+        List<Task> cleanedList = new ArrayList<>();
+        for (Task task:taskList){
+            if (!task.getName().startsWith("deleted")){
+                cleanedList.add(task);
+            }
+        }
+        return cleanedList;
     }
 
 

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 <div th:replace="fragments/header :: head-box"></div>
-<body>
+<body onload="startTime()">
 
 
 <div id="errors" th:if="${(param.error != null) and (param.error[0] == 'true')}">
@@ -11,13 +11,20 @@
 </div>
 
 <div class="container">
-    <div class="row ">
 
-    </div>
     <div class="row ">
         <div class="col-4 "></div>
+        <div class="col-4  align-middle"><h1
+                style="font-size: 5em;font-family:Times New Roman;text-align: center;margin-top: 1em">AUTODOC</h1>
+        </div>
+        <div class="col-4 "></div>
+    </div>
+    <div class="row ">
+        <div class="col-1 "></div>
+        <div class="col-4 "><img alt="robot-error" class="img-fluid" th:src="@{/img/motor.png}"/></div>
+        <div class="col-2 "></div>
         <div class="col-4 ">
-            <h2>Connect</h2>
+
             <form method="post" th:action="@{/login}">
                 <div th:if="${param.error}">
                     <div class="alert alert-danger">
@@ -52,14 +59,13 @@
                                    name="login-submit"
                                    type="submit"
                                    value="Log In">
-                            <!--<a th:href="recover" class="btn " role="button">Password Reset</a>-->
 
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-4 "></div>
+        <div class="col-1 "></div>
     </div>
 
 </div>

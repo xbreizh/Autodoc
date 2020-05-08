@@ -53,10 +53,10 @@
 
     <br><br><br>
     <div th:if="${!#strings.isEmpty(title) or !#strings.isEmpty(author) or !#strings.isEmpty(isbn) }">
-        <div th:if="${#lists.isEmpty(books)}">
+        <div th:if="${#lists.isEmpty(events)}">
             <h2 style="background-color: #ff9999">No Result found!</h2>
         </div>
-        <div th:unless="${#lists.isEmpty(books)}">
+        <div th:unless="${#lists.isEmpty(events)}">
             <div th:replace="fragments/search_result :: search_result"></div>
         </div>
     </div>

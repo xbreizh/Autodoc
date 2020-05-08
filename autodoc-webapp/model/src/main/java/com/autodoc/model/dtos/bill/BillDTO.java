@@ -22,7 +22,7 @@ public class BillDTO {
 
     private String paymentType;
 
-    @NotNull
+   // @NotNull
     private List<Integer> tasks;
 
     private List<Integer> pieces;
@@ -39,7 +39,7 @@ public class BillDTO {
     @NotNull
     private double vat;
 
-    @Min(value = 1, message = "total cannot be null")
+    //@Min(value = 1, message = "total cannot be null")
     private double total;
     @Min(value = 0, message = "invalid value for discount")
     @Max(value = 100, message = "discount max is 100")

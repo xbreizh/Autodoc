@@ -2,36 +2,41 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <div th:replace="fragments/header :: head1"></div>
-<body>
+<body onload="startTime()">
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <div th:text="${error}"></div>
 
     <div th:replace="cars/searchCar_form :: searchCar_form"></div>
 
-    <div class="row">
+    <!-- <div class="row">
+         <span th:text="${error}"></span>
 
-        <div class="col-12">
-             <span th:if="${car != null}">
+         <div class="col-12" th:if="${car != null}">
              <div th:replace="cars/searchCar_result :: searchCar_result"></div>
-             </span>
-        </div>
 
-    </div>
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-6">
-            <p th:if="${message != null}">
-                <span th:text="${message}">message</span>
-                <span th:replace="cars/cars_new :: newForm"></span>
-            </p>
-        </div>
-        <div class="col-4">
-        </div>
-    </div>
+         </div>
+         <p th:if="${message != null}">
+             <span th:text="${message}">message</span>
+         </p>
+         <div class="col-6">
+             <p th:if="${message != null}">
+                 <span th:replace="cars/cars_new :: newForm"></span>
+             </p>
+         </div>
+
+     </div>-->
+    <!-- <div class="row">
+         <div class="col-6">
+             <p th:if="${message != null}">
+                 <span th:replace="cars/cars_new :: newForm"></span>
+             </p>
+         </div>
+         <div class="col-4">
+         </div>
+     </div>-->
 </div>
 
 </body>

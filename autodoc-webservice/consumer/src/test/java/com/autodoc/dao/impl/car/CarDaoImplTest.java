@@ -8,6 +8,7 @@ import com.autodoc.dao.filler.Remover;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +33,7 @@ class CarDaoImplTest {
 
     private static final Logger LOGGER = Logger.getLogger(CarDaoImplTest.class);
 
-    String registration = "05D121487";
+    String registration = "07D121922";
     Car obj;
     int id;
     Class clazz = Car.class;
@@ -52,7 +53,8 @@ class CarDaoImplTest {
     private Remover remover;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        //BasicConfigurator.configure();
         remover.cleanup();
         filler.fill();
         client = (Client) clientDao.getAll().get(0);
@@ -108,7 +110,7 @@ class CarDaoImplTest {
     @DisplayName("should return true when deleting object")
     void deleteById() {
         id = obj.getId();
-        assertTrue(dao.delete(obj));
+        assertFalse(dao.delete(obj));
         assertNull(dao.getById(id));
     }
 
@@ -168,6 +170,8 @@ class CarDaoImplTest {
     @Test
     @DisplayName("should return an object")
     void getByRegistration() {
+        Car car = (Car) dao.getAll().get(0);
+        String registration = car.getRegistration();
         assertAll(
                 () -> assertNotNull(dao.getCarByRegistration(registration)),
                 () -> assertThat((dao.getCarByRegistration(registration)), instanceOf(clazz))

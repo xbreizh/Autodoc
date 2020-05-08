@@ -15,7 +15,7 @@ import java.util.List;
 @Generated
 public class BillDTO {
 
-    public static final double VAT = 00.195;
+    public double VAT = 00.195;
     private int id;
 
     private String dateReparation;
@@ -25,10 +25,10 @@ public class BillDTO {
 
     private String paymentType;
 
-    @NotNull
+    //@NotNull
     private List<Integer> tasks;
 
-    @NotNull
+   // @NotNull
     private List<Integer> pieces;
 
     @NotNull(message = "car Registration cannot be null")
@@ -41,7 +41,7 @@ public class BillDTO {
     private int employeeId;
 
 
-    @Min(value = 1, message = "total cannot be null")
+   // @Min(value = 1, message = "total cannot be null")
     private double total;
     @Min(value = 0, message = "invalid value for discount")
     @Max(value = 100, message = "discount max is 100")

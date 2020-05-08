@@ -11,6 +11,7 @@ import com.autodoc.model.models.bill.Bill;
 import com.autodoc.model.models.car.Car;
 import com.autodoc.model.models.car.CarModel;
 import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -46,6 +47,7 @@ class CarManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(CarDaoImpl.class);
         carModelDao = mock(CarModelDao.class);
         clientDao = mock(ClientDao.class);

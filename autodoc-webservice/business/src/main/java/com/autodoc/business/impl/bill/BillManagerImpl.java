@@ -23,7 +23,6 @@ import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Builder;
 import org.apache.log4j.Logger;
-import org.checkerframework.checker.units.qual.A;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,7 +124,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setDiscount(dto.getDiscount());
         if (dto.getStatus() != null) bill.setStatus(Status.valueOf(dto.getStatus()));
         if (dto.getTotal() != 0) bill.setTotal(dto.getTotal());
-        bill.setVat(BillDTO.VAT);
+        bill.setVat(dto.getVAT());
         if (dto.getComments() != null) bill.setComments(dto.getComments());
         if (dto.getPaymentType() != null) bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
 
@@ -152,7 +151,7 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
         bill.setDiscount(dto.getDiscount());
         bill.setStatus(Status.valueOf(dto.getStatus()));
         bill.setTotal(dto.getTotal());
-        bill.setVat(BillDTO.VAT);
+        bill.setVat(dto.getVAT());
         bill.setComments(dto.getComments());
         bill.setPaymentType(PaymentType.valueOf(dto.getPaymentType()));
 
@@ -211,9 +210,9 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 if (piece == null) throw new InvalidDtoException("invalid piece");
                 pieceList.add(piece);
             }
-            updateStockAndAddPieces(pieceList, bill.getPieces());
+            updateStockAndAddOrRemovePiecesFromStock(pieceList, bill.getPieces());
             bill.setPieces(pieceList);
-        }else{
+        } else {
             bill.setPieces(new ArrayList<>());
         }
     }
@@ -228,13 +227,13 @@ public class BillManagerImpl extends AbstractGenericManager implements BillManag
                 taskList.add(task);
             }
             bill.setTasks(taskList);
-        }else{
+        } else {
             bill.setTasks(new ArrayList<>());
         }
     }
 
 
-    public void updateStockAndAddPieces(List<Piece> billPieces, List<Piece> billDbPieces) {
+    public void updateStockAndAddOrRemovePiecesFromStock(List<Piece> billPieces, List<Piece> billDbPieces) {
 
         LOGGER.info("updating stock");
         LOGGER.info(billPieces);

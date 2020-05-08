@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -109,7 +109,10 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ModelAndView billById(@PathVariable Integer id) throws Exception {
+        LOGGER.info("getting bill by id: " + id);
         String token = authenticationHelper.getConnectedToken();
+
+
         ModelAndView mv = getById(id);
         addingCalculation(mv);
         addCars(token, mv);
@@ -122,6 +125,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         Bill bill = (Bill) billManager.getById(token, id);
         if (bill.getStatus() == null) bill.setStatus("PENDING_PAYMENT");
         getPricePerHour(mv);
+        LOGGER.info("bill: " + bill);
+
         return mv;
     }
 
@@ -166,7 +171,16 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         LOGGER.info("trying to update bill " + form);
         String token = authenticationHelper.getConnectedToken();
         if (form == null) form = new BillForm();
-        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
+        if (form.getDateReparation() == null) LOGGER.error("date shouldn't be null");
+        ModelAndView mv = null;
+        LOGGER.info("checking date");
+        if (!manager.checkIfDateIsValid(form.getDateReparation())) {
+            addInvalidDateError(bindingResult);
+
+        }
+        mv = updateObject(form, form.getId(), bindingResult);
+
+
         mv.addObject("form", form);
         addPaymentType(token, mv);
         addStatus(token, mv);
@@ -179,6 +193,11 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
         addingCalculation(mv);
         return mv;
 
+    }
+
+    private void addInvalidDateError(BindingResult bindingResult) {
+        FieldError fieldError = new FieldError("billForm", "dateReparation", "invalid dateReparation");
+        bindingResult.addError(fieldError);
     }
 
     @Override
@@ -248,16 +267,17 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     public ModelAndView create(@Valid BillForm form, BindingResult bindingResult, Model model) throws Exception {
         LOGGER.info("trying to create bill " + form);
         String token = authenticationHelper.getConnectedToken();
+        // boolean validDate = true;
         if (form.getDateReparation() == null) LOGGER.error("date shouldn't be null");
-        if (form.getPieces() == null && form.getTasks() == null) {
-            String error = "there should be at least one piece or one task";
-            bindingResult.addError(new ObjectError("pieces", error));
-            bindingResult.addError(new ObjectError("tasks", error));
+
+        LOGGER.info("checking date");
+        if (!manager.checkIfDateIsValid(form.getDateReparation())) {
+            addInvalidDateError(bindingResult);
         }
+
+        LOGGER.info("date before: " + form.getDateReparation());
         ModelAndView mv = checkAndAddConnectedDetails("bills/bills_new");
 
-        // List<Task> taskList = taskManager.getTemplates(token);
-        // LOGGER.info("tasks: " + taskList);
         addTasks(token, mv);
         addPieces(token, mv);
         if (form == null) form = new BillForm();
@@ -287,11 +307,8 @@ public class BillControllerImpl extends GlobalController<BillDTO, Bill, BillForm
     }
 
     private void addTasks(String token, ModelAndView mv) throws Exception {
-        //  List<Task> taskList = taskManager.getTemplates(token);
         List<Task> taskList = taskManager.getAll(token);
         List<Task> sortedList = taskList.stream().sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
-        //   List<Task> sortedAll = allTasks.stream().sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
-        //   mv.addObject("taskList", sortedList);
         mv.addObject("taskList", sortedList);
     }
 

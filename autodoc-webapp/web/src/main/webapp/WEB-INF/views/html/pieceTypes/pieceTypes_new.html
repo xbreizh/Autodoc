@@ -4,14 +4,14 @@
 
 
 <div th:replace="fragments/header :: head1"></div>
-<body>
+<body onload="startTime()">
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div th:replace="fragments/menu :: menu"></div>
 
     <h3>New pieceType</h3>
-
+    <div th:replace="fragments/errors :: errors"></div>
 
     <form action="#" method="post" th:action="@{'/pieceTypes/new/'}" th:object="${pieceTypeForm}">
         <div class="form-group">
@@ -19,7 +19,7 @@
             <input class="form-control" id="name" name="name" required="required"
                    th:value="${name}"
                    type="text"/>
-            <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
+            <div style="color: red" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>

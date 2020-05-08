@@ -17,7 +17,6 @@ import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,25 +31,13 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     private final ClientManager clientManager;
     private final EmployeeManager employeeManager;
     private final PieceManager pieceManager;
-    //private SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
-    protected SimpleDateFormat getDateFormat() {
-        return new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    }
+
 
     GlobalService getService() {
         return service;
     }
 
-   /* public BillManagerImpl(BillService service, CarManager carManager, TaskManager taskManager, ClientManager clientManager, EmployeeManager employeeManager, PieceManager pieceManager) {
-        super(service);
-        this.service = service;
-        this.carManager = carManager;
-        this.taskManager = taskManager;
-        this.pieceManager = pieceManager;
-        this.clientManager = clientManager;
-        this.employeeManager = employeeManager;
-    }*/
 
     public Bill dtoToEntity(String token, Object obj) throws Exception {
 
@@ -61,7 +48,7 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         LOGGER.info("id: " + id);
         bill.setId(id);
         LOGGER.info("old date: " + dto.getDateReparation());
-        bill.setDateReparation(getDateFormat().parse(dto.getDateReparation()));
+        bill.setDateReparation(dto.getDateReparation());
         LOGGER.info("new date: " + bill.getDateReparation());
         Car car = carManager.getByRegistration(token, dto.getRegistration());
         if (car == null) throw new Exception("car cannot be null");
@@ -73,9 +60,9 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         bill.setDiscount((int) dto.getDiscount());
         LOGGER.info(bill.getDiscount());
         bill.setStatus(dto.getStatus());
-        if (dto.getPaymentType()==null){
+        if (dto.getPaymentType() == null) {
             bill.setPaymentType("CASH");
-        }else {
+        } else {
             bill.setPaymentType(dto.getPaymentType());
         }
         bill.setTasks(getTasks(token, dto.getTasks()));
@@ -91,9 +78,9 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         LOGGER.info("employee found: " + employee);
         bill.setEmployee(employee);
         LOGGER.info("bill transferred: " + bill);
-        if(dto.getComments()!=null) {
+        if (dto.getComments() != null) {
             bill.setComments(dto.getComments());
-        }else {
+        } else {
             bill.setComments("");
         }
         return bill;
@@ -133,17 +120,18 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
         dto.setClientId(form.getClientId());
 
 
-        String mdy = getDateFormat().format(form.getDateReparation());
-        dto.setDateReparation(mdy);
+        //String mdy = getDateFormat().format(form.getDateReparation());
+        checkIfDateIsValid(form.getDateReparation());
+        dto.setDateReparation(form.getDateReparation());
         LOGGER.info("date passed: " + dto.getDateReparation());
         dto.setDiscount(Double.valueOf(form.getDiscount()));
         Employee employee = employeeManager.getByLogin(token, form.getEmployeeLogin());
         dto.setEmployeeId(employee.getId());
         dto.setRegistration(form.getCarRegistration());
         dto.setStatus(form.getStatus());
-        if (form.getPaymentType() == null || !form.getPaymentType().isEmpty()) {
+        if (form.getPaymentType() == null || form.getPaymentType().isEmpty()) {
             dto.setPaymentType("CASH");
-        }else{
+        } else {
             dto.setPaymentType(form.getPaymentType());
         }
         List<Integer> taskIdList = new ArrayList<>();
@@ -161,9 +149,10 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
             }
         }
         dto.setPieces(pieceIdList);
-        if(form.getComments()!=null){
+
+        if (form.getComments() != null) {
             dto.setComments(form.getComments());
-        }else{
+        } else {
             dto.setComments("");
         }
 
@@ -198,4 +187,6 @@ public class BillManagerImpl extends GlobalManagerImpl<Bill, BillDTO> implements
     public List<String> getPaymentType(String token) {
         return enumService.getAll(token, "paymentTypes");
     }
+
+
 }

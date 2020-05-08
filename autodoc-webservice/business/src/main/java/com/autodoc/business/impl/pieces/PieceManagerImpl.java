@@ -15,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
+
 @Transactional
 @Component
 @Builder
@@ -129,10 +131,30 @@ public class PieceManagerImpl extends AbstractGenericManager implements PieceMan
         if (dto.getBrand() != null) piece.setBrand(dto.getBrand());
         if (dto.getBuyingPrice() != 0) piece.setBuyingPrice(dto.getBuyingPrice());
         if (dto.getSellPrice() != 0) piece.setSellPrice(dto.getSellPrice());
-        if (dto.getQuantity() != 0) piece.setQuantity(dto.getQuantity());
+         piece.setQuantity(dto.getQuantity());
         checkSellingPriceIsEqualOrHigherBuyingPrice(piece);
         transferPieceType(dto, piece);
         LOGGER.info("piece to update: " + piece);
         return piece;
+    }
+
+    @Override
+    @Transactional(propagation = REQUIRES_NEW)
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting pieceType");
+        Piece piece = (Piece) dao.getById(entityId);
+        if(piece!=null) {
+            piece.setName("deleted Item");
+        }
+
+        boolean deleteResult = dao.deleteById(entityId);
+        LOGGER.info("delete result: "+deleteResult);
+        if(!deleteResult){
+            LOGGER.error("renaming item we can't delete");
+            LOGGER.info(piece);
+            dao.update(piece);
+        }
+
+        return true;
     }
 }

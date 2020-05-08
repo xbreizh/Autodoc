@@ -19,15 +19,16 @@ import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.client.Client;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.pieces.Piece;
+import com.autodoc.model.models.pieces.PieceType;
 import com.autodoc.model.models.tasks.Task;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -39,7 +40,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @Transactional*/
 class BillManagerImplTest {
-
+    private static final Logger LOGGER = Logger.getLogger(BillManagerImplTest.class);
     BillManager manager;
     BillDao dao;
     CarDao carDao;
@@ -69,6 +70,7 @@ class BillManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(BillDao.class);
         carDao = mock(CarDao.class);
         employeeDao = mock(EmployeeDao.class);
@@ -368,10 +370,5 @@ class BillManagerImplTest {
         assertDoesNotThrow(() -> manager.transferTasks(dto, obj));
     }
 
-    @Test
-    @DisplayName("should update Stock")
-    void updateStockAndAddPieces() {
 
-
-    }
 }

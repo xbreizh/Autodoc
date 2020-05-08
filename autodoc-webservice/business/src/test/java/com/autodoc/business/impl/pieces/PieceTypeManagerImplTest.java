@@ -5,6 +5,8 @@ import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.impl.pieces.PieceTypeDaoImpl;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.models.pieces.PieceType;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class PieceTypeManagerImplTest {
-
+    private static final Logger LOGGER = Logger.getLogger(PieceTypeManagerImplTest.class);
     private PieceTypeManager manager;
     private PieceTypeDaoImpl dao;
     private String name = "Bob";
@@ -25,6 +27,7 @@ class PieceTypeManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(PieceTypeDaoImpl.class);
         manager = PieceTypeManagerImpl.builder().dao(dao).build();
         obj = PieceType.builder().id(id).name(name).build();
@@ -115,6 +118,45 @@ class PieceTypeManagerImplTest {
         assertAll(
                 () -> assertEquals(dto.getName().toUpperCase(), obj.getName().toUpperCase())
         );
+
+    }
+
+    @Test
+    @DisplayName("should update object")
+    void transferUpdate1() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        obj.setName(name);
+        dto.setName(null);
+        obj = (PieceType) manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(name.toUpperCase(), obj.getName().toUpperCase())
+        );
+
+    }
+
+    @Test
+    @DisplayName("should throw an exception")
+    void deleteById() {
+        when(dao.getById(anyInt())).thenReturn(null);
+       assertThrows(InvalidDtoException.class, ()-> manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return true")
+    void deleteById1() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        when(dao.deleteById(anyInt())).thenReturn(true);
+        assertTrue(manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return false")
+    void deleteById2() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        when(dao.deleteById(anyInt())).thenReturn(false);
+        assertFalse(manager.deleteById(2));
 
     }
 

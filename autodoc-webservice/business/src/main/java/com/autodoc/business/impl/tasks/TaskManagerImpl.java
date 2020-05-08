@@ -6,12 +6,15 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.model.dtos.tasks.TaskDTO;
+import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.tasks.Task;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 @Transactional
 @Component
@@ -65,6 +68,17 @@ public class TaskManagerImpl extends AbstractGenericManager implements TaskManag
         if (dto.getDescription() != null) task.setDescription(dto.getDescription());
         if (dto.getEstimatedTime() != 0) task.setEstimatedTime(dto.getEstimatedTime());
         return task;
+    }
+
+    @Override
+    @Transactional(propagation = REQUIRES_NEW)
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting providerType");
+        Task task = (Task) dao.getById(entityId);
+        if (task == null) throw new InvalidDtoException("task invalid id: " + entityId);
+            task.setName("deleted task");
+            dao.update(task);
+        return dao.deleteById(entityId);
     }
 
 

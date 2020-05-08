@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,10 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
     private static final Logger LOGGER = Logger.getLogger(GlobalManagerImpl.class);
     //  GlobalService service;
     EnumService enumService = new EnumServiceImpl();
+
+    protected SimpleDateFormat getDateFormat() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    }
 
     GlobalService getService() {
         return null;
@@ -62,8 +68,14 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
 
     public List<T> getAll(String token) throws Exception {
         GlobalService service = getService();
-        return convertList(token, service.getAll(token));
+        List<T> list = convertList(token, service.getAll(token));
+
+        return cleanupDeletedItems(list);
     }
+
+   public List<T> cleanupDeletedItems(List<T> list){
+        return list;
+   }
 
     public String add(String token, Object obj) throws Exception {
         LOGGER.info("stuff to insert: " + obj);
@@ -166,6 +178,27 @@ public abstract class GlobalManagerImpl<T, D> implements GlobalManager {
             LOGGER.error("invalid code received: " + code);
         }
         return 999;
+    }
+
+    @Override
+    public boolean checkIfDateIsValid(String stringDate) throws Exception {
+        if (stringDate == null) {
+            throw new ObjectFormattingException("date shouldn't be null");
+        }
+        LOGGER.info("date received: " + stringDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        sdf.setLenient(false);
+        try {
+
+            //if not valid, it will throw ParseException
+            sdf.parse(stringDate);
+            return true;
+
+        } catch (ParseException e) {
+
+            return false;
+        }
+
     }
 
 

@@ -5,6 +5,7 @@ import com.autodoc.business.exceptions.InvalidDtoException;
 import com.autodoc.dao.impl.car.ManufacturerDaoImpl;
 import com.autodoc.model.dtos.car.ManufacturerDTO;
 import com.autodoc.model.models.car.Manufacturer;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ class ManufacturerManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(ManufacturerDaoImpl.class);
         manager = ManufacturerManagerImpl.builder().dao(dao).build();
         obj = Manufacturer.builder().id(id).name(name).build();

@@ -4,7 +4,7 @@
 
 
 <div th:replace="fragments/header :: head1"></div>
-<body>
+<body onload="startTime()">
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
@@ -20,14 +20,13 @@
                type="checkbox">
         <span class="slider round"></span>
     </label>
-    <h3>Edit</h3>
 
 
-    <div style="display: none; background-color: greenyellow" th:id="'micForm' + ${obj.id}">
+    <div class="form-show" style="display: none; " th:id="'micForm' + ${obj.id}">
 
         <div th:replace="pieces/pieces_form :: form"></div>
     </div>
-    <div style="display: block; background-color: orangered" th:id="'mic' + ${obj.id}">
+    <div class="details-show" style="display: block; " th:id="'mic' + ${obj.id}">
         <table>
             <tr>
                 <td>Id</td>

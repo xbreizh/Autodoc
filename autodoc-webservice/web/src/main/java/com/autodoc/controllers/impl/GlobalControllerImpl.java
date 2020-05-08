@@ -3,6 +3,7 @@ package com.autodoc.controllers.impl;
 import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.controllers.contract.GlobalController;
 import com.autodoc.controllers.helper.GsonConverter;
+import com.autodoc.controllers.impl.exceptions.NotImplementedmethodException;
 import com.autodoc.model.models.search.SearchDTO;
 import org.apache.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
@@ -57,7 +58,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @PostMapping(value = "",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> add(@RequestBody @Valid D obj) {
-        System.out.println("trying to add: " + obj);
+        LOGGER.info("trying to add: " + obj);
         try {
             IGenericManager<T, D> manager = getManager();
             getClassName(obj);
@@ -120,7 +121,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @GetMapping(value = "/name",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception {
+    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws NotImplementedmethodException {
         IGenericManager<T, D> manager = getManager();
         LOGGER.debug("trying to get: " + name);
         Object received = manager.getByName(name);
@@ -135,7 +136,7 @@ public abstract class GlobalControllerImpl<T, D> implements GlobalController {
     @Override
     @DeleteMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteById(@PathVariable Integer id) {
+    public ResponseEntity deleteById(@PathVariable Integer id)  throws NotImplementedmethodException {
         IGenericManager<T, D> manager = getManager();
         LOGGER.info("trying to delete: " + id);
         boolean response = manager.deleteById(id);

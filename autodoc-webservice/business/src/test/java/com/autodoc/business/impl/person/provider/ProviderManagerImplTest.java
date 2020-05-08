@@ -6,6 +6,7 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.impl.person.provider.ProviderDaoImpl;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
 import com.autodoc.model.models.person.provider.Provider;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -36,6 +38,7 @@ class ProviderManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(ProviderDaoImpl.class);
         manager = ProviderManagerImpl.builder().dao(dao).build();
         obj = Provider.builder().id(id).firstName(firstName).lastName(lastName).phoneNumber(phoneNumber).company(company).email1(email1).website(website).address("3, rue michard").build();
@@ -109,10 +112,39 @@ class ProviderManagerImplTest {
 
     }
 
- /*   @Test
+    @Test
+    @DisplayName("should throw an exception")
+    void deleteById() {
+        when(dao.getById(anyInt())).thenReturn(null);
+        assertThrows(InvalidDtoException.class, ()-> manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return true")
+    void deleteById1() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        when(dao.deleteById(anyInt())).thenReturn(true);
+        assertTrue(manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return false")
+    void deleteById2() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        when(dao.deleteById(anyInt())).thenReturn(false);
+        assertFalse(manager.deleteById(2));
+
+    }
+
+
+
+    @Test
     @DisplayName("should update")
     void transferUpdate() {
-        obj = (Provider) manager.transferUpdate(dto);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        manager.transferUpdate(dto);
         assertAll(
                 () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),
                 () -> assertEquals(dto.getLastName().toUpperCase(), obj.getLastName()),
@@ -122,5 +154,29 @@ class ProviderManagerImplTest {
                 () -> assertEquals(dto.getWebsite().toUpperCase(), obj.getWebsite())
         );
 
-    }*/
+    }
+
+    @Test
+    @DisplayName("should not update")
+    void transferUpdate1() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        dto.setFirstName(null);
+        dto.setLastName(null);
+        dto.setPhoneNumber(null);
+        dto.setCompany(null);
+        dto.setEmail1(null);
+        dto.setEmail2(null);
+        dto.setWebsite(null);
+        dto.setAddress(null);
+        manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(obj.getFirstName(), obj.getFirstName()),
+                () -> assertEquals(obj.getLastName(), obj.getLastName()),
+                () -> assertEquals(obj.getPhoneNumber(), obj.getPhoneNumber()),
+                () -> assertEquals(obj.getEmail1(), obj.getEmail1()),
+                () -> assertEquals(obj.getCompany(), obj.getCompany()),
+                () -> assertEquals(obj.getWebsite(), obj.getWebsite())
+        );
+
+    }
 }

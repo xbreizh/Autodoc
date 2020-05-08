@@ -4,6 +4,7 @@ import com.autodoc.dao.contract.tasks.TaskDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.dao.filler.Remover;
 import com.autodoc.model.models.tasks.Task;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,19 +32,15 @@ class TaskDaoImplTest {
     private Remover remover;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        //BasicConfigurator.configure();
         //remover.remove();
         filler.fill();
         obj = (Task) dao.getAll().get(0);
     }
 
 
-    @Test
-    void trrr() {
-        int i = 5;
-        double h = Double.valueOf(i);
-        System.out.println("h:" + h);
-    }
+
 
     @Test
     @DisplayName("should return null if invalid name")
@@ -64,15 +61,7 @@ class TaskDaoImplTest {
         assertEquals(Task.getSearchField(), dao.getSearchField());
     }
 
-    @Test
-    void deleteById() {
-        int id = obj.getId();
-        assertAll(
-                () -> assertNotNull(dao.getById(id)),
-                () -> assertTrue(dao.deleteById(id)),
-                () -> assertNull(dao.getById(id))
-        );
-    }
+
 
     @Test
     void testDeleteById() {

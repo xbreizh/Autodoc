@@ -7,17 +7,24 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
+
 @SuppressWarnings("unchecked")
 public abstract class AbstractHibernateDao<T> {
     protected static final String FROM = "from ";
     protected static final Logger LOGGER = Logger.getLogger(AbstractHibernateDao.class);
+    Session session;
+    @Inject
+    SessionFactory sessionFactory;
 
     public SessionFactory getSessionFactory() {
         return sessionFactory;
@@ -26,10 +33,6 @@ public abstract class AbstractHibernateDao<T> {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
-    @Inject
-    SessionFactory sessionFactory;
-
 
     public Class<?> getClazz() {
         return null;
@@ -61,16 +64,27 @@ public abstract class AbstractHibernateDao<T> {
         return (Integer) getCurrentSession().save(entity);
     }
 
+
     public boolean delete(T entity) {
         LOGGER.info("I want to delete: " + entity);
-        getCurrentSession().delete(entity);
+        getCurrentSession().update(entity);
+        try {
+            getCurrentSession().remove(entity);
+            getCurrentSession().flush();
+
+        } catch (PersistenceException exception) {
+            LOGGER.error("returning false");
+            return false;
+        }
         return true;
 
     }
 
+   // @Transactional(propagation = REQUIRES_NEW)
     public boolean update(T entity) {
         LOGGER.info("updating from dao: " + entity);
         getCurrentSession().merge(entity);
+        //getCurrentSession().close();
         return true;
 
     }
@@ -82,12 +96,12 @@ public abstract class AbstractHibernateDao<T> {
             LOGGER.info("entity not found");
             return false;
         }
-        delete(entity);
-        return true;
+
+        return delete(entity);
     }
 
     public Session getCurrentSession() {
-        Session session = sessionFactory.getCurrentSession();
+        session = sessionFactory.getCurrentSession();
         LOGGER.info("getting session: " + session);
 
         return session;

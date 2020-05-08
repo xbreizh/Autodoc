@@ -7,7 +7,6 @@ import com.autodoc.business.contract.ManufacturerManager;
 import com.autodoc.contract.BillService;
 import com.autodoc.contract.CarService;
 import com.autodoc.impl.CarServiceImpl;
-import com.autodoc.model.dtos.car.CarDTO;
 import com.autodoc.model.dtos.car.CarForm;
 import com.autodoc.model.dtos.person.client.ClientForm;
 import com.autodoc.model.models.car.Car;
@@ -23,6 +22,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
 class CarManagerImplTest {
 
     private static final Logger LOGGER = Logger.getLogger(CarManagerImplTest.class);
@@ -30,7 +30,7 @@ class CarManagerImplTest {
     // private final ObjectMapper objectMapper = new ObjectMapper();
     //   private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMTU9MTyIsImV4cCI6MTU3NDk2ODA1MCwiaWF0IjoxNTc0OTUwMDUwfQ.BfKxkfEVLatJRdOfVph7XqJHnCBWPGFKyaq2exJNUYFMr9lU0-EgQIQ_vecx8oqQIV1GEJ3vP8mSjUhu1vfrdA";
     // String url = "http://localhost:8087/autodoc/employees";
-    private String token = "token";
+    private final String token = "token";
     private CarManager manager;
     //@Inject
     private CarService service;
@@ -61,11 +61,11 @@ class CarManagerImplTest {
         ClientForm clientForm = new ClientForm("bob", "chanteal", "mazoki");
         form.setClient(clientForm);
         form.setModelId(1);
-        String carId = "12";
+        String carId = "32";
         String clientFeedback = "400 / client already exist";
         form.setRegistration("deferfr33");
         when(clientManager.add(anyString(), any(ClientForm.class))).thenReturn("23");
-        when(service.create(anyString(), any(CarDTO.class))).thenReturn(carId);
+        when(service.create(anyString(), any(CarForm.class))).thenReturn(carId);
         assertEquals(carId, manager.addNewCar(token, form));
 
     }

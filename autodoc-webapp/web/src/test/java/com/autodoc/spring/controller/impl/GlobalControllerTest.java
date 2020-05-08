@@ -56,7 +56,7 @@ class GlobalControllerTest {
         car.setModel(carModel);
         car.setRegistration("07D821922");
         bill.setCar(car);
-        bill.setDateReparation(new Date());
+        bill.setDateReparation("12-12-2020 12:20");
         bill.setPaymentType("CASH");
         bill.setStatus("COMPLETED");
         bill.setVat(19.6);

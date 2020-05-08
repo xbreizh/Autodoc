@@ -3,6 +3,7 @@ package com.autodoc.dao.impl.person.client;
 import com.autodoc.dao.contract.person.client.ClientDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.models.person.client.Client;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,8 @@ class ClientDaoImplTest {
     private ClientDao dao;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         filler.fill();
         obj = (Client) dao.getAll().get(0);
 

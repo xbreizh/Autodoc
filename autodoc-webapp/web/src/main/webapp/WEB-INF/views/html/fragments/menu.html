@@ -1,9 +1,8 @@
 <div th:fragment="menu" xmlns:th="http:/www.w3.org/1999/xhtml">
 
 
-    <div class="row d-flex row" style="justify-content: space-evenly">
+    <div class="row d-flex row menubar" style="justify-content: space-evenly">
         <div><a href="/autodoctor/employees">EMPLOYEES</a></div>
-        <!-- <div><a href="/autodoctor/providers">PROVIDERS</a></div>-->
         <div><a href="/autodoctor/clients">CLIENTS</a></div>
         <div><a href="/autodoctor/operations">OPERATIONS</a></div>
         <div><a href="/autodoctor/pieceTypes">PIECETYPES</a></div>
@@ -12,7 +11,10 @@
         <div><a href="/autodoctor/bills">BILLS</a></div>
         <div><a href="/autodoctor/cars">CARS</a></div>
     </div>
-    <div th:replace="fragments/errors :: errors"></div>
+    <div class="row">
+        <div class="col-12" style="height: 2em"></div>
+    </div>
+
 
 </div>
 

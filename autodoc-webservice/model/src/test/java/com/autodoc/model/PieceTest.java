@@ -2,6 +2,7 @@ package com.autodoc.model;
 
 import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,7 @@ class PieceTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         pieceType = PieceType.builder().name("typo").build();
         System.out.println(pieceType);
         piece = Piece.builder().name("pissou").brand("brandon").pieceType(pieceType).build();

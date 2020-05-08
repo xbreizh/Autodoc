@@ -4,7 +4,7 @@
 
 
 <div th:replace="fragments/header :: head1"></div>
-<body>
+<body onload="startTime()">
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
@@ -17,11 +17,13 @@
 
     <div th:text="${error}">error</div>
     <div th:text="${feedback}">feedback</div>
+
     <h3>Employee:</h3>
     <div th:text="${form.employeeLogin}">employee</div>
     <h3>Registration:</h3>
     <div th:text="${form.carRegistration}">registration</div>
     <br><br>
+    <div th:replace="fragments/errors :: errors"></div>
     <form action="#" method="post" th:action="@{'/bills/new/'}" th:object="${form}">
         <span id="myForm"></span>
 
@@ -29,22 +31,31 @@
                required="required" th:value="${form.employeeLogin}" type="hidden"/>
         <input class="form-control" id="carRegistration" name="carRegistration"
                required="required" th:value="${form.carRegistration}" type="hidden"/>
+        <!-- <div class="form-group">
+             <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
+                 <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
+                        type="text"/>
+                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                      id="dateReparation" name="dateReparation">
+                     <div class="input-group-text"><em class="fa fa-calendar"></em></div>
+                 </div>
+             </div>
+         </div>-->
+
+
         <div class="form-group">
-            <div class="input-group date" data-target-input="nearest" id="datetimepicker1">
-                <input class="form-control datetimepicker-input" data-target="#datetimepicker1" name="dateReparation"
-                       type="text"/>
-                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                     id="dateReparation" name="dateReparation">
-                    <div class="input-group-text"><em class="fa fa-calendar"></em></div>
-                </div>
-            </div>
+            <label for="dateReparation">DateReparation(dd-MM-yyyy HH:mm)</label>
+            <input class="form-control" id="dateReparation" name="dateReparation" placeholder="Enter DateReparation"
+                   required="required" th:value="${form.dateReparation}" type="text"/>
+            <div style="color: #bb322a" th:text="${invalidDate}">invalidDate</div>
         </div>
         <div class="form-group">
             <label for="discount">Discount( % )</label>
             <input id="discount" min="0.00" name="discount" placeholder="Enter Discount" required="required" step="1"
                    type="number"
                    value="0.00"/>
-            <div th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error</div>
+            <div style="color: red" th:errors="*{discount}" th:if="${#fields.hasErrors('discount')}">Discount Error
+            </div>
         </div>
 
 
@@ -52,7 +63,8 @@
             <label for="comments">Comments:</label>
             <input class="form-control" id="comments" name="comments" placeholder="Enter Comments"
                    type="text"/>
-            <div th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error</div>
+            <div style="color: red" th:errors="*{comments}" th:if="${#fields.hasErrors('comments')}">Comments Error
+            </div>
         </div>
 
         <input required="required" th:field="*{vat}" type="hidden"/>
@@ -214,17 +226,17 @@
             document.getElementById('myForm').innerHTML = '';
         }*/
 
+        /*
+                //var today = new Date();
+                $("#datetimepicker1").datetimepicker({
+                    format: 'DD/MM/YYYY hh:mm',
+                    autoClose: true,
+                    todayBtn: true,
+                    defaultDate: moment(),
+                    minuteStep: 10
 
-        //var today = new Date();
-        $("#datetimepicker1").datetimepicker({
-            format: 'DD/MM/YYYY hh:mm',
-            autoClose: true,
-            todayBtn: true,
-            defaultDate: moment(),
-            minuteStep: 10
 
-
-        });
+                });*/
     </script>
 
 </div>

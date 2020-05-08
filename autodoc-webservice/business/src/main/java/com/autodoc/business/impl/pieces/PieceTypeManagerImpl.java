@@ -6,12 +6,15 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
+import com.autodoc.model.models.pieces.Piece;
 import com.autodoc.model.models.pieces.PieceType;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 @Transactional
 @Component
@@ -62,6 +65,18 @@ public class PieceTypeManagerImpl extends AbstractGenericManager implements Piec
         PieceType pieceType = (PieceType) dao.getById(dto.getId());
         if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + dto.getId());
         return pieceType;
+    }
+
+    @Override
+    @Transactional(propagation = REQUIRES_NEW)
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting pieceType");
+        PieceType pieceType = (PieceType) dao.getById(entityId);
+        if (pieceType == null) throw new InvalidDtoException("pieceType invalid id: " + entityId);
+            pieceType.setName("deleted Item");
+            dao.update(pieceType);
+
+        return dao.deleteById(entityId);
     }
 
 

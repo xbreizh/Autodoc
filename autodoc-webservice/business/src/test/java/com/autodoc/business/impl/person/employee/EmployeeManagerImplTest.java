@@ -7,6 +7,7 @@ import com.autodoc.model.dtos.RoleListDTO;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,7 @@ class EmployeeManagerImplTest {
 
     @BeforeEach
     void init() {
+        BasicConfigurator.configure();
         dao = mock(EmployeeDaoImpl.class);
         manager = EmployeeManagerImpl.builder().dao(dao).build();
         roles.add(Role.MANAGER);
@@ -353,23 +355,51 @@ class EmployeeManagerImplTest {
         );
     }
 
-   /* @Test
-    @DisplayName("should return employee if roles are null")
+    @Test
+    @DisplayName("should not update")
     void transferUpdate3() {
-        dto.setStartDate(new Date());
+        dto.setFirstName(null);
+        dto.setLastName(null);
+        dto.setPhoneNumber(null);
+        dto.setLogin(null);
+        dto.setPassword(null);
+        dto.setStartDate(null);
         dto.setRoles(null);
         when(dao.getById(anyInt())).thenReturn(obj);
-        obj = (Employee) manager.transferUpdate(dto);
-        System.out.println(obj);
+        manager.transferUpdate(dto);
         assertAll(
-                () -> assertEquals(dto.getFirstName().toUpperCase(), obj.getFirstName()),
-                () -> assertEquals(dto.getLastName().toUpperCase(), obj.getLastName()),
-                () -> assertEquals(dto.getPhoneNumber().toUpperCase(), obj.getPhoneNumber()),
-                () -> assertEquals(dto.getLogin().toUpperCase(), obj.getLogin()),
-                () -> assertEquals(dto.getLastConnection(), obj.getLastConnection()),
-                () -> assertNull(obj.getRoles())
+                () -> assertEquals(obj.getFirstName(), obj.getFirstName()),
+                () -> assertEquals(obj.getLastName(), obj.getLastName()),
+                () -> assertEquals(obj.getPhoneNumber(), obj.getPhoneNumber()),
+                () -> assertEquals(obj.getPassword(), obj.getPassword()),
+                () -> assertEquals(obj.getLogin(), obj.getLogin()),
+                () -> assertEquals(obj.getStartDate(), obj.getStartDate())
         );
-    }*/
 
+    }
+   @Test
+   @DisplayName("should throw an exception")
+   void deleteById() {
+       when(dao.getById(anyInt())).thenReturn(null);
+       assertThrows(InvalidDtoException.class, ()-> manager.deleteById(2));
+
+   }
+
+    @Test
+    @DisplayName("should return true")
+    void deleteById1() {
+       obj.getRoles().add(Role.SUPERADMIN);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertThrows(InvalidDtoException.class, ()-> manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return false")
+    void deleteById2() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        assertTrue(manager.deleteById(2));
+
+    }
 
 }

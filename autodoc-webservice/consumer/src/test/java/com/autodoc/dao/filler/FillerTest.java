@@ -10,6 +10,7 @@ import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.dao.contract.pieces.PieceDao;
 import com.autodoc.dao.contract.pieces.PieceTypeDao;
 import com.autodoc.dao.contract.tasks.TaskDao;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+
+import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -52,7 +55,8 @@ class FillerTest {
     private BillDao billDao;
 
     @BeforeEach()
-    void init() throws Exception {
+    void init() throws ParseException {
+      //  BasicConfigurator.configure();
         filler.fill();
     }
 
@@ -66,18 +70,18 @@ class FillerTest {
 
     @Test
     void fillTasks() {
-        assertEquals(3, taskDao.getAll().size());
+        assertEquals(4, taskDao.getAll().size());
     }
 
 
     @Test
     void fillPieceTypes() {
-        assertEquals(3, pieceTypeDao.getAll().size());
+        assertEquals(5, pieceTypeDao.getAll().size());
     }
 
     @Test
     void fillPieces() {
-        assertEquals(4, pieceDao.getAll().size());
+        assertEquals(5, pieceDao.getAll().size());
     }
 
 
@@ -104,7 +108,7 @@ class FillerTest {
 
     @Test
     void fillClient() {
-        assertEquals(2, clientDao.getAll().size());
+        assertEquals(3, clientDao.getAll().size());
     }
 
     @Test

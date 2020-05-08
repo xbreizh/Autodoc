@@ -14,18 +14,18 @@ public class Employee extends Person {
 
     private List<String> roles;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private Date startDate;
+    // @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    private String startDate;
 
     private String login;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date lastConnection;
 
     private String password;
 
 
-    public Employee(int id, String firstName, String lastName, String phoneNumber, List<String> roles, Date startDate, String login, Date lastConnection) {
+    public Employee(int id, String firstName, String lastName, String phoneNumber, List<String> roles, String startDate, String login, Date lastConnection) {
         super(id, firstName, lastName, phoneNumber);
         this.roles = roles;
         this.startDate = startDate;

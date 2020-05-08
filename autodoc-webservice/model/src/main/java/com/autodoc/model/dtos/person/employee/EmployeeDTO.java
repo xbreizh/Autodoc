@@ -23,7 +23,7 @@ public class EmployeeDTO extends PersonDTO {
     private List<String> roles;
 
     //@PastOrPresent
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date startDate;
 
     @NotNull(message = "login cannot be null")
@@ -49,6 +49,7 @@ public class EmployeeDTO extends PersonDTO {
     }
 
     public void setLogin(String login) {
+        if(login!=null)
         this.login = login.toUpperCase();
     }
 

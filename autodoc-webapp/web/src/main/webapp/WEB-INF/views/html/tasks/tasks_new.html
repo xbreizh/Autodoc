@@ -4,19 +4,21 @@
 
 
 <div th:replace="fragments/header :: head1"></div>
-<body>
+<body onload="startTime()">
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div th:replace="fragments/menu :: menu"></div>
 
-    <h3>New Task Template</h3>
+    <h3>New Task</h3>
+
+    <div th:replace="fragments/errors :: errors"></div>
 
     <form action="#" method="post" th:action="@{'/tasks/new/'}" th:object="${taskForm}">
         <div class="form-group">
             <label for="name">Name</label>
             <input class="form-control" id="name" name="name" placeholder="Enter name" required="required" type="text"/>
-            <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
+            <div style="color: red" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</div>
         </div>
         <div class="form-group">
             <label for="description">Description</label>

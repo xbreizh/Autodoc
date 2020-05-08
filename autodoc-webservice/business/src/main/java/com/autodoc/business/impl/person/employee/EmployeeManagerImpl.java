@@ -211,4 +211,21 @@ public class EmployeeManagerImpl extends AbstractGenericManager implements Emplo
         LOGGER.info("all roles are valid: " + roles);
         return roleList;
     }
+
+
+    @Override
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting employeeType");
+        Employee employee = (Employee) dao.getById(entityId);
+        if (employee == null) throw new InvalidDtoException("employee invalid id: " + entityId);
+        if (employee.getRoles().contains(Role.SUPERADMIN)) {
+            throw new InvalidDtoException("SUPER ADMIN can't be deleted this way");
+        }
+
+        employee.setLogin("deleted Employee");
+        dao.update(employee);
+
+
+        return true;
+    }
 }

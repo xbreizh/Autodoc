@@ -6,16 +6,20 @@ import com.autodoc.business.impl.AbstractGenericManager;
 import com.autodoc.dao.contract.global.IGenericDao;
 import com.autodoc.dao.contract.person.provider.ProviderDao;
 import com.autodoc.model.dtos.person.provider.ProviderDTO;
+import com.autodoc.model.models.employee.Employee;
 import com.autodoc.model.models.person.provider.Provider;
 import com.autodoc.model.models.search.Search;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 @Transactional
 @Component
@@ -78,5 +82,18 @@ public class ProviderManagerImpl extends AbstractGenericManager implements Provi
         if (!providers.isEmpty())
             throw new InvalidDtoException("that client already exist: " + dto.getFirstName() + " " + dto.getLastName());
 
+    }
+
+    @Override
+    @Transactional(propagation = REQUIRES_NEW)
+    public boolean deleteById(int entityId) {
+        LOGGER.info("deleting providerType");
+        Provider provider = (Provider) dao.getById(entityId);
+        if (provider == null) throw new InvalidDtoException("provider invalid id: " + entityId);
+            provider.setFirstName("deleted Provider");
+            provider.setLastName("deleted Provider");
+            dao.update(provider);
+
+        return dao.deleteById(entityId);
     }
 }

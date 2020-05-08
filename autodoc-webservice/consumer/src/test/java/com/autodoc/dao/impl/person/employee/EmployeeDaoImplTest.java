@@ -4,6 +4,7 @@ import com.autodoc.dao.contract.person.employee.EmployeeDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.model.enums.Role;
 import com.autodoc.model.models.employee.Employee;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +34,8 @@ class EmployeeDaoImplTest {
     private Filler filler;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+       // BasicConfigurator.configure();
         filler.fill();
         obj = (Employee) dao.getAll().get(0);
     }
@@ -132,6 +135,22 @@ class EmployeeDaoImplTest {
                 () -> assertNull(dao.getById(id))
         );
     }
+
+/*
+    @Test
+    void update() {
+       Employee employee = (Employee) dao.getById(2);
+       Date date = new Date();
+       employee.setStartDate(date);
+    //   dao.update(employee);
+       */
+/*assertEquals(date, ((Employee) dao.getById(1)).getStartDate());*//*
+
+        Employee employee1 = (Employee) dao.getById(2);
+        System.out.println("date: "+employee1.getStartDate());
+
+    }
+*/
 
 
 }

@@ -2,28 +2,31 @@
 
     <h3>New Car</h3>
 
-    <div th:text="${error}">error</div>
+    <span th:text="${error}" style="color: #bb211c">error</span>
+    <div th:replace="fragments/errors :: errors"></div>
 
     <form action="#" method="post" th:action="@{'/cars/new/'}" th:object="${carForm}">
         <div class="form-group">
             <label for="registration">Registration</label>
             <input class="form-control" id="registration" name="registration" placeholder="Enter Registration"
                    readonly required="required" th:value="${carForm.registration}" type="text"/>
-            <div th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">Registration Error</div>
+            <div style="color: red" th:errors="*{registration}" th:if="${#fields.hasErrors('registration')}">
+                Registration Error
+            </div>
         </div>
 
         <div class="form-group">
             <label for="mileage">Mileage</label>
             <input class="form-control" id="mileage" name="mileage" placeholder="Enter Mileage"
                    required="required" step="1" th:value="${carForm.mileage}" type="number"/>
-            <div th:errors="*{mileage}" th:if="${#fields.hasErrors('mileage')}">Mileage Error</div>
+            <div style="color: red" th:errors="*{mileage}" th:if="${#fields.hasErrors('mileage')}">Mileage Error</div>
         </div>
 
         <div class="form-group">
             <label for="color">Color</label>
             <input class="form-control" id="color" name="color" placeholder="Enter Color"
                    required="required" th:value="${carForm.color}" type="text"/>
-            <div th:errors="*{color}" th:if="${#fields.hasErrors('color')}">Color Error</div>
+            <div style="color: red" th:errors="*{color}" th:if="${#fields.hasErrors('color')}">Color Error</div>
         </div>
 
         <div class="form-group">
@@ -44,7 +47,9 @@
                 <input class="form-control" required="required" th:field="*{firstName}"
                        th:value="${carForm.client.firstName}"
                        type="text"/>
-                <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName Error</div>
+                <div style="color: red" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">FirstName
+                    Error
+                </div>
 
             </div>
             <div class="form-group">
@@ -52,7 +57,9 @@
                 <input class="form-control" required="required" th:field="*{lastName}"
                        th:value="${carForm.client.lastName}"
                        type="text"/>
-                <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName Error</div>
+                <div style="color: red" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">LastName
+                    Error
+                </div>
 
             </div>
             <div class="form-group">
@@ -60,7 +67,9 @@
                 <input class="form-control" required="required" th:field="*{phoneNumber}"
                        th:value="${carForm.client.phoneNumber}"
                        type="text"/>
-                <div th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">PhoneNumber Error</div>
+                <div style="color: red" th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}">
+                    PhoneNumber Error
+                </div>
 
             </div>
         </div>

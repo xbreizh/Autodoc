@@ -1,6 +1,7 @@
 package com.autodoc.business.impl;
 
 import com.autodoc.business.contract.EmployeeManager;
+import com.autodoc.business.exceptions.ObjectFormattingException;
 import com.autodoc.contract.EmployeeService;
 import com.autodoc.contract.GlobalService;
 import com.autodoc.model.dtos.person.employee.EmployeeDTO;
@@ -10,6 +11,8 @@ import lombok.Builder;
 import org.apache.log4j.Logger;
 
 import javax.inject.Named;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Named
@@ -48,31 +51,60 @@ public class EmployeeManagerImpl extends GlobalManagerImpl<Employee, EmployeeDTO
         employee.setLastName(dto.getLastName());
         employee.setRoles(dto.getRoles());
         employee.setPhoneNumber(dto.getPhoneNumber());
-        employee.setStartDate(dto.getStartDate());
+        String date = dto.getStartDate();
+        String dateFormatted = date.replaceAll(" .+$", "");
+        employee.setStartDate(dateFormatted);
         employee.setLastConnection(dto.getLastConnection());
         LOGGER.info("entity transferred: " + employee);
 
         return employee;
     }
 
-    public EmployeeDTO formToDto(Object obj, String token) {
+    public EmployeeDTO formToDto(Object obj, String token) throws Exception {
         LOGGER.info("stuff to update: " + obj);
-        EmployeeForm dto = (EmployeeForm) obj;
-        LOGGER.info("dto: " + dto);
-        LOGGER.info(dto.getFirstName());
-        EmployeeDTO employee = new EmployeeDTO();
-        if (dto.getId() != 0) employee.setId(dto.getId());
-        employee.setLogin(dto.getLogin());
-        employee.setFirstName(dto.getFirstName());
-        employee.setLastName(dto.getLastName());
-        employee.setRoles(dto.getRoles());
-        employee.setPhoneNumber(dto.getPhoneNumber());
-        LOGGER.info("employee rfom db: " + employee.getPassword());
-        if (dto.getPassword() != null) {
-            employee.setPassword(dto.getPassword());
+        EmployeeForm form = (EmployeeForm) obj;
+        LOGGER.info("form: " + form);
+        LOGGER.info("date: " + form.getStartDate());
+        EmployeeDTO dto = new EmployeeDTO();
+        if (!checkIfDateIsValid(form.getStartDate())) {
+            LOGGER.error("invalid date: " + form.getStartDate());
+            throw new ObjectFormattingException("invalid date: " + form.getStartDate());
         }
-        LOGGER.info("entity transferred: " + employee);
-        return employee;
+        dto.setStartDate(form.getStartDate());
+        if (form.getId() != 0) dto.setId(form.getId());
+        dto.setLogin(form.getLogin());
+        dto.setFirstName(form.getFirstName());
+        dto.setLastName(form.getLastName());
+        dto.setRoles(form.getRoles());
+        dto.setPhoneNumber(form.getPhoneNumber());
+        LOGGER.info("dto from db: " + dto.getPassword());
+        if (form.getPassword() != null) {
+            dto.setPassword(form.getPassword());
+        }
+        LOGGER.info("entity transferred: " + dto);
+        return dto;
+    }
+
+    @Override
+    public boolean checkIfDateIsValid(String stringDate) throws Exception {
+        if (stringDate == null) {
+            throw new ObjectFormattingException("date shouldn't be null");
+        }
+        System.out.println("reaching: " + stringDate);
+        System.out.println("expected format: " + getDateFormat().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        sdf.setLenient(false);
+        try {
+
+            //if not valid, it will throw ParseException
+            sdf.parse(stringDate);
+            return true;
+
+        } catch (ParseException e) {
+
+            /*throw new ObjectFormattingException("invalid date: " + stringDate);*/
+            return false;
+        }
     }
 
 }

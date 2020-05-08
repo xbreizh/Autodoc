@@ -9,6 +9,7 @@ import com.autodoc.spring.controller.contract.EmployeeController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -57,17 +58,20 @@ public class EmployeeControllerImpl extends GlobalController<Employee, EmployeeD
 
     @PostMapping(value = "/update/{id}")
     @ResponseBody
-    public ModelAndView update(@Valid EmployeeForm form, BindingResult bindingResult) throws Exception {
-        if (form == null) form = new EmployeeForm();
-        ModelAndView mv = updateObject(form, form.getId(), bindingResult);
-        addingRoleList(mv);
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("binding has errors");
-            addingErrorsToView(bindingResult, mv);
-            mv.addObject("showForm", 1);
-            return mv;
+    public ModelAndView update(@Valid EmployeeForm employeeForm, BindingResult bindingResult) throws Exception {
+        if (employeeForm == null) employeeForm = new EmployeeForm();
+        if (!manager.checkIfDateIsValid(employeeForm.getStartDate())) {
+            addInvalidDateError(bindingResult);
+
         }
+        ModelAndView mv = updateObject(employeeForm, employeeForm.getId(), bindingResult);
+        addingRoleList(mv);
         return mv;
+    }
+
+    private void addInvalidDateError(BindingResult bindingResult) {
+        FieldError fieldError = new FieldError("employeeForm", "startDate", "invalid startDate");
+        bindingResult.addError(fieldError);
     }
 
     @GetMapping(value = "/delete/{id}")

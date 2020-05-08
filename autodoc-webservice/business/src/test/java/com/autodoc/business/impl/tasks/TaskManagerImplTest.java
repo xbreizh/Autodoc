@@ -138,6 +138,23 @@ class TaskManagerImplTest {
         assertThrows(InvalidDtoException.class, () -> manager.transferUpdate(dto));
     }
 
+    @Test
+    @DisplayName("should not throw error")
+    void transferUpdate3() {
+        dto.setId(id);
+        when(dao.getById(anyInt())).thenReturn(obj);
+        dto.setName(null);
+        dto.setDescription(null);
+        dto.setEstimatedTime(0);
+        obj = (Task) manager.transferUpdate(dto);
+        assertAll(
+                () -> assertEquals(dto.getName(), dto.getName()),
+                () -> assertEquals(dto.getDescription(), dto.getDescription()),
+                () -> assertEquals(dto.getEstimatedTime(), dto.getEstimatedTime()),
+                () -> assertEquals(dto.getId(), dto.getId())
+        );
+    }
+
 
     @Test
     void getById() {
@@ -160,6 +177,32 @@ class TaskManagerImplTest {
 
         when(dao.getByName(anyString())).thenReturn(null);
         assertThrows(InvalidDtoException.class, () -> manager.getByName("name"));
+    }
+
+    @Test
+    @DisplayName("should throw an exception")
+    void deleteById() {
+        when(dao.getById(anyInt())).thenReturn(null);
+        assertThrows(InvalidDtoException.class, ()-> manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return true")
+    void deleteById1() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        when(dao.deleteById(anyInt())).thenReturn(true);
+        assertTrue(manager.deleteById(2));
+
+    }
+
+    @Test
+    @DisplayName("should return false")
+    void deleteById2() {
+        when(dao.getById(anyInt())).thenReturn(obj);
+        when(dao.deleteById(anyInt())).thenReturn(false);
+        assertFalse(manager.deleteById(2));
+
     }
 
 

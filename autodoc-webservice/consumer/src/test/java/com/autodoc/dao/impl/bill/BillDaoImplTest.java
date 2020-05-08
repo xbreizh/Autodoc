@@ -4,6 +4,7 @@ import com.autodoc.dao.contract.bill.BillDao;
 import com.autodoc.dao.filler.Filler;
 import com.autodoc.dao.filler.Remover;
 import com.autodoc.model.models.bill.Bill;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,8 @@ class BillDaoImplTest {
     private Remover remover;
 
     @BeforeEach
-    void init() throws Exception {
+    void init()  throws Exception {
+        BasicConfigurator.configure();
         //  remover.remove();
         filler.fill();
 

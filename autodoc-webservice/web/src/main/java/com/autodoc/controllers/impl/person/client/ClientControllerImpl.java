@@ -5,6 +5,7 @@ import com.autodoc.business.contract.IGenericManager;
 import com.autodoc.business.contract.person.client.ClientManager;
 import com.autodoc.controllers.contract.person.client.ClientController;
 import com.autodoc.controllers.impl.GlobalControllerImpl;
+import com.autodoc.controllers.impl.exceptions.NotImplementedmethodException;
 import com.autodoc.model.dtos.person.client.ClientDTO;
 import com.autodoc.model.models.person.client.Client;
 import lombok.Builder;
@@ -33,9 +34,9 @@ public class ClientControllerImpl extends GlobalControllerImpl<Client, ClientDTO
     @GetMapping(value = "/name",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws Exception{
+    public ResponseEntity<String> getByName(@RequestParam(value = "name") String name) throws NotImplementedmethodException {
         LOGGER.error("trying to use a not yet implemented method");
-        throw new Exception(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
+        throw new NotImplementedmethodException(HttpStatus.NOT_IMPLEMENTED.getReasonPhrase());
     }
 
 }

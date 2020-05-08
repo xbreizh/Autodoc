@@ -51,7 +51,7 @@ public class Bill {
     @Column(name = "ID")
     private int id;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date dateReparation;
 
     @NotNull
@@ -76,7 +76,7 @@ public class Bill {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employee;
 
-    @NotNull
+   // @NotNull
     @ManyToMany
     private List<Task> tasks;
 

@@ -7,6 +7,7 @@ import com.autodoc.contract.PieceTypeService;
 import com.autodoc.model.dtos.pieces.PieceTypeDTO;
 import com.autodoc.model.dtos.pieces.PieceTypeForm;
 import com.autodoc.model.models.pieces.PieceType;
+import com.autodoc.model.models.tasks.Task;
 import lombok.Builder;
 import org.apache.log4j.Logger;
 
@@ -66,4 +67,13 @@ public class PieceTypeManagerImpl extends GlobalManagerImpl<PieceType, PieceType
         return newList;
     }
 
+    public List<PieceType> cleanupDeletedItems(List<PieceType> taskList){
+        List<PieceType> cleanedList = new ArrayList<>();
+        for (PieceType pieceType:taskList){
+            if (!pieceType.getName().startsWith("deleted")){
+                cleanedList.add(pieceType);
+            }
+        }
+        return cleanedList;
+    }
 }

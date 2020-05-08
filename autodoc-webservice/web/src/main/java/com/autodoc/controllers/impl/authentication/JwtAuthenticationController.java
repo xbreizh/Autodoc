@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 
 @RestController
-@CrossOrigin
 public class JwtAuthenticationController {
 
     private static Logger LOGGER = Logger.getLogger(JwtAuthenticationController.class);

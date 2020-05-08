@@ -4,13 +4,10 @@ import com.autodoc.model.dtos.PieceList;
 import com.autodoc.model.dtos.TaskList;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -20,9 +17,11 @@ public class BillForm {
     private static final double VAT = 00.195;
     private int id;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+   /* @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     @NotNull
-    private Date dateReparation;
+    private Date dateReparation;*/
+
+    private String dateReparation;
 
     @NotEmpty
     private String status;

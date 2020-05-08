@@ -18,9 +18,9 @@ public class EmployeeDTO extends PersonDTO {
 
     private List<String> roles;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    //@JsonFormat(pattern = "dd-MM-yyyy")
     //@PastOrPresent
-    private Date startDate;
+    private String startDate;
 
     @Size(min = 3, max = 12, message = "{login.size}")
     private String login;
@@ -32,7 +32,7 @@ public class EmployeeDTO extends PersonDTO {
     //@NotNull
     private String password;
 
-    public EmployeeDTO(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, Date startDate, String login, Date lastConnection) {
+    public EmployeeDTO(int id, String firstName, String lastName, String phoneNumber1, List<String> roles, String startDate, String login, Date lastConnection) {
         super(firstName, lastName, phoneNumber1);
         this.roles = roles;
         this.startDate = startDate;
