@@ -28,8 +28,8 @@ target/
 generated/
 LOGS/
 dbsonar/
-jenkins/
-sonarqube/
+#jenkins/
+#sonarqube/
 old-project_autodoc-webservice/
 out/
 
