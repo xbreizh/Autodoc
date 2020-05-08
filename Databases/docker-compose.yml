@@ -1,0 +1,78 @@
+# Version of docker-compose
+version: '3'
+
+services:
+ 
+  #############################################################
+  ####################     DATABASES       ####################
+  #############################################################
+
+  autodoc-db-dev:
+    image: postgres:11
+    container_name: autodoc-db-dev
+    ports:
+      - 5132:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - autodoc
+
+  autodoc-db-QA:
+    image: postgres:11
+    container_name: autodoc-db-QA
+    ports:
+      - 5232:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - autodoc       
+
+
+  autodoc-db-preprod:
+    image: postgres:11
+    container_name: autodoc-db-preprod
+    ports:
+      - 5332:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - autodoc
+
+  autodoc-db-production:
+    image: postgres:11
+    container_name: autodoc-db-production
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ocp
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: autodoc
+      POSTGRES_INITDB_ARGS: --data-checksums
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "./db-initProd/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - autodoc
+ 
+###########   volumes   ###################
+
+networks:
+  autodoc:

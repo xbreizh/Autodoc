@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -e
+BASE_IMAGE=xbreizh/autodoc-$1
+REGISTRY="https://hub.docker.com/r"
+echo "registry ok: "$REGISTRY
+#IMAGE="$REGISTRY/$BASE_IMAGE"
+IMAGE="$BASE_IMAGE"
+echo "image" $BASE_IMAGE
+
+CID=$(docker ps | grep $IMAGE | awk '{print $1}')
+
+docker pull $IMAGE
+#docker pull xbreizh/helloworld
+for im in $CID
+do
+    LATEST=`docker inspect --format "{{.Id}}" $IMAGE`
+    RUNNING=`docker inspect --format "{{.Image}}" $im`
+    NAME=`docker inspect --format '{{.Name}}' $im | sed "s/\///g"`
+    echo "Latest:" $LATEST
+    echo "image: "
+    echo "Running:" $RUNNING
+    if [ "$RUNNING" != "$LATEST" ];then
+        echo "upgrading $NAME"
+        stop docker-$NAME
+        docker rm -f $NAME
+        start docker-$NAME
+       /bin/echo "update " date >> /log_refreshDockerImages.txt
+    else
+        echo "$NAME up to date"
+    fi
+done
