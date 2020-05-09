@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Persistence</ID>
+  <OriginalElement>JavaeeElement:/dca6f773/autodoc-webservice.web.main/autodoc-webservice.web.main/jpa/JPA/PersistenceModel</OriginalElement>
+  <nodes>
+    <node x="0.0" y="606.0">PieceType#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/pieces/PieceType.java</node>
+    <node x="93.68750000000003" y="1058.0">Provider#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/provider/Provider.java</node>
+    <node x="470.9375" y="1107.0">Client#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/client/Client.java</node>
+    <node x="369.20833333333326" y="130.0">CarModel#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/CarModel.java</node>
+    <node x="387.70833333333326" y="0.0">Manufacturer#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/Manufacturer.java</node>
+    <node x="313.9375" y="832.0">Person#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/Person.java</node>
+    <node x="368.20833333333337" y="356.0">Car#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/Car.java</node>
+    <node x="201.90625" y="534.0">Bill#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/bill/Bill.java</node>
+    <node x="44.6875" y="808.0">Piece#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/pieces/Piece.java</node>
+    <node x="259.6875" y="1034.0">Employee#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/employee/Employee.java</node>
+    <node x="97.90625" y="356.0">Task#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/tasks/Task.java</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Client#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/client/Client.java" target="Car#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/Car.java">
+      <point x="26.66666666666663" y="-27.0" />
+      <point x="537.6041666666666" y="1014.0" />
+      <point x="532.40625" y="1014.0" />
+      <point x="532.40625" y="509.0" />
+      <point x="493.45833333333337" y="509.0" />
+      <point x="41.75" y="64.0" />
+    </edge>
+    <edge source="Employee#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/employee/Employee.java" target="Person#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/Person.java">
+      <point x="47.5" y="-100.0" />
+      <point x="402.1875" y="1014.0" />
+      <point x="405.9375" y="1014.0" />
+      <point x="0.0" y="64.0" />
+    </edge>
+    <edge source="Bill#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/bill/Bill.java" target="Task#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/tasks/Task.java">
+      <point x="-57.25" y="-112.0" />
+      <point x="259.15625" y="509.0" />
+      <point x="243.40625" y="509.0" />
+      <point x="48.5" y="64.0" />
+    </edge>
+    <edge source="Bill#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/bill/Bill.java" target="Car#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/Car.java">
+      <point x="57.25" y="-112.0" />
+      <point x="373.65625" y="509.0" />
+      <point x="409.95833333333337" y="509.0" />
+      <point x="-41.75" y="64.0" />
+    </edge>
+    <edge source="Provider#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/provider/Provider.java" target="Piece#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/pieces/Piece.java">
+      <point x="-36.5" y="-76.0" />
+      <point x="0.0" y="88.0" />
+    </edge>
+    <edge source="Piece#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/pieces/Piece.java" target="Task#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/tasks/Task.java">
+      <point x="0.0" y="-88.0" />
+      <point x="130.1875" y="783.0" />
+      <point x="131.50000000000003" y="783.0" />
+      <point x="131.50000000000003" y="509.0" />
+      <point x="146.40625" y="509.0" />
+      <point x="-48.5" y="64.0" />
+    </edge>
+    <edge source="Employee#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/employee/Employee.java" target="Bill#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/bill/Bill.java">
+      <point x="-47.5" y="-100.0" />
+      <point x="307.1875" y="1004.0" />
+      <point x="303.4375" y="1004.0" />
+      <point x="303.4375" y="783.0" />
+      <point x="316.40625" y="783.0" />
+      <point x="0.0" y="112.0" />
+    </edge>
+    <edge source="Car#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/Car.java" target="CarModel#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/CarModel.java">
+      <point x="-5.6843418860808015E-14" y="-64.0" />
+      <point x="0.0" y="88.0" />
+    </edge>
+    <edge source="Piece#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/pieces/Piece.java" target="PieceType#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/pieces/PieceType.java">
+      <point x="-57.0" y="-88.0" />
+      <point x="73.1875" y="783.0" />
+      <point x="60.5" y="783.0" />
+      <point x="0.0" y="40.0" />
+    </edge>
+    <edge source="Provider#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/provider/Provider.java" target="Person#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/Person.java">
+      <point x="36.5" y="-76.0" />
+      <point x="203.18750000000003" y="1014.0" />
+      <point x="344.60416666666674" y="1014.0" />
+      <point x="-61.333333333333314" y="64.0" />
+    </edge>
+    <edge source="CarModel#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/CarModel.java" target="Manufacturer#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/car/Manufacturer.java">
+      <point x="0.0" y="-88.0" />
+      <point x="0.0" y="40.0" />
+    </edge>
+    <edge source="Piece#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/pieces/Piece.java" target="Bill#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/bill/Bill.java">
+      <point x="57.0" y="-88.0" />
+      <point x="187.1875" y="783.0" />
+      <point x="240.07291666666669" y="783.0" />
+      <point x="-76.33333333333331" y="112.0" />
+    </edge>
+    <edge source="Client#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/client/Client.java" target="Bill#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/bill/Bill.java">
+      <point x="0.0" y="-27.0" />
+      <point x="510.9375" y="1014.0" />
+      <point x="518.7708333333334" y="1014.0" />
+      <point x="518.7708333333334" y="783.0" />
+      <point x="392.7395833333333" y="783.0" />
+      <point x="76.33333333333331" y="112.0" />
+    </edge>
+    <edge source="Client#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/client/Client.java" target="Person#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/person/Person.java">
+      <point x="-26.666666666666686" y="-27.0" />
+      <point x="484.27083333333337" y="1014.0" />
+      <point x="467.27083333333337" y="1014.0" />
+      <point x="61.33333333333337" y="64.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6658692185007975" x="275.5" y="617.0" />
+  <SelectedNodes>
+    <node>Task#file:///home/john/Documents/openclassRooms/project_12/Local-Dev/new/Autodoc/autodoc-webservice/model/src/main/java/com/autodoc/model/models/tasks/Task.java</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Embeddables</Category>
+    <Category>Superclasses</Category>
+  </Categories>
+</Diagram>
+
