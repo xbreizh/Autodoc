@@ -28,6 +28,8 @@ target/
 generated/
 LOGS/
 dbsonar/
+es06/
+
 #jenkins/
 #sonarqube/
 old-project_autodoc-webservice/

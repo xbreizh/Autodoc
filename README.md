@@ -1,15 +1,16 @@
+
 # Autodoc: Gérez votre garage
 
 
 
-## **OBJECTIF GENERAL**
+## OBJECTIF GENERAL
 
 	En tant que nouveau développeur, il y a un manque de projets disponibles sur le net reprenant une architecture simple et complète d’un environnement de webservice.
 
 	Or, il est souvent fastidieux lorsque l’on débute de mettre en place ce type d’environnement qui est est une base classique a partir de laquelle on peut développer bon nombre de projets.
 
 
-## **DESCRIPTION**
+## DESCRIPTION
 
 
 	La solution fournie consiste en un environnement de développement de webservice de type CI/CD qui sera fonctionnel, documenté et dont la flexibilité permettra de le réadapter en fonction des besoins du développeur qui aura à l’utiliser
@@ -34,24 +35,26 @@
 	    - serveur Tomcat de l'application web
 
 
-## **PRE-REQUIS**
+## PRE-REQUIS ( installation )
 
-	Installer Docker get docker-compose
-	Installer intellijIdea
-	Installer Postman
-	Installer un logiciel de gestion de bases de données (option) type Dbeaver
+	- Docker et docker-compose
+	- Intellij Idea
+	- Postman
+	- Logiciel de gestion de bases de données (option) type Dbeaver
 
 
-## **INSTALLATION DE L'ENVIRONNEMENT**
-### (Jenkins, SonarQube, PostgreSql)
+## INSTALLATION DE L'ENVIRONNEMENT
+### ( Jenkins, SonarQube, PostgreSql )
 
 	Récupérer le code source
 
-	Télecharger le zip ou cloner le repository  >https://github.com/xbreizh/Autodoc.git
+	Télécharger le zip, cloner ou forker le repository  >https://github.com/xbreizh/Autodoc.git
 
 	Création des containers de base de données, Jenkins et SonarQube
 
 	Depuis un terminal, lancer la commande “docker-compose up”
+
+>Noter que pour utiliser pleinement la chaine d'intégration, il vous faudra utiliser votre propre repository ainsi que vos crédentiels Github, je vous conseille donc de "fork" pour pouvoir pleinement utiliser le projet
 
 Cette commande va télécharger les images des containers de base de données, jenkins et sonarqube, puis créer un container pour chacun et les démarrer.
 
@@ -67,44 +70,55 @@ Une fois la commande exécutée, depuis un nouveau terminal,
 
 Une configuration initiale est fournir pour jenkins, contenant notamment les plugins qui seront nécessaires à la création d’un projet (jacoco, ...)
 
-La documentation pour la création d’un nouveau projet peut être trouvée ici: 
+Un projet basique permettant notamment de transmettre les données de jacoco à sonarqube est également fourni
 
-A noter que pour que Jenkins transférer les données de jacoco a sonarQube, il faut utiliser le module Jacoco dans le projet. Un exemple de configuration peut être trouvé avec le document jenkins jacoco.jpg
 
-### Connexion a jenkins
+### Connexion à jenkins
 
-**Url** *localhost:8083*
+<pre>
 
-**Login** *admin*
+	<b>Url</b> <i>localhost:8083</i>
 
-**Password** *admin*
+	<b>Login</b> <i>admin</i>
+
+	<b>Password</b> <i>admin</i>
+
+</pre>
 
 ### Connexion a sonarQube
 
-**Url** *localhost:9000*
+<pre>
 
-**Login** *admin*
+	<b>Url</b> <i>localhost:9000</i>
 
-**Password** *admin*
+	<b>Login</b> <i>admin</i>
+
+	<b>Password</b> <i>admin</i>
+
+</pre>
 
 **Note:** il est possible d’envoyer les information de jacoco générées en local directement à SonarQube et sans passer par Jenkins en utilisant la commande suivante depuis le terminal de intellij (projet web service): 
 
->./gradlew clean build test jacocoTestReport sonarqube  -Dsonar.java.coveragePlugin=jacoco -Dsonar -Dsonar.host.url=http://localhost:9000/
+``./gradlew clean build test jacocoTestReport sonarqube  -Dsonar.java.coveragePlugin=jacoco -Dsonar -Dsonar.host.url=http://localhost:9000/``
 
 
 ### Connexion aux bases de données
 
-**Host** *localhost*
+<pre>
 
-**Database** *autodoc*
+	<b>Host</b> <i>localhost</i>
 
-**Port** *5132 (dev), 5232 (QA), 5332 (Preprod), 5432 (Prod)*
+	<b>Database</b> <i>autodoc</i>
 
-**Login** *ocp*
+	<b>Port</b> <i>5132 (dev), 5232 (QA), 5332 (Preprod), 5432 (Prod)</i>
 
-**Password** *123*
+	<b>Login</b> <i>ocp</i>
 
-## **LANCEMENT DU WEBSERVICE EN LOCAL**
+	<b>Password</b> <i>123</i>
+	
+</pre>
+
+## LANCEMENT DU WEBSERVICE EN LOCAL
 
 	Depuis Intellij Idea, ouvrir le dossier “autodoc-webservice” 
 
@@ -114,15 +128,19 @@ A noter que pour que Jenkins transférer les données de jacoco a sonarQube, il 
 
 ### *Onglet server* 
 
-**Port** *8087*
+<pre>
 
-**JMX port** *1098*
+	<b>Port</b> <i>8087</i>
+
+	<b>JMX port</b> <i>1097</i>
+	
+</pre>
 
 ### *Onglet deployment*
 
-*Ajouter le war qui vient d'être créé*
+	Ajouter le war qui vient d'être créé
 
-*Context: /autodoc*
+	Context: /autodoc
 
 	Démarrer le serveur Tomcat
 
@@ -130,7 +148,7 @@ A noter que pour que Jenkins transférer les données de jacoco a sonarQube, il 
 
 	Depuis cette page, vous pouvez accéder à la documentation du webservice
 
-## **AJOUT DU JEU DE BASE DE DONNEES** 
+## AJOUT DU JEU DE BASE DE DONNEES
 
 	Ouvrir Postman
 
@@ -142,7 +160,7 @@ A noter que pour que Jenkins transférer les données de jacoco a sonarQube, il 
 
 	Lancer la requête “authentification/authenticate” permet de récupérer le token qui sera mis en cache dans l’application et utilisé dans les autres requêtes.
 
-## **LANCEMENT DE LA WEBAPP EN LOCAL**
+## LANCEMENT DE LA WEBAPP EN LOCAL
 
 
 	Depuis Intellij Idea, ouvrir le dossier “autodoc-webapp” 
@@ -153,9 +171,13 @@ A noter que pour que Jenkins transférer les données de jacoco a sonarQube, il 
 
 ### Onglet server
 
-**Port** *8084*
 
-**JMX port** *1097*
+<pre>
+
+	<b>Port</b> <i>8084</i>
+
+	<b>JMX port</b> <i>1097</i>
+</pre>
 
 ### Onglet deployment
 
@@ -175,7 +197,7 @@ A noter que pour que Jenkins transférer les données de jacoco a sonarQube, il 
 	Password: password
 
 
-## **TELECHARGEMENT DES IMAGES DE DOCKERHUB**
+## TELECHARGEMENT DES IMAGES DE DOCKERHUB
 
 	Depuis la racine du dossier Autodoc, vérifier que le fichier checkDockerHub.txt soit présent.
 
@@ -194,19 +216,22 @@ A noter que pour que Jenkins transférer les données de jacoco a sonarQube, il 
 	A noter que le projet sur Docker Hub est configurer pour générer une nouvelle image chaque fois qu’un nouveau commit apparaît sur github dans la branche dev
 
 
-## **Documents fournis**
+## Documents fournis
 
+<pre>
 
-	- 	script docker-compose.yml ce script permet de générer et démarrer les containers de base de données, jenkins et sonarqube, mais aussi les containers de webservice et webapp.
+	-	<b>script docker-compose.yml</b> -> ce script permet de générer et démarrer les containers de base de données, jenkins et sonarqube, mais aussi les containers de webservice et webapp.
 
 		Pour ce faire, il convient tout d'abord de générer les .war du webservice et de la webapp, puis de de-commenter dans le docker-compose les lignes 12 à 23 et 26 à 35
 
-    -  	mecano_diagrams -> diagrammes de conception (Type DRAW.io)
+    -  	<b>mecano_diagrams</b> -> diagrammes de conception (Type DRAW.io)
 
-    -	autodoc-web service.web.main.uml -> diagramme d'entites
+    -	<b>autodoc-web service.web.main.uml</b> -> diagramme d'entites
 
-	-	fichier Autodoc.postman collection.json -> contient les tests d'intégration utilisables depuis Postman
+	-	<b>fichier Autodoc.postman collection.json</b> -> contient les tests d'intégration utilisables depuis Postman
 
-	-	fichier jenkins_jacoco.jpg -> proposition de configuration du plugin jacoco dans jenkins
+	-	<b>fichier jenkins_jacoco.jpg</b> -> proposition de configuration du plugin jacoco dans jenkins
 
-	-	fichier checkDockerHub.txt -> permet de téleécharger la nouvelle image d’un container selon son environnement
+	-	<b>fichier checkDockerHub.txt</b> -> permet de téleécharger la nouvelle image d’un container selon son environnement
+	
+</pre>
