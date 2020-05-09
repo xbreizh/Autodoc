@@ -224,14 +224,16 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 
 		Pour ce faire, il convient tout d'abord de générer les .war du webservice et de la webapp, puis de de-commenter dans le docker-compose les lignes 12 à 23 et 26 à 35
 
-	-	<b>mecano_diagrams</b> -> diagrammes de conception (Type DRAW.io)
+	-	<b>documentation/mecano_diagrams</b> -> diagrammes de conception (Type DRAW.io)
 
-	-	<b>autodoc-web service.web.main.uml</b> -> diagramme d'entites
+	-	<b>documentation/autodoc-web service.web.main.uml</b> -> diagramme d'entites
 
-	-	<b>fichier Autodoc.postman collection.json</b> -> contient les tests d'intégration utilisables depuis Postman
+	-	<b>documentation/Autodoc.postman collection.json</b> -> contient les tests d'intégration utilisables depuis Postman
 
-	-	<b>fichier jenkins_jacoco.jpg</b> -> proposition de configuration du plugin jacoco dans jenkins
+	-	<b>documentation/jenkins_jacoco.jpg</b> -> proposition de configuration du plugin jacoco dans jenkins
 
-	-	<b>fichier checkDockerHub.txt</b> -> permet de téleécharger la nouvelle image d’un container selon son environnement
+	-	<b>checkDockerHub.txt</b> -> permet de télécharger la nouvelle image d’un container selon son environnement
+
+	-	<b>docker-cleaner.txt</b> -> script permettant de supprimer containers, images, network et volume ( Attention!! )
 	
 </pre>
