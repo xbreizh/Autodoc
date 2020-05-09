@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-11 16:59:21.564 UTC</timestamp>
+  <md5sum>5d6b1dc4f9ba545681a10b11090dde3e</md5sum>
+  <fileName>com.sun.xml.bind:jaxb-impl-2.3.0.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-business</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-service</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-11 16:59:22.407 UTC</timestamp>
+  <md5sum>4e8497d0587e7ffa042a41813c938bf3</md5sum>
+  <fileName>org.opensaml:opensaml-xacml-api-3.3.0.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-service</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-business</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

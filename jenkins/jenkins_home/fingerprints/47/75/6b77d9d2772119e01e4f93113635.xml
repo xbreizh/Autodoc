@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-21 19:33:19.564 UTC</timestamp>
+  <original>
+    <name>biblio-webservice/org.troparo:troparo-technical</name>
+    <number>299</number>
+  </original>
+  <md5sum>47756b77d9d2772119e01e4f93113635</md5sum>
+  <fileName>org.troparo:troparo-technical:pom.xml</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-technical</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

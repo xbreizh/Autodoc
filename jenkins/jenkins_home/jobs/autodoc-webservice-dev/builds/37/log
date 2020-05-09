@@ -1,0 +1,159 @@
+Started by user [8mha:////4CetNftN+VNqptRgUACzUH3GYNeCh9lsSapgC6DDHlskAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/autodoc-webservice-dev
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] Done
+using credential 8396b4f2-1966-4d31-9a9a-2538e8579d6b
+Cloning the remote Git repository
+Cloning repository https://github.com/xbreizh/Autodoc.git
+ > git init /var/jenkins_home/workspace/autodoc-webservice-dev # timeout=10
+Fetching upstream changes from https://github.com/xbreizh/Autodoc.git
+ > git --version # timeout=10
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --progress https://github.com/xbreizh/Autodoc.git +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/xbreizh/Autodoc.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/xbreizh/Autodoc.git # timeout=10
+Cleaning workspace
+ > git rev-parse --verify HEAD # timeout=10
+No valid HEAD. Skipping the resetting
+ > git clean -fdx # timeout=10
+Fetching upstream changes from https://github.com/xbreizh/Autodoc.git
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --progress https://github.com/xbreizh/Autodoc.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/dev^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/dev^{commit} # timeout=10
+Merging Revision 8105ff5076f6873b3776af7d07e20a095fe398a7 (refs/remotes/origin/dev) to origin/qa, UserMergeOptions{mergeRemote='origin', mergeTarget='qa', mergeStrategy='DEFAULT', fastForwardMode='FF'}
+ > git rev-parse origin/qa^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f origin/qa
+ > git merge --ff 8105ff5076f6873b3776af7d07e20a095fe398a7 # timeout=10
+ > git rev-parse HEAD^{commit} # timeout=10
+Seen branch in repository origin/1-createModel
+Seen branch in repository origin/dev
+Seen branch in repository origin/master
+Seen branch in repository origin/qa
+Seen 4 remote branches
+ > git show-ref --tags -d # timeout=10
+Checking out Revision 8105ff5076f6873b3776af7d07e20a095fe398a7 (origin/dev, origin/qa, origin/qa)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 8105ff5076f6873b3776af7d07e20a095fe398a7
+Commit message: "fixed sonarQube config"
+ > git rev-list --no-walk 8105ff5076f6873b3776af7d07e20a095fe398a7 # timeout=10
+ > git rev-list --no-walk 8105ff5076f6873b3776af7d07e20a095fe398a7 # timeout=10
+ > git rev-list --no-walk 8105ff5076f6873b3776af7d07e20a095fe398a7 # timeout=10
+[autodoc-webservice-dev] $ /bin/sh -xe /tmp/jenkins6891052799334830489.sh
++ cd App/autodoc-webservice/
++ ./gradlew clean build test sonarqube -Dsonar.java.coveragePlugin=jacoco -Dsonar.host.url=http://sonarqube:9000 -Dsonar.verbose=true
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :clean UP-TO-DATE
+> Task :business:clean UP-TO-DATE
+> Task :consumer:clean UP-TO-DATE
+> Task :model:clean UP-TO-DATE
+> Task :technical:clean UP-TO-DATE
+> Task :web:clean UP-TO-DATE
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+> Task :business:compileJava NO-SOURCE
+> Task :business:processResources NO-SOURCE
+> Task :business:classes UP-TO-DATE
+> Task :business:jar
+> Task :business:assemble
+> Task :business:compileTestJava NO-SOURCE
+> Task :business:processTestResources NO-SOURCE
+> Task :business:testClasses UP-TO-DATE
+> Task :business:test NO-SOURCE
+> Task :business:check UP-TO-DATE
+> Task :business:build
+> Task :consumer:compileJava NO-SOURCE
+> Task :consumer:processResources NO-SOURCE
+> Task :consumer:classes UP-TO-DATE
+> Task :consumer:jar
+> Task :consumer:assemble
+> Task :consumer:compileTestJava NO-SOURCE
+> Task :consumer:processTestResources NO-SOURCE
+> Task :consumer:testClasses UP-TO-DATE
+> Task :consumer:test NO-SOURCE
+> Task :consumer:check UP-TO-DATE
+> Task :consumer:build
+> Task :model:compileJava
+> Task :model:processResources NO-SOURCE
+> Task :model:classes
+> Task :model:jar
+> Task :model:assemble
+> Task :model:compileTestJava
+> Task :model:processTestResources NO-SOURCE
+> Task :model:testClasses
+> Task :model:test
+> Task :model:check
+> Task :model:build
+> Task :technical:compileJava NO-SOURCE
+> Task :technical:processResources NO-SOURCE
+> Task :technical:classes UP-TO-DATE
+> Task :technical:jar
+> Task :technical:assemble
+> Task :technical:compileTestJava NO-SOURCE
+> Task :technical:processTestResources NO-SOURCE
+> Task :technical:testClasses UP-TO-DATE
+> Task :technical:test NO-SOURCE
+> Task :technical:check UP-TO-DATE
+> Task :technical:build
+> Task :web:compileJava NO-SOURCE
+> Task :web:processResources NO-SOURCE
+> Task :web:classes UP-TO-DATE
+> Task :web:jar
+> Task :web:assemble
+> Task :web:compileTestJava NO-SOURCE
+> Task :web:processTestResources NO-SOURCE
+> Task :web:testClasses UP-TO-DATE
+> Task :web:test NO-SOURCE
+> Task :web:check UP-TO-DATE
+> Task :web:build
+
+> Task :sonarqube
+SonarScanner will require Java 11+ to run starting in SonarQube 8.x
+Property 'sonar.jacoco.reportPaths' is deprecated (JaCoCo binary format). 'sonar.coverage.jacoco.xmlReportPaths' should be used instead (JaCoCo XML format).
+
+BUILD SUCCESSFUL in 9s
+16 actionable tasks: 10 executed, 6 up-to-date
++ echo Hello World
++ git config --global user.email xbreizh@yahoo.co.nz
++ git config --global user.name xbreizh
+[JaCoCo plugin] Collecting JaCoCo coverage data...
+[JaCoCo plugin] **/**.exec;**/classes;**/src/main/java; locations are configured
+[JaCoCo plugin] Number of found exec files for pattern **/**.exec: 1
+[JaCoCo plugin] Saving matched execfiles:  /var/jenkins_home/workspace/autodoc-webservice-dev/App/autodoc-webservice/model/build/jacoco/test.exec
+[JaCoCo plugin] Saving matched class directories for class-pattern: **/classes: 
+[JaCoCo plugin]  - /var/jenkins_home/workspace/autodoc-webservice-dev/App/autodoc-webservice/model/build/classes 2 files
+[JaCoCo plugin]  - /var/jenkins_home/workspace/autodoc-webservice-dev/App/autodoc-webservice/model/build/reports/tests/test/classes 0 files
+[JaCoCo plugin] Saving matched source directories for source-pattern: **/src/main/java: 
+[JaCoCo plugin] Source Inclusions: **/*.java
+[JaCoCo plugin] Source Exclusions: 
+[JaCoCo plugin] - /var/jenkins_home/workspace/autodoc-webservice-dev/App/autodoc-webservice/model/src/main/java 1 files
+[JaCoCo plugin] Loading inclusions files..
+[JaCoCo plugin] inclusions: []
+[JaCoCo plugin] exclusions: []
+[JaCoCo plugin] Thresholds: JacocoHealthReportThresholds [minClass=0, maxClass=100, minMethod=0, maxMethod=88, minLine=0, maxLine=90, minBranch=0, maxBranch=100, minInstruction=0, maxInstruction=85, minComplexity=0, maxComplexity=0]
+[JaCoCo plugin] Publishing the results..
+[JaCoCo plugin] Loading packages..
+[JaCoCo plugin] Done.
+[JaCoCo plugin] Overall coverage: class: 100, method: 88, line: 87, branch: 100, instruction: 85
+using credential 8396b4f2-1966-4d31-9a9a-2538e8579d6b
+ > git tag -l jenkins-autodoc-webservice-dev-37 # timeout=10
+ > git tag -a -f -m Jenkins Build #37 jenkins-autodoc-webservice-dev-37-SUCCESS # timeout=10
+Pushing HEAD to branch qa of origin repository
+ > git --version # timeout=10
+using GIT_ASKPASS to set credentials 
+ > git push https://github.com/xbreizh/Autodoc.git HEAD:qa -f
+No mail will be sent out, as 'autodoc-webservice-dev #37' does not have a result yet. Please make sure you set a proper result in case of pipeline/build scripts.
+Finished: SUCCESS

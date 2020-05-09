@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>junit5-extensions</artifactId>
+    <groupId>name.falgout.jeffrey.testing.junit5</groupId>
+    <version>1.1.1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>mockito-extension</artifactId>
+  <version>1.1.1</version>
+
+  <name>mockito-extension</name>
+  <url>${base.url}/tree/master/mockito-extension</url>
+  <description>Mockito for JUnit 5</description>
+  <inceptionYear>2017</inceptionYear>
+
+  <scm>
+    <connection>scm:git:${base.url}.git</connection>
+    <developerConnection>
+      scm:git:git@github.com:JeffreyFalgout/junit5-extensions.git
+    </developerConnection>
+    <url>${base.url}</url>
+    <tag>junit5-extensions-1.1.1</tag>
+  </scm>
+
+  <dependencies>
+    <dependency>
+      <groupId>name.falgout.jeffrey.testing.junit5</groupId>
+      <artifactId>extension-testing</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.18.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>
+                name.falgout.jeffrey.testing.junit.mockito
+              </Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-27 11:35:37.523 UTC</timestamp>
+  <md5sum>79de69e9f5ed8c7fcb8342585732bbf7</md5sum>
+  <fileName>javax.servlet:javax.servlet-api-3.1.0.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-business</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

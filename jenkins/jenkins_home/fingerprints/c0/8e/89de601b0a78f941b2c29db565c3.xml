@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-11 16:59:20.594 UTC</timestamp>
+  <md5sum>c08e89de601b0a78f941b2c29db565c3</md5sum>
+  <fileName>org.codehaus.woodstox:stax2-api-3.1.4.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-service</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-business</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-30 10:21:47.301 UTC</timestamp>
+  <original>
+    <name>biblio-webservice/org.troparo:troparo-consumer</name>
+    <number>313</number>
+  </original>
+  <md5sum>d2587345ff478b459c8e24d0f063f261</md5sum>
+  <fileName>org.troparo:troparo-consumer:pom.xml</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-consumer</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

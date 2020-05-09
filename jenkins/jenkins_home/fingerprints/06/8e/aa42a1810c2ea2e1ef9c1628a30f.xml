@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-21 19:33:19.328 UTC</timestamp>
+  <md5sum>068eaa42a1810c2ea2e1ef9c1628a30f</md5sum>
+  <fileName>org.hibernate:hibernate-core-5.4.2.Final.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-model</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-consumer</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-23 12:01:24.922 UTC</timestamp>
+  <md5sum>70875c756e4cadee689b24fc77bb0371</md5sum>
+  <fileName>org.apache.ws.xmlschema:xmlschema-core-2.2.4.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

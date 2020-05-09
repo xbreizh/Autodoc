@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-11 16:58:38.704 UTC</timestamp>
+  <md5sum>57f3894ad7e069ae740b277d92d10fa0</md5sum>
+  <fileName>com.sun.xml.fastinfoset:FastInfoset-1.2.15.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-model</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-consumer</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-11 16:58:38.448 UTC</timestamp>
+  <md5sum>5540650b970bb2f2f6ad9b25706a9eea</md5sum>
+  <fileName>org.springframework:spring-webmvc-5.1.5.RELEASE.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp/org.library:library-model</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-service</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-business</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

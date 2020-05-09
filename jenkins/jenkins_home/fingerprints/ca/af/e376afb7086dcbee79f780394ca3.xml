@@ -1,0 +1,45 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-11 16:58:38.753 UTC</timestamp>
+  <md5sum>caafe376afb7086dcbee79f780394ca3</md5sum>
+  <fileName>org.slf4j:slf4j-api-1.7.25.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-service</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-consumer</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-business</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-model</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

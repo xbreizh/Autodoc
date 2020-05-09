@@ -1,0 +1,188 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>admin</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <hudson.plugins.git.util.MergeRecord plugin="git@3.11.0">
+      <branch>origin/qa</branch>
+      <sha1>8105ff5076f6873b3776af7d07e20a095fe398a7</sha1>
+    </hudson.plugins.git.util.MergeRecord>
+    <hudson.plugins.git.util.BuildData plugin="git@3.11.0">
+      <buildsByBranchName>
+        <entry>
+          <string>origin/qa</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.8.0">
+              <sha1>8105ff5076f6873b3776af7d07e20a095fe398a7</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>refs/remotes/origin/dev</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision plugin="git-client@2.8.0">
+              <sha1>8105ff5076f6873b3776af7d07e20a095fe398a7</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/dev</name>
+                </hudson.plugins.git.Branch>
+                <hudson.plugins.git.Branch>
+                  <sha1>8105ff5076f6873b3776af7d07e20a095fe398a7</sha1>
+                  <name>origin/qa</name>
+                </hudson.plugins.git.Branch>
+                <hudson.plugins.git.Branch>
+                  <sha1>8105ff5076f6873b3776af7d07e20a095fe398a7</sha1>
+                  <name>origin/qa</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>37</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>refs/remotes/origin/dev</string>
+          <hudson.plugins.git.util.Build reference="../../entry/hudson.plugins.git.util.Build"/>
+        </entry>
+        <entry>
+          <string>origin/1-createModel</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.8.0">
+              <sha1>c1c9818cfe46ebe198a4f8625c28df6073db44b8</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>refs/remotes/origin/dev</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision plugin="git-client@2.8.0">
+              <sha1>c1c9818cfe46ebe198a4f8625c28df6073db44b8</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/dev</name>
+                </hudson.plugins.git.Branch>
+                <hudson.plugins.git.Branch>
+                  <sha1>c1c9818cfe46ebe198a4f8625c28df6073db44b8</sha1>
+                  <name>origin/1-createModel</name>
+                </hudson.plugins.git.Branch>
+                <hudson.plugins.git.Branch>
+                  <sha1>17f8fcb2427b2fb2819bea30ef333ee5efdf2c6c</sha1>
+                  <name>origin/qa</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>17</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>origin/dev</string>
+          <hudson.plugins.git.util.Build reference="../../entry/hudson.plugins.git.util.Build"/>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <scmName></scmName>
+      <remoteUrls>
+        <string>https://github.com/xbreizh/Autodoc.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@3.11.0">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>origin/dev</string>
+          <list/>
+        </entry>
+        <entry>
+          <string>origin/qa</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/var/jenkins_home/workspace/autodoc-webservice-dev</ws>
+    </hudson.plugins.git.GitTagAction>
+    <hudson.scm.SCMRevisionState_-None/>
+    <com.cloudbees.jenkins.plugins.bitbucket.FirstCheckoutCompletedInvisibleAction plugin="cloudbees-bitbucket-branch-source@2.4.5"/>
+    <hudson.plugins.jacoco.JacocoBuildAction plugin="jacoco@3.0.4">
+      <clazz>
+        <missed>0</missed>
+        <covered>2</covered>
+        <initialized>true</initialized>
+      </clazz>
+      <method>
+        <missed>1</missed>
+        <covered>7</covered>
+        <initialized>true</initialized>
+      </method>
+      <line>
+        <missed>2</missed>
+        <covered>13</covered>
+        <initialized>true</initialized>
+      </line>
+      <complexity>
+        <missed>1</missed>
+        <covered>7</covered>
+        <initialized>true</initialized>
+      </complexity>
+      <instruction>
+        <missed>7</missed>
+        <covered>40</covered>
+        <initialized>true</initialized>
+      </instruction>
+      <branch>
+        <missed>0</missed>
+        <covered>0</covered>
+        <initialized>true</initialized>
+      </branch>
+      <maxClazz>1</maxClazz>
+      <maxMethod>1</maxMethod>
+      <maxLine>1</maxLine>
+      <maxComplexity>1</maxComplexity>
+      <maxInstruction>1</maxInstruction>
+      <maxBranch>1</maxBranch>
+      <failed>false</failed>
+      <inclusions>
+        <string></string>
+      </inclusions>
+      <exclusions>
+        <string></string>
+      </exclusions>
+      <thresholds>
+        <minClass>0</minClass>
+        <maxClass>100</maxClass>
+        <minMethod>0</minMethod>
+        <maxMethod>88</maxMethod>
+        <minLine>0</minLine>
+        <maxLine>90</maxLine>
+        <minBranch>0</minBranch>
+        <maxBranch>100</maxBranch>
+        <minInstruction>0</minInstruction>
+        <maxInstruction>85</maxInstruction>
+        <minComplexity>0</minComplexity>
+        <maxComplexity>0</maxComplexity>
+      </thresholds>
+    </hudson.plugins.jacoco.JacocoBuildAction>
+  </actions>
+  <queueId>39</queueId>
+  <timestamp>1568216015763</timestamp>
+  <startTime>1568216015769</startTime>
+  <result>SUCCESS</result>
+  <duration>25235</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/var/jenkins_home/workspace/autodoc-webservice-dev</workspace>
+  <hudsonVersion>2.176.3</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser" plugin="git@3.11.0">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits class="com.google.common.collect.EmptyImmutableSortedSet"/>
+</build>

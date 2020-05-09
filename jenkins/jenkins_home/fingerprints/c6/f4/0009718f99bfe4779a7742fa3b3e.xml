@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-23 12:01:26.157 UTC</timestamp>
+  <md5sum>c6f40009718f99bfe4779a7742fa3b3e</md5sum>
+  <fileName>org.apache.wss4j:wss4j-bindings-2.2.3.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

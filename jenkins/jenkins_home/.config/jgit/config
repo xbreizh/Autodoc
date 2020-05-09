@@ -1,0 +1,21 @@
+[filesystem "c50b24731013|Oracle Corporation|1.8.0_242|/dev/nvme0n1p5"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 6908 microseconds
+[filesystem "1c2bc9ed58ee|Oracle Corporation|1.8.0_242|/dev/nvme0n1p5"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 5907 microseconds
+[filesystem "4bcd1f6133f0|Oracle Corporation|1.8.0_242|/dev/nvme0n1p5"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 7229 microseconds
+[filesystem "0bf98ad0e215|Oracle Corporation|1.8.0_242|/dev/nvme0n1p5"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 5397 microseconds
+[filesystem "57c5824db0f4|Oracle Corporation|1.8.0_242|/dev/nvme0n1p5"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 6594 microseconds
+[filesystem "5e145f429471|Oracle Corporation|1.8.0_242|/dev/nvme0n1p5"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 4596 microseconds
+[filesystem "9264c692e05f|Oracle Corporation|1.8.0_242|/dev/nvme0n1p5"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 7669 microseconds

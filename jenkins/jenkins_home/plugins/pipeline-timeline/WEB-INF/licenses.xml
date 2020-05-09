@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<l:dependencies xmlns:l='licenses' groupId='io.jenkins.plugins' artifactId='pipeline-timeline' version='1.0.3'><l:dependency name='Pipeline timeline' groupId='io.jenkins.plugins' artifactId='pipeline-timeline' version='1.0.3' url='https://wiki.jenkins.io/display/JENKINS/Pipeline+timeline'><l:description>An interactive build timeline to help you visualize your build pipeline and identify bottlenecks.</l:description><l:license name='Apache 2.0' url='https://opensource.org/licenses/Apache-2.0'/></l:dependency></l:dependencies>

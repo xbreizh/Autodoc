@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-23 12:01:26.854 UTC</timestamp>
+  <md5sum>888996ba7078ccac5d93b19b28605ca7</md5sum>
+  <fileName>com.sun.xml.dtd-parser:dtd-parser-1.4.1.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

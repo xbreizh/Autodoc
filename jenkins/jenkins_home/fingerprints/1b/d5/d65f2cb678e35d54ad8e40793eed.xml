@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-12 12:12:01.24 UTC</timestamp>
+  <md5sum>1bd5d65f2cb678e35d54ad8e40793eed</md5sum>
+  <fileName>org.springframework.security:spring-security-acl-5.1.5.RELEASE.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

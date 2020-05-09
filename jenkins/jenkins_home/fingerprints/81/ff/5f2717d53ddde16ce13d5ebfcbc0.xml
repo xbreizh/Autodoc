@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-21 19:33:19.429 UTC</timestamp>
+  <md5sum>81ff5f2717d53ddde16ce13d5ebfcbc0</md5sum>
+  <fileName>org.springframework:spring-webmvc-5.1.8.RELEASE.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-model</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-consumer</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-08-04 13:41:29.407 UTC</timestamp>
+  <original>
+    <name>refac -webservice/org.troparo:troparo-model</name>
+    <number>12</number>
+  </original>
+  <md5sum>6b2951ee063b12a2cdfd3130930086b3</md5sum>
+  <fileName>org.troparo:troparo-model:pom.xml</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-model</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

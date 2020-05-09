@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2020-05-09 10:43:00.158 UTC</timestamp>
+  <md5sum>059d79cbed49aeff169c6358bf732589</md5sum>
+  <fileName>Credential id=8396b4f2-1966-4d31-9a9a-2538e8579d6b name=xbreizh/******</fileName>
+  <usages>
+    <entry>
+      <string>autodoc-webservice-dev</string>
+      <ranges>53</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

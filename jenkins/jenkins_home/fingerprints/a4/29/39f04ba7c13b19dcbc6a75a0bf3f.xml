@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-08-14 20:53:30.267 UTC</timestamp>
+  <original>
+    <name>biblio-webservice/org.troparo:troparo-business</name>
+    <number>318</number>
+  </original>
+  <md5sum>a42939f04ba7c13b19dcbc6a75a0bf3f</md5sum>
+  <fileName>org.troparo:troparo-business:pom.xml</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>
