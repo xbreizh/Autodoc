@@ -1,4 +1,5 @@
 
+
 # Autodoc: Gérez votre garage
 
 
@@ -17,14 +18,13 @@
 
 	Le thème de base utilisé pour illustrer le projet sera une application de garagiste qui se connecte à un web-service.
 
+	Il s'agit d'une solution pour une entreprise possédant un stock de marchandise, produisant des services pour un client et ayant un système de facturation.
 
-	Il s'agit d'une solution pour une entreprise possédant un stock de marchandise et produisant des services pour un client.
+	Le développement a été effectué ici pour une entreprise de garagiste sous forme de web-service de type REST (autodoc-webservice).
 
-	Le developpement a ete effectue ici pour une entreprise de garagiste sous forme de web-service de type REST (autodoc-webservice).
+	Ce service intéragit avec la base de données et propose différentes opérations de gestion de personnel, gestion de clients, gestion de stocks, gestion de tâches et de facturation.
 
-	Ce service interagit avec la base de données et propose différentes opérations de gestion de personnel, gestion de clients, gestion de stocks, gestion de tâches et de facturation.
-
-	Pour tester le webservice, un jeu de tests d'intégration .json est fourni (Autodoc.postman collection.json) ainsi qu une application web (autodoc-webapp) communiquant avec ce webservice
+	Pour tester le webservice, un jeu de tests d'intégration .json est fourni (Autodoc.postman collection.json) ainsi qu'une application web (autodoc-webapp) communiquant avec ce webservice
 
 
 	Les differents containers sont:
@@ -58,8 +58,7 @@
 
 Cette commande va télécharger les images des containers de base de données, jenkins et sonarqube, puis créer un container pour chacun et les démarrer.
 
-Une fois la commande exécutée, depuis un nouveau terminal, 
-	Lancer la commande “docker ps” et vérifier que les conteneurs suivants soient présents:
+Une fois la commande exécutée, depuis un nouveau terminal, 	lancer la commande “docker ps” et vérifier que les conteneurs suivants soient présents:
 
 		Jenkins
 		Sonarqube
@@ -97,7 +96,7 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 
 </pre>
 
-**Note:** il est possible d’envoyer les information de jacoco générées en local directement à SonarQube et sans passer par Jenkins en utilisant la commande suivante depuis le terminal de intellij (projet web service): 
+**Note:** il est possible d’envoyer les information de jacoco générées en local directement à SonarQube et sans passer par Jenkins en utilisant la commande suivante depuis le terminal de Intellij Idea ( projet web service ): 
 
 ``./gradlew clean build test jacocoTestReport sonarqube  -Dsonar.java.coveragePlugin=jacoco -Dsonar -Dsonar.host.url=http://localhost:9000/``
 
@@ -193,19 +192,22 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 
 	Si la base de données a été remplie (voir section Ajout du jeu de données initial), 
 	Vous pouvez vous connecter à l’application en utilisant les crédentiels suivants:
-	Login: lmolo
-	Password: password
+<pre>
+
+	<b>Login</b> lmolo
+	<b>Password</b> password
+</pre>
 
 
 ## TELECHARGEMENT DES IMAGES DE DOCKERHUB
 
 	Depuis la racine du dossier Autodoc, vérifier que le fichier checkDockerHub.txt soit présent.
 
-	Ce fichier permet de mettre à jour le container souhaite.
+	Ce fichier permet de mettre à jour le container souhaité.
 
-	Il scanne docker Hub pour une nouvelle version de l’image pour le webservice ou la webapp dans l’environnement souhaite (dev, qa, preprod, production)
+	Il scanne docker Hub pour une nouvelle version de l’image pour le webservice ou la webapp dans l’environnement souhaité (dev, qa, preprod, production)
 
-	Il téléchargez la nouvelle image, puis stop le conteneur concerné, et remonte puis redémarre le container a partir de cette nouvelle image.
+	Il télécharge la nouvelle image, puis stop le conteneur concerné, remonte puis redémarre le container a partir de cette nouvelle image.
 
 	Il convient donc de bien faire attention avant d’utiliser cette commande, raison pour laquelle le fichier est couramment avec une extension .txt
 
@@ -213,7 +215,7 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 
 	./checkDockerHub.sh web service-dev (environnement de développement)
 
-	A noter que le projet sur Docker Hub est configurer pour générer une nouvelle image chaque fois qu’un nouveau commit apparaît sur github dans la branche dev
+	A noter que le projet sur Docker Hub est configuré pour générer une nouvelle image chaque fois qu’un nouveau commit apparaît sur github dans la branche dev
 
 
 ## Documents fournis
@@ -223,6 +225,8 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 	-	<b>script docker-compose.yml</b> -> ce script permet de générer et démarrer les containers de base de données, jenkins et sonarqube, mais aussi les containers de webservice et webapp.
 
 		Pour ce faire, il convient tout d'abord de générer les .war du webservice et de la webapp, puis de de-commenter dans le docker-compose les lignes 12 à 23 et 26 à 35
+
+<i>Noter que le docker-compose fait appel a différents fichiers Dockerfile  qui précisent la configuration des différentes images. Leur chemin d'accès est précisé dans le docker-compose</i>
 
 	-	<b>documentation/mecano_diagrams</b> -> diagrammes de conception (Type DRAW.io)
 
@@ -234,6 +238,6 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 
 	-	<b>checkDockerHub.txt</b> -> permet de télécharger la nouvelle image d’un container selon son environnement
 
-	-	<b>docker-cleaner.txt</b> -> script permettant de supprimer containers, images, network et volume ( Attention!! )
+	-	<b>docker-cleaner.txt</b> -> script permettant de supprimer tous les containers, images, network et volume ( Attention!! ) à renommer en .sh pour # être utilisé
 	
 </pre>
