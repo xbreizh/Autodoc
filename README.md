@@ -84,7 +84,7 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 
 </pre>
 
-### Connexion a sonarQube
+### Connexion à sonarQube
 
 <pre>
 
@@ -151,7 +151,7 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 
 	Ouvrir Postman
 
-	Depuis “File/Import” selectionner le fichier “Autodoc.postman_collection.json”
+	Depuis “File/Import” sélectionner le fichier “Autodoc.postman_collection.json”
 
 	Cela permet d’importer le jeu de requêtes
 
