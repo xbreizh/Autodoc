@@ -112,7 +112,7 @@ services:
     build:
       context: sonarqube/
     ports:
-      - 9001:9000
+      - 9000:9000
       - 9092:9092
     volumes:
       - ./sonarqube/sonarqube_home:/opt/sonarqube/data 
