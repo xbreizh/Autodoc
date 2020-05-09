@@ -16,6 +16,8 @@
 
 	La solution fournie consiste en un environnement de développement de webservice de type CI/CD qui sera fonctionnel, documenté et dont la flexibilité permettra de le réadapter en fonction des besoins du développeur qui aura à l’utiliser
 
+	La présente solution est fournie sous license "Apache License 2.0"
+
 	Le thème de base utilisé pour illustrer le projet sera une application de garagiste qui se connecte à un web-service.
 
 	Il s'agit d'une solution pour une entreprise possédant un stock de marchandise, produisant des services pour un client et ayant un système de facturation.
@@ -239,5 +241,7 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 	-	<b>checkDockerHub.txt</b> -> permet de télécharger la nouvelle image d’un container selon son environnement
 
 	-	<b>docker-cleaner.txt</b> -> script permettant de supprimer tous les containers, images, network et volume ( Attention!! ) à renommer en .sh pour # être utilisé
+
+	-	<b>LICENSE</b> -> license de type Apache 2.0 expliquant les règles d'utilisation du projet
 	
 </pre>
