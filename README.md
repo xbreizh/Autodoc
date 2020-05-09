@@ -73,6 +73,14 @@ Une configuration initiale est fournir pour jenkins, contenant notamment les plu
 
 Un projet basique permettant notamment de transmettre les données de jacoco à sonarqube est également fourni
 
+Toutefois, pour créer de nouveaux projets sur Jenkins, vous pouvez vous référer a la documentation suivante: 
+
+>https://jenkins-le-guide-complet.github.io/html/book.html
+
+Pour le plugin Jacoco, se référer a:
+
+>https://plugins.jenkins.io/jacoco/
+
 
 ### Connexion à jenkins
 
@@ -101,6 +109,16 @@ Un projet basique permettant notamment de transmettre les données de jacoco à 
 **Note:** il est possible d’envoyer les information de jacoco générées en local directement à SonarQube et sans passer par Jenkins en utilisant la commande suivante depuis le terminal de Intellij Idea ( projet web service ): 
 
 ``./gradlew clean build test jacocoTestReport sonarqube  -Dsonar.java.coveragePlugin=jacoco -Dsonar -Dsonar.host.url=http://localhost:9000/``
+
+Plus de documentation sur sonarQube aux liens suivants:
+
+>http://www.sonarqube.org/
+
+>http://docs.sonarqube.org/
+
+>https://fr.wikipedia.org/wiki/SonarQube
+
+>http://gafish.fr/sonarqube-etude-de-la-qualite-de-code/
 
 
 ### Connexion aux bases de données
