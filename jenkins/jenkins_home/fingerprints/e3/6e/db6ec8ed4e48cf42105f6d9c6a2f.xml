@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-18 19:29:55.127 UTC</timestamp>
+  <original>
+    <name>biblio-webapp/org.library:library-web</name>
+    <number>127</number>
+  </original>
+  <md5sum>e36edb6ec8ed4e48cf42105f6d9c6a2f</md5sum>
+  <fileName>org.library:library-web:pom.xml</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

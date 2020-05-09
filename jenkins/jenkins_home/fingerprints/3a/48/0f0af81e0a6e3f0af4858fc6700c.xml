@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-08-14 20:52:51.191 UTC</timestamp>
+  <original>
+    <name>biblio-mailapp/org.mail:mail_app</name>
+    <number>116</number>
+  </original>
+  <md5sum>3a480f0af81e0a6e3f0af4858fc6700c</md5sum>
+  <fileName>org.mail:mail_app:pom.xml</fileName>
+  <usages>
+    <entry>
+      <string>biblio-mailapp/org.mail:mail_app</string>
+      <ranges>120</ranges>
+    </entry>
+    <entry>
+      <string>biblio-mailapp</string>
+      <ranges>120</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

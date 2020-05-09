@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-23 12:01:24.889 UTC</timestamp>
+  <md5sum>9b647398add993324d3d9e5effa6005a</md5sum>
+  <fileName>jakarta.activation:jakarta.activation-api-1.2.1.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

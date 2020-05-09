@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: marccataford
+Build-Jdk: 1.8.0_191
+Extension-Name: pipeline-timeline
+Specification-Title: An interactive build timeline to help you visuali
+ ze your build pipeline and identify bottlenecks.
+Implementation-Title: pipeline-timeline
+Implementation-Version: 1.0.3
+Group-Id: io.jenkins.plugins
+Short-Name: pipeline-timeline
+Long-Name: Pipeline timeline
+Url: https://wiki.jenkins.io/display/JENKINS/Pipeline+timeline
+Plugin-Version: 1.0.3
+Hudson-Version: 2.7.3
+Jenkins-Version: 2.7.3
+Plugin-Dependencies: workflow-job:2.0,workflow-step-api:2.1
+Plugin-Developers: Marc Cataford:mcataford:marc.cataford@tophatmonocle
+ .com
+

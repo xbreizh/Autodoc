@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-28 16:35:25.512 UTC</timestamp>
+  <original>
+    <name>biblio-webapp/org.library:library-technical</name>
+    <number>36</number>
+  </original>
+  <md5sum>98775647cdd3d2efcd31ee1812d58d2f</md5sum>
+  <fileName>org.library:library-technical:pom.xml</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-technical</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

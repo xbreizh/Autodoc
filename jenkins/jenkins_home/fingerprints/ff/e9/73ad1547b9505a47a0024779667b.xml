@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-23 11:49:44.924 UTC</timestamp>
+  <md5sum>ffe973ad1547b9505a47a0024779667b</md5sum>
+  <fileName>org.springframework.boot:spring-boot-autoconfigure-2.1.6.RELEASE.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-mailapp/org.mail:mail_app</string>
+      <ranges>120</ranges>
+    </entry>
+    <entry>
+      <string>biblio-mailapp</string>
+      <ranges>120</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

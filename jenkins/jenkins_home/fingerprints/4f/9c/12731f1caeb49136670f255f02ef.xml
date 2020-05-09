@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-23 12:01:25.580 UTC</timestamp>
+  <md5sum>4f9c12731f1caeb49136670f255f02ef</md5sum>
+  <fileName>org.apache.cxf:cxf-rt-wsdl-3.3.2.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

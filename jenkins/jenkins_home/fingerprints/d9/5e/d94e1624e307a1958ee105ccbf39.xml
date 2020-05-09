@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-27 11:35:40.56 UTC</timestamp>
+  <md5sum>d95ed94e1624e307a1958ee105ccbf39</md5sum>
+  <fileName>org.unbescape:unbescape-1.1.6.RELEASE.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webapp/org.library:library-web</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

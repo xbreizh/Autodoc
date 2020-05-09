@@ -1,0 +1,29 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-08-14 22:00:59.721 UTC</timestamp>
+  <original>
+    <name>biblio-webservice/org.troparo:troparo-consumer</name>
+    <number>324</number>
+  </original>
+  <md5sum>72ae0ab4d5b7457d162a8257ba55020d</md5sum>
+  <fileName>org.troparo:troparo-consumer-1.0-SNAPSHOT.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-consumer</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

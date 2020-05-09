@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-12 12:11:56.946 UTC</timestamp>
+  <md5sum>bdd509306e0c147a09935e62065a2d46</md5sum>
+  <fileName>org.springframework:spring-beans-5.1.6.RELEASE.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-mailapp/org.mail:mail_app</string>
+      <ranges>120</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp/org.library:library-business</string>
+      <ranges>155</ranges>
+    </entry>
+    <entry>
+      <string>biblio-mailapp</string>
+      <ranges>120</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webapp</string>
+      <ranges>155</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

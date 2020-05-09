@@ -1,0 +1,33 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-07-21 19:33:21.262 UTC</timestamp>
+  <md5sum>be34a6f9cd8b5b7b68b9c5db751e7acc</md5sum>
+  <fileName>org.apache.bval:bval-jsr-2.0.2.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-mailapp/org.mail:mail_app</string>
+      <ranges>120</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-web</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-mailapp</string>
+      <ranges>120</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-consumer</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

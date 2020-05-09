@@ -1,0 +1,16 @@
+Started by an SCM change
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/autodoc-webservice-dev
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] Done
+Warning: CredentialId "8396b4f2-1966-4d31-9a9a-2538e8579d6b" could not be found.
+Cloning the remote Git repository
+Cloning repository https://github.com/xbreizh/Autodoc.git
+ > git init /var/jenkins_home/workspace/autodoc-webservice-dev # timeout=10
+Fetching upstream changes from https://github.com/xbreizh/Autodoc.git
+ > git --version # timeout=10
+ > git fetch --tags --progress -- https://github.com/xbreizh/Autodoc.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Build was aborted
+Build did not succeed and the project is configured to only push after a successful build, so no pushing will occur.
+Finished: ABORTED

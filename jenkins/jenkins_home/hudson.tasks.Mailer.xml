@@ -1,0 +1,11 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.24">
+  <hudsonUrl>http://localhost:8087/</hudsonUrl>
+  <smtpAuthUsername>dontkillewok@gmail.com</smtpAuthUsername>
+  <smtpAuthPassword>{AQAAABAAAAAQaEKERnph40hKVUHXqnJ5TuS9GCKVkxwXFe20pX49+3o=}</smtpAuthPassword>
+  <replyToAddress>dontkillewok@gmail.com</replyToAddress>
+  <smtpHost>smtp.gmail.com</smtpHost>
+  <useSsl>true</useSsl>
+  <smtpPort>465</smtpPort>
+  <charset>UTF-8</charset>
+</hudson.tasks.Mailer_-DescriptorImpl>

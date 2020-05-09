@@ -1,0 +1,25 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2019-06-11 16:58:48.184 UTC</timestamp>
+  <md5sum>0406318cbf136725ef1b3e5c468fb347</md5sum>
+  <fileName>org.springframework:spring-context-5.1.6.RELEASE.jar</fileName>
+  <usages>
+    <entry>
+      <string>biblio-mailapp/org.mail:mail_app</string>
+      <ranges>120</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice/org.troparo:troparo-business</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-webservice</string>
+      <ranges>324</ranges>
+    </entry>
+    <entry>
+      <string>biblio-mailapp</string>
+      <ranges>120</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>
